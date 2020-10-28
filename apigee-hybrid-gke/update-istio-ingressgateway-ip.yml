@@ -1,0 +1,9 @@
+- name: Patch Command to update Istio Ingressgateway IP
+  hosts: localhost
+
+  tasks: 
+  - name: Patch LoadBalancer with External IP Address
+    shell: |
+      kubectl patch svc istio-ingressgateway \
+        --namespace istio-system \
+        --patch '{ "spec": {"loadBalancerIP": "{{ INGRESS_IP }}" }}'      

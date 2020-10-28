@@ -1,0 +1,19 @@
+- name: Decode Signed Certificates from Valentine
+  hosts: localhost
+
+  vars:
+    # encoded_content: "{{ lookup('file', playbook_dir + '/signed-certs/apigee-hybrid.net/demo-cert-key.b64encoded.txt') }}"
+
+  tasks: 
+    - name: Decode Private Key
+      copy: 
+        content: "{{ lookup('file', playbook_dir + '/signed-certs/apigee-hybrid.net/demo-cert.key.b64encoded.txt') | b64decode }}"
+        dest: "{{ playbook_dir }}/signed-certs/apigee-hybrid.net/demo-cert.key"
+        force: yes
+
+    - name: Decode Cert Key
+      copy: 
+        content: "{{ lookup('file', playbook_dir + '/signed-certs/apigee-hybrid.net/demo-cert.pem.b64encoded.txt') | b64decode }}"
+        dest: "{{ playbook_dir }}/signed-certs/apigee-hybrid.net/demo-cert.pem"
+        force: yes
+

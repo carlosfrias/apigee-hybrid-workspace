@@ -1,0 +1,6 @@
+- name: Validate ASM Installation
+  hosts: localhost
+
+  tasks: 
+    - name: Validate ASM installation
+      shell: asmctl validate --with-testing-workloads

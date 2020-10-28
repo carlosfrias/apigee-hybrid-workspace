@@ -1,0 +1,100 @@
+---
+- name: Set tools attribute cache
+  set_fact:
+    cacheable: yes
+    ISTIO_VERSION: "{{ ISTIO_VERSION | default(DEFAULT_ISTIO_VERSION) }}"
+    ISTIO_VERSION_EXT: "{{ ISTIO_VERSION_EXT | default(DEFAULT_ISTIO_VERSION_EXT) }}"
+    ASM_KPT_VERSION: "{{ ASM_KPT_VERSION | default(DEFAULT_ASM_KPT_VERSION) }}"
+
+
+- name: Set tools attribute cache
+  set_fact:
+    cacheable: yes
+    ISTIO_FOLDER_NAME: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}"
+    ASM_DOWNLOAD: "https://storage.googleapis.com/gke-release/asm/istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}.tar.gz"
+    ASM_DOWNLOAD_RESCUE: "https://storage.googleapis.com/gke-release/asm/istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}-{{ facter_architecture }}.tar.gz"
+    ASM_KPT_PACKAGE: "https://github.com/GoogleCloudPlatform/anthos-service-mesh-packages.git/asm@release-{{ ASM_KPT_VERSION }}"
+
+- name: Set tools attribute cache
+  set_fact:
+    cacheable: yes
+    ASM_ARCHIVE_FOLDER: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}"
+
+- block:
+  - name: Construct ASM file name
+    set_fact:
+      ASM_FILE_NAME: "{{ ASM_DOWNLOAD | urlsplit('path') | basename }}"
+
+  - name: Download the ASM installation file
+    get_url:
+      url: "{{ ASM_DOWNLOAD }}"
+      dest: "{{ WORK_DIR }}/{{ ASM_FILE_NAME }}"
+
+  - name: Unarchive ASM installation file
+    unarchive:
+      remote_src: yes
+      src: "{{ WORK_DIR }}/{{ ASM_FILE_NAME }}"
+      dest: "{{ WORK_DIR }}"
+
+  - name: Update path for istio and asm installation
+    become: true
+    file:
+      src: "{{ item.src }}"
+      path: "{{ item.path }}"
+      state: link
+    with_items:
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/asmctl", path: "{{ TOOLS_DIR }}/asmctl" }
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/istioctl", path: "{{ TOOLS_DIR }}/istioctl" }
+
+  - name: Download ASM package
+    shell: kpt pkg get {{ ASM_KPT_PACKAGE }} .
+    args:
+      chdir: "{{ WORK_DIR }}"
+    #    poll: 5
+    #    retries: 50
+    #    async: 180
+    register: status
+    failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stderr"
+
+  rescue:
+  - name: RESCUE - Construct ASM file name
+    set_fact:
+      ASM_FILE_NAME: "{{ ASM_DOWNLOAD_RESCUE | urlsplit('path') | basename }}"
+
+  - name: RESCUE - Download the ASM installation file
+    get_url:
+      url: "{{ ASM_DOWNLOAD_RESCUE }}"
+      dest: "{{ WORK_DIR }}/{{ ASM_FILE_NAME }}"
+
+  - name: RESCUE - Unarchive ASM installation file
+    unarchive:
+      remote_src: yes
+      src: "{{ WORK_DIR }}/{{ ASM_FILE_NAME }}"
+      dest: "{{ WORK_DIR }}"
+
+  - name: RESCUE - Update path for istio and asm installation
+    become: true
+    file:
+      src: "{{ item.src }}"
+      path: "{{ item.path }}"
+      state: link
+    with_items:
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/asmctl", path: "{{ TOOLS_DIR }}/asmctl" }
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/istioctl", path: "{{ TOOLS_DIR }}/istioctl" }
+
+  - name: RESCUE - Download ASM package
+    shell: kpt pkg get {{ ASM_KPT_PACKAGE }} .
+    args:
+      chdir: "{{ WORK_DIR }}"
+    #    poll: 5
+    #    retries: 50
+    #    async: 180
+    register: status
+    failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stderr"
+
+
+

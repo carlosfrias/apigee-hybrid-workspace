@@ -1,0 +1,20 @@
+---
+- name: Remove old PVC for Cassandra
+  hosts: localhost
+
+  tasks:
+  - name: Select Cluster
+    shell: kubectx {{ CLUSTER_NAME }}
+
+  - name: Delete Apigee
+    shell: ./apigeectl delete -f {{ OVERRIDE_FILE }}
+    args:
+      chdir: "{{ APIGEECTL_DIR }}"
+
+  - name: Delete pvc
+    shell: kubectl -n apigee delete pvc --all
+
+#  - name: Apply Apigee
+#    shell: ./apigeectl apply -f {{ OVERRIDE_FILE }}
+#    args:
+#      chdir: "{{ APIGEECTL_DIR }}"

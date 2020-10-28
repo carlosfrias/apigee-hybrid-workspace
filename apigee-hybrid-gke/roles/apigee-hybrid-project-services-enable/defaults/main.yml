@@ -1,0 +1,33 @@
+---
+# defaults file for roles/apigee-hybrid-project-services-enable
+DEFAULT_GCP_SERVICES:
+- "container.googleapis.com"
+- "compute.googleapis.com"
+- "stackdriver.googleapis.com"
+- "meshca.googleapis.com"
+- "meshtelemetry.googleapis.com"
+- "meshconfig.googleapis.com"
+- "iamcredentials.googleapis.com"
+- "anthos.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
+- "gkeconnect.googleapis.com"
+- "gkehub.googleapis.com"
+- "serviceusage.googleapis.com"
+- "sourcerepo.googleapis.com"
+- "cloudbuild.googleapis.com"
+- "secretmanager.googleapis.com"
+- "dns.googleapis.com"
+- "pubsub.googleapis.com"
+- "apigee.googleapis.com"
+- "apigeeconnect.googleapis.com"
+- "monitoring.googleapis.com"
+- "logging.googleapis.com"
+- "cloudtrace.googleapis.com"
+DEFAULT_ROLE_BINDING:
+- roles/editor
+- roles/compute.admin
+- roles/container.admin
+- roles/resourcemanager.projectIamAdmin
+- roles/iam.serviceAccountAdmin
+- roles/iam.serviceAccountKeyAdmin
+- roles/gkehub.admin

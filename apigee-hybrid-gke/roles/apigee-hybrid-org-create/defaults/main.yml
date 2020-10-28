@@ -1,0 +1,5 @@
+---
+# defaults file for roles/apigee-hybrid-org-create
+DEFAULT_ORG_DESCRIPTION: "Apigee hybrid organization"
+DEFAULT_RUNTIMETYPE: "HYBRID"
+DEFAULT_ORG_CREATE_TIMEOUT: 90

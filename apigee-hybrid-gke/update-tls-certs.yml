@@ -1,0 +1,25 @@
+- name: Update Apigee hybrid certs
+  hosts: localhost
+
+  vars:
+    PROVIDED_PUBLIC_CERT: "{{ playbook_dir }}/signed-certs/hybrid-apigee.net/demo-cert.pem"
+    PROVIDED_PRIVATE_KEY: "{{ playbook_dir }}/signed-certs/hybrid-apigee.net/demo-cert.key"
+
+  pre_tasks:
+    - name: Set project default
+      shell: |
+        gcloud config set project {{ PROJECT_ID }}
+        kubectx {{ CLUSTER_NAME }}
+
+    - name: Delete istio-ingressgateway service
+      ignore_errors: yes
+      shell: kubectl -n apigee delete service istio-ingressgateway 
+
+    - name: Delete apigee-mart-istio-ingressgateway service
+      ignore_errors: yes
+      shell: kubectl -n apigee delete service apigee-mart-istio-ingressgateway 
+
+  roles: 
+    - { role: apigee-hybrid-tls-certs, tags: ['tls'] }
+    - { role: apigee-hybrid-apigeectl-configure, tags: ['configure'] }
+    - { role: apigee-hybrid-apigeectl-apply, tags: ['apply'] }
