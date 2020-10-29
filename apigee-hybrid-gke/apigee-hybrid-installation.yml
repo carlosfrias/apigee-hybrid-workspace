@@ -16,8 +16,8 @@
     NODE_COUNT: 8
 #    CASSANDRA_DATA_CENTER_NAME: "dc-1"
 #    CASSANDRA_RACK_NAME: "ra-1"
-    PROVIDED_PUBLIC_CERT: "{{ playbook_dir }}/signed-certs/hybrid-apigee.net/demo-cert.pem"
-    PROVIDED_PRIVATE_KEY: "{{ playbook_dir }}/signed-certs/hybrid-apigee.net/demo-cert.key"
+    PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/hybrid-apigee.net/demo-cert.pem"
+    PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/hybrid-apigee.net/demo-cert.key"
     ISTIO_VERSION: "1.6.11"
     ISTIO_VERSION_EXT: "asm.1"
     ASM_KPT_VERSION: "1.6-asm"

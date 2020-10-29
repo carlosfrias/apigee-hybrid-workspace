@@ -8,23 +8,71 @@ toolkit also includes those that would like to understand how to model an
 automation effort of Apigee hybrid or begin working with Apigee hybrid. This 
 repository is provided as is with no warranty of any kind. 
 
+It is expected that you provide credentials and other sensitive attributes using
+the provided template file `apiee-hybrid-senitive-attriubtes-TEMPLATE.yml`. 
+Please rename this file and place it in a location of your choosing. Once this 
+has been complete please update the `vars_files:` stanza in the installation playbooks
+with the name and path of your file. 
+
 ## Toolkit Usage
-This toolkit has been written using Ansible. Please install Ansible 2.9 or greater. 
-Use the Cloud Shell to clone this project and change into the folder:
+This toolkit has been written using Ansible. Please use Ansible 2.9 or greater. 
+Use a terminal and git to clone this project to run the installation playbooks.
 
-    sudo apt install ansible -y
-    ansible-playbook apigee-hybrid-installation.yml 
-    
-### Sensitive Attributes Required
-This apigee-hybrid-project-create role will attempt to create a GCP project. 
-This is not required and you can avoid having the default installation with 
+| Playbook | Description |
+| --------- | ---------- |  
+| apigee-hybrid-installation.yml | Installs Apigee hybrid in a GKE region |
+| apigee-hybrid-multi-region-installation.yml | Installs Apigee hybrid in additional regions as needed.  |
 
-    ansible-playbook apigee-hybrid-installation.yml --skip-tags project
-   
-If you decide to use this project to create a GCP project then please use the 
-provided `apigee-hybrid-sensitive-attributes-TEMPLATE.yml` file to provide 
-required attributes. 
-    
+## Attributes to Validate
+
+| Attribute Name | Description |
+| -------------- | ----------- |
+| PROJECT_ID |  "friasc-hybrid-10282020-1349" |
+| REGION | "us-east1" |
+| ENV_NAME | "test" |
+| APIGEE_RUNTIME_SIZE | "medium" |
+| CLUSTER_NAME | "apigee-hybrid-1" |
+| CLUSTER_ZONE | "{{ REGION }}-b" |
+| NODE_SIZE | "e2-standard-8" |
+| NODE_COUNT | 8 |
+| CASSANDRA_DATA_CENTER_NAME | "dc-1" |
+| CASSANDRA_RACK_NAME | "ra-1" |
+| PROVIDED_PUBLIC_CERT | "{{ ~ &#124; expanduser }}/.ssh/signed-certs/hybrid-apigee.net/demo-cert.pem" |
+| PROVIDED_PRIVATE_KEY | "{{ ~  &#124; expanduser }}/.ssh/signed-certs/hybrid-apigee.net/demo-cert.key" |
+| ISTIO_VERSION | "1.6.11" |
+| ISTIO_VERSION_EXT | "asm.1" |
+| ASM_KPT_VERSION | "1.6-asm" |
+
+
+
+
+## Roles Inventory
+The following tables is a list of the roles provided:
+
+| Role | Used by Playbook |
+| ---- | ----------- |
+| apigee-hybrid-setup-environment-kubernetes | apigee-hybrid-installation.yml |
+| apigee-hybrid-setup-environment-gcp | apigee-hybrid-installation.yml |
+| apigee-hybrid-project-create | apigee-hybrid-installation.yml |
+| apigee-hybrid-project-services-enable | apigee-hybrid-installation.yml |
+| apigee-hybrid-org-create | apigee-hybrid-installation.yml |
+| apigee-hybrid-cloud-dns-create | apigee-hybrid-installation.yml |
+| apigee-hybrid-env-create | apigee-hybrid-installation.yml |
+| apigee-hybrid-group-create | apigee-hybrid-installation.yml |
+| apigee-hybrid-group-attach | apigee-hybrid-installation.yml |
+| apigee-hybrid-gke-create | apigee-hybrid-installation.yml |
+| apigee-hybrid-apigeectl-download | apigee-hybrid-installation.yml |
+| apigee-hybrid-apigeectl-dir-structure | apigee-hybrid-installation.yml |
+| apigee-hybrid-apigeectl-service-account-create | apigee-hybrid-installation.yml |
+| apigee-hybrid-synchronizer-enable | apigee-hybrid-installation.yml |
+| apigee-hybrid-apigee-connect-enable | apigee-hybrid-installation.yml |
+| apigee-hybrid-tls-certs | apigee-hybrid-installation.yml |
+| apigee-hybrid-cert-manager-install | apigee-hybrid-installation.yml |
+| apigee-hybrid-asm-install | apigee-hybrid-installation.yml |
+| apigee-hybrid-apigeectl-configure-multi-region-clear-settings | apigee-hybrid-installation.yml |
+| apigee-hybrid-apigeectl-configure | apigee-hybrid-installation.yml |
+| apigee-hybrid-apigeectl-apply | apigee-hybrid-installation.yml |
+
 ### Toolkit Targets
 The toolkit has modules defined that allow you to work with a part of the 
 installation and configuration of Apigee hybrid in isolation. You can invoke 

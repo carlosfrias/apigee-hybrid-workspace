@@ -1,0 +1,8 @@
+---
+# defaults file for roles/apigee-hybrid-setup-environment-gcp
+DEFAULT_SYSTEM_TOOLS:
+- 'google-cloud-sdk-kpt'
+- 'google-cloud-sdk'
+
+apt_repository_repo: "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
+rescue_apt_repository_repo: "deb https://packages.cloud.google.com/apt cloud-sdk main"

@@ -1,0 +1,21 @@
+---
+# tasks file for roles/apigee-hybrid-setup-environment-az
+
+- name: Remove potentially outdated azure-cli
+  package:
+    state: absent
+    name: azure-cli
+  when: ansible_os_family == "Debian"
+
+- name: Download azure-cli installation package
+
+  - name: Update Debian package manager
+    become: true
+    shell: apt update
+    when: ansible_os_family == "Debian"
+
+
+- name: Update Debian package manager
+  become: true
+  shell: apt update
+  when: ansible_os_family == "Debian"
