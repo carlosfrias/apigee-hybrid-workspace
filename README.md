@@ -16,6 +16,13 @@ Please rename this file and place it in a location of your choosing. Once this
 has been complete please update the `vars_files:` stanza in the installation playbooks
 with the name and path of your file. 
 
+## Workspace toolkit Capabilities
+This toolkit can has the following capabilities:
+| Playbook | Capability |
+| -------- | ---------- |
+| apigee-hybrid-installation.yml | Create a GCP project; configure and install Apigee hybrid using either small, medium or large overrides.yml templates |
+| apigee-hybrid-multi-region.yml | Installs an arbitrary number of additional regions to an existing Apigee hybrid region |
+
 ## Toolkit Usage
 This toolkit has been written using Ansible. Please use Ansible 2.9 or greater. 
 Use a terminal and git to clone this project to run the installation playbooks.
@@ -26,8 +33,11 @@ Use a terminal and git to clone this project to run the installation playbooks.
 | apigee-hybrid-multi-region-installation.yml | Installs Apigee hybrid in additional regions as needed.  |
 
 ## Attributes to Update
-This is a partial list of the attributes that should be reviewed and updated. These
-attributes are listed in the `vars:` stanza of the installation playbooks.
+This is a partial list of the attributes that should be reviewed and updated. 
+These attribute names should be self documenting and can be found in the `vars:` 
+stanza of the installation playbooks. This list is changing as the workspace grows 
+so please see the playbooks for a current list. A representative example can be 
+found in the following table.
 
 | Attribute Name | Description |
 | -------------- | ----------- |
@@ -46,9 +56,6 @@ attributes are listed in the `vars:` stanza of the installation playbooks.
 | ISTIO_VERSION | "1.6.11" |
 | ISTIO_VERSION_EXT | "asm.1" |
 | ASM_KPT_VERSION | "1.6-asm" |
-
-
-
 
 ## Roles Inventory
 The following tables is a list of the roles provided:
@@ -77,46 +84,75 @@ The following tables is a list of the roles provided:
 | apigee-hybrid-apigeectl-configure | apigee-hybrid-installation.yml |
 | apigee-hybrid-apigeectl-apply | apigee-hybrid-installation.yml |
 
-### Toolkit Targets
-The toolkit has modules defined that allow you to work with a part of the 
-installation and configuration of Apigee hybrid in isolation. You can invoke 
-specific modules with their associated tag. Tags can be invoked individually or 
-as a comma delimited string. 
+## Playbooks and Playbook Tag Overview
+The installation playbooks isolate the configuration and installation steps 
+called out in the Apigee hybrid documentation using Ansible tags. This allows 
+you to proceed through the installation of Apigee hybrid with one invocation 
+that executes every step to a basic installation or in a step-wise manner. Tags 
+invoke specific modules that have been associated with a tag. Tags can be 
+invoked individually or as a comma delimited string containing a subset of the 
+installation and configuration steps. 
 
-#### Using a single tag
-The following sample will create a project and stop execution. 
+### Invoking Playbooks
+The installation playbook requires the sudo password. Use `-K` to provide the sudo
+password in a safe manner to the playbook. A complete installation is performed 
+as follows: 
 
-    ansible-playbook apigee-hybrid-installation.yml -t services
+    ansible-playbook apigee-hybrid-installation.yml -K
 
-#### Using multiple tags to assert a known state
-The following sample will install the tools we use for managing kubernetes, 
-create the GCP project and register the organization with the Managment UI and stops
-just before creating the DNS for the environment.
+### Playbook verbosity
+Playbook verbosity is controlled with the use of the `-v` flag. The use of three 
+`-vvv`s is recommended:
 
-    ansible-playbook apigee-hybrid-installation.yml -t tools,project,org
+    ansible-playbook apigee-hybrid-installation.yml -vvv -K
+    
+### Playbook Step-Wise Execution
+Playbook step-wise execution is enabled with the use of the `--step` flag.
 
-The available tags are listed as 
-follows:
+    ansible-playbook apigee-hybrid-installation.yml -vvv -K --step     
+
+### Playbook Execution with Tags
+Playbook execution can be limited to a set of tags using the `-t` flag. You can 
+also skip tags using the `--skip-tags` flag. 
+
+#### Sample Playbook Execution to Create GCP Project
+This is a tag usage example that configures kubernetes and gcp tools, creates a
+gcp project and enables the services required by Apigee hybrid.
+
+    ansible-playbook apigee-hybrid-installation.yml -vvv -K -t setup-env,project,services
+
+#### Sample Playbook Execution to complete remainder of installation
+This is a skip tag usage example that skips the work completed in the prior 
+example to install Apigee hybrid.
+
+    ansible-playbook apigee-hybrid-installation.yml -vvv -K --skip-tags setup-env,project,services
+
+### Playbook Tag Inventory
+This is the tag inventory for apigee-hybrid-installation.yml
 
 | Role Name | Tags |
-|--- | --- |
-| apigee-hybrid-tools | tools |
+|---------- | ---- |
+| apigee-hybrid-setup-environment-kubernetes | setup-env |
+| apigee-hybrid-setup-environment-gcp | setup-env,gcp | 
 | apigee-hybrid-project-create | project |
+| apigee-hybrid-project-services-enable | services |
 | apigee-hybrid-org-create | org |
 | apigee-hybrid-cloud-dns-create | dns |
 | apigee-hybrid-cloud-env-create | env |
 | apigee-hybrid-group-create | create-group, group |
 | apigee-hybrid-group-attach | attach-group, group |
 | apigee-hybrid-gke-create | gke |
-| apigee-hybrid-asm-install | asm |
 | apigee-hybrid-apigeectl-download | download |
 | apigee-hybrid-apigeectl-dir-structure | dir |
 | apigee-hybrid-apigeectl-service-account-create | svc-acct |
-| apigee-hybrid-tls-certs | tls |
-| apigee-hybrid-apigeectl-configure | configure |
-| apigee-hybrid-apigeectl-apply | apply |
 | apigee-hybrid-synchronizer-enable | synchronizer |
 | apigee-hybrid-apigee-connect-enable | connect |
+| apigee-hybrid-tls-certs | tls |
+| apigee-hybrid-cert-manager-install | cert-mgr |
+| apigee-hybrid-asm-install | asm |
+| apigee-hybrid-apigeectl-configure-multi-region-clear-settings | clear-multi |
+| apigee-hybrid-apigeectl-configure | configure |
+| apigee-hybrid-apigeectl-apply | apply |
 
 ## Workspace Outline
 ### Apigee hybrid GKE   
