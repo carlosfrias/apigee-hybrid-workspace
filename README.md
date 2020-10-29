@@ -20,12 +20,14 @@ with the name and path of your file.
 This toolkit has been written using Ansible. Please use Ansible 2.9 or greater. 
 Use a terminal and git to clone this project to run the installation playbooks.
 
-| Playbook | Description |
+| Installation Playbook | Description |
 | --------- | ---------- |  
 | apigee-hybrid-installation.yml | Installs Apigee hybrid in a GKE region |
 | apigee-hybrid-multi-region-installation.yml | Installs Apigee hybrid in additional regions as needed.  |
 
-## Attributes to Validate
+## Attributes to Update
+This is a partial list of the attributes that should be reviewed and updated. These
+attributes are listed in the `vars:` stanza of the installation playbooks.
 
 | Attribute Name | Description |
 | -------------- | ----------- |
