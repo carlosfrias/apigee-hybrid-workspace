@@ -6,15 +6,15 @@
 
   vars:
 #    PROJECT_ID: "friasc-hybrid-10062020-1055"
-    PROJECT_ID: "friasc-hybrid-10272020-2317"
-    REGION: "us-central1"
+    PROJECT_ID: "friasc-hybrid-10282020-1349"
+    REGION: "us-west1"
     ENV_NAME: "test"
     APIGEE_RUNTIME_SIZE: "medium"
-    CLUSTER_NAME: "apigee-hybrid-2"
+    CLUSTER_NAME: "apigee-hybrid-3"
     CLUSTER_ZONE: "{{ REGION }}-b"
     NODE_SIZE: "e2-standard-8"
     NODE_COUNT: 8
-    CASSANDRA_DATA_CENTER_NAME: "dc-2"
+    CASSANDRA_DATA_CENTER_NAME: "dc-3"
     CASSANDRA_RACK_NAME: "ra-1"
     REGION_SEED: "us-east1"
     CLUSTER_NAME_SEED: "apigee-hybrid-1"
@@ -30,6 +30,7 @@
   roles:
     - { role: apigee-hybrid-setup-environment, tags: ['setup-env'] }
     - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
+    - { role: apigee-hybrid-firewall-region-enable, tags: ['gcp-firewall'] }
     - { role: apigee-hybrid-gke-create, tags: ['gke'] }
     - { role: apigee-hybrid-cloud-dns-create, tags: ['dns'] }
     - { role: apigee-hybrid-apigeectl-download, tags: ['download'] }

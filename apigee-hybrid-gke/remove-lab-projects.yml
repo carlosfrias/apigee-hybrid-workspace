@@ -8,11 +8,9 @@
     REGION: "us-central1"
     CLUSTER_NAME: "apigee-hybrid-1"
     PROJECTS:
-    - "friasc-hybrid-10062020-1055"
-    - "friasc-hybrid-10272020-1716"
-    - "friasc-hybrid-10272020-2233"
-    - "friasc-hybrid-10272020-2255"
-    - "friasc-hybrid-10272020-1427"
+    - "friasc-hybrid-10272020-2317"
+    - "friasc-hybrid-10272020-1236"
+#    - "friasc-hybrid-10272020-1349"
 
   tasks:
     - name: Set CLUSTER_ZONE

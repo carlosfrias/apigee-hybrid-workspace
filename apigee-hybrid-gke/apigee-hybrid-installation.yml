@@ -6,7 +6,7 @@
 
   vars:
 #    PROJECT_ID: "friasc-hybrid-10062020-1055"
-    PROJECT_ID: "friasc-hybrid-10272020-2317"
+    PROJECT_ID: "friasc-hybrid-10282020-1349"
     REGION: "us-east1"
     ENV_NAME: "test"
     APIGEE_RUNTIME_SIZE: "medium"
