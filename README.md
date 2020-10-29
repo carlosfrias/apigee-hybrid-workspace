@@ -98,17 +98,20 @@ The installation playbook requires the sudo password. Use `-K` to provide the su
 password in a safe manner to the playbook. A complete installation is performed 
 as follows: 
 
+    cd apigee-hybrid-gke
     ansible-playbook apigee-hybrid-installation.yml -K
 
 ### Playbook verbosity
 Playbook verbosity is controlled with the use of the `-v` flag. The use of three 
 `-vvv`s is recommended:
 
+    cd apigee-hybrid-gke
     ansible-playbook apigee-hybrid-installation.yml -vvv -K
     
 ### Playbook Step-Wise Execution
 Playbook step-wise execution is enabled with the use of the `--step` flag.
 
+    cd apigee-hybrid-gke
     ansible-playbook apigee-hybrid-installation.yml -vvv -K --step     
 
 ### Playbook Execution with Tags
@@ -119,12 +122,14 @@ also skip tags using the `--skip-tags` flag.
 This is a tag usage example that configures kubernetes and gcp tools, creates a
 gcp project and enables the services required by Apigee hybrid.
 
+    cd apigee-hybrid-gke
     ansible-playbook apigee-hybrid-installation.yml -vvv -K -t setup-env,project,services
 
 #### Sample Playbook Execution to complete remainder of installation
 This is a skip tag usage example that skips the work completed in the prior 
 example to install Apigee hybrid.
 
+    cd apigee-hybrid-gke
     ansible-playbook apigee-hybrid-installation.yml -vvv -K --skip-tags setup-env,project,services
 
 ### Playbook Tag Inventory
@@ -156,7 +161,7 @@ This is the tag inventory for apigee-hybrid-installation.yml
 
 ## Workspace Outline
 ### Apigee hybrid GKE   
-The folder apigee-hybrid-gke contains the scripts needed to an installation of 
+The folder `apigee-hybrid-gke` contains the scripts needed to an installation of 
 Apigee hybrid 1.3 on GKE. This has not been tested with any other version of 
 Apigee hybrid. Ansible has been configured to operate from this folder using the 
 provided `ansible.cfg`.
