@@ -17,7 +17,7 @@ has been complete please update the `vars_files:` stanza in the installation pla
 with the name and path of your file. 
 
 ## Toolkit Capabilities
-This toolkit can has the following capabilities:
+This toolkit has the following capabilities:
 | Playbook | Capability |
 | -------- | ---------- |
 | apigee-hybrid-installation.yml | Create a GCP project; configure and install Apigee hybrid using either small, medium or large overrides.yml templates |
