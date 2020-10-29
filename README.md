@@ -22,6 +22,7 @@ This toolkit has the following capabilities:
 | -------- | ---------- |
 | apigee-hybrid-installation.yml | Create a GCP project; configures and installs Apigee hybrid using either small, medium or large overrides.yml templates |
 | apigee-hybrid-multi-region.yml | Installs an arbitrary number of additional regions to an existing Apigee hybrid region |
+| remove-lab-projects.yml | Removes the list of projects created with this toolkit and cleans up the local working directories. |
 
 ## Toolkit Usage
 This toolkit has been written using Ansible. Please use Ansible 2.9 or greater. 

@@ -6,7 +6,7 @@
 
   vars:
     PROJECT_ID: "friasc-hybrid-10282020-1349"
-    REGION: "us-west1"
+    REGION: "us-central1"
     ENV_NAME: "test"
     APIGEE_RUNTIME_SIZE: "medium"
     CLUSTER_NAME: "apigee-hybrid-3"
@@ -20,8 +20,8 @@
     CLUSTER_ZONE_SEED: "{{ REGION_SEED }}-b"
     CASSANDRA_DATA_CENTER_NAME_SEED: "dc-1"
     CASSANDRA_RACK_NAME_SEED: "ra-1"
-    PROVIDED_PUBLIC_CERT: "{{ playbook_dir }}/signed-certs/hybrid-apigee.net/demo-cert.pem"
-    PROVIDED_PRIVATE_KEY: "{{ playbook_dir }}/signed-certs/hybrid-apigee.net/demo-cert.key"
+    PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/hybrid-apigee.net/demo-cert.pem"
+    PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/hybrid-apigee.net/demo-cert.key"
     ISTIO_VERSION: "1.6.11"
     ISTIO_VERSION_EXT: "asm.1"
     ASM_KPT_VERSION: "1.6-asm"
