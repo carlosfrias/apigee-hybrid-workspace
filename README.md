@@ -20,7 +20,7 @@ with the name and path of your file.
 This toolkit has the following capabilities:
 | Playbook | Capability |
 | -------- | ---------- |
-| apigee-hybrid-installation.yml | Create a GCP project; configure and install Apigee hybrid using either small, medium or large overrides.yml templates |
+| apigee-hybrid-installation.yml | Create a GCP project; configures and installs Apigee hybrid using either small, medium or large overrides.yml templates |
 | apigee-hybrid-multi-region.yml | Installs an arbitrary number of additional regions to an existing Apigee hybrid region |
 
 ## Toolkit Usage
@@ -139,8 +139,8 @@ This is the tag inventory for apigee-hybrid-installation.yml
 | apigee-hybrid-org-create | org |
 | apigee-hybrid-cloud-dns-create | dns |
 | apigee-hybrid-cloud-env-create | env |
-| apigee-hybrid-group-create | create-group, group |
-| apigee-hybrid-group-attach | attach-group, group |
+| apigee-hybrid-group-create | create-group,group |
+| apigee-hybrid-group-attach | attach-group,group |
 | apigee-hybrid-gke-create | gke |
 | apigee-hybrid-apigeectl-download | download |
 | apigee-hybrid-apigeectl-dir-structure | dir |
