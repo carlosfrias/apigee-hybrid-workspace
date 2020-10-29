@@ -158,5 +158,7 @@ This is the tag inventory for apigee-hybrid-installation.yml
 ### Apigee hybrid GKE   
 The folder apigee-hybrid-gke contains the scripts needed to an installation of 
 Apigee hybrid 1.3 on GKE. This has not been tested with any other version of 
-Apigee hybrid.
+Apigee hybrid. Ansible has been configured to operate from this folder using the 
+provided `ansible.cfg`.
+
 
