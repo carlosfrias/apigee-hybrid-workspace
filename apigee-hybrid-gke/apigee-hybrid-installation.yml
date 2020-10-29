@@ -23,7 +23,8 @@
     ASM_KPT_VERSION: "1.6-asm"
 
   roles: 
-    - { role: apigee-hybrid-setup-environment, tags: ['setup-env'] }
+    - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env'] }
+    - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup-env', 'gcp'] }
     - { role: apigee-hybrid-project-create, tags: ['project'] }
     - { role: apigee-hybrid-project-services-enable, tags: ['services'] }
     - { role: apigee-hybrid-org-create, tags: ['org'] }

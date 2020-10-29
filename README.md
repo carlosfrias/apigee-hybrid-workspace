@@ -1,10 +1,12 @@
-# Apigee hybrid Accelerator Toolkit
+# Apigee hybrid workspace toolkit
 
-The goal of this project is to create a toolkit for working with Apigee hybrid.
-The anticipated audience for this toolkit are Apigee specialists that need to 
-install, configure and deploy Apigee hybrid. Apigee hybrid can be deployed on 
-GKE, Anthos on prem, Azure and AWS. This project will be used as a workspace that
-will grow as we continue to work with our customers. 
+The goal of this project is to house the toolkit that has been constructed while 
+conducting work sessions with Apigee hybrid. This repository houses an asset that 
+is provided as a community contribution to help those charged with understanding, 
+installing, configuring and maintaining Apigee hybrid. The audience for this 
+toolkit also includes those that would like to understand how to model an 
+automation effort of Apigee hybrid or begin working with Apigee hybrid. This 
+repository is provided as is with no warranty of any kind. 
 
 ## Toolkit Usage
 This toolkit has been written using Ansible. Please install Ansible 2.9 or greater. 

@@ -5,7 +5,6 @@
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 
   vars:
-#    PROJECT_ID: "friasc-hybrid-10062020-1055"
     PROJECT_ID: "friasc-hybrid-10282020-1349"
     REGION: "us-west1"
     ENV_NAME: "test"
@@ -28,7 +27,7 @@
     ASM_KPT_VERSION: "1.6-asm"
 
   roles:
-    - { role: apigee-hybrid-setup-environment, tags: ['setup-env'] }
+    - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env'] }
     - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
     - { role: apigee-hybrid-firewall-region-enable, tags: ['gcp-firewall'] }
     - { role: apigee-hybrid-gke-create, tags: ['gke'] }
