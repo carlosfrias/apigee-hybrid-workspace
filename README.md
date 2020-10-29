@@ -5,8 +5,10 @@ conducting work sessions with Apigee hybrid. This repository houses an asset tha
 is provided as a community contribution to help those charged with understanding, 
 installing, configuring and maintaining Apigee hybrid. The audience for this 
 toolkit also includes those that would like to understand how to model an 
-automation effort of Apigee hybrid or begin working with Apigee hybrid. This 
-repository is provided as is with no warranty of any kind. 
+automation effort for Apigee hybrid or begin working with Apigee hybrid. This 
+repository is provided as is with no warranty of any kind. This is not a Google 
+product. This is not supported by Apigee in any way. Any and all inquiries for 
+information will be answered on a best effort basis as my schedule permits.
 
 It is expected that you provide credentials and other sensitive attributes using
 the provided template file `apiee-hybrid-senitive-attriubtes-TEMPLATE.yml`. 
