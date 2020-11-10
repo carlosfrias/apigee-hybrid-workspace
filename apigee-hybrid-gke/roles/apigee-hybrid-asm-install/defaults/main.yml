@@ -1,7 +1,7 @@
 ---
 # defaults file for roles/apigee-hybrid-asm-install
 DEFAULT_CERT_MANAGER_VERSION: 0.14.2
-DEFAULT_SIDECAR_NAMESPACE: default
+DEFAULT_AUTO_INJECTION_NAMESPACE: default
 DEFAULT_ASM_PROFILE_NAME: "asm-gcp"
 ASM_SYSTEM_DEPENDENCIES:
 - jq

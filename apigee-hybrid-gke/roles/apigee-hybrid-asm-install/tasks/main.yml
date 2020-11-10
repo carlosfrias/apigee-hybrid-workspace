@@ -19,13 +19,18 @@
     ASM_DOWNLOAD_RESCUE: "https://storage.googleapis.com/gke-release/asm/istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}-{{ facter_architecture }}.tar.gz"
     ASM_KPT_PACKAGE: "https://github.com/GoogleCloudPlatform/anthos-service-mesh-packages.git/asm@release-{{ ASM_KPT_VERSION }}"
 
+- name: Set ISTIO ASM Revision
+  set_fact:
+    cacheable: yes
+    ISTIO_ASM_REVISION: "asm-{{ ISTIO_VERSION | regex_replace('\\.', '') }}-{{ ISTIO_VERSION_EXT.split('.')[1] }}"
+
 - name: Install Istio
   include_tasks: install-istio-{{ ISTIO_VERSION }}.yml
 
 - name: Set ASM install cache
   set_fact:
     cacheable: yes
-    SIDECAR_NAMESPACE: "{{ SIDECAR_NAMESPACE | default(DEFAULT_SIDECAR_NAMESPACE) }}"
+    AUTO_INJECTION_NAMESPACE: "{{ AUTO_INJECTION_NAMESPACE | default(DEFAULT_AUTO_INJECTION_NAMESPACE) }}"
     ASM_PROFILE_NAME: "{{ ASM_PROFILE_NAME | default(DEFAULT_ASM_PROFILE_NAME) }}"
 
 - name: Set ASM install cache
@@ -91,23 +96,20 @@
   shell: kpt cfg set asm anthos.servicemesh.profile {{ ASM_PROFILE_NAME }}
   args:
     chdir: "{{ WORK_DIR }}"
-
-- name: Assemble asm revision
-  set_fact:
-    asm_revision: "asm-{{ ISTIO_VERSION | replace('.', '') }}-{{ ISTIO_VERSION_EXT | replace('asm.', '') }}"
+  when: ISTIO_VERSION is version('1.7.3', '<')
 
 - name: Update istio configuration file for Apigee hybrid
   tags: ['istio-config']
-  include_tasks: istio-operator-file-update.yml
+  include_tasks: istio-operator-file-update-{{ ISTIO_VERSION }}.yml
 
 - name: Install ASM
   tags: ['istio-config']
-  shell: istioctl install -f asm/cluster/istio-operator-{{ CLUSTER_NAME }}.yaml --revision=asm-{{ asm_revision }}
+  shell: istioctl install -f asm/cluster/istio-operator-{{ CLUSTER_NAME }}.yaml --revision={{ ISTIO_ASM_REVISION }}
   args:
     chdir: "{{ WORK_DIR }}"
 
-- name: Enable sidecar injection
-  shell: kubectl label namespace {{ SIDECAR_NAMESPACE }} istio-injection=enabled --overwrite    
+- name: Enable sidecar auto injection
+  shell: kubectl label namespace {{ AUTO_INJECTION_NAMESPACE }} istio-injection=enabled --overwrite
 
 - name: Apply settings to ASM
   shell: istioctl manifest apply --set profile={{ ASM_PROFILE_NAME }} -f asm/cluster/istio-operator-{{ CLUSTER_NAME }}yaml
