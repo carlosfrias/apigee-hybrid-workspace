@@ -55,7 +55,6 @@
 #  --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --num-nodes "3" --enable-stackdriver-kubernetes --enable-ip-alias --network "projects/friasc-hybrid-10272020-2255/global/networks/default"
 #  --subnetwork "projects/friasc-hybrid-10272020-2255/regions/us-central1/subnetworks/default" --default-max-pods-per-node "110" --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0
 
-
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
   register: project_number
@@ -96,14 +95,6 @@
     cacheable: yes
     WORKLOAD_POOL: "{{ PROJECT_ID }}.svc.id.goog"
     MESH_ID: "proj-{{ PROJECT_NUMBER | default(project_number.stdout) }}"
-
-# - name: Obtain cluster resourceLabels
-#   shell: gcloud container clusters describe {{ CLUSTER_NAME }} | grep csm
-#   register: resource_labels_raw
-
-# - name: Move resource_labels to list
-#   set_fact:
-#     resource_labels_list: "{{ resource_lables.stdout | split(',') }}"
 
 - name: Set MESH_ID label
   shell: gcloud container clusters update {{ CLUSTER_NAME }} --update-labels=mesh_id={{ MESH_ID }}
@@ -147,10 +138,3 @@
     
 - name: Update authentication credentials
   shell: gcloud container clusters get-credentials {{ CLUSTER_NAME }} --zone {{ CLUSTER_ZONE }}
-
-#- name: Validate ASM installation
-#  shell: |
-#    kubectx {{ CLUSTER_NAME }}
-#    asmctl validate
-#  when: ISTIO_VERSION is version_compare("1.6", ">=")
-
