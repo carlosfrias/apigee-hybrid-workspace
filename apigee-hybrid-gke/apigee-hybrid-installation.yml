@@ -5,7 +5,7 @@
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 
   vars:
-    PROJECT_ID: "friasc-hybrid-11102020-0416"
+    PROJECT_ID: "friasc-hybrid-11102020-0835"
     REGION: "us-east1"
     ENV_NAME: "test"
     APIGEE_RUNTIME_SIZE: "medium"

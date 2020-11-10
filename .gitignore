@@ -3,4 +3,5 @@ ansible
 workdir
 research
 *.iml
+transaction.yaml
 
