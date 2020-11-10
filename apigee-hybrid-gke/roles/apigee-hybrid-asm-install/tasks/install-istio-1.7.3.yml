@@ -13,7 +13,7 @@
 
 - name: Load SHA-256 from file
   set_fact:
-    install_asm_sha256: "{{ lookup('file', WORK_DIR+ '/install_asm.sha256') }}"
+    install_asm_sha256: "{{ lookup('file', WORK_DIR + '/install_asm.sha256') }}"
 
 - name: Download the script to the current working directory
   get_url:
@@ -59,4 +59,3 @@
   - status.rc == 1
   - "'already exists' not in status.stderr"
 
-- name: Enable
