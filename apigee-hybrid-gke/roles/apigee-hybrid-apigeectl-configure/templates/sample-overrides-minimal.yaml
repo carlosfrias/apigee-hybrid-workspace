@@ -1,0 +1,72 @@
+org: "srinandans-hybrid"
+instanceID: "us-west1"
+
+connectAgent:
+  serviceAccountPath: ./service-accounts/nandanks-apigee-orgadmin.json
+
+watcher:
+  serviceAccountPath: ./service-accounts/nandanks-apigee-orgadmin.json
+
+k8sCluster:
+  name: "srinandans-hybrid"
+  region: "us-west1"
+
+gcp:
+  projectID: "nandanks-151422"
+  name: "srinandans-hybrid"
+  region: "us-west1"
+
+virtualhosts:
+- name: default
+  sslCertPath: ./certs/tls.crt
+  sslKeyPath: ./certs/tls.key
+
+envs:
+- name: test1
+  serviceAccountPaths:
+    synchronizer: ./service-accounts/nandanks-apigee-orgadmin.json
+    udca: ./service-accounts/nandanks-apigee-orgadmin.json
+
+mart:
+  replicaCountMin: 1
+  replicaCountMax: 1
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  serviceAccountPath: ./service-accounts/nandanks-apigee-orgadmin.json
+
+synchronizer:
+  replicaCountMin: 1
+  replicaCountMax: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+runtime:
+  replicaCountMin: 1
+  replicaCountMax: 1
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+udca:
+  replicaCountMin: 1
+  replicaCountMax: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  fluentd:
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+metrics:
+  enabled: false
+  serviceAccountPath: ./service-accounts/nandanks-apigee-orgadmin.json

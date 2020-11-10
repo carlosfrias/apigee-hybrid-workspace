@@ -5,8 +5,7 @@
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 
   vars:
-#    PROJECT_ID: "friasc-hybrid-10062020-1055"
-    PROJECT_ID: "friasc-hybrid-10282020-1349"
+    PROJECT_ID: "friasc-hybrid-11092020-1256"
     REGION: "us-east1"
     ENV_NAME: "test"
     APIGEE_RUNTIME_SIZE: "medium"
@@ -16,15 +15,19 @@
     NODE_COUNT: 8
 #    CASSANDRA_DATA_CENTER_NAME: "dc-1"
 #    CASSANDRA_RACK_NAME: "ra-1"
-    PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/hybrid-apigee.net/demo-cert.pem"
-    PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/hybrid-apigee.net/demo-cert.key"
+    PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
+    PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
     ISTIO_VERSION: "1.6.11"
     ISTIO_VERSION_EXT: "asm.1"
     ASM_KPT_VERSION: "1.6-asm"
+#    ISTIO_VERSION: "1.7.3"
+#    ISTIO_VERSION_EXT: "asm.6"
+#    ASM_KPT_VERSION: "1.7-asm"
 
   roles: 
     - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env'] }
     - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup-env', 'gcp'] }
+    - { role: apigee-hybrid-setup-environment-az, tags: ['setup-env', 'az'] }
     - { role: apigee-hybrid-project-create, tags: ['project'] }
     - { role: apigee-hybrid-project-services-enable, tags: ['services'] }
     - { role: apigee-hybrid-org-create, tags: ['org'] }
