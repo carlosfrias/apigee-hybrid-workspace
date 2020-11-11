@@ -7,6 +7,8 @@
 # GCP project name where the org is provisioned.
 gcp:
   projectID: "{{ PROJECT_ID }}"
+  name: "{{ CLUSTER_NAME }}"
+  region: "{{ REGION }}"
 # Apigee org name.
 org: "{{ PROJECT_ID }}"
 # Kubernetes cluster name details
@@ -49,7 +51,7 @@ envs:
       synchronizer: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-synchronizer.json"
       udca: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-udca.json"
     # Set custom encryption keys for KMS.
-    kmsEncryptionKey: "{{ KVM_ENCRYPTION_KEY }}"
+    kmsEncryptionKey: "{{ KMS_ENCRYPTION_KEY }}"
     # Set custom encryption keys for KVM.
     kvmEncryptionKey: "{{ KVM_ENCRYPTION_KEY }}"
     # Set custom encryption keys for Cache.
@@ -102,7 +104,12 @@ udca:
 
 mart:
   replicaCountMin: {{ MART_REPLICA_COUNT_MIN }}
+  replicaCountMax: {{ MART_REPLICA_COUNT_MAX }}
   serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+  resources:
+    requests:
+      cpu: {{ DEFAULT_MART_RESOURCES_REQUESTS_CPU }}
+      memory: {{ DEFAULT_MART_RESOURCES_REQUESTS_MEMORY }}
 
 metrics:
   serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-metrics.json"

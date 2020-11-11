@@ -2,34 +2,13 @@
   hosts: localhost
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-
-  vars:
-    PROJECT_ID: "friasc-hybrid-11102020-0835"
-    REGION: "us-central1"
-    ENV_NAME: "test"
-    APIGEE_RUNTIME_SIZE: "medium"
-    CLUSTER_NAME: "apigee-hybrid-2"
-    CLUSTER_ZONE: "{{ REGION }}-b"
-    NODE_SIZE: "e2-standard-8"
-    NODE_COUNT: 8
-    CASSANDRA_DATA_CENTER_NAME: "dc-2"
-    CASSANDRA_RACK_NAME: "ra-1"
-    REGION_SEED: "us-east1"
-    CLUSTER_NAME_SEED: "apigee-hybrid-1"
-    CLUSTER_ZONE_SEED: "{{ REGION_SEED }}-b"
-    CASSANDRA_DATA_CENTER_NAME_SEED: "dc-1"
-    CASSANDRA_RACK_NAME_SEED: "ra-1"
-    PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
-    PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
-    ISTIO_VERSION: "1.6.11"
-    ISTIO_VERSION_EXT: "asm.1"
-    ASM_KPT_VERSION: "1.6-asm"
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - apigee-hybrid-region-multi-asm-1.7.3-variables.yml
 
   roles:
     - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env'] }
     - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
-    - { role: apigee-hybrid-firewall-region-enable, tags: ['gcp-firewall'] }
+    - { role: apigee-hybrid-firewall-region-enable, tags: ['gfirewall'] }
     - { role: apigee-hybrid-gke-create, tags: ['gke'] }
     - { role: apigee-hybrid-cloud-dns-create, tags: ['dns'] }
     - { role: apigee-hybrid-apigeectl-download, tags: ['download'] }

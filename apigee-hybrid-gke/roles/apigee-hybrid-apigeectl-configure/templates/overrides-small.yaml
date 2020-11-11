@@ -6,6 +6,8 @@
 # GCP project name where the org is provisioned.
 gcp:
   projectID: "{{ PROJECT_ID }}"
+  name: "{{ CLUSTER_NAME }}"
+  region: "{{ REGION }}"
 # Apigee org name.
 org: "{{ PROJECT_ID }}"
 # Kubernetes cluster name details

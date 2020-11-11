@@ -7,6 +7,9 @@
 # GCP project name where your org is provisioned.
 gcp:
   projectID: "{{ PROJECT_ID }}"
+  name: "{{ CLUSTER_NAME }}"
+  region: "{{ REGION }}"
+
 # Apigee org name.
 org: "{{ PROJECT_ID }}"
 # Kubernetes cluster name details
@@ -51,7 +54,7 @@ envs:
     # Set custom encryption keys for KMS.
     kmsEncryptionKey: "{{ KMS_ENCRYPTION_KEY }}"
     # Set custom encryption keys for KVM.
-    kvmEncryptionKey: "{{ KMS_ENCRYPTION_KEY }}"
+    kvmEncryptionKey: "{{ KVM_ENCRYPTION_KEY }}"
     # Set custom encryption keys for Cache.
     cacheEncryptionKey: "{{ CACHE_ENCRYPTION_KEY }}"
 
