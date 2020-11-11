@@ -22,7 +22,7 @@
     checksum: sha256:{{ install_asm_sha256.split(' ')[0] }}
 
 - name: Validate Environment for ASM
-  tags: ['asm-script']
+  tags: ['validate-asm','script']
   shell: |
     bash install_asm \
       --project_id {{ PROJECT_ID }} \
@@ -35,7 +35,7 @@
     chdir: "{{ WORK_DIR }}"
 
 - name: Install ASM
-  tags: ['asm-script']
+  tags: ['install-asm','script']
   shell: |
     bash install_asm \
       --project_id {{ PROJECT_ID }} \
@@ -46,6 +46,23 @@
       --enable_apis
   args:
     chdir: "{{ WORK_DIR }}"
+
+- name: Backup ASM output files with cluster name
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    backup: yes
+  with_items:
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded-{{ CLUSTER_NAME }}.yaml" }
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw-{{ CLUSTER_NAME }}.yaml" }
+
+- name: Clear original ASM output files
+  file:
+    dest: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded.yaml"
+    - "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw.yaml"
 
 - name: Enable auto-injection
   shell: kubectl label namespace {{ AUTO_INJECTION_NAMESPACE }} istio.io/rev={{ ISTIO_ASM_REVISION }} istio-injection- --overwrite

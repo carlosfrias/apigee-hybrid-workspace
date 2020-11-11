@@ -30,11 +30,11 @@
     with_items: ["{{ SSL_KEY_PATH }}", "{{ SSL_CERT_PATH }}"]
 
   - name: Copy provided cert and key to correct location and filename
-    copy: 
+    copy:
       src: "{{ item.src }}"
       dest: "{{ item.dest }}"
       force: yes
-    with_items: 
+    with_items:
       - { src: "{{ PROVIDED_PRIVATE_KEY }}", dest: "{{ SSL_KEY_PATH }}" }
       - { src: "{{ PROVIDED_PUBLIC_CERT }}", dest: "{{ SSL_CERT_PATH }}" }
 
