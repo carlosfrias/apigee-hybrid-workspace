@@ -1,20 +1,20 @@
 org: "srinandans-hybrid"
-instanceID: "us-west1"
+instanceID: "us-east1"
 
 connectAgent:
-  serviceAccountPath: ./service-accounts/nandanks-apigee-orgadmin.json
+  serviceAccountPath: ./service-accounts/friasc-apigee-orgadmin.json
 
 watcher:
-  serviceAccountPath: ./service-accounts/nandanks-apigee-orgadmin.json
+  serviceAccountPath: ./service-accounts/friasc-apigee-orgadmin.json
 
 k8sCluster:
-  name: "srinandans-hybrid"
-  region: "us-west1"
+  name: "friasc-hybrid"
+  region: "us-east1"
 
 gcp:
-  projectID: "nandanks-151422"
-  name: "srinandans-hybrid"
-  region: "us-west1"
+  projectID: "friasc-151422"
+  name: "friasc-hybrid"
+  region: "us-east1"
 
 virtualhosts:
 - name: default
@@ -24,8 +24,8 @@ virtualhosts:
 envs:
 - name: test1
   serviceAccountPaths:
-    synchronizer: ./service-accounts/nandanks-apigee-orgadmin.json
-    udca: ./service-accounts/nandanks-apigee-orgadmin.json
+    synchronizer: ./service-accounts/friasc-apigee-orgadmin.json
+    udca: ./service-accounts/friasc-apigee-orgadmin.json
 
 mart:
   replicaCountMin: 1
@@ -34,7 +34,7 @@ mart:
     requests:
       cpu: 250m
       memory: 256Mi
-  serviceAccountPath: ./service-accounts/nandanks-apigee-orgadmin.json
+  serviceAccountPath: ./service-accounts/friasc-apigee-orgadmin.json
 
 synchronizer:
   replicaCountMin: 1
@@ -69,4 +69,4 @@ udca:
 
 metrics:
   enabled: false
-  serviceAccountPath: ./service-accounts/nandanks-apigee-orgadmin.json
+  serviceAccountPath: ./service-accounts/friasc-apigee-orgadmin.json

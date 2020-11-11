@@ -1,0 +1,39 @@
+---
+- name: Set configuration profile
+  shell: kpt cfg set asm anthos.servicemesh.profile {{ ASM_PROFILE_NAME }}
+  args:
+    chdir: "{{ WORK_DIR }}"
+#  when: ISTIO_VERSION is version('1.7.3', '<')
+
+- name: Update istio configuration file for Apigee hybrid
+  tags: ['istio-config']
+  include_tasks: istio-operator-file-update-{{ ISTIO_VERSION }}.yml
+#  when: ISTIO_VERSION is version('1.7.3', '<')
+
+- name: Install ASM
+  tags: ['istio-config']
+  shell: istioctl install -f asm/cluster/istio-operator-{{ CLUSTER_NAME }}.yaml --revision={{ ISTIO_ASM_REVISION }}
+  args:
+    chdir: "{{ WORK_DIR }}"
+#  when: ISTIO_VERSION is version('1.7.3', '<')
+
+- name: Enable sidecar auto injection
+  shell: kubectl label namespace {{ AUTO_INJECTION_NAMESPACE }} istio-injection=enabled --overwrite
+#  when: ISTIO_VERSION is version('1.7.3', '<')
+
+- name: Apply settings to ASM
+  shell: istioctl manifest apply --set profile={{ ASM_PROFILE_NAME }} -f asm/cluster/istio-operator-{{ CLUSTER_NAME }}.yaml
+  args:
+    chdir: "{{ WORK_DIR }}"
+  register: operation_status
+  until: "'Installation complete' in (operation_status.stdout or operation_status.stderr)"
+  poll: 5
+  retries: 50
+  async: 90
+
+- name: Deploy Canonical Service controller
+  shell: kubectl apply -f asm/canonical-service/controller.yaml
+  args:
+    chdir: "{{ WORK_DIR }}"
+  when: ISTIO_VERSION is version("1.7.3","<")
+

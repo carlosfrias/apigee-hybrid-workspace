@@ -5,8 +5,8 @@
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 
   vars:
-    PROJECT_ID: "friasc-hybrid-11032020-1300"
-    REGION: "us-west1"
+    PROJECT_ID: "friasc-hybrid-11102020-1909"
+    REGION: "us-central1"
     ENV_NAME: "test"
     APIGEE_RUNTIME_SIZE: "medium"
     CLUSTER_NAME: "apigee-hybrid-2"
@@ -20,19 +20,19 @@
     CLUSTER_ZONE_SEED: "{{ REGION_SEED }}-b"
     CASSANDRA_DATA_CENTER_NAME_SEED: "dc-1"
     CASSANDRA_RACK_NAME_SEED: "ra-1"
-    PROVIDED_PUBLIC_CERT: "{{ playbook_dir }}/signed-certs/hybrid-apigee.net/demo-cert.pem"
-    PROVIDED_PRIVATE_KEY: "{{ playbook_dir }}/signed-certs/hybrid-apigee.net/demo-cert.key"
-    #    ISTIO_VERSION: "1.6.11"
-    #    ISTIO_VERSION_EXT: "asm.1"
-    #    ASM_KPT_VERSION: "1.6-asm"
-    ISTIO_VERSION: "1.7.3"
-    ISTIO_VERSION_EXT: "asm.6"
-    ASM_KPT_VERSION: "1.7-asm"
+    PROVIDED_PUBLIC_CERT: "{{ playbook_dir }}/.ssh/hybrid-apigee.net/demo-cert.pem"
+    PROVIDED_PRIVATE_KEY: "{{ playbook_dir }}/.ssh/hybrid-apigee.net/demo-cert.key"
+    ISTIO_VERSION: "1.6.11"
+    ISTIO_VERSION_EXT: "asm.1"
+    ASM_KPT_VERSION: "1.6-asm"
+#    ISTIO_VERSION: "1.7.3"
+#    ISTIO_VERSION_EXT: "asm.6"
+#    ASM_KPT_VERSION: "1.7-asm"
 
   roles:
     - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env'] }
     - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
-    - { role: apigee-hybrid-firewall-region-enable, tags: ['gcp-firewall'] }
+    - { role: apigee-hybrid-firewall-region-enable, tags: ['gfirewall'] }
     - { role: apigee-hybrid-gke-create, tags: ['gke'] }
     - { role: apigee-hybrid-cloud-dns-create, tags: ['dns'] }
     - { role: apigee-hybrid-apigeectl-download, tags: ['download'] }

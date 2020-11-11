@@ -18,111 +18,17 @@
     ASM_DOWNLOAD: "https://storage.googleapis.com/gke-release/asm/istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}.tar.gz"
     ASM_DOWNLOAD_RESCUE: "https://storage.googleapis.com/gke-release/asm/istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}-{{ facter_architecture }}.tar.gz"
     ASM_KPT_PACKAGE: "https://github.com/GoogleCloudPlatform/anthos-service-mesh-packages.git/asm@release-{{ ASM_KPT_VERSION }}"
-
-- name: Set ISTIO ASM Revision
-  set_fact:
-    cacheable: yes
     ISTIO_ASM_REVISION: "asm-{{ ISTIO_VERSION | regex_replace('\\.', '') }}-{{ ISTIO_VERSION_EXT.split('.')[1] }}"
+    AUTO_INJECTION_NAMESPACE: "{{ AUTO_INJECTION_NAMESPACE | default(DEFAULT_AUTO_INJECTION_NAMESPACE) }}"
+    ASM_PROFILE_NAME: "{{ ASM_PROFILE_NAME | default(DEFAULT_ASM_PROFILE_NAME) }}"
+    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
 
 - name: Install Istio
   include_tasks: install-istio-{{ ISTIO_VERSION }}.yml
 
-- name: Set ASM install cache
-  set_fact:
-    cacheable: yes
-    AUTO_INJECTION_NAMESPACE: "{{ AUTO_INJECTION_NAMESPACE | default(DEFAULT_AUTO_INJECTION_NAMESPACE) }}"
-    ASM_PROFILE_NAME: "{{ ASM_PROFILE_NAME | default(DEFAULT_ASM_PROFILE_NAME) }}"
+- name: Common config
+  include_tasks: common-config.yml
 
-- name: Set ASM install cache
-  set_fact:
-    cacheable: yes
-    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
-
-- name: Retrieve Bearer token
-  shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
-  register: bearer_token
-
-- name: Capture token
-  set_fact: 
-    TOKEN: "{{ bearer_token.stdout }}"  
-
-- name: Set permissions for sidecar proxy 
-  uri:
-    url: https://meshconfig.googleapis.com/v1alpha1/projects/{{ PROJECT_ID }}:initialize
-    method: POST
-    headers:
-      Authorization: Bearer {{ TOKEN }}
-
-- name: Select Cluster
-  shell: kubectx {{ CLUSTER_NAME }}
-
-- name: Grant cluster admin permissions to current user
-  ignore_errors: true
-  shell: |
-    kubectl create clusterrolebinding cluster-admin-binding \
-      --clusterrole=cluster-admin \
-      --user="{{ GCLOUD_ACCOUNT }}"
-  register: status  
-  failed_when:  
-    - status.rc == 1
-    - "'already exists' not in status.stderr"
-
-- name: Service Account Key Storage Location
-  debug: 
-    msg: "This service account key is stored as a secret named 'creds-gcp' in the 'gke-connect' namespace."
-
-- name: Set the project id
-  shell: kpt cfg set asm gcloud.core.project {{ PROJECT_ID }}
-  args:
-    chdir: "{{ WORK_DIR }}"
-
-- name: Set project number for the environ host project
-  shell: kpt cfg set asm gcloud.project.environProjectNumber {{ PROJECT_NUMBER }}
-  args:
-    chdir: "{{ WORK_DIR }}"
-
-- name: Set the cluster name
-  ignore_errors: yes
-  shell: kpt cfg set asm gcloud.container.cluster {{ CLUSTER_NAME }}
-  args:
-    chdir: "{{ WORK_DIR }}"
-
-- name: Set the default zone
-  shell: kpt cfg set asm gcloud.compute.location {{ CLUSTER_ZONE }}
-  args:
-    chdir: "{{ WORK_DIR }}"
-
-- name: Set configuration profile
-  shell: kpt cfg set asm anthos.servicemesh.profile {{ ASM_PROFILE_NAME }}
-  args:
-    chdir: "{{ WORK_DIR }}"
-  when: ISTIO_VERSION is version('1.7.3', '<')
-
-- name: Update istio configuration file for Apigee hybrid
-  tags: ['istio-config']
-  include_tasks: istio-operator-file-update-{{ ISTIO_VERSION }}.yml
-
-- name: Install ASM
-  tags: ['istio-config']
-  shell: istioctl install -f asm/cluster/istio-operator-{{ CLUSTER_NAME }}.yaml --revision={{ ISTIO_ASM_REVISION }}
-  args:
-    chdir: "{{ WORK_DIR }}"
-
-- name: Enable sidecar auto injection
-  shell: kubectl label namespace {{ AUTO_INJECTION_NAMESPACE }} istio-injection=enabled --overwrite
-
-- name: Apply settings to ASM
-  shell: istioctl manifest apply --set profile={{ ASM_PROFILE_NAME }} -f asm/cluster/istio-operator-{{ CLUSTER_NAME }}yaml
-  args:
-    chdir: "{{ WORK_DIR }}"
-  when: ISTIO_VERSION is version("1.6","<")
-  register: operation_status
-  until: "'Installation complete' in (operation_status.stdout or operation_status.stderr)"
-  poll: 5
-  retries: 50
-  async: 90
-
-- name: Deploy Canonical Service controller
-  shell: kubectl apply -f asm/canonical-service/controller.yaml
-  args:
-    chdir: "{{ WORK_DIR }}"
+- name: Post-Install Istio
+  include_tasks: install-istio-{{ ISTIO_VERSION }}-2.yml
+  when: ISTIO_VERSION is version("1.7.3","<")

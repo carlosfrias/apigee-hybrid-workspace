@@ -22,6 +22,7 @@
     checksum: sha256:{{ install_asm_sha256.split(' ')[0] }}
 
 - name: Validate Environment for ASM
+  tags: ['asm-script']
   shell: |
     bash install_asm \
       --project_id {{ PROJECT_ID }} \
@@ -34,6 +35,7 @@
     chdir: "{{ WORK_DIR }}"
 
 - name: Install ASM
+  tags: ['asm-script']
   shell: |
     bash install_asm \
       --project_id {{ PROJECT_ID }} \
@@ -46,7 +48,7 @@
     chdir: "{{ WORK_DIR }}"
 
 - name: Enable auto-injection
-  shell: kubectl label namespace apigee istio.io/rev={{ ISTIO_ASM_REVISION }} istio-injection- --overwrite
+  shell: kubectl label namespace {{ AUTO_INJECTION_NAMESPACE }} istio.io/rev={{ ISTIO_ASM_REVISION }} istio-injection- --overwrite
 
 - name: Restart the Pods to trigger re-injection
   shell: kubectl rollout restart deployment -n apigee
