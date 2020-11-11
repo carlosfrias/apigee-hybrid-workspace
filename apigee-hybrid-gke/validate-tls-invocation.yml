@@ -1,46 +1,28 @@
 - name: Validate a proxy invocation
   hosts: localhost
 
-  vars_prompt:
-    - name: PROJECT_ID
-      prompt: "Please provide the Organization name (PROJECT_ID)?"
-      private: no
-
-    - name: PROXY_URI_ENDPOINT
-      prompt: "Please provide the Proxy URI endpoint"
-      private: no
-      default: "/notarget"
-
-    - name: PROXY_IP
-      prompt: "Please provide the Proxy IP Address (for use with curl --resolve)"
-      private: no
-  #     default: "{{ INGRESS_IP }}"
-
-    - name: PROXY_PORT
-      prompt: "Please provide the API Proxy IP Port"
-      private: no
-      default: "443"
-
-  # vars: 
-  #   PROXY_URI_ENDPOINT: "/notarget"   
-  #   PROXY_IP: "{{ INGRESS_IP }}"
-  #   PROXY_PORT: 443   
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - apigee-hybrid-single-region-asm-1.7.3.yml
 
   tasks:
     - name: Validate IP and Port Access
+      tags: ['port']
       wait_for:
-        host: "{{ PROXY_IP }}"
-        port: "{{ PROXY_PORT }}"
+        host: "{{ VALIDATE_PROXY_IP }}"
+        port: "{{ VALIDATE_PROXY_PORT }}"
         state: present
         timeout: 2
     
     - name: Validate TLS handshake
+      tags: ['tls']
       shell: |
-        openssl s_client -connect {{ INGRESS_IP }}:{{ PROXY_PORT }} -servername  {{ DOMAIN_NAME }}
+        openssl s_client -connect {{ VALIDATE_PROXY_IP }}:{{ VALIDATE_PROXY_PORT }} -servername {{ DOMAIN_NAME }}
 
-    - name: Proxy invocation using --resolve to test TLS connection
+    - name: Proxy invocation using 'curl --resolve' to test TLS connection
+      tags: ['invoke']
       shell: |
-        curl -v -H "Host: {{ DOMAIN_NAME }}" --resolve {{ DOMAIN_NAME }}:{{ PROXY_PORT }}:{{ INGRESS_IP }} https://{{ DOMAIN_NAME }}{{ PROXY_URI_ENDPOINT }}
+        curl -v -H "Host: {{ DOMAIN_NAME }}" --resolve {{ DOMAIN_NAME }}:{{ VALIDATE_PROXY_PORT }}:{{ VALIDATE_PROXY_IP }} https://{{ DOMAIN_NAME }}{{ VALIDATE_PROXY_URI_ENDPOINT }}
       args: 
         warn: false        
         
