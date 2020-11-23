@@ -1,0 +1,76 @@
+---
+# tasks file for roles/apigee-hybrid-aks-create
+- name: Set aks cache
+  set_fact:
+    cacheable: yes
+    AKS_NODE_COUNT: "{{ AKS_NODE_COUNT | default(DEFAULT_AKS_NODE_COUNT) }}"
+    AKS_NODE_SIZE: "{{ AKS_NODE_SIZE | default(DEFAULT_AKS_NODE_SIZE) }}"
+    KUBERNETES_VERSION: "{{ KUBERNETES_VERSION | default(DEFAULT_KUBERNETES_VERSION) }}"
+    AZ_KUBECONFIG: "{{ WORK_DIR }}/kubeconfig-azure.yaml"
+
+#- name: Retrieve service principal
+#  shell: az ad sp list --show-mine
+#  register: SERVICE_PRINCIPAL
+
+- name: Create aks Cluster
+  shell: |
+    az aks create \
+      --resource-group {{ AZ_RESOURCE_GROUP }} \
+      -n {{ CLUSTER_NAME }} \
+      --kubernetes-version {{ KUBERNETES_VERSION }} \
+      --node-count {{ AKS_NODE_COUNT }} \
+      --service-cidr 10.0.0.0/16 \
+      --docker-bridge-address 172.17.0.1/16 \
+      --dns-name-prefix apigee-hybrid-1-dns \
+      --dns-service-ip 10.0.0.10 \
+      --pod-cidr 10.240.0.0/16 \
+      --network-plugin kubenet
+#      --node-vm-size {{ AKS_NODE_SIZE }} \
+##      --ssh-key-value {{ SSL_CERT_PATH }} \
+##      --nodepool-name agentpool \
+##      --node-osdisk-type linux \
+##      --node-osdisk-size {{ NODE_SIZE }} \
+
+- name: Get aks credentials
+  shell: |
+    az aks get-credentials \
+      --resource_group {{ AZ_RESOURCE_GROUP }} \
+      --name {{ CLUSTER_NAME }} \
+      --file {{ AZ_KUBECONFIG }}
+
+- name: Set Current context
+  shell: kubectl config use-context {{ CLUSTER_NAME }}
+  environment:
+    KUBECONFIG: "{{ AZ_KUBECONFIG }}"
+
+- name: Register AKS Cluster with Anthos
+  shell: |
+    gcloud container hub memberships register {{ CLUSTER_NAME }} \
+      --context={{ CLUSTER_NAME }} \
+      --kubeconfig={{ AZ_KUBECONFIG }} \
+      --service-account-key-file={{ SERVICE_ACCOUNT_KEY_PATH }}
+
+- name: Create Kubernetes service account
+  shell: kubectl create serviceaccount aksadmin
+
+- name: Create Kubernetes cluster role binding
+  shell: |
+    kubectl create clusterrolebinding aksadminbinding \
+      --clusterrole {{ item }} \
+      --serviceaccount default:aksadmin
+  with_items: ['view', 'node-reader', 'cluster-admin']
+
+- name: Obtain secret name for service account
+  shell: kubectl get serviceaccount aksadmin -o jsonpath='{$.secrets[0].name}'
+  register: SECRET_NAME
+
+- name: Obtain token for service account
+  shell: kubectl get secret {{ SECRET_NAME }} -o jsonpath='{$.data.token}'
+  register: TOKEN
+
+- name: Store token in WORK_DIR
+  copy:
+    content: "{{ TOKEN | b64decode }}"
+    dest: "{{ WORK_DIR }}/aksadmin-token.conf"
+
+

@@ -20,44 +20,62 @@
     - lsb-release
     - gnupg
 
-- name: Download and install the Microsoft signing key
-  become: true
-  apt_key:
-    url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
-    keyring: "/etc/apt/trusted.gpg.d/microsoft.gpg"
+- block:
+  - name: Download azure-cli installation package
+    get_url:
+      url: https://aka.ms/InstallAzureCLIDeb
+      dest: "{{ WORK_DIR }}/azure-cli-installer.sh"
+      mode: 0777
 
-#- name: Install Microsoft signing key
-#  shell: echo {{ WORK_DIR }}/microsoft.asc | gpg --dearmor
-#  register: microsoft_asc
-#
-#- name: Create Microsoft signing key gpg
-#  copy:
-#    content: "{{ microsoft_asc.stdout }}"
-#    dest: "/etc/apt.trusted.gpg.d/microsoft.gpg"
+  - name: Install Azure Cli
+    become: true
+    shell: bash azure-cli-installer.sh
+    args:
+      chdir: "{{ WORK_DIR }}"
 
-- name: Add the Azure CLI software repository
-  become: true
-  apt_repository:
-    repo: "deb [arch={{ facter_architecture }}] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_lsb.codename }} main"
-    state: present
-#    filename: azure-cli.list
+  rescue:
+    - name: RESCUE - Download and install the Microsoft signing key
+      become: true
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+        keyring: "/etc/apt/trusted.gpg.d/microsoft.gpg"
 
-#- name: Download azure-cli installation package
-#  get_url:
-#    url: https://aka.ms/InstallAzureCLIDeb
-#    dest: "{{ WORK_DIR }}/azure-cli-installer.sh"
-#    mode: 0777
-#
-#- name: Install Azure Cli
-#  shell: bash azure-cli-installer.sh
-#  args:
-#    chdir: "{{ WORK_DIR }}"
+    - name: RESCUE - Install Microsoft signing key
+      shell: echo {{ WORK_DIR }}/microsoft.asc | gpg --dearmor
+      register: microsoft_asc
 
-- name: Update Debian package manager
-  become: true
-  apt:
-    name: azure-cli
-    update_cache: true
-    state: present
+    - name: RESCUE - Create Microsoft signing key gpg
+      copy:
+        content: "{{ microsoft_asc.stdout }}"
+        dest: "/etc/apt.trusted.gpg.d/microsoft.gpg"
+
+    - name: RESCUE - Add the Azure CLI software repository
+      become: true
+      copy:
+        content: "deb [arch={{ facter_architecture }}] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_lsb.codename }} main"
+        dest: /etc/apt/sources.list.d/azure-cli.list
+
+    - name: RESCUE - Update Debian package manager
+      become: true
+      apt:
+        name: azure-cli
+        update_cache: true
+        state: present
+        allow_unauthenticated: yes
+
+  when: ansible_os_family == "Debian"
+
+- name: Update cache with AZ environmental variables
+  set_fact:
+    cacheable: yes
+    AZ_RESOURCE_GROUP: "{{ AZ_RESOURCE_GROUP }}"
+    AZ_REGION: "{{ AZ_REGION }}"
+
+- name: Login to AZ
+  shell: "az login -u {{ AZ_ACCOUNT_EMAIL }} -p {{ AZ_ACCOUNT_EMAIL_PASSWORD }}"
+
+- name: Create a resource group if it does not exist
+  shell: az group create --name {{ AZ_RESOURCE_GROUP }} --location {{ AZ_REGION }}
+
 

@@ -1,0 +1,5 @@
+---
+# defaults file for roles/apigee-hybrid-aks-create
+DEFAULT_AKS_NODE_COUNT: "4"
+DEFAULT_AKS_NODE_SIZE: "DS3_v3"
+DEFAULT_KUBERNETES_VERSION: "1.17.11"
