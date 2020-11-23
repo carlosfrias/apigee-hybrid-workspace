@@ -7,11 +7,11 @@
 
   roles:
     - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env'] }
+    - { role: apigee-hybrid-apigeectl-download, tags: ['download'] }
     - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
     - { role: apigee-hybrid-firewall-region-enable, tags: ['gfirewall'] }
     - { role: apigee-hybrid-gke-create, tags: ['gke'] }
     - { role: apigee-hybrid-cloud-dns-create, tags: ['dns'] }
-    - { role: apigee-hybrid-apigeectl-download, tags: ['download'] }
     - { role: apigee-hybrid-tls-certs, tags: ['tls'] }
     - { role: apigee-hybrid-synchronizer-enable, tags: ['synchronizer'] }
     - { role: apigee-hybrid-apigee-connect-enable, tags: ['connect'] }
