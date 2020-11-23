@@ -95,6 +95,7 @@
   set_fact:
     cacheable: yes
     WORKLOAD_POOL: "{{ PROJECT_ID }}.svc.id.goog"
+    PROJECT_NUMBER: "{{ project_number.stdout }}"
     MESH_ID: "proj-{{ PROJECT_NUMBER | default(project_number.stdout) }}"
 
 - name: Set MESH_ID label
