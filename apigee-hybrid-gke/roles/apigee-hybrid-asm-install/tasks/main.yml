@@ -23,12 +23,21 @@
     ASM_PROFILE_NAME: "{{ ASM_PROFILE_NAME | default(DEFAULT_ASM_PROFILE_NAME) }}"
     SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
 
-- name: Install Istio
-  include_tasks: install-istio-{{ ISTIO_VERSION }}.yml
+- block:
+  - name: Install Istio GKE
+    include_tasks: install-istio-{{ ISTIO_VERSION }}-gke.yml
 
-- name: Common config
-  include_tasks: common-config.yml
+  - name: Common config GKE
+    include_tasks: common-config-gke.yml
 
-- name: Post-Install Istio
-  include_tasks: install-istio-{{ ISTIO_VERSION }}-2.yml
-  when: ISTIO_VERSION is version("1.7.3","<")
+  - name: Post-Install Istio GKE
+    include_tasks: install-istio-{{ ISTIO_VERSION }}-2-gke.yml
+    when: ISTIO_VERSION is version("1.7.3","<")
+
+  when: ATTACHED_CLUSTER is not defined or ATTACHED_CLUSTER == False
+
+- block:
+  - name: Install Istio on Attached Cluster
+    include_tasks: install-istio-{{ ISTIO_VERSION }}-attached.yml
+
+  when: ATTACHED_CLUSTER is defined or ATTACHED_CLUSTER == True

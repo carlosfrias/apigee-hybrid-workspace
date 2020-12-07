@@ -1,18 +1,20 @@
 ---
-- name: Retrieve Bearer token
-  shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
-  register: bearer_token
+- block:
+  - name: Retrieve Bearer token
+    shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
+    register: bearer_token
 
-- name: Capture token
-  set_fact:
-    TOKEN: "{{ bearer_token.stdout }}"
+  - name: Capture token
+    set_fact:
+      TOKEN: "{{ bearer_token.stdout }}"
 
-- name: Set permissions for sidecar proxy
-  uri:
-    url: https://meshconfig.googleapis.com/v1alpha1/projects/{{ PROJECT_ID }}:initialize
-    method: POST
-    headers:
-      Authorization: Bearer {{ TOKEN }}
+  - name: Set permissions for sidecar proxy
+    uri:
+      url: https://meshconfig.googleapis.com/v1alpha1/projects/{{ PROJECT_ID }}:initialize
+      method: POST
+      headers:
+        Authorization: Bearer {{ TOKEN }}
+  when: ATTACHED_CLUSTER == False
 
 - name: Select Cluster
   shell: kubectx {{ CLUSTER_NAME }}
@@ -22,7 +24,8 @@
   shell: |
     kubectl create clusterrolebinding cluster-admin-binding \
       --clusterrole=cluster-admin \
-      --user="{{ GCLOUD_ACCOUNT }}"
+      --user="{{ GCLOUD_ACCOUNT }}" \
+      --kubeconfig={{ CLUSTER_KUBECONFIG }}
   register: status
   failed_when:
   - status.rc == 1

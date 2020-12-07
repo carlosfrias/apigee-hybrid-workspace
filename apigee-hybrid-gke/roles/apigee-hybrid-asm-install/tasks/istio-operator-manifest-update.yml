@@ -3,6 +3,7 @@
   tags: ['meshConfig']
   shell: |
     istioctl manifest apply --set profile={{ ASM_PROFILE_NAME }} \
+      --kubeconfig={{ CLUSTER_KUBECONFIG }} \
       --set values.gateways.istio-ingressgateway.loadBalancerIP={{ INGRESS_IP }} \
       --set meshConfig.enableAutoMtls=false \
       --set meshConfig.accessLogFile=/dev/stdout \
@@ -21,6 +22,7 @@
   tags: ['meshConfig']
   shell: |
     istioctl install --set profile={{ ASM_PROFILE_NAME }} \
+      --kubeconfig={{ CLUSTER_KUBECONFIG }} \
       --set values.gateways.istio-ingressgateway.loadBalancerIP={{ INGRESS_IP }} \
       --set meshConfig.enableAutoMtls=false \
       --set meshConfig.accessLogFile=/dev/stdout \

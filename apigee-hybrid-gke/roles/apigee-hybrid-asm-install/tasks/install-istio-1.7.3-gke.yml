@@ -38,12 +38,12 @@
   tags: ['install-asm','script']
   shell: |
     bash install_asm \
-      --project_id {{ PROJECT_ID }} \
-      --cluster_name {{ CLUSTER_NAME }} \
-      --cluster_location {{ CLUSTER_ZONE }} \
-      --output_dir {{ WORK_DIR }} \
-      --mode install \
-      --enable_apis
+    --project_id {{ PROJECT_ID }} \
+    --cluster_name {{ CLUSTER_NAME }} \
+    --cluster_location {{ CLUSTER_ZONE }} \
+    --output_dir {{ WORK_DIR }} \
+    --mode install \
+    --enable_apis
   args:
     chdir: "{{ WORK_DIR }}"
 
@@ -65,7 +65,7 @@
     - "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw.yaml"
 
 - name: Enable auto-injection
-  shell: kubectl label namespace {{ AUTO_INJECTION_NAMESPACE }} istio.io/rev={{ ISTIO_ASM_REVISION }} istio-injection- --overwrite
+  shell: kubectl label namespace {{ AUTO_INJECTION_NAMESPACE }} istio.io/rev={{ ISTIO_ASM_REVISION }} istio-injection- --overwrite --kubeconfig={{ CLUSTER_KUBECONFIG }}
 
 - name: Restart the Pods to trigger re-injection
-  shell: kubectl rollout restart deployment -n apigee
+  shell: kubectl rollout restart deployment -n apigee --kubeconfig={{ CLUSTER_KUBECONFIG }}

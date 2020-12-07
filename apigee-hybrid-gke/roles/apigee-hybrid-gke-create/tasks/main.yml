@@ -3,6 +3,7 @@
 - name: Set gke cache
   set_fact:
     cacheable: yes
+    ATTACHED_CLUSTER: False
     NODE_COUNT: "{{ NODE_COUNT | default(DEFAULT_NODE_COUNT) }}"
     NODE_SIZE: "{{ NODE_SIZE | default(DEFAULT_NODE_SIZE) }}"
     SERVICE_ACCOUNT_NAME: "{{ SERVICE_ACCOUNT_NAME | default(DEFAULT_SERVICE_ACCOUNT_NAME) }}"

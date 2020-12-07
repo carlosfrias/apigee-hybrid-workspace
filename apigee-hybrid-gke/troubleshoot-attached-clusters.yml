@@ -1,0 +1,56 @@
+---
+- name: Playbook for troubleshooting Attached Clusters
+  hosts: localhost
+
+
+  tasks:
+  - name: Find deployment for istiod
+    shell: |
+      kubectl get deployments -n istio-system --kubeconfig={{ CLUSTER_KUBECONFIG }} \
+      | grep istiod \
+      | awk '{print $1}'
+    register: istiod_deployments
+
+  - name: Print details for istiod
+    shell: |
+      kubectl describe deployment {{ item }} -n istio-system --kubeconfig={{ CLUSTER_KUBECONFIG }}
+    with_items: "{{ istiod_deployments.stdout_lines }}"
+    register: istiod_details
+
+  - name: Collect details
+    set_fact:
+      cachable: yes
+      aggregated_details: "{{ aggregated_details | default('\n') }}{{ item.stdout_lines | join('\n') }}"
+    with_items: "{{ istiod_details.results }}"
+
+  - name: Create istiod details file
+    copy:
+      content: "{{ aggregated_details }}"
+      dest: "{{ WORK_DIR }}/istiod_describe_deployments.yaml"
+
+  - name: Find pods for istiod
+    shell: |
+      kubectl get pods -n istio-system --kubeconfig={{ CLUSTER_KUBECONFIG }} \
+      | grep istiod \
+      | awk '{print $1}'
+    register: istiod_pods
+
+  - name: Print logs for istiod pods
+    shell: |
+      kubectl logs {{ item }} -n istio-system --kubeconfig={{ CLUSTER_KUBECONFIG }}
+    with_items: "{{ istiod_pods.stdout_lines }}"
+    register: istiod_pod_logs
+
+  - name: Collect logs
+    set_fact:
+      cachable: yes
+      aggregated_logs: "{{ aggregated_logs | default('\n') }}{{ item.stdout_lines | join('\n') }}"
+    with_items: "{{ istiod_pod_logs.results }}"
+
+  - name: Create istiod pod log file
+    copy:
+      content: "{{ aggregated_logs }}"
+      dest: "{{ WORK_DIR }}/istiod_pod.log"
+
+
+
