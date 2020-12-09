@@ -1,38 +1,31 @@
-Role Name
+Apigee Hybrid Project Create
 =========
 
-A brief description of the role goes here.
+This project will create a GCP project with the provided name and assigned to 
+the provided Billing Id. 
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role uses `gcloud` for it's operations. `gcloud` can be installed individually. 
+`gcloud` is also installed if you invoke the [Apigee Hybrid Setup Environment Kubernetes](https://github.com/carlosfrias/apigee-hybrid-workspace/blob/master/apigee-hybrid-gke/roles/apigee-hybrid-setup-environment-kubernetes/README.md)
+role. 
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The variables that can be passed into this role are listed in the table below:
+
+| --- | --- |
+| Variable Name | Purpose |
+|---------------|---------|
+| PROJECT_ID | Name of the project |
+| GCLOUD_ACCOUNT_EMAIL | Account email of the project owner |
+| BILLING_ID | Billing ID account that should be linked to the project after it is created. |
+| FOLDER_ID | This is the GCP folder in which you will create your project. It is assumed you have permissions to create projects in this folder. |
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+- [Apigee Hybrid Setup Environment Kubernetes](https://github.com/carlosfrias/apigee-hybrid-workspace/blob/master/apigee-hybrid-gke/roles/apigee-hybrid-setup-environment-kubernetes/README.md)
 
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
-
-License
--------
-
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
