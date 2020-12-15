@@ -30,6 +30,7 @@
   when: ansible_os_family == "Debian"
 
 - name: Remove docker legacy
+  tags: ['docker']
   become: true
   package:
     name: "{{ item }}"
@@ -52,17 +53,20 @@
 
 - block:
   - name: Stop Docker service
+#    tags: ['docker']
     service:
       name: docker
       state: stopped
 
   - name: Down links
+#    tags: ['docker']
     shell: "{{ item }}"
     with_items:
       - "ip link set docker0 down"
       - "ip link del docker0"
 
   - name: Update docker daemon config
+#    tags: ['docker']
     copy:
       content: |
         {
@@ -81,11 +85,13 @@
       dest: /etc/docker/daemon.json
 
   - name: Start Docker service
+#    tags: ['docker']
     service:
       name: docker
       state: started
 
   become: yes
+  tags: ['docker']
   when: ansible_distribution_release == "rodete"
 
 - name: Install kubectx
@@ -132,6 +138,7 @@
     mode: 0777
 
 - name: Docker pull read-yaml command for ACM
+  tags: ['docker']
   shell: docker pull gcr.io/config-management-release/read-yaml:latest
   poll: 0
   retries: 50

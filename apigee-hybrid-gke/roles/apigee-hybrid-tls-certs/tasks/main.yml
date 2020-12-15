@@ -38,7 +38,7 @@
       - { src: "{{ PROVIDED_PRIVATE_KEY }}", dest: "{{ SSL_KEY_PATH }}" }
       - { src: "{{ PROVIDED_PUBLIC_CERT }}", dest: "{{ SSL_CERT_PATH }}" }
 
-  when: PROVIDED_PUBLIC_CERT is defined and PROVIDED_PRIVATE_KEY is defined
+  when: PROVIDED_PUBLIC_CERT is defined and PROVIDED_PRIVATE_KEY is defined and is_provided_public_cert.stat.exists == True and is_provided_private_key.stat.exists == True
 
 - block: 
   - name: Create Directory Structure

@@ -1,8 +1,14 @@
 ---
 # tasks file for roles/apigee-hybrid-apigeectl-configure
+
+- name: Obtain PROJECT_NUMBER
+  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
+  register: project_number
+
 - name: Set attributes in cache
   set_fact: 
     cacheable: yes
+    PROJECT_NUMBER: "{{ project_number.stdout }}"
     KMS_ENCRYPTION_KEY: "{{ KMS_ENCRYPTION_KEY | default(DEFAULT_KMS_ENCRYPTION_KEY) }}"
     KVM_ENCRYPTION_KEY: "{{ KVM_ENCRYPTION_KEY | default(DEFAULT_KVM_ENCRYPTION_KEY) }}"
     CACHE_ENCRYPTION_KEY: "{{ CACHE_ENCRYPTION_KEY | default(DEFAULT_CACHE_ENCRYPTION_KEY) }}"
