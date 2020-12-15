@@ -53,20 +53,20 @@
 
 - block:
   - name: Stop Docker service
-#    tags: ['docker']
+    tags: ['docker']
     service:
       name: docker
       state: stopped
 
   - name: Down links
-#    tags: ['docker']
+    tags: ['docker']
     shell: "{{ item }}"
     with_items:
       - "ip link set docker0 down"
       - "ip link del docker0"
 
   - name: Update docker daemon config
-#    tags: ['docker']
+    tags: ['docker']
     copy:
       content: |
         {
@@ -85,7 +85,7 @@
       dest: /etc/docker/daemon.json
 
   - name: Start Docker service
-#    tags: ['docker']
+    tags: ['docker']
     service:
       name: docker
       state: started
