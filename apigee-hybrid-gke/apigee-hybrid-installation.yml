@@ -3,7 +3,7 @@
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - apigee-hybrid-region-single-asm-1.7.3-azure-variables.yml
+    - apigee-hybrid-region-single-asm-1.7.3-variables.yml
 
   vars:
     AZ_RESOURCE_GROUP: "friasc"
@@ -23,8 +23,8 @@
     - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
     - { role: apigee-hybrid-apigeectl-service-account-create, tags: ['svc-acct'] }
     - { role: apigee-hybrid-tls-certs, tags: ['tls'] }
-  #    - { role: apigee-hybrid-gke-create, tags: ['gke'] }
-    - { role: apigee-hybrid-aks-create, tags: ['aks'] }
+    - { role: apigee-hybrid-gke-create, tags: ['gke'] }
+#    - { role: apigee-hybrid-aks-create, tags: ['aks'] }
     - { role: apigee-hybrid-synchronizer-enable, tags: ['synchronizer'] }
     - { role: apigee-hybrid-apigee-connect-enable, tags: ['connect'] }
     - { role: apigee-hybrid-cert-manager-install, tags: ['cert-mgr'], CLUSTER_KUBECONFIG: "{{ AZ_KUBECONFIG }}" }
