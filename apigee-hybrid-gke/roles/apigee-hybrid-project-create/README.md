@@ -16,7 +16,6 @@ Role Variables
 
 The variables that can be passed into this role are listed in the table below:
 
-| --- | --- |
 | Variable Name | Purpose |
 |---------------|---------|
 | PROJECT_ID | Name of the project |
