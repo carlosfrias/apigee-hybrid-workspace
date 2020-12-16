@@ -8,3 +8,4 @@ DEFAULT_SYSTEM_TOOLS:
   - 'tree'
   - 'netcat'
   - 'kubectl'
+  - 'docker-ce'
