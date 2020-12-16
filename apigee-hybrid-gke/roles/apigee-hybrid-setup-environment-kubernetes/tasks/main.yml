@@ -51,6 +51,13 @@
 #  retries: 50
 #  async: 180
 
+- name: Install docker
+  tags: ['docker']
+  become: true
+  package:
+    name: "docker-ce"
+    state: present
+
 - block:
   - name: Stop Docker service
     tags: ['docker']
