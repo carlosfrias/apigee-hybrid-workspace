@@ -4,4 +4,5 @@ workdir
 research
 *.iml
 transaction.yaml
-
+*/collection*/**
+**/*.tar.gz

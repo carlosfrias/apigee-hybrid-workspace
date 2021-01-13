@@ -5,12 +5,13 @@
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
     - apigee-hybrid-region-single-asm-1.7.3-variables.yml
 
-  vars:
-    AZ_RESOURCE_GROUP: "friasc"
-    AZ_REGION: "eastus"
+#  vars:
+#    AZ_RESOURCE_GROUP: "friasc"
+#    AZ_REGION: "eastus"
 
   roles: 
     - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env','k-tools'] }
+    - { role: apigee-hybrid-setup-environment-docker, tags: ['setup-env','docker'] }
     - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup-env', 'gcp'] }
     - { role: apigee-hybrid-project-create, tags: ['project'] }
     - { role: apigee-hybrid-project-services-enable, tags: ['services'] }

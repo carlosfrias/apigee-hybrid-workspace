@@ -29,18 +29,6 @@
   shell: apt update
   when: ansible_os_family == "Debian"
 
-- name: Remove docker legacy
-  tags: ['docker']
-  become: true
-  package:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - docker-engine
-    - docker-runc
-    - docker-containerd
-  when: ansible_os_family == "Debian"
-
 - name: Install system tools
   become: true
   package: 
@@ -50,56 +38,6 @@
 #  poll: 0
 #  retries: 50
 #  async: 180
-
-- name: Install docker
-  tags: ['docker']
-  become: true
-  package:
-    name: "docker-ce"
-    state: present
-
-- block:
-  - name: Stop Docker service
-    tags: ['docker']
-    service:
-      name: docker
-      state: stopped
-
-  - name: Down links
-    tags: ['docker']
-    shell: "{{ item }}"
-    with_items:
-      - "ip link set docker0 down"
-      - "ip link del docker0"
-
-  - name: Update docker daemon config
-    tags: ['docker']
-    copy:
-      content: |
-        {
-          "data-root": "/usr/local/google/docker",
-          "bip": "192.168.9.1/24",
-          "default-address-pools": [
-            {
-              "base": "192.168.11.0/24",
-              "size": 24
-            }
-          ],
-          "storage-driver": "overlay2",
-          "debug": true,
-          "registry-mirrors": ["https://mirror.gcr.io"]
-        }
-      dest: /etc/docker/daemon.json
-
-  - name: Start Docker service
-    tags: ['docker']
-    service:
-      name: docker
-      state: started
-
-  become: yes
-  tags: ['docker']
-  when: ansible_distribution_release == "rodete"
 
 - name: Install kubectx
   become: yes
