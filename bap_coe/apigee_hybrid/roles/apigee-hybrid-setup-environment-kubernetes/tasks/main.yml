@@ -1,0 +1,92 @@
+---
+- name: Set tools attribute cache
+  set_fact:
+    cacheable: yes
+    TOOLS_DIR: "{{ ansible_user_dir }}/bin"
+    WORK_DIR: "{{ playbook_dir }}/workdir/{{ PROJECT_ID }}"
+
+- name: Set tools attribute cache for Debian
+  set_fact:
+    cacheable: yes
+    TOOLS_DIR: /usr/local/bin
+  when: ansible_os_family == "Debian"
+
+- name: Create WORK_DIR folders
+  file: 
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ playbook_dir }}/ansible/logs"
+    - "{{ WORK_DIR }}"
+    - "{{ TOOLS_DIR }}"
+
+- name: Set system tools to install
+  set_fact: 
+    SYSTEM_TOOLS: "{{ SYSTEM_TOOLS | default(DEFAULT_SYSTEM_TOOLS) }}"    
+
+- name: Update Debian package manager
+  become: true
+  shell: apt update
+  when: ansible_os_family == "Debian"
+
+- name: Install system tools
+  become: true
+  package: 
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ SYSTEM_TOOLS }}"
+#  poll: 0
+#  retries: 50
+#  async: 180
+
+- name: Install kubectx
+  become: yes
+  get_url: 
+    url: https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx
+    dest: "{{ TOOLS_DIR }}/kubectx"
+    mode: 0777
+  poll: 0
+  retries: 50
+  async: 180
+
+- block:
+  - name: Get Latest kops Version tag
+    uri:
+      url: https://api.github.com/repos/kubernetes/kops/releases/latest
+    register: kops_latest
+
+  - name: Extract kops Version
+    set_fact: 
+      cacheable: yes
+      KOPS_VERSION: "{{ KOPS_VERSION | default(kops_latest.json.name) }}"
+
+  - name: Install Kops
+    become: yes
+    get_url: 
+      url: https://github.com/kubernetes/kops/releases/download/{{ KOPS_VERSION }}/kops-{{ ansible_system | lower }}-amd64
+      dest: "{{ TOOLS_DIR }}/kops"
+      mode: 0777      
+    poll: 0
+    retries: 50
+    async: 180
+
+- name: Download nomos
+  shell: gsutil cp gs://config-management-release/released/latest/linux_amd64/nomos {{ WORK_DIR }}/nomos
+  args:
+    creates: "{{ WORK_DIR }}/nomos"
+
+- name: Install nomos
+  become: yes
+  copy:
+    src: "{{ WORK_DIR }}/nomos"
+    dest: "{{ TOOLS_DIR }}/nomos"
+    mode: 0777
+
+- name: Docker pull read-yaml command for ACM
+  tags: ['docker']
+  shell: docker pull gcr.io/config-management-release/read-yaml:latest
+  poll: 0
+  retries: 50
+  async: 180
+  when: ansible_os_family != "Debian"
+

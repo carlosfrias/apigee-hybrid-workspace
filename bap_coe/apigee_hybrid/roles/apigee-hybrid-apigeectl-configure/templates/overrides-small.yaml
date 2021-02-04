@@ -1,0 +1,57 @@
+#
+# This sample is ideal for a quick start. It uses the minimum recommended footprint to start apigee runtime components.
+# As much as possible, the overrides uses default settings and values. All the minimum replicas are set 1
+#
+
+# GCP project name where the org is provisioned.
+gcp:
+  projectID: "{{ PROJECT_ID }}"
+  name: "{{ CLUSTER_NAME }}"
+  region: "{{ REGION }}"
+# Apigee org name.
+org: "{{ PROJECT_ID }}"
+# Kubernetes cluster name details
+k8sCluster:
+  name: "{{ CLUSTER_NAME }}"
+  region: "{{ REGION }}"
+
+# unique identifier for this installation.
+instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
+
+virtualhosts:
+  - name: "{{ ENV_GROUP }}"
+    # either SSLSecret or the paths
+    # sslSecret: "test-sslsecret"
+    # Certificate for the domain name; this can be self signed.
+    sslCertPath: "{{ SSL_CERT_PATH }}"
+    # Private key for the domain name; this can be self signed.
+    sslKeyPath: "{{ SSL_KEY_PATH }}"
+    # optional
+    # additionalGateways: ["name of the istio gateway, if in different ns, then ns/gatewayname"]
+
+envs:
+    # Apigee environment name.
+  - name: "{{ ENV_NAME }}"
+    # Service accounts for sync and UDCA.
+    serviceAccountPaths:
+      synchronizer: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-synchronizer.json"
+      udca: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-udca.json"
+
+mart:
+  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+
+metrics:
+  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-metrics.json"
+
+connectAgent:
+  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+
+watcher:
+  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-watcher.json"
+
+{% if CASSANDRA_SEED_NODE_IP is defined and CASSANDRA_SEED_NODE_IP | length > 0 %}
+cassandra:
+  multiRegionSeedHost: {{ CASSANDRA_SEED_NODE_IP }}
+  datacenter: {{ CASSANDRA_DATA_CENTER_NAME }}
+  rack: {{ CASSANDRA_RACK_NAME }}
+{% endif %}

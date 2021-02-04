@@ -1,0 +1,26 @@
+---
+# tasks file for roles/apigee-hybrid-apigee-connect-enable
+- name: Retrieve Bearer token
+  shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
+  register: bearer_token
+
+- name: Capture token
+  set_fact: 
+    TOKEN: "{{ bearer_token.stdout }}"
+
+- name: Enable apigee connect 
+  uri:
+    url: https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}
+    method: PUT
+    headers: 
+      Authorization: Bearer {{ TOKEN }}
+    body_format: json
+    status_code: ['200', '409']
+    body:
+      name: "{{ PROJECT_ID }}"
+      properties: 
+        property:
+          - { name: "features.hybrid.enabled", value: "true" }
+          - { name: "features.mart.connect.enabled", value: "true" }
+
+

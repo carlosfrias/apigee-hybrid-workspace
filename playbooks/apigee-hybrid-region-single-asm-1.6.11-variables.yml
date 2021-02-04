@@ -1,0 +1,20 @@
+---
+PROJECT_ID: "friasc-hybrid-12152020-1831"
+REGION: "us-east1"
+ENV_NAME: "test"
+APIGEE_RUNTIME_SIZE: "medium"
+CLUSTER_NAME: "apigee-hybrid-1"
+CLUSTER_ZONE: "{{ REGION }}-b"
+NODE_SIZE: "e2-standard-8"
+NODE_COUNT: 8
+CASSANDRA_DATA_CENTER_NAME: "dc-1"
+CASSANDRA_RACK_NAME: "ra-1"
+PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
+PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
+ISTIO_VERSION: "1.6.11"
+ISTIO_VERSION_EXT: "asm.1"
+ASM_KPT_VERSION: "1.6-asm"
+VALIDATE_PROJECT_ID: "{{ PROJECT_ID }}"
+VALIDATE_PROXY_URI_ENDPOINT: /notarget
+VALIDATE_PROXY_IP: "{{ INGRESS_IP }}"
+VALIDATE_PROXY_PORT: 443

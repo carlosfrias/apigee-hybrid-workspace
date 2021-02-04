@@ -1,0 +1,4 @@
+---
+# defaults file for roles/apigee-hybrid-setup-environment-az
+
+az_repo:  "https://packages.microsoft.com/repos/azure-cli/"

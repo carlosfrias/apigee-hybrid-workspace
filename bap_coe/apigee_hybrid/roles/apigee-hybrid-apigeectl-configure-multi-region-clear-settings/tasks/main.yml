@@ -1,0 +1,8 @@
+---
+# tasks file for roles/apigee-hybrid-apigeectl-configure-multi-region-clear-settings
+- name: Clear Cassandra Multi Region Seed Host IP Logic Trigger
+  set_fact:
+    cacheable: yes
+    CASSANDRA_SEED_NODE_IP: ""
+    CASSANDRA_DATA_CENTER_NAME: ""
+    CASSANDRA_RACK_NAME: ""

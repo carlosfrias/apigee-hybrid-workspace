@@ -1,0 +1,32 @@
+---
+# tasks file for roles/apigee-hybrid-project-remove
+- name: Select remove cluster alias if available
+  ignore_errors: true
+  shell: |
+    kubectx -u 
+    kubectx -d {{ FQ_CLUSTER_NAME }}
+  poll: 0
+  retries: 50
+  async: 90
+
+- name: Delete Cloud Repository for GCP Project
+  ignore_errors: true
+  shell: gcloud source repos delete config-repo --project {{ PROJECT_ID }}
+  poll: 0
+  retries: 50
+  async: 90
+
+- name: Delete GCP project 
+  ignore_errors: true
+  shell: gcloud projects delete {{ PROJECT_ID }} --quiet
+  poll: 0
+  retries: 50
+  async: 90
+
+- name: Delete WORK_DIR folder
+  file:
+    path: "{{ WORK_DIR }}"
+    state: absent        
+  poll: 0
+  retries: 50
+  async: 90

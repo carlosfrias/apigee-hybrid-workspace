@@ -1,0 +1,17 @@
+---
+# tasks file for roles/apigee-hybrid-firewall-region-enable
+- name: Enable Inter-region connectivity
+  shell: |
+    gcloud compute firewall-rules create enable-inter-region \
+      --project={{ PROJECT_ID }} \
+      --direction=INGRESS \
+      --priority=1000 \
+      --network=default \
+      --action=ALLOW \
+      --rules=tcp,udp,icmp \
+      --source-ranges=100.64.0.0/10,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'already exists' not in status.stderr"
+

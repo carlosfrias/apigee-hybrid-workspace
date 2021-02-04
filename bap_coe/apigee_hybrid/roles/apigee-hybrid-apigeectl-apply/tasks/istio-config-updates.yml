@@ -1,0 +1,16 @@
+---
+# This approach was indicated but has not worked in practice. I reverted to update the istio-operator.yml file
+- name: Apply meshConfig updates to ASM for istio version 1.5
+  shell: |
+    istioctl manifest apply --set profile={{ ASM_PROFILE_NAME }} \
+      --set values.gateways.istio-ingressgateway.loadBalancerIP={{ INGRESS_IP }}
+  when: ISTIO_VERSION is version("1.6","<")
+
+- name: Update load balancer IP
+  shell: |
+    istioctl install --set profile={{ ASM_PROFILE_NAME }} \
+      --set values.gateways.istio-ingressgateway.loadBalancerIP={{ INGRESS_IP }}
+  poll: 90
+  retries: 100
+  async: 50
+
