@@ -3,7 +3,7 @@
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - apigee-hybrid-region-single-asm-1.7.3-variables.yml
+    - ../apigee_hybrid/apigee-hybrid-region-single-asm-1.7.3-variables.yml
 
   tasks:
     - name: TLS Validation Endpoints
