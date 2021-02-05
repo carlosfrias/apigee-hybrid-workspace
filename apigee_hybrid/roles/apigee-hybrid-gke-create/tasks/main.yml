@@ -13,8 +13,9 @@
     cacheable: yes
     SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
 
-- name: Set KUBECONFIG cache
+- name: Set CLUSTER_KUBECONFIG path to cache
   set_fact:
+    cacheable: yes
     FQ_CLUSTER_NAME: "{{ FQ_CLUSTER_NAME | default('gke_' + PROJECT_ID + '_' + CLUSTER_ZONE + '_' + CLUSTER_NAME) }}"
     CLUSTER_KUBECONFIG: "{{ CLUSTER_KUBECONFIG | default(WORK_DIR + '/' + CLUSTER_NAME + '-' + CLUSTER_ZONE + '.context.json') }}"
 

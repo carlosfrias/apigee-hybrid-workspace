@@ -4,6 +4,7 @@
     cacheable: yes
     TOOLS_DIR: "{{ ansible_user_dir }}/bin"
     WORK_DIR: "{{ playbook_dir }}/workdir/{{ PROJECT_ID }}"
+    KUBECTL_VERSION: "{{ KUBECTL_VERSION | default(DEFAULT_KUBECTL_VERSION) }}"
 
 - name: Set tools attribute cache for Debian
   set_fact:
@@ -21,7 +22,8 @@
     - "{{ TOOLS_DIR }}"
 
 - name: Set system tools to install
-  set_fact: 
+  set_fact:
+    cacheable: yes
     SYSTEM_TOOLS: "{{ SYSTEM_TOOLS | default(DEFAULT_SYSTEM_TOOLS) }}"    
 
 - name: Update Debian package manager

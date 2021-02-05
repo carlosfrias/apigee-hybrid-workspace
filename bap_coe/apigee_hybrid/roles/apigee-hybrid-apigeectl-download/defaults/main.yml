@@ -1,2 +1,4 @@
 ---
 # defaults file for roles/apigee-hybrid-apigeectl-download
+DEFAULT_APIGEE_HYBRID_SETUP_BASE_URL: https://storage.googleapis.com/apigee-release/hybrid/apigee-hybrid-setup
+

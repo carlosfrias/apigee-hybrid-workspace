@@ -1,5 +1,6 @@
 ---
 # defaults file for kubernetes-tools
+DEFAULT_KUBECTL_VERSION: 1.20
 DEFAULT_ISTIO_VERSION: "1.6.11"
 DEFAULT_ISTIO_VERSION_EXT: "asm.1"
 DEFAULT_ASM_KPT_VERSION: "1.6-asm"

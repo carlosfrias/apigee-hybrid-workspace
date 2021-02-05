@@ -6,6 +6,7 @@
 
 - name: Set KUBECONFIG cache
   set_fact:
+    cacheable: yes
     FQ_CLUSTER_NAME: "{{ FQ_CLUSTER_NAME | default('gke_' + PROJECT_ID + '_' + CLUSTER_ZONE + '_' + CLUSTER_NAME) }}"
     CLUSTER_KUBECONFIG: "{{ CLUSTER_KUBECONFIG | default(WORK_DIR + '/' + CLUSTER_NAME + '-' + CLUSTER_ZONE + '.context.json') }}"
   when: CLUSTER_KUBECONFIG is not defined or FQ_CLUSTER_NAME is not defined
@@ -16,28 +17,24 @@
     ISTIO_VERSION: "{{ ISTIO_VERSION | default(DEFAULT_ISTIO_VERSION) }}"
     ISTIO_VERSION_EXT: "{{ ISTIO_VERSION_EXT | default(DEFAULT_ISTIO_VERSION_EXT) }}"
     ASM_KPT_VERSION: "{{ ASM_KPT_VERSION | default(DEFAULT_ASM_KPT_VERSION) }}"
+    ASM_DOWNLOAD_BASE_URL: "{{ ASM_DOWNLOAD_BASE_URL | default(DEFAULT_ASM_DOWNLOAD_BASE_URL) }}"
+    ASM_DOWNLOAD_FILENAME: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}.tar.gz"
+    ASM_DOWNLOAD_FILENAME_ARCHITECTURE: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}-{{ facter_architecture }}.tar.gz"
 
 - name: Set tools attribute cache
   set_fact:
     cacheable: yes
     ISTIO_FOLDER_NAME: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}"
-    ASM_DOWNLOAD: "https://storage.googleapis.com/gke-release/asm/istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}.tar.gz"
-    ASM_DOWNLOAD_RESCUE: "https://storage.googleapis.com/gke-release/asm/istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}-{{ facter_architecture }}.tar.gz"
+    ASM_DOWNLOAD: "{{ ASM_DOWNLOAD_BASE_URL }}/{{ ASM_DOWNLOAD_FILENAME }}"
+    ASM_DOWNLOAD_RESCUE: "{{ ASM_DOWNLOAD_BASE_URL }}/{{ ASM_DOWNLOAD_FILENAME_ARCHITECTURE }}"
     ASM_KPT_PACKAGE: "https://github.com/GoogleCloudPlatform/anthos-service-mesh-packages.git/asm@release-{{ ASM_KPT_VERSION }}"
     ISTIO_ASM_REVISION: "asm-{{ ISTIO_VERSION | regex_replace('\\.', '') }}-{{ ISTIO_VERSION_EXT.split('.')[1] }}"
     AUTO_INJECTION_NAMESPACE: "{{ AUTO_INJECTION_NAMESPACE | default(DEFAULT_AUTO_INJECTION_NAMESPACE) }}"
     ASM_PROFILE_NAME: "{{ ASM_PROFILE_NAME | default(DEFAULT_ASM_PROFILE_NAME) }}"
     SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
+    CSM_DOWNLOAD_BASE_URL: "{{ CSM_DOWNLOAD_BASE_URL | default(DEFAULT_CSM_DOWNLOAD_BASE_URL) }}"
+
+- name: Install Istio GKE
+  include_tasks: install-istio-{{ ISTIO_VERSION }}-gke.yml
 
 
-- block:
-  - name: Install Istio GKE
-    include_tasks: install-istio-{{ ISTIO_VERSION }}-1-gke.yml
-
-  - name: Common config GKE
-    include_tasks: common-config-gke.yml
-
-  - name: Post-Install Istio GKE
-    include_tasks: install-istio-{{ ISTIO_VERSION }}-2-gke.yml
-
-  when: ISTIO_VERSION is version('1.7.3', '<=')
