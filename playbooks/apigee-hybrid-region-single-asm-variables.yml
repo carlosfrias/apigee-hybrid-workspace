@@ -1,6 +1,6 @@
 ---
 #APIGEE_VERSION: 1.3.3
-PROJECT_ID: "friasc-hybrid-02052021-2204"
+PROJECT_ID: "friasc-hybrid-02052021-2221"
 REGION: "us-east1"
 ENV_NAME: "test"
 APIGEE_RUNTIME_SIZE: "medium"
@@ -14,8 +14,8 @@ PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.p
 PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
 
 ISTIO_VERSION: "1.6.14"
-ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split(.)[0] }}.{{ ISTIO_VERSION.split(.)[1] }}]"
-ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split(.)[2] }}"
+ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split('.')[0] }}.{{ ISTIO_VERSION.split('.')[1] }}"
+ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split('.')[2] }}"
 
 ISTIO_VERSION_EXT: "asm.0"
 ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
@@ -41,4 +41,4 @@ SERVICE_ACCOUNTS:
 - apigee-cassandra
 - apigee-logger
 - apigee-watcher
-#- apigee-org-admin
+- apigee-org-admin

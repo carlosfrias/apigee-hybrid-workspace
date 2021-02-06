@@ -90,7 +90,7 @@
 
 - name: Update istio configuration file for Apigee hybrid
   tags: ['istio-config']
-  include_tasks: istio-operator-file-update-{{ ISTIO_VERSION }}.yml
+  include_tasks: istio-operator-file-update-1.6.11.yml
 
 - name: Install ASM
   tags: ['istio-config']

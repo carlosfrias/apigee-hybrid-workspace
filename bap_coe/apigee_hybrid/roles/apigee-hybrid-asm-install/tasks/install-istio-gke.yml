@@ -75,7 +75,7 @@
   with_items:
     - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded-{{ CLUSTER_NAME }}.yaml" }
     - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw-{{ CLUSTER_NAME }}.yaml" }
-  when: ISTIO_VERSION IS version_compare('1.6.14','!=')
+  when: ISTIO_VERSION is version_compare('1.6.14','!=')
 
 - name: Clear original ASM output files
   file:
