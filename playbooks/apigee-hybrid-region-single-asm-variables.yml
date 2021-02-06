@@ -1,6 +1,6 @@
 ---
 #APIGEE_VERSION: 1.3.3
-PROJECT_ID: "friasc-hybrid-02052021-2221"
+PROJECT_ID: "friasc-hybrid-02052021-2301"
 REGION: "us-east1"
 ENV_NAME: "test"
 APIGEE_RUNTIME_SIZE: "medium"
@@ -41,4 +41,3 @@ SERVICE_ACCOUNTS:
 - apigee-cassandra
 - apigee-logger
 - apigee-watcher
-- apigee-org-admin
