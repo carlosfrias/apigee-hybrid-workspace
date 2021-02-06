@@ -1,28 +1,5 @@
 ---
 # tasks file for roles/apigee-hybrid-apigeectl-download
-- name: Set Apigee hybrid base url
-  set_fact:
-    cacheable: yes
-    APIGEE_HYBRID_SETUP_BASE_URL: "{{ APIGEE_HYBRID_SETUP_BASE_URL | default(DEFAULT_APIGEE_HYBRID_SETUP_BASE_URL) }}"
-
-- block:
-  - name: Set Apigee hybrid version
-    set_fact:
-      cacheable: yes
-      APIGEE_HYBRID_VERSION_URL: "{{ APIGEE_HYBRID_SETUP_BASE_URL }}/current-version.txt?ignoreCache=1"
-
-  - name: Store latest version
-    shell: curl -s {{ APIGEE_HYBRID_VERSION_URL }}
-    register: latest_apigee_version
-    when: APIGEE_VERSION is undefined
-
-  - name: Set Apigee version
-    set_fact:
-      cacheable: yes
-      APIGEE_VERSION: "{{ APIGEE_VERSION | default(latest_apigee_version.stdout) }}"
-
-  when: APIGEE_VERSION is not defined
-
 - name: Construct Apigee hybrid file name
   set_fact:
     cacheable: yes
@@ -37,7 +14,7 @@
 - name: Set Apigee hybrid download link
   set_fact:
     cacheable: yes
-    APIGEE_HYBRID_PACKAGE_DOWNLOAD_LINK: "{{ APIGEE_HYBRID_SETUP_BASE_URL }}/{{ APIGEE_VERSION }}/{{ APIGEE_HYBRID_ARCHIVE_NAME }}"
+    APIGEE_HYBRID_PACKAGE_DOWNLOAD_LINK: "{{ APIGEE_HYBRID_SETUP_BASE_URI }}/{{ APIGEE_VERSION }}/{{ APIGEE_HYBRID_ARCHIVE_NAME }}"
 
 - name: Download Apigee hybrid archive
   get_url:

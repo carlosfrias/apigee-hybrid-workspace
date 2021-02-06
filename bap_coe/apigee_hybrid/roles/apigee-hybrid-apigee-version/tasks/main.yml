@@ -1,0 +1,20 @@
+---
+# tasks file for apigee-hybrid-apigee-version
+- name: Set Apigee hybrid base url
+  set_fact:
+    cacheable: yes
+    APIGEE_HYBRID_SETUP_BASE_URI: "{{ APIGEE_HYBRID_SETUP_BASE_URI | default(DEFAULT_APIGEE_HYBRID_SETUP_BASE_URI) }}"
+
+- name: Set Apigee hybrid version
+  set_fact:
+    cacheable: yes
+    APIGEE_HYBRID_VERSION_URL: "{{ APIGEE_HYBRID_SETUP_BASE_URI }}/{{ DEFAULT_APIGEE_HYBRID_VERSION_SETUP_BASE_FILENAME }}"
+
+- name: Store latest version
+  shell: curl -s {{ APIGEE_HYBRID_VERSION_URL }}
+  register: latest_apigee_version
+
+- name: Set Apigee version
+  set_fact:
+    cacheable: yes
+    APIGEE_VERSION: "{{ APIGEE_VERSION | default(latest_apigee_version.stdout) }}"

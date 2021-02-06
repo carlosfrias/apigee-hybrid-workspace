@@ -9,7 +9,7 @@
 - name: Build download file name for install_asm
   set_fact:
     cacheable: yes
-    CSM_DOWNLOAD_BASE_FILENAME: "install_asm_{{ ISTIO_VERSION_BASE }}"
+    CSM_DOWNLOAD_BASE_FILENAME: "install_asm_{{ ISTIO_VERSION_MAJOR }}"
 
 - block:
   - name: Retrieve Bearer token, if not available
@@ -67,15 +67,15 @@
   args:
     chdir: "{{ WORK_DIR }}"
 
-# This doesn't seem to be occurring for 1.6.14
-#- name: Backup ASM output files with cluster name
-#  copy:
-#    src: "{{ item.src }}"
-#    dest: "{{ item.dest }}"
-#    backup: yes
-#  with_items:
-#    - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded-{{ CLUSTER_NAME }}.yaml" }
-#    - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw-{{ CLUSTER_NAME }}.yaml" }
+- name: Backup ASM output files with cluster name
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    backup: yes
+  with_items:
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded-{{ CLUSTER_NAME }}.yaml" }
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw-{{ CLUSTER_NAME }}.yaml" }
+  when: ISTIO_VERSION IS version_compare('1.6.14','!=')
 
 - name: Clear original ASM output files
   file:

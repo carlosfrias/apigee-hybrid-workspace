@@ -8,8 +8,7 @@
     REGION: "us-central1"
     CLUSTER_NAME: "apigee-hybrid-1"
     PROJECTS:
-    - "friasc-hybrid-01272021-1928"
-    - "friasc-hybrid-02042021-1247"
+    - "friasc-hybrid-02052021-2125"
 
   collections: bap_coe.apigee_hybrid
 

@@ -1,2 +1,12 @@
 ---
 # defaults file for roles/apigee-hybrid-apigeectl-service-account-create
+DEFAULT_SERVICE_ACCOUNTS:
+  - apigee-metrics
+  - apigee-synchronizer
+  - apigee-udca
+  - apigee-mart
+  - apigee-cassandra
+  - apigee-logger
+  - apigee-watcher
+  - apigee-org-admin
+

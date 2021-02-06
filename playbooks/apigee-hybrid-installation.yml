@@ -11,6 +11,7 @@
     - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env','k-tools'] }
     - { role: apigee-hybrid-setup-environment-docker, tags: ['setup-env','docker'] }
     - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup-env', 'gcp'] }
+    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
     - { role: apigee-hybrid-project-create, tags: ['project'] }
     - { role: apigee-hybrid-project-services-enable, tags: ['services'] }
     - { role: apigee-hybrid-org-create, tags: ['org'] }

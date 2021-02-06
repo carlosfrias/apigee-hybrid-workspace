@@ -7,8 +7,8 @@
 - name: Set KUBECONFIG cache
   set_fact:
     cacheable: yes
-    FQ_CLUSTER_NAME: "{{ FQ_CLUSTER_NAME | default('gke_' + PROJECT_ID + '_' + CLUSTER_ZONE + '_' + CLUSTER_NAME) }}"
-    CLUSTER_KUBECONFIG: "{{ CLUSTER_KUBECONFIG | default(WORK_DIR + '/' + CLUSTER_NAME + '-' + CLUSTER_ZONE + '.context.json') }}"
+    FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
+    CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.context.json"
   when: CLUSTER_KUBECONFIG is not defined or FQ_CLUSTER_NAME is not defined
 
 - name: Set tools attribute cache
@@ -35,6 +35,11 @@
     CSM_DOWNLOAD_BASE_URL: "{{ CSM_DOWNLOAD_BASE_URL | default(DEFAULT_CSM_DOWNLOAD_BASE_URL) }}"
 
 - name: Install Istio GKE
+  include_tasks: install-istio-gke.yml
+  when: ISTIO_VERSION is version_compare('1.6.11','!=')
+
+- name: Install Istio GKE
   include_tasks: install-istio-{{ ISTIO_VERSION }}-gke.yml
+  when: ISTIO_VERSION is version_compare('1.6.11','==')
 
 

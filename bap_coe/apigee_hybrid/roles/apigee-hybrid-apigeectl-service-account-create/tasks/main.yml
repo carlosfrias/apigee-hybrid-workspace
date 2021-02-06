@@ -3,20 +3,18 @@
 - name: Set default project
   shell: gcloud config set project {{ PROJECT_ID }}
 
+- name: Service account list updates
+  set_fact:
+    cacheable: yes
+    SERVICE_ACCOUNTS: "{{ SERVICE_ACCOUNTS | default(DEFAULT_SERVICE_ACCOUNTS) }}"
 - name: Create Service Accounts
   shell: echo 'y' | ./tools/create-service-account {{ item }} ./service-accounts
   args:
     chdir: "{{ HYBRID_FILES }}"
-  with_items:
-    - apigee-metrics
-    - apigee-synchronizer
-    - apigee-udca
-    - apigee-mart
-    - apigee-cassandra
-    - apigee-logger
-    - apigee-watcher
-    - apigee-org-admin
+  with_items: "{{ SERVICE_ACCOUNTS }}"
 
 - name: Assign apigee-org-admin role
-  shell: gcloud projects add-iam-policy-binding {{ PROJECT_ID }} --member serviceAccount:apigee-org-admin@{{ PROJECT_ID }}.iam.gserviceaccount.com --role roles/apigee.admin
-
+  shell: gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
+          --member serviceAccount:apigee-org-admin@{{ PROJECT_ID }}.iam.gserviceaccount.com \
+          --role roles/apigee.admin
+  when: APIGEE_VERSION is version_compare('1.4', '<')

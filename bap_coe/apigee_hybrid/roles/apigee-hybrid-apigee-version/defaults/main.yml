@@ -1,0 +1,5 @@
+---
+# defaults file for apigee-hybrid-apigee-version
+DEFAULT_APIGEE_HYBRID_SETUP_BASE_URI: https://storage.googleapis.com/apigee-release/hybrid/apigee-hybrid-setup
+DEFAULT_APIGEE_HYBRID_VERSION_SETUP_BASE_FILENAME: current-version.txt?ignoreCache=1
+
