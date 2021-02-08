@@ -7,6 +7,8 @@
   set_fact:
     cacheable: yes
     SERVICE_ACCOUNTS: "{{ SERVICE_ACCOUNTS | default(DEFAULT_SERVICE_ACCOUNTS) }}"
+    SERVICE_ACCOUNT_ADMIN: "{{ SERVICE_ACCOUNT_ADMIN | default(DEFAULT_SERVICE_ACCOUNT_ADMIN) }}"
+
 - name: Create Service Accounts
   shell: echo 'y' | ./tools/create-service-account {{ item }} ./service-accounts
   args:
@@ -15,6 +17,6 @@
 
 - name: Assign apigee-org-admin role
   shell: gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-          --member serviceAccount:apigee-org-admin@{{ PROJECT_ID }}.iam.gserviceaccount.com \
+          --member serviceAccount:{{ SERVICE_ACCOUNT_ADMIN }}@{{ PROJECT_ID }}.iam.gserviceaccount.com \
           --role roles/apigee.admin
-  when: APIGEE_VERSION is version_compare('1.4', '<')
+  when: APIGEE_VERSION is version_compare('1.4', '<') and (SERVICE_ACCOUNT_ADMIN | trim | length )> 0

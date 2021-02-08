@@ -3,12 +3,17 @@
 - name: Set container context
   shell: kubectx {{ CLUSTER_NAME }}
 
-- block:
   - name: Invoke init command
     shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
     args:
-      chdir: "{{ APIGEECTL_DIR }}"
+    chdir: "{{ APIGEECTL_DIR }}"
 
+- name: apigeectl init needs a few seconds to complete
+  pause:
+    echo: "apigeectl init needs a few seconds to complete"
+    seconds: 3
+
+- block:
   - name: Invoke apply command
     shell: ./apigeectl apply -f {{ OVERRIDE_FILE }}
     args:

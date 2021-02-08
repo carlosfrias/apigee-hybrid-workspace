@@ -10,3 +10,4 @@ DEFAULT_SERVICE_ACCOUNTS:
   - apigee-watcher
   - apigee-org-admin
 
+DEFAULT_SERVICE_ACCOUNT_ADMIN: apigee-org-admin

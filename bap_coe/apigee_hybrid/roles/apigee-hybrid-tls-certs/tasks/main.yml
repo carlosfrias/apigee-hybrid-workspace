@@ -11,15 +11,13 @@
 
 - name: Assert whether private key was provided
   stat:
-    path: "{{ PROVIDED_PRIVATE_KEY }}"
+    path: "{{ PROVIDED_PRIVATE_KEY | default(' ') }}"
   register: is_provided_private_key
-  when: PROVIDED_PRIVATE_KEY is defined
-  
+
 - name: Assert whether public cert was provided
   stat:
-    path: "{{ PROVIDED_PUBLIC_CERT }}"
+    path: "{{ PROVIDED_PUBLIC_CERT  | default(' ') }}"
   register: is_provided_public_cert
-  when: PROVIDED_PUBLIC_CERT is defined
 
 - block:
 
