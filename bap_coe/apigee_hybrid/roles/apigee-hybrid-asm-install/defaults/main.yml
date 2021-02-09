@@ -4,7 +4,8 @@ DEFAULT_CERT_MANAGER_VERSION: 0.14.2
 DEFAULT_AUTO_INJECTION_NAMESPACE: default
 DEFAULT_ASM_PROFILE_NAME: "asm-gcp"
 DEFAULT_ASM_DOWNLOAD_BASE_URL: "https://storage.googleapis.com/gke-release/asm"
+DEFAULT_CSM_DOWNLOAD_BASE_URL: "https://storage.googleapis.com/csm-artifacts/asm"
+
 ASM_SYSTEM_DEPENDENCIES:
 - jq
 
-DEFAULT_CSM_DOWNLOAD_BASE_URL: "https://storage.googleapis.com/csm-artifacts/asm"

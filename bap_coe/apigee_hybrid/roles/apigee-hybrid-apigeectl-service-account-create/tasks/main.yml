@@ -3,7 +3,7 @@
 - name: Set default project
   shell: gcloud config set project {{ PROJECT_ID }}
 
-- name: Service account list updates
+- name: Cache any updates to the service account list using SERVICE_ACCOUNTS
   set_fact:
     cacheable: yes
     SERVICE_ACCOUNTS: "{{ SERVICE_ACCOUNTS | default(DEFAULT_SERVICE_ACCOUNTS) }}"
@@ -15,8 +15,18 @@
     chdir: "{{ HYBRID_FILES }}"
   with_items: "{{ SERVICE_ACCOUNTS }}"
 
-- name: Assign apigee-org-admin role
+- name: Create apigee-org-admin service account
+  shell: |
+    gcloud iam service-accounts create apigee-org-admin \
+    --project={{ PROJECT_ID }} \
+    --display-name=apigee-org-admin
+  register: status
+  failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stdout"
+    - "'already exists' not in status.stderr"
+
+- name: Assign apigee admin role to apigee-org-admin
   shell: gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-          --member serviceAccount:{{ SERVICE_ACCOUNT_ADMIN }}@{{ PROJECT_ID }}.iam.gserviceaccount.com \
+          --member serviceAccount:apigee-org-admin@{{ PROJECT_ID }}.iam.gserviceaccount.com \
           --role roles/apigee.admin
-  when: APIGEE_VERSION is version_compare('1.4', '<') and (SERVICE_ACCOUNT_ADMIN | trim | length )> 0
