@@ -1,10 +1,14 @@
 ---
-PROJECT_ID: "friasc-hybrid-02092021-1029"
+PROJECT_ID: "friasc-hybrid-02092021-1623"
 APIGEE_VERSION: 1.4.1
-ISTIO_VERSION: 1.8.2
+#ISTIO_VERSION: 1.8.2
+#ISTIO_VERSION_EXT: "asm.2"  # with 1.8.2
+#ISTIO_VERSION: 1.7.3
+#ISTIO_VERSION_EXT: "asm.6"  # with 1.7.3
+ISTIO_VERSION: 1.6.11
+ISTIO_VERSION_EXT: "asm.1"  # with 1.6.11
 ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split('.')[0] }}.{{ ISTIO_VERSION.split('.')[1] }}"
 ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split('.')[2] }}"
-ISTIO_VERSION_EXT: "asm.1"
 ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
 
 #PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"

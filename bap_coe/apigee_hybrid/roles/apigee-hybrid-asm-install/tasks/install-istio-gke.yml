@@ -50,7 +50,8 @@
       --cluster_location {{ CLUSTER_ZONE }} \
       --output_dir {{ WORK_DIR }} \
       --mode install \
-      --only_validate
+      --only_validate \
+      --enable_cluster_labels
   args:
     chdir: "{{ WORK_DIR }}"
 

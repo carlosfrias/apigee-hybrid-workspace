@@ -8,12 +8,10 @@
     REGION: "us-central1"
     CLUSTER_NAME: "apigee-hybrid-1"
     PROJECTS:
-    - "friasc-hybrid-02082021-1016"
-    - "friasc-hybrid-02082021-1114"
-    - "friasc-hybrid-02082021-1156"
-    - "friasc-hybrid-02082021-1236"
-    - "friasc-hybrid-02082021-1328"
-    - "friasc-hybrid-02082021-1509"
+    - "friasc-hybrid-02082021-1354"
+    - "friasc-hybrid-02082021-1548"
+    - "friasc-hybrid-02092021-1029"
+    - "friasc-hybrid-02092021-1323"
 
   collections: bap_coe.apigee_hybrid
 
@@ -27,9 +25,9 @@
         tmp_work_dir: "{{ playbook_dir + '/workdir' }}"
 
     - name: Remove projects
-      include_role: 
+      include_role:
         name: apigee-hybrid-project-remove
-      vars: 
+      vars:
         PROJECT_ID: "{{ item }}"
         WORK_DIR: "{{ tmp_work_dir }}/{{ item }}"
         FQ_CLUSTER_NAME: "gke_{{ item }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
