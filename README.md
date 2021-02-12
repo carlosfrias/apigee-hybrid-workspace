@@ -22,4 +22,4 @@ are contained within the collection.
 ## Toolkit Collections
 | Collection Name | Description | 
 | --- | --- |
-| [bap_coe.apigee_hybrid](bap_coe/apigee/README.md) | This collection performs installation of Apigee hybrid |
+| [bap_coe.apigee_hybrid](./bap_coe/apigee/README.md) | This collection performs installation of Apigee hybrid |
