@@ -37,6 +37,8 @@
   get_url:
     url: "{{ CSM_DOWNLOAD_BASE_URL }}/{{ CSM_DOWNLOAD_BASE_FILENAME }}"
     dest: "{{ WORK_DIR }}/install_asm"
+    backup: yes
+    force: yes
     checksum: sha256:{{ install_asm_sha256.split(' ')[0] }}
     headers:
       Authorization: Bearer {{ TOKEN }}
@@ -50,10 +52,14 @@
       --cluster_location {{ CLUSTER_ZONE }} \
       --output_dir {{ WORK_DIR }} \
       --mode install \
-      --only_validate \
-      --enable_cluster_labels
+      --only_validate
   args:
     chdir: "{{ WORK_DIR }}"
+
+- name: Pause for a couple seconds...
+  pause:
+    prompt: "Pausing for a few seconds..."
+    seconds: 5
 
 - name: Install ASM
   tags: ['install-asm','script']
@@ -68,11 +74,17 @@
   args:
     chdir: "{{ WORK_DIR }}"
 
+- name: Pause for a couple seconds...
+  pause:
+    prompt: "Pausing for a few seconds..."
+    seconds: 5
+
 - name: Backup ASM output files with cluster name
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     backup: yes
+    force: yes
   with_items:
     - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded-{{ CLUSTER_NAME }}.yaml" }
     - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw-{{ CLUSTER_NAME }}.yaml" }
@@ -95,7 +107,12 @@
 - name: Common config GKE
   include_tasks: common-config-gke.yml
 
-- name: Create istio-system namespance
+- name: Pause for a couple seconds...
+  pause:
+    prompt: "Pausing for a few seconds..."
+    seconds: 5
+
+- name: Create istio-system namespace
   shell: kubectl create namespace istio-system --kubeconfig={{ CLUSTER_KUBECONFIG }}
   register: status
   failed_when:
@@ -112,6 +129,16 @@
     src: istiod-service.yaml.template
     dest: "{{ ISTIOD_SERVICE_FILE_PATH }}"
 
+- name: Set asm-gcp profile
+  shell: |
+    ./istioctl install \
+      --kubeconfig={{ CLUSTER_KUBECONFIG }} \
+      --set profile=asm-gcp \
+      --set revision={{ ISTIO_ASM_REVISION }}
+  args:
+    chdir: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/"
+  when: APIGEE_VERSION is version_compare('1.4.0', '<') and CLUSTER_COUNT | int == 1
+
 - name: Set asm-multicloud profile
   shell: |
     ./istioctl install \
@@ -120,6 +147,7 @@
       --set revision={{ ISTIO_ASM_REVISION }}
   args:
     chdir: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/"
+  when: APIGEE_VERSION is version_compare('1.4.0', '<') and CLUSTER_COUNT | int > 1
 
 - name: Configure validating webhook for istiod
   shell: |

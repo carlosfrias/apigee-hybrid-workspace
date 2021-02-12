@@ -1,12 +1,10 @@
 ---
-PROJECT_ID: "friasc-hybrid-02092021-1623"
+PROJECT_ID: "friasc-hybrid-02112021-2002"
 APIGEE_VERSION: 1.4.1
-#ISTIO_VERSION: 1.8.2
-#ISTIO_VERSION_EXT: "asm.2"  # with 1.8.2
-#ISTIO_VERSION: 1.7.3
-#ISTIO_VERSION_EXT: "asm.6"  # with 1.7.3
-ISTIO_VERSION: 1.6.11
-ISTIO_VERSION_EXT: "asm.1"  # with 1.6.11
+ISTIO_VERSION: 1.7.6
+ISTIO_VERSION_REVISION: "asm.1"  # with 1.7.6
+#ISTIO_VERSION: 1.6.11
+#ISTIO_VERSION_REVISION: "asm.1"  # with 1.6.11
 ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split('.')[0] }}.{{ ISTIO_VERSION.split('.')[1] }}"
 ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split('.')[2] }}"
 ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
@@ -17,7 +15,8 @@ ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
 REGION: "us-east1"
 ENV_NAME: "test"
 APIGEE_RUNTIME_SIZE: "medium"
-CLUSTER_NAME: "apigee-hybrid-1"
+CLUSTER_COUNT: 1
+CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
 CLUSTER_ZONE: "{{ REGION }}-b"
 NODE_SIZE: "e2-standard-8"
 NODE_COUNT: 3
@@ -46,3 +45,29 @@ SERVICE_ACCOUNTS:
 - apigee-cassandra
 - apigee-logger
 - apigee-watcher
+
+GCP_SERVICES:
+- "container.googleapis.com"
+- "compute.googleapis.com"
+- "stackdriver.googleapis.com"
+- "meshca.googleapis.com"
+- "meshtelemetry.googleapis.com"
+- "meshconfig.googleapis.com"
+- "iamcredentials.googleapis.com"
+- "anthos.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
+- "gkeconnect.googleapis.com"
+- "gkehub.googleapis.com"
+- "serviceusage.googleapis.com"
+- "sourcerepo.googleapis.com"
+- "cloudbuild.googleapis.com"
+- "secretmanager.googleapis.com"
+- "dns.googleapis.com"
+- "pubsub.googleapis.com"
+- "apigee.googleapis.com"
+- "apigeeconnect.googleapis.com"
+- "monitoring.googleapis.com"
+- "logging.googleapis.com"
+- "cloudtrace.googleapis.com"
+- "privateca.googleapis.com"
+#- "apigeeconnect.googleapis.com"

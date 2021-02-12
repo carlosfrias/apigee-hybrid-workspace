@@ -24,6 +24,7 @@ DEFAULT_GCP_SERVICES:
 - "logging.googleapis.com"
 - "cloudtrace.googleapis.com"
 - "privateca.googleapis.com"
+#- "apigeeconnect.googleapis.com"
 DEFAULT_ROLE_BINDING:
 - roles/editor
 - roles/compute.admin

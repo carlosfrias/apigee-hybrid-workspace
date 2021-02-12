@@ -1,5 +1,5 @@
 ---
-- block:
+- block:   #- now getting set in the install_asm script
   - name: Retrieve Bearer token
     shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
     register: bearer_token
@@ -35,23 +35,23 @@
   debug:
     msg: "This service account key is stored as a secret named 'creds-gcp' in the 'gke-connect' namespace."
 
-- name: Set the project id
-  shell: kpt cfg set asm gcloud.core.project {{ PROJECT_ID }}
-  args:
-    chdir: "{{ WORK_DIR }}"
-
-- name: Set project number for the environ host project
-  shell: kpt cfg set asm gcloud.project.environProjectNumber {{ PROJECT_NUMBER }}
-  args:
-    chdir: "{{ WORK_DIR }}"
-
-- name: Set the cluster name
-  ignore_errors: yes
-  shell: kpt cfg set asm gcloud.container.cluster {{ CLUSTER_NAME }}
-  args:
-    chdir: "{{ WORK_DIR }}"
-
-- name: Set the default zone
-  shell: kpt cfg set asm gcloud.compute.location {{ CLUSTER_ZONE }}
-  args:
-    chdir: "{{ WORK_DIR }}"
+#- name: Set the project id - now getting set in the install_asm script
+#  shell: kpt cfg set asm gcloud.core.project {{ PROJECT_ID }}
+#  args:
+#    chdir: "{{ WORK_DIR }}"
+#
+#- name: Set project number for the environ host project - now getting set in the install_asm script
+#  shell: kpt cfg set asm gcloud.project.environProjectNumber {{ PROJECT_NUMBER }}
+#  args:
+#    chdir: "{{ WORK_DIR }}"
+#
+#- name: Set the cluster name - now getting set in the install_asm script
+#  ignore_errors: yes
+#  shell: kpt cfg set asm gcloud.container.cluster {{ CLUSTER_NAME }}
+#  args:
+#    chdir: "{{ WORK_DIR }}"
+#
+#- name: Set the default zone - now getting set in the install_asm script
+#  shell: kpt cfg set asm gcloud.compute.location {{ CLUSTER_ZONE }}
+#  args:
+#    chdir: "{{ WORK_DIR }}"

@@ -15,20 +15,20 @@
   set_fact:
     cacheable: yes
     ISTIO_VERSION: "{{ ISTIO_VERSION | default(DEFAULT_ISTIO_VERSION) }}"
-    ISTIO_VERSION_EXT: "{{ ISTIO_VERSION_EXT | default(DEFAULT_ISTIO_VERSION_EXT) }}"
+    ISTIO_VERSION_REVISION: "{{ ISTIO_VERSION_REVISION | default(DEFAULT_ISTIO_VERSION_REVISION) }}"
     ASM_KPT_VERSION: "{{ ASM_KPT_VERSION | default(DEFAULT_ASM_KPT_VERSION) }}"
     ASM_DOWNLOAD_BASE_URL: "{{ ASM_DOWNLOAD_BASE_URL | default(DEFAULT_ASM_DOWNLOAD_BASE_URL) }}"
-    ASM_DOWNLOAD_FILENAME: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}.tar.gz"
-    ASM_DOWNLOAD_FILENAME_ARCHITECTURE: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}-{{ ansible_system | lower }}-{{ facter_architecture }}.tar.gz"
+    ASM_DOWNLOAD_FILENAME: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_REVISION }}-{{ ansible_system | lower }}.tar.gz"
+    ASM_DOWNLOAD_FILENAME_ARCHITECTURE: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_REVISION }}-{{ ansible_system | lower }}-{{ facter_architecture }}.tar.gz"
 
 - name: Set tools attribute cache
   set_fact:
     cacheable: yes
-    ISTIO_FOLDER_NAME: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_EXT }}"
+    ISTIO_FOLDER_NAME: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_REVISION }}"
     ASM_DOWNLOAD: "{{ ASM_DOWNLOAD_BASE_URL }}/{{ ASM_DOWNLOAD_FILENAME }}"
     ASM_DOWNLOAD_RESCUE: "{{ ASM_DOWNLOAD_BASE_URL }}/{{ ASM_DOWNLOAD_FILENAME_ARCHITECTURE }}"
     ASM_KPT_PACKAGE: "https://github.com/GoogleCloudPlatform/anthos-service-mesh-packages.git/asm@release-{{ ASM_KPT_VERSION }}"
-    ISTIO_ASM_REVISION: "asm-{{ ISTIO_VERSION | regex_replace('\\.', '') }}-{{ ISTIO_VERSION_EXT.split('.')[1] }}"
+    ISTIO_ASM_REVISION: "asm-{{ ISTIO_VERSION | regex_replace('\\.', '') }}-{{ ISTIO_VERSION_REVISION.split('.')[1] }}"
     AUTO_INJECTION_NAMESPACE: "{{ AUTO_INJECTION_NAMESPACE | default(DEFAULT_AUTO_INJECTION_NAMESPACE) }}"
     ASM_PROFILE_NAME: "{{ ASM_PROFILE_NAME | default(DEFAULT_ASM_PROFILE_NAME) }}"
     SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
@@ -39,7 +39,7 @@
   when: ISTIO_VERSION is version_compare('1.6.11','!=')
 
 - name: Install Istio GKE
-  include_tasks: install-istio-{{ ISTIO_VERSION }}-gke.yml
+  include_tasks: install-istio-1.6.11-gke.yml
   when: ISTIO_VERSION is version_compare('1.6.11','==')
 
 

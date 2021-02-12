@@ -12,7 +12,7 @@ CASSANDRA_RACK_NAME: "ra-1"
 PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
 PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
 ISTIO_VERSION: "1.7.3"
-ISTIO_VERSION_EXT: "asm.6"
+ISTIO_VERSION_REVISION: "asm.6"
 ASM_KPT_VERSION: "1.7-asm"
 VALIDATE_PROJECT_ID: "{{ PROJECT_ID }}"
 VALIDATE_PROXY_URI_ENDPOINT: /notarget

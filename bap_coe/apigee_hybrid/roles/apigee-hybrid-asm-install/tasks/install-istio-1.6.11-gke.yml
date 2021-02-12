@@ -83,7 +83,9 @@
 - name: Common config GKE
   include_tasks: common-config-gke.yml
 
-- name: Set configuration profile
+- name: Set configuration profile - now getting set in the install_asm script
+# This setting is now creating a conflict when it is with install_asm.
+  tags: ['install_asm_skip']
   shell: kpt cfg set asm anthos.servicemesh.profile {{ ASM_PROFILE_NAME }}
   args:
     chdir: "{{ WORK_DIR }}"

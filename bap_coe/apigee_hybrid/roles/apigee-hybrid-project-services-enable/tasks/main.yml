@@ -6,6 +6,8 @@
     ROLE_BINDING: "{{ ROLE_BINDING | default(DEFAULT_ROLE_BINDING) }}"
 
 - name: Enabling GCP APIs
+#  this is now also done in the install_asm bash script.
+#  This is required here before the install_asm requires it.
   shell: gcloud services enable {{ item }} --project {{ PROJECT_ID }}
   with_items: "{{ GCP_SERVICES }}"
   poll: 2
