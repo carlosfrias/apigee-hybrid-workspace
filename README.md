@@ -11,7 +11,7 @@ product. This is not supported by Apigee in any way. Any and all inquiries for
 information will be answered on a best effort basis as my schedule permits.
 
 It is expected that you provide credentials and other sensitive attributes using
-the provided template file `apiee-hybrid-senitive-attriubtes-TEMPLATE.yml`. 
+the provided template file `apiee-hybrid-senitive-attributes-TEMPLATE.yml`. 
 Please rename this file and place it in a location of your choosing. Once this 
 has been complete please update the `vars_files:` stanza in the installation playbooks
 with the name and path of your file. 

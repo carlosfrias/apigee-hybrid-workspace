@@ -3,12 +3,13 @@
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - ./variables/apigee-hybrid-region-single-asm-variables.yml
 
   vars: 
-    REGION: "us-central1"
-    CLUSTER_NAME: "apigee-hybrid-1"
     PROJECTS:
-    - "friasc-hybrid-02102021-1730"
+    - "friasc-hybrid-02112021-1552"
+    - "friasc-hybrid-02112021-1614"
+    - "friasc-hybrid-02112021-1650"
 
   collections: bap_coe.apigee_hybrid
 

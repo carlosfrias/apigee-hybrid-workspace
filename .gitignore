@@ -6,3 +6,4 @@ research
 transaction.yaml
 */collection*/**
 **/*.tar.gz
+**/ansible

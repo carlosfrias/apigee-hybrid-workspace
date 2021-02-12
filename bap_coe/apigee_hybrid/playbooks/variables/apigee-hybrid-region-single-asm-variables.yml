@@ -70,4 +70,3 @@ GCP_SERVICES:
 - "logging.googleapis.com"
 - "cloudtrace.googleapis.com"
 - "privateca.googleapis.com"
-#- "apigeeconnect.googleapis.com"
