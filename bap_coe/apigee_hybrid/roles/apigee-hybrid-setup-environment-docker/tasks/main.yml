@@ -8,7 +8,7 @@
       state: present
 
   - name: Add user to docker group
-    shell: adduser "{{ ansible_user }}" docker
+    command: adduser "{{ ansible_user }}" docker
 
   # If you get the error:
   #  adduser: The user "redis" already exists, but is not a system user. Exiting
@@ -27,7 +27,7 @@
 
   - name: Add glinux repo
     #      become: yes
-    shell: glinux-add-repo -b docker-ce-"{{ ansible_distribution_release }}"
+    command: glinux-add-repo -b docker-ce-"{{ ansible_distribution_release }}"
 
   - name: docker-ce installation and recovery if failure
     block:
@@ -54,7 +54,7 @@
 
   - name: Down links
     tags: ['docker']
-    shell: "{{ item }}"
+    command: "{{ item }}"
     with_items:
     - "ip link set docker0 down"
     - "ip link del docker0"

@@ -4,7 +4,6 @@
     cacheable: yes
     TOOLS_DIR: "{{ ansible_user_dir }}/bin"
     WORK_DIR: "{{ playbook_dir }}/workdir/{{ PROJECT_ID }}"
-    KUBECTL_VERSION: "{{ KUBECTL_VERSION | default(DEFAULT_KUBECTL_VERSION) }}"
 
 - name: Set tools attribute cache for Debian
   set_fact:
@@ -20,16 +19,6 @@
     - "{{ playbook_dir }}/ansible/logs"
     - "{{ WORK_DIR }}"
     - "{{ TOOLS_DIR }}"
-
-- name: Set system tools to install
-  set_fact:
-    cacheable: yes
-    SYSTEM_TOOLS: "{{ SYSTEM_TOOLS | default(DEFAULT_SYSTEM_TOOLS) }}"    
-
-- name: Update Debian package manager
-  become: true
-  shell: apt update
-  when: ansible_os_family == "Debian"
 
 - name: Install system tools
   become: true
@@ -72,23 +61,14 @@
     retries: 50
     async: 180
 
-- name: Download nomos
-  shell: gsutil cp gs://config-management-release/released/latest/linux_amd64/nomos {{ WORK_DIR }}/nomos
-  args:
-    creates: "{{ WORK_DIR }}/nomos"
-
-- name: Install nomos
-  become: yes
-  copy:
-    src: "{{ WORK_DIR }}/nomos"
-    dest: "{{ TOOLS_DIR }}/nomos"
-    mode: 0777
-
-- name: Docker pull read-yaml command for ACM
-  tags: ['docker']
-  shell: docker pull gcr.io/config-management-release/read-yaml:latest
-  poll: 0
-  retries: 50
-  async: 180
-  when: ansible_os_family != "Debian"
-
+#- name: Download nomos
+#  shell: gsutil cp gs://config-management-release/released/latest/linux_amd64/nomos {{ WORK_DIR }}/nomos
+#  args:
+#    creates: "{{ WORK_DIR }}/nomos"
+#
+#- name: Install nomos
+#  become: yes
+#  copy:
+#    src: "{{ WORK_DIR }}/nomos"
+#    dest: "{{ TOOLS_DIR }}/nomos"
+#    mode: 0777

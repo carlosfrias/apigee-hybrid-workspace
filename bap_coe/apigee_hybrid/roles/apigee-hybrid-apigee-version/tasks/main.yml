@@ -10,8 +10,13 @@
     cacheable: yes
     APIGEE_HYBRID_VERSION_URL: "{{ APIGEE_HYBRID_SETUP_BASE_URI }}/{{ DEFAULT_APIGEE_HYBRID_VERSION_SETUP_BASE_FILENAME }}"
 
+- name: Affirm we have curl
+  package:
+    name: curl
+    state: present
+
 - name: Store latest version
-  shell: curl -s {{ APIGEE_HYBRID_VERSION_URL }}
+  command: curl -s {{ APIGEE_HYBRID_VERSION_URL }}
   register: latest_apigee_version
 
 - name: Set Apigee version

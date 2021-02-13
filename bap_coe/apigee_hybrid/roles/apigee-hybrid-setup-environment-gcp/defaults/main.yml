@@ -4,5 +4,14 @@ DEFAULT_SYSTEM_TOOLS:
 - 'google-cloud-sdk-kpt'
 - 'google-cloud-sdk'
 
-apt_repository_repo: "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
-rescue_apt_repository_repo: "deb https://packages.cloud.google.com/apt cloud-sdk main"
+DEFAULT_GCP_SYSTEM_TOOLS:
+  - apt-transport-https
+  - gnupg2
+  - ca-certificates
+
+DEFAULT_APT_REPOSITORIES:
+  - "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+  - "deb https://packages.cloud.google.com/apt cloud-sdk main"
+
+DEFAULT_APT_REPOSITORIES_KEYS:
+  - https://packages.cloud.google.com/apt/doc/apt-key.gpg

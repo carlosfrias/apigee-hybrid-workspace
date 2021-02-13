@@ -4,7 +4,7 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: instance
+  - name: ubuntu
     image: geerlingguy/docker-ubuntu1604-ansible:latest
     pre_build_image: true
 provisioner:
@@ -16,8 +16,8 @@ verifier:
     defaults:
       interpreter_python: auto_silent
       callback_whitelist: profile_tasks, timer, yaml
-      fact_caching: jsonfile
       roles_path: ../../
+      local_tmp: ./.ansible/tmp
     ssh_connection:
       pipelining: false
       scp_if_ssh: True
