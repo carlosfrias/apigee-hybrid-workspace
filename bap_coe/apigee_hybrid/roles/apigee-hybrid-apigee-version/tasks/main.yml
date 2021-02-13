@@ -15,6 +15,11 @@
     name: curl
     state: present
 
+- name: Download latest version file
+  get_url:
+    url: "{{ APIGEE_HYBRID_VERSION_URL }}"
+    dest: "{{ playbook_dir }}/current_apigee_version.txt"
+
 - name: Store latest version
   command: curl -s {{ APIGEE_HYBRID_VERSION_URL }}
   register: latest_apigee_version

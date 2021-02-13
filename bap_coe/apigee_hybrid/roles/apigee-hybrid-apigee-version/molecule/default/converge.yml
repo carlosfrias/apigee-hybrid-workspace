@@ -1,7 +1,13 @@
 ---
 - name: Converge
   hosts: all
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ../../../../playbooks/variables/apigee-hybrid-region-single-asm-variables.yml
+
   tasks:
     - name: "Include apigee-hybrid-apigee-version"
       include_role:
         name: "apigee-hybrid-apigee-version"
+
