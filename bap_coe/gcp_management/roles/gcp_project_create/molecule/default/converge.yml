@@ -1,0 +1,14 @@
+---
+- name: Converge
+  hosts: localhost
+  gather_facts: no
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - test-attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  roles:
+    - gcp_project_create

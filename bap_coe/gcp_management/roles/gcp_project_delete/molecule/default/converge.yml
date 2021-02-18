@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include gcp_project_delete"
+      include_role:
+        name: "gcp_project_delete"

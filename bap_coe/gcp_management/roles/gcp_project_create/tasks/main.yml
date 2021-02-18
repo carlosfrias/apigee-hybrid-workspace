@@ -1,0 +1,47 @@
+---
+# tasks file for gcp_project_create
+- name: Assert GCLOUD_ACCOUNT_EMAIL
+  assert:
+    that:
+      - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "GCLOUD_ACCOUNT_EMAIL must contain the GCP account email"
+
+- name: Assert PROJECT_ID
+  assert:
+    that:
+      - PROJECT_ID is defined
+    msg: "PROJECT_ID must be provided."
+
+- name: Assert BILLING_ID
+  assert:
+    that:
+      - BILLING_ID is defined
+    msg: "BILLING_ID must be provided"
+
+- name: Set active account
+  shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
+
+- name: Construct base project create command
+  set_fact:
+    cacheable: yes
+    GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }}"
+
+- name: Add FOLDER_ID if provided to base project create command
+  set_fact:
+    cacheable: yes
+    GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --folder={{ FOLDER_ID }}"
+
+- name: Create GCP Project with provided FOLDER_ID
+  ignore_errors: yes
+  shell: "{{ GCLOUD_PROJECT_CREATE_CMD }}"
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'already in use' not in status.stderr"
+
+- name: Set Project Default
+  shell: gcloud config set project {{ PROJECT_ID }}
+
+- name: Connect GCP Project to Billing Account
+  shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }}
+

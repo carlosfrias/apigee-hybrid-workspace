@@ -1,0 +1,13 @@
+---
+- name: Cleanup project that includes the repos
+  hosts: localhost
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - test-attributes.yml
+
+  collections:
+  - bap_coe.gcp_management
+
+  roles:
+  - gcp_project_delete

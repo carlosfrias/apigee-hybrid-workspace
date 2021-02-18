@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include apigee-hybrid-setup-environment-docker"
+      include_role:
+        name: "apigee-hybrid-setup-environment-docker"

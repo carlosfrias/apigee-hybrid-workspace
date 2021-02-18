@@ -1,0 +1,29 @@
+---
+# tasks file for gcp_project_delete
+- name: Delete Cloud Repository for GCP Project
+  ignore_errors: true
+  shell: gcloud source repos delete config-repo --project {{ PROJECT_ID }}
+  poll: 0
+  retries: 50
+  async: 90
+
+- name: Delete GCP project
+  ignore_errors: true
+  shell: gcloud projects delete {{ PROJECT_ID }} --quiet
+  poll: 0
+  retries: 50
+  async: 90
+
+- name: Assert if WORK_DIR is provided for removal
+  stat:
+    path: "{{ WORK_DIR | default('') }}"
+  register: work_dir_path
+
+- name: Delete WORK_DIR folder
+  file:
+    path: "{{ WORK_DIR }}"
+    state: absent
+  when: work_dir_path.stat.exists
+  poll: 0
+  retries: 50
+  async: 90

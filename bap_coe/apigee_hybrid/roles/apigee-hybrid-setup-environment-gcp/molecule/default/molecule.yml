@@ -1,0 +1,27 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: ubuntu-gcp
+    image: geerlingguy/docker-ubuntu1604-ansible:latest
+    pre_build_image: true
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+  log: True
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer, yaml
+      roles_path: ../../
+      local_tmp: ./.ansible/tmp
+    ssh_connection:
+      pipelining: false
+      scp_if_ssh: True
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
