@@ -1,6 +1,6 @@
 ---
-# tasks file for roles/apigee-hybrid-project-services-enable
-- name: Assert that GCP serviceces list is available
+# tasks file for roles/gcp_project_services_enable
+- name: Assert that GCP services list is available
   assert:
     that:
       - GCP_SERVICES is defined

@@ -1,7 +1,5 @@
 ---
 # tasks file for gcp_iam_policy_bindings
----
-# tasks file for roles/apigee-hybrid-project-services-enable
 - name: Assert that ROLE_BINDINGS list is available
   assert:
     that:
