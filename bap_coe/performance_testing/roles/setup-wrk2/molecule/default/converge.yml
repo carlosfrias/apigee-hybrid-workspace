@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  vars_files:
+    - ../../../../playbooks/attributes.yml
+
+  tasks:
+    - name: "Include setup-wrk2"
+      include_role:
+        name: "setup-wrk2"

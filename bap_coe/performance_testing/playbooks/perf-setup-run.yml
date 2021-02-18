@@ -1,0 +1,9 @@
+--
+- name: Playbook to setup performance testing with wrk
+  hosts: localhost
+
+  vars_files:
+    - attributes.yml
+
+  roles:
+  - setup-wrk2

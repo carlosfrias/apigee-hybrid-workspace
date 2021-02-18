@@ -9,8 +9,8 @@
     - bap_coe.apigee_hybrid
 
   roles:
-  - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup-env', 'gcp'] }
-  - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env','k-tools'] }
+    - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup-env', 'gcp'] }
+    - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env','k-tools'] }
     - { role: apigee-hybrid-setup-environment-docker, tags: ['setup-env','docker'] }
     - { role: apigee-hybrid-apigee-version, tags: ['version'] }
     - { role: apigee-hybrid-project-create, tags: ['project'] }

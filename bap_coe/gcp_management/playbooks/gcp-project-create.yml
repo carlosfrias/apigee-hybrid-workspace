@@ -1,0 +1,12 @@
+---
+- name: Create Apigee hybrid runtime on GCP
+  hosts: localhost
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+
+  collections:
+  - bap_coe.gcp_management
+
+  roles:
+    - { role: apigee-hybrid-project-create, tags: ['project'] }

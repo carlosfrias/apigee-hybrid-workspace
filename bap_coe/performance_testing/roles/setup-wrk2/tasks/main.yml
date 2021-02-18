@@ -1,0 +1,33 @@
+---
+# tasks file for roles/setup-wrk2
+- name: update system package manager cache
+  become: yes
+  command: apt update
+  when: ansible_os_family == "Debian"
+
+- name: Update system package manager
+  package:
+    name: "{{ SYSTEM_PACKAGES }}"
+    state: present
+
+- name: Create workspace folder
+  file:
+    path: "{{ WORKSPACE_FOLDER }}/{{ BUILD_FOLDER }}"
+    state: directory
+
+- name: Obtain build for make installation
+  git:
+    repo: "{{ WRK_REPO_URL }}"
+    dest: "{{ WORKSPACE_FOLDER }}/{{ BUILD_FOLDER }}"
+
+- name: Build installation
+  command: make
+  args:
+    chdir: "{{ WORKSPACE_FOLDER }}/{{ BUILD_FOLDER }}"
+
+- name: Place built command in system path /usr/local/bin
+  become: true
+  copy:
+    src: "{{ WORKSPACE_FOLDER }}/{{ BUILD_FOLDER }}/{{ COMMAND_NAME }}"
+    dest: /usr/local/bin
+    remote_src: yes
