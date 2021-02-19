@@ -1,0 +1,14 @@
+---
+AUTHORIZATION_KIND: serviceaccount
+SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
+RESOURCE_GCP_ZONE: "us-central1-c"
+NAME_INSTANCE_PREFIX: "bap-coe"
+SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
+MACHINE_TYPE: n1-standard-1
+INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
+
+# Additional values for IMAGE_PROJECT: 'centos-cloud'
+# Additional values for IMAGE_FAMILY: 'centos-7'
+DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1604-lts') }}"
+DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
+DISK_SIZE: 50

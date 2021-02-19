@@ -9,4 +9,4 @@
   - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-project-create, tags: ['project'] }
+    - gcp_project_create

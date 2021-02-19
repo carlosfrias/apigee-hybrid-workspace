@@ -1,0 +1,20 @@
+---
+# tasks file for gce_instance_remove
+- block:
+  - name: remove an instance
+    gcp_compute_instance:
+      name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence }}"
+      state: absent
+      zone: "{{ RESOURCE_GCP_ZONE }}"
+      project: "{{ PROJECT_ID }}"
+      auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+      service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+      scopes:
+        - "{{ SCOPE_COMPUTE }}"
+    poll: 2
+    async: 90
+
+  rescue:
+    - name: Rescue message
+      debug:
+        msg: "Remove failed for some reason but we will move on to remove the next instance"
