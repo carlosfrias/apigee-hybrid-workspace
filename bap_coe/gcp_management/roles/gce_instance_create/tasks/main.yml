@@ -1,0 +1,67 @@
+---
+# tasks file for gce_instance_create
+- name: Assert PROJECT_ID is provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    fail_msg: "Please provide the PROJECT_ID"
+
+- name: create a network
+  gcp_compute_network:
+    name: "{{ network_name | default('default') }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    scopes:
+    - "{{ SCOPE_COMPUTE }}"
+    state: present
+    auto_create_subnetworks: yes
+  register: network_config
+  poll: 2
+  async: 90
+
+- name: create a disk
+  gcp_compute_disk:
+    name: '{{ DISK_NAME }}-{{ sequence }}'
+    size_gb: "{{ DISK_SIZE }}"
+    source_image: '{{ DISK_SOURCE_IMAGE }}'
+    zone: "{{ RESOURCE_GCP_ZONE }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    scopes:
+    - "{{ SCOPE_COMPUTE }}"
+    state: present
+  register: disk_config
+  poll: 2
+  async: 90
+
+- name: create an instance
+  gcp_compute_instance:
+    name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence }}"
+    state: present
+    machine_type: "{{ MACHINE_TYPE }}"
+    disks:
+    - auto_delete: true
+      boot: true
+      source: "{{ disk_config }}"
+    network_interfaces:
+    - network: "{{ network_config }}"
+      access_configs:
+      - name: 'External NAT'
+        type: 'ONE_TO_ONE_NAT'
+    zone: "{{ RESOURCE_GCP_ZONE }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    tags:
+      items:
+      - "{{ INSTANCE_NETWORK_TAG }}"
+    metadata:
+      'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty'
+    scopes:
+    - "{{ SCOPE_COMPUTE }}"
+  register: instance
+  poll: 2
+  async: 90
+

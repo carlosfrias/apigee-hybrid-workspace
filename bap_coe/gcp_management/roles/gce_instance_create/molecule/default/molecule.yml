@@ -1,0 +1,11 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegate
+platforms:
+  - name: instance
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

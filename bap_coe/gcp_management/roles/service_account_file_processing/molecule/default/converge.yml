@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include service_account_file_processing"
+      include_role:
+        name: "service_account_file_processing"

@@ -1,0 +1,24 @@
+---
+# tasks file for service_account_file_processing
+- name: Assert that the service account file is indicated
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE is defined
+    fail_msg: "Please indicate the path to the SERVICE_ACCOUNT_FILE"
+
+- name: Assert that SERVICE_ACCCOUNT_FILE is a valid path
+  stat:
+    path: "{{ SERVICE_ACCOUNT_FILE }}"
+  register: valid_service_account_file_path
+
+- name: Configure attributes from the service account file
+  block:
+  - name: Read service account file contents
+    set_fact:
+      SERVICE_ACCOUNT_FILE_CONTENT: "{{ lookup('file', SERVICE_ACCOUNT_FILE) }}"
+
+  - name: update local cache with basic project attributes
+    set_fact:
+      cacheable: yes
+      PROJECT_ID: "{{ SERVICE_ACCOUNT_FILE_CONTENT['project_id'] }}"
+      SERVICE_ACCOUNT_EMAIL: "{{ SERVICE_ACCOUNT_FILE_CONTENT['client_email'] }}"
