@@ -8,7 +8,7 @@
 
 - name: create a network
   gcp_compute_network:
-    name: "{{ network_name | default('default') }}"
+    name: "{{ VPC_NETWORK_NAME | default('default') }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
@@ -58,10 +58,10 @@
       items:
       - "{{ INSTANCE_NETWORK_TAG }}"
     metadata:
-      'startup-script': 'rm -f /etc/sudoers.d/remove-requiretty && echo \"Defaults !requiretty\" >> /etc/sudoers.d/remove-requiretty'
+      'startup-script': |
+        {{ STARTUP_SCRIPT }}
     scopes:
     - "{{ SCOPE_COMPUTE }}"
   register: instance
   poll: 2
-  async: 90
-
+  async: 300

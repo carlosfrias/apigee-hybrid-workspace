@@ -2,10 +2,30 @@
 dependency:
   name: galaxy
 driver:
-  name: delegate
+  name: delegated
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
 platforms:
   - name: instance
 provisioner:
   name: ansible
+  options:
+    vvv: True
+  playbooks:
+    create: create.yml
+    converge: converge.yml
+    destroy: destroy.yml
 verifier:
   name: ansible
+  log: True
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer, yaml
+      roles_path: ../../
+      local_tmp: ~/.ansible/tmp
+    ssh_connection:
+      pipelining: false
+      scp_if_ssh: True

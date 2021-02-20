@@ -12,7 +12,7 @@
       scopes:
         - "{{ SCOPE_COMPUTE }}"
     poll: 2
-    async: 90
+    async: 300
 
   rescue:
     - name: Rescue message

@@ -4,9 +4,10 @@ SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-dem
 RESOURCE_GCP_ZONE: "us-central1-c"
 #MACHINE_TYPE: n1-standard-1
 MACHINE_TYPE: n2-highcpu-2
-NAME_INSTANCE_PREFIX: "bap-coe-{{ MACHINE_TYPE }}"
 SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
 INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
+
+NAME_INSTANCE_PREFIX: "bap-coe-{{ MACHINE_TYPE }}"
 
 # Additional values for IMAGE_PROJECT: 'centos-cloud'
 # Additional values for IMAGE_FAMILY: 'centos-7'
@@ -14,10 +15,16 @@ DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/gl
 DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
 DISK_SIZE: 50
 
+start: 101
+end: 101
+
 STARTUP_SCRIPT: |
-  sudo apt update -y
-  sudo apt install -y build-essential libssl-dev git zlib1g-dev
-  sudo git clone https://github.com/giltene/wrk2.git /usr/local/src/wrk
-  cd /usr/local/src/wrk
-  make
-  sudo cp /usr/local/src/wrk /usr/local/bin/
+  #! /bin/bash
+  sudo apt update -y;
+  sudo apt install -y build-essential libssl-dev git zlib1g-dev;
+  cd;
+  git clone https://github.com/giltene/wrk2.git wrk;
+  cd ./wrk;
+  make;
+  sudo cp wrk /usr/local/bin/;
+  cd;

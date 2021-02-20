@@ -4,16 +4,11 @@
   connection: local
   gather_facts: no
 
-  vars:
-
-#    IMAGE_FAMILY: debian-10-buster-v20210122
-#    IMAGE_PROJECT: debian-cloud
-
   vars_files:
-    - shared-properties.yml
+  - shared-properties.yml
 
   collections:
-    - bap_coe.gcp_management
+  - bap_coe.gcp_management
 
   roles:
   - service_account_file_processing

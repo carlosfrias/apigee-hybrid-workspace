@@ -8,3 +8,4 @@ INTERNAL_LOAD_BALANCER_IP: 10.123.0.2
 ENV_NAME: dev
 ENV_GROUP_HOSTNAME: "{{ PROJECT_ID }}-{{ ENV_NAME }}.apigee.net"
 
+WRK_COMMAND: 'wrk -t2 -c100 -d60s -R2000 -H "Host: bap-amer-south-demo1-dev.apigee.net" https://10.123.0.2/hello-world'
