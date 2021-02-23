@@ -1,7 +1,23 @@
 ---
-- name: Converge
-  hosts: all
+- name: GCE Instance Create | Converge
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+  - shared-properties.yml
+
+  collections:
+  - bap_coe.gcp_management
+
   tasks:
-    - name: "Include gce_instance_create"
+    - name: Setup GCP Attributes from service account file
       include_role:
-        name: "gce_instance_create"
+        name: service_account_file_processing
+
+    - name: GCE Instance Create | create instances
+      include_role:
+        name: gce_instance_create
+      with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
+      loop_control:
+        loop_var: sequence

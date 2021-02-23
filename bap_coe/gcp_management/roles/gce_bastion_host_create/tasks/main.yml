@@ -1,0 +1,17 @@
+---
+# tasks file for gce_instance_create
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: service_account_file_processing
+
+- name: Create Firewall Rule for Bastion Host
+  community.google.gce_net:
+    fwname: "bap_coe_bastion_host_fw"
+    name: "{{ VPC_NETWORK_NAME | default('default') }}"
+    allowed: tcp:22
+    state: "present"
+    src_tags: "ssh"
+
+- name: GCE Instance Create | create instances
+  include_role:
+    name: gce_instance_create

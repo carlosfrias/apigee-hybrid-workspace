@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include gce_bastion_host_create"
+      include_role:
+        name: "gce_bastion_host_create"

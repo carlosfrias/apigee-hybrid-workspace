@@ -20,6 +20,10 @@
   poll: 2
   async: 90
 
+- name: Assert sequence is set
+  set_fact:
+    sequence: "{{ sequence | default(1) }}"
+
 - name: create a disk
   gcp_compute_disk:
     name: '{{ DISK_NAME }}-{{ sequence }}'

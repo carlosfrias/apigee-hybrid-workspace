@@ -1,10 +1,10 @@
 ---
 # This is an example playbook to execute Ansible tests.
-
-- name: Verify
+- name: GCE Instance Create | Verify
   hosts: all
-  gather_facts: false
+  gather_facts: no
+
   tasks:
-  - name: Example assertion
+  - name: GCE Instance Create | Example assertion
     assert:
       that: true

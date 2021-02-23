@@ -10,6 +10,7 @@
   stat:
     path: "{{ SERVICE_ACCOUNT_FILE }}"
   register: valid_service_account_file_path
+  delegate_to: localhost
 
 - name: Configure attributes from the service account file
   block:
