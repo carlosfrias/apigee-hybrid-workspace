@@ -21,7 +21,7 @@ DISK_SIZE: 50
 MACHINE_TYPE: n1-standard-1
 #gce_image: 'centos-7'
 #service_account_email: "friasc@sandbox-173316.iam.gserviceaccount.com"
-
+TARGET_TAGS: 'bastionssh'
 #firewall_ports:
 #- { ports: "{{ ms_ports }}", port_type: 'ms' }
 #- { ports: "{{ router_ports }}", port_type: 'router' }

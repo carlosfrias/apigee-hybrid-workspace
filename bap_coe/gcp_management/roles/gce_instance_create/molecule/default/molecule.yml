@@ -13,10 +13,6 @@ provisioner:
   name: ansible
   options:
     vvv: True
-  playbooks:
-    create: create.yml
-    converge: converge.yml
-    destroy: destroy.yml
 verifier:
   name: ansible
   log: True

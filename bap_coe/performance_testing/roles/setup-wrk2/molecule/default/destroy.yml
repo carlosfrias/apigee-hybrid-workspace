@@ -1,5 +1,5 @@
 ---
-- name: GCE Instance Create | Create instances
+- name: setup-wrk2 Create | Destroy
   hosts: localhost
   connection: local
   gather_facts: no
@@ -10,7 +10,10 @@
   collections:
   - bap_coe.gcp_management
 
+  roles:
+  - service_account_file_processing
+
   tasks:
-  - name: Setup GCP Attributes from service account file
+  - name: setup-wrk2 Create | Remove instances
     include_role:
-      name: service_account_file_processing
+      name: gce_instance_remove

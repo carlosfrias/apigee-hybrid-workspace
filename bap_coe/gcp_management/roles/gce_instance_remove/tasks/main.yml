@@ -3,7 +3,7 @@
 - block:
   - name: remove an instance
     gcp_compute_instance:
-      name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence }}"
+      name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence | default(1) }}"
       state: absent
       zone: "{{ RESOURCE_GCP_ZONE }}"
       project: "{{ PROJECT_ID }}"

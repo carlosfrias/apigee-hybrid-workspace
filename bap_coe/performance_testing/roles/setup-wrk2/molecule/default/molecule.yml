@@ -21,7 +21,16 @@ verifier:
       interpreter_python: auto_silent
       callback_whitelist: profile_tasks, timer, yaml
       roles_path: ../../
-      local_tmp: ./.ansible/tmp
+      local_tmp: ~/.ansible/tmp
+      fact_caching_connection: ~/.ansible/cache/bap_coe_apigee_hybrid
+      fact_caching: jsonfile
+      gathering: smart
+      merge_multiple_cli_tags: True
+      display_args_to_stdout: True
+      timeout: 60
+      bin_ansible_callbacks: True
+      stdout_callback: yaml
+      stderr_callback: yaml
     ssh_connection:
       pipelining: false
       scp_if_ssh: True

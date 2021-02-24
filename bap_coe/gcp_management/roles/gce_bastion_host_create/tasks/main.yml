@@ -4,13 +4,20 @@
   include_role:
     name: service_account_file_processing
 
+#- name: Update NAME_INSTANCE_PREFIX for bastion host name
+#  set_fact:
+#    NAME_INSTANCE_PREFIX: "{{ NAME_INSTANCE_PREFIX }}-bastion"
+
 - name: Create Firewall Rule for Bastion Host
   community.google.gce_net:
-    fwname: "bap_coe_bastion_host_fw"
+    project_id: "{{ PROJECT_ID }}"
+    service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
+    credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    fwname: "{{ NAME_INSTANCE_PREFIX }}-firewall-rule"
     name: "{{ VPC_NETWORK_NAME | default('default') }}"
     allowed: tcp:22
     state: "present"
-    src_tags: "ssh"
+    target_tags: "{{ TARGET_TAGS }}"
 
 - name: GCE Instance Create | create instances
   include_role:

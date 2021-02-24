@@ -23,6 +23,7 @@
 - name: Assert sequence is set
   set_fact:
     sequence: "{{ sequence | default(1) }}"
+    ACCESS_TYPE: "{{ ACCESS_TYPE | default('ext') }}"
 
 - name: create a disk
   gcp_compute_disk:
@@ -40,7 +41,7 @@
   poll: 2
   async: 90
 
-- name: create an instance
+- name: create an externally accessible instance
   gcp_compute_instance:
     name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence }}"
     state: present
@@ -60,12 +61,41 @@
     service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
     tags:
       items:
-      - "{{ INSTANCE_NETWORK_TAG }}"
+      - "{{ TARGET_TAGS }}"
     metadata:
       'startup-script': |
-        {{ STARTUP_SCRIPT }}
+        {{ STARTUP_SCRIPT | default('') }}
     scopes:
     - "{{ SCOPE_COMPUTE }}"
   register: instance
   poll: 2
   async: 300
+  when: ACCESS_TYPE == "ext"
+
+- name: create an internally only accessible instance
+  gcp_compute_instance:
+    name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence }}"
+    state: present
+    machine_type: "{{ MACHINE_TYPE }}"
+    disks:
+    - auto_delete: true
+      boot: true
+      source: "{{ disk_config }}"
+    network_interfaces:
+    - network: "{{ network_config }}"
+    zone: "{{ RESOURCE_GCP_ZONE }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    tags:
+      items:
+      - "{{ TARGET_TAGS }}"
+    metadata:
+      'startup-script': |
+        {{ STARTUP_SCRIPT | default('') }}
+    scopes:
+    - "{{ SCOPE_COMPUTE }}"
+  register: instance
+  poll: 2
+  async: 300
+  when: ACCESS_TYPE != "ext"

@@ -17,6 +17,3 @@
   - name: GCE Instance Create | Remove instances
     include_role:
       name: gce_instance_remove
-    with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
-    loop_control:
-      loop_var: sequence

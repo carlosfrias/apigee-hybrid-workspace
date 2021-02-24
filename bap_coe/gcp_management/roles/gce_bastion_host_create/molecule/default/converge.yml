@@ -1,7 +1,17 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
+
+  vars_files:
+  - shared-properties.yml
+
+  collections:
+  - bap_coe.gcp_management
+
   tasks:
-    - name: "Include gce_bastion_host_create"
-      include_role:
-        name: "gce_bastion_host_create"
+  - name: create instances
+    include_role:
+      name: gce_bastion_host_create

@@ -4,3 +4,5 @@ molecule==3.2.3
 yamllint==1.26.0
 passlib==1.7.4
 apache-libcloud==0.17.0
+pycryptodome==3.10.1
+

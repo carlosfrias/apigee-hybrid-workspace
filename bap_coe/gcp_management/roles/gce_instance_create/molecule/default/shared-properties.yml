@@ -5,8 +5,7 @@ RESOURCE_GCP_ZONE: "us-central1-c"
 #MACHINE_TYPE: n1-standard-1
 MACHINE_TYPE: n2-highcpu-2
 SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
-INSTANCE_NETWORK_TAG: "ssh"
-
+TARGET_TAGS: "bastionssh"
 NAME_INSTANCE_PREFIX: "bap-coe"
 
 # Additional values for IMAGE_PROJECT: 'centos-cloud'
@@ -14,7 +13,7 @@ NAME_INSTANCE_PREFIX: "bap-coe"
 DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1804-lts') }}"
 DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
 DISK_SIZE: 50
-
+ACCESS_TYPE: ext
 start: 101
 end: 101
 
