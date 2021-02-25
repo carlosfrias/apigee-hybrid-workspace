@@ -1,27 +1,26 @@
 ---
-# tasks file for gce_instance_create
+# tasks file for gce_bastion_host_create
 - name: Setup GCP Attributes from service account file
   include_role:
     name: service_account_file_processing
 
-- name: Update NAME_INSTANCE_PREFIX for bastion host name
-  set_fact:
-    BASTION_NAME_PREFIX: "{{ NAME_INSTANCE_PREFIX }}-bastion"
-
-- name: Create Firewall Rule for Bastion Host
-  community.google.gce_net:
-    project_id: "{{ PROJECT_ID }}"
-    service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
-    credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    fwname: "{{ BASTION_NAME_PREFIX }}"
-    name: "{{ VPC_NETWORK_NAME | default('default') }}"
-    allowed: tcp:22
-    state: "present"
-    target_tags: "{{ TARGET_TAGS }}"
+- name: Create Firewall Rule
+  include_role:
+    name: gce_firewall_create
+  vars:
+    FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}"
 
 - name: GCE Instance Create | create instances
   include_role:
     name: gce_instance_create
   vars:
     sequence: "{{ start }}"
-    NAME_INSTANCE_PREFIX: "{{ BASTION_NAME_PREFIX }}"
+
+- name: Configure SSH ProxyCommand
+  include_role:
+    name: gce_bastion_host_ssh_config
+  vars:
+    bastion_host_name: "{{ gce_instance_ext_name }}"
+    bastion_host_user: "friasc"
+    bastion_host_ip: "{{ gce_instance_ext_IP }}"
+    bastion_target_host_range: "{{ NAME_INSTANCE_PREFIX }}"

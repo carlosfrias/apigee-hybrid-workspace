@@ -1,0 +1,27 @@
+---
+# tasks file for apigee_internal_load_balancer
+name: Assert REGION is defined
+  assert:
+    that:
+      - REGION is defined
+    msg: "Please provide the REGION"
+
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: service_account_file_processing
+
+- name: Get token
+  command: gcloud auth print-access-token
+  register: GCLOUD_TOKEN
+
+- name: Get ILB IP
+  uri:
+    url: "{{ APIGEE_API_URI }}/v1/organizations/{{ PROJECT_ID }}/instances/{{ REGION }}"
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN.stdout }}
+  register: ilb_node
+
+- name: Set ILB IP to cache
+  set_fact:
+    cacheable: yes
+    TARGET_ILB_IP: "{{ ilb_node.json.host }}"

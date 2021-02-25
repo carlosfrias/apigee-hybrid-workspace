@@ -1,0 +1,9 @@
+---
+# tasks file for gce_firewall_remove
+- name: Create Firewall Rule
+  community.google.gce_net:
+    project_id: "{{ PROJECT_ID }}"
+    service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
+    credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    fwname: "{{ FIREWALL_NAME }}"
+    state: "absent"

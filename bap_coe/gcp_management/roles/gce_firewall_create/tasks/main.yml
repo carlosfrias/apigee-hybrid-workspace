@@ -1,0 +1,13 @@
+---
+# tasks file for gce_firewall_create
+
+- name: Create Firewall Rule
+  community.google.gce_net:
+    project_id: "{{ PROJECT_ID }}"
+    service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
+    credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    fwname: "{{ FIREWALL_NAME }}"
+    name: "{{ VPC_NETWORK_NAME | default('default') }}"
+    allowed: tcp:22
+    state: "present"
+    target_tags: "{{ TARGET_TAGS }}"

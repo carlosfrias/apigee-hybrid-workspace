@@ -1,0 +1,69 @@
+---
+# tasks file for gce_bastion_host_ssh_config
+- name: Assert bastion_host_name is defined
+  assert:
+    that:
+      - bastion_host_name is defined
+    msg: "Please provide the bastion_host_name"
+
+- name: Assert bastion_host_ip is defined
+  assert:
+    that:
+      - bastion_host_ip is defined
+    msg: "Please provide the bastion_host_ip"
+
+- name: Assert bastion_host_user is defined
+  assert:
+    that:
+      - bastion_host_user is defined
+    msg: "Please provide the bastion_host_user"
+
+- name: Assert bastion_host_private_key is defined
+  assert:
+    that:
+      - bastion_host_private_key is defined
+    msg: "Please provide the bastion_host_private_key"
+
+- name: Assert bastion_target_host_range is defined
+  assert:
+    that:
+      - bastion_target_host_range is defined
+    msg: "Please provide the bastion_target_host_range"
+
+- name: Update SSH Config with ProxyCommand and Bastion Host Configuration
+  blockinfile:
+    path: ~/.ssh/config
+    create: yes
+    backup: yes
+    mode: 0600
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    marker_begin: "{{ marker_begin }}"
+    marker_end: "{{ marker_end }}"
+    block: |
+      Host {{ bastion_target_host_range }}
+        ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}
+        IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
+
+      Host {{ bastion_host_name }}
+        Hostname {{ bastion_host_ip }}
+        User {{ bastion_host_user }}
+        IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') | expanduser }}
+        ControlMaster auto
+        ControlPath ~/.ssh/ansible-%r@%h:%p
+        ControlPersist 5m
+
+# Match host DESTINATION
+#  ProxyCommand /usr/bin/trumpssh --user=%r --host=%h --port=%p --notls --fdpass --proxy localhost --proxy_ports 9558
+#  ProxyUseFdpass yes
+
+- name: Remove the old key(s) from known_hosts
+  command: ssh-keygen -R {{ hostvars[item].ansible_ssh_host }}
+  delegate_to: 127.0.0.1
+  with_items: "{{ groups['all'] }}"
+  when: hostvars[item].ansible_ssh_host is defined
+
+- name: Refresh gcloud compute config-ssh
+  command: "{{ item }}"
+  with_items:
+  - "gcloud compute config-ssh --remove"
+  - "gcloud compute config-ssh"

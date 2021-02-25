@@ -18,9 +18,13 @@
   poll: 2
   async: 90
 
-- name: Assert sequence is set
+- name: Assert use of start if set
   set_fact:
-    sequence: "{{ sequence | default(1) }}"
+    sequence: "{{ start | default(1) }}"
+
+- name: Assert sequence over start if set
+  set_fact:
+    sequence: "{{ sequence | default(start) }}"
     ACCESS_TYPE: "{{ ACCESS_TYPE | default('ext') }}"
 
 - name: create a disk

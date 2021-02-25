@@ -6,7 +6,7 @@
 
 - name: Update NAME_INSTANCE_PREFIX for bastion host name
   set_fact:
-    BASTION_NAME_PREFIX: "{{ NAME_INSTANCE_PREFIX }}-bastion"
+    BASTION_NAME_PREFIX: "{{ NAME_INSTANCE_PREFIX }}"
 
 - name: Delete Firewall Rule for Bastion Host
   community.google.gce_net:
@@ -20,4 +20,4 @@
   include_role:
     name: gce_instance_remove
   vars:
-    NAME_INSTANCE_PREFIX: "{{ BASTION_NAME_PREFIX }}"
+    sequence: "{{ start }}"
