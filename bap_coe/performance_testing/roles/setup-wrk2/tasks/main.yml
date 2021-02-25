@@ -6,6 +6,7 @@
   when: ansible_os_family == "Debian"
 
 - name: Update system package manager
+  become: yes
   package:
     name: "{{ SYSTEM_PACKAGES }}"
     state: present

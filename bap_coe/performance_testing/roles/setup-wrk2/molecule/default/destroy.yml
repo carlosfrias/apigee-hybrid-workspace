@@ -17,3 +17,13 @@
   - name: setup-wrk2 Create | Remove instances
     include_role:
       name: gce_instance_remove
+    vars:
+      NAME_INSTANCE_PREFIX: "wrk-coe-bastion"
+      start: 1
+      end: 1
+  - name: setup-wrk2 Create | Remove instances
+    include_role:
+      name: gce_instance_remove
+    vars:
+      start: 2
+      end: 2

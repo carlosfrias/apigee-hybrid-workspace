@@ -5,8 +5,8 @@ RESOURCE_GCP_ZONE: "us-central1-c"
 #MACHINE_TYPE: n1-standard-1
 MACHINE_TYPE: n2-highcpu-2
 SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
-TARGET_TAGS: "ssh"
-NAME_INSTANCE_PREFIX: "bap-coe"
+TARGET_TAGS: "bastionssh"
+NAME_INSTANCE_PREFIX: "wrk-coe"
 
 # Additional values for IMAGE_PROJECT: 'centos-cloud'
 # Additional values for IMAGE_FAMILY: 'centos-7'

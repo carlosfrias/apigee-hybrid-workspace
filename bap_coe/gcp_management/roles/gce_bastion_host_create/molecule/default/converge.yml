@@ -12,6 +12,11 @@
   - bap_coe.gcp_management
 
   tasks:
-  - name: create instances
+  - name: Create Bastion Host instance
     include_role:
       name: gce_bastion_host_create
+
+  - name: Capture Bastion Host IP Address
+    set_fact:
+      cacheable: yes
+      bastion_host_ip_address: "{{ gce_instance_ext_IP }}"

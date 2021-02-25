@@ -2,17 +2,17 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: delegated
 lint: |
   set -e
   yamllint .
   ansible-lint .
 platforms:
-  - name: wrk2-test-node
-    image: geerlingguy/docker-ubuntu1604-ansible
-    pre_build_image: true
+  - name: instance
 provisioner:
   name: ansible
+  options:
+    vvv: True
 verifier:
   name: ansible
   log: True

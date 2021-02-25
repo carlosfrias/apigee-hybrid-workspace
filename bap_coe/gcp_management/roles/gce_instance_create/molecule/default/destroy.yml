@@ -10,10 +10,10 @@
   collections:
   - bap_coe.gcp_management
 
-  roles:
-  - service_account_file_processing
-
   tasks:
   - name: GCE Instance Create | Remove instances
     include_role:
       name: gce_instance_remove
+    with_sequence: "start={{ start }} end={{ end }}"
+    loop_control:
+      loop_var: sequence

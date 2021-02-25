@@ -1,10 +1,8 @@
 ---
 # tasks file for gce_instance_create
-- name: Assert PROJECT_ID is provided
-  assert:
-    that:
-    - PROJECT_ID is defined
-    fail_msg: "Please provide the PROJECT_ID"
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: service_account_file_processing
 
 - name: create a network
   gcp_compute_network:
@@ -41,35 +39,42 @@
   poll: 2
   async: 90
 
-- name: create an externally accessible instance
-  gcp_compute_instance:
-    name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence }}"
-    state: present
-    machine_type: "{{ MACHINE_TYPE }}"
-    disks:
-    - auto_delete: true
-      boot: true
-      source: "{{ disk_config }}"
-    network_interfaces:
-    - network: "{{ network_config }}"
-      access_configs:
-      - name: 'External NAT'
-        type: 'ONE_TO_ONE_NAT'
-    zone: "{{ RESOURCE_GCP_ZONE }}"
-    project: "{{ PROJECT_ID }}"
-    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    tags:
-      items:
-      - "{{ TARGET_TAGS }}"
-    metadata:
-      'startup-script': |
-        {{ STARTUP_SCRIPT | default('') }}
-    scopes:
-    - "{{ SCOPE_COMPUTE }}"
-  register: instance
-  poll: 2
-  async: 300
+- block:
+  - name: create an externally accessible instance
+    gcp_compute_instance:
+      name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence }}"
+      state: present
+      machine_type: "{{ MACHINE_TYPE }}"
+      disks:
+      - auto_delete: true
+        boot: true
+        source: "{{ disk_config }}"
+      network_interfaces:
+      - network: "{{ network_config }}"
+        access_configs:
+        - name: 'External NAT'
+          type: 'ONE_TO_ONE_NAT'
+      zone: "{{ RESOURCE_GCP_ZONE }}"
+      project: "{{ PROJECT_ID }}"
+      auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+      service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+      tags:
+        items:
+        - "{{ TARGET_TAGS }}"
+      metadata:
+        'startup-script': |
+          {{ STARTUP_SCRIPT | default('') }}
+      scopes:
+      - "{{ SCOPE_COMPUTE }}"
+    register: gce_instance
+    poll: 2
+    async: 300
+
+  - name: Store GCE Instance Ext IP Address
+    set_fact:
+      cacheable: yes
+      gce_instance_ext_IP: "{{ gce_instance.networkInterfaces[0].accessConfigs[0].natIP }}"
+      gce_instance_ext_name: "{{ gce_instance.name }}"
   when: ACCESS_TYPE == "ext"
 
 - name: create an internally only accessible instance
@@ -95,7 +100,7 @@
         {{ STARTUP_SCRIPT | default('') }}
     scopes:
     - "{{ SCOPE_COMPUTE }}"
-  register: instance
+  register: gce_instance_int
   poll: 2
   async: 300
   when: ACCESS_TYPE != "ext"

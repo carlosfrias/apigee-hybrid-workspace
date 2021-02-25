@@ -1,5 +1,5 @@
 ---
-- name: setup-wrk2 | Converge
+- name: UPS Performance Testing Technical Win
   hosts: localhost
   connection: local
   gather_facts: no
@@ -9,12 +9,26 @@
 
   collections:
   - bap_coe.gcp_management
+  - bap_coe.performance_testing
+
+  roles:
+  - { role: service_account_file_processing }
 
   tasks:
-  - name: setup-wrk2 | Converge | Setup GCP Attributes from service account file
-    include_role:
-      name: service_account_file_processing
+    - name: Create Bastion Host instance
+      include_role:
+        name: gce_bastion_host_create
+      vars:
+        NAME_INSTANCE_PREFIX: "wrk-coe-bastion"
 
-  - name: setup-wrk2 | Converge | create instances
-    include_role:
-      name: gce_instance_create
+    - name: Capture Bastion Host IP Address
+      set_fact:
+        cacheable: yes
+        bastion_host_ip_address: "{{ gce_instance_ext_IP }}"
+
+    - name: Create protected working node
+      include_role:
+        name: gce_instance_create
+      vars:
+        NAME_INSTANCE_PREFIX: "wrk-coe"
+        ACCESS_TYPE: "int"

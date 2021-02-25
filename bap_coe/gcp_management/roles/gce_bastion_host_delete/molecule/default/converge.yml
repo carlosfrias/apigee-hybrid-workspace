@@ -1,0 +1,19 @@
+---
+- name: Delete
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
+
+  vars_files:
+  - shared-properties.yml
+
+  collections:
+  - bap_coe.gcp_management
+
+  tasks:
+  - name: Delete Bastion Host instance
+    include_role:
+      name: gce_bastion_host_delete
+    vars:
+      sequence: "{{ start }}"

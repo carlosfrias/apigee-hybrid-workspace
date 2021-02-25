@@ -1,7 +1,19 @@
 ---
-- name: Converge
-  hosts: all
+- name: GCE Instance Remove | Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+  - shared-properties.yml
+
+  collections:
+  - bap_coe.gcp_management
+
   tasks:
-    - name: "Include gce_instance_remove"
-      include_role:
-        name: "gce_instance_remove"
+  - name: GCE Instance Remove | Remove instances
+    include_role:
+      name: gce_instance_remove
+    with_sequence: "start={{ start }} end={{ end }}"
+    loop_control:
+      loop_var: sequence

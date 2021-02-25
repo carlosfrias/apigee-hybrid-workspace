@@ -1,0 +1,57 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
+platforms:
+- name: instance
+provisioner:
+  name: ansible
+  options:
+    vvv: True
+      #  inventory:
+      #    plugin: google.cloud.gcp_compute
+      #    zones:
+      #    - us-east1-b
+      #    - us-central1-C
+      #    projects:
+      #    - bap-amer-south-demo1
+      #    filters: []
+      #    service_account_file: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
+      #    auth_kind: serviceaccount
+      #    scopes:
+      #    - 'https://www.googleapis.com/auth/compute'
+      #    - 'https://www.googleapis.com/auth/cloud-platform'
+      ##    keyed_groups:
+      # #   - key: zone
+      #    compose:
+      # Set an inventory parameter to use the Public IP address to connect to the host
+      # For Private ip use "networkInterfaces[0].networkIP"
+      # For Public ip use "networkInterfaces[0].accessConfigs[0].natIP"
+    #  ansible_host: networkInterfaces[0].networkIP
+#      ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+verifier:
+  name: ansible
+  log: True
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer, yaml
+      roles_path: ../../
+      local_tmp: ./ansible/tmp
+      fact_caching_connection: ./ansible/cache/bap_coe_apigee_hybrid
+      fact_caching: jsonfile
+      gathering: smart
+      merge_multiple_cli_tags: True
+      display_args_to_stdout: True
+      timeout: 60
+      bin_ansible_callbacks: True
+      stdout_callback: yaml
+      stderr_callback: yaml
+    ssh_connection:
+      pipelining: false
+      scp_if_ssh: True

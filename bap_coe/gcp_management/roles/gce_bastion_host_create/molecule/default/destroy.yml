@@ -11,18 +11,7 @@
   collections:
     - bap_coe.gcp_management
 
-  roles:
-    - service_account_file_processing
-
   tasks:
-    - name: Delete Firewall Rule for Bastion Host
-      community.google.gce_net:
-        project_id: "{{ PROJECT_ID }}"
-        service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
-        credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
-        fwname: "{{ NAME_INSTANCE_PREFIX }}-firewall-rule"
-        state: "absent"
-
-    - name: Remove instances
+    - name: GCE Instance Remove | Remove instances
       include_role:
-        name: gce_instance_remove
+        name: gce_bastion_host_delete

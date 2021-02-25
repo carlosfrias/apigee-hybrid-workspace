@@ -1,27 +1,27 @@
 ---
 #gcp_project: sandbox-173316
-AUTHORIZATION_KIND: serviceaccount
-SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
-RESOURCE_GCP_ZONE: "us-central1-c"
+#AUTHORIZATION_KIND: serviceaccount
+#SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
+#RESOURCE_GCP_ZONE: "us-central1-c"
 #gcp_region: "us-central1"
 #network_name: "apigeenetwork"
-NAME_INSTANCE_PREFIX: "bap_coe_bastion"
+#NAME_INSTANCE_PREFIX: "bap_coe_bastion"
 #name_instance_network_tag: "{{ name_instance }}-network-tag"
 #name_firewall: "{{ name_instance }}-firewall"
 #name_address: "{{ name_instance }}-address"
 #name_disk: "{{ name_instance }}-disk"
-SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
+#SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
 #image_project: 'centos-cloud'
 ##image_project: 'ubuntu-os-cloud'
 #image_family: 'centos-7'
 ##image_family: 'ubuntu-1604-lts'
-DISK_SOURCE_IMAGE: "projects/{{ image_project }}/global/images/family/{{ image_family }}"
-DISK_SIZE: 50
+#DISK_SOURCE_IMAGE: "projects/{{ image_project }}/global/images/family/{{ image_family }}"
+#DISK_SIZE: 50
 #bastion_disk_size: 20
-MACHINE_TYPE: n1-standard-1
+#MACHINE_TYPE: n1-standard-1
 #gce_image: 'centos-7'
 #service_account_email: "friasc@sandbox-173316.iam.gserviceaccount.com"
-TARGET_TAGS: 'bastionssh'
+#TARGET_TAGS: 'bastionssh'
 #firewall_ports:
 #- { ports: "{{ ms_ports }}", port_type: 'ms' }
 #- { ports: "{{ router_ports }}", port_type: 'router' }
