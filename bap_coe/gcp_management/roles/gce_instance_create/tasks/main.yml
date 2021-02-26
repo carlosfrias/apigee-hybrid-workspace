@@ -43,6 +43,12 @@
   poll: 2
   async: 90
 
+- name: Assert ACCESS_TYPE contains the correct value
+  assert:
+    that:
+      - ACCESS_TYPE == "ext" or ACCESS_TYPE == "int"
+    fail_msg: "ACCESS_TYPE must be set to either 'ext' or 'int'"
+
 - block:
   - name: create an externally accessible instance
     gcp_compute_instance:
@@ -71,8 +77,6 @@
       scopes:
       - "{{ SCOPE_COMPUTE }}"
     register: gce_instance
-    poll: 2
-    async: 300
 
   - name: Store GCE Instance Ext IP Address
     set_fact:
@@ -105,6 +109,6 @@
     scopes:
     - "{{ SCOPE_COMPUTE }}"
   register: gce_instance_int
-  poll: 2
+  poll: 0
   async: 300
-  when: ACCESS_TYPE != "ext"
+  when: ACCESS_TYPE == "int"

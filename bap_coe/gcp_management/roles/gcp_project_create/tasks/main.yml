@@ -1,10 +1,10 @@
 ---
 # tasks file for gcp_project_create
-- name: Assert GCLOUD_ACCOUNT_EMAIL
+- name: Assert GCLOUD_ACCOUNT_USER
   assert:
     that:
-      - GCLOUD_ACCOUNT_EMAIL is defined
-    msg: "GCLOUD_ACCOUNT_EMAIL must contain the GCP account email"
+      - GCLOUD_ACCOUNT_USER is defined
+    msg: "GCLOUD_ACCOUNT_USER must contain the GCP account email"
 
 - name: Assert PROJECT_ID
   assert:
@@ -19,7 +19,7 @@
     msg: "BILLING_ID must be provided"
 
 - name: Set active account
-  shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
+  shell: gcloud config set account {{ GCLOUD_ACCOUNT_USER }}
 
 - name: Construct base project create command
   set_fact:

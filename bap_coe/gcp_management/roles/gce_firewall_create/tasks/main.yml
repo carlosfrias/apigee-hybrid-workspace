@@ -11,3 +11,5 @@
     allowed: tcp:22
     state: "present"
     target_tags: "{{ TARGET_TAGS }}"
+  async: 300
+  poll: 0

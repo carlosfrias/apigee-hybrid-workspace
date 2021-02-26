@@ -2,7 +2,8 @@
 # tasks file for roles/setup-wrk2
 - name: update system package manager cache
   become: yes
-  command: apt update
+  apt:
+    update_cache: yes
   when: ansible_os_family == "Debian"
 
 - name: Update system package manager

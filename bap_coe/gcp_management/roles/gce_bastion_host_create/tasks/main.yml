@@ -21,6 +21,6 @@
     name: gce_bastion_host_ssh_config
   vars:
     bastion_host_name: "{{ gce_instance_ext_name }}"
-    bastion_host_user: "friasc"
+    bastion_host_user: "{{ GCLOUD_ACCOUNT_USER }}"
     bastion_host_ip: "{{ gce_instance_ext_IP }}"
-    bastion_target_host_range: "{{ NAME_INSTANCE_PREFIX }}"
+    bastion_target_host_range: "{{ NAME_INSTANCE_PREFIX }}*"

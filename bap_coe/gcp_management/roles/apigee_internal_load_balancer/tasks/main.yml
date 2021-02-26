@@ -1,6 +1,6 @@
 ---
 # tasks file for apigee_internal_load_balancer
-name: Assert REGION is defined
+- name: Assert REGION is defined
   assert:
     that:
       - REGION is defined

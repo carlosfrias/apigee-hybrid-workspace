@@ -19,7 +19,7 @@
       service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
       scopes:
         - "{{ SCOPE_COMPUTE }}"
-    poll: 2
+    poll: 0
     async: 300
 
   rescue:
