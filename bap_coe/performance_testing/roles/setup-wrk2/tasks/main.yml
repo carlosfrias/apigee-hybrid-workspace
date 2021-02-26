@@ -1,9 +1,15 @@
 ---
 # tasks file for roles/setup-wrk2
-- name: update system package manager cache
+- block:
+  - name: Clear list folder
+    file:
+      path: /var/lib/apt/lists/*
+      state: absent
+
+  - name: update system package manager cache
+    apt:
+      update_cache: yes
   become: yes
-  apt:
-    update_cache: yes
   when: ansible_os_family == "Debian"
 
 - name: Update system package manager
