@@ -15,8 +15,6 @@
     state: present
     auto_create_subnetworks: yes
   register: network_config
-  poll: 2
-  async: 90
 
 - name: Assert use of INSTANCE_COUNT_START if set
   set_fact:
@@ -40,8 +38,6 @@
     - "{{ SCOPE_COMPUTE }}"
     state: present
   register: disk_config
-  poll: 2
-  async: 90
 
 - name: Assert ACCESS_TYPE contains the correct value
   assert:
