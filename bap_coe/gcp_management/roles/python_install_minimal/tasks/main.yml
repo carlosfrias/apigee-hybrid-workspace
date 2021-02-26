@@ -1,0 +1,9 @@
+---
+# tasks file for python_install_minimal
+- name: Install python if necessary
+  become: yes
+  raw: 'type python >/dev/null 2>&1 || apt-get -y install python-minimal'
+  changed_when: false
+
+- name: Gather facts after python is available
+  setup:

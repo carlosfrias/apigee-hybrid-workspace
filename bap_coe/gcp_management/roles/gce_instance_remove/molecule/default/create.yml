@@ -16,6 +16,6 @@
     - name: Create GCE instance
       include_role:
         name: gce_instance_create
-      with_sequence: "start={{ start }} end={{ end }}"
+      with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
       loop_control:
         loop_var: sequence

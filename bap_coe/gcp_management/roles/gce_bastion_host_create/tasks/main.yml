@@ -14,7 +14,7 @@
   include_role:
     name: gce_instance_create
   vars:
-    sequence: "{{ start }}"
+    sequence: "{{ INSTANCE_COUNT_START }}"
 
 - name: Configure SSH ProxyCommand
   include_role:

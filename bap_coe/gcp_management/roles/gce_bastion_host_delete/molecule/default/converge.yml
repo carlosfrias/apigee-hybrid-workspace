@@ -16,4 +16,4 @@
     include_role:
       name: gce_bastion_host_delete
     vars:
-      sequence: "{{ start }}"
+      sequence: "{{ INSTANCE_COUNT_START }}"

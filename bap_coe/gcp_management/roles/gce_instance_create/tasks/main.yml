@@ -18,13 +18,13 @@
   poll: 2
   async: 90
 
-- name: Assert use of start if set
+- name: Assert use of INSTANCE_COUNT_START if set
   set_fact:
-    sequence: "{{ start | default(1) }}"
+    sequence: "{{ INSTANCE_COUNT_START | default(1) }}"
 
-- name: Assert sequence over start if set
+- name: Assert sequence over INSTANCE_COUNT_START if set
   set_fact:
-    sequence: "{{ sequence | default(start) }}"
+    sequence: "{{ sequence | default(INSTANCE_COUNT_START) }}"
     ACCESS_TYPE: "{{ ACCESS_TYPE | default('ext') }}"
 
 - name: create a disk

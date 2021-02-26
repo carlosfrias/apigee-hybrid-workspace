@@ -6,7 +6,7 @@
 
 - name: Capture start if available
   set_fact:
-    start_pos: "{{ start | default(1) }}"
+    start_pos: "{{ INSTANCE_COUNT_START | default(1) }}"
 
 - block:
   - name: remove an instance

@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include python_install_minimal"
+      include_role:
+        name: "python_install_minimal"

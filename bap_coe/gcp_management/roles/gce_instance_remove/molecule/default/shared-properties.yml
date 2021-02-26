@@ -14,8 +14,8 @@ DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/gl
 DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
 DISK_SIZE: 50
 ACCESS_TYPE: ext
-start: 101
-end: 101
+INSTANCE_COUNT_START: 101
+INSTANCE_COUNT_END: 101
 
 #STARTUP_SCRIPT: |
 #  #! /bin/bash
