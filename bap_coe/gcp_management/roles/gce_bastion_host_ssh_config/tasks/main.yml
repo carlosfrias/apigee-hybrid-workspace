@@ -44,6 +44,10 @@
         ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}
         IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
 
+      Host 10.*.*.*
+        ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}
+        IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
+
       Host {{ bastion_host_name }}
         Hostname {{ bastion_host_ip }}
         User {{ bastion_host_user }}

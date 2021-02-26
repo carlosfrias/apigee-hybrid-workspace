@@ -32,7 +32,7 @@
     name: '{{ DISK_NAME }}-{{ sequence }}'
     size_gb: "{{ DISK_SIZE | default(50) }}"
     source_image: '{{ DISK_SOURCE_IMAGE }}'
-    zone: "{{ RESOURCE_GCP_ZONE }}"
+    zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
@@ -64,7 +64,7 @@
         access_configs:
         - name: 'External NAT'
           type: 'ONE_TO_ONE_NAT'
-      zone: "{{ RESOURCE_GCP_ZONE }}"
+      zone: "{{ GCP_ZONE }}"
       project: "{{ PROJECT_ID }}"
       auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
       service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
@@ -96,7 +96,7 @@
       source: "{{ disk_config }}"
     network_interfaces:
     - network: "{{ network_config }}"
-    zone: "{{ RESOURCE_GCP_ZONE }}"
+    zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
