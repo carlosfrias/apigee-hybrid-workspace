@@ -17,8 +17,6 @@
       project: "{{ PROJECT_ID }}"
       auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
       service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
-      scopes:
-        - "{{ SCOPE_COMPUTE }}"
     poll: 0
     async: 300
 

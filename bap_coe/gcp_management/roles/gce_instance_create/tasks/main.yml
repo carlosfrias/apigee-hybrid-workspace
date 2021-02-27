@@ -10,8 +10,7 @@
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    scopes:
-    - "{{ SCOPE_COMPUTE }}"
+    scopes: "{{ SCOPE_COMPUTE }}"
     state: present
     auto_create_subnetworks: yes
   register: network_config
@@ -34,8 +33,7 @@
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    scopes:
-    - "{{ SCOPE_COMPUTE }}"
+    scopes: "{{ SCOPE_COMPUTE }}"
     state: present
   register: disk_config
 
@@ -70,8 +68,7 @@
       metadata:
         'startup-script': |
           {{ STARTUP_SCRIPT | default('') }}
-      scopes:
-      - "{{ SCOPE_COMPUTE }}"
+      scopes: "{{ SCOPE_COMPUTE }}"
     register: gce_instance
 
   - name: Store GCE Instance Ext IP Address
@@ -102,8 +99,7 @@
     metadata:
       'startup-script': |
         {{ STARTUP_SCRIPT | default('') }}
-    scopes:
-    - "{{ SCOPE_COMPUTE }}"
+    scopes: "{{ SCOPE_COMPUTE }}"
   register: gce_instance_int
   poll: 0
   async: 300
