@@ -7,3 +7,4 @@ transaction.yaml
 */collection*/**
 **/*.tar.gz
 **/ansible
+.idea/**

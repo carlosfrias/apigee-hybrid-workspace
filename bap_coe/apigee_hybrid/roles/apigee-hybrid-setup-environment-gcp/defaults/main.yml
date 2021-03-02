@@ -5,9 +5,9 @@ DEFAULT_SYSTEM_TOOLS:
 - 'google-cloud-sdk'
 
 DEFAULT_GCP_SYSTEM_TOOLS:
-  - apt-transport-https
   - gnupg2
   - ca-certificates
+  - apt-transport-https
 
 DEFAULT_APT_REPOSITORIES:
   - "deb https://apt.kubernetes.io/ kubernetes-xenial main"

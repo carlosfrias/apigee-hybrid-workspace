@@ -1,5 +1,5 @@
 ---
-PROJECT_ID: "friasc-hybrid-02112021-2002"
+PROJECT_ID: "friasc-hybrid-03012021-1450"
 APIGEE_VERSION: 1.4.1
 ISTIO_VERSION: 1.7.6
 ISTIO_VERSION_REVISION: "asm.1"  # with 1.7.6
@@ -70,3 +70,9 @@ GCP_SERVICES:
 - "logging.googleapis.com"
 - "cloudtrace.googleapis.com"
 - "privateca.googleapis.com"
+
+
+DEFAULT_GCP_SYSTEM_TOOLS:
+  - gnupg2
+#  - ca-certificates
+#  - apt-transport-https

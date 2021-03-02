@@ -1,5 +1,6 @@
 - name: Create Apigee hybrid runtime on GCP
   hosts: localhost
+  connection: local
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -7,8 +8,10 @@
 
   collections:
     - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
 
   roles:
+    - python_install_minimal
     - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup-env', 'gcp'] }
     - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env','k-tools'] }
     - { role: apigee-hybrid-setup-environment-docker, tags: ['setup-env','docker'] }
