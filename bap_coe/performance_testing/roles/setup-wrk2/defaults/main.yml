@@ -6,7 +6,7 @@ SYSTEM_PACKAGES:
 - git
 - zlib1g-dev
 
-WORKSPACE_FOLDER: "{{ '~' | expanduser }}/performance-workspace"
+WORKSPACE_FOLDER: "/usr/local/src"
 BUILD_FOLDER: wrk
 COMMAND_NAME: wrk
 WRK_REPO_URL: https://github.com/giltene/wrk2.git
