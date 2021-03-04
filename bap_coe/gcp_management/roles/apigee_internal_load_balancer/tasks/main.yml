@@ -8,37 +8,13 @@
 
 - name: Setup GCP Attributes from service account file
   include_role:
-    name: service_account_file_processing
-
-- name: Create tempfile
-  tempfile:
-    state: file
-    suffix: temp
-  register: tempfile
-
-- name: Save credentials to tempfile
-  copy:
-    content: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
-    dest: "{{ tempfile.path }}"
-
-- name: Activate service account
-  command: gcloud auth activate-service-account {{ SERVICE_ACCOUNT_EMAIL }} --key-file {{ tempfile.path }}
-
-- name: Remove credentials tempfile
-  file:
-    path: "{{ tempfile.path }}"
-    state: absent
-  when: tempfile.path is defined
-
-- name: Get token
-  command: gcloud auth print-access-token
-  register: GCLOUD_TOKEN
+    name: gcp_token_retrieval
 
 - name: Get ILB IP
   uri:
     url: "{{ APIGEE_API_URI }}/v1/organizations/{{ PROJECT_ID }}/instances/{{ GCP_REGION }}"
     headers:
-      Authorization: Bearer {{ GCLOUD_TOKEN.stdout }}
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: ilb_node
 
 - name: Set ILB IP to cache
