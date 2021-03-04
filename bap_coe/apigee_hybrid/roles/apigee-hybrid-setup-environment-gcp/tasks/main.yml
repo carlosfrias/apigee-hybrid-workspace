@@ -14,9 +14,8 @@
 
   - name: Add system utilities
     apt:
-      name: "{{ item }}"
+      name: "{{ GCP_SYSTEM_TOOLS }}"
       state: present
-    with_items: "{{ GCP_SYSTEM_TOOLS }}"
 
   - name: Add key to repository
     apt_key:

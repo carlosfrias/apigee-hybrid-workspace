@@ -11,10 +11,10 @@
     - bap_coe.gcp_management
 
   roles:
-    - python_install_minimal
-    - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup-env', 'gcp'] }
-    - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env','k-tools'] }
-    - { role: apigee-hybrid-setup-environment-docker, tags: ['setup-env','docker'] }
+#    - { role: python_install_minimal, tags: ['setup', 'python'] }
+#    - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup', 'gcp'] }
+    - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup','k-tools'] }
+    - { role: apigee-hybrid-setup-environment-docker, tags: ['setup','docker'] }
     - { role: apigee-hybrid-apigee-version, tags: ['version'] }
     - { role: apigee-hybrid-project-create, tags: ['project'] }
     - { role: apigee-hybrid-project-services-enable, tags: ['services'] }

@@ -24,7 +24,6 @@ DEFAULT_GCP_SERVICES:
 - "logging.googleapis.com"
 - "cloudtrace.googleapis.com"
 - "privateca.googleapis.com"
-#- "apigeeconnect.googleapis.com"
 DEFAULT_ROLE_BINDING:
 - roles/editor
 - roles/compute.admin
@@ -37,3 +36,4 @@ DEFAULT_ROLE_BINDING:
 - roles/meshconfig.admin
 - roles/serviceusage.serviceUsageAdmin
 - roles/servicemanagement.admin
+- roles/apigeeconnect.Agent

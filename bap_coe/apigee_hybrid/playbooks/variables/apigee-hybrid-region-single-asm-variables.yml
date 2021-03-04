@@ -1,6 +1,6 @@
 ---
-PROJECT_ID: "friasc-hybrid-03012021-1450"
-APIGEE_VERSION: 1.4.1
+PROJECT_ID: "friasc-hybrid-03032021-1820"
+APIGEE_VERSION: 1.4.2
 ISTIO_VERSION: 1.7.6
 ISTIO_VERSION_REVISION: "asm.1"  # with 1.7.6
 #ISTIO_VERSION: 1.6.11
@@ -74,5 +74,5 @@ GCP_SERVICES:
 
 DEFAULT_GCP_SYSTEM_TOOLS:
   - gnupg2
-#  - ca-certificates
-#  - apt-transport-https
+  - ca-certificates
+  - apt-transport-https

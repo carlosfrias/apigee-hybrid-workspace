@@ -40,6 +40,6 @@ galaxy_info:
     # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
     #       Maximum 20 tags per role.
 
-dependencies:
-  - { role: apigee-hybrid-setup-environment-gcp }
-  - { role: apigee-hybrid-setup-environment-docker }
+dependencies: []
+#  - { role: apigee-hybrid-setup-environment-gcp }
+#  - { role: apigee-hybrid-setup-environment-docker }

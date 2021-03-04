@@ -1,0 +1,10 @@
+ansible
+ansible-lint
+molecule
+yamllint
+passlib
+apache-libcloud
+google-auth
+pyasn1_modules
+requests
+pycryptodome
