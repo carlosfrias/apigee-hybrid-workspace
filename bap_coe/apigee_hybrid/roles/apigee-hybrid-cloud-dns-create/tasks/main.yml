@@ -9,15 +9,9 @@
     GCP_CLOUD_DNS_DESCRIPTION: "{{ GCP_CLOUD_DNS_DESCRIPTION | default(DEFAULT_GCP_CLOUD_DNS_DESCRIPTION) }}"
     DNS_MANAGED_ZONE: "apigee-dns-zone"
 
-- name: Retrieve Bearer token
-  shell: |
-    gcloud auth print-access-token \
-      --project {{ PROJECT_ID }}
-  register: bearer_token
-
-- name: Capture token
-  set_fact: 
-    TOKEN: "{{ bearer_token.stdout }}"
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: gcp_token_retrieval
 
 - name: Create External IP
   shell: |
@@ -34,7 +28,7 @@
   uri:
     url: "https://www.googleapis.com/compute/v1/projects/{{ PROJECT_ID }}/regions/{{ REGION }}/addresses/{{ EXTERNAL_IP_NAME }}"
     headers: 
-      Authorization: "Bearer {{ TOKEN }}"
+      Authorization: "Bearer {{ GCLOUD_TOKEN }}"
   register: external_IP
 
 - name: Set apigee ingress ip

@@ -26,7 +26,7 @@
   when: tempfile.path is defined
 
 - name: Get token
-  command: gcloud auth print-access-token
+  command: gcloud auth print-access-token --project {{ PROJECT_ID }}
   register: gcloud_token
 
 - name: Store token

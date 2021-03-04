@@ -1,19 +1,16 @@
 ---
 - block:   #- now getting set in the install_asm script
-  - name: Retrieve Bearer token
-    shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
-    register: bearer_token
 
-  - name: Capture token
-    set_fact:
-      TOKEN: "{{ bearer_token.stdout }}"
+  - name: Setup GCP Attributes from service account file
+    include_role:
+      name: gcp_token_retrieval
 
   - name: Set permissions for sidecar proxy
     uri:
       url: https://meshconfig.googleapis.com/v1alpha1/projects/{{ PROJECT_ID }}:initialize
       method: POST
       headers:
-        Authorization: Bearer {{ TOKEN }}
+        Authorization: Bearer {{ GCLOUD_TOKEN }}
   when: ATTACHED_CLUSTER == False
 
 - name: Select Cluster

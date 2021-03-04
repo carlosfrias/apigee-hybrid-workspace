@@ -11,23 +11,16 @@
     cacheable: yes
     CSM_DOWNLOAD_BASE_FILENAME: "install_asm_{{ ISTIO_VERSION_MAJOR }}"
 
-- block:
-  - name: Retrieve Bearer token, if not available
-    shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
-    register: bearer_token
-
-  - name: Capture token
-    set_fact:
-      TOKEN: "{{ bearer_token.stdout }}"
-
-  when: TOKEN is not defined
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: gcp_token_retrieval
 
 - name: Download the SHA-256 signature of the file to the current working directory
   get_url:
     url: "{{ CSM_DOWNLOAD_BASE_URL }}/{{ CSM_DOWNLOAD_BASE_FILENAME }}.sha256"
     dest: "{{ WORK_DIR }}/install_asm.sha256"
     headers:
-      Authorization: Bearer {{ TOKEN }}
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
 
 - name: Load SHA-256 signature from file
   set_fact:
@@ -41,7 +34,7 @@
     force: yes
     checksum: sha256:{{ install_asm_sha256.split(' ')[0] }}
     headers:
-      Authorization: Bearer {{ TOKEN }}
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
 
 - name: Validate Environment for ASM
   tags: ['validate-asm','script']

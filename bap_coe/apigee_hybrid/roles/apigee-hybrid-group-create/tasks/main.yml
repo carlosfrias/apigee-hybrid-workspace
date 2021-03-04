@@ -5,20 +5,16 @@
     cacheable: yes
     ENV_GROUP: "{{ ENV_GROUP | default(DEFAULT_ENV_GROUP) }}"
 
-- name: Retrieve Bearer token
-  shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
-  register: bearer_token
-
-- name: Capture token
-  set_fact: 
-    TOKEN: "{{ bearer_token.stdout }}"
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: gcp_token_retrieval
 
 - name: Create environment group
   uri: 
     url: https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/envgroups
     method: POST
     headers: 
-      Authorization: Bearer {{ TOKEN }}
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
     body_format: json
     status_code: ['200', '409']
     body: 

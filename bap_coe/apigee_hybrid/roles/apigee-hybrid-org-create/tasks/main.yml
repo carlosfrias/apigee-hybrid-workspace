@@ -9,20 +9,16 @@
     ANALYTICS_REGION: "{{ ANALYTICS_REGION | default(REGION) }}"
     ORG_CREATE_TIMEOUT: "{{ ORG_CREATE_TIMEOUT | default(DEFAULT_ORG_CREATE_TIMEOUT) }}"
 
-- name: Retrieve Bearer token
-  shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
-  register: bearer_token
-
-- name: Capture token
-  set_fact: 
-    TOKEN: "{{ bearer_token.stdout }}"
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: gcp_token_retrieval
 
 - name: Create Apigee hybrid organization
   uri:
     url: https://apigee.googleapis.com/v1/organizations?parent=projects/{{ PROJECT_ID }}
     method: POST
     headers: 
-      Authorization: Bearer {{ TOKEN }}
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
     body_format: json
     status_code: ['200', '409']
     body:
@@ -42,7 +38,7 @@
   uri:
     url: "https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/operations/{{ LONG_RUNNING_OPERATION_ID }}"
     headers: 
-      Authorization: Bearer {{ TOKEN }}
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
   when: LONG_RUNNING_OPERATION_ID is defined
   register: operation_status
   until: operation_status.json.metadata.state == "FINISHED"

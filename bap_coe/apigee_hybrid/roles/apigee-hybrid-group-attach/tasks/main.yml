@@ -1,20 +1,16 @@
 ---
 # tasks file for roles/apigee-hybrid-group-attach
 
-- name: Retrieve Bearer token
-  shell: gcloud auth print-access-token --project {{ PROJECT_ID }}
-  register: bearer_token
-
-- name: Capture token
-  set_fact: 
-    TOKEN: "{{ bearer_token.stdout }}"
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: gcp_token_retrieval
 
 - name: Attach environment to group
   uri:
     url: https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/envgroups/{{ ENV_GROUP }}/attachments
     method: POST
     headers: 
-      Authorization: Bearer {{ TOKEN }}
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
     body_format: json
     status_code: ['200', '409']
     body: 
