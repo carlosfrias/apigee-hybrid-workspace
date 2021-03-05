@@ -1,0 +1,60 @@
+---
+# tasks file for products_create
+- name: Assert GCLOUD_TOKEN is provided
+  assert:
+    that:
+      - GCLOUD_TOKEN is defined
+    msg: Please provide the bearer token from gcloud. (You can use gcp_token_retrieval role)
+
+- name: Assert API_KEY is provided
+  assert:
+    that:
+      - API_KEY is defined
+    msg: Please provide the API_KEY. (https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts/create)
+
+- name: Assert ORG is provided
+  assert:
+    that:
+      - ORG is defined
+    msg: Please provide the organiztion name.
+
+- name: Set defaults for attributes not provided
+  set_fact:
+    APIGEE_API_URI: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}"
+    PRODUCT_NAME: "{{ PRODUCT_NAME | default('Sample-Product') }}"
+    PRODUCT_DISPLAY_NAME: "{{ PRODUCT_DISPLAY_NAME | default('Sample-Product') }}"
+    PRODUCT_APPROVAL_TYPE: "{{ PRODUCT_APPROVAL_TYPE | default('auto') }}"
+    PRODUCT_ENV: "{{ PRODUCT_ENV | default('test') }}"
+    API_PROXY_NAME: "{{ API_PROXY_NAME | default('notarget') }}"
+    PRODUCT_QUOTA: "{{ PRODUCT_QUOTA | default(1000) }}"
+    PRODUCT_QUOTA_INTERVAL: "{{ PRODUCT_QUOTA_INTERVAL | default(1) }}"
+    PRODUCT_QUOTA_TIME_UNIT: "{{ PRODUCT_QUOTA_TIME_UNIT | default('hour') }}"
+    START_POSITION: "{{ PRODUCT_START_POSITION | default(1) }}"
+    LOAD_COUNT: "{{ PRODUCT_LOAD_COUNT | default(1) }}"
+
+#  Create Product - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts/create
+- name: Create Product
+  uri:
+    url: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}/v1/organizations/{{ ORG }}/apiproducts?key={{ API_KEY }}"
+    method: POST
+    status_code: ['200','201','409']
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+    body_format: json
+    body:
+      name: "{{ PRODUCT_NAME }}-{{ item }}"
+      displayName: "{{ PRODUCT_DISPLAY_NAME }}"
+      approvalType: "{{ PRODUCT_APPROVAL_TYPE }}"
+      environments: [
+          "{{ PRODUCT_ENV }}"
+      ]
+      proxies: [
+          "{{ API_PROXY_NAME }}"
+      ]
+      quota: "{{ PRODUCT_QUOTA }}"
+      quotaInterval: "{{ PRODUCT_QUOTA_INTERVAL }}"
+      quotaTimeUnit: "{{ PRODUCT_QUOTA_TIME_UNIT }}"
+  with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
+  async: 3600
+  poll: 0
+  register: product_creation_task_status

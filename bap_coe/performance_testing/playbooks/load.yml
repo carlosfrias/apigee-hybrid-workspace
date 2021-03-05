@@ -1,0 +1,23 @@
+---
+- name: Complete Bulk Load of Test Data for Products, Developers and Apps
+  hosts: "{{ target_hosts | default('localhost') }}"
+  strategy: free
+  gather_facts: yes
+
+  collections:
+    - bap_coe.performance_testing
+    - bap_coe.gcp_management
+
+  roles:
+    - service_account_file_processing
+    - gcp_token_retrieval
+    - load_product_developers_apps
+#    - products_create
+#    - developers_create
+#    - developers_apps_create
+#    - developers_apps_keys_create
+#    - developers_apps_products_associate
+
+  vars_files:
+    - ~/.apigee-secure/credentials.yml
+    - ../properties.yml

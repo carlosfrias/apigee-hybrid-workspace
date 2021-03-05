@@ -40,7 +40,8 @@
     APP_STATUS: "{{ APP_STATUS | default('active') }}"
     APP_FAMILY: "{{ APP_FAMILY | default('sample-app-family') }}"
 
-- name: Create Product with Quota of 1000 calls per hour
+#  Create Product - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts/create
+- name: Create Product
   uri:
     url: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}/v1/organizations/{{ ORG }}/apiproducts?key={{ API_KEY }}"
     method: POST
@@ -49,20 +50,21 @@
       Authorization: Bearer {{ GCLOUD_TOKEN }}
     body_format: json
     body:
-      "name": "{{ PRODUCT_NAME }}"
-      "displayName": "{{ PRODUCT_DISPLAY_NAME }}"
-      "approvalType": "{{ PRODUCT_APPROVAL_TYPE }}"
-      "environments": [
+      name: "{{ PRODUCT_NAME }}"
+      displayName: "{{ PRODUCT_DISPLAY_NAME }}"
+      approvalType: "{{ PRODUCT_APPROVAL_TYPE }}"
+      environments: [
           "{{ PRODUCT_ENV }}"
       ]
-      "proxies": [
+      proxies: [
           "{{ API_PROXY_NAME }}"
       ]
-      "quota": "{{ PRODUCT_QUOTA }}"
-      "quotaInterval": "{{ PRODUCT_QUOTA_INTERVAL }}"
-      "quotaTimeUnit": "{{ PRODUCT_QUOTA_TIME_UNIT }}"
+      quota: "{{ PRODUCT_QUOTA }}"
+      quotaInterval: "{{ PRODUCT_QUOTA_INTERVAL }}"
+      quotaTimeUnit: "{{ PRODUCT_QUOTA_TIME_UNIT }}"
 
-- name: Create sample developers
+# Create Developer - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers/create
+- name: Create Developers
   uri:
     url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers"
     method: POST
@@ -71,10 +73,10 @@
       Authorization: Bearer {{ GCLOUD_TOKEN }}
     body_format: json
     body:
-      "email": "{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ item }}@{{ DEVELOPER_EMAIL_DOMAIN }}"
-      "firstName": "{{ DEVELOPER_FIRST_NAME }}-{{ item }}"
-      "lastName": "{{ DEVELOPER_LAST_NAME }}"
-      "userName": "{{ DEVELOPER_USER_NAME }}-{{ item }}"
+      email: "{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ item }}@{{ DEVELOPER_EMAIL_DOMAIN }}"
+      firstName: "{{ DEVELOPER_FIRST_NAME }}-{{ item }}"
+      lastName: "{{ DEVELOPER_LAST_NAME }}"
+      userName: "{{ DEVELOPER_USER_NAME }}-{{ item }}"
   with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
   async: 3600
   poll: 0
@@ -88,7 +90,8 @@
   retries: "{{ (LOAD_COUNT / 4) }}"
   delay: ( 3600 * 4)
 
-- name: Create sample apps
+# Create Developer App - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps/create
+- name: Create Apps
   uri:
     url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers/{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ item }}@{{ DEVELOPER_EMAIL_DOMAIN }}/apps"
     method: POST
@@ -97,11 +100,50 @@
       Authorization: Bearer {{ GCLOUD_TOKEN }}
     body_format: json
     body:
-      "name": "{{ APP_NAME }}-{{ item }}"
-      "status": "{{ APP_STATUS }}"
-      "appFamily": "{{ APP_FAMILY }}"
-      "apiProducts":
+      name: "{{ APP_NAME }}-{{ item }}"
+      status: "{{ APP_STATUS }}"
+      appFamily: "{{ APP_FAMILY }}"
+      apiProducts:
         - "{{ PRODUCT_NAME }}"
   with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
   async: 3600
   poll: 0
+
+# Create Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/create
+- name: Create Developer App Key
+  uri:
+    url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers/{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ item }}@{{ DEVELOPER_EMAIL_DOMAIN }}/apps/{{ APP_NAME }}-{{ item }}/keys"
+    method: POST
+    status_code: [ '200','201','409' ]
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+    body_format: json
+    body:
+      name: "{{ APP_NAME }}-{{ item }}"
+      consumerKey: "{{ item }}"
+      consumerSecret: "{{ item }}"
+      status: "{{ APP_STATUS }}"
+  with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
+  async: 3600
+  poll: 0
+
+
+# Add API Product to Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/updateDeveloperAppKey#google.cloud.apigee.v1.DeveloperAppKeys.UpdateDeveloperAppKey
+- name: Add API Product to Developer App Key
+  uri:
+    url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers/{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ item }}@{{ DEVELOPER_EMAIL_DOMAIN }}/apps/{{ APP_NAME }}-{{ item }}/keys/{{ item }}?action={{ APP_STATUS }}"
+    method: POST
+    status_code: [ '200','201','409' ]
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+    body_format: json
+    body:
+      apiProducts:
+        - "{{ PRODUCT_NAME }}"
+      consumerKey: "{{ item }}"
+      consumerSecret: "{{ item }}"
+      name: "{{ APP_NAME }}-{{ item }}"
+      status: "{{ APP_STATUS }}"
+    with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
+    async: 3600
+    poll: 0

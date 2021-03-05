@@ -1,7 +1,7 @@
 ---
 # tasks file for wrk2_execute_tests
 - name: Performance Test Execution
-  command: 'wrk -t{{ item.THREAD_COUNT }} -c{{ item.CONNECTION_COUNT }} -d{{ item.TEST_DURATION }} -R{{ item.REQUEST_COUNT }} --latency -H "Host: {{ TARGET_HOST }}" {{ TARGET_URL }}'
+  command: 'nohup wrk -t{{ item.THREAD_COUNT }} -c{{ item.CONNECTION_COUNT }} -d{{ item.DURATION }} -R{{ item.REQUEST_COUNT }} --latency -H "Host: {{ TARGET_HOST }}" {{ TARGET_URL }}'
   register: perf_output
   args:
     chdir: /usr/local/bin

@@ -1,0 +1,30 @@
+---
+- name: Molecule | Remove UPS Performance Testing Infrastructure Instances
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - properties.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  roles:
+    - service_account_file_processing
+
+  tasks:
+  - name: Delete Bastion Host instance
+    tags: ['bastion']
+    include_role:
+      name: gce_bastion_host_delete
+    vars:
+      sequence: "{{ INSTANCE_COUNT_START }}"
+
+  - name: Remove instances
+    tags: ['instances']
+    include_role:
+      name: gce_instance_remove
+    with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
+    loop_control:
+      loop_var: sequence

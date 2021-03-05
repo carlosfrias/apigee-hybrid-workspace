@@ -1,0 +1,4 @@
+---
+# defaults file for developers_apps_create
+APIGEE_API_URI: https://apigee.googleapis.com
+

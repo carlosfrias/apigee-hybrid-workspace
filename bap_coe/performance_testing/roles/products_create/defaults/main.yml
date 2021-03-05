@@ -1,0 +1,4 @@
+---
+# defaults file for products_create
+APIGEE_API_URI: https://apigee.googleapis.com
+

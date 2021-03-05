@@ -1,0 +1,30 @@
+########## Create Developers and Apps with Quotas ###########
+1. Create Product with Quota of 10000 calls per hour - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts/create
+curl --request POST \
+  'https://apigee.googleapis.com/v1/organizations/$YOUR_ORG/apiproducts?key=$API_KEY' \
+  --header 'Authorization: Bearer $ACCESS_TOKEN' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '
+{
+  "name": Product$LOOP_COUNTER,
+  "displayName": "Product$LOOP_COUNTER",
+  "approvalType": auto,
+  "environments": [
+    "test"
+  ],
+  "proxies": [
+    "tracking-api"
+  ],
+  "quota": "10000",
+  "quotaInterval": "1",
+  "quotaTimeUnit": "hour",
+  "createdAt": string,
+}' \
+  --compressed
+2. Create Developer - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers/create
+3. Create Developer App - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps/create
+4. Create Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/create
+5. Add API Product to Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/updateDeveloperAppKey#google.cloud.apigee.v1.DeveloperAppKeys.UpdateDeveloperAppKey
+
+

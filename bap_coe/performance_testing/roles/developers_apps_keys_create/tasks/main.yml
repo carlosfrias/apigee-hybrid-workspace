@@ -1,0 +1,46 @@
+---
+# tasks file for developers_apps_keys_create
+- name: Assert GCLOUD_TOKEN is provided
+  assert:
+    that:
+      - GCLOUD_TOKEN is defined
+    msg: Please provide the bearer token from gcloud. (You can use gcp_token_retrieval role)
+
+- name: Assert ORG is provided
+  assert:
+    that:
+      - ORG is defined
+    msg: Please provide the organiztion name.
+
+- name: Set defaults for attributes not provided
+  set_fact:
+    APIGEE_API_URI: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}"
+    DEVELOPER_EMAIL_ACCOUNT: "{{ DEVELOPER_EMAIL_ACCOUNT | default('joe.developer') }}"
+    DEVELOPER_EMAIL_DOMAIN: "{{ DEVELOPER_EMAIL_DOMAIN | default('google.com') }}"
+    DEVELOPER_FIRST_NAME: "{{ DEVELOPER_FIRST_NAME | default('joe') }}"
+    DEVELOPER_LAST_NAME: "{{ DEVELOPER_LAST_NAME | default('developer') }}"
+    DEVELOPER_USER_NAME: "{{ DEVELOPER_USER_NAME | default('developerjoe') }}"
+    START_POSITION: "{{ DEVELOPER_START_POSITION | default(1) }}"
+    LOAD_COUNT: "{{ DEVELOPER_LOAD_COUNT | default(1) }}"
+    APP_NAME: "{{ APP_NAME | default('sample-app') }}"
+    APP_STATUS: "{{ APP_STATUS | default('active') }}"
+    APP_FAMILY: "{{ APP_FAMILY | default('sample-app-family') }}"
+
+# Create Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/create
+- name: Create Developer App Key
+  uri:
+    url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers/{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ item }}@{{ DEVELOPER_EMAIL_DOMAIN }}/apps/{{ APP_NAME }}-{{ item }}/keys"
+    method: POST
+    status_code: [ '200','201','409' ]
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+    body_format: json
+    body:
+      name: "{{ APP_NAME }}-{{ item }}"
+      consumerKey: "{{ item }}"
+      consumerSecret: "{{ item }}"
+      status: "{{ APP_STATUS }}"
+  with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
+  async: 3600
+  poll: 0
+  register: developer_app_key_task_status

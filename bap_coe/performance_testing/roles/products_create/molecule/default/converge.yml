@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include products_create"
+      include_role:
+        name: "products_create"
