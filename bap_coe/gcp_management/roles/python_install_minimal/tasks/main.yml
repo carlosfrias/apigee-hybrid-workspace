@@ -2,12 +2,17 @@
 # tasks file for python_install_minimal
 - name: Install python if necessary
   become: yes
-  raw: 'type python >/dev/null 2>&1 || sudo apt install -y python3'
+  raw: 'type python3 >/dev/null 2>&1 || sudo apt install -y python3'
   changed_when: false
 
 - name: Added python3 for package manager
   become: yes
   raw: "sudo apt install -y python3-apt"
+  when: ansible_os_family == "Debian"
+
+- name: Update alternatives for python3
+  become: yes
+  raw: "sudo update-alternatives --install /usr/bin/python python $(which python3) 1;"
   when: ansible_os_family == "Debian"
 
 - name: Gather facts after python is available

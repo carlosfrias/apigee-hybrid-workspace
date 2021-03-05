@@ -1,0 +1,35 @@
+---
+# tasks file for wrk2_execute_tests
+- name: Performance Test Execution
+  command: 'wrk -t{{ item.THREAD_COUNT }} -c{{ item.CONNECTION_COUNT }} -d{{ item.TEST_DURATION }} -R{{ item.REQUEST_COUNT }} --latency -H "Host: {{ TARGET_HOST }}" {{ TARGET_URL }}'
+  register: perf_output
+  args:
+    chdir: /usr/local/bin
+  with_items: "{{ SAMPLING }}"
+
+- name: Cache perf_output
+  set_fact:
+    cacheable: yes
+    perf_output: "{{ perf_output }}"
+
+- name: Create temp folder for results storage
+  tempfile:
+    state: directory
+  register: perf_result_folder
+
+- name: Save performance test results collected to temp folder
+  become: yes
+  template:
+    src: perf_results.txt.j2
+    dest: "{{ perf_result_folder.path }}/perf_results.txt"
+
+- name: Fetch results to controller node
+  fetch:
+    src: "{{ perf_result_folder.path }}/perf_results.txt"
+    dest: ./perf_results
+    flatten: true
+
+- name: Clean up temp folder
+  file:
+    path: "{{ perf_result_folder.path }}"
+    state: absent
