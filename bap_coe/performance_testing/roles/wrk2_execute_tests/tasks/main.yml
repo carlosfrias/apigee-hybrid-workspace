@@ -1,7 +1,15 @@
 ---
 # tasks file for wrk2_execute_tests
 - name: Performance Test Execution
-  command: 'wrk -t{{ EXECUTION_SAMPLING.THREAD_COUNT }} -c{{ EXECUTION_SAMPLING.CONNECTION_COUNT }} -d{{ EXECUTION_SAMPLING.DURATION }} -R{{ ((EXECUTION_SAMPLING.REQUEST_COUNT_BASE | int) * (item | int)) }} --latency -H "Host: {{ TARGET_HOST }}" {{ TARGET_URL }}'
+  command: |
+    wrk \
+      -t{{ EXECUTION_SAMPLING.THREAD_COUNT }} \
+      -c{{ EXECUTION_SAMPLING.CONNECTION_COUNT }} \
+      -d{{ EXECUTION_SAMPLING.DURATION }} \
+      -R{{ ((EXECUTION_SAMPLING.REQUEST_COUNT_BASE | int) * (item | int)) }} \
+      --latency \
+      -H "Host: {{ TARGET_HOST }}" \
+      {{ TARGET_URL }}
   register: perf_output
   args:
     chdir: /usr/local/bin
