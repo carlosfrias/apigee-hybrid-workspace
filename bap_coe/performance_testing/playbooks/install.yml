@@ -1,0 +1,18 @@
+---
+- name: Install and Configure Performance Testing Infrastructure with Wrk2
+  hosts: "{{ target_hosts }}"
+  debugger: on_failed
+  gather_facts: yes
+  tags: ['install']
+
+  vars_files:
+    - properties.yml
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.performance_testing
+
+  roles:
+    - service_account_file_processing
+    - apigee_internal_load_balancer
+    - wrk2-install-configure

@@ -3,6 +3,7 @@
   hosts: localhost
   connection: local
   gather_facts: no
+  tags: ['create']
 
   vars_files:
   - properties.yml
@@ -21,28 +22,22 @@
 #    vars:
 #      sequence: "{{ INSTANCE_COUNT_START }}"
 
-  - name: Create performance testing instances
-    tags: ['instances']
-    include_role:
-      name: gce_instance_create
-    with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
-    loop_control:
-      loop_var: sequence
+#    - name: Restart ntp service
+#      become: yes
+#      service:
+#        name: ntp
+#        state: restarted
+
+#    - name: Update Network Time Clock
+#      become: yes
+#      command: ntpdate -u time.google.com
+
+    - name: Create performance testing instances
+      tags: ['instances']
+      include_role:
+        name: gce_instance_create
+      with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
+      loop_control:
+        loop_var: sequence
 #    vars:
 #      ACCESS_TYPE: 'int'
-
-- name: Install and Configure Performance Testing Infrastructure with Wrk2
-  hosts: "{{ target_hosts }}"
-  gather_facts: yes
-
-  vars_files:
-    - properties.yml
-
-  collections:
-    - bap_coe.gcp_management
-    - bap_coe.performance_testing
-
-  roles:
-    - service_account_file_processing
-    - apigee_internal_load_balancer
-    - wrk2-install-configure

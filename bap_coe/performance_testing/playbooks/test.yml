@@ -10,7 +10,7 @@
     - bap_coe.gcp_management
     - bap_coe.performance_testing
 
-  role:
+  roles:
     - apigee_internal_load_balancer
 
   tasks:
