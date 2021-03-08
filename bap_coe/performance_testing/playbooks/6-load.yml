@@ -11,13 +11,13 @@
   roles:
     - service_account_file_processing
     - gcp_token_retrieval
-    - load_product_developers_apps
-#    - products_create
-#    - developers_create
-#    - developers_apps_create
-#    - developers_apps_keys_create
-#    - developers_apps_products_associate
+#    - { role: load_product_developers_apps, ORG: "{{ PROJECT_ID }}" }
+#    - { role: products_create, ORG: "{{ PROJECT_ID }}" }
+    - { role: developers_create, ORG: "{{ PROJECT_ID }}" }
+    - { role: developers_apps_create, ORG: "{{ PROJECT_ID }}" }
+    - { role: developers_apps_keys_create, ORG: "{{ PROJECT_ID }}" }
+    - { role: developers_apps_products_associate, ORG: "{{ PROJECT_ID }}" }
 
   vars_files:
     - ~/.apigee-secure/credentials.yml
-    - ../3-properties.yml
+    - ./3-properties.yml

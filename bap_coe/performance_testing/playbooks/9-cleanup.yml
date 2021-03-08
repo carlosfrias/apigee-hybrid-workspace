@@ -3,6 +3,7 @@
   hosts: "{{ target_hosts }}"
   connection: local
   gather_facts: no
+  strategy: free
 
   vars_files:
     - 3-properties.yml

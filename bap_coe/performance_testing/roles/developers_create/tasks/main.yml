@@ -44,8 +44,11 @@
 
 - name: Resync after creation of sample developers
   async_status:
-    jid: "{{ dev_creation_task_status.ansible_job_id }}"
+    jid: "{{ dev_creation_task_status_item.ansible_job_id }}"
+  loop: "{{ dev_creation_task_status.results }}"
+  loop_control:
+    loop_var: "dev_creation_task_status_item"
   register: dev_creator_task_result
   until: dev_creator_task_result.finished
-  retries: "{{ (LOAD_COUNT / 4) }}"
-  delay: ( 3600 * 4)
+  retries: "{{ (LOAD_COUNT | int / 4 | int) | int }}"
+  delay: 60
