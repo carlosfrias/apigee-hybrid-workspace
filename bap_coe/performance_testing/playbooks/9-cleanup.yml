@@ -1,6 +1,6 @@
 ---
 - name: Molecule | Remove UPS Performance Testing Infrastructure Instances
-  hosts: localhost
+  hosts: "{{ target_hosts }}"
   connection: local
   gather_facts: no
 
