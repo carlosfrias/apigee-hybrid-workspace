@@ -4,7 +4,7 @@
   gather_facts: yes
 
   vars_files:
-  - properties.yml
+  - 3-properties.yml
 
   collections:
     - bap_coe.gcp_management

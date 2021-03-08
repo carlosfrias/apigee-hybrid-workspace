@@ -20,4 +20,4 @@
 
   vars_files:
     - ~/.apigee-secure/credentials.yml
-    - ../properties.yml
+    - ../3-properties.yml
