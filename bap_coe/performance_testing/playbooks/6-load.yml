@@ -9,14 +9,14 @@
     - bap_coe.gcp_management
 
   roles:
-    - service_account_file_processing
-    - gcp_token_retrieval
+    - { role: service_account_file_processing, tags: ['developers','products','apps_create','apps_keys_create','apps_products'] }
+    - { role: gcp_token_retrieval, tags: ['developers','products','apps_create','apps_keys_create','apps_products'] }
 #    - { role: load_product_developers_apps, ORG: "{{ PROJECT_ID }}" }
-#    - { role: products_create, ORG: "{{ PROJECT_ID }}" }
-    - { role: developers_create, ORG: "{{ PROJECT_ID }}" }
-    - { role: developers_apps_create, ORG: "{{ PROJECT_ID }}" }
-    - { role: developers_apps_keys_create, ORG: "{{ PROJECT_ID }}" }
-    - { role: developers_apps_products_associate, ORG: "{{ PROJECT_ID }}" }
+    - { role: products_create, ORG: "{{ PROJECT_ID }}", tags: ['products']  }
+    - { role: developers_create, ORG: "{{ PROJECT_ID }}", tags: ['developers'] }
+    - { role: developers_apps_create, ORG: "{{ PROJECT_ID }}", tags: ['apps_create'] }
+    - { role: developers_apps_keys_create, ORG: "{{ PROJECT_ID }}", tags: ['apps_keys_create'] }
+    - { role: developers_apps_products_associate, ORG: "{{ PROJECT_ID }}", tags: ['apps_products'] }
 
   vars_files:
     - ~/.apigee-secure/credentials.yml
