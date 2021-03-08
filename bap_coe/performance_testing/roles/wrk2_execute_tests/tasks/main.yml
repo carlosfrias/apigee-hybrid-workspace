@@ -1,19 +1,10 @@
 ---
 # tasks file for wrk2_execute_tests
-- name: Performance Test Execution
-  command: |
-    wrk \
-      -t{{ EXECUTION_SAMPLING.THREAD_COUNT }} \
-      -c{{ EXECUTION_SAMPLING.CONNECTION_COUNT }} \
-      -d{{ EXECUTION_SAMPLING.DURATION }} \
-      -R{{ ((EXECUTION_SAMPLING.REQUEST_COUNT_BASE | int) * (item | int)) }} \
-      --latency \
-      -H "Host: {{ TARGET_HOST }}" \
-      {{ TARGET_URL }}
-  register: perf_output
-  args:
-    chdir: /usr/local/bin
-  with_sequence: "start={{ EXECUTION_SAMPLING.REQUEST_COUNT_BASE }} end={{ EXECUTION_SAMPLING.REQUEST_COUNT_END }} stride={{ EXECUTION_SAMPLING.REQUEST_COUNT_INCREMENT }}"
+- name: Performance Test Execution Controller
+  include_tasks: test-executor.yml
+  loop: "{{ EXECUTION_SAMPLINGS }}"
+  loop_control:
+    loop_var: EXECUTION_SAMPLING
 
 - name: Cache perf_output
   set_fact:
@@ -25,9 +16,13 @@
     state: directory
   register: perf_result_remote_folder
 
+- name: Capture timestamp for perf-results file name
+  command: date +"%Y-%m-%d_%H-%M-%S"
+  register: file_timestamp
+
 - name: Construct perf results file name
   set_fact:
-    perf_results_filename: "perf-results-{{ ansible_hostname }}.txt"
+    perf_results_filename: "perf-results-{{ ansible_hostname }}-{{ file_timestamp.stdout }}.txt"
 
 - name: Save performance test results collected to temp folder
   become: yes
