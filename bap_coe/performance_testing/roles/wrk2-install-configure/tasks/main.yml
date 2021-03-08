@@ -34,4 +34,14 @@
       mode: 0777
       remote_src: yes
 
+  - name: Update system settings
+    sysctl:
+      name: "{{ item.name }}"
+      value: "{{ item.value }}"
+      state: present
+      sysctl_set: yes
+    with_items:
+      - { name: "net.ipv4.ip_local_port_range", value: "1025 65000" }
+      - { name: "fs.file-max", value: "65555" }
+
   become: yes

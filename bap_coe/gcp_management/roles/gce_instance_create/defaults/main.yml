@@ -15,5 +15,5 @@ STARTUP_SCRIPT: |
   sudo apt update -y;
   type python3 >/dev/null 2>&1 || sudo apt install -y python3;
   sudo update-alternatives --install /usr/bin/python python $(which python3) 1;
-  ulimit -n 65555;
+  sudo ulimit -n 65555;
   sudo sysctl -w net.ipv4.ip_local_port_range="1025 65000";
