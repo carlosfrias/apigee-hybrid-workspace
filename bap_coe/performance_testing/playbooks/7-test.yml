@@ -2,6 +2,7 @@
 - name: UPS Performance Test
   hosts: "{{ target_hosts }}"
   gather_facts: yes
+  strategy: free
 
   vars_files:
   - 3-properties.yml

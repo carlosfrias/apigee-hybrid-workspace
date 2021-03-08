@@ -3,6 +3,7 @@
   hosts: "{{ target_hosts }}"
   debugger: on_failed
   gather_facts: yes
+  strategy: free
   tags: ['install']
 
   vars_files:

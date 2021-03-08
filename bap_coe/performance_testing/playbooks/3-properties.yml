@@ -3,9 +3,9 @@ ansible_python_interpreter: /usr/bin/python3
 SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-2-bap-amer-south-demo1-1fb745a074c9.json
 GCP_ZONE: us-east1-c
 GCP_REGION: us-east1
-NAME_INSTANCE_PREFIX: "ups-perf-client"
+NAME_INSTANCE_PREFIX: "ups-test"
 GCLOUD_ACCOUNT_USER: friasc
-INSTANCE_COUNT_START: 7
+INSTANCE_COUNT_START: 1
 INSTANCE_COUNT_END: 16
 TARGET_HOST: bap-amer-south-demo1-dev.apigee.net
 TARGET_URI: /v1/tracking-api
