@@ -3,7 +3,6 @@
   hosts: localhost
   connection: local
   gather_facts: no
-  tags: ['create']
 
   vars_files:
   - properties.yml
