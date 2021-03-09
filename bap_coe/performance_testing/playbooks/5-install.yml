@@ -1,7 +1,6 @@
 ---
 - name: Install and Configure Performance Testing Infrastructure with Wrk2
   hosts: "{{ target_hosts }}"
-  debugger: on_failed
   gather_facts: yes
   strategy: free
   tags: ['install']

@@ -7,7 +7,7 @@ NAME_INSTANCE_PREFIX: "ups-test"
 GCLOUD_ACCOUNT_USER: friasc
 INSTANCE_COUNT_START: 1
 INSTANCE_COUNT_END: 8
-MACHINE_TYPE: n2-highcpu-4
+MACHINE_TYPE: n2-highcpu-2
 #MACHINE_TYPE: e2-standard-4
 TARGET_HOST: bap-amer-south-demo1-dev.apigee.net
 TARGET_URI: /v1/tracking-api

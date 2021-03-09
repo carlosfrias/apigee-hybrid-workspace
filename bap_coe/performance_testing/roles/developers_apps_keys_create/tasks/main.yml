@@ -26,7 +26,7 @@
     START_POSITION: "{{ LOAD_APPS_KEYS_START_POSITION | default(1) }}"
     LOAD_COUNT: "{{ LOAD_APPS_KEYS_COUNT | default(1) }}"
     APP_NAME: "{{ APP_NAME | default('sample-app') }}"
-    APP_STATUS: "{{ APP_STATUS | default('active') }}"
+    APP_STATUS: "{{ APP_STATUS | default('approved') }}"
     APP_FAMILY: "{{ APP_FAMILY | default('sample-app-family') }}"
 
 # Create Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/create

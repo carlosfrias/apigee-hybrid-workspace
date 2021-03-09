@@ -27,7 +27,7 @@
     START_POSITION: "{{ DEVELOPER_START_POSITION | default(1) }}"
     LOAD_COUNT: "{{ DEVELOPER_LOAD_COUNT | default(1) }}"
     APP_NAME: "{{ APP_NAME | default('sample-app') }}"
-    APP_STATUS: "{{ APP_STATUS | default('approve') }}"
+    APP_STATUS: "{{ APP_STATUS | default('approved') }}"
 
 # Add API Product to Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/updateDeveloperAppKey#google.cloud.apigee.v1.DeveloperAppKeys.UpdateDeveloperAppKey
 - name: Add API Product to Developer App Key
