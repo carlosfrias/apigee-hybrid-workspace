@@ -8,20 +8,11 @@
     - bap_coe.performance_testing
     - bap_coe.gcp_management
 
-  roles:
-    - { role: service_account_file_processing, tags: ['developers','products','apps_create','apps_keys_create','apps_products'] }
-    - { role: gcp_token_retrieval, tags: ['developers','apps_create','apps_keys_create','apps_products'] }
-#    - { role: load_product_developers_apps, ORG: "{{ PROJECT_ID }}" }
-    - { role: products_create, ORG: "{{ PROJECT_ID }}", tags: ['products']  }
-    - { role: gcp_token_retrieval, tags: ['developers','apps_create','apps_keys_create','apps_products'] }
-    - { role: developers_create, ORG: "{{ PROJECT_ID }}", tags: ['developers'] }
-    - { role: gcp_token_retrieval, tags: ['developers','apps_create','apps_keys_create','apps_products'] }
-    - { role: developers_apps_create, ORG: "{{ PROJECT_ID }}", tags: ['apps_create'] }
-    - { role: gcp_token_retrieval, tags: ['developers','apps_create','apps_keys_create','apps_products'] }
-    - { role: developers_apps_keys_create, ORG: "{{ PROJECT_ID }}", tags: ['apps_keys_create'] }
-    - { role: gcp_token_retrieval, tags: ['developers','apps_create','apps_keys_create','apps_products'] }
-    - { role: developers_apps_products_associate, ORG: "{{ PROJECT_ID }}", tags: ['apps_products'] }
-
   vars_files:
     - "{{ playbook_dir }}/3-properties.yml"
     - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
+
+  tasks:
+    - name: Controller for grouping requests
+      include_tasks: 6-load-controller.yml
+      with_sequence: "start={{ CONTROLLER_REQUEST_START }} end={{ CONTROLLER_REQUEST_END }} stride={{ CONTROLLER_REQUEST_INCREMENT }}"

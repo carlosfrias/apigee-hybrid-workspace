@@ -1,0 +1,62 @@
+---
+- include_role:
+    name: service_account_file_processing
+  tags: ['developers','products','apps_create','apps_keys_create','apps_products']
+
+- include_role:
+    name: gcp_token_retrieval
+  tags: ['developers','apps_create','apps_keys_create','apps_products']
+
+- include_role:
+    name: products_create
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+  tags: ['products']
+
+- include_role:
+    name: gcp_token_retrieval
+  tags: ['developers','apps_create','apps_keys_create','apps_products']
+
+- include_role:
+    name: developers_create
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+    LOAD_DEVELOPER_START_POSITION: "{{ item | int }}"
+    LOAD_DEVELOPER_COUNT: "{{ (item | int) + (item | int) }}"
+  tags: ['developers']
+
+- include_role:
+    name: gcp_token_retrieval
+  tags: ['developers','apps_create','apps_keys_create','apps_products']
+
+- include_role:
+    name: developers_apps_create
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+    LOAD_APPS_START_POSITION: "{{ item | int }}"
+    LOAD_APPS_COUNT: "{{ (item | int) + (item | int) }}"
+  tags: ['apps_create']
+
+- include_role:
+    name: gcp_token_retrieval
+  tags: ['developers','apps_create','apps_keys_create','apps_products']
+
+- include_role:
+    name: developers_apps_keys_create
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+    LOAD_APPS_KEYS_START_POSITION: "{{ item | int }}"
+    LOAD_APPS_KEYS_COUNT: "{{ (item | int) + (item | int) }}"
+  tags: ['apps_keys_create']
+
+- include_role:
+    name: gcp_token_retrieval
+  tags: ['developers','apps_create','apps_keys_create','apps_products']
+
+- include_role:
+    name: developers_apps_products_associate
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+    LOAD_DEVELOPER_START_POSITION: "{{ item | int }}"
+    LOAD_DEVELOPER_COUNT: "{{ (item | int) + (item | int) }}"
+  tags: ['apps_products']

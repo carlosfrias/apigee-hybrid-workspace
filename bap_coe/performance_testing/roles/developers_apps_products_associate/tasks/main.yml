@@ -24,8 +24,8 @@
     DEVELOPER_FIRST_NAME: "{{ DEVELOPER_FIRST_NAME | default('joe') }}"
     DEVELOPER_LAST_NAME: "{{ DEVELOPER_LAST_NAME | default('developer') }}"
     DEVELOPER_USER_NAME: "{{ DEVELOPER_USER_NAME | default('developerjoe') }}"
-    START_POSITION: "{{ DEVELOPER_START_POSITION | default(1) }}"
-    LOAD_COUNT: "{{ DEVELOPER_LOAD_COUNT | default(1) }}"
+    START_POSITION: "{{ LOAD_DEVELOPER_START_POSITION | default(1) }}"
+    LOAD_COUNT: "{{ LOAD_DEVELOPER_COUNT | default(1) }}"
     APP_NAME: "{{ APP_NAME | default('sample-app') }}"
     APP_STATUS: "{{ APP_STATUS | default('approved') }}"
 
