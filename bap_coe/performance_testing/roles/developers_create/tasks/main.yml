@@ -1,5 +1,8 @@
 ---
 # tasks file for developers_create
+- name: Clear any host errors
+  meta: clear_host_errors
+
 - name: Assert GCLOUD_TOKEN is provided
   assert:
     that:
@@ -20,8 +23,8 @@
     DEVELOPER_FIRST_NAME: "{{ DEVELOPER_FIRST_NAME | default('joe') }}"
     DEVELOPER_LAST_NAME: "{{ DEVELOPER_LAST_NAME | default('developer') }}"
     DEVELOPER_USER_NAME: "{{ DEVELOPER_USER_NAME | default('developerjoe') }}"
-    START_POSITION: "{{ DEVELOPER_START_POSITION | default(1) }}"
-    LOAD_COUNT: "{{ DEVELOPER_LOAD_COUNT | default(1) }}"
+    START_POSITION: "{{ LOAD_DEVELOPER_START_POSITION | default(1) }}"
+    LOAD_COUNT: "{{ LOAD_DEVELOPER_COUNT | default(1) }}"
 
 # Create Developer - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers/create
 - name: Create Developers
@@ -38,17 +41,17 @@
       lastName: "{{ DEVELOPER_LAST_NAME }}"
       userName: "{{ DEVELOPER_USER_NAME }}-{{ item }}"
   with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
-  async: 3600
-  poll: 0
-  register: dev_creation_task_status
-
-- name: Resync after creation of sample developers
-  async_status:
-    jid: "{{ dev_creation_task_status_item.ansible_job_id }}"
-  loop: "{{ dev_creation_task_status.results }}"
-  loop_control:
-    loop_var: "dev_creation_task_status_item"
-  register: dev_creator_task_result
-  until: dev_creator_task_result.finished
-  retries: "{{ (LOAD_COUNT | int / 4 | int) | int }}"
-  delay: 60
+#  async: 3600
+#  poll: 0
+#  register: dev_creation_task_status
+#
+#- name: Resync after creation of sample developers
+#  async_status:
+#    jid: "{{ dev_creation_task_status_item.ansible_job_id }}"
+#  loop: "{{ dev_creation_task_status.results }}"
+#  loop_control:
+#    loop_var: "dev_creation_task_status_item"
+#  register: dev_creator_task_result
+#  until: dev_creator_task_result.finished
+#  retries: "{{ (LOAD_COUNT | int / 4 | int) | int }}"
+#  delay: 60

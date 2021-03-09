@@ -1,5 +1,8 @@
 ---
 # tasks file for developers_apps_create
+- name: Clear any host errors
+  meta: clear_host_errors
+
 - name: Assert GCLOUD_TOKEN is provided
   assert:
     that:
@@ -21,8 +24,8 @@
     DEVELOPER_FIRST_NAME: "{{ DEVELOPER_FIRST_NAME | default('joe') }}"
     DEVELOPER_LAST_NAME: "{{ DEVELOPER_LAST_NAME | default('developer') }}"
     DEVELOPER_USER_NAME: "{{ DEVELOPER_USER_NAME | default('developerjoe') }}"
-    START_POSITION: "{{ APPS_START_POSITION | default(1) }}"
-    LOAD_COUNT: "{{ APPS_LOAD_COUNT | default(1000) }}"
+    START_POSITION: "{{ LOAD_DEVELOPER_START_POSITION | default(1) }}"
+    LOAD_COUNT: "{{ LOAD_DEVELOPER_COUNT | default(1000) }}"
     APP_NAME: "{{ APP_NAME | default('sample-app') }}"
     APP_STATUS: "{{ APP_STATUS | default('active') }}"
     APP_FAMILY: "{{ APP_FAMILY | default('sample-app-family') }}"
@@ -43,5 +46,5 @@
       apiProducts:
         - "{{ PRODUCT_NAME }}"
   with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
-  async: 3600
-  poll: 0
+#  async: 3600
+#  poll: 0

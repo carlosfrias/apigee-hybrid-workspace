@@ -22,16 +22,6 @@
 #    vars:
 #      sequence: "{{ INSTANCE_COUNT_START }}"
 
-#    - name: Restart ntp service
-#      become: yes
-#      service:
-#        name: ntp
-#        state: restarted
-
-#    - name: Update Network Time Clock
-#      become: yes
-#      command: ntpdate -u time.google.com
-
     - name: Create performance testing instances
       tags: ['instances']
       include_role:

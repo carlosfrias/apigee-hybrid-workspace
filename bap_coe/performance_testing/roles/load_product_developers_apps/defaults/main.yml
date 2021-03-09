@@ -16,7 +16,7 @@ APIGEE_API_URI: https://apigee.googleapis.com
 #DEVELOPER_LAST_NAME: Developer
 #DEVELOPER_USER_NAME: developerj
 #
-#APP_NAME: "Sample-App"
+#APP_NAME: "sample-app"
 #APP_STATUS: "approved"
 #APP_FAMILY: "Sample App Family"
 #APP_COUNT: 20000000

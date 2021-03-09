@@ -25,9 +25,10 @@ compose:
   # For Public ip use "networkInterfaces[0].accessConfigs[0].natIP"
   ansible_host: networkInterfaces[0].accessConfigs[0].natIP
 groups:
-  ups_test: "'test' in name or 'perf-client' in name"
+  ups: "'test' in name or 'perf-client' in name"
+  ups_test: "'test' in name"
 #  ups_perf_client: "'perf-client' in name"
   ups_shell_client_run: "'shell-client' in name"
-  ups: "'ups' in name"
   bap: "'bap' in name"
   bastion: "'bastion' in name"
+  apigee: "'apigee' in name"

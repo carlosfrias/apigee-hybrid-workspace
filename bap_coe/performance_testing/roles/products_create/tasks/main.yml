@@ -1,5 +1,8 @@
 ---
 # tasks file for products_create
+- name: Clear any host errors
+  meta: clear_host_errors
+
 - name: Assert GCLOUD_TOKEN is provided
   assert:
     that:
@@ -55,6 +58,6 @@
       quotaInterval: "{{ PRODUCT_QUOTA_INTERVAL }}"
       quotaTimeUnit: "{{ PRODUCT_QUOTA_TIME_UNIT }}"
   with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
-  async: 3600
-  poll: 0
-  register: product_creation_task_status
+#  async: 3600
+#  poll: 0
+#  register: product_creation_task_status
