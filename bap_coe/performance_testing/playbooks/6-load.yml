@@ -15,4 +15,4 @@
   tasks:
     - name: Controller for grouping requests
       include_tasks: 6-load-controller.yml
-      with_sequence: "start={{ CONTROLLER_REQUEST_START }} end={{ CONTROLLER_REQUEST_END }} stride={{ CONTROLLER_REQUEST_INCREMENT }}"
+      with_sequence: "start={{ CONTROLLER_REQUEST_START }} end={{ CONTROLLER_REQUEST_END }}"

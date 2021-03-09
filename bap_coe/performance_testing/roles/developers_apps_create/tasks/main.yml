@@ -3,6 +3,10 @@
 - name: Clear any host errors
   meta: clear_host_errors
 
+- name: Retrieve gcloud access token
+  include_role:
+    name: gcp_token_retrieval
+
 - name: Assert GCLOUD_TOKEN is provided
   assert:
     that:

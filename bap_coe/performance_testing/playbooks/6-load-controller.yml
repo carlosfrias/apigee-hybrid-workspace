@@ -22,7 +22,7 @@
   vars:
     ORG: "{{ PROJECT_ID }}"
     LOAD_DEVELOPER_START_POSITION: "{{ item | int }}"
-    LOAD_DEVELOPER_COUNT: "{{ (item | int) + (item | int) }}"
+    LOAD_DEVELOPER_COUNT: "{{ (item | int) }}"
   tags: ['developers']
 
 - include_role:
@@ -34,7 +34,7 @@
   vars:
     ORG: "{{ PROJECT_ID }}"
     LOAD_APPS_START_POSITION: "{{ item | int }}"
-    LOAD_APPS_COUNT: "{{ (item | int) + (item | int) }}"
+    LOAD_APPS_COUNT: "{{ (item | int) }}"
   tags: ['apps_create']
 
 - include_role:
@@ -46,7 +46,7 @@
   vars:
     ORG: "{{ PROJECT_ID }}"
     LOAD_APPS_KEYS_START_POSITION: "{{ item | int }}"
-    LOAD_APPS_KEYS_COUNT: "{{ (item | int) + (item | int) }}"
+    LOAD_APPS_KEYS_COUNT: "{{ (item | int) }}"
   tags: ['apps_keys_create']
 
 - include_role:
@@ -58,5 +58,5 @@
   vars:
     ORG: "{{ PROJECT_ID }}"
     LOAD_DEVELOPER_START_POSITION: "{{ item | int }}"
-    LOAD_DEVELOPER_COUNT: "{{ (item | int) + (item | int) }}"
+    LOAD_DEVELOPER_COUNT: "{{ (item | int) }}"
   tags: ['apps_products']
