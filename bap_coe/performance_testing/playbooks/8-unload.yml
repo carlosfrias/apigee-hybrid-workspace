@@ -18,5 +18,5 @@
     - products_delete
 
   vars_files:
-    - ~/.apigee-secure/credentials.yml
-    - ../3-properties.yml
+    - "{{ playbook_dir }}/3-properties.yml"
+    - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"

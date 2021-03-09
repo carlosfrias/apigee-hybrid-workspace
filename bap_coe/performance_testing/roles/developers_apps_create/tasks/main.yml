@@ -10,7 +10,7 @@
   assert:
     that:
       - ORG is defined
-    msg: Please provide the organiztion name.
+    msg: Please provide the organization name.
 
 - name: Set defaults for attributes not provided
   set_fact:
