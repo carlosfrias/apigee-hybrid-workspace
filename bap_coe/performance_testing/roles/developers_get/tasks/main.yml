@@ -1,0 +1,30 @@
+---
+# tasks file for developers_get
+- name: Clear any host errors
+  meta: clear_host_errors
+
+- name: Assert GCLOUD_TOKEN is provided
+  assert:
+    that:
+      - GCLOUD_TOKEN is defined
+    msg: Please provide the bearer token from gcloud. (You can use gcp_token_retrieval role)
+
+- name: Assert ORG is provided
+  assert:
+    that:
+      - ORG is defined
+    msg: Please provide the organiztion name.
+
+- name: Set defaults for attributes not provided
+  set_fact:
+    APIGEE_API_URI: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}"
+    DEVELOPER_EMAIL_ACCOUNT: "{{ DEVELOPER_EMAIL_ACCOUNT | default('joe.developer') }}"
+    DEVELOPER_EMAIL_DOMAIN: "{{ DEVELOPER_EMAIL_DOMAIN | default('google.com') }}"
+
+# Get Developer - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers/get
+- name: Get Developer
+  uri:
+    url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers/{{ DEVELOPER_EMAIL_ACCOUNT }}@{{ DEVELOPER_EMAIL_DOMAIN }}?action=active"
+    method: GET
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
