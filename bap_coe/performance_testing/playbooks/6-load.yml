@@ -1,7 +1,8 @@
 ---
 - name: Complete Bulk Load of Test Data for Products, Developers and Apps
-  hosts: "{{ target_hosts | default('localhost') }}"
+  hosts: "{{ target_hosts }}"
   strategy: free
+  serial: 3
   gather_facts: yes
 
   collections:
@@ -14,6 +15,7 @@
 
   tasks:
     - name: Controller for grouping requests
+      tags: ['developers','products','apps_create','apps_keys_create','apps_products']
       include_tasks: 6-load-controller.yml
       with_sequence: "start={{ CONTROLLER_REQUEST_START }} end={{ CONTROLLER_REQUEST_END }}"
       loop_control:

@@ -13,10 +13,6 @@
     ORG: "{{ PROJECT_ID }}"
   tags: ['products']
 
-#- include_role:
-#    name: gcp_token_retrieval
-#  tags: ['developers','apps_create','apps_keys_create','apps_products']
-
 - include_role:
     name: developers_create
   vars:
@@ -24,10 +20,6 @@
     LOAD_DEVELOPER_START_POSITION: "{{ current_request }}"
     LOAD_DEVELOPER_COUNT: "{{ current_request }}"
   tags: ['developers']
-
-#- include_role:
-#    name: gcp_token_retrieval
-#  tags: ['developers','apps_create','apps_keys_create','apps_products']
 
 - include_role:
     name: developers_apps_create
@@ -37,10 +29,6 @@
     LOAD_DEVELOPER_COUNT: "{{ current_request }}"
   tags: ['apps_create']
 
-#- include_role:
-#    name: gcp_token_retrieval
-#  tags: ['developers','apps_create','apps_keys_create','apps_products']
-
 - include_role:
     name: developers_apps_keys_create
   vars:
@@ -48,10 +36,6 @@
     LOAD_APPS_KEYS_START_POSITION: "{{ current_request }}"
     LOAD_APPS_KEYS_COUNT: "{{ current_request }}"
   tags: ['apps_keys_create']
-
-#- include_role:
-#    name: gcp_token_retrieval
-#  tags: ['developers','apps_create','apps_keys_create','apps_products']
 
 - include_role:
     name: developers_apps_products_associate

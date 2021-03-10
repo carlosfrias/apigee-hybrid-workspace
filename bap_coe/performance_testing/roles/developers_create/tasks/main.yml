@@ -27,18 +27,31 @@
     LOAD_COUNT: "{{ LOAD_DEVELOPER_COUNT }}"
 
 # Create Developer - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers/create
-- name: Create Developers
-  uri:
-    url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers"
-    method: POST
-    status_code: [ '200','201','409']
+- block:
+  - name: Create Developers
+    uri:
+      url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers"
+      method: POST
+      status_code: [ '200','201','409']
 
-    headers:
-      Authorization: Bearer {{ GCLOUD_TOKEN }}
-    body_format: json
-    body:
-      email: "{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ item }}@{{ DEVELOPER_EMAIL_DOMAIN }}"
-      firstName: "{{ DEVELOPER_FIRST_NAME }}-{{ item }}"
-      lastName: "{{ DEVELOPER_LAST_NAME }}"
-      userName: "{{ DEVELOPER_USER_NAME }}-{{ item }}"
-  with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
+      headers:
+        Authorization: Bearer {{ GCLOUD_TOKEN }}
+      body_format: json
+      body:
+        email: "{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ item }}@{{ DEVELOPER_EMAIL_DOMAIN }}"
+        firstName: "{{ DEVELOPER_FIRST_NAME }}-{{ item }}"
+        lastName: "{{ DEVELOPER_LAST_NAME }}"
+        userName: "{{ DEVELOPER_USER_NAME }}-{{ item }}"
+    with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
+    register: dev_create_status
+
+  - name: Show dev_create_status
+    debug:
+      var: dev_create_status
+
+#  rescue:
+#    - name: Log existing developer
+#      lineinfile:
+#        path: "{{ DEVELOPER_EXISTS_LOG }}"
+#        regexp: "
+

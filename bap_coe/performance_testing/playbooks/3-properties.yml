@@ -1,6 +1,10 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
+
+# Security Access
 SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-2-bap-amer-south-demo1-1fb745a074c9.json
+
+# Infrastructure configuration
 GCP_ZONE: us-east1-c
 GCP_REGION: us-east1
 NAME_INSTANCE_PREFIX: "ups-test"
@@ -9,14 +13,19 @@ INSTANCE_COUNT_START: 1
 INSTANCE_COUNT_END: 8
 MACHINE_TYPE: n2-highcpu-2
 #MACHINE_TYPE: e2-standard-4
+
+# API Proxy Target
 TARGET_HOST: bap-amer-south-demo1-dev.apigee.net
 TARGET_URI: /v1/tracking-api
+
+# Test Execution Samples
 EXECUTION_SAMPLINGS:
 # - { DURATION: "10s", CONNECTION_COUNT: 100, THREAD_COUNT: 2, REQUEST_COUNT_BASE: 25, REQUEST_COUNT_INCREMENT: 25, REQUEST_COUNT_END: 50 }
  - { DURATION: "10m", CONNECTION_COUNT: 100, THREAD_COUNT: 2, REQUEST_COUNT_BASE: 25, REQUEST_COUNT_INCREMENT: 10, REQUEST_COUNT_END: 313 }
  - { DURATION: "1h", CONNECTION_COUNT: 100, THREAD_COUNT: 2, REQUEST_COUNT_BASE: 500, REQUEST_COUNT_INCREMENT: 10, REQUEST_COUNT_END: 1000 }
  - { DURATION: "3h", CONNECTION_COUNT: 100, THREAD_COUNT: 2, REQUEST_COUNT_BASE: 15000, REQUEST_COUNT_INCREMENT: 10, REQUEST_COUNT_END: 15000 }
 
+# Data Generation
 PRODUCT_ENV: default-dev
 API_PROXY_NAME: tracking-api
 #LOAD_PRODUCT_START_POSITION: 1
@@ -29,8 +38,16 @@ API_PROXY_NAME: tracking-api
 #LOAD_APPS_KEYS_COUNT: 143000
 APPS_PRODUCT_ADD_NAME: Sample-Product
 APP_NAME: Sample-App
+PRODUCT_QUOTA: 1000
 
 # Can also be passed in on the command line for more fine-grain control
-#CONTROLLER_REQUEST_START: 0
+#CONTROLLER_REQUEST_START: 1
 #CONTROLLER_REQUEST_END: 143000
-#CONTROLLER_REQUEST_INCREMENT: 1000
+
+# Developer creator template prefixes
+DEVELOPER_EMAIL_ACCOUNT: joe.developer
+DEVELOPER_EMAIL_DOMAIN: google.com
+DEVELOPER_FIRST_NAME: joe
+DEVELOPER_LAST_NAME: developer
+DEVELOPER_USER_NAME: developerjoe
+DEVELOPER_EXISTS_LOG: developer_exists.log
