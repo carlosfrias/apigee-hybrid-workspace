@@ -3,10 +3,6 @@
 - name: Clear any host errors
   meta: clear_host_errors
 
-- name: Retrieve gcloud access token
-  include_role:
-    name: gcp_token_retrieval
-
 - name: Assert GCLOUD_TOKEN is provided
   assert:
     that:
@@ -31,13 +27,13 @@
     PRODUCT_NAME: "{{ PRODUCT_NAME | default('Sample-Product') }}"
     PRODUCT_DISPLAY_NAME: "{{ PRODUCT_DISPLAY_NAME | default('Sample-Product') }}"
     PRODUCT_APPROVAL_TYPE: "{{ PRODUCT_APPROVAL_TYPE | default('auto') }}"
-    PRODUCT_ENV: "{{ PRODUCT_ENV | default('test') }}"
-    API_PROXY_NAME: "{{ API_PROXY_NAME | default('notarget') }}"
-    PRODUCT_QUOTA: "{{ PRODUCT_QUOTA | default(1000) }}"
-    PRODUCT_QUOTA_INTERVAL: "{{ PRODUCT_QUOTA_INTERVAL | default(1) }}"
-    PRODUCT_QUOTA_TIME_UNIT: "{{ PRODUCT_QUOTA_TIME_UNIT | default('hour') }}"
-    START_POSITION: "{{ PRODUCT_START_POSITION | default(1) }}"
-    LOAD_COUNT: "{{ PRODUCT_LOAD_COUNT | default(1) }}"
+    PRODUCT_ENV: "{{ PRODUCT_ENV }}"
+    API_PROXY_NAME: "{{ API_PROXY_NAME }}"
+    PRODUCT_QUOTA: "{{ PRODUCT_QUOTA }}"
+    PRODUCT_QUOTA_INTERVAL: "{{ PRODUCT_QUOTA_INTERVAL }}"
+    PRODUCT_QUOTA_TIME_UNIT: "{{ PRODUCT_QUOTA_TIME_UNIT }}"
+    START_POSITION: "{{ PRODUCT_START_POSITION }}"
+    LOAD_COUNT: "{{ PRODUCT_LOAD_COUNT }}"
 
 #  Create Product - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts/create
 - name: Create Product

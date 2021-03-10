@@ -16,3 +16,5 @@
     - name: Controller for grouping requests
       include_tasks: 6-load-controller.yml
       with_sequence: "start={{ CONTROLLER_REQUEST_START }} end={{ CONTROLLER_REQUEST_END }}"
+      loop_control:
+        loop_var: current_request
