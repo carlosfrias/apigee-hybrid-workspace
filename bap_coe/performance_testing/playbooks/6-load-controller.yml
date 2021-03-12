@@ -5,7 +5,7 @@
 
 - block:
   - meta: reset_connection
-    -
+
   - include_role:
       name: service_account_file_processing
     tags: ['developers','products','apps_create','apps_keys_create','apps_products']
