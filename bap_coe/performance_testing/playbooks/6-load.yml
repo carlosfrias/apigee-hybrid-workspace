@@ -2,7 +2,7 @@
 - name: Complete Bulk Load of Test Data for Products, Developers and Apps
   hosts: "{{ target_hosts }}"
   strategy: free
-  serial: 3
+  serial: 6
   gather_facts: yes
 
   collections:
@@ -14,6 +14,20 @@
     - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
 
   tasks:
+    - meta: clear_host_errors
+    - meta: refresh_inventory
+
+    - include_role:
+        name: service_account_file_processing
+      tags: [ 'developers','products','apps_create','apps_keys_create','apps_products' ]
+
+    - meta: clear_host_errors
+    - meta: refresh_inventory
+
+    - include_role:
+        name: gcp_token_retrieval
+      tags: [ 'developers','apps_create','apps_keys_create','apps_products' ]
+
     - name: Controller for grouping requests
       tags: ['developers','products','apps_create','apps_keys_create','apps_products']
       include_tasks: 6-load-controller.yml

@@ -29,11 +29,11 @@
     PRODUCT_APPROVAL_TYPE: "{{ PRODUCT_APPROVAL_TYPE | default('auto') }}"
     PRODUCT_ENV: "{{ PRODUCT_ENV }}"
     API_PROXY_NAME: "{{ API_PROXY_NAME }}"
-    PRODUCT_QUOTA: "{{ PRODUCT_QUOTA }}"
-    PRODUCT_QUOTA_INTERVAL: "{{ PRODUCT_QUOTA_INTERVAL }}"
+    PRODUCT_QUOTA: "{{ PRODUCT_QUOTA | string }}"
+    PRODUCT_QUOTA_INTERVAL: "{{ PRODUCT_QUOTA_INTERVAL | string }}"
     PRODUCT_QUOTA_TIME_UNIT: "{{ PRODUCT_QUOTA_TIME_UNIT }}"
-    START_POSITION: "{{ PRODUCT_START_POSITION }}"
-    LOAD_COUNT: "{{ PRODUCT_LOAD_COUNT }}"
+    START_POSITION: "{{ LOAD_PRODUCT_START_POSITION }}"
+    LOAD_COUNT: "{{ LOAD_PRODUCT_COUNT }}"
 
 #  Create Product - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts/create
 - name: Create Product

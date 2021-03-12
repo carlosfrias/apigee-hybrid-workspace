@@ -39,6 +39,8 @@ API_PROXY_NAME: tracking-api
 APPS_PRODUCT_ADD_NAME: Sample-Product
 APP_NAME: Sample-App
 PRODUCT_QUOTA: 1000
+PRODUCT_QUOTA_INTERVAL: 1
+PRODUCT_QUOTA_TIME_UNIT: h
 
 # Can also be passed in on the command line for more fine-grain control
 #CONTROLLER_REQUEST_START: 1
