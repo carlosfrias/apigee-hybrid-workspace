@@ -2,7 +2,7 @@
 - name: Complete Bulk Load of Test Data for Products, Developers and Apps
   hosts: "{{ target_hosts }}"
   strategy: free
-  serial: 6
+  serial: 3
   gather_facts: yes
 
   collections:
