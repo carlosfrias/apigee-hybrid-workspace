@@ -1,7 +1,7 @@
 ---
 - name: Assert need to update security tokens
   set_fact:
-    dont_update_credentials: "{{ current_request | int % 10 }}"
+    dont_update_credentials: "{{ current_request | int % {{ update_frequency }}"
 
 - block:
   - meta: reset_connection
