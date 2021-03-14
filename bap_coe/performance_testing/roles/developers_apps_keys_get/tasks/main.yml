@@ -1,5 +1,5 @@
 ---
-# tasks file for developers_get
+# tasks file for roles/developers_apps_keys_get
 - name: Clear any host errors
   meta: clear_host_errors
 
@@ -18,9 +18,9 @@
 - name: Assert developer email account is provided
   assert:
     that:
-    - DEVELOPER_EMAIL_ACCOUNT is defined
+      - DEVELOPER_EMAIL_ACCOUNT is defined
     msg: Please provide the DEVELOPER_EMAIL_ACCOUNT.
-  when: DEVELOPER_EMAIL is not defined
+  when: DEVELOPER_EMAIL is not defined and DEVELOPER_APP_NAME is not defined
 
 - name: Assert count is provided
   assert:
@@ -32,14 +32,14 @@
 - name: Assert developer email domain is provided
   assert:
     that:
-    - DEVELOPER_EMAIL_DOMAIN is defined
+      - DEVELOPER_EMAIL_DOMAIN is defined
     msg: Please provide the DEVELOPER_EMAIL_DOMAIN.
   when: DEVELOPER_EMAIL is not defined
 
 - name: Constructed DEVELOPER_EMAIL
   set_fact:
     GENERATED_EMAIL_ACCOUNT: "{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ DEVELOPER_COUNT }}@{{ DEVELOPER_EMAIL_DOMAIN }}"
-  when: DEVELOPER_COUNT is defined
+  when: DEVELOPER_EMAIL is not defined
 
 - name: Use DEVELOPER_EMAIL if provided
   set_fact:
@@ -51,14 +51,15 @@
     DEVELOPER_EMAIL: "{{ GENERATED_EMAIL_ACCOUNT }}"
   when: DEVELOPER_COUNT is defined
 
-- name: Set defaults for attributes not provided
+- name: Construct DEVELOPER_APP_NAME
   set_fact:
-    APIGEE_API_URI: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}"
+    APP_NAME: "{{ APP_NAME_PREFIX }}-{{ DEVELOPER_COUNT }}"
 
-# Get Developer - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers/get
-- name: Get Developer
+# Get Developer App - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps/get
+- name: Get Developer App Keys
   uri:
-    url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers/{{ DEVELOPER_EMAIL }}?action={{ DEVELOPER_STATUS }}"
+    url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers/{{ DEVELOPER_EMAIL }}/apps/{{ APP_NAME }}/keys/{{ DEVELOPER_COUNT }}"
     method: GET
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
+

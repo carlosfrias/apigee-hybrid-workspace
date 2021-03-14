@@ -13,11 +13,10 @@
   assert:
     that:
       - ORG is defined
-    msg: Please provide the organiztion name.
+    msg: Please provide the organization name.
 
 - name: Set defaults for attributes not provided
   set_fact:
-    APIGEE_API_URI: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}"
     DEVELOPER_EMAIL_ACCOUNT: "{{ DEVELOPER_EMAIL_ACCOUNT | default('joe.developer') }}"
     DEVELOPER_EMAIL_DOMAIN: "{{ DEVELOPER_EMAIL_DOMAIN | default('google.com') }}"
     DEVELOPER_FIRST_NAME: "{{ DEVELOPER_FIRST_NAME | default('joe') }}"
@@ -48,10 +47,4 @@
   - name: Show dev_create_status
     debug:
       var: dev_create_status
-
-#  rescue:
-#    - name: Log existing developer
-#      lineinfile:
-#        path: "{{ DEVELOPER_EXISTS_LOG }}"
-#        regexp: "
 

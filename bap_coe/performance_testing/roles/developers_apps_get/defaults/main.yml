@@ -1,0 +1,4 @@
+---
+# defaults file for roles/developers_apps_get
+APP_NAME_PREFIX: 'Sample-App'
+APIGEE_API_URI: https://apigee.googleapis.com

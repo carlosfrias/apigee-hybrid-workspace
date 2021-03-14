@@ -17,7 +17,6 @@
 
 - name: Set defaults for attributes not provided
   set_fact:
-    APIGEE_API_URI: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}"
     PRODUCT_NAME: "{{ PRODUCT_NAME | default('Sample-Product') }}"
     DEVELOPER_EMAIL_ACCOUNT: "{{ DEVELOPER_EMAIL_ACCOUNT | default('joe.developer') }}"
     DEVELOPER_EMAIL_DOMAIN: "{{ DEVELOPER_EMAIL_DOMAIN | default('google.com') }}"
@@ -26,7 +25,7 @@
     DEVELOPER_USER_NAME: "{{ DEVELOPER_USER_NAME | default('developerjoe') }}"
     START_POSITION: "{{ LOAD_DEVELOPER_START_POSITION }}"
     LOAD_COUNT: "{{ LOAD_DEVELOPER_COUNT }}"
-    APP_NAME: "{{ APP_NAME | default('sample-app') }}"
+    APP_NAME: "{{ APP_NAME | default(APP_NAME_PREFIX) }}"
     APP_STATUS: "{{ APP_STATUS | default('approved') }}"
     APP_FAMILY: "{{ APP_FAMILY | default('sample-app-family') }}"
 

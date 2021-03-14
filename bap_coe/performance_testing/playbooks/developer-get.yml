@@ -1,24 +1,19 @@
 ---
-- name: Complete Bulk Load of Test Data for Products, Developers and Apps
-  hosts: localhost
-  connection: local
+- name: Get Developer
+  include_role:
+    name: developers_get
+  vars:
+    ORG: "{{ PROJECT_ID }}"
 
-  collections:
-    - bap_coe.performance_testing
-    - bap_coe.gcp_management
+- name: Get Developer app
+  include_role:
+    name: developers_apps_get
+  vars:
+    ORG: "{{ PROJECT_ID }}"
 
-  vars_files:
-    - "{{ playbook_dir }}/3-properties.yml"
-    - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
+- name: Get Developer app keys
+  include_role:
+    name: developers_apps_keys_get
+  vars:
+    ORG: "{{ PROJECT_ID }}"
 
-  roles:
-    - service_account_file_processing
-    - gcp_token_retrieval
-
-  tasks:
-    - name: Get Developer
-      include_role:
-        name: developers_get
-      vars:
-        DEVELOPER_EMAIL_ACCOUNT: "{{ dev_email }}"
-        ORG: "{{ PROJECT_ID }}"

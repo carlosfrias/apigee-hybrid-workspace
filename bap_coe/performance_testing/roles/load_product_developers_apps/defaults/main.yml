@@ -1,24 +1,3 @@
 ---
 # defaults file for load_product_developers_apps
 APIGEE_API_URI: https://apigee.googleapis.com
-#ORG: bap-amer-south-demo1
-#DATA_FOLDER: "{{ playbook_dir }}/bulk-data"
-#
-#API_PROXY_NAME: tracking-api
-#
-#PRODUCT_NAME: Sample-Product
-#PRODUCT_QUOTA: 1000
-#PRODUCT_ENV: default-dev
-#
-#DEVELOPER_EMAIL_ACCOUNT: joe.developer
-#DEVELOPER_EMAIL_DOMAIN: google.com
-#DEVELOPER_FIRST_NAME: Joe
-#DEVELOPER_LAST_NAME: Developer
-#DEVELOPER_USER_NAME: developerj
-#
-#APP_NAME: "sample-app"
-#APP_STATUS: "approved"
-#APP_FAMILY: "Sample App Family"
-#APP_COUNT: 20000000
-#RESTART_COUNT: 1125
-
