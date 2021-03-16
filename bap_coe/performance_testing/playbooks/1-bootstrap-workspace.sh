@@ -7,7 +7,7 @@ libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl \
 software-properties-common
 add-apt-repositor -y ppa:deadsnakes/ppa
 apt update -y
-apt install python3
+#apt install python3
 curl https://pyenv.run | bash
 export PATH=~/.pyenv/bin:$PATH
 echo "PATH=~/.pyenv/bin:$PATH" >> ~/.bashrc
