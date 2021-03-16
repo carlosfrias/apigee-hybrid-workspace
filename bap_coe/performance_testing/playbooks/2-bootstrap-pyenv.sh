@@ -1,7 +1,7 @@
 #!/bin/bash
 curl https://pyenv.run | bash
 export PATH=~/.pyenv/bin:$PATH
-echo "PATH=~/.pyenv/bin:$PATH" >> ~/.bashrc
+echo "export PATH=~/.pyenv/bin:$PATH" >> ~/.bashrc
 echo "eval '$(pyenv init -)'" >> ~/.bashrc
 echo "eval '$(pyenv virtualenv-init -)'" >> ~/.bashrc
 source ~/.bashrc
