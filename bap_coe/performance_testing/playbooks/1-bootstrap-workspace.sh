@@ -1,12 +1,13 @@
 #!/bin/bash
+export DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends tzdata
 sudo apt update -y
 sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
 libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
 libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl \
 software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
+sudo add-apt-repositor -y ppa:deadsnakes/ppa
 sudo apt update -y
-sudo apt install python3.8
+sudo apt install python3
 curl https://pyenv.run | bash
 export PATH=~/.pyenv/bin:$PATH
 echo "PATH=~/.pyenv/bin:$PATH" >> ~/.bashrc
