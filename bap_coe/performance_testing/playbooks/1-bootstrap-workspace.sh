@@ -14,7 +14,7 @@ echo "PATH=~/.pyenv/bin:$PATH" >> ~/.bashrc
 echo "eval '$(pyenv init -)'" >> ~/.bashrc
 echo "eval '$(pyenv virtualenv-init -)'" >> ~/.bashrc
 source ~/.bashrc
-pyenv install 3.9.1
+~/.pyenv/bin/pyenv install 3.9.1
 #exec "$SHELL"
 #pyenv virtualenv 3.9.1 ups_perf_test
 #pyenv activate ups_perf_test
