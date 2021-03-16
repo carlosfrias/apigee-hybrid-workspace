@@ -9,11 +9,11 @@ sudo apt update -y
 sudo apt install python3.8
 curl https://pyenv.run | bash
 export PATH=~/.pyenv/bin:$PATH
-pyenv install 3.9.1
 echo "PATH=~/.pyenv/bin:$PATH" >> ~/.bashrc
 echo "eval '$(pyenv init -)'" >> ~/.bashrc
 echo "eval '$(pyenv virtualenv-init -)'" >> ~/.bashrc
-#source ~/.bashrc
+source ~/.bashrc
+pyenv install 3.9.1
 #exec "$SHELL"
 #pyenv virtualenv 3.9.1 ups_perf_test
 #pyenv activate ups_perf_test
