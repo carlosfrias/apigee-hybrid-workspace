@@ -16,7 +16,7 @@
     state: present
     update_cache: yes
 
-- name: Install system packages
+- name: Install Debian packages
   tags: ['os', 'packages']
   become: true
   apt:

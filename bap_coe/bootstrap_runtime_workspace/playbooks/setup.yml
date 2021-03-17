@@ -15,5 +15,4 @@
     pip:
       name:
         - "{{ item }}"
-      extra_args: --user
     with_items: "{{ pip_modules }}"
