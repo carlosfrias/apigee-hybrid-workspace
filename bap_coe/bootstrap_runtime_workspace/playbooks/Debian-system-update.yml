@@ -1,11 +1,11 @@
 ---
-- name: Prep for system update
-  tags: ['os']
-  become: yes
-  apt:
-    name: "apt-transport-https ca-certificates gnupg"
-    state: present
-    update_cache: yes
+#- name: Prep for system update
+#  tags: ['os']
+#  become: yes
+#  apt:
+#    name: "apt-transport-https ca-certificates gnupg"
+#    state: present
+#    update_cache: yes
 
 - name: Add source repository into sources list
   tags: ['os']
