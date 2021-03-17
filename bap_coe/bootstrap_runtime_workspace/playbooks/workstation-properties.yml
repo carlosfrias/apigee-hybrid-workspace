@@ -1,0 +1,112 @@
+---
+github_user: "git@github.com/carlosfrias"
+
+user_home_dir: "{{ '~' | expanduser }}"
+ansible_home: "{{ user_home_dir }}/.ansible"
+apigee_workspace: "{{ user_home_dir }}/apigee-workspace"
+target_project_dir: "{{ project_dir | default(playbook_dir) }}/git-repos"
+apps_dir: "{{ user_home_dir }}/apps"
+
+setup_workstation_folders:
+  - "{{ ansible_home }}"
+  - "{{ apigee_workspace }}"
+  - "{{ target_project_dir }}"
+  - "{{ apps_dir }}"
+
+apigee_workspace_resources:
+  - { git_repo: "git@github.com:carlosfrias/vim-config.git",
+      git_repo_workspace: "{{ target_project_dir }}/vim",
+      sync_dest: '{{ user_home_dir }}/.vim'
+  }
+  - { git_repo: "git@github.com:tmux-plugins/tmux-continuum.git",
+      git_repo_workspace: "{{ target_project_dir }}/tmux-continuum",
+      sync_dest: '{{ user_home_dir }}/apps/tmux-continuum'
+  }
+  - { git_repo: "git@github.com:tmux-plugins/tmux-resurrect.git",
+      git_repo_workspace: "{{ target_project_dir }}/tmux-resurrect",
+      sync_dest: '{{ user_home_dir }}/apps/tmux-resurrect'
+  }
+  - { git_repo: "https://github.com/apigee/api-platform-samples.git",
+      git_repo_workspace: "{{ target_project_dir }}/api-platform-samples",
+      sync_dest: '{{ apigee_workspace }}/api-platform-samples'
+  }
+
+apigee_workspace_repos:
+  - { git_repo: "git@github.com:carlosfrias/apigee-secure.git",
+      git_repo_workspace: "{{ target_project_dir }}/apigee-secure",
+      sync_dest: '{{ user_home_dir }}/.apigee-secure'
+  }
+  - { git_repo: "git@github.com:carlosfrias/apigee-configurations.git",
+      git_repo_workspace: "{{ target_project_dir }}/apigee",
+      sync_dest: '{{ user_home_dir }}/.apigee'
+  }
+  - { git_repo: "git@github.com:carlosfrias/apigee-ansible-configurations.git",
+      git_repo_workspace: "{{ target_project_dir }}/ansible",
+      sync_dest: '{{ user_home_dir }}/.ansible'
+  }
+  - { git_repo: "git@github.com:apigee/ansible-opdk-accelerator.git",
+      git_repo_workspace: "{{ target_project_dir }}/ansible-opdk-accelerator",
+      sync_dest: '{{ apigee_workspace }}/ansible-opdk-accelerator'
+  }
+  - { git_repo: "sso://user/friasc/apigee-cs-anthos-lab-guide",
+      git_repo_workspace: "{{ target_project_dir }}/frias-lab-anthos",
+      sync_dest: '{{ apigee_workspace }}/frias-lab-anthos'
+  }
+  - { git_repo: "git@github.com:carlosfrias/apigee-hybrid-workspace.git",
+      git_repo_workspace: "{{ target_project_dir }}/apigee-hybrid-workspace",
+      sync_dest: '{{ apigee_workspace }}/apigee-hybrid-workspace'
+  }
+  - { git_repo: "ssh://friasc@google.com@source.developers.google.com:2022/p/friasc-lab/r/apigee-hybrid-workspace",
+      git_repo_workspace: "{{ target_project_dir }}/apigee-hybrid-workspace",
+      sync_dest: '{{ apigee_workspace }}/apigee-hybrid-workspace'
+  }
+os_packages:
+  - maven
+  - nodejs
+  - git
+  - vim
+  - tree
+  - rsync
+  - tmux
+  - icepick-client
+  - python3-pip
+
+pip_command: "pip"
+pip_modules:
+  - google_auth
+  - pytest-testinfra
+  - "molecule[docker]"
+
+tmux_entries:
+  - { regex: "^setw.*mode-keys.*$", line: "setw -g mode-keys vi" }
+  - { regex: "^set.*'tmux-plugins/tmux-resurrect'$", line: "set -g @plugin 'tmux-plugins/tmux-resurrect'" }
+  - { regex: "^set.*'tmux-plugins/tmux-continuum'$", line: "set -g @plugin 'tmux-plugins/tmux-continuum'" }
+  - { regex: "^set.*continuum-boot 'on'$", line: "set -g @continuum-boot 'on'" }
+  - { regex: "^run-shell.*resurrect.tmux$", line: "run-shell ~/apps/tmux-resurrect/resurrect.tmux" }
+  - { regex: "^run-shell.*continuum.tmux$", line: "run-shell ~/apps/tmux-continuum/continuum.tmux" }
+
+mitogen_version: 0.2.8
+mitogen_file_name: "mitogen-{{ mitogen_version }}.tar.gz"
+
+debian_os_packages:
+  - make
+  - build-essential
+  - libssl-dev
+  - zlib1g-dev
+  - libbz2-dev
+  - libreadline-dev
+  - libsqlite3-dev
+  - wget
+  - curl
+  - llvm
+  - libncurses5-dev
+  - libncursesw5-dev
+  - xz-utils
+  - tk-dev
+  - libffi-dev
+  - liblzma-dev
+  - python-openssl
+  - software-properties-common
+
+debian_apt_repositories:
+  - ppa:deadsnakes/ppa

@@ -1,0 +1,26 @@
+---
+- name: This playbook configures and install my local workstation
+  hosts: "{{ target_hosts }}"
+  connection: local
+  vars_files:
+    - workstation-properties.yml
+
+  tasks:
+    - name: Download mitogen
+      tags: ['mitogen']
+      get_url:
+        url: "https://networkgenomics.com/try/{{ mitogen_file_name }}"
+        dest: "{{ ansible_home }}/tmp"
+
+    - name: Create plugins folder
+      tags: ['mitogen']
+      file:
+        path: "{{ ansible_home }}/plugins"
+        state: directory
+
+    - name: Download and install mitogen
+      tags: ['mitogen']
+      unarchive:
+        remote_src: yes
+        src: "{{ ansible_home }}/tmp/{{ mitogen_file_name }}"
+        dest: "{{ ansible_home }}/plugins"

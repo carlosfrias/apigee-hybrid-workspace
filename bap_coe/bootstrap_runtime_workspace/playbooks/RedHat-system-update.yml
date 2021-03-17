@@ -1,0 +1,8 @@
+---
+- name: Install system packages
+  tags: ['os', 'packages']
+  become: true
+  package:
+    name: "{{ os_packages }}"
+    state: present
+

@@ -1,0 +1,12 @@
+---
+- name: This playbook configures and install my local workstation
+  hosts: "{{ target_hosts }}"
+  connection: local
+  vars_files:
+    - workstation-properties.yml
+
+  tasks:
+  - name: Update System
+    tags: ['os','docker']
+    include_tasks: "{{ ansible_os_family }}-system-update.yml"
+

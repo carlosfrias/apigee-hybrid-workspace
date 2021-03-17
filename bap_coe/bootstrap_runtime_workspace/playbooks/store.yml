@@ -1,0 +1,25 @@
+---
+- name: This playbook configures and install my local workstation
+  hosts: localhost
+  connection: local
+  vars_files:
+    - workstation-properties.yml
+
+  tasks:
+#  - name: Update Git Repo Workspace
+#    tags: ['repos']
+#    git:
+#      repo: "{{ item.git_repo }}"
+#      dest: "{{ item.sync_dest }}"
+#      accept_hostkey: yes
+#      update: yes
+#      clone: yes
+#      force: no
+#    with_items: "[{{ apigee_workspace_repos }}]"
+
+  - name: Commit Git Repo Workspace
+    tags: ['repos']
+    shell: "git commit -am 'updating as workstation storage process'; git push"
+    args:
+      chdir: "{{ item.sync_dest }}"
+    with_items: "{{ apigee_workspace_repos }}"
