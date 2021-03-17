@@ -3,7 +3,7 @@
   tags: ['os']
   become: yes
   apt:
-    name: "['apt-transport-https', 'ca-certificates', 'gnupg']"
+    name: "apt-transport-https ca-certificates gnupg"
     state: present
     update_cache: yes
 
