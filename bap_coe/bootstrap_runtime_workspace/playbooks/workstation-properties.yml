@@ -101,3 +101,9 @@ debian_apt_repositories:
 
 debian_apt_keys:
   - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+
+os_system_prep_packages:
+  - apt-transport-https
+  - ca-certificates
+  - gnupg
+    
