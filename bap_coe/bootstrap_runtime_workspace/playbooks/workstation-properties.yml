@@ -89,7 +89,7 @@ mitogen_version: 0.2.8
 mitogen_file_name: "mitogen-{{ mitogen_version }}.tar.gz"
 
 debian_os_packages:
-  - intellij-ce-stable
+  - intellij-ue-stable
   - apt-transport-https
   - ca-certificates
   - gnupg
