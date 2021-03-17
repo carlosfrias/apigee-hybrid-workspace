@@ -8,10 +8,6 @@
   with_items:
   - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
 
-- name: Update python3-apt
-  become: true
-  raw: "apt install -y python3-apt"
-
 - name: Install system packages
   tags: ['os', 'packages']
   become: true
