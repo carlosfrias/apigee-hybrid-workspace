@@ -61,18 +61,20 @@ apigee_workspace_repos:
       sync_dest: '{{ apigee_workspace }}/apigee-hybrid-workspace'
   }
 os_packages:
-  - nodejs
   - git
   - vim
   - tree
   - rsync
   - tmux
-  - icepick-client
 
 pip_modules:
   - google_auth
+  - passlib
+  - apache-libcloud
+  - google-auth
+  - google-api-python-client
   - pytest-testinfra
-  - "molecule[docker]"
+  - "molecule[docker,kubernetes]"
 
 tmux_entries:
   - { regex: "^setw.*mode-keys.*$", line: "setw -g mode-keys vi" }
