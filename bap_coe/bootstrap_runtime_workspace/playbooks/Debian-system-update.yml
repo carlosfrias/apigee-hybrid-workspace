@@ -8,15 +8,18 @@
   with_items:
   - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
 
+- name: Update python3-apt
+  become: true
+  raw: "apt install -y python3-apt"
+
 - name: Install system packages
   tags: ['os', 'packages']
   become: true
   apt:
-    name: "{{ item }}"
+    name: "{{ [os_packages,debian_os_packages], 'intellij-ce-stable' }}"
     state: present
     update_cache: yes
     install_recommends: yes
-  with_items: "{{ [os_packages,debian_os_packages], 'intellij-ce-stable' }}"
 
 #- name: Add source repository into sources list
 #  apt_repository:
