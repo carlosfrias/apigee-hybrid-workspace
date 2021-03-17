@@ -15,7 +15,6 @@
     name: "{{ os_packages }}"
     state: present
     update_cache: yes
-    install_recommends: yes
 
 - name: Install system packages
   tags: ['os', 'packages']
@@ -24,7 +23,6 @@
     name: "{{ debian_os_packages }}"
     state: present
     update_cache: yes
-    install_recommends: yes
 
 #- name: Add source repository into sources list
 #  apt_repository:
