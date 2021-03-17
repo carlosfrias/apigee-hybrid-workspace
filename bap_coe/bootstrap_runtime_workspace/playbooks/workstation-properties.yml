@@ -1,6 +1,5 @@
 ---
 github_user: "git@github.com/carlosfrias"
-
 user_home_dir: "{{ '~' | expanduser }}"
 ansible_home: "{{ user_home_dir }}/.ansible"
 apigee_workspace: "{{ user_home_dir }}/apigee-workspace"
@@ -48,18 +47,19 @@ apigee_workspace_repos:
       git_repo_workspace: "{{ target_project_dir }}/ansible-opdk-accelerator",
       sync_dest: '{{ apigee_workspace }}/ansible-opdk-accelerator'
   }
-#  - { git_repo: "sso://user/friasc/apigee-cs-anthos-lab-guide",
-#      git_repo_workspace: "{{ target_project_dir }}/frias-lab-anthos",
-#      sync_dest: '{{ apigee_workspace }}/frias-lab-anthos'
-#  }
   - { git_repo: "git@github.com:carlosfrias/apigee-hybrid-workspace.git",
       git_repo_workspace: "{{ target_project_dir }}/apigee-hybrid-workspace",
       sync_dest: '{{ apigee_workspace }}/apigee-hybrid-workspace'
   }
+#  - { git_repo: "sso://user/friasc/apigee-cs-anthos-lab-guide",
+#      git_repo_workspace: "{{ target_project_dir }}/frias-lab-anthos",
+#      sync_dest: '{{ apigee_workspace }}/frias-lab-anthos'
+#  }
 #  - { git_repo: "ssh://friasc@google.com@source.developers.google.com:2022/p/friasc-lab/r/apigee-hybrid-workspace",
 #      git_repo_workspace: "{{ target_project_dir }}/apigee-hybrid-workspace",
 #      sync_dest: '{{ apigee_workspace }}/apigee-hybrid-workspace'
 #  }
+
 os_packages:
   - git
   - vim
@@ -97,7 +97,7 @@ debian_os_packages:
 debian_apt_repositories:
   - ppa:deadsnakes/ppa
   - "deb https://packages.cloud.google.com/apt cloud-sdk main"
-  - RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl
+#  - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main"
 
 debian_apt_keys:
   - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
