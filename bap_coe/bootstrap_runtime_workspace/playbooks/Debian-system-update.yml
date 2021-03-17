@@ -1,27 +1,27 @@
 ---
-#- name: Prep for system update
-#  tags: ['os']
-#  become: yes
-#  apt:
-#    name: "apt-transport-https ca-certificates gnupg"
-#    state: present
-#    update_cache: yes
+- name: Prep for system update
+  tags: ['os']
+  become: yes
+  apt:
+    name: "apt-transport-https ca-certificates gnupg"
+    state: present
+    update_cache: yes
 
-#- name: Add source repository into sources list
-#  tags: ['os']
-#  become: yes
-#  apt_repository:
-#    repo: "{{ item }}"
-#    state: present
-#  with_items: "{{ debian_apt_repositories }}"
+- name: Add source repository into sources list
+  tags: ['os']
+  become: yes
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items: "{{ debian_apt_repositories }}"
 
-#- name: Update Debian Apt Keys
-#  tags: ['os']
-#  become: yes
-#  apt_key:
-#    url: "{{ item }}"
-#    state: present
-#  with_items: "{{ debian_apt_keys }}"
+- name: Update Debian Apt Keys
+  tags: ['os']
+  become: yes
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items: "{{ debian_apt_keys }}"
 
 - name: Install Debian packages
   tags: ['packages']
@@ -70,7 +70,7 @@
   # have a look at http://b/130240293#comment12
 
     - name: Remove old docker-* packages (if installed)
-      #      become: yes
+      become: yes
       package:
         name: "{{ item }}"
         state: absent
