@@ -1,6 +1,7 @@
 ---
 - name: Add source repository into sources list
   tags: ['os']
+  become: yes
   apt_repository:
     repo: "{{ item }}"
     state: present
@@ -8,6 +9,7 @@
 
 - name: Prep for system update
   tags: ['os']
+  become: yes
   apt:
     name: "apt-transport-https ca-certificates gnupg"
     state: present
