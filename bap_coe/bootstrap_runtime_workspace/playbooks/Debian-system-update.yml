@@ -16,7 +16,7 @@
     state: present
     update_cache: yes
     install_recommends: yes
-  with_items: "{{ [os_packages,debian_os_packages], intellij-ce-stable }}"
+  with_items: "{{ [os_packages,debian_os_packages], 'intellij-ce-stable' }}"
 
 #- name: Add source repository into sources list
 #  apt_repository:
