@@ -106,4 +106,3 @@ os_system_prep_packages:
   - apt-transport-https
   - ca-certificates
   - gnupg
-    

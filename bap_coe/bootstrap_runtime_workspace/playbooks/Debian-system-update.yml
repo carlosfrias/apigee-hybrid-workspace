@@ -7,14 +7,6 @@
     state: present
     update_cache: yes
 
-- name: Add source repository into sources list
-  tags: ['os']
-  become: yes
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-  with_items: "{{ debian_apt_repositories }}"
-
 - name: Update Debian Apt Keys
   tags: ['os']
   become: yes
@@ -22,6 +14,14 @@
     url: "{{ item }}"
     state: present
   with_items: "{{ debian_apt_keys }}"
+
+- name: Add source repository into sources list
+  tags: ['os']
+  become: yes
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items: "{{ debian_apt_repositories }}"
 
 - name: Install Debian packages
   tags: ['packages']
