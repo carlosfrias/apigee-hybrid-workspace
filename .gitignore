@@ -8,3 +8,4 @@ transaction.yaml
 **/*.tar.gz
 **/ansible
 .idea/**
+git-repos/**
