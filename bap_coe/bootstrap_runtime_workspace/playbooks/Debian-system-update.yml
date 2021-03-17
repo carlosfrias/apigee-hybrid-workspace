@@ -1,4 +1,18 @@
 ---
+- name: Add source repository into sources list
+  tags: ['os']
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items: "{{ debian_apt_repositories }}"
+
+- name: Prep for system update
+  tags: ['os']
+  apt:
+    name: "apt-transport-https ca-certificates gnupg"
+    state: present
+    update_cache: yes
+
 - name: Update Debian Apt Keys
   tags: ['os']
   become: yes
@@ -6,13 +20,6 @@
     url: "{{ item }}"
     state: present
   with_items: "{{ debian_apt_keys }}"
-
-- name: Add source repository into sources list
-  tags: ['os']
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-  with_items: "{{ debian_apt_repositories }}"
 
 - name: Install Debian packages
   tags: ['packages']
