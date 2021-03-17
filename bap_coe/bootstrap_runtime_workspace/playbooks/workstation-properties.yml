@@ -95,9 +95,9 @@ debian_os_packages:
   - gnupg
 
 debian_apt_repositories:
-  - "deb https://packages.cloud.google.com/apt cloud-sdk main"
+  - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main"
+#  - "deb https://packages.cloud.google.com/apt cloud-sdk main"
 #  - ppa:deadsnakes/ppa
-#  - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main"
 
 debian_apt_keys:
   - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
