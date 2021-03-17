@@ -10,3 +10,10 @@
     tags: ['os','docker']
     include_tasks: "{{ ansible_os_family }}-system-update.yml"
 
+  - name: Update Pip modules
+    tags: ['pip']
+    pip:
+      name:
+        - "{{ item }}"
+      extra_args: --user
+    with_items: "{{ pip_modules }}"

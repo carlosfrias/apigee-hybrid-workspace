@@ -69,9 +69,7 @@ os_packages:
   - rsync
   - tmux
   - icepick-client
-  - python3-pip
 
-pip_command: "pip"
 pip_modules:
   - google_auth
   - pytest-testinfra
