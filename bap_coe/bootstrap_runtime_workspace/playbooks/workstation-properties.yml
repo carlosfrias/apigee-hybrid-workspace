@@ -51,7 +51,7 @@ apigee_workspace_repos:
 #  - { git_repo: "sso://user/friasc/apigee-cs-anthos-lab-guide",
 #      git_repo_workspace: "{{ target_project_dir }}/frias-lab-anthos",
 #      sync_dest: '{{ apigee_workspace }}/frias-lab-anthos'
-  }
+#  }
   - { git_repo: "git@github.com:carlosfrias/apigee-hybrid-workspace.git",
       git_repo_workspace: "{{ target_project_dir }}/apigee-hybrid-workspace",
       sync_dest: '{{ apigee_workspace }}/apigee-hybrid-workspace'
@@ -59,7 +59,7 @@ apigee_workspace_repos:
 #  - { git_repo: "ssh://friasc@google.com@source.developers.google.com:2022/p/friasc-lab/r/apigee-hybrid-workspace",
 #      git_repo_workspace: "{{ target_project_dir }}/apigee-hybrid-workspace",
 #      sync_dest: '{{ apigee_workspace }}/apigee-hybrid-workspace'
-  }
+#  }
 os_packages:
   - git
   - vim
