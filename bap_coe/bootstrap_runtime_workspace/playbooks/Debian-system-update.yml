@@ -9,7 +9,7 @@
   - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
 
 - name: Install system packages
-  tags: ['os', 'packages']
+  tags: ['os']
   become: true
   apt:
     name: "{{ os_packages }}"
@@ -17,7 +17,7 @@
     update_cache: yes
 
 - name: Install Debian packages
-  tags: ['os', 'packages']
+  tags: ['packages']
   become: true
   apt:
     name: "{{ debian_os_packages }}"
