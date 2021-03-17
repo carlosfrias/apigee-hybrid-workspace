@@ -8,6 +8,7 @@
   with_items: "{{ debian_apt_keys }}"
 
 - name: Add source repository into sources list
+  tags: ['os']
   apt_repository:
     repo: "{{ item }}"
     state: present
