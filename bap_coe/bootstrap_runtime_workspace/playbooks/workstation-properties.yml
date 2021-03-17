@@ -61,7 +61,6 @@ apigee_workspace_repos:
       sync_dest: '{{ apigee_workspace }}/apigee-hybrid-workspace'
   }
 os_packages:
-  - maven
   - nodejs
   - git
   - vim
