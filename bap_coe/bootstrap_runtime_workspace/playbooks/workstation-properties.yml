@@ -106,6 +106,7 @@ debian_os_packages:
   - liblzma-dev
   - python-openssl
   - software-properties-common
+  - intellij-ce-stable
 
 debian_apt_repositories:
   - ppa:deadsnakes/ppa

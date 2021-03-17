@@ -12,7 +12,16 @@
   tags: ['os', 'packages']
   become: true
   apt:
-    name: "{{ [os_packages,debian_os_packages], 'intellij-ce-stable' }}"
+    name: "{{ os_packages }}"
+    state: present
+    update_cache: yes
+    install_recommends: yes
+
+- name: Install system packages
+  tags: ['os', 'packages']
+  become: true
+  apt:
+    name: "{{ debian_os_packages }}"
     state: present
     update_cache: yes
     install_recommends: yes
