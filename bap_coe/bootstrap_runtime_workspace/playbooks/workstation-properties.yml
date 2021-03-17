@@ -66,6 +66,7 @@ os_packages:
   - tree
   - rsync
   - tmux
+  - google-cloud-sdk
 
 pip_modules:
   - google_auth
@@ -89,6 +90,14 @@ mitogen_file_name: "mitogen-{{ mitogen_version }}.tar.gz"
 
 debian_os_packages:
   - intellij-ce-stable
+  - apt-transport-https
+  - ca-certificates
+  - gnupg
 
 debian_apt_repositories:
   - ppa:deadsnakes/ppa
+  - "deb https://packages.cloud.google.com/apt cloud-sdk main"
+  - RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl
+
+debian_apt_keys:
+  - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"

@@ -5,16 +5,13 @@
   apt_key:
     url: "{{ item }}"
     state: present
-  with_items:
-  - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+  with_items: "{{ debian_apt_keys }}"
 
-- name: Install system packages
-  tags: ['os']
-  become: true
-  apt:
-    name: "{{ os_packages }}"
+- name: Add source repository into sources list
+  apt_repository:
+    repo: "{{ item }}"
     state: present
-    update_cache: yes
+  with_items: "{{ debian_apt_repositories }}"
 
 - name: Install Debian packages
   tags: ['packages']
@@ -24,16 +21,13 @@
     state: present
     update_cache: yes
 
-#- name: Add source repository into sources list
-#  apt_repository:
-#    repo: "{{ item }}"
-#    state: present
-#  with_items: "{{ debian_apt_repositories }}"
-
-#- name: Install python3.8
-#  become: true
-#  apt:
-#    name: "python3.8"
+- name: Install system packages
+  tags: ['os']
+  become: true
+  apt:
+    name: "{{ os_packages }}"
+    state: present
+    update_cache: yes
 
 - name: Install pyenv
   become: true
