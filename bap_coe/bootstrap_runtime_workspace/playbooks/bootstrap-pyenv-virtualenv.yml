@@ -3,20 +3,82 @@
   hosts: "{{ target_hosts }}"
   gather_facts: no
 
+  vars:
+    bootstrap_pyenv_packages:
+      - sudo
+      - make
+      - build-essential
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - wget
+      - curl
+      - llvm
+      - libncurses5-dev
+      - libncursesw5-dev
+      - xz-utils
+      - tk-dev
+      - libffi-dev
+      - liblzma-dev
+      - python-openssl
+      - software-properties-common
+      - git
+      - python3-apt
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
+
   tasks:
-    - name: Copy resources
+    - name: Update apt
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Install system packages to work with pyenv workspace
+      become: true
+      apt:
+        name: "{{ bootstrap_pyenv_packages }}"
+        state: present
+      environment:
+        DEBIAN_FRONTEND: "noninteractive apt-get install -y --no-install-recommends tzdata"
+
+    - name: Download pyenv
+      get_url:
+        url: https://pyenv.run
+        dest: ~/pyenv.run
+
+    - name: Install pyenv
+      command: bash pyenv.run
+      args:
+        creates: ~/.pyenv
+
+    - name: Copy dependency lists
       copy:
         src: "{{ item }}"
-        dest: "{{ item }}"
+        dest: "./{{ item }}"
       with_items:
         - requirements.txt
         - collections.yml
 
-    - name: Bootstrap workspace
-      become: true
+    - name: Update path in .bashrc for pyenv
+      lineinfile:
+        path: ~/.bashrc
+        state: present
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { regexp: "^export PATH=~/.pyenv/bin:$PATH", line: "export PATH=~/.pyenv/bin:$PATH"}
+#        - { regexp: "^eval '$(pyenv init -)'", line: "eval '$(pyenv init -)'"}
+#        - { regexp: "^eval '$(pyenv virtualenv-init -)'", line: "eval '$(pyenv virtualenv-init -)'"}
+
+    - name: Create virtual environment bap_coe and install dependencies in workspace
       raw: |
         #!/bin/bash
-        pyenv virtualenv {{ python_version | default('3.9.1') }} bap_coe
-        pyenv activate bap_coe
-        pip3 install -r requirements.txt
+        bash ~/.bashrc
+        ~/.pyenv/bin/pyenv install {{ python_version | default('3.9.1') }}
+        ~/.pyenv/bin/pyenv virtualenv {{ python_version | default('3.9.1') }} bap_coe
+        ~/.pyenv/bin/pyenv activate bap_coe
+        ~/.pyenv/shims/pip3 install -r requirements.txt
         ansible-galaxy install -r collections.yml --force

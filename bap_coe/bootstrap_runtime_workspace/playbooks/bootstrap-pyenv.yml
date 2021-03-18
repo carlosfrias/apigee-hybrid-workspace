@@ -4,11 +4,17 @@
   gather_facts: no
 
   tasks:
+    - name: Download pyenv
+      get_url:
+        url: https://pyenv.run
+        dest: ~/pyenv.run
+
+    - name: Install pyenv
+      command: bash pyenv.run
+
     - name: Bootstrap workspace
-#      become: true
       raw: |
         #!/bin/bash
-        curl https://pyenv.run | bash
         export PATH=~/.pyenv/bin:$PATH
         echo "export PATH=~/.pyenv/bin:$PATH" >> ~/.bashrc
         echo "eval '$(pyenv init -)'" >> ~/.bashrc
