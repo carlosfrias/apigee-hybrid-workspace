@@ -1,5 +1,5 @@
 ---
-- name: Bootstrap pyenv
+- name: Bootstrap pyenv virtualenv
   hosts: "{{ target_hosts }}"
   gather_facts: no
 
@@ -11,13 +11,34 @@
 
     - name: Install pyenv
       command: bash pyenv.run
+      args:
+        creates: ~/.pyenv
 
-    - name: Bootstrap workspace
+    - name: Copy dependency lists
+      copy:
+        src: "{{ item }}"
+        dest: "./{{ item }}"
+      with_items:
+        - requirements.txt
+        - collections.yml
+
+    - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
+      blockinfile:
+        path: ~/.bashrc
+        create: yes
+        backup: yes
+        mode: 0600
+        marker: "# {mark} pyenv ANSIBLE MANAGED BLOCK"
+        block: |
+          export PATH=~/.pyenv/bin:$PATH
+          eval "$(pyenv init -)"
+          eval "$(pyenv virtualenv-init -)"
+
+    - name: Reset connection to reload .bashrc config update
+      meta: reset_connection
+
+    - name: Install python with pyenv + virtualenv bap_coe, long running process...
       raw: |
         #!/bin/bash
-        export PATH=~/.pyenv/bin:$PATH
-        echo "export PATH=~/.pyenv/bin:$PATH" >> ~/.bashrc
-        echo "eval '$(pyenv init -)'" >> ~/.bashrc
-        echo "eval '$(pyenv virtualenv-init -)'" >> ~/.bashrc
-        source ~/.bashrc
-        pyenv install {{ python_version | default('3.9.1') }}
+        ~/.pyenv/bin/pyenv install {{ python_version | default('3.9.1') }}
+        ~/.pyenv/bin/pyenv virtualenv {{ python_version | default('3.9.1') }} bap_coe

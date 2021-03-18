@@ -62,23 +62,32 @@
         - requirements.txt
         - collections.yml
 
-    - name: Update path in .bashrc for pyenv
-      lineinfile:
+    - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
+      blockinfile:
         path: ~/.bashrc
-        state: present
-        regexp: "{{ item.regexp }}"
-        line: "{{ item.line }}"
-      with_items:
-        - { regexp: "^export PATH=~/.pyenv/bin:$PATH", line: "export PATH=~/.pyenv/bin:$PATH"}
-#        - { regexp: "^eval '$(pyenv init -)'", line: "eval '$(pyenv init -)'"}
-#        - { regexp: "^eval '$(pyenv virtualenv-init -)'", line: "eval '$(pyenv virtualenv-init -)'"}
+        create: yes
+        backup: yes
+        mode: 0600
+        marker: "# {mark} pyenv ANSIBLE MANAGED BLOCK"
+        block: |
+          export PATH=~/.pyenv/bin:$PATH
+          eval "$(pyenv init -)"
+          eval "$(pyenv virtualenv-init -)"
 
-    - name: Create virtual environment bap_coe and install dependencies in workspace
+    - name: Reset connection to reload .bashrc config update
+      meta: reset_connection
+
+    - name: Install python with pyenv + virtualenv bap_coe, long running process...
       raw: |
         #!/bin/bash
-        bash ~/.bashrc
         ~/.pyenv/bin/pyenv install {{ python_version | default('3.9.1') }}
         ~/.pyenv/bin/pyenv virtualenv {{ python_version | default('3.9.1') }} bap_coe
+
+    - name: Configure virtualenv bap_coe
+      raw: |
+        #!/bin/bash
+        source ~/.bashrc
+        export PATH=~/.pyenv/bin:~/.pyenv/shims:$PATH
         ~/.pyenv/bin/pyenv activate bap_coe
         ~/.pyenv/shims/pip3 install -r requirements.txt
         ansible-galaxy install -r collections.yml --force
