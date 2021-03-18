@@ -1,47 +1,31 @@
 ---
-- name: Prep for system update
-  tags: ['os']
-  become: yes
-  apt:
-    name: "{{ os_system_prep_packages }}"
-    state: present
-    update_cache: yes
+- name: Update Debian system
+  block:
+  - name: Prep for system update
+    tags: ['os']
+    apt:
+      name: "{{ os_system_prep_packages }}"
+      state: present
+      update_cache: yes
 
-- name: Update Debian Apt Keys
-  tags: ['os']
-  become: yes
-  apt_key:
-    url: "{{ item }}"
-    state: present
-  with_items: "{{ debian_apt_keys }}"
+  - name: Install Debian packages
+    tags: ['packages']
+    apt:
+      name: "{{ debian_os_packages }}"
+      state: present
+      update_cache: yes
 
-- name: Add source repository into sources list
-  tags: ['os']
-  become: yes
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-  with_items: "{{ debian_apt_repositories }}"
+  - name: Install system packages
+    tags: ['os']
+    apt:
+      name: "{{ os_packages }}"
+      state: present
+      update_cache: yes
 
-- name: Install Debian packages
-  tags: ['packages']
+  - name: Install pyenv
+    command: "curl https://pyenv.run | bash"
+
   become: true
-  apt:
-    name: "{{ debian_os_packages }}"
-    state: present
-    update_cache: yes
-
-- name: Install system packages
-  tags: ['os']
-  become: true
-  apt:
-    name: "{{ os_packages }}"
-    state: present
-    update_cache: yes
-
-- name: Install pyenv
-  become: true
-  command: "curl https://pyenv.run | bash"
 
 - name: Update .bashrc
   lineinfile:
@@ -54,55 +38,3 @@
     - { regexp: "^eval '$(pyenv init -)'", line: "eval '$(pyenv init -)'"}
     - { regexp: "^eval '$(pyenv virtualenv-init -)'", line: "eval '$(pyenv virtualenv-init -)'"}
 
-- name: Configure Docker
-  block:
-    - name: Assert docker group exists
-      group:
-        name: docker
-        state: present
-
-    - name: Add user to docker group
-      command: adduser "{{ ansible_user | default(lookup('env', 'USER')) }}" docker
-
-  # If you get the error:
-  #  adduser: The user "redis" already exists, but is not a system user. Exiting
-  #  chown: invalid group: "redis:redis"
-  # have a look at http://b/130240293#comment12
-
-    - name: Remove old docker-* packages (if installed)
-      become: yes
-      package:
-        name: "{{ item }}"
-        state: absent
-      with_items:
-      - docker-engine
-      - docker-runc
-      - docker-containerd
-
-    - name: Add glinux repo
-      #      become: yes
-      shell: glinux-add-repo -b docker-ce-"{{ ansible_distribution_release }}"
-
-    - name: docker-ce installation and recovery if failure
-      block:
-        - name: Install docker-ce
-          apt:
-            update_cache: yes
-            name: docker-ce
-            state: present
-      rescue:
-        # If the previous command fails, you may need to clear your
-        # docker lib (rm -rf /var/lib/docker) as well. Doing this will delete
-        # all images on disk. Ensure that they are backed up somewhere
-        # if you don't want this to happen.
-        - name: Clear docker lib
-          file:
-            path: /var/lib/docker
-            state: absent
-
-  tags: ['docker']
-  become: true
-
-- name: Update with glinux updater
-  become: true
-  command: "glinux-updater"

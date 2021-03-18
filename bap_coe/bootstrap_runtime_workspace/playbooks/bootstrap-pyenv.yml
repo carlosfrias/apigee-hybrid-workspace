@@ -1,0 +1,17 @@
+---
+- name: Bootstrap pyenv
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+
+  tasks:
+    - name: Bootstrap workspace
+#      become: true
+      raw: |
+        #!/bin/bash
+        curl https://pyenv.run | bash
+        export PATH=~/.pyenv/bin:$PATH
+        echo "export PATH=~/.pyenv/bin:$PATH" >> ~/.bashrc
+        echo "eval '$(pyenv init -)'" >> ~/.bashrc
+        echo "eval '$(pyenv virtualenv-init -)'" >> ~/.bashrc
+        source ~/.bashrc
+        pyenv install {{ python_version | default('3.9.1') }}

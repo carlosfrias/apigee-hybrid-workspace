@@ -1,0 +1,22 @@
+---
+- name: Bootstrap pyenv virtualenv
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+
+  tasks:
+    - name: Copy resources
+      copy:
+        src: "{{ item }}"
+        dest: "{{ item }}"
+      with_items:
+        - requirements.txt
+        - collections.yml
+
+    - name: Bootstrap workspace
+      become: true
+      raw: |
+        #!/bin/bash
+        pyenv virtualenv {{ python_version | default('3.9.1') }} bap_coe
+        pyenv activate bap_coe
+        pip3 install -r requirements.txt
+        ansible-galaxy install -r collections.yml --force

@@ -88,19 +88,21 @@ tmux_entries:
 mitogen_version: 0.2.8
 mitogen_file_name: "mitogen-{{ mitogen_version }}.tar.gz"
 
-debian_os_packages:
+debian_google_os_packages:
   - intellij-ue-stable
-  - apt-transport-https
-  - ca-certificates
-  - gnupg
 
-debian_apt_repositories:
+debian_google_apt_repositories:
   - "deb https://packages.cloud.google.com/apt cloud-sdk main"
 #  - "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main"
 #  - ppa:deadsnakes/ppa
 
-debian_apt_keys:
+debian_google_apt_keys:
   - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+
+debian_os_packages:
+  - apt-transport-https
+  - ca-certificates
+  - gnupg
 
 os_system_prep_packages:
   - apt-transport-https
