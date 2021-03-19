@@ -1,0 +1,22 @@
+---
+- name: Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - properties.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  roles:
+    - bap_coe.gcp_management.service_account_file_processing
+
+  tasks:
+    - name: GCE Instance Remove | Remove instances
+      include_role:
+        name: gce_bastion_host_delete
+      with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
+      loop_control:
+        loop_var: sequence

@@ -1,0 +1,24 @@
+---
+- name: Create UPS Performance Testing Infrastructure
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  strategy: free
+
+  vars_files:
+    - 3-properties.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  roles:
+    - service_account_file_processing
+
+  tasks:
+    - name: Create bastion host instance
+      tags: ['bastion']
+      include_role:
+        name: gce_bastion_host_create
+      vars:
+        sequence: "{{ INSTANCE_COUNT_START }}"
+
