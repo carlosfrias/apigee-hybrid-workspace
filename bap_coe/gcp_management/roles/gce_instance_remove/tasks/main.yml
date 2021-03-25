@@ -33,5 +33,6 @@
     var: instance_info
 
 - name: Set instance_ip
+  ignore_errors: true
   set_fact:
     gce_instance_ext_IP: "{{ instance_info.resources[0].networkInterfaces[0].accessConfigs[0].natIP }}"

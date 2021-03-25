@@ -8,7 +8,7 @@ SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-2-bap-amer-south-d
 GCP_ZONE: us-east1-c
 GCP_REGION: us-east1
 NAME_INSTANCE_PREFIX: "ups-bastion-host"
-GCLOUD_ACCOUNT_USER: friasc
+GCLOUD_ACCOUNT_EMAIL: friasc
 INSTANCE_COUNT_START: 23
 INSTANCE_COUNT_END: 24
 MACHINE_TYPE: n2-highcpu-2

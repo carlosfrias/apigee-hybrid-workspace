@@ -1,15 +1,14 @@
 ---
 # tasks file for gce_instance_create
-- name: Setup GCP Attributes from service account file
-  include_role:
-    name: service_account_file_processing
+- name: Activate provided service account
+  shell: gcloud auth activate-service-account --key-file={{ SERVICE_ACCOUNT_FILE_PATH }}
 
 - name: create a network
   gcp_compute_network:
     name: "{{ VPC_NETWORK_NAME | default('default') }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     scopes: "{{ SCOPE_COMPUTE }}"
     state: present
     auto_create_subnetworks: yes
@@ -32,7 +31,7 @@
     zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     scopes: "{{ SCOPE_COMPUTE }}"
     state: present
   register: disk_config
@@ -61,7 +60,7 @@
       zone: "{{ GCP_ZONE }}"
       project: "{{ PROJECT_ID }}"
       auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-      service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+      service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
       tags:
         items:
         - "{{ TARGET_TAGS }}"
@@ -92,7 +91,7 @@
     zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     tags:
       items:
       - "{{ TARGET_TAGS }}"
@@ -104,3 +103,7 @@
   poll: 0
   async: 300
   when: ACCESS_TYPE == "int"
+
+- name: Refreshing SSH
+  command: "echo 'Refreshing GCP Compute SSH Config'"
+  notify: "refresh gcp compute ssh config"

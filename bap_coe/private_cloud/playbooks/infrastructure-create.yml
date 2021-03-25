@@ -1,0 +1,89 @@
+---
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+  tags: ['infra']
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ./attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bootstrap_runtime
+
+  roles:
+    - { role: gcp_project_create, tags: [ 'project' ] }
+    - { role: gcp_iam_service_account_create, tags: [ 'service-account'] }
+    - { role: gcp_project_services_enable, tags: ['services'] }
+    - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
+    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
+
+- name: Update runtimem environment of instances
+  hosts: edge
+  gather_facts: yes
+  strategy: free
+  tags: ['python']
+
+  roles:
+    - bap_coe.gcp_management.python_install_minimal
+
+
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+  tags: ['instances']
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ./attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  tasks:
+    - name: Create Private Cloud MS instances
+      include_role:
+        name: gce_instance_create
+      vars:
+        NAME_INSTANCE_PREFIX: dc-1-ms
+      with_sequence: start=1 end=1
+      loop_control:
+        loop_var: sequence
+
+    - name: Create Private Cloud CS/ZK instances
+      include_role:
+        name: gce_instance_create
+      vars:
+        NAME_INSTANCE_PREFIX: dc-1-ds
+      with_sequence: start=1 end=3
+      loop_control:
+        loop_var: sequence
+
+    - name: Create Private Cloud RMP instances
+      include_role:
+        name: gce_instance_create
+      vars:
+        NAME_INSTANCE_PREFIX: dc-1-rmp
+      with_sequence: start=1 end=2
+      loop_control:
+        loop_var: sequence
+
+    - name: Create Private Cloud QPID instances
+      include_role:
+        name: gce_instance_create
+      vars:
+        NAME_INSTANCE_PREFIX: dc-1-qpid
+      with_sequence: start=1 end=2
+      loop_control:
+        loop_var: sequence
+
+    - name: Create Private Cloud PG instances
+      include_role:
+        name: gce_instance_create
+      vars:
+        NAME_INSTANCE_PREFIX: dc-1-pg
+      with_sequence: start=1 end=1
+      loop_control:
+        loop_var: sequence
+

@@ -1,0 +1,81 @@
+---
+# tasks file for gcp_iam_service_account_create
+- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+  assert:
+    that:
+      - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+
+- name: Assert that the PROJECT_ID is available
+  assert:
+    that:
+      - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Set service account name
+  set_fact:
+    cacheable: yes
+    SERVICE_ACCOUNT_NAME: "{{ GCLOUD_ACCOUNT_USER }}-{{ GCLOUD_SERVICE_ACCOUNT_SUFFIX | default('service-account') }}"
+
+- name: Set service account FQDN
+  set_fact:
+    cacheable: yes
+    SERVICE_ACCOUNT_FQDN: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+
+- name: Set service account file name
+  set_fact:
+    cacheable: yes
+    SERVICE_ACCOUNT_FILE: "{{ SERVICE_ACCOUNT_NAME }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
+
+- name: Set service account file path
+  set_fact:
+    cacheable: yes
+    SERVICE_ACCOUNT_FILE_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_FILE }}"
+
+- name: Set active account
+  shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
+
+- block:
+  - name: Create an initial service account
+    shell: |
+      gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
+        --description={{ SERVICE_ACCOUNT_NAME }} \
+        --display-name={{ SERVICE_ACCOUNT_NAME }} \
+        --project {{ PROJECT_ID }}
+
+  rescue:
+    - name: Create an initial service account, rescue for idempotency
+      shell: |
+        gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
+          --description={{ SERVICE_ACCOUNT_NAME }} \
+          --display-name={{ SERVICE_ACCOUNT_NAME }} \
+          --project {{ PROJECT_ID }}
+      register: status
+      failed_when:
+        - status.rc == 1
+        - "'already exists' not in status.stderr"
+
+- name: Assert work directory
+  file:
+    path: "{{ WORK_DIR }}"
+    state: directory
+
+- name: Create initial service account key file
+  shell: |
+    gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_FILE_PATH }}  \
+      --iam-account={{ SERVICE_ACCOUNT_FQDN }} \
+      --project {{ PROJECT_ID }}
+
+
+#- name: Create and download service account keys
+#  google.cloud.gcp_iam_service_account_key:
+#    service_account: "{{ serviceaccount }}"
+#    display_name: "{{ SERVICE_ACCOUNT_NAME }}"
+#    path: "{{ SERVICE_ACCOUNT_FILE }}"
+#    private_key_type: TYPE_GOOGLE_CREDENTIALS_FILE
+#    project: "{{ PROJECT_ID }}"
+#    auth_kind: serviceaccount
+#    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+#    state: present
+
+

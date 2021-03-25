@@ -3,25 +3,20 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: "{{ molecule_no_log }}"
 
   vars_files:
-    - shared-3-properties.yml
+    - properties.yml
 
   collections:
     - bap_coe.gcp_management
 
   roles:
-    - service_account_file_processing
+    - bap_coe.gcp_management.service_account_file_processing
 
   tasks:
-    - name: Remove instances
+    - name: GCE Instance Remove | Remove instances
       include_role:
         name: gce_bastion_host_delete
-
-    - name: Remove instances
-      include_role:
-        name: gce_instance_remove
       with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
       loop_control:
         loop_var: sequence

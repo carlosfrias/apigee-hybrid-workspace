@@ -1,33 +1,38 @@
 ---
 # tasks file for gcp_token_retrieval
+- block:
+    - name: Get token
+      command: gcloud auth print-access-token --project {{ PROJECT_ID }}
+      register: gcloud_token
 
-- name: Setup GCP Attributes from service account file
-  include_role:
-    name: service_account_file_processing
+  rescue:
+    - name: Setup GCP Attributes from service account file
+      include_role:
+        name: service_account_file_processing
 
-- name: Create tempfile
-  tempfile:
-    state: file
-    suffix: temp
-  register: tempfile
+    - name: Create tempfile
+      tempfile:
+        state: file
+        suffix: temp
+      register: tempfile
 
-- name: Save credentials to tempfile
-  copy:
-    content: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
-    dest: "{{ tempfile.path }}"
+    - name: Save credentials to tempfile
+      copy:
+        content: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
+        dest: "{{ tempfile.path }}"
 
-- name: Activate service account
-  command: gcloud auth activate-service-account {{ SERVICE_ACCOUNT_EMAIL }} --key-file {{ tempfile.path }}
+    - name: Activate service account
+      command: gcloud auth activate-service-account {{ SERVICE_ACCOUNT_EMAIL }} --key-file {{ tempfile.path }}
 
-- name: Remove credentials tempfile
-  file:
-    path: "{{ tempfile.path }}"
-    state: absent
-  when: tempfile.path is defined
+    - name: Remove credentials tempfile
+      file:
+        path: "{{ tempfile.path }}"
+        state: absent
+      when: tempfile.path is defined
 
-- name: Get token
-  command: gcloud auth print-access-token --project {{ PROJECT_ID }}
-  register: gcloud_token
+    - name: Get token
+      command: gcloud auth print-access-token --project {{ PROJECT_ID }}
+      register: gcloud_token
 
 - name: Store token
   set_fact:

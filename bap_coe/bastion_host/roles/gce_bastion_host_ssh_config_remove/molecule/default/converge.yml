@@ -3,26 +3,32 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: "{{ molecule_no_log }}"
 
   vars_files:
-  - shared-3-properties.yml
+  - properties.yml
 
   collections:
   - bap_coe.gcp_management
+
+  roles:
+    - bap_coe.gcp_management.service_account_file_processing
 
   tasks:
   - name: Create Bastion Host instance
     include_role:
       name: gce_bastion_host_create
 
-  - name: Configure SSH ProxyCommand
+  - name: Capture Bastion Host IP Address
+    set_fact:
+      cacheable: yes
+      bastion_host_ip_address: "{{ gce_instance_ext_IP }}"
+
+  - name: Create performance testing instances
+    tags: ['instances']
     include_role:
-      name: gce_bastion_host_ssh_config
+      name: gce_instance_create
+    with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
+    loop_control:
+      loop_var: sequence
     vars:
-      bastion_host_name: "{{ gce_instance_ext_name }}"
-      bastion_host_user: "friasc"
-      bastion_host_ip: "{{ gce_instance_ext_IP }}"
-
-
-
+      ACCESS_TYPE: 'int'

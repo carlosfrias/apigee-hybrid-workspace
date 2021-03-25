@@ -1,2 +1,7 @@
 ---
 # defaults file for python_install_minimal
+python3_system_installation_sequence:
+  - "sudo apt update -y"
+  - "sudo apt install -y python3-apt"
+  - "sudo update-alternatives --install /usr/bin/python python $(which python3) 1;"
+

@@ -9,11 +9,7 @@
   - name: Added python3 for package manager
     become: yes
     raw: "{{ item }}"
-    with_items:
-      - "sudo add-apt-repository ppa:deadsnakes/ppa"
-      - "sudo apt update -y"
-      - "sudo apt install -y python3-apt"
-      - "sudo update-alternatives --install /usr/bin/python python $(which python3) 1;"
+    with_items: "{{ python3_system_installation_sequence }}"
 
   when: ansible_os_family == "Debian"
 

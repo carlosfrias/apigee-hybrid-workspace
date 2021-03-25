@@ -1,0 +1,39 @@
+---
+# tasks file for gce_dynamic_inventory_configure
+- name: Assert SERVICE_ACCOUNT_FILE_PATH
+  assert:
+    that:
+      - SERVICE_ACCOUNT_FILE_PATH
+    msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert GCP_ZONE
+  assert:
+    that:
+      - GCP_ZONE
+    msg: "Please provide the GCP_ZONE"
+
+- name: Assert PROJECT_ID
+  assert:
+    that:
+      - PROJECT_ID
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert INVENTORY_DIR
+  assert:
+    that:
+      - INVENTORY_DIR
+    msg: "Please provide the INVENTORY_DIR"
+
+- name: Assert INVENTORY_DIR
+  file:
+    path: "{{ INVENTORY_DIR }}"
+    state: directory
+
+- name: Create dynamic inventory in OUTPUT_DIR
+  template:
+    src: gce-dynamic-inventory.gcp.yml.j2
+    dest: "{{ INVENTORY_DIR }}/{{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml"
+
+- name: Refresh the inventory
+  meta: refresh_inventory
+

@@ -1,19 +1,18 @@
----
-- name: Create
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  no_log: "{{ molecule_no_log }}"
+- name: Create Bastion Host instance
+  include_role:
+    name: gce_bastion_host_create
 
-  vars_files:
-  - shared-3-properties.yml
+- name: Capture Bastion Host IP Address
+  set_fact:
+    cacheable: yes
+    bastion_host_ip_address: "{{ gce_instance_ext_IP }}"
 
-  collections:
-  - bap_coe.gcp_management
-
-  tasks:
-  - name: Create a private ssh host
-    include_role:
-      name: gce_instance_create
-    vars:
-      ACCESS_TYPE: 'int'
+- name: Create performance testing instances
+  tags: ['instances']
+  include_role:
+    name: gce_instance_create
+  with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
+  loop_control:
+    loop_var: sequence
+  vars:
+    ACCESS_TYPE: 'int'

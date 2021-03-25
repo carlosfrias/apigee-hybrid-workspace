@@ -1,6 +1,5 @@
 ---
 # tasks file for gce_firewall_create
-
 - name: Create Firewall Rule
   community.google.gce_net:
     project_id: "{{ PROJECT_ID }}"

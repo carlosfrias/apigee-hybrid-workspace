@@ -2,9 +2,11 @@
 # This is an example playbook to execute Ansible tests.
 
 - name: Verify
-  hosts: all
+  hosts: localhost
   gather_facts: false
+
   tasks:
-  - name: Example assertion
+  - name: Assert GCE Instance External IP
     assert:
-      that: true
+      that:
+        gce_instance_ext_IP is defined

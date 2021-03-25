@@ -1,0 +1,47 @@
+---
+#    GCLOUD_ACCOUNT_EMAIL: friasc@google.com
+#PROJECT_ID: friasc-opdk-03242021-2154
+WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
+INVENTORY_DIR: inventory
+SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
+NAME_INSTANCE_PREFIX: dc-1
+GCP_ZONE: us-east1-b
+GCP_SERVICES:
+  - "compute.googleapis.com"
+  - "cloudresourcemanager.googleapis.com"
+  - "servicenetworking.googleapis.com"
+  - "serviceusage.googleapis.com"
+#      - "container.googleapis.com"
+#      - "stackdriver.googleapis.com"
+#      - "meshca.googleapis.com"
+#      - "meshtelemetry.googleapis.com"
+#      - "meshconfig.googleapis.com"
+#      - "iamcredentials.googleapis.com"
+#      - "anthos.googleapis.com"
+#      - "gkeconnect.googleapis.com"
+#      - "gkehub.googleapis.com"
+#      - "sourcerepo.googleapis.com"
+#      - "cloudbuild.googleapis.com"
+#      - "secretmanager.googleapis.com"
+#      - "dns.googleapis.com"
+#      - "pubsub.googleapis.com"
+#      - "apigee.googleapis.com"
+#      - "apigeeconnect.googleapis.com"
+#      - "monitoring.googleapis.com"
+#      - "logging.googleapis.com"
+#      - "cloudtrace.googleapis.com"
+#      - "privateca.googleapis.com"
+
+ROLE_BINDINGS:
+  - "roles/compute.admin"
+  - "roles/iam.serviceAccountUser"
+  - "roles/compute.networkUser"
+  - "roles/networkmanagement.admin"
+  - "roles/networkmanagement.viewer"
+
+GCP_INSTANCE_NAME_PREFIXES:
+  - { name_prefix: dc_1_ms, count: 1}
+  - { name_prefix: dc_1_ds, count: 3}
+  - { name_prefix: dc_1_rmp, count: 2}
+  - { name_prefix: dc_1_qpid, count: 2}
+  - { name_prefix: dc_1_pg, count: 1}
