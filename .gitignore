@@ -1,6 +1,7 @@
 signed-certs
 ansible
 workdir
+inventory
 research
 *.iml
 transaction.yaml

@@ -19,7 +19,7 @@
     - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
     - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 
-- name: Update runtimem environment of instances
+- name: Update runtime environment of instances
   hosts: edge
   gather_facts: yes
   strategy: free
