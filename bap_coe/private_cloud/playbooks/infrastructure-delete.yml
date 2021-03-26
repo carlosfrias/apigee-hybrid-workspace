@@ -12,7 +12,7 @@
 
   vars:
     PROJECT_IDS:
-      - friasc-opdk-03252021-2028
+      - friasc-opdk-03252021-2106
 
   roles:
 #    - { role: gce_instance_remove, tags: [ 'instance' ] }
