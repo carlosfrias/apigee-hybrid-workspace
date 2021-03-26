@@ -1,5 +1,6 @@
 signed-certs
 ansible
+**/work_dir
 **/workdir
 inventory
 research
