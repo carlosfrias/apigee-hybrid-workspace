@@ -1,6 +1,6 @@
 ---
 #    GCLOUD_ACCOUNT_EMAIL: friasc@google.com
-#PROJECT_ID: friasc-opdk-03242021-2154
+PROJECT_ID: friasc-opdk-03252021-2106
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 INVENTORY_DIR: inventory
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
@@ -39,9 +39,12 @@ ROLE_BINDINGS:
   - "roles/networkmanagement.admin"
   - "roles/networkmanagement.viewer"
 
-GCP_INSTANCE_NAME_PREFIXES:
-  - { name_prefix: dc_1_ms, count: 1}
-  - { name_prefix: dc_1_ds, count: 3}
-  - { name_prefix: dc_1_rmp, count: 2}
-  - { name_prefix: dc_1_qpid, count: 2}
-  - { name_prefix: dc_1_pg, count: 1}
+PRIVATE_CLOUD_INSTANCES:
+  - { name_prefix: dc-1-ms, count: 1}
+  - { name_prefix: dc-1-ds, count: 3}
+  - { name_prefix: dc-1-rmp, count: 2}
+  - { name_prefix: dc-1-qpid, count: 2}
+  - { name_prefix: dc-1-pg, count: 1}
+
+IMAGE_PROJECT: 'centos-cloud'
+IMAGE_FAMILY: 'centos-7'

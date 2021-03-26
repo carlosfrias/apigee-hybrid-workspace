@@ -1,0 +1,67 @@
+---
+# tasks file for apigee-opdk-settings-region
+
+- name: Set default region if not set
+  set_fact:
+    cacheable: yes
+    region: 'dc_1'
+    region_num: '1'
+
+- name: Determine whether host is in Region 2
+  set_fact:
+    cacheable: yes
+    region: 'dc_2'
+    region_num: '2'
+  when: groups['dc_2'] is defined and inventory_hostname in groups['dc_2']
+
+- name: Determine whether host is in Region 3
+  set_fact:
+    cacheable: yes
+    region: 'dc_3'
+    region_num: '3'
+  when: groups['dc_3'] is defined and inventory_hostname in groups['dc_3']
+
+- name: Determine whether host is in Region 4
+  set_fact:
+    cacheable: yes
+    region: 'dc_4'
+    region_num: '4'
+  when: groups['dc_4'] is defined and inventory_hostname in groups['dc_4']
+
+- name: Determine whether host is in Region 5
+  set_fact:
+    cacheable: yes
+    region: 'dc_5'
+    region_num: '5'
+  when: groups['dc_5'] is defined and inventory_hostname in groups['dc_5']
+
+- name: Determine whether host is in Region 6
+  set_fact:
+    cacheable: yes
+    region: 'dc_6'
+    region_num: '6'
+  when: groups['dc_6'] is defined and inventory_hostname in groups['dc_6']
+
+- name: Determine whether host is in Region 7
+  set_fact:
+    cacheable: yes
+    region: 'dc_7'
+    region_num: '7'
+  when: groups['dc_7'] is defined and inventory_hostname in groups['dc_7']
+
+- name: Determine whether host is in Region 8
+  set_fact:
+    cacheable: yes
+    region: 'dc_8'
+    region_num: '8'
+  when: groups['dc_8'] is defined and inventory_hostname in groups['dc_8']
+
+- name: Determine whether host is in Region 9
+  set_fact:
+    cacheable: yes
+    region: 'dc_9'
+    region_num: '9'
+  when: groups['dc_9'] is defined and inventory_hostname in groups['dc_9']
+
+
+

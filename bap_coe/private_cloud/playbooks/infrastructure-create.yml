@@ -25,8 +25,11 @@
   strategy: free
   tags: ['python']
 
+  collections:
+    - bap_coe.bootstrap_runtime
+
   roles:
-    - bap_coe.gcp_management.python_install_minimal
+    - python_install_minimal
 
 
 - name: Create infrastructure for private cloud in GCP
@@ -42,48 +45,9 @@
     - bap_coe.gcp_management
 
   tasks:
-    - name: Create Private Cloud MS instances
-      include_role:
-        name: gce_instance_create
-      vars:
-        NAME_INSTANCE_PREFIX: dc-1-ms
-      with_sequence: start=1 end=1
+    - name: Create planet instances
+      include_tasks: infrastructure-create-controller.yml
+      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
       loop_control:
-        loop_var: sequence
-
-    - name: Create Private Cloud CS/ZK instances
-      include_role:
-        name: gce_instance_create
-      vars:
-        NAME_INSTANCE_PREFIX: dc-1-ds
-      with_sequence: start=1 end=3
-      loop_control:
-        loop_var: sequence
-
-    - name: Create Private Cloud RMP instances
-      include_role:
-        name: gce_instance_create
-      vars:
-        NAME_INSTANCE_PREFIX: dc-1-rmp
-      with_sequence: start=1 end=2
-      loop_control:
-        loop_var: sequence
-
-    - name: Create Private Cloud QPID instances
-      include_role:
-        name: gce_instance_create
-      vars:
-        NAME_INSTANCE_PREFIX: dc-1-qpid
-      with_sequence: start=1 end=2
-      loop_control:
-        loop_var: sequence
-
-    - name: Create Private Cloud PG instances
-      include_role:
-        name: gce_instance_create
-      vars:
-        NAME_INSTANCE_PREFIX: dc-1-pg
-      with_sequence: start=1 end=1
-      loop_control:
-        loop_var: sequence
+        loop_var: instance
 

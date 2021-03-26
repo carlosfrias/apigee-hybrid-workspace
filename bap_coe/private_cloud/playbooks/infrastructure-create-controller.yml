@@ -1,0 +1,9 @@
+---
+- name: Create Private Cloud MS instances
+  include_role:
+    name: gce_instance_create
+  vars:
+    NAME_INSTANCE_PREFIX: "{{ instance.name_prefix }}"
+  with_sequence: start=1 end={{ instance.count }}
+  loop_control:
+    loop_var: sequence
