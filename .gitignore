@@ -1,6 +1,6 @@
 signed-certs
 ansible
-**/workdir/**
+**/workdir
 inventory
 research
 *.iml
