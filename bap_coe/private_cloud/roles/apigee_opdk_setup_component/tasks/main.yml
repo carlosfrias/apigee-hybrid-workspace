@@ -14,9 +14,11 @@
       UP_TIMEOUT: '{{ up_timeout | default(60) }}'
     when: opdk_debug_mode is not defined or opdk_debug_mode | trim | lower == 'off'
     register: setup_log
+    args:
+      chdir: "{{ apigee_setup | dirname }}"
 
   - name: Test Only Install Apigee component {{ profile }} for Private Cloud {{ opdk_version }}
-    command: '{{ apigee_setup }} -p {{ profile }} -f {{ target_response_file_path }} -t'
+    command: '{{ apigee_setup }} -p {{ profile }} -f {{ target_response_file_path }}'
     environment:
       http_proxy: "{{ http_proxy | default('') }}"
       https_proxy: "{{ https_proxy | default('') }}"
@@ -25,25 +27,16 @@
       UP_TIMEOUT: '{{ up_timeout | default(60) }}'
     when: opdk_debug_mode is defined and opdk_debug_mode | trim | lower == 'on'
     register: setup_log
+    args:
+      chdir: "{{ apigee_setup | dirname }}"
   become: yes
 
   rescue:
-    - name: Build path to rescue script
-      set_fact:
-        cacheable: True
-        rescue_script_path: "rescue-{{ profile }}.yml"
+    - name: Rescue for Apigee ds component installation
+      include_tasks: rescue_ds.yml
+      when: profile == 'ds'
 
-    - name: Determine if Rescue action is available
-      stat:
-        path: "{{ rescue_script_path }}"
-      register: rescue
-
-    - name: Rescue for Apigee component installation
-      include_tasks: "{{ rescue_script_path }}"
-      when: rescue.stat.exists
-
-    - name: Rescue is not available
-      fail:
-        msg: 'Rescue is not available'
-      when: rescue.stat.exists == false
+    - name: Rescue for Apigee qs component installation
+      include_tasks: rescue_qs.yml
+      when: profile == 'qs'
 

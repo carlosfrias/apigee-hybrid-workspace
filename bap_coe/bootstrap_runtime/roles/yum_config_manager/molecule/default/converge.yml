@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include yum_config_manager"
+      include_role:
+        name: "yum_config_manager"

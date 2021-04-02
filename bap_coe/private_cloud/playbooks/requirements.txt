@@ -1,4 +1,4 @@
-ansible
+ansible==2.10.0
 ansible-base
 ansible-lint
 molecule
@@ -10,5 +10,4 @@ pyasn1_modules
 requests
 pycryptodome
 cryptography
-rsa
 google-api-python-client

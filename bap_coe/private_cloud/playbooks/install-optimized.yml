@@ -2,7 +2,7 @@
 - name: Collect Configuration Information for Planet
   hosts: edge
   strategy: free
-  tags: ['cache']
+  tags: ['cache','response-file','copy']
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -26,7 +26,7 @@
   hosts: ms
   gather_facts: no
   strategy: free
-  tags: ['response-file']
+  tags: ['response-file','copy']
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -61,9 +61,9 @@
 
   roles:
     - { role: apigee_opdk_modules, tags: ['license'] }
-    - apigee_opdk_setup_apigee_user
+    - { role: apigee_opdk_setup_apigee_user, tags: ['user'] }
     - { role: apigee_opdk_setup_license, tags: ['license'] }
-    - apigee_opdk_setup_apigee_user_ownership
+    - { role: apigee_opdk_setup_apigee_user_ownership, tags: ['owner'] }
   tasks:
     - name: Create Target Folder on Target Node
       become: yes
@@ -127,23 +127,32 @@
     property_folders:
       - "~/.apigee-secure"
       - "~/.apigee"
+#    disable_yum_repos:
+#      - google-cloud-sdk
+#      - google-compute-engine
+
+  vars_files:
+    - ./attributes.yml
+  #      - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 
   collections:
     - bap_coe.private_cloud
+    - bap_coe.bootstrap_runtime
 
   roles:
     - apigee_opdk_modules
+    - { role: yum_config_manager, tags: ['yum-config'] }
     - { role: apigee_opdk_setup_java_home }
     - { role: apigee_opdk_setup_bootstrap_cache }
     - { role: apigee_opdk_setup_bootstrap }
     - { role: apigee_opdk_setup_component_install, component: 'apigee-setup' }
     - { role: apigee_opdk_setup_apigee_user_ownership }
 
-- name: Configure & Install Cassandra & Zookeeper - Part 1
-  hosts: ds[1]
+- name: Configure & Install Cassandra & Zookeeper - Seed Node
+  hosts: "{{ CASSANDRA_SEED_NODE | default('ds[0]') }}"
   gather_facts: no
   serial: 1
-  tags: ['ds']
+  tags: ['ds','ds-seed']
   vars:
     property_folders:
       - "~/.apigee-secure"
@@ -157,8 +166,8 @@
     - { role: apigee_opdk_setup_component, profile: 'ds' }
 
 
-- name: Configure & Install Cassandra & Zookeeper - Part 2
-  hosts: ds
+- name: Configure & Install Cassandra & Zookeeper - Remaining Nodes
+  hosts: "ds,{{ CASSANDRA_SEED_NODE | default('ds[0]') }}!"
   gather_facts: no
   serial: 1
   tags: ['ds']

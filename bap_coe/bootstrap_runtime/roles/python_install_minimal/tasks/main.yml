@@ -3,28 +3,28 @@
 - block:
   - name: Install python if necessary
     become: yes
-    raw: 'type python3 >/dev/null 2>&1 || sudo apt install -y python3'
+    raw: 'type {{ PYTHON_EXE | default("python") }} >/dev/null 2>&1 || sudo apt install -y {{ PYTHON_EXE | default("python") }}'
     changed_when: false
 
   - name: Added python3 for package manager
     become: yes
     raw: "{{ item }}"
-    with_items: "{{ python3_Debian_system_installation_sequence }}"
+    with_items: "{{ python_Debian_system_installation_sequence }}"
 
   when: ansible_os_family == "Debian"
 
 - block:
   - name: Install python if necessary
     become: yes
-    raw: 'type python3 >/dev/null 2>&1 || sudo yum install -y python3'
+    raw: 'type {{ PYTHON_EXE | default("python") }} >/dev/null 2>&1 || yum install -y {{ PYTHON_EXE | default("python") }}'
     changed_when: false
 
-  - name: Added python3 for package manager
-    become: yes
-    raw: "{{ item }}"
-    with_items: "{{ python3_RedHat_system_installation_sequence }}"
+#  - name: Added python3 for package manager
+#    become: yes
+#    raw: "{{ item }}"
+#    with_items: "{{ python_RedHat_system_installation_sequence }}"
 
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "RedHat"
 
 - name: Gather facts after python is available
   setup:

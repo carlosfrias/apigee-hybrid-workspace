@@ -3,7 +3,7 @@
 - name: Update basic yum os packages
   tags: ['yum']
   import_role:
-    name: apigee-opdk-yum-packages
+    name: apigee_opdk_yum_packages
   vars:
     yum_os_minimum_packages: "{{ yum_packages }}"
 

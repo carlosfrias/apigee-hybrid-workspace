@@ -94,6 +94,8 @@
 
 - src: https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild.git
 
+- src: https://github.com/carlosfrias/apigee-opdk-cassandra-repair.git
+
 
 # Ansible Roles for Creating and Configuring Orgs
 - src: https://github.com/carlosfrias/apigee-opdk-setup-org-config.git

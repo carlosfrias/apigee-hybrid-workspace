@@ -15,52 +15,39 @@
 
 - name: Check for pip
   stat:
-    path: /usr/bin/pip
+    path: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
   register: pip
 
-- block:
-
-  - name: Update pip with proxy
-    pip:
-      name: pip
-      state: latest
-    register: result
-    environment:
-      http_proxy: "{{ http_proxy | default('') }}"
-      https_proxy: "{{ https_proxy | default('') }}"
-      no_proxy: "{{ no_proxy | default('') }}"
-    when: pip.stat.exists == true
-
-  become: yes
-
-- block:
-  - name: Install pip with proxy
+- name: Install pip using multiple approaches
+  block:
+  - name: Install pip
     yum:
       name: python-pip
-      state: latest
+      state: present
     environment:
       http_proxy: "{{ http_proxy | default('') }}"
       https_proxy: "{{ https_proxy | default('') }}"
       no_proxy: "{{ no_proxy | default('') }}"
 
   rescue:
-    - block:
-      - name: Install epel with proxy
+    - name: Simple pip install failed, setting up epel repository and trying again...
+      block:
+      - name: Install epel repository
         tags: ['epel']
         import_role:
-          name: apigee-opdk-setup-os-epel
+          name: apigee_opdk_setup_os_epel
 
-      - name: Install pip with proxy
+      - name: Install pip, after installing epel repository
         yum:
           name: python-pip
-          state: latest
+          state: present
         environment:
           http_proxy: "{{ http_proxy | default('') }}"
           https_proxy: "{{ https_proxy | default('') }}"
           no_proxy: "{{ no_proxy | default('') }}"
 
       rescue:
-        - name: Download pip package manager with proxy
+        - name: Download pip installer
           become: yes
           tags: ['pip-manager']
           get_url:
@@ -73,7 +60,7 @@
             https_proxy: "{{ https_proxy | default('') }}"
             no_proxy: "{{ no_proxy | default('') }}"
 
-        - name: Install pip package manager with proxy
+        - name: Install pip installer
           become: yes
           tags: ['pip-manager']
           shell: python /tmp/get-pip.py
@@ -86,37 +73,68 @@
   when: pip.stat.exists == false
   become: yes
 
-- name: Update pip packages with proxy
-  tags: ['pip']
+- name: Assert update_pip settings
+  set_fact:
+    update_pip: "{{ UPDATE_PIP | default(false) }}"
+
+- name: Update pip
+  tags: ['pip-upgrade']
   become: yes
   pip:
-    name: '{{ pip_packages }}'
-    state: present
+    name: pip
+    state: latest
+    executable: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
   environment:
     http_proxy: "{{ http_proxy | default('') }}"
     https_proxy: "{{ https_proxy | default('') }}"
     no_proxy: "{{ no_proxy | default('') }}"
+  when: pip.stat.exists and update_pip | lower == "true"
 
-#
-#- name: Update pip
-#  tags: ['pip']
-#  become: yes
-#  pip:
-#    name: pip
-#    state: latest
-#  environment:
-#    http_proxy: "{{ http_proxy | default('') }}"
-#    https_proxy: "{{ https_proxy | default('') }}"
-#    no_proxy: "{{ no_proxy | default('') }}"
-#
-#- name: Update python packages with no proxy
-#  tags: ['pip']
-#  become: yes
-#  pip:
-#    name: '{{ item }}'
-#    state: present
-#  with_items: "{{ pip_packages }}"
-#  environment:
-#    http_proxy: "{{ http_proxy | default('') }}"
-#    https_proxy: "{{ https_proxy | default('') }}"
-#    no_proxy: "{{ no_proxy | default('') }}"
+- name: Update managed system python modules
+  block:
+    - name: Update managed system python modules
+      become: true
+      pip:
+        name: "{{ pip_packages }}"
+        state: present
+        executable: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
+      environment:
+        http_proxy: "{{ http_proxy | default('') }}"
+        https_proxy: "{{ https_proxy | default('') }}"
+        no_proxy: "{{ no_proxy | default('') }}"
+      register: pip_status
+
+  rescue:
+    - name: RESCUE - Check pip_status for 'invalid sytax'
+      set_fact:
+        reinstall_pip: true
+      when:
+        - pip_status is defined
+        - pip_status.rc is defined
+        - pip_status.rc == 1
+        - "'ERROR: {exc}' in pip_status.stderr"
+
+    - block:
+      - name: RESCUE - Uninstall pip
+        yum:
+          name: python-pip
+          state: absent
+
+      - name: RESCUE - Reinstall pip
+        yum:
+          name: python-pip
+          state: present
+
+      - name: Update managed system python modules
+        pip:
+          name: "{{ pip_packages }}"
+          state: present
+          executable: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
+        environment:
+          http_proxy: "{{ http_proxy | default('') }}"
+          https_proxy: "{{ https_proxy | default('') }}"
+          no_proxy: "{{ no_proxy | default('') }}"
+      when: reinstall_pip is defined and reinstall_pip is true
+      become: true
+
+

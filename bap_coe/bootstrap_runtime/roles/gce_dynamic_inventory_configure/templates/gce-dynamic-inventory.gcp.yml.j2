@@ -10,6 +10,12 @@ scopes:
   - 'https://www.googleapis.com/auth/cloud-platform'
 keyed_groups:
   - key: zone
+compose:
+  # Create vars from jinja2 expressions.
+  # Set an inventory parameter to use the Public IP address to connect to the host
+  # For Private ip use "networkInterfaces[0].networkIP"
+  # For Public ip use "networkInterfaces[0].accessConfigs[0].natIP"
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
 filters: []
 groups:
   bastion: "'bastion' in name"

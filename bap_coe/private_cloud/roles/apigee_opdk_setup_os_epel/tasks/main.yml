@@ -23,15 +23,20 @@
   shell: "/usr/bin/yum-config-manager --enable ol7_optional_latest"
   when: ansible_distribution | lower == 'oraclelinux' and ansible_distribution_major_version is version_compare('7', '>')
 
-- name: Remove existing epel repository references
-  become: yes
-  yum:
-    name: epel-release
-    state: absent
-  environment:
-    http_proxy: "{{ http_proxy | default('') }}"
-    https_proxy: "{{ https_proxy | default('') }}"
-    no_proxy: "{{ no_proxy | default('') }}"
+#- name: Set system package manager
+#  set_fact:
+#    cacheable: yes
+#    ansible_pkg_mgr: 'yum'
+
+#- name: Remove existing epel repository references
+#  become: yes
+#  ansible.builtin.yum:
+#    name: epel-release
+#    state: absent
+#  environment:
+#    http_proxy: "{{ http_proxy | default('') }}"
+#    https_proxy: "{{ https_proxy | default('') }}"
+#    no_proxy: "{{ no_proxy | default('') }}"
 
 - name: Yum clean
   become: yes
@@ -50,7 +55,7 @@
 - block:
   - name: Update with EPEL downgrade allowed
     become: yes
-    yum:
+    ansible.builtin.yum:
       name: epel-release
       state: present
     environment:
@@ -62,7 +67,7 @@
     - block:
       - name: Update EPEL with direct rpm if downgrade allowed failed
         become: yes
-        yum:
+        ansible.builtin.yum:
           name: "{{ epel_repo }}"
           state: present
         environment:

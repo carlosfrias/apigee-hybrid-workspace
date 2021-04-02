@@ -1,11 +1,12 @@
 ---
 #    GCLOUD_ACCOUNT_EMAIL: friasc@google.com
-PROJECT_ID: friasc-opdk-03252021-2333
+PROJECT_ID: friasc-opdk-04012021-2002
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 INVENTORY_DIR: inventory
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
 NAME_INSTANCE_PREFIX: dc-1
 GCP_ZONE: us-east1-b
+DISK_SIZE: 100
 GCP_SERVICES:
   - "compute.googleapis.com"
   - "cloudresourcemanager.googleapis.com"
@@ -40,11 +41,41 @@ ROLE_BINDINGS:
   - "roles/networkmanagement.viewer"
 
 PRIVATE_CLOUD_INSTANCES:
-  - { name_prefix: dc-1-ms, count: 1}
-  - { name_prefix: dc-1-ds, count: 3}
-  - { name_prefix: dc-1-rmp, count: 2}
-  - { name_prefix: dc-1-qpid, count: 2}
-  - { name_prefix: dc-1-pg, count: 1}
+  - { node_type: ms, count: 1, dc: 1}
+  - { node_type: ds, count: 3, dc: 1}
+  - { node_type: rmp, count: 2, dc: 1}
+  - { node_type: qpid, count: 2, dc: 1}
+  - { node_type: pg, count: 1, dc: 1}
 
 IMAGE_PROJECT: 'centos-cloud'
 IMAGE_FAMILY: 'centos-7'
+
+firewall_ports:
+  - { ports: "{{ ms_ports }}", port_type: 'ms' }
+  - { ports: "{{ router_ports }}", port_type: 'router' }
+  - { ports: "{{ mp_ports }}", port_type: 'mp' }
+  - { ports: "{{ zk_ports }}", port_type: 'zk' }
+  - { ports: "{{ cassandra_ports }}", port_type: 'ds' }
+  - { ports: "{{ qpid_ports }}", port_type: 'qs' }
+  - { ports: "{{ pg_ports }}", port_type: 'pg' }
+  - { ports: "{{ ui_ports }}", port_type: 'ui' }
+  - { ports: "{{ ldap_ports }}", port_type: 'ldap' }
+
+address_types:
+  - 'ms'
+  - 'router'
+
+cassandra_ports: ["7199","9160","9042","7000"]
+zk_ports: ["2181","2888","3888"]
+mp_ports: ["4528","8082","1101","8998"]
+ms_ports: ["8080"]
+ms_jmx_ports: ["1099"]
+router_ports: ["1100","8081","4527","9001"]
+qpid_ports: ["1102","4529","5672","8083"]
+pg_ports: ["1103","4530","5432","8084"]
+ui_ports: ["9000"]
+ldap_ports: ["10389"]
+
+disable_yum_repos:
+  - google-cloud-sdk
+  - google-compute-engine

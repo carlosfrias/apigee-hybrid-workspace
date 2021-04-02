@@ -1,5 +1,5 @@
 ---
 - name: Repair node
   import_role:
-    name: apigee-opdk-cassandra-repair
+    name: apigee_opdk_cassandra_repair
 

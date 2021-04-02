@@ -21,7 +21,7 @@
 
 - name: Install from a local archive file
   import_role:
-    name: apigee-opdk-setup-bootstrap-archive-installer
+    name: apigee_opdk_setup_bootstrap_archive_installer
   when: archive.stat.exists
 
 - name: Validate that apigee-service exists

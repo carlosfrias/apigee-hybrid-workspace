@@ -1,0 +1,6 @@
+---
+# tasks file for yum_config_manager
+- name: Yum configs to disable
+  become: true
+  shell: yum-config-manager --disable {{ item }}
+  with_items: "{{ disable_yum_repos }}"

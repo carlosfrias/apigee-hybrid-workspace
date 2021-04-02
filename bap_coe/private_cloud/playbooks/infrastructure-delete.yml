@@ -1,5 +1,5 @@
 ---
-- name: Create infrastructure for private cloud in GCP
+- name: Delete infrastructure for private cloud in GCP
   hosts: localhost
   connection: local
 
@@ -12,10 +12,7 @@
 
   vars:
     PROJECT_IDS:
-      - friasc-opdk-03252021-2106
-
-  roles:
-#    - { role: gce_instance_remove, tags: [ 'instance' ] }
+      - friasc-opdk-04012021-2002
 
   tasks:
     - name: Remove projects in list

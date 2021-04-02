@@ -1,0 +1,17 @@
+---
+# tasks file for gce_network_create
+- name: create a network
+  google.cloud.gcp_compute_network:
+    name: "{{ VPC_NETWORK_NAME | default('default') }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    scopes: "{{ SCOPE_COMPUTE }}"
+    state: present
+    auto_create_subnetworks: yes
+  register: VPC_NETWORK_INFO
+
+- name: Cache NETWORK_INFO for downstream relo
+  set_fact:
+    cacheable: yes
+    VPC_NETWORK_INFO: "{{ VPC_NETWORK_INFO }}"

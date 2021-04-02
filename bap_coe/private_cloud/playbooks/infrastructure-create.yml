@@ -17,13 +17,15 @@
     - { role: gcp_iam_service_account_create, tags: [ 'service-account'] }
     - { role: gcp_project_services_enable, tags: ['services'] }
     - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
+    - { role: gce_network_create, tags: ['network'] }
+    - { role: gce_firewall_create, tags: ['firewall'] }
     - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 
 - name: Update runtime environment of instances
   hosts: edge
   gather_facts: yes
   strategy: free
-  tags: ['python']
+  tags: ['python','infra']
 
   collections:
     - bap_coe.bootstrap_runtime

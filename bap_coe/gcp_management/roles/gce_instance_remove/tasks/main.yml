@@ -15,7 +15,7 @@
       - name = "{{ gce_instance_ext_name }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
   register: instance_info
 
 - name: remove an instance
@@ -25,7 +25,7 @@
     zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
 #    poll: 0
 #    async: 300
 
