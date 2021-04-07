@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 import requests
 from requests.exceptions import RequestException
 from requests.auth import HTTPBasicAuth
@@ -26,7 +25,6 @@ SERVER_PORTS = {'ms': '8080',
                 'rmp': '8082',
                 'qs': '8083',
                 'ps': '8084'}
-
 
 def get_server_self(server_type, username, password):
     auth = HTTPBasicAuth(username, password)

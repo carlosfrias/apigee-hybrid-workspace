@@ -11,6 +11,12 @@
     msg: "Management server is not running"
   when: ms_port_status is failed
 
+- name: Assert the opdk_resources_path is set
+  assert:
+    that:
+      - opdk_resources_path is defined
+    msg: "Please indicate the opdk_resources_path"
+
 - name: Construct name of edge response validate file
   set_fact:
     cacheable: yes

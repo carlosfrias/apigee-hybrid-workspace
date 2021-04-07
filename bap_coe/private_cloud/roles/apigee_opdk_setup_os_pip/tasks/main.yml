@@ -47,7 +47,7 @@
           no_proxy: "{{ no_proxy | default('') }}"
 
       rescue:
-        - name: Download pip installer
+        - name: RESCUE - Download pip installer
           become: yes
           tags: ['pip-manager']
           get_url:
@@ -60,7 +60,7 @@
             https_proxy: "{{ https_proxy | default('') }}"
             no_proxy: "{{ no_proxy | default('') }}"
 
-        - name: Install pip installer
+        - name: RESCUE - Install pip installer
           become: yes
           tags: ['pip-manager']
           shell: python /tmp/get-pip.py
@@ -92,6 +92,17 @@
 
 - name: Update managed system python modules
   block:
+    - name: Get current version of python
+      raw: python --version
+      register: python_version
+
+    - name: Update setuptool<45 to enable other package installations
+      pip:
+        name: setuptools
+        version: "<45"
+        state: present
+      when: (python_version.stdout | regex_search('^Python 2')) == true
+
     - name: Update managed system python modules
       become: true
       pip:
@@ -105,36 +116,26 @@
       register: pip_status
 
   rescue:
-    - name: RESCUE - Check pip_status for 'invalid sytax'
-      set_fact:
-        reinstall_pip: true
-      when:
-        - pip_status is defined
-        - pip_status.rc is defined
-        - pip_status.rc == 1
-        - "'ERROR: {exc}' in pip_status.stderr"
+    - name: RESCUE - Uninstall pip
+      yum:
+        name: python-pip
+        state: absent
 
-    - block:
-      - name: RESCUE - Uninstall pip
-        yum:
-          name: python-pip
-          state: absent
+    - name: RESCUE - Reinstall pip
+      yum:
+        name: python-pip
+        state: latest
 
-      - name: RESCUE - Reinstall pip
-        yum:
-          name: python-pip
-          state: present
+    - name: RESCUE - Update managed system python modules
+      pip:
+        name: "{{ pip_packages }}"
+        state: present
+        executable: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
+      environment:
+        http_proxy: "{{ http_proxy | default('') }}"
+        https_proxy: "{{ https_proxy | default('') }}"
+        no_proxy: "{{ no_proxy | default('') }}"
 
-      - name: Update managed system python modules
-        pip:
-          name: "{{ pip_packages }}"
-          state: present
-          executable: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
-        environment:
-          http_proxy: "{{ http_proxy | default('') }}"
-          https_proxy: "{{ https_proxy | default('') }}"
-          no_proxy: "{{ no_proxy | default('') }}"
-      when: reinstall_pip is defined and reinstall_pip is true
-      become: true
+  become: true
 
 

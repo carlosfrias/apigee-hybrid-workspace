@@ -1,7 +1,6 @@
 ---
 - name: Collect Configuration Information for Planet
   hosts: edge
-  strategy: free
   tags: ['cache','response-file','copy']
   vars:
     property_folders:
@@ -25,7 +24,6 @@
 - name: Generate Configuration for Planet
   hosts: ms
   gather_facts: no
-  strategy: free
   tags: ['response-file','copy']
   vars:
     property_folders:
@@ -49,7 +47,6 @@
 - name: Distribute Configuration File to Planet
   hosts: edge
   gather_facts: no
-  strategy: free
   tags: ['copy']
   vars:
     property_folders:
@@ -94,7 +91,6 @@
 
 - name: Complete OS Pre-requisites
   hosts: edge
-  strategy: free
   tags: ['os']
   vars:
     property_folders:
@@ -121,7 +117,6 @@
 
 - name: Install Edge
   hosts: edge
-  strategy: free
   tags: ['bootstrap']
   vars:
     property_folders:

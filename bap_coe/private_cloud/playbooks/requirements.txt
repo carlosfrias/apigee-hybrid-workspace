@@ -1,4 +1,4 @@
-ansible==2.10.0
+ansible
 ansible-base
 ansible-lint
 molecule
@@ -11,3 +11,6 @@ requests
 pycryptodome
 cryptography
 google-api-python-client
+urllib3
+six
+httplib2

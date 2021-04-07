@@ -1,6 +1,6 @@
 ---
 #    GCLOUD_ACCOUNT_EMAIL: friasc@google.com
-PROJECT_ID: friasc-opdk-04012021-2002
+PROJECT_ID: friasc-opdk-04072021-1454
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 INVENTORY_DIR: inventory
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
@@ -35,17 +35,18 @@ GCP_SERVICES:
 
 ROLE_BINDINGS:
   - "roles/compute.admin"
-  - "roles/iam.serviceAccountUser"
   - "roles/compute.networkUser"
+  - "roles/compute.instanceAdmin"
   - "roles/networkmanagement.admin"
   - "roles/networkmanagement.viewer"
+  - "roles/iam.serviceAccountUser"
 
 PRIVATE_CLOUD_INSTANCES:
-  - { node_type: ms, count: 1, dc: 1}
-  - { node_type: ds, count: 3, dc: 1}
-  - { node_type: rmp, count: 2, dc: 1}
-  - { node_type: qpid, count: 2, dc: 1}
-  - { node_type: pg, count: 1, dc: 1}
+  - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-highcpu-2' }
+  - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-highcpu-4' }
+  - { node_type: rmp, count: 1, dc: 1, machine_type: 'n2-highcpu-2' }
+  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-highcpu-2' }
+  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-highcpu-4' }
 
 IMAGE_PROJECT: 'centos-cloud'
 IMAGE_FAMILY: 'centos-7'
@@ -65,16 +66,16 @@ address_types:
   - 'ms'
   - 'router'
 
-cassandra_ports: ["7199","9160","9042","7000"]
-zk_ports: ["2181","2888","3888"]
-mp_ports: ["4528","8082","1101","8998"]
-ms_ports: ["8080"]
-ms_jmx_ports: ["1099"]
-router_ports: ["1100","8081","4527","9001"]
-qpid_ports: ["1102","4529","5672","8083"]
-pg_ports: ["1103","4530","5432","8084"]
-ui_ports: ["9000"]
-ldap_ports: ["10389"]
+cassandra_ports: ["7199","9160","9042","7000","8080"]
+zk_ports: ["2181","2888","3888","8080"]
+mp_ports: ["4528","8082","1101","8998","8080"]
+ms_ports: ["8080","9000"]
+ms_jmx_ports: ["1099","8080"]
+router_ports: ["1100","8081","4527","9001","8080","4528"]
+qpid_ports: ["1102","4529","5672","8083","8080"]
+pg_ports: ["1103","4530","5432","8084","8080"]
+ui_ports: ["9000","8080"]
+ldap_ports: ["10389","8080"]
 
 disable_yum_repos:
   - google-cloud-sdk

@@ -24,7 +24,6 @@
 - name: Update runtime environment of instances
   hosts: edge
   gather_facts: yes
-  strategy: free
   tags: ['python','infra']
 
   collections:

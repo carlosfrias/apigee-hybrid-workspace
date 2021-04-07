@@ -7,6 +7,7 @@
     username: '{{ opdk_user_email }}'
     password: '{{ opdk_user_pass }}'
     mgmt_server_ip: '{{ local_mgmt_ip }}'
+  when: server_self is defined
 
 #- name: Construct self report variable name
 #  set_fact:
@@ -15,4 +16,5 @@
 - name: Server Registration State Report
   debug:
     msg: "State of Server Registration: {{ hostvars[inventory_hostname]['registered'] }}"
+  when: server_self is defined
 
