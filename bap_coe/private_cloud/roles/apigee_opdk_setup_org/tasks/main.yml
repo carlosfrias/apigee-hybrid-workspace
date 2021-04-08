@@ -16,14 +16,12 @@
     msg: "Management server is not running"
   when: ms_port_status.state != 'started'
 
-- block:
-  - name: Apigee provision installation
-    shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-provision install'
-    environment:
-      no_proxy: "{{ no_proxy | default('') }}"
-      http_proxy: "{{ http_proxy | default('') }}"
-      https_proxy: "{{ https_proxy | default('') }}"
-#    delegate_to: "{{ private_address | default(ansible_default_ipv4.address) }}"
+- name: Apigee provision installation with ansible host address
+  shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-provision install'
+  environment:
+    no_proxy: "{{ no_proxy | default('') }}"
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
 
 - name: Iterate over Orgs and Envs
   include_tasks: setup-org.yml
