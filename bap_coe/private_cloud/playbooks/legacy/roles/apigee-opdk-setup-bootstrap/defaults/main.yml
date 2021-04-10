@@ -1,0 +1,20 @@
+---
+# defaults file for apigee-opdk-setup-bootstrap
+
+local_apigee_secure_path: ~/.apigee-secure
+
+# Local resource location
+local_apigee_path: ~/.apigee
+
+# Default apigee installation home
+apigee_home: /opt/apigee
+
+# Apigee staging installation folder
+opdk_resources_path: "{{ apigee_home }}/customer/installation"
+
+# Default name of apigee archive
+apigee_archive_name: "apigee-{{ apigeereleasever | default(opdk_version) }}"
+
+# Default bootstrap name
+bootstrap_file_name: 'bootstrap.sh'
+

@@ -1,0 +1,145 @@
+---
+- name: Update cache
+  hosts: edge
+  tags: ['cache','ms','ldap','ds', 'zk', 'router','mp','qpid','pg']
+  strategy: free
+
+  collections:
+    - bap_coe.private_cloud
+
+  roles:
+  - { role: apigee_opdk_settings_private_address }
+  - { role: apigee_opdk_settings_region }
+  - { role: apigee_opdk_settings_management_server }
+  - { role: apigee_opdk_settings_cassandra }
+  - { role: apigee_opdk_settings_ldap }
+  - { role: apigee_opdk_settings_postgres }
+
+- name: Validate that Management Server port requirements are met
+  hosts: ms
+  tags: ['ms']
+  strategy: free
+
+  collections:
+    - bap_coe.private_cloud
+
+  vars:
+    ports:
+    - "{{ ms_ports }}"
+  roles:
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['ds'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['rmp'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['qpid'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['pg'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['ui'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['ldap'] }}" }
+
+- name: Validate that Openldap port requirements are met
+  hosts: ldap
+  tags: ['ldap']
+  strategy: free
+
+  collections:
+    - bap_coe.private_cloud
+
+  vars:
+    ports:
+    - "{{ ldap_ports }}"
+  roles:
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['ms'] }}" }
+
+
+- name: Validate that Zookeeper port requirements are met
+  hosts: ds
+  tags: ['zk']
+  strategy: free
+
+  collections:
+    - bap_coe.private_cloud
+
+  vars:
+    ports:
+    - "{{ zk_ports }}"
+  roles:
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['ds'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['ms'] }}" }
+
+- name: Validate that Cassandra  port requirements are met
+  hosts: ds
+  tags: ['ds']
+  strategy: free
+
+  collections:
+    - bap_coe.private_cloud
+
+  vars:
+    ports:
+    - "{{ cassandra_ports }}"
+  roles:
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['ds'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['rmp'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['qpid'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['pg'] }}" }
+    - { role: apigee_opdk_port_check, host_list: "{{ groups['ms'] }}" }
+
+- name: Validate that Router port requirements are met
+  hosts: rmp
+  tags: ['router']
+  strategy: free
+
+  collections:
+    - bap_coe.private_cloud
+
+  vars:
+    ports:
+      - "{{ router_ports }}"
+  roles:
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['rmp'] }}" }
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['ms'] }}" }
+
+- name: Validate that Message Processor port requirements are met
+  hosts: rmp
+  tags: ['mp']
+  strategy: free
+
+  collections:
+    - bap_coe.private_cloud
+
+  vars:
+    ports:
+      - "{{ mp_ports }}"
+  roles:
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['rmp'] }}" }
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['ms'] }}" }
+
+- name: Validate that Message Processor port requirements are met
+  hosts: qpid
+  tags: ['qpid']
+  strategy: free
+
+  collections:
+    - bap_coe.private_cloud
+
+  vars:
+    ports:
+      - "{{ qpid_ports }}"
+  roles:
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['qpid'] }}" }
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['pg'] }}" }
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['ms'] }}" }
+
+- name: Validate that Postgres port requirements are met
+  hosts: pg
+  tags: ['pg']
+  strategy: free
+
+  collections:
+    - bap_coe.private_cloud
+
+  vars:
+    ports:
+      - "{{ pg_ports }}"
+  roles:
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['qpid'] }}" }
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['pg'] }}" }
+  - { role: apigee_opdk_port_check, host_list: "{{ groups['ms'] }}" }

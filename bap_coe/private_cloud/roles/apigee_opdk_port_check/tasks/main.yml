@@ -1,0 +1,9 @@
+---
+# tasks file for apigee-opdk-port-check
+
+- name: Loop through ports
+  include_tasks: listener_client.yml
+  with_items: "{{ host_list }}"
+  loop_control:
+    loop_var: host
+

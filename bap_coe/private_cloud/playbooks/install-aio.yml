@@ -44,5 +44,5 @@
   - { role: apigee_opdk_setup_status, tags: ['status'] }
   - { role: apigee_opdk_setup_org_config, tags: ['org','org-config'] }
   - { role: apigee_opdk_setup_org, tags: ['org', 'org-create'] }
-  - { role: apigee_opdk_setup_validate, tags: ['validate'] }
-  - { role: apigee_opdk_setup_validate_cleanup, tags: ['validate', 'validate-cleanup'] }
+#  - { role: apigee_opdk_setup_validate, tags: ['validate'] }
+#  - { role: apigee_opdk_setup_validate_cleanup, tags: ['validate', 'validate-cleanup'] }
