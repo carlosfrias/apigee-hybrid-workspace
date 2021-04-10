@@ -63,5 +63,10 @@
     region_num: '9'
   when: groups['dc_9'] is defined and inventory_hostname in groups['dc_9']
 
-
+- name: Update for aio
+  set_fact:
+    cacheable: yes
+    region: 'dc_1'
+    region_num: '1'
+  when: groups['aio'] is defined 
 
