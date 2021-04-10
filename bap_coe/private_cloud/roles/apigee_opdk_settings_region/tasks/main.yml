@@ -68,5 +68,5 @@
     cacheable: yes
     region: 'dc_1'
     region_num: '1'
-  when: groups['aio'] is defined 
+  when: groups['aio'] is defined
 
