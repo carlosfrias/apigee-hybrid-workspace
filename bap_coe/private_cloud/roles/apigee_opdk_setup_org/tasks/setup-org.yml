@@ -20,4 +20,4 @@
 - name: Make sure that analytics scope is set
   tags: ['scopes']
   import_role:
-    name: apigee-opdk-setup-scopes-add
+    name: apigee_opdk_setup_scopes_add
