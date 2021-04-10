@@ -12,12 +12,12 @@
 
 - name: Stop Message Processor
   import_role:
-    name: 'apigee-opdk-stop-components'
+    name: 'apigee_opdk_stop_components'
   vars:
     component_name: 'edge-message-processor'
 
 - name: Start Message Processor
   import_role:
-    name: 'apigee-opdk-start-components'
+    name: 'apigee_opdk_start_components'
   vars:
     component_name: 'edge-message-processor'
