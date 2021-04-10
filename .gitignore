@@ -11,3 +11,5 @@ transaction.yaml
 **/ansible
 .idea/**
 **/git-repos/**
+**/resources/**
+**/roles/**
