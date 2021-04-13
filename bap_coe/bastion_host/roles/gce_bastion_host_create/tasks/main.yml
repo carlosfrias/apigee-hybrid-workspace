@@ -4,13 +4,13 @@
   include_role:
     name: bap_coe.gcp_management.gce_firewall_create
   vars:
-    FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}"
+    FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX | default('bastion') }}"
 
 - name: GCE Instance Create | create instances
   include_role:
     name: bap_coe.gcp_management.gce_instance_create
   vars:
-    sequence: "{{ INSTANCE_COUNT_START }}"
+    current_node_count: "1"
 
 - name: Configure SSH ProxyCommand
   include_role:

@@ -2,11 +2,7 @@
 # tasks file for gce_instance_create
 - name: Assert use of next_count if set
   set_fact:
-    current_node_count: "{{ next_count | default(sequence) }}"
-
-- name: Assert current_node_count over INSTANCE_COUNT_START if set
-  set_fact:
-    current_node_count: "{{ current_node_count | default(INSTANCE_COUNT_START) }}"
+    current_node_count: "{{ next_count | default(sequence) | default(1) }}"
     ACCESS_TYPE: "{{ ACCESS_TYPE | default('ext') }}"
 
 - name: create a disk
@@ -73,7 +69,7 @@
       boot: true
       source: "{{ disk_config }}"
     network_interfaces:
-    - network: "{{ network_config }}"
+    - network: "{{ VPC_NETWORK_INFO }}"
     zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"

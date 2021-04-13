@@ -2,7 +2,6 @@
 - name: Molecule | Remove UPS Performance Testing Infrastructure Instances
   hosts: "{{ target_hosts }}"
   gather_facts: no
-  strategy: free
 
   vars_files:
     - 3-properties.yml

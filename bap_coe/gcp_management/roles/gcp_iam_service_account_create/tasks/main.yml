@@ -32,8 +32,10 @@
     cacheable: yes
     SERVICE_ACCOUNT_FILE_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_FILE }}"
 
-- name: Set active account
-  shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
+- name: Assert work directory
+  file:
+    path: "{{ WORK_DIR }}"
+    state: directory
 
 - block:
   - name: Create an initial service account
@@ -44,7 +46,7 @@
         --project {{ PROJECT_ID }}
 
   rescue:
-    - name: Create an initial service account, rescue for idempotency
+    - name: RESCUE - Create an initial service account, rescue for idempotency
       shell: |
         gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
           --description={{ SERVICE_ACCOUNT_NAME }} \
@@ -55,27 +57,8 @@
         - status.rc == 1
         - "'already exists' not in status.stderr"
 
-- name: Assert work directory
-  file:
-    path: "{{ WORK_DIR }}"
-    state: directory
-
 - name: Create initial service account key file
   shell: |
     gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_FILE_PATH }}  \
       --iam-account={{ SERVICE_ACCOUNT_FQDN }} \
       --project {{ PROJECT_ID }}
-
-
-#- name: Create and download service account keys
-#  google.cloud.gcp_iam_service_account_key:
-#    service_account: "{{ serviceaccount }}"
-#    display_name: "{{ SERVICE_ACCOUNT_NAME }}"
-#    path: "{{ SERVICE_ACCOUNT_FILE }}"
-#    private_key_type: TYPE_GOOGLE_CREDENTIALS_FILE
-#    project: "{{ PROJECT_ID }}"
-#    auth_kind: serviceaccount
-#    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
-#    state: present
-
-
