@@ -6,6 +6,12 @@
       - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
+- name: Assert that the GCLOUD_ACCOUNT_USER is available
+  assert:
+    that:
+      - GCLOUD_ACCOUNT_USER is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+
 - name: Assert that the PROJECT_ID is available
   assert:
     that:

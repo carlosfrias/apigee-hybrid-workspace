@@ -21,8 +21,8 @@
     - { role: gce_network_create, tags: ['network'] }
     - { role: gce_firewall_create, tags: ['firewall'] }
     - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
-    - { role: service_account_file_processing, tags: ['bastion'] }
-    - { role: gce_bastion_host_create, tags: ['bastion'], NETWORK_TAGS: "bastion", NAME_INSTANCE_PREFIX: "bastion" }
+#    - { role: service_account_file_processing, tags: ['bastion'] }
+#    - { role: gce_bastion_host_create, tags: ['bastion'], NETWORK_TAGS: "bastion", NAME_INSTANCE_PREFIX: "bastion" }
 
 - name: Update runtime environment of instances
   hosts: edge

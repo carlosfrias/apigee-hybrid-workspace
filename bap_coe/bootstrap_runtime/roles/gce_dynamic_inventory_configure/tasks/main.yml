@@ -1,5 +1,18 @@
 ---
 # tasks file for gce_dynamic_inventory_configure
+# The connection created is the equivalent of gcloud compute ssh — zone “<region>” “ssh-iap” — tunnel-through-iap — project “<project_ID>”
+# Google search: `ansible gcloud ssh-iap`
+# Used the following sources:
+# https://stackoverflow.com/questions/58996471/ansible-gcp-iap-tunnel
+# https://binx.io/blog/2021/03/10/how-to-tell-ansible-to-use-gcp-iap-tunneling/
+# https://unix.stackexchange.com/questions/545034/with-ansible-is-it-possible-to-connect-connect-to-hosts-that-are-behind-cloud-i
+
+- name: Assert that the GCLOUD_ACCOUNT_USER is available
+  assert:
+    that:
+      - GCLOUD_ACCOUNT_USER is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+
 - name: Assert SERVICE_ACCOUNT_FILE_PATH
   assert:
     that:
@@ -26,13 +39,25 @@
 
 - name: Assert INVENTORY_DIR
   file:
-    path: "{{ INVENTORY_DIR }}"
+    path: "{{ INVENTORY_DIR }}/group_vars"
     state: directory
 
-- name: Create dynamic inventory in OUTPUT_DIR
+- name: Generate config files
   template:
-    src: gce-dynamic-inventory.gcp.yml.j2
-    dest: "{{ INVENTORY_DIR }}/{{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml"
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "gce-dynamic-inventory.gcp.yml.j2", dest: "{{ INVENTORY_DIR }}/{{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml" }
+    - { src: "ansible.cfg.j2", dest: "{{ playbook_dir }}/ansible.cfg.template" }
+
+- name: Update inventory for use of ssh-iap for access
+  copy:
+    src: "{{ item.src}}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "group_vars/all.yml", dest: "{{ INVENTORY_DIR }}/group_vars/all.yml" }
+    - { src: "gcp-scp-wrapper.sh", dest: "{{ INVENTORY_DIR }}/gcp-scp-wrapper.sh" }
+    - { src: "gcp-ssh-wrapper.sh", dest: "{{ INVENTORY_DIR }}/gcp-ssh-wrapper.sh" }
 
 - name: Refresh the inventory
   meta: refresh_inventory

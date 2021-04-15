@@ -12,8 +12,7 @@
 
   vars:
     PROJECT_IDS:
-      - friasc-opdk-04122021-1124
-      -
+      - friasc-opdk-04142021-1429
 
   tasks:
     - name: Remove projects in list

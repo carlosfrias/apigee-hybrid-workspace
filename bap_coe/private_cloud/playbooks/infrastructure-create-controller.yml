@@ -12,7 +12,7 @@
   vars:
     NAME_INSTANCE_PREFIX: "{{ PRE_NAME_INSTANCE_PREFIX }}"
     NETWORK_TAGS: "{{ PRE_NETWORK_TAGS }}"
-    ACCESS_TYPE: "int"
+#    ACCESS_TYPE: "int"
   with_sequence: "start=1 end={{ PRE_INSTANCE_COUNT }}"
   loop_control:
     loop_var: next_count
