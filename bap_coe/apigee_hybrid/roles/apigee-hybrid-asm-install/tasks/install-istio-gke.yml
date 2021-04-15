@@ -13,7 +13,7 @@
 
 - name: Setup GCP Attributes from service account file
   include_role:
-    name: gcp_token_retrieval
+    name: bap_coe.gcp_management.gcp_token_retrieval
 
 - name: Download the SHA-256 signature of the file to the current working directory
   get_url:

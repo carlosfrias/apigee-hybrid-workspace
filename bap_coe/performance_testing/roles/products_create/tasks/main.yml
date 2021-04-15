@@ -1,5 +1,8 @@
 ---
 # tasks file for products_create
+- name: Clear any host errors
+  meta: clear_host_errors
+
 - name: Assert GCLOUD_TOKEN is provided
   assert:
     that:
@@ -20,17 +23,16 @@
 
 - name: Set defaults for attributes not provided
   set_fact:
-    APIGEE_API_URI: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}"
     PRODUCT_NAME: "{{ PRODUCT_NAME | default('Sample-Product') }}"
     PRODUCT_DISPLAY_NAME: "{{ PRODUCT_DISPLAY_NAME | default('Sample-Product') }}"
     PRODUCT_APPROVAL_TYPE: "{{ PRODUCT_APPROVAL_TYPE | default('auto') }}"
-    PRODUCT_ENV: "{{ PRODUCT_ENV | default('test') }}"
-    API_PROXY_NAME: "{{ API_PROXY_NAME | default('notarget') }}"
-    PRODUCT_QUOTA: "{{ PRODUCT_QUOTA | default(1000) }}"
-    PRODUCT_QUOTA_INTERVAL: "{{ PRODUCT_QUOTA_INTERVAL | default(1) }}"
-    PRODUCT_QUOTA_TIME_UNIT: "{{ PRODUCT_QUOTA_TIME_UNIT | default('hour') }}"
-    START_POSITION: "{{ PRODUCT_START_POSITION | default(1) }}"
-    LOAD_COUNT: "{{ PRODUCT_LOAD_COUNT | default(1) }}"
+    PRODUCT_ENV: "{{ PRODUCT_ENV }}"
+    API_PROXY_NAME: "{{ API_PROXY_NAME }}"
+    PRODUCT_QUOTA: "{{ PRODUCT_QUOTA | string }}"
+    PRODUCT_QUOTA_INTERVAL: "{{ PRODUCT_QUOTA_INTERVAL | string }}"
+    PRODUCT_QUOTA_TIME_UNIT: "{{ PRODUCT_QUOTA_TIME_UNIT }}"
+    START_POSITION: "{{ LOAD_PRODUCT_START_POSITION }}"
+    LOAD_COUNT: "{{ LOAD_PRODUCT_COUNT }}"
 
 #  Create Product - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts/create
 - name: Create Product
@@ -55,6 +57,6 @@
       quotaInterval: "{{ PRODUCT_QUOTA_INTERVAL }}"
       quotaTimeUnit: "{{ PRODUCT_QUOTA_TIME_UNIT }}"
   with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
-  async: 3600
-  poll: 0
-  register: product_creation_task_status
+#  async: 3600
+#  poll: 0
+#  register: product_creation_task_status

@@ -1,5 +1,8 @@
 ---
 # tasks file for developers_apps_products_associate
+- name: Clear any host errors
+  meta: clear_host_errors
+
 - name: Assert GCLOUD_TOKEN is provided
   assert:
     that:
@@ -21,10 +24,10 @@
     DEVELOPER_FIRST_NAME: "{{ DEVELOPER_FIRST_NAME | default('joe') }}"
     DEVELOPER_LAST_NAME: "{{ DEVELOPER_LAST_NAME | default('developer') }}"
     DEVELOPER_USER_NAME: "{{ DEVELOPER_USER_NAME | default('developerjoe') }}"
-    START_POSITION: "{{ DEVELOPER_START_POSITION | default(1) }}"
-    LOAD_COUNT: "{{ DEVELOPER_LOAD_COUNT | default(1) }}"
+    START_POSITION: "{{ LOAD_DEVELOPER_START_POSITION }}"
+    LOAD_COUNT: "{{ LOAD_DEVELOPER_COUNT }}"
     APP_NAME: "{{ APP_NAME | default('sample-app') }}"
-    APP_STATUS: "{{ APP_STATUS | default('approve') }}"
+    APP_STATUS: "{{ APP_STATUS | default('approved') }}"
 
 # Add API Product to Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/updateDeveloperAppKey#google.cloud.apigee.v1.DeveloperAppKeys.UpdateDeveloperAppKey
 - name: Add API Product to Developer App Key
@@ -40,9 +43,5 @@
         - "{{ APPS_PRODUCT_ADD_NAME }}"
       consumerKey: "{{ item }}"
       consumerSecret: "{{ item }}"
-      name: "{{ APP_NAME }}-{{ item }}"
       status: "{{ APP_STATUS }}"
   with_sequence: "start={{ START_POSITION }} end={{ LOAD_COUNT }}"
-  async: 3600
-  poll: 0
-  register: apps_products_task_status

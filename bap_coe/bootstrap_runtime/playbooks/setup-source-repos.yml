@@ -1,0 +1,55 @@
+---
+- name: This playbook configures and install my local workstation
+  hosts: "{{ target_hosts }}"
+  connection: local
+  vars_files:
+    - workstation-properties.yml
+
+  tasks:
+    - name: Create Workstation Folders
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items: "{{ setup_workstation_folders }}"
+
+    - name: Update Git Resource Repo Workspace
+      tags: [ 'repos', 'resources' ]
+      git:
+        repo: "{{ item.git_repo }}"
+        dest: "{{ item.git_repo_workspace }}"
+        accept_hostkey: yes
+        update: yes
+        clone: yes
+        force: no
+      with_items: "{{ apigee_workspace_resources }}"
+
+    - name: Sync Git Resource Repo with Target Folders
+      tags: [ 'repos', 'resources' ]
+      synchronize:
+        src: "{{ item.git_repo_workspace }}/"
+        dest: "{{ item.sync_dest }}"
+        recursive: yes
+        dirs: yes
+        set_remote_user: no
+      with_items: "{{ apigee_workspace_resources }}"
+
+    - name: Update Git Repo Workspace
+      tags: [ 'repos','workspace' ]
+      git:
+        repo: "{{ item.git_repo }}"
+        dest: "{{ item.git_repo_workspace }}"
+        accept_hostkey: yes
+        update: yes
+        clone: yes
+        force: no
+      with_items: "{{ apigee_workspace_repos }}"
+
+    - name: Sync Git Repo with Target Folders
+      tags: [ 'repos','workspace' ]
+      synchronize:
+        src: "{{ item.git_repo_workspace }}/"
+        dest: "{{ item.sync_dest }}"
+        recursive: yes
+        dirs: yes
+        set_remote_user: no
+      with_items: "{{ apigee_workspace_repos }}"

@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include roles/developers_apps_keys_get"
+      include_role:
+        name: "roles/developers_apps_keys_get"

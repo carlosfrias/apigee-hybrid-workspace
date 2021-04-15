@@ -1,0 +1,15 @@
+---
+- name: Performance Test Execution
+  shell: |
+    wrk \
+      -t{{ EXECUTION_SAMPLING.THREAD_COUNT }} \
+      -c{{ EXECUTION_SAMPLING.CONNECTION_COUNT }} \
+      -d{{ EXECUTION_SAMPLING.DURATION }} \
+      -R{{ ((EXECUTION_SAMPLING.REQUEST_COUNT_BASE | int) + (item | int)) }} \
+      --latency \
+      -H "Host: {{ TARGET_HOST }}" \
+      {{ TARGET_URL }}
+  register: perf_output
+  args:
+    chdir: /usr/local/bin
+  with_sequence: "start={{ EXECUTION_SAMPLING.REQUEST_COUNT_BASE }} end={{ EXECUTION_SAMPLING.REQUEST_COUNT_END }} stride={{ EXECUTION_SAMPLING.REQUEST_COUNT_INCREMENT }}"

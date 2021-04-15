@@ -1,15 +1,16 @@
 ---
 # tasks file for gce_firewall_create
-
-- name: Create Firewall Rule
-  community.google.gce_net:
-    project_id: "{{ PROJECT_ID }}"
-    service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
-    credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    fwname: "{{ FIREWALL_NAME }}"
-    name: "{{ VPC_NETWORK_NAME | default('default') }}"
-    allowed: tcp:22
-    state: "present"
-    target_tags: "{{ TARGET_TAGS }}"
-  async: 300
-  poll: 0
+- name: create firewall rule
+  tags: ['firewall']
+  google.cloud.gcp_compute_firewall:
+    name: "{{ VPC_NETWORK_INFO.name | default('default') }}-firewall-{{ item.port_type }}"
+    target_tags: "{{ VPC_NETWORK_INFO.name | default('default') }}-firewall-{{ item.port_type }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    state: present
+    network: "{{ VPC_NETWORK_INFO }}"
+    scopes: "{{ SCOPE_COMPUTE }}"
+    allowed:
+      - { ip_protocol: "tcp", ports: "{{ item.ports }}" }
+  loop: "{{ firewall_ports }}"

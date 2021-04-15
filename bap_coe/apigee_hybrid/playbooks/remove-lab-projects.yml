@@ -7,11 +7,8 @@
 
   vars: 
     PROJECTS:
-    - "friasc-hybrid-02112021-2002"
-    - "friasc-hybrid-03012021-1450"
-    - "friasc-hybrid-03032021-145"
-    - "friasc-hybrid-03032021-1533"
-    - "friasc-hybrid-03032021-1747"
+    - "friasc-hybrid-03222021-1039"
+#    - "friasc-hybrid-03222021-1645"
 
   collections: bap_coe.apigee_hybrid
 

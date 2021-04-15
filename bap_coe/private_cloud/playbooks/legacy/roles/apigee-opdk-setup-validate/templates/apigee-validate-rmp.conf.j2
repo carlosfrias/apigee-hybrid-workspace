@@ -1,0 +1,27 @@
+MSIP={{ local_mgmt_ip }}
+ADMIN_EMAIL={{ opdk_user_email }}
+APIGEE_PORT_HTTP_MS={{ ms_port }}
+APIGEE_ADMINPW={{ opdk_user_pass }}
+REGION=dc-{{ region_num }}
+MP_POD={{ opdk_mp_pod }}
+{% if groups['dc_1'] is defined and inventory_hostname in groups['dc_1'] %}
+MP_IP="{{ hostvars[groups['dc_1_rmp'][0]]['private_address'] }}"
+{% elif groups['dc_2'] is defined and inventory_hostname in groups['dc_2'] %}
+MP_IP="{{ hostvars[groups['dc_2_rmp'][0]]['private_address'] }}"
+{% elif groups['dc_3'] is defined and inventory_hostname in groups['dc_3'] %}
+MP_IP="{{ hostvars[groups['dc_3_rmp'][0]]['private_address'] }}"
+{% else %}
+MP_IP=please update the mp ip address
+{% endif %}
+MP_PORT={{ mp_ext_mgmt_port }}
+HOST_ALIAS="{% for host in groups['rmp'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
+{#{% if groups['dc_1'] is defined and inventory_hostname in groups['dc_1'] %}#}
+{#HOST_ALIAS="{% for host in groups['dc_1_rmp'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"#}
+{#{% elif groups['dc_2'] is defined and inventory_hostname in groups['dc_2'] %}#}
+{#HOST_ALIAS="{% for host in groups['dc_2_rmp'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"#}
+{#{% elif groups['dc_3'] is defined and inventory_hostname in groups['dc_3'] %}#}
+{#HOST_ALIAS="{% for host in groups['dc_3_rmp'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"#}
+{#{% else %}#}
+{#HOST_ALIAS="Neither a dc_1 or dc_2 inventory group was defined"#}
+{#{% endif %}#}
+YES="{{ confirm_delete_org }}"

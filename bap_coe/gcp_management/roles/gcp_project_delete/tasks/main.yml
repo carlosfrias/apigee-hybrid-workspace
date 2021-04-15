@@ -1,29 +1,44 @@
 ---
 # tasks file for gcp_project_delete
+
+- name: Set active account
+  shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
+
 - name: Delete Cloud Repository for GCP Project
   ignore_errors: true
   shell: gcloud source repos delete config-repo --project {{ PROJECT_ID }}
-  poll: 0
-  retries: 50
-  async: 90
+#  poll: 0
+#  retries: 50
+#  async: 90
 
 - name: Delete GCP project
   ignore_errors: true
   shell: gcloud projects delete {{ PROJECT_ID }} --quiet
-  poll: 0
-  retries: 50
-  async: 90
+#  poll: 0
+#  retries: 50
+#  async: 90
 
-- name: Assert if WORK_DIR is provided for removal
+- name: Assert if WORK_DIR is available for removal
   stat:
     path: "{{ WORK_DIR | default('') }}"
   register: work_dir_path
 
 - name: Delete WORK_DIR folder
   file:
-    path: "{{ WORK_DIR }}"
+    path: "{{ work_dir_path.stat.path }}"
     state: absent
   when: work_dir_path.stat.exists
-  poll: 0
-  retries: 50
-  async: 90
+#  poll: 0
+#  retries: 50
+#  async: 90
+
+- name: Assert that gce-dynamic-inventory.gcp.yml is available for removal
+  stat:
+    path: "{{ playbook_dir }}/inventory/{{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml"
+  register: status
+
+- name: Delete gce-dynamic-inventory.gcp.yml
+  file:
+    path: "{{ status.stat.path }}"
+    state: absent
+  when: status.stat.exists

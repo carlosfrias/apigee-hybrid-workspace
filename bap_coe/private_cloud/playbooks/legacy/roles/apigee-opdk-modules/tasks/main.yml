@@ -1,0 +1,62 @@
+---
+# tasks file for /usr/local/google/home/friasc/apigee-workspace/apigee-opdk-role-workspace/apigee-opdk-modules
+- block:
+  - name: Find yml property files
+    find:
+      path: '{{ item }}'
+      pattern: '*.yml'
+      file_type: file
+      hidden: yes
+      recurse: no
+    with_items: "{{ property_folders }}"
+    register: props
+
+  - name: Load variables
+    include_vars:
+      file: "{{ item.1.path | expanduser }}"
+    with_subelements:
+    - "{{ props.results }}"
+    - files
+
+#  - name: Update cache with key and value
+#    set_fact:
+#      cacheable: yes
+#      opdk_version: '{{ opdk_version }}'
+#      apigeereleasever: "{{ apigeereleasever | default('') }}"
+#      enable_system_check: '{{ enable_system_check }}'
+#      apigee_repo_url: "{{ apigee_repo_url }}"
+#      opdk_resources_path: '{{ opdk_resources_path }}'
+#      apigee_home: '{{ apigee_home }}'
+#      local_apigee_path: "{{ local_apigee_path }}"
+#      local_apigee_secure_path: '{{ local_apigee_secure_path}}'
+#      apigee_data_backup_archive_name: '{{ apigee_data_backup_archive_name }}'
+#      apigee_archive_storage_folder: '{{ apigee_archive_storage_folder }}'
+#      apigee_postgresql_data_dir: "{{ apigee_postgresql_data_dir }}"
+#      apigee_validate_config_file: "{{ apigee_validate_config_file }}"
+#      opdk_mp_pod: '{{ opdk_mp_pod }}'
+#      opdk_ldap_type: '{{ opdk_ldap_type }}'
+#      use_opdk_ldap_remote_host: '{{ use_opdk_ldap_remote_host }}'
+#      opdk_enable_ax: '{{ opdk_enable_ax }}'
+#      default_mp_pod: '{{ default_mp_pod }}'
+#      opdk_use_zk_cluster: '{{ opdk_use_zk_cluster }}'
+#      opdk_cass_clustername: '{{ opdk_cass_clustername }}'
+#      opdk_use_cass_cluster: '{{ opdk_use_cass_cluster }}'
+#      opdk_smtp_skip: '{{ opdk_smtp_skip }}'
+#      opdk_smtp_host: '{{ opdk_smtp_host }}'
+#      opdk_smtp_port: '{{ opdk_smtp_port }}'
+#      opdk_smtp_ssl: '{{ opdk_smtp_ssl }}'
+#      opdk_cass_auth: '{{ opdk_cass_auth }}'
+#      consumer_group: '{{ consumer_group }}'
+#      env_name: '{{ env_name }}'
+#      ax_group: '{{ ax_group }}'
+#      virtual_host_name: '{{ virtual_host_name }}'
+#      virtual_host_port: '{{ virtual_host_port }}'
+#      last_name: '{{ last_name }}'
+#      first_name: '{{ first_name }}'
+#      new_user: '{{ new_user }}'
+#      org_name: '{{ org_name }}'
+#      opdk_bind_on_all_interfaces: '{{ opdk_bind_on_all_interfaces }}'
+#      opdk_smtp_mail_from: '{{ opdk_smtp_mail_from }}'
+
+  delegate_to: localhost
+  when: property_folders is defined and property_folders | length > 0

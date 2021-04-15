@@ -20,7 +20,6 @@
 
 - name: Set defaults for attributes not provided
   set_fact:
-    APIGEE_API_URI: "{{ APIGEE_API_URI | default('https://apigee.googleapis.com') }}"
     PRODUCT_NAME: "{{ PRODUCT_NAME | default('Sample-Product') }}"
     PRODUCT_DISPLAY_NAME: "{{ PRODUCT_DISPLAY_NAME | default('Sample-Product') }}"
     PRODUCT_APPROVAL_TYPE: "{{ PRODUCT_APPROVAL_TYPE | default('auto') }}"

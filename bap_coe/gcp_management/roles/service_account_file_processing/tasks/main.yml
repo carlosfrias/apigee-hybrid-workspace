@@ -3,12 +3,12 @@
 - name: Assert that the service account file is indicated
   assert:
     that:
-    - SERVICE_ACCOUNT_FILE is defined
-    fail_msg: "Please indicate the path to the SERVICE_ACCOUNT_FILE"
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    fail_msg: "Please indicate the path to the SERVICE_ACCOUNT_FILE_PATH"
 
-- name: Assert that SERVICE_ACCCOUNT_FILE is a valid path
+- name: Assert that SERVICE_ACCOUNT_FILE_PATH is a valid path
   stat:
-    path: "{{ SERVICE_ACCOUNT_FILE }}"
+    path: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
   register: valid_service_account_file_path
   delegate_to: localhost
 
@@ -16,7 +16,7 @@
   block:
   - name: Read service account file contents
     set_fact:
-      SERVICE_ACCOUNT_FILE_CONTENT: "{{ lookup('file', SERVICE_ACCOUNT_FILE) }}"
+      SERVICE_ACCOUNT_FILE_CONTENT: "{{ lookup('file', SERVICE_ACCOUNT_FILE_PATH) }}"
 
   - name: update local cache with basic project attributes
     set_fact:

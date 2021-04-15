@@ -1,3 +1,5 @@
+*** Make load restartable.
+
 ########## Create Developers and Apps with Quotas ###########
 1. Create Product with Quota of 10000 calls per hour - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts/create
 curl --request POST \
@@ -26,5 +28,14 @@ curl --request POST \
 3. Create Developer App - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps/create
 4. Create Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/create
 5. Add API Product to Developer App Key - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys/updateDeveloperAppKey#google.cloud.apigee.v1.DeveloperAppKeys.UpdateDeveloperAppKey
+
+
+Command Line execution
+ansible-playbook 6-load.yml -e target_hosts=ups[0:3] --skip-tags=products -e CONTROLLER_REQUEST_START=1 -e CONTROLLER_REQUEST_END=20000 -e CONTROLLER_REQUEST_INCREMENT=2000 -vvv
+ansible-playbook 6-load.yml -e target_hosts=ups[4:7] --skip-tags=products -e CONTROLLER_REQUEST_START=20000 -e CONTROLLER_REQUEST_END=40000 -e CONTROLLER_REQUEST_INCREMENT=2000 -vvv
+ansible-playbook 6-load.yml -e target_hosts=ups[8:11] --skip-tags=products -e CONTROLLER_REQUEST_START=40000 -e CONTROLLER_REQUEST_END=60000 -e CONTROLLER_REQUEST_INCREMENT=2000 -vvv
+ansible-playbook 6-load.yml -e target_hosts=ups[12:15] --skip-tags=products -e CONTROLLER_REQUEST_START=60000 -e CONTROLLER_REQUEST_END=80000 -e CONTROLLER_REQUEST_INCREMENT=2000 -vvv
+ansible-playbook 6-load.yml -e target_hosts=ups[16:19] --skip-tags=products -e CONTROLLER_REQUEST_START=80000 -e CONTROLLER_REQUEST_END=100000 -e CONTROLLER_REQUEST_INCREMENT=2000 -vvv
+ansible-playbook 6-load.yml -e target_hosts=ups[20:23] --skip-tags=products -e CONTROLLER_REQUEST_START=100000 -e CONTROLLER_REQUEST_END=120000 -e CONTROLLER_REQUEST_INCREMENT=2000 -vvv
 
 

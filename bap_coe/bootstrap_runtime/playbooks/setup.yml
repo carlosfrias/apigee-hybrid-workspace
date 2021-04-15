@@ -1,0 +1,18 @@
+---
+- name: This playbook configures local workstation
+  hosts: "{{ target_hosts }}"
+  connection: local
+  vars_files:
+    - workstation-properties.yml
+
+  tasks:
+  - name: Update System
+    tags: ['os','docker','packages']
+    include_tasks: "{{ ansible_os_family }}-system-update.yml"
+
+  - name: Update Pip modules
+    tags: ['pip']
+    pip:
+      name:
+        - "{{ item }}"
+    with_items: "{{ pip_modules }}"

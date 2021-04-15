@@ -1,19 +1,20 @@
 ---
 # defaults file for gce_instance_create
-AUTHORIZATION_KIND: serviceaccount
 IMAGE_PROJECT_CENTOS: 'centos-cloud'
 IMAGE_FAMILY_CENTOS: 'centos-7'
 DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1804-lts') }}"
 DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
 DISK_SIZE: 50
 MACHINE_TYPE: n2-highcpu-2
-SCOPE_COMPUTE: "https://www.googleapis.com/auth/cloud-platform"
-TARGET_TAGS: "upsperfclientssh"
+SCOPE_COMPUTE:
+  - 'https://www.googleapis.com/auth/cloud-platform'
+  - 'https://www.googleapis.com/auth/compute'
+TARGET_TAGS: "ssh"
 STARTUP_SCRIPT: |
   #! /bin/bash
   echo '{{ GCLOUD_ACCOUNT_USER }} ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers.d/{{ GCLOUD_ACCOUNT_USER }}-nopasswd;
-  sudo apt update -y;
-  type python3 >/dev/null 2>&1 || sudo apt install -y python3;
-  sudo update-alternatives --install /usr/bin/python python $(which python3) 1;
-  sudo ulimit -n 65555;
-  sudo sysctl -w net.ipv4.ip_local_port_range="1025 65000";
+#  sudo apt update -y;
+#  type python3 >/dev/null 2>&1 || sudo apt install -y python3;
+#  sudo update-alternatives --install /usr/bin/python python $(which python3) 1;
+#  sudo ulimit -n 65555;
+#  sudo sysctl -w net.ipv4.ip_local_port_range="1025 65000";

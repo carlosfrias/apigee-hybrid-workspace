@@ -1,0 +1,40 @@
+---
+- name: Update Debian system
+  block:
+  - name: Prep for system update
+    tags: ['os']
+    apt:
+      name: "{{ os_system_prep_packages }}"
+      state: present
+      update_cache: yes
+
+  - name: Install Debian packages
+    tags: ['packages']
+    apt:
+      name: "{{ debian_os_packages }}"
+      state: present
+      update_cache: yes
+
+  - name: Install system packages
+    tags: ['os']
+    apt:
+      name: "{{ os_packages }}"
+      state: present
+      update_cache: yes
+
+  - name: Install pyenv
+    command: "curl https://pyenv.run | bash"
+
+  become: true
+
+- name: Update .bashrc
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: "^PATH=~/.pyenv/bin:$PATH", line: "PATH=~/.pyenv/bin:$PATH"}
+    - { regexp: "^eval '$(pyenv init -)'", line: "eval '$(pyenv init -)'"}
+    - { regexp: "^eval '$(pyenv virtualenv-init -)'", line: "eval '$(pyenv virtualenv-init -)'"}
+

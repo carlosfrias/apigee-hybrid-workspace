@@ -1,2 +1,4 @@
 ---
 # defaults file for developers_apps_keys_create
+APIGEE_API_URI: https://apigee.googleapis.com
+APP_NAME_PREFIX: 'Sample-App'

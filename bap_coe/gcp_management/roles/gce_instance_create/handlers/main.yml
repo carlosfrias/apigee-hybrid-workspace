@@ -1,2 +1,6 @@
 ---
 # handlers file for gce_instance_create
+- name: Refresh GCP Compute SSH Config
+  shell: gcloud compute config-ssh
+  delegate_to: 127.0.0.1
+  listen: "refresh gcp compute ssh config"

@@ -1,26 +1,38 @@
 ---
 # tasks file for gce_instance_remove
-- name: Setup GCP Attributes from service account file
-  include_role:
-    name: service_account_file_processing
-
 - name: Capture start if available
   set_fact:
     start_pos: "{{ INSTANCE_COUNT_START | default(1) }}"
 
-- block:
-  - name: remove an instance
-    gcp_compute_instance:
-      name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence | default(start_pos) }}"
-      state: absent
-      zone: "{{ GCP_ZONE }}"
-      project: "{{ PROJECT_ID }}"
-      auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-      service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    poll: 0
-    async: 300
+- name: Set instance name
+  set_fact:
+    gce_instance_ext_name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence | default(start_pos) }}"
 
-  rescue:
-    - name: Rescue message
-      debug:
-        msg: "Remove failed for some reason but we will move on to remove the next instance"
+- name: Gather instance info
+  gcp_compute_instance_info:
+    zone: "{{ GCP_ZONE }}"
+    filters:
+      - name = "{{ gce_instance_ext_name }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+  register: instance_info
+
+- name: remove an instance
+  gcp_compute_instance:
+    name: "{{ gce_instance_ext_name }}"
+    state: absent
+    zone: "{{ GCP_ZONE }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+#    poll: 0
+#    async: 300
+
+- debug:
+    var: instance_info
+
+- name: Set instance_ip
+  ignore_errors: true
+  set_fact:
+    gce_instance_ext_IP: "{{ instance_info.resources[0].networkInterfaces[0].accessConfigs[0].natIP }}"

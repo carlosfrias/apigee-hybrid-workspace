@@ -1,0 +1,65 @@
+---
+# tasks file for roles/developers_apps_get
+- name: Clear any host errors
+  meta: clear_host_errors
+
+- name: Assert GCLOUD_TOKEN is provided
+  assert:
+    that:
+      - GCLOUD_TOKEN is defined
+    msg: Please provide the bearer token from gcloud. (You can use gcp_token_retrieval role)
+
+- name: Assert ORG is provided
+  assert:
+    that:
+      - ORG is defined
+    msg: Please provide the organiztion name.
+
+- name: Assert developer email account is provided
+  assert:
+    that:
+      - DEVELOPER_EMAIL_ACCOUNT is defined
+    msg: Please provide the DEVELOPER_EMAIL_ACCOUNT.
+  when: DEVELOPER_EMAIL is not defined and DEVELOPER_APP_NAME is not defined
+
+- name: Assert count is provided
+  assert:
+    that:
+      - DEVELOPER_COUNT is defined
+    msg: Please provide the DEVELOPER_COUNT name.
+  when: DEVELOPER_EMAIL is not defined
+
+- name: Assert developer email domain is provided
+  assert:
+    that:
+      - DEVELOPER_EMAIL_DOMAIN is defined
+    msg: Please provide the DEVELOPER_EMAIL_DOMAIN.
+  when: DEVELOPER_EMAIL is not defined
+
+- name: Constructed DEVELOPER_EMAIL
+  set_fact:
+    GENERATED_EMAIL_ACCOUNT: "{{ DEVELOPER_EMAIL_ACCOUNT }}-{{ DEVELOPER_COUNT }}@{{ DEVELOPER_EMAIL_DOMAIN }}"
+  when: DEVELOPER_EMAIL is not defined
+
+- name: Use DEVELOPER_EMAIL if provided
+  set_fact:
+    DEVELOPER_EMAIL: "{{ DEVELOPER_EMAIL | default(GENERATED_EMAIL_ACCOUNT) }}"
+  when: DEVELOPER_COUNT is not defined
+
+- name: Set DEVELOPER_EMAIL
+  set_fact:
+    DEVELOPER_EMAIL: "{{ GENERATED_EMAIL_ACCOUNT }}"
+  when: DEVELOPER_COUNT is defined
+
+- name: Construct APP_NAME
+  set_fact:
+    APP_NAME: "{{ APP_NAME_PREFIX }}-{{ DEVELOPER_COUNT }}"
+
+# Get Developer App - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps/get
+- name: Get Developer App
+  uri:
+    url: "{{ APIGEE_API_URI }}/v1/organizations/{{ ORG }}/developers/{{ DEVELOPER_EMAIL }}/apps/{{ APP_NAME }}"
+    method: GET
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+

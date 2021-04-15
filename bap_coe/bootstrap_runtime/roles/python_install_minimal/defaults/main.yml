@@ -1,0 +1,11 @@
+---
+# defaults file for python_install_minimal
+python_Debian_system_installation_sequence:
+  - "sudo apt update -y"
+  - "sudo apt install -y {{ PYTHON_EXE | default(python) }}-apt"
+  - "sudo update-alternatives --install /usr/bin/python python $(which {{ PYTHON_EXE | default(python) }}) 1;"
+
+python_RedHat_system_installation_sequence:
+#  - "yum update"
+  - "update-alternatives --install /usr/bin/python python $(which {{ PYTHON_EXE | default(python) }}) 1;"
+

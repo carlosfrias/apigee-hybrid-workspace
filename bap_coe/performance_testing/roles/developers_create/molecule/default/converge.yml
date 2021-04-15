@@ -5,3 +5,28 @@
     - name: "Include developers_create"
       include_role:
         name: "developers_create"
+
+
+- name: GCE Instance Create | Converge
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - ../../../../3-properties.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  tasks:
+
+    - name: "Include developers_create"
+      include_role:
+        name: "developers_create"
+
+    - name: GCE Instance Create | Create instances
+      include_role:
+        name: gce_instance_create
+      with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
+      loop_control:
+        loop_var: sequence

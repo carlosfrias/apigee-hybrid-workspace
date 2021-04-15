@@ -1,0 +1,31 @@
+---
+# tasks file for apigee-opdk-setup-license
+- name: Assert target folder exists
+  become: yes
+  file:
+    path: "{{ opdk_license_target_file_path | dirname }}"
+    state: directory
+    mode: 777
+    owner: "{{ opdk_user_name }}"
+    group: "{{ opdk_group_name }}"
+
+- name: Copy license file
+  become: yes
+  copy:
+    src: "{{ opdk_license_source_file_name }}"
+    dest: "{{ opdk_license_target_file_path }}"
+    force: yes
+    mode: 777
+    owner: "{{ opdk_user_name }}"
+    group: "{{ opdk_group_name }}"
+
+- name: Assert Permissions are Correct
+  become: yes
+  file:
+    path: "{{ opdk_license_target_file_path | dirname }}"
+    recurse: yes
+    mode: "777"
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+
+

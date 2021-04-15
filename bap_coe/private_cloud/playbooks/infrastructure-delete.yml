@@ -1,0 +1,23 @@
+---
+- name: Delete infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ./attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  vars:
+    PROJECT_IDS:
+      - friasc-opdk-04142021-1429
+
+  tasks:
+    - name: Remove projects in list
+      include_role:
+        name: gcp_project_delete
+      vars:
+        PROJECT_ID: "{{ item }}"
+      with_items: "{{ PROJECT_IDS }}"

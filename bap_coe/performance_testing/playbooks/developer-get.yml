@@ -1,0 +1,19 @@
+---
+- name: Get Developer
+  include_role:
+    name: developers_get
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+
+- name: Get Developer app
+  include_role:
+    name: developers_apps_get
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+
+- name: Get Developer app keys
+  include_role:
+    name: developers_apps_keys_get
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+

@@ -3,7 +3,7 @@
 
 - name: Setup GCP Attributes from service account file
   include_role:
-    name: gcp_token_retrieval
+    name: bap_coe.gcp_management.gcp_token_retrieval
 
 - name: Attach environment to group
   uri:

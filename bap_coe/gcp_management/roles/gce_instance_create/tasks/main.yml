@@ -1,38 +1,19 @@
 ---
 # tasks file for gce_instance_create
-- name: Setup GCP Attributes from service account file
-  include_role:
-    name: service_account_file_processing
-
-- name: create a network
-  gcp_compute_network:
-    name: "{{ VPC_NETWORK_NAME | default('default') }}"
-    project: "{{ PROJECT_ID }}"
-    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    scopes: "{{ SCOPE_COMPUTE }}"
-    state: present
-    auto_create_subnetworks: yes
-  register: network_config
-
-- name: Assert use of INSTANCE_COUNT_START if set
+- name: Assert use of next_count if set
   set_fact:
-    sequence: "{{ INSTANCE_COUNT_START | default(1) }}"
-
-- name: Assert sequence over INSTANCE_COUNT_START if set
-  set_fact:
-    sequence: "{{ sequence | default(INSTANCE_COUNT_START) }}"
+    current_node_count: "{{ next_count | default(sequence) | default(1) }}"
     ACCESS_TYPE: "{{ ACCESS_TYPE | default('ext') }}"
 
 - name: create a disk
   gcp_compute_disk:
-    name: '{{ DISK_NAME }}-{{ sequence }}'
+    name: '{{ DISK_NAME }}-{{ current_node_count }}'
     size_gb: "{{ DISK_SIZE | default(50) }}"
     source_image: '{{ DISK_SOURCE_IMAGE }}'
     zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     scopes: "{{ SCOPE_COMPUTE }}"
     state: present
   register: disk_config
@@ -46,7 +27,7 @@
 - block:
   - name: create an externally accessible instance
     gcp_compute_instance:
-      name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence }}"
+      name: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
       state: present
       machine_type: "{{ MACHINE_TYPE }}"
       disks:
@@ -54,21 +35,21 @@
         boot: true
         source: "{{ disk_config }}"
       network_interfaces:
-      - network: "{{ network_config }}"
+      - network: "{{ VPC_NETWORK_INFO }}"
         access_configs:
         - name: 'External NAT'
           type: 'ONE_TO_ONE_NAT'
       zone: "{{ GCP_ZONE }}"
       project: "{{ PROJECT_ID }}"
       auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-      service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
-      tags:
-        items:
-        - "{{ TARGET_TAGS }}"
+      service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
       metadata:
         'startup-script': |
           {{ STARTUP_SCRIPT | default('') }}
       scopes: "{{ SCOPE_COMPUTE }}"
+      tags:
+        items:
+          - "{{ NETWORK_TAGS }}"
     register: gce_instance
 
   - name: Store GCE Instance Ext IP Address
@@ -80,7 +61,7 @@
 
 - name: create an internally only accessible instance
   gcp_compute_instance:
-    name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence }}"
+    name: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
     state: present
     machine_type: "{{ MACHINE_TYPE }}"
     disks:
@@ -88,11 +69,11 @@
       boot: true
       source: "{{ disk_config }}"
     network_interfaces:
-    - network: "{{ network_config }}"
+    - network: "{{ VPC_NETWORK_INFO }}"
     zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     tags:
       items:
       - "{{ TARGET_TAGS }}"
@@ -104,3 +85,7 @@
   poll: 0
   async: 300
   when: ACCESS_TYPE == "int"
+
+- name: Refreshing SSH
+  command: "echo 'Refreshing GCP Compute SSH Config'"
+  notify: "refresh gcp compute ssh config"

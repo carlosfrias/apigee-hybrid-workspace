@@ -1,0 +1,18 @@
+---
+# defaults file for apigee-opdk-setup-component
+apigee_home: /opt/apigee
+apigee_setup: '{{ apigee_home }}/apigee-setup/bin/setup.sh'
+apigee_all: '{{ apigee_home }}/apigee-service/bin/apigee-all'
+folder_names:
+  - { ds: 'apigee-cassandra' }
+  - { ms: 'edge-management-server' }
+  - { ds: 'apigee-zookeeper' }
+  - { zk: 'apigee-zookeeper' }
+  - { ldap: 'apigee-openldap' }
+  - { r: 'edge-router' }
+  - { mp: 'edge-message-processor' }
+  - { rmp: 'edge-message-processor' }
+  - { rmp: 'edge-router' }
+  - { qs: 'apigee-qpidd' }
+  - { pg: 'apigee-postgresql' }
+  - { ui: 'edge-ui' }

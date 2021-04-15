@@ -1,2 +1,7 @@
 ---
-PROJECT_ID: "gcp-project-test-02162021-1607"
+PROJECT_ID: "gcp-project-test-03222021-1217"
+GCLOUD_ACCOUNT_EMAIL: friasc
+AUTHORIZATION_KIND: serviceaccount
+SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
+RESOURCE_GCP_ZONE: "us-central1-c"
+ansible_python_interpreter: "{{ ansible_playbook_python }}"

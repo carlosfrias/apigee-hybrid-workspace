@@ -1,0 +1,16 @@
+---
+# tasks file for apigee-opdk-port-check-settings
+- name: Update Ansible cache with Apigee Ports
+  set_fact:
+    cacheable: true
+    cassandra_ports: "{{ cassandra_ports }}"
+    zk_ports: "{{ zk_ports }}"
+    mp_ports: "{{ mp_ports }}"
+    ms_ports: "{{ ms_ports }}"
+    router_ports: "{{ router_ports }}"
+    qpid_ports: "{{ qpid_ports }}"
+    pg_ports: "{{ pg_ports }}"
+    ui_ports: "{{ ui_ports }}"
+    ldap_ports: "{{ ldap_ports }}"
+
+
