@@ -16,25 +16,25 @@
 - name: Assert SERVICE_ACCOUNT_FILE_PATH
   assert:
     that:
-      - SERVICE_ACCOUNT_FILE_PATH
+      - SERVICE_ACCOUNT_FILE_PATH is defined
     msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
 
 - name: Assert GCP_ZONE
   assert:
     that:
-      - GCP_ZONE
+      - GCP_ZONE is defined
     msg: "Please provide the GCP_ZONE"
 
 - name: Assert PROJECT_ID
   assert:
     that:
-      - PROJECT_ID
+      - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
 - name: Assert INVENTORY_DIR
   assert:
     that:
-      - INVENTORY_DIR
+      - INVENTORY_DIR is defined
     msg: "Please provide the INVENTORY_DIR"
 
 - name: Assert INVENTORY_DIR
