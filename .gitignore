@@ -12,3 +12,5 @@ transaction.yaml
 .idea/**
 **/git-repos/**
 **/resources/**
+*.swp
+
