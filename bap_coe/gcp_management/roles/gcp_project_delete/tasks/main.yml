@@ -34,7 +34,7 @@
 
 - name: Assert that gce-dynamic-inventory.gcp.yml is available for removal
   stat:
-    path: "{{ playbook_dir }}/inventory/{{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml"
+    path: "{{ playbook_dir }}/inventory"
   register: status
 
 - name: Delete gce-dynamic-inventory.gcp.yml

@@ -6,6 +6,9 @@
 # https://stackoverflow.com/questions/58996471/ansible-gcp-iap-tunnel
 # https://binx.io/blog/2021/03/10/how-to-tell-ansible-to-use-gcp-iap-tunneling/
 # https://unix.stackexchange.com/questions/545034/with-ansible-is-it-possible-to-connect-connect-to-hosts-that-are-behind-cloud-i
+- name: Set ip_scope to public
+  set_fact:
+    ip_scope: "{{ ip_scope | default('public') }}"
 
 - name: Assert that the GCLOUD_ACCOUNT_USER is available
   assert:

@@ -8,40 +8,43 @@
     opdk_ldap_ip: "{{ local_mgmt_ip }}"
     use_opdk_ldap_remote_host: '{{ use_opdk_ldap_remote_host | default("n") }}'
 
-- name: Set LDAP IP to dc_1_ldap if it is defined
-  set_fact:
-    cacheable: yes
-    opdk_ldap_ip: "{{ hostvars[groups['dc_1_ldap'][0]]['private_address'] }}"
-  when: groups['dc_1'] is defined and groups['dc_1_ldap'] is defined and inventory_hostname in groups['dc_1']
+- block:
+  - name: Set LDAP IP to dc_1_ldap if it is defined
+    set_fact:
+      cacheable: yes
+      opdk_ldap_ip: "{{ hostvars[groups['dc_1_ldap'][0]]['private_address'] }}"
+    when: groups['dc_1'] is defined and groups['dc_1_ldap'] is defined and inventory_hostname in groups['dc_1']
 
-- name: Set LDAP IP to dc_2_ldap if it is defined
-  set_fact:
-    cacheable: yes
-    opdk_ldap_ip: "{{ hostvars[groups['dc_2_ldap'][0]]['private_address'] }}"
-  when: groups['dc_2'] is defined and groups['dc_2_ldap'] is defined and inventory_hostname in groups['dc_2']
+  - name: Set LDAP IP to dc_2_ldap if it is defined
+    set_fact:
+      cacheable: yes
+      opdk_ldap_ip: "{{ hostvars[groups['dc_2_ldap'][0]]['private_address'] }}"
+    when: groups['dc_2'] is defined and groups['dc_2_ldap'] is defined and inventory_hostname in groups['dc_2']
 
-- name: Set LDAP type to replication if either dc_2_ldap or dc_2_ms is defined
-  set_fact:
-    cacheable: yes
-    opdk_ldap_type: '2'
-  when: groups['dc_2_ldap'] is defined or groups['dc_2_ms'] is defined
+  - name: Set LDAP type to replication if either dc_2_ldap or dc_2_ms is defined
+    set_fact:
+      cacheable: yes
+      opdk_ldap_type: '2'
+    when: groups['dc_2_ldap'] is defined or groups['dc_2_ms'] is defined
 
-- name: Set LDAP remote flag if LDAP will not be installed with the management server
-  set_fact:
-    cacheable: yes
-    use_opdk_ldap_remote_host: 'y'
-  when: opdk_ldap_ip != local_mgmt_ip and opdk_ldap_type == 1
+  - name: Set LDAP remote flag if LDAP will not be installed with the management server
+    set_fact:
+      cacheable: yes
+      use_opdk_ldap_remote_host: 'y'
+    when: opdk_ldap_ip != local_mgmt_ip and opdk_ldap_type == 1
 
-- name: Set the LDAP Peer IP and SID in dc_1 if replication is necessary
-  set_fact:
-    cacheable: yes
-    opdk_ldap_sid: '1'
-    opdk_ldap_peer: "{{ hostvars[groups['dc_2_ldap'][0]]['private_address'] }}"
-  when: region_num == '1' and opdk_ldap_type == '2' and groups['dc_2_ldap'] is defined and inventory_hostname in groups['dc_1']
+  - name: Set the LDAP Peer IP and SID in dc_1 if replication is necessary
+    set_fact:
+      cacheable: yes
+      opdk_ldap_sid: '1'
+      opdk_ldap_peer: "{{ hostvars[groups['dc_2_ldap'][0]]['private_address'] }}"
+    when: region_num == '1' and opdk_ldap_type == '2' and groups['dc_2_ldap'] is defined and inventory_hostname in groups['dc_1']
 
-- name: Set the LDAP Peer IP and SID in dc_2 if replication is necessary
-  set_fact:
-    cacheable: yes
-    opdk_ldap_sid: '2'
-    opdk_ldap_peer: "{{ hostvars[groups['dc_1_ldap'][0]]['private_address'] }}"
-  when: region_num == '2' and opdk_ldap_type == '2' and groups['dc_1_ldap'] is defined and inventory_hostname in groups['dc_2']
+  - name: Set the LDAP Peer IP and SID in dc_2 if replication is necessary
+    set_fact:
+      cacheable: yes
+      opdk_ldap_sid: '2'
+      opdk_ldap_peer: "{{ hostvars[groups['dc_1_ldap'][0]]['private_address'] }}"
+    when: region_num == '2' and opdk_ldap_type == '2' and groups['dc_1_ldap'] is defined and inventory_hostname in groups['dc_2']
+
+  when: groups['aio'] is not defined

@@ -1,6 +1,6 @@
 ---
 #    GCLOUD_ACCOUNT_EMAIL: friasc@google.com
-PROJECT_ID: friasc-opdk-04142021-2132
+PROJECT_ID: friasc-opdk-04162021-0953
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 INVENTORY_DIR: inventory
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
@@ -40,14 +40,15 @@ ROLE_BINDINGS:
   - "roles/networkmanagement.admin"
   - "roles/networkmanagement.viewer"
   - "roles/iam.serviceAccountUser"
+  - "roles/compute.loadBalancerAdmin"
 
 PRIVATE_CLOUD_INSTANCES:
-#  - { node_type: aio, count: 1, dc: 1, machine_type: 'n2-standard-16' }
-  - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
-  - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
-  - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
-  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
-  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
+  - { node_type: aio, count: 1, dc: 1, machine_type: 'n2-standard-16' }
+#  - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+#  - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
 
 IMAGE_PROJECT: 'centos-cloud'
 IMAGE_FAMILY: 'centos-7'
@@ -78,7 +79,7 @@ qpid_ports: ["1102","4529","5672","8083","8080"]
 pg_ports: ["1103","4530","5432","8084","8080"]
 ui_ports: ["9000","8080"]
 ldap_ports: ["10389","8080"]
-aio_ports: ["8080","9000","9001"]
+aio_ports: ["8080","9000","9001","5432"]
 
 disable_yum_repos:
   - google-cloud-sdk
