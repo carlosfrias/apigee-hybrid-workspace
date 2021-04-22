@@ -86,11 +86,11 @@ PG_PWD="{{ pg_pass }}"
 
 {% if opdk_monetization is defined and opdk_monetization | bool == True %}
 # Monetization has been configured
-PG_USER={{ pg_user }}
+PG_USER={{ pg_user | default ('postrgres') }}
 {% if pgmaster_ip is defined  %}
 MO_PG_HOST={{ pgmaster_ip }}
 {%  elif pg_ip is defined %}
-MO_PG_HOST={{ pg_ip }}
+MO_PG_HOST={{ pg_ip | default(hostvars['pg'][0]['private_address']) }}
 {% endif %}
 MO_PG_USER={{ pg_user }}
 MO_PG_PASSWD="{{ pg_pass }}"

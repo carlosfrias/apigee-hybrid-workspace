@@ -13,4 +13,4 @@ transaction.yaml
 **/git-repos/**
 **/resources/**
 *.swp
-
+**/ansible.cfg.template

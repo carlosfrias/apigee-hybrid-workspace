@@ -1,0 +1,19 @@
+---
+# tasks file for apigee-opdk-setup-provisioning
+- name: Update cache with key and value
+  set_fact:
+    cacheable: yes
+    apigee_provision_dir: '{{ apigee_provision_dir }}'
+
+- name: Obtain apigee-provision status
+  stat:
+    path: '{{ apigee_provision_dir }}'
+  register: apigee_provision_status
+
+- name: Apigee provision installation
+  shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-provision install'
+  when: not apigee_provision_status.stat.exists
+
+- name: Apigee organization setup
+  shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-provision {{ provisioning_action }} -f {{ provisioning_config_file }}'
+  ignore_errors: yes
