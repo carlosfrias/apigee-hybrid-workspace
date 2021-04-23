@@ -110,7 +110,11 @@
     - { role: apigee_opdk_setup_os_pip, tags: ['pip'] }
     - { role: apigee_opdk_setup_os_sysctl, tags: ['sysctl'] }
     - { role: apigee_opdk_setup_selinux_disable, tags: ['minimum', 'selinux'] }
-    - { role: apigee_server_restart, tags: ['minimum','restart-server','selinux','sysctl'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+    - { role: apigee_server_restart,
+        tags: ['minimum','restart-server','selinux','sysctl'],
+        start_check_delay: 45,
+        when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)
+      }
     - { role: apigee_opdk_setup_os_common, tags: ['os-common'] }
     - { role: apigee_opdk_setup_openjdk_cache, tags: ['minimum', 'openjdk','bootstrap'], jdk_version: '1.8' }
     - { role: apigee_opdk_setup_openjdk, tags: ['minimum', 'openjdk','bootstrap'], jdk_version: '1.8' }
