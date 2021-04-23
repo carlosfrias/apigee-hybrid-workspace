@@ -1,11 +1,13 @@
 ---
-- name: Delete infrastructure for private cloud in GCP
+- name: Delete Project & Infrastructure
   hosts: localhost
   connection: local
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - attributes.yml
+    - ../../attributes.yml
 
   collections:
     - bap_coe.gcp_management
