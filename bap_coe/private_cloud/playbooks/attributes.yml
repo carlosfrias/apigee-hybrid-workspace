@@ -1,6 +1,6 @@
 ---
 #    GCLOUD_ACCOUNT_EMAIL: friasc@google.com
-PROJECT_ID: friasc-opdk-04232021-1857
+PROJECT_ID: friasc-opdk-04252021-2155
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 INVENTORY_DIR: inventory
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key

@@ -25,7 +25,7 @@
 
 - name: Delete WORK_DIR folder
   file:
-    path: "{{ work_dir_path.stat.path }}"
+    path: "{{ work_dir_path.stat.path }}/"
     state: absent
   when: work_dir_path.stat.exists
 #  poll: 0
