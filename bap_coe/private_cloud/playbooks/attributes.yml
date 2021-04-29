@@ -1,5 +1,5 @@
 ---
-PROJECT_ID: friasc-opdk-04292021-1125
+PROJECT_ID: friasc-opdk-04292021-1234
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 INVENTORY_DIR: inventory
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
@@ -82,3 +82,5 @@ aio_ports: ["8080","9000","9001","5432"]
 disable_yum_repos:
   - google-cloud-sdk
   - google-compute-engine
+
+opdk_cass_auth: y

@@ -17,8 +17,8 @@
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_project_services_enable, tags: ['services'] }
     - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
-#    - { role: gce_network_create, tags: ['network','firewall'] }
-#    - { role: gce_firewall_create, tags: ['firewall'] }
+    - { role: gce_network_create, tags: ['network','firewall'] }
+    - { role: gce_firewall_create, tags: ['firewall'] }
     - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 #    - { role: service_account_file_processing, tags: ['bastion'] }
 #    - { role: gce_bastion_host_create, tags: ['bastion'], NETWORK_TAGS: "bastion", NAME_INSTANCE_PREFIX: "bastion" }
