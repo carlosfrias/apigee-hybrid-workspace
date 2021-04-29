@@ -39,6 +39,12 @@
 
 - name: Delete gce-dynamic-inventory.gcp.yml
   file:
-    path: "{{ status.stat.path }}"
+    path: "{{ status.stat.path }}/inventory"
     state: absent
+  when: status.stat.exists
+
+- name: Restore empty folder
+  file:
+    path: "{{ status.stat.path }}/inventory"
+    state: directory
   when: status.stat.exists

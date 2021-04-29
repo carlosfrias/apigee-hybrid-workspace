@@ -1,7 +1,12 @@
 ---
 # tasks file for gce_firewall_create
+- name: Assert we have firewall_ports
+  assert:
+    that:
+      - firewall_ports is defined
+    msg: "Please provide the collection of firewall_ports"
+
 - name: create firewall rule
-  tags: ['firewall']
   google.cloud.gcp_compute_firewall:
     name: "{{ VPC_NETWORK_INFO.name | default('default') }}-firewall-{{ item.port_type }}"
     target_tags: "{{ VPC_NETWORK_INFO.name | default('default') }}-firewall-{{ item.port_type }}"
@@ -13,4 +18,4 @@
     scopes: "{{ SCOPE_COMPUTE }}"
     allowed:
       - { ip_protocol: "tcp", ports: "{{ item.ports }}" }
-  loop: "{{ firewall_ports }}"
+  with_items: "{{ firewall_ports }}"

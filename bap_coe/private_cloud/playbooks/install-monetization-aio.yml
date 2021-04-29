@@ -1,8 +1,4 @@
 ---
-- name: Include install-aio playbook
-  import_playbook: install-aio.yml
-
-
 - name: Complete OS Pre-requisites
   hosts: edge
   tags: ['os']

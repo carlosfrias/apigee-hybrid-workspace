@@ -54,7 +54,7 @@ ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_addres
 USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
 CASS_HOSTS="{{ cassandra_hosts }}"
 CASS_USERNAME={{ opdk_cass_username }}
-CASS_PASSWORD="{{ opdk_cass_password }}"
+CASS_PASSWORD={{ opdk_cass_password }}
 CASS_AUTH={{ opdk_cass_auth }}
 
 SMTPMAILFROM="{{ opdk_smtp_mail_from }} <{{  opdk_user_email }}>"

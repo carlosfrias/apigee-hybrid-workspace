@@ -24,7 +24,7 @@
   with_items: "{{ GCP_SERVICES }}"
   poll: 2
   retries: 50
-  async: 90
+  async: 180
 
 #- name: Set IAM roles to installation user
 #  shell: |

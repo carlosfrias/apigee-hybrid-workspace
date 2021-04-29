@@ -18,4 +18,6 @@ for ssh_arg in "${@: 1: $# -3}" ; do
         fi
 done
 
-exec gcloud compute ssh $opts "${host}" -- -C "${cmd}"
+
+gcloud auth activate-service-account {{ SERVICE_ACCOUNT_EMAIL }} --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
+gcloud compute ssh $opts "${host}" -- -C "${cmd}" --project {{ PROJECT_ID }}

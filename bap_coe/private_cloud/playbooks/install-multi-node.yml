@@ -369,3 +369,19 @@
     - { role: apigee_opdk_cassandra_rebuild, when: region_num > "2", tags: ['cassandra-rebuild']  }
 
 
+- name: Validate setup
+  hosts: ms
+  serial: 1
+  tags: ['validate']
+  vars:
+    property_folders:
+      - "~/.apigee-secure"
+      - "~/.apigee"
+
+  collections:
+    - bap_coe.private_cloud
+
+  roles:
+    - apigee_opdk_modules
+    - { role: apigee_opdk_setup_validate, tags: ['validate'] }
+    - { role: apigee_opdk_setup_validate_cleanup, tags: ['validate', 'validate-cleanup'] }

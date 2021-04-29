@@ -4,8 +4,9 @@
   become: yes
   reboot:
     reboot_timeout: "{{ start_check_delay | d(15) }}"
-  async: 1
-  poll: 0
+    connect_timeout: "{{ start_check_delay | d(30) }}"
+#  async: 1
+#  poll: 0
 
 - name: Waiting for server to complete restarting
   become: no

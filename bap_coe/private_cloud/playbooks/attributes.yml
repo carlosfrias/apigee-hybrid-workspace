@@ -1,6 +1,5 @@
 ---
-#    GCLOUD_ACCOUNT_EMAIL: friasc@google.com
-PROJECT_ID: friasc-opdk-04252021-2155
+PROJECT_ID: friasc-opdk-04292021-1125
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 INVENTORY_DIR: inventory
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
@@ -42,28 +41,27 @@ ROLE_BINDINGS:
   - "roles/iam.serviceAccountUser"
   - "roles/compute.loadBalancerAdmin"
 
-PRIVATE_CLOUD_INSTANCES:
-#  - { node_type: aio, count: 1, dc: 1, machine_type: 'n2-standard-16' }
-  - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
-  - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
-  - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
-  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
-  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
+#PRIVATE_CLOUD_INSTANCES:
+#  - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+#  - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
 
 IMAGE_PROJECT: 'centos-cloud'
 IMAGE_FAMILY: 'centos-7'
 
-firewall_ports:
-  - { ports: "{{ ms_ports }}", port_type: 'ms' }
-  - { ports: "{{ router_ports }}", port_type: 'router' }
-  - { ports: "{{ mp_ports }}", port_type: 'mp' }
-  - { ports: "{{ zk_ports }}", port_type: 'zk' }
-  - { ports: "{{ cassandra_ports }}", port_type: 'ds' }
-  - { ports: "{{ qpid_ports }}", port_type: 'qs' }
-  - { ports: "{{ pg_ports }}", port_type: 'pg' }
-  - { ports: "{{ ui_ports }}", port_type: 'ui' }
-  - { ports: "{{ ldap_ports }}", port_type: 'ldap' }
-  - { ports: "{{ aio_ports }}", port_type: 'aio' }
+#firewall_ports:
+#  - { ports: "{{ ms_ports }}", port_type: 'ms' }
+#  - { ports: "{{ router_ports }}", port_type: 'router' }
+#  - { ports: "{{ mp_ports }}", port_type: 'mp' }
+#  - { ports: "{{ zk_ports }}", port_type: 'zk' }
+#  - { ports: "{{ cassandra_ports }}", port_type: 'ds' }
+#  - { ports: "{{ qpid_ports }}", port_type: 'qs' }
+#  - { ports: "{{ pg_ports }}", port_type: 'pg' }
+#  - { ports: "{{ ui_ports }}", port_type: 'ui' }
+#  - { ports: "{{ ldap_ports }}", port_type: 'ldap' }
+#  - { ports: "{{ aio_ports }}", port_type: 'aio' }
 
 address_types:
   - 'ms'
