@@ -1,7 +1,7 @@
 ---
-PROJECT_ID: friasc-opdk-04292021-1234
+PROJECT_ID: friasc-opdk-04292021-2221
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
-INVENTORY_DIR: inventory
+INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
 NAME_INSTANCE_PREFIX: dc-1
 GCP_ZONE: us-east1-b

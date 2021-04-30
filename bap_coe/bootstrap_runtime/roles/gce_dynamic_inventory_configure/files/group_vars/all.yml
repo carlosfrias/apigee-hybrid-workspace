@@ -1,6 +1,6 @@
 ---
-ansible_ssh_args: --tunnel-through-iap --internal-ip --zone={{ gcp_zone | default('us-east1-b') }} --no-user-output-enabled --quiet
-ansible_scp_extra_args: --tunnel-through-iap --internal-ip --zone={{ gcp_zone | default('us-east1-b') }} --quiet
+ansible_ssh_args: --tunnel-through-iap --zone={{ gcp_zone | default('us-east1-b') }} --no-user-output-enabled --quiet
+ansible_scp_extra_args: --tunnel-through-iap --zone={{ gcp_zone | default('us-east1-b') }} --quiet
 ansible_ssh_executable: inventory/gcp-ssh-wrapper.sh
 ansible_scp_if_ssh: True
 ansible_scp_executable: inventory/gcp-scp-wrapper.sh

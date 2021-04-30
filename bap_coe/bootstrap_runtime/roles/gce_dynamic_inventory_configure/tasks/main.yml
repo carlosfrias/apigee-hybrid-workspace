@@ -10,37 +10,37 @@
   set_fact:
     ip_scope: "{{ ip_scope | default('public') }}"
 
-- name: Assert that the GCLOUD_ACCOUNT_USER is available
+- name: Assert that the GCLOUD_ACCOUNT_USER is provided
   assert:
     that:
       - GCLOUD_ACCOUNT_USER is defined
     msg: "Please provide the GCLOUD_ACCOUNT_USER"
 
-- name: Assert SERVICE_ACCOUNT_FILE_PATH
+- name: Assert SERVICE_ACCOUNT_FILE_PATH is provided
   assert:
     that:
       - SERVICE_ACCOUNT_FILE_PATH is defined
     msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
 
-- name: Assert GCP_ZONE
+- name: Assert GCP_ZONE is provided
   assert:
     that:
       - GCP_ZONE is defined
     msg: "Please provide the GCP_ZONE"
 
-- name: Assert PROJECT_ID
+- name: Assert PROJECT_ID is provided
   assert:
     that:
       - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
-- name: Assert INVENTORY_DIR
+- name: Assert INVENTORY_DIR is provided
   assert:
     that:
       - INVENTORY_DIR is defined
     msg: "Please provide the INVENTORY_DIR"
 
-- name: Assert INVENTORY_DIR
+- name: Assert INVENTORY_DIR exists
   file:
     path: "{{ INVENTORY_DIR }}/group_vars"
     state: directory
@@ -60,7 +60,6 @@
     content: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
     dest: "{{ service_account_file_temp_path.path }}"
 
-
 - name: Generate config files
   template:
     src: "{{ item.src }}"
@@ -68,6 +67,8 @@
   with_items:
     - { src: "gce-dynamic-inventory.gcp.yml.j2", dest: "{{ INVENTORY_DIR }}/{{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml" }
     - { src: "ansible.cfg.j2", dest: "{{ playbook_dir }}/ansible.cfg.template" }
+    - { src: "gcp-scp-wrapper.sh.j2", dest: "{{ INVENTORY_DIR }}/gcp-scp-wrapper.sh" }
+    - { src: "gcp-ssh-wrapper.sh.j2", dest: "{{ INVENTORY_DIR }}/gcp-ssh-wrapper.sh" }
 
 - name: Set shell scripts to executable
   file:

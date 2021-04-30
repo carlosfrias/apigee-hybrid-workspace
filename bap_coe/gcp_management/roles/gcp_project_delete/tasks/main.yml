@@ -34,17 +34,16 @@
 
 - name: Assert that gce-dynamic-inventory.gcp.yml is available for removal
   stat:
-    path: "{{ playbook_dir }}/inventory"
+    path: "{{ playbook_dir }}/inventory/"
   register: status
 
 - name: Delete gce-dynamic-inventory.gcp.yml
   file:
-    path: "{{ status.stat.path }}/inventory"
+    path: "{{ playbook_dir }}/inventory"
     state: absent
-  when: status.stat.exists
+  when: status.stat.exists is defined and status.stat.exists is true
 
 - name: Restore empty folder
   file:
-    path: "{{ status.stat.path }}/inventory"
+    path: "{{ playbook_dir }}/inventory"
     state: directory
-  when: status.stat.exists
