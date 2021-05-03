@@ -1,0 +1,5 @@
+---
+
+# Used with restarting servers
+# start_check_delay: 0
+# server_restart_timeout: 1

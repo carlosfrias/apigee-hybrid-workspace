@@ -1,0 +1,5 @@
+---
+
+# Modify timeouts and wait times for Apigee Service scripts
+#port_timeout: 600
+#up_timeout: 600

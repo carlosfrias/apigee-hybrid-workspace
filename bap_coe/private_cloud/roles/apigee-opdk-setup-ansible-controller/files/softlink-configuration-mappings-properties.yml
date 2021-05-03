@@ -1,0 +1,5 @@
+---
+
+# Used for creating softlinks from apigee system folders to customer hard targets
+# target_links:
+#- { src: '/apps/opt/apigee', dest: '/opt/apigee' }
