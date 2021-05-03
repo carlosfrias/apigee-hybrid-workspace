@@ -42,8 +42,11 @@
 
 - name: Assert INVENTORY_DIR exists
   file:
-    path: "{{ INVENTORY_DIR }}/group_vars"
+    path: "{{ item }}"
     state: directory
+  with_items:
+    - "{{ INVENTORY_DIR }}"
+#    - "{{ INVENTORY_DIR }}/group_vars"
 
 - name: Setup GCP Attributes from service account file
   include_role:
