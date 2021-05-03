@@ -30,7 +30,7 @@
     owner: '{{ opdk_user_name }}'
     group: '{{ opdk_group_name }}'
     force: yes
-  when: groups['rmp'] is defined or groups['aio'] is defined 
+  when: groups['rmp'] is defined or groups['aio'] is defined
 
 - name: Create apigee-validate.conf file for Router separate from MP
   become: true
