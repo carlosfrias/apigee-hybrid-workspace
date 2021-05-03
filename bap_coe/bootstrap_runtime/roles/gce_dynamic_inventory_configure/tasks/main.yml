@@ -67,23 +67,23 @@
   with_items:
     - { src: "gce-dynamic-inventory.gcp.yml.j2", dest: "{{ INVENTORY_DIR }}/{{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml" }
     - { src: "ansible.cfg.j2", dest: "{{ playbook_dir }}/ansible.cfg.template" }
-    - { src: "gcp-scp-wrapper.sh.j2", dest: "{{ INVENTORY_DIR }}/gcp-scp-wrapper.sh" }
-    - { src: "gcp-ssh-wrapper.sh.j2", dest: "{{ INVENTORY_DIR }}/gcp-ssh-wrapper.sh" }
+#    - { src: "gcp-scp-wrapper.sh.j2", dest: "{{ INVENTORY_DIR }}/gcp-scp-wrapper.sh" }
+#    - { src: "gcp-ssh-wrapper.sh.j2", dest: "{{ INVENTORY_DIR }}/gcp-ssh-wrapper.sh" }
 
-- name: Set shell scripts to executable
-  file:
-    path: "{{ item }}"
-    mode: 0777
-  with_items:
-    - "{{ INVENTORY_DIR }}/gcp-scp-wrapper.sh"
-    - "{{ INVENTORY_DIR }}/gcp-ssh-wrapper.sh"
+#- name: Set shell scripts to executable
+#  file:
+#    path: "{{ item }}"
+#    mode: 0777
+#  with_items:
+#    - "{{ INVENTORY_DIR }}/gcp-scp-wrapper.sh"
+#    - "{{ INVENTORY_DIR }}/gcp-ssh-wrapper.sh"
 
-- name: Update inventory for use of ssh-iap for access
-  copy:
-    src: "{{ item.src}}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: "group_vars/all.yml", dest: "{{ INVENTORY_DIR }}/group_vars/all.yml" }
+#- name: Update inventory for use of ssh-iap for access
+#  copy:
+#    src: "{{ item.src}}"
+#    dest: "{{ item.dest }}"
+#  with_items:
+#    - { src: "group_vars/all.yml", dest: "{{ INVENTORY_DIR }}/group_vars/all.yml" }
 
 - name: Refresh the inventory
   meta: refresh_inventory
