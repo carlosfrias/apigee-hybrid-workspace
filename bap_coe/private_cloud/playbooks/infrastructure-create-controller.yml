@@ -5,6 +5,7 @@
     PRE_NETWORK_TAGS: "{{ VPC_NETWORK_INFO.name }}-firewall-{{ instance.node_type }}"
     PRE_INSTANCE_COUNT: "{{ instance.count }}"
     MACHINE_TYPE: "{{ instance.machine_type }}"
+    ACCESS_TYPE: "{{ instance.access_type | default('ext') }}"
 
 - name: Create Private Cloud instances
   include_role:
