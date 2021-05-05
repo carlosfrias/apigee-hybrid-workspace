@@ -22,7 +22,7 @@
 
   vars:
     PRIVATE_CLOUD_INSTANCES:
-      - { node_type: aio, count: 1, dc: 1, machine_type: 'n2-standard-16' } #, access_type: 'int'}
+      - { node_type: aio, count: 1, dc: 1, machine_type: 'n2-standard-16', access_type: 'int' }
     firewall_ports:
       - { ports: "{{ aio_ports }}", port_type: 'aio' }
 
