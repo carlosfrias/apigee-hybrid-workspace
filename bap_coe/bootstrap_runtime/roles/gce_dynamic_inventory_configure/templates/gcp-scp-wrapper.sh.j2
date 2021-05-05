@@ -23,3 +23,33 @@ cmd=`echo "${cmd}" | tr -d []`
 
 gcloud auth activate-service-account {{ SERVICE_ACCOUNT_EMAIL }} --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
 gcloud compute scp $opts "${host}" "${cmd}" --project {{ PROJECT_ID }}
+
+
+#!/bin/sh
+set -o errexit
+# Wraps the gcloud utility to enable connecting to instances which are behind
+# GCP Cloud IAP. Used by setting the `ansible_ssh_executable` setting for a play
+# or inventory. Parses out the relevant information from Ansible's call to the
+# script and injects into the right places of the gcloud utility.
+
+arg_string="$@"
+
+grep_hostname_regex='[a-z]*[0-9]\{2\}\(live\|test\)'
+sed_hostname_regex='[a-z]*[0-9]{2}(live|test)'
+
+target_host=$(
+echo "$arg_string\c" | grep -o "$grep_hostname_regex"
+)
+
+ssh_args=$(
+echo "$arg_string\c" | sed -E "s# ${sed_hostname_regex}.*##"
+)
+
+cmd=$(
+echo "$arg_string\c" | sed -E "s#.*${sed_hostname_regex} ##"
+)
+
+gcloud compute scp "$target_host" \
+--command="$cmd" \
+--tunnel-through-iap \
+-- $ssh_args

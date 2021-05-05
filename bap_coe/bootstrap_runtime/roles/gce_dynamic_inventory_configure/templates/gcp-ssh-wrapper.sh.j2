@@ -1,23 +1,28 @@
-#!/bin/bash
-# This is a wrapper script allowing to use GCP's IAP SSH option to connect
-# to our servers.
+#!/bin/sh
+set -o errexit
+# Wraps the gcloud utility to enable connecting to instances which are behind
+# GCP Cloud IAP. Used by setting the `ansible_ssh_executable` setting for a play
+# or inventory. Parses out the relevant information from Ansible's call to the
+# script and injects into the right places of the gcloud utility.
 
-# Ansible passes a large number of SSH parameters along with the hostname as the
-# second to last argument and the command as the last. We will pop the last two
-# arguments off of the list and then pass all of the other SSH flags through
-# without modification:
-host="${@: -2: 1}"
-cmd="${@: -1: 1}"
+arg_string="$@"
 
-# Unfortunately ansible has hardcoded ssh options, so we need to filter these out
-# It's an ugly hack, but for now we'll only accept the options starting with '--'
-declare -a opts
-for ssh_arg in "${@: 1: $# -3}" ; do
-        if [[ "${ssh_arg}" == --* ]] ; then
-                opts+="${ssh_arg} "
-        fi
-done
+grep_hostname_regex='[a-z]*[0-9]\{2\}\(live\|test\)'
+sed_hostname_regex='[a-z]*[0-9]{2}(live|test)'
 
+target_host=$(
+echo "$arg_string\c" | grep -o "$grep_hostname_regex"
+)
 
-gcloud auth activate-service-account {{ SERVICE_ACCOUNT_EMAIL }} --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
-gcloud compute ssh $opts "${host}" -- -C "${cmd}" --project {{ PROJECT_ID }}
+ssh_args=$(
+echo "$arg_string\c" | sed -E "s# ${sed_hostname_regex}.*##"
+)
+
+cmd=$(
+echo "$arg_string\c" | sed -E "s#.*${sed_hostname_regex} ##"
+)
+
+gcloud compute ssh "$target_host" \
+--command="$cmd" \
+--tunnel-through-iap \
+-- $ssh_args
