@@ -23,6 +23,4 @@ echo "$arg_string\c" | sed -E "s#.*${sed_hostname_regex} ##"
 )
 
 gcloud compute ssh "$target_host" \
---command="$cmd" \
---tunnel-through-iap \
--- $ssh_args
+--command="$cmd" $ssh_args
