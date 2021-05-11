@@ -5,3 +5,7 @@ ansible_ssh_executable: gcloud compute ssh --tunnel-through-iap --zone={{ gcp_zo
 #ansible_ssh_executable: inventory/gcp-ssh-wrapper.sh
 # ansible_scp_if_ssh: True
 # ansible_scp_executable: inventory/gcp-scp-wrapper.sh
+
+---
+ansible_ssh_args: --tunnel-through-iap --zone={{ zone }} --no-user-output-enabled --quiet
+ansible_scp_extra_args: --tunnel-through-iap --zone={{ zone }} --quiet
