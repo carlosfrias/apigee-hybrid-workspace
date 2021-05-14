@@ -85,16 +85,10 @@
   async: 300
   when: ACCESS_TYPE == "int"
 
-- name: Assert GCE Instance Name
-  assert:
-    that:
-      - gce_instance.name is defined
-    msg: "Instance name is not available"
-    
 - name: Store GCE Instance Name
   set_fact:
     cacheable: yes
-    gce_instance_name: "{{ gce_instance.name }}"
+    gce_instance_name: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
 
 - name: Refreshing SSH
   command: "echo 'Refreshing GCP Compute SSH Config'"
