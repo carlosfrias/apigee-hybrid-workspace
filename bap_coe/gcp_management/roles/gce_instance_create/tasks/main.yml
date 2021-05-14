@@ -4,6 +4,7 @@
   set_fact:
     current_node_count: "{{ next_count | default(sequence) | default(1) }}"
     ACCESS_TYPE: "{{ ACCESS_TYPE | default('ext') }}"
+    gce_instance_name: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
 
 - name: create a disk
   gcp_compute_disk:
@@ -84,11 +85,6 @@
   poll: 0
   async: 300
   when: ACCESS_TYPE == "int"
-
-- name: Store GCE Instance Name
-  set_fact:
-    cacheable: yes
-    gce_instance_name: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
 
 - name: Refreshing SSH
   command: "echo 'Refreshing GCP Compute SSH Config'"
