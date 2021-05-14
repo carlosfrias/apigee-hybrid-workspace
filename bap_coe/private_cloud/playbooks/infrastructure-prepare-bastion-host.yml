@@ -17,21 +17,20 @@
     - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
     - { role: gce_network_create, tags: [ 'network','firewall' ] }
     - { role: gce_firewall_create, tags: ['firewall'] }
-#    - { role: service_account_file_processing, tags: ['bastion'] }
     - { role: gce_bastion_host_create, tags: ['bastion'], NETWORK_TAGS: "bastion", NAME_INSTANCE_PREFIX: "bastion" }
 
-  vars:
-    PRIVATE_CLOUD_INSTANCES:
-      - { node_type: aio, count: 1, dc: 1, machine_type: 'n2-standard-16', access_type: 'int' }
-    firewall_ports:
-      - { ports: "{{ aio_ports }}", port_type: 'aio' }
-
-  tasks:
-    - name: Create planet instances
-      include_tasks: infrastructure-create-controller.yml
-      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
-      loop_control:
-        loop_var: instance
+#  vars:
+#    PRIVATE_CLOUD_INSTANCES:
+#      - { node_type: aio, count: 1, dc: 1, machine_type: 'n2-standard-16', access_type: 'int' }
+#    firewall_ports:
+#      - { ports: "{{ aio_ports }}", port_type: 'aio' }
+#
+#  tasks:
+#    - name: Create planet instances
+#      include_tasks: infrastructure-create-controller.yml
+#      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+#      loop_control:
+#        loop_var: instance
 
 
 - name: Update runtime environment of instances

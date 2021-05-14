@@ -1,0 +1,13 @@
+---
+
+# Used to configure a custom pip.conf
+# pip_index_url: "https://private.repository.com/api/pypi/Pypi-remote/simple"
+# pip_conf_dir: "~/.pip"
+
+# Pip Packages for Ansible Scripts
+pip_packages:
+  - httplib2
+  - passlib
+  - urllib3
+  - requests
+  - six

@@ -1,0 +1,20 @@
+---
+
+## remove_components are used to remove system packages during a qpid upgrade
+remove_qpid_upgrade_components:
+  - qpid-cpp-server
+  - qpid-cpp-server-linearstore
+  - qpid-tools
+  - qpid-qmf
+  - python-qpid
+  - qpid-cpp-client
+  - qpid-proton-c
+
+## install_components are used to update the system packages during a qpid upgrade
+install_qpid_upgrade_components:
+  - yum-plugin-priorities
+  - apigee-qpidd
+
+# Qpid Download location if needed
+qpid_client: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-client-1.35.0-3.el7.x86_64.rpm
+qpid_server: ftp://fr2.rpmfind.net/linux/epel/7/x86_64/q/qpid-cpp-server-1.35.0-3.el7.x86_64.rpm

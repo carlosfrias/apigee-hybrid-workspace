@@ -1,0 +1,45 @@
+---
+# These are required yum packages
+yum_packages:
+  - bind-utils
+  - chkconfig
+  - curl
+  - tar
+  - wget
+  - yum-utils
+  - unzip
+  - rsync
+  - which
+  - libselinux-python
+  - nss
+  - openssh-clients
+  - openssh-server
+  - grep
+  - rpm
+  - rng-tools
+  - sed
+  - yum-plugin-priorities
+  - boost-filesystem
+  - boost-program-options
+#- http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-devel-0.14.0-2.el7.x86_64.rpm
+#- http://mirror.centos.org/centos/7/extras/x86_64/Packages/qpid-proton-c-0.14.0-2.el7.x86_64.rpm
+#- libdb4-4.8*
+
+# These are packages that can be excluded from yum installation:
+yum_exclude_packages:
+  - 'qpid-proton-c'
+  - 'qpid-cpp-server'
+  - 'qpid-tools'
+  - 'qpid-qmf'
+  - 'qpid-cpp-client'
+  - 'python-qpid'
+
+# These are optional yum packages that are useful for troubleshooting
+os_packages:
+  - lsof
+  - nc
+  - dos2unix
+  - tcpdump
+  - telnet
+  - vim
+  - tree
