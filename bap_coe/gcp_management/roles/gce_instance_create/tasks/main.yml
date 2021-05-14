@@ -85,10 +85,10 @@
   async: 300
   when: ACCESS_TYPE == "int"
 
-- name: Store GCE Instance Ext IP Address
+- name: Store GCE Instance Name
   set_fact:
     cacheable: yes
-    gce_instance_ext_name: "{{ gce_instance.name }}"
+    gce_instance_name: "{{ gce_instance.name }}"
 
 - name: Refreshing SSH
   command: "echo 'Refreshing GCP Compute SSH Config'"
