@@ -22,7 +22,7 @@
       gcp_compute_instance_info:
         zone: "{{ GCP_ZONE }}"
         filters:
-          - name = "{{ gce_instance_ext_name }}"
+          - name = "{{ gce_instance_name }}"
         project: "{{ PROJECT_ID }}"
         auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
         service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
@@ -31,13 +31,13 @@
     - name: Capture info for ProxyCommand
       set_fact:
         gce_instance_ext_IP: "{{ instance_info.resources[0].networkInterfaces[0].accessConfigs[0].natIP }}"
-        gce_instance_ext_name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence | default(start_pos) }}"
+        gce_instance_name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence | default(start_pos) }}"
 
     - name: Configure SSH ProxyCommand
       include_role:
         name: gce_bastion_host_ssh_config
       vars:
-        bastion_host_name: "{{ gce_instance_ext_name }}"
+        bastion_host_name: "{{ gce_instance_name }}"
         bastion_host_user: "{{ GCLOUD_ACCOUNT_USER }}"
         bastion_host_ip: "{{ gce_instance_ext_IP }}"
         bastion_target_host_range: "{{ NAME_INSTANCE_PREFIX }}*"
