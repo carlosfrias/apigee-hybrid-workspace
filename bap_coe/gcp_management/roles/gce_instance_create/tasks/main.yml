@@ -56,7 +56,6 @@
     set_fact:
       cacheable: yes
       gce_instance_ext_IP: "{{ gce_instance.networkInterfaces[0].accessConfigs[0].natIP }}"
-      gce_instance_ext_name: "{{ gce_instance.name }}"
   when: ACCESS_TYPE == "ext"
 
 - name: create an internally only accessible instance
@@ -81,10 +80,15 @@
       'startup-script': |
         {{ STARTUP_SCRIPT | default('') }}
     scopes: "{{ SCOPE_COMPUTE }}"
-  register: gce_instance_int
+  register: gce_instance
   poll: 0
   async: 300
   when: ACCESS_TYPE == "int"
+
+- name: Store GCE Instance Ext IP Address
+  set_fact:
+    cacheable: yes
+    gce_instance_ext_name: "{{ gce_instance.name }}"
 
 - name: Refreshing SSH
   command: "echo 'Refreshing GCP Compute SSH Config'"
