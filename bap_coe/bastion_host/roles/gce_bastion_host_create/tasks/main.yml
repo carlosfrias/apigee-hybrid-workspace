@@ -1,10 +1,10 @@
 ---
 # tasks file for gce_bastion_host_create
-- name: Create Firewall Rule
-  include_role:
-    name: bap_coe.gcp_management.gce_firewall_create
-  vars:
-    FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX | default('bastion') }}"
+#- name: Create Firewall Rule
+#  include_role:
+#    name: bap_coe.gcp_management.gce_firewall_create
+#  vars:
+#    FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX | default('bastion') }}"
 
 - name: GCE Instance Create | create instances
   include_role:
