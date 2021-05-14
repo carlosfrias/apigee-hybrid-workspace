@@ -16,10 +16,11 @@
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
     - { role: gce_network_create, tags: [ 'network','firewall' ] }
-    - { role: gce_firewall_create, tags: ['firewall'] }
-    - { role: gce_bastion_host_create, tags: ['bastion'], NETWORK_TAGS: "bastion", NAME_INSTANCE_PREFIX: "controller", ACCESS_TYPE: "int" }
+    - { role: gce_firewall_create, tags: ['firewall'], FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}" }
+    - { role: gce_bastion_host_create, tags: ['bastion'], NETWORK_TAGS: "bastion", ACCESS_TYPE: "int" }
 
   vars:
+    NAME_INSTANCE_PREFIX: "controller"
 #    PRIVATE_CLOUD_INSTANCES:
 #      - { node_type: aio, count: 1, dc: 1, machine_type: 'n2-standard-16', access_type: 'int' }
     firewall_ports:
