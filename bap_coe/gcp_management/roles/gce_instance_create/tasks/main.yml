@@ -3,7 +3,13 @@
 - name: Assert use of next_count if set
   set_fact:
     current_node_count: "{{ next_count | default(sequence) | default(1) }}"
+
+- name: Assert ACCESS_TYPE is set
+  set_fact:
     ACCESS_TYPE: "{{ ACCESS_TYPE | default('ext') }}"
+
+- name: Set gce_instance_name
+  set_fact:
     gce_instance_name: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
 
 - name: create a disk

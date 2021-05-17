@@ -18,6 +18,7 @@
     - { role: gce_network_create, tags: [ 'network','firewall' ] }
     - { role: gce_firewall_create, tags: ['firewall'], FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}" }
     - { role: gce_bastion_host_create, tags: ['bastion'], NETWORK_TAGS: "bastion", ACCESS_TYPE: "int" }
+    - { role: gce_tunnel_through_iap, tags: ['iap'] }
 
   vars:
     NAME_INSTANCE_PREFIX: "controller"
