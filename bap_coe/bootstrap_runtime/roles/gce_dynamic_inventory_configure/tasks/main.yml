@@ -62,10 +62,13 @@
     content: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
     dest: "{{ service_account_file_temp_path.path }}"
 
+-
+
 - name: Generate config files
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
+    force: yes
   with_items:
     - { src: "gce-dynamic-inventory.gcp.yml.j2", dest: "{{ INVENTORY_DIR }}/{{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml" }
     - { src: "ansible.cfg.j2", dest: "{{ playbook_dir }}/ansible.cfg.template" }
