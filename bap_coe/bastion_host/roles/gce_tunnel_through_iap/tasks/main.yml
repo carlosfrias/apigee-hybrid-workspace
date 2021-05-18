@@ -86,6 +86,21 @@
   with_items:
     - { src: "group_vars/all.yml", dest: "{{ INVENTORY_DIR }}/group_vars/all.yml" }
 
+- name: Assert [ssh_connection] in ansible.cfg for SSH wrappers
+  lineinfile:
+    path: "{{ ANBISLE_CONFIG | default('ansible.cfg') }}"
+    line: "[ssh_connection]"
+    state: present
+
+- name: Update ansible.cfg for SSH wrappers
+  lineinfile:
+    path: "{{ ANBISLE_CONFIG | default('ansible.cfg') }}"
+    insertafter: "[ssh_connection]"
+    state: present
+    line: "{{ item }}"
+  with_items:
+
+
 - name: Refresh the inventory
   meta: refresh_inventory
 
