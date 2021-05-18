@@ -1,5 +1,5 @@
 ---
-PROJECT_ID: friasc-opdk-05182021-1230
+PROJECT_ID: friasc-opdk-05182021-1537
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
