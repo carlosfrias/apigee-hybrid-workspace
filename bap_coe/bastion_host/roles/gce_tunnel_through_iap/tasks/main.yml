@@ -88,13 +88,13 @@
 
 - name: Assert [ssh_connection] in ansible.cfg for SSH wrappers
   lineinfile:
-    path: "{{ ANBISLE_CONFIG | default('ansible.cfg') }}"
+    path: "{{ playbook_dir }}/{{ ANSIBLE_CONFIG | default('ansible.cfg') }}"
     line: "[ssh_connection]"
     state: present
 
 - name: Update ansible.cfg for SSH wrappers
   lineinfile:
-    path: "{{ playbook_dir }}/{{ ANBISLE_CONFIG | default('ansible.cfg') }}"
+    path: "{{ playbook_dir }}/{{ ANSIBLE_CONFIG | default('ansible.cfg') }}"
     insertafter: "[ssh_connection]"
     state: present
     line: "{{ item }}"

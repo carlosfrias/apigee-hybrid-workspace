@@ -22,12 +22,5 @@ bin_ansible_callbacks = True
 stdout_callback = yaml
 stderr_callback = yaml
 
-[ssh_connection]
-pipelining = True
-scp_if_ssh = False
-ssh_executable = inventory/gcp-ssh-wrapper.sh
-ssh_args = None
-
 [inventory]
 enable_plugins = google.cloud.gcp_compute
-
