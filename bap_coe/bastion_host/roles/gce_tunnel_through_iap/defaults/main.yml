@@ -1,5 +1,6 @@
 ---
 # defaults file for gce_dynamic_inventory_configure
+inventory_dir: inventory
 ssh_connection_configs:
   - "# Enabling pipelining reduces the number of SSH operations required"
   - "# to execute a module on the remote server."
@@ -7,9 +8,9 @@ ssh_connection_configs:
   - "# when enabled."
   - "pipelining = True"
   - "scp_if_ssh = False"
-  - "ssh_executable = misc/gcp-ssh-wrapper.sh"
+  - "ssh_executable = {{ inventory_dir }}/gcp-ssh-wrapper.sh"
   - "ssh_args = None"
   - "# Tell ansible to use SCP for file transfers when connection is set to SSH"
   - "scp_if_ssh = True"
-  - "scp_executable = misc/gcp-scp-wrapper.sh"
+  - "scp_executable = {{ inventory_dir }}/gcp-scp-wrapper.sh"
 
