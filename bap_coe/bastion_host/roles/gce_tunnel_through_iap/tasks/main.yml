@@ -98,7 +98,7 @@
     insertafter: "[ssh_connection]"
     state: present
     line: "{{ item }}"
-  with_items:
+  with_items: "{{ ssh_connection_configs }}"
 
 
 - name: Refresh the inventory

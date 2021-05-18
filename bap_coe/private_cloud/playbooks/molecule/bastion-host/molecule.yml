@@ -20,7 +20,7 @@ provisioner:
     create: ../../infrastructure-create.yml
     destroy: ../../infrastructure-delete.yml
     prepare: ../../infrastructure-prepare-bastion-host.yml
-    converge: ../../install-aio.yml
+#    converge: ../../install-aio.yml
 verifier:
   name: ansible
   log: True
