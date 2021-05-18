@@ -94,7 +94,7 @@
 
 - name: Update ansible.cfg for SSH wrappers
   lineinfile:
-    path: "{{ ANBISLE_CONFIG | default('ansible.cfg') }}"
+    path: "{{ playbook_dir }}/{{ ANBISLE_CONFIG | default('ansible.cfg') }}"
     insertafter: "[ssh_connection]"
     state: present
     line: "{{ item }}"
