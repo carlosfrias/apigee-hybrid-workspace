@@ -4,6 +4,7 @@
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
     - ./attributes.yml
+    - variables/apigee-hybrid-region-single-asm-variables.yml
     - variables/apigee-hybrid-region-multi-asm-1.7.3-variables.yml
 
   collections:

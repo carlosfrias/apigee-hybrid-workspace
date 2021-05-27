@@ -1,22 +1,13 @@
 ---
 REGION: "us-central1"
-ENV_NAME: "test"
-APIGEE_RUNTIME_SIZE: "medium"
-REGION_NUMBER: 2
-CLUSTER_NAME: "apigee-hybrid-{{ REGION_NUMBER }}"
+CLUSTER_COUNT: 2
+CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
 CLUSTER_ZONE: "{{ REGION }}-c"
-NODE_SIZE: "e2-standard-8"
-NODE_COUNT: 8
-CASSANDRA_DATA_CENTER_NAME: "dc-{{ REGION_NUMBER }}"
+CASSANDRA_DATA_CENTER_NAME: "dc-{{ CLUSTER_COUNT }}"
 CASSANDRA_RACK_NAME: "ra-1"
-CASSANDRA_DATA_CENTER_NAME_SEED: "dc-1"
+CASSANDRA_DATA_CENTER_NAME_SEED: "dc-{{ CLUSTER_SEED }}"
 CASSANDRA_RACK_NAME_SEED: "ra-1"
-PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
-PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
-ISTIO_VERSION: "1.7.3"
-ISTIO_VERSION_REVISION: "asm.6"
-ASM_KPT_VERSION: "1.7-asm"
-CLUSTER_NAME_SEED: "apigee-hybrid-1"
+CLUSTER_NAME_SEED: "{{ CLUSTER_NAME }}"
 CLUSTER_ZONE_SEED: "{{ REGION_SEED }}-c"
 REGION_SEED: "us-east1"
 
