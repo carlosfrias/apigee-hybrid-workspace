@@ -1,6 +1,7 @@
 ---
-PROJECT_ID: friasc-hybrid-05-27-2021
+PROJECT_ID: friasc-hybrid-05-27-2021-1447
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
+TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
 NAME_INSTANCE_PREFIX: dc-1
@@ -96,4 +97,4 @@ SYSTEM_TOOLS:
   - 'tree'
   - 'netcat'
   - 'kubectl'
-#  - 'docker-ce'
+  - 'docker-ce'

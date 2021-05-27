@@ -3,7 +3,7 @@
   set_fact:
     cacheable: yes
     TOOLS_DIR: "{{ ansible_user_dir }}/bin"
-    WORK_DIR: "{{ playbook_dir }}/workdir/{{ PROJECT_ID }}"
+    WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 
 - name: Set tools attribute cache for Debian
   set_fact:
