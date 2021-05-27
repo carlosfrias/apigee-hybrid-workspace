@@ -3,13 +3,17 @@
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ./attributes.yml
     - variables/apigee-hybrid-region-multi-asm-1.7.3-variables.yml
 
   collections:
     - bap_coe.apigee_hybrid
 
   roles:
-    - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup-env'] }
+    - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup', 'gcp'] }
+    - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup','k*s'] }
+    - { role: apigee-hybrid-setup-environment-docker, tags: ['setup','docker'] }
+    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
     - { role: apigee-hybrid-cloud-dns-create, tags: ['dns'] }
     - { role: apigee-hybrid-env-create, tags: ['env'] }
     - { role: apigee-hybrid-group-create, tags: ['create-group','group'] }

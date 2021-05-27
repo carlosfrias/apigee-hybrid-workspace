@@ -1,6 +1,5 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
-PROJECT_ID: "friasc-hybrid-03232021-1034"
 APIGEE_VERSION: 1.4.2
 ISTIO_VERSION: 1.7.6
 ISTIO_VERSION_REVISION: "asm.1"  # with 1.7.6

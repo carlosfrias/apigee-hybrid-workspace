@@ -1,5 +1,4 @@
 ---
-PROJECT_ID: "friasc-hybrid-11102020-2100"
 REGION: "us-central1"
 ENV_NAME: "test"
 APIGEE_RUNTIME_SIZE: "medium"

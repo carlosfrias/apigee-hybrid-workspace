@@ -90,3 +90,10 @@ disable_yum_repos:
 opdk_cass_auth: y
 opdk_cass_password: cassandra
 opdk_cass_username: cassandra
+
+SYSTEM_TOOLS:
+  - 'rsync'
+  - 'tree'
+  - 'netcat'
+  - 'kubectl'
+#  - 'docker-ce'
