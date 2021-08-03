@@ -1,0 +1,28 @@
+---
+
+# OS Config for all Nodes
+clear_etc_hosts:
+  - { regexp: '(^::1.*localhost6.*)$', replace: '# \1' }
+
+# OS Config for all Nodes
+sysctl_minimum:
+  - { name: 'vm.swappiness', value: "{{ vm_swappiness }}" }
+  - { name: 'net.ipv4.tcp_fin_timeout', value: "{{ apigee_net_ipv4_tcp_fin_timeout }}" }
+  - { name: 'vm.max_map_count', value: '{{ apigee_max_map_count }}' }
+
+# OS Config for IPV6
+sysctl_ipv6:
+  - { name: 'net.ipv6.conf.all.disable_ipv6', value: '1' }
+  - { name: 'net.ipv6.conf.default.disable_ipv6', value: '1' }
+
+# OS Config for Postgres
+apigee_kernel_sem: '500 32000 32 1024'
+sysctl_pg:
+  - { name: 'kernel.sem', value: "{{ apigee_kernel_sem }}" }
+
+# apigee_limits is used to set the limits.conf for the node where OPDK components are installed.
+apigee_limits:
+  - { domain: '*', limit_type: '-', limit_item: 'memlock', value: 'unlimited' }
+  - { domain: '*', limit_type: '-', limit_item: 'nofile', value: '100000' }
+  - { domain: '*', limit_type: '-', limit_item: 'nproc', value: '32768' }
+  - { domain: '*', limit_type: '-', limit_item: 'as', value: 'unlimited' }

@@ -1,42 +1,19 @@
 ---
-ansible_python_interpreter: /usr/bin/python3
-PROJECT_ID: "friasc-hybrid-03232021-1034"
-APIGEE_VERSION: 1.4.2
-ISTIO_VERSION: 1.7.6
-ISTIO_VERSION_REVISION: "asm.1"  # with 1.7.6
-#ISTIO_VERSION: 1.6.11
-#ISTIO_VERSION_REVISION: "asm.1"  # with 1.6.11
-ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split('.')[0] }}.{{ ISTIO_VERSION.split('.')[1] }}"
-ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split('.')[2] }}"
-ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
-
-#PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
-#PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
-
-REGION: "us-east1"
+REGION: "{{ REGION_SEED }}"
 ENV_NAME: "test"
 APIGEE_RUNTIME_SIZE: "medium"
-CLUSTER_COUNT: 1
+CLUSTER_COUNT: "{{ CLUSTER_SEED }}"
 CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
 CLUSTER_ZONE: "{{ REGION }}-b"
 NODE_SIZE: "e2-standard-8"
 NODE_COUNT: 3
-CASSANDRA_DATA_CENTER_NAME: "dc-1"
+CASSANDRA_DATA_CENTER_NAME: "dc-{{ CLUSTER_COUNT }}"
 CASSANDRA_RACK_NAME: "ra-1"
 
 VALIDATE_PROJECT_ID: "{{ PROJECT_ID }}"
 VALIDATE_PROXY_URI_ENDPOINT: /notarget
 VALIDATE_PROXY_IP: "{{ INGRESS_IP }}"
 VALIDATE_PROXY_PORT: 443
-
-SYSTEM_TOOLS:
-- 'rsync'
-- 'tree'
-- 'netcat'
-- 'kubectl'
-
-#AZ_RESOURCE_GROUP: "friasc"
-#AZ_REGION: "eastus"
 
 SERVICE_ACCOUNTS:
 - apigee-metrics
@@ -46,34 +23,3 @@ SERVICE_ACCOUNTS:
 - apigee-cassandra
 - apigee-logger
 - apigee-watcher
-
-GCP_SERVICES:
-- "container.googleapis.com"
-- "compute.googleapis.com"
-- "stackdriver.googleapis.com"
-- "meshca.googleapis.com"
-- "meshtelemetry.googleapis.com"
-- "meshconfig.googleapis.com"
-- "iamcredentials.googleapis.com"
-- "anthos.googleapis.com"
-- "cloudresourcemanager.googleapis.com"
-- "gkeconnect.googleapis.com"
-- "gkehub.googleapis.com"
-- "serviceusage.googleapis.com"
-- "sourcerepo.googleapis.com"
-- "cloudbuild.googleapis.com"
-- "secretmanager.googleapis.com"
-- "dns.googleapis.com"
-- "pubsub.googleapis.com"
-- "apigee.googleapis.com"
-- "apigeeconnect.googleapis.com"
-- "monitoring.googleapis.com"
-- "logging.googleapis.com"
-- "cloudtrace.googleapis.com"
-- "privateca.googleapis.com"
-
-
-DEFAULT_GCP_SYSTEM_TOOLS:
-  - gnupg2
-  - ca-certificates
-  - apt-transport-https

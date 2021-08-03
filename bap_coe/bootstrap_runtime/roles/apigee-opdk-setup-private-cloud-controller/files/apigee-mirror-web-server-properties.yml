@@ -1,0 +1,6 @@
+---
+
+# Address and location of the Apigee Mirror web server
+# apigee_repo_uri: 10.142.0.4:3939
+# apigee_repo_protocol: http
+# apigeereleasever: "{{ opdk_version }}"

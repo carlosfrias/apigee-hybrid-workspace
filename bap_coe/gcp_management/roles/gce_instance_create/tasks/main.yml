@@ -3,7 +3,14 @@
 - name: Assert use of next_count if set
   set_fact:
     current_node_count: "{{ next_count | default(sequence) | default(1) }}"
+
+- name: Assert ACCESS_TYPE is set
+  set_fact:
     ACCESS_TYPE: "{{ ACCESS_TYPE | default('ext') }}"
+
+- name: Set gce_instance_name
+  set_fact:
+    gce_instance_name: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
 
 - name: create a disk
   gcp_compute_disk:
@@ -56,7 +63,6 @@
     set_fact:
       cacheable: yes
       gce_instance_ext_IP: "{{ gce_instance.networkInterfaces[0].accessConfigs[0].natIP }}"
-      gce_instance_ext_name: "{{ gce_instance.name }}"
   when: ACCESS_TYPE == "ext"
 
 - name: create an internally only accessible instance
@@ -81,7 +87,7 @@
       'startup-script': |
         {{ STARTUP_SCRIPT | default('') }}
     scopes: "{{ SCOPE_COMPUTE }}"
-  register: gce_instance_int
+  register: gce_instance
   poll: 0
   async: 300
   when: ACCESS_TYPE == "int"

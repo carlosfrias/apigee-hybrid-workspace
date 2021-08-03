@@ -1,0 +1,8 @@
+---
+opdk_smtp_skip: "y"
+opdk_smtp_mail_from: "{{  opdk_user_email }}"
+opdk_smtp_host: "smtp.gmail.com"
+opdk_smtp_port: "25"
+opdk_smtp_user: ""
+opdk_smtp_password: ""
+opdk_smtp_ssl: "n"

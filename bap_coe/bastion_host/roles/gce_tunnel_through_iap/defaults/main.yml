@@ -1,0 +1,11 @@
+---
+# defaults file for gce_dynamic_inventory_configure
+inventory_dir: inventory
+ssh_connection_configs:
+  - "pipelining = True"
+  - "scp_if_ssh = False"
+  - "ssh_executable = {{ inventory_dir }}/gcp-ssh-wrapper.sh"
+  - "ssh_args = None"
+  - "scp_if_sch = True"
+  - "scp_executable = {{ inventory_dir }}/gcp-scp-wrapper.sh"
+

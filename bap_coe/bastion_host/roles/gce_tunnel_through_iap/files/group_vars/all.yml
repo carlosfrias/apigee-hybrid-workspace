@@ -1,0 +1,3 @@
+---
+ansible_ssh_args: --tunnel-through-iap --zone={{ GCP_ZONE }} --no-user-output-enabled --quiet
+ansible_scp_extra_args: --tunnel-through-iap --zone={{ GCP_ZONE }} --quiet

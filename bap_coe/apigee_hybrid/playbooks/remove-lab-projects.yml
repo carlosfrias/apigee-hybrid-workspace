@@ -2,6 +2,7 @@
   hosts: localhost
 
   vars_files:
+  - ./attributes.yml
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
   - ./variables/apigee-hybrid-region-single-asm-variables.yml
 
@@ -19,7 +20,7 @@
 
     - name: set WORK_DIR to tmp
       set_fact: 
-        tmp_work_dir: "{{ playbook_dir + '/workdir' }}"
+        tmp_work_dir: "{{ playbook_dir }}/{{ WORK_DIR }}"
 
     - name: Remove projects
       include_role:

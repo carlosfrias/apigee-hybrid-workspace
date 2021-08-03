@@ -1,0 +1,32 @@
+---
+# Set to y if you are connecting to a remote LDAP server.
+# If n, Edge installs OpenLDAP when it installs the Management Server.
+# Default value is n
+#use_opdk_ldap_remote_host: n
+
+# If connecting to remote OpenLDAP server, specify the IP/DNS name and port.
+#opdk_ldap_host:       # IP or DNS name of OpenLDAP node.
+#opdk_ldap_port: 10389  # Default is 10389.
+
+# Specify OpenLDAP without replication, 1, or with replication, 2.
+#opdk_ldap_type: 1
+
+# OpenLdap Yum Packages to Install
+openldap:
+  - openldap
+  - openldap-clients
+  - openldap-servers
+
+# OpenLdap Yum packages for a Downgrade if needed
+openldap_downgrade_version:
+  - openldap-2.4.40
+  - openldap-clients-2.4.40
+  - openldap-servers-2.4.40
+
+# OpenLdap RMP Download Locations if needed
+openldap_named_repo_host: http://mirror.centos.org/centos/{{ ansible_distribution_major_version }}/os/x86_64/Packages
+openldap_named_legacy_version: 2.4.40
+openldap_named_packages:
+  - "{{ openldap_named_repo_hosts}}/openldap-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
+  - "{{ openldap_named_repo_hosts}}/openldap-clients-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"
+  - "{{ openldap_named_repo_hosts}}/openldap-servers-{{ openldap_legacy_version }}-16.el6.x86_64.rpm"

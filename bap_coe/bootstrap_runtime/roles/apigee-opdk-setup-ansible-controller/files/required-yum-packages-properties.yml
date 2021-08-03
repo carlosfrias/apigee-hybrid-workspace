@@ -1,0 +1,33 @@
+---
+# These are required yum packages
+yum_packages:
+  - bind-utils
+  - chkconfig
+  - curl
+  - tar
+  - wget
+  - yum-utils
+  - unzip
+  - rsync
+  - which
+  - libselinux-python
+  - nss
+  - openssh-clients
+  - openssh-server
+  - grep
+  - rpm
+  - rng-tools
+  - sed
+  - yum-plugin-priorities
+  - boost-filesystem
+  - boost-program-options
+
+# These are optional yum packages that are useful for troubleshooting
+os_packages:
+  - lsof
+  - nc
+  - dos2unix
+  - tcpdump
+  - telnet
+  - vim
+  - tree

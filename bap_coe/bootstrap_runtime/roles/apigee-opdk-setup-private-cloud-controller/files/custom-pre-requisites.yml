@@ -1,0 +1,9 @@
+---
+custom_pre_flight_commands:
+  - "/opt/quest/bin/vastool unconfigure pam"
+
+custom_pre_flight_file_updates:
+  - { path: "/etc/yum.conf", regexp: "localpkg_gpgcheck=1$", replace: "localpkg_check=0" }
+  - { path: "/etc/hosts.allow", regexp: "(<?!#)(.*)", replace: '#\1' }
+  - { path: "/etc/hosts.deny", regexp: "(<?!#)(.*)", replace: '#\1' }
+
