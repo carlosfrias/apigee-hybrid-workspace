@@ -12,11 +12,11 @@
       - PROJECT_ID is defined
     msg: "PROJECT_ID must be provided."
 
-- name: Assert BILLING_ID
-  assert:
-    that:
-      - BILLING_ID is defined
-    msg: "BILLING_ID must be provided"
+#- name: Assert BILLING_ID
+#  assert:
+#    that:
+#      - BILLING_ID is defined
+#    msg: "BILLING_ID must be provided"
 
 - name: Construct base project create command
   set_fact:
