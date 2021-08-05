@@ -43,8 +43,9 @@
 - name: Set Project Default
   shell: gcloud config set project {{ PROJECT_ID }}
 
-- name: Connect GCP Project to Billing Account
+- name: Connect GCP Project to Billing Account, if provided
   shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }}
+  when: BILLING_ID is defined
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
