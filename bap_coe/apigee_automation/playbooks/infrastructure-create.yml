@@ -1,0 +1,30 @@
+---
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bootstrap_runtime
+
+  roles:
+    - { role: gcp_project_create, tags: [ 'project' ] }
+    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
+    - { role: gcp_project_services_enable, tags: ['services'] }
+    - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
+    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
+
+- name: Update runtime environment of instances
+  hosts: edge
+  gather_facts: yes
+  tags: ['python','infra']
+
+  collections:
+    - bap_coe.bootstrap_runtime
+
+  roles:
+    - python_install_minimal
