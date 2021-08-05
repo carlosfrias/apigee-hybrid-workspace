@@ -26,7 +26,8 @@
 - name: Add FOLDER_ID if provided to base project create command
   set_fact:
     cacheable: yes
-    GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization={{ FOLDER_ID }} --account={{ GCLOUD_ACCOUNT_EMAIL }}"
+    GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization={{ FOLDER_ID }}"
+  when: FOLDER_ID is defined
 
 - name: Set active account
   shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
