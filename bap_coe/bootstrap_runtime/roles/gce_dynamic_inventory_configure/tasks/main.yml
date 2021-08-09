@@ -62,8 +62,6 @@
     content: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
     dest: "{{ service_account_file_temp_path.path }}"
 
--
-
 - name: Generate config files
   template:
     src: "{{ item.src }}"
