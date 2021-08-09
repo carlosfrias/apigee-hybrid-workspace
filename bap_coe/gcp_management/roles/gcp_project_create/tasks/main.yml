@@ -12,11 +12,11 @@
       - PROJECT_ID is defined
     msg: "PROJECT_ID must be provided."
 
-#- name: Assert BILLING_ID
-#  assert:
-#    that:
-#      - BILLING_ID is defined
-#    msg: "BILLING_ID must be provided"
+- name: Assert BILLING_ID
+  assert:
+    that:
+      - BILLING_ID is defined
+    msg: "BILLING_ID must be provided"
 
 - name: Construct base project create command
   set_fact:
@@ -33,7 +33,6 @@
   shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
 
 - name: Create GCP Project with provided FOLDER_ID
-#  ignore_errors: yes
   shell: "{{ GCLOUD_PROJECT_CREATE_CMD }}"
   register: status
   failed_when:
@@ -44,7 +43,7 @@
   shell: gcloud config set project {{ PROJECT_ID }}
 
 - name: Connect GCP Project to Billing Account, if provided
-  shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }} --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+  shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }} --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
@@ -54,4 +53,3 @@
   set_fact:
     cacheable: yes
     PROJECT_NUMBER: "{{ project_number.stdout }}"
-
