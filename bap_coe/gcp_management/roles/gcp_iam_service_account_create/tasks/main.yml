@@ -63,8 +63,13 @@
         - status.rc == 1
         - "'already exists' not in status.stderr"
 
-- name: Create initial service account key file
-  shell: |
-    gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_FILE_PATH }}  \
-      --iam-account={{ SERVICE_ACCOUNT_FQDN }} \
-      --project {{ PROJECT_ID }}
+- block:
+  - name: Create initial service account key file
+    shell: |
+      gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_FILE_PATH }}  \
+        --iam-account={{ SERVICE_ACCOUNT_FQDN }} \
+        --project {{ PROJECT_ID }}
+  rescue:
+    - name: RESCUE - Unable to create and download service account keys
+      debug:
+        msg: "Unable to create and download service account keys. May be necessary to use Workload Identity Pool" 
