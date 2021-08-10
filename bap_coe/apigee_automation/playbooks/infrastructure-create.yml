@@ -14,7 +14,7 @@
   roles:
     - { role: gcp_project_create, tags: [ 'project' ] }
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
-    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
+#    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
     - { role: gcp_project_services_enable, tags: ['services'] }
     - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
 #    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
