@@ -1,6 +1,6 @@
 ---
 ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "delete-test-project-020"
+PROJECT_ID: "delete-test-project-021"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -47,6 +47,18 @@ ROLE_BINDINGS:
   - "roles/iam.serviceAccountCreator"
   - "roles/iam.serviceAccountKeyAdmin"
   - "roles/compute.loadBalancerAdmin"
+
+ORG_ROLE_BINDINGS:
+  - "roles/billing.admin"
+  - "roles/billing.projectManager"
+  - "roles/iam.serviceAccountAdmin"
+  - "roles/iam.serviceAccountKeyAdmin"
+  - "roles/owner"
+  - "roles/resourcemanager.projectCreator"
+  - "roles/resourcemanager.projectDeleter"
+  - "roles/resourcemanager.projectIamAdmin"
+  - "roles/resourcemanager.serviceUsageAdmin"
+  - "roles/resourcemanager.serviceUsageViewer"
 
 SYSTEM_TOOLS:
   - 'rsync'

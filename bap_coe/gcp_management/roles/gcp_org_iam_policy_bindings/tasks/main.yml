@@ -1,0 +1,25 @@
+---
+# tasks file for gcp_iam_policy_bindings
+- name: Assert that ORG_ROLE_BINDINGS list is available
+  assert:
+    that:
+    - ORG_ROLE_BINDINGS is defined
+    msg: "Please provide ORG_ROLE_BINDINGS collection with list of roles to assign."
+
+- name: Assert that the PROJECT_ID is available
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert that the GCLOUD_ACCOUNT_USER is available
+  assert:
+    that:
+    - GCLOUD_ACCOUNT_USER is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+
+- name: Set IAM roles to installation user
+  shell: |
+    gcloud alpha organizations add-iam-policy-binding {{ PROJECT_ID }} \
+     --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }}
+  with_items: "{{ ORG_ROLE_BINDINGS }}"
