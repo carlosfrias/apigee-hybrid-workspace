@@ -20,6 +20,6 @@
 
 - name: Set IAM roles to installation user
   shell: |
-    gcloud alpha organizations add-iam-policy-binding {{ PROJECT_ID }} \
+    gcloud alpha organizations add-iam-policy-binding {{ ORG_ID }} \
      --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }}
   with_items: "{{ ORG_ROLE_BINDINGS }}"

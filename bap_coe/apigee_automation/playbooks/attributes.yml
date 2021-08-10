@@ -1,6 +1,6 @@
 ---
 ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "delete-test-project-021"
+PROJECT_ID: "delete-test-project-022"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -71,7 +71,6 @@ GCP_SYSTEM_TOOLS:
   - gnupg2
   - ca-certificates
   - apt-transport-https
-
 
 APIGEE_VERSION: 1.4.2
 ISTIO_VERSION: 1.7.8
