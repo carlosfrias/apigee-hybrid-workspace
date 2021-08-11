@@ -19,6 +19,26 @@
     - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
 #    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 
+  tasks:
+  - name: Create default VPC Network
+    ignore_errors: yes
+    shell: |
+      gcloud compute networks create default \
+        --bgp-routing-mode=global
+
+  - name: Create control server
+    shell: |
+      gcloud compute instances create control-server \
+        --zone {{ GCP_ZONE }} \
+        --scopes {{ SCOPE_COMPUTE | join(',') }} \
+        --shielded-secure-boot \
+        --no-address
+
+
+  - name: Update SSH config
+    shell: |
+      gcloud compute config-ssh
+
 - name: Update runtime environment of instances
   hosts: edge
   gather_facts: yes
