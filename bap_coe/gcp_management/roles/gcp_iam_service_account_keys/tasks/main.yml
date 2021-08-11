@@ -26,7 +26,7 @@
     gcloud resource-manager \
     org-policies disable-enforce iam.disableServiceAccountKeyCreation \
     --project {{ PROJECT_ID }} \
-    --account {{ GCLOUD_SERVICE_ACCOUNT }}
+    --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
 
 - name: Create initial service account key file
   shell: |
