@@ -63,6 +63,7 @@ ORG_ROLE_BINDINGS:
   - "roles/iam.serviceAccountKeyAdmin"
   - "roles/iam.serviceAccountAdmin"
   - "roles/orgpolicy.policyAdmin"
+  - "roles/resourcemanager.organizationAdmin"
 
 SYSTEM_TOOLS:
   - 'rsync'
