@@ -36,7 +36,7 @@ GCP_SERVICES:
   - "cloudtrace.googleapis.com"
   - "privateca.googleapis.com"
 
-ROLE_BINDINGS:
+SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/compute.admin"
   - "roles/compute.networkUser"
   - "roles/compute.instanceAdmin"

@@ -23,4 +23,4 @@
     gcloud alpha organizations add-iam-policy-binding {{ ORG_ID }} \
      --member user:{{ GCLOUD_SERVICE_ACCOUNT }} --role={{ item }} \
      --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
-  with_items: "{{ ORG_ROLE_BINDINGS }}"
+  with_items: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"
