@@ -30,7 +30,7 @@
 
 - name: Wait for the policy bindings to propagate
   pause:
-    seconds: "{{ TIME_TO_PROPAGATE_BINDINGS  | default(10) }}"
+    seconds: "{{ TIME_TO_PROPAGATE_BINDINGS  | default(20) }}"
     prompt: "Wait for the policy bindings to propagate"
 
 - name: Create initial service account key file
