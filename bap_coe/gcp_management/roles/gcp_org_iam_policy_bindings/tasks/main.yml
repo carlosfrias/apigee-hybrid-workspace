@@ -24,3 +24,8 @@
      --member user:{{ SERVICE_ACCOUNT_NAME }} --role={{ item }} \
      --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
   with_items: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+
+- name: Wait for the policy bindings to propagate
+  pause:
+    seconds: "{{ TIME_TO_PROPAGATE_BINDINGS }}"
+    prompt: "Wait for the policy bindings to propagate"
