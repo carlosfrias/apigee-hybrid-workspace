@@ -1,6 +1,6 @@
 ---
 ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "delete-test-project-067"
+PROJECT_ID: "delete-test-project-069"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -63,7 +63,6 @@ ORG_ROLE_BINDINGS:
   - "roles/serviceusage.apiKeysAdmin"
   - "roles/iam.serviceAccountKeyAdmin"
   - "roles/iam.serviceAccountAdmin"
-  - "roles/orgpolicy.policyAdmin"
   - "roles/resourcemanager.organizationAdmin"
 
 SYSTEM_TOOLS:
@@ -94,4 +93,4 @@ SCOPE_COMPUTE:
 - 'https://www.googleapis.com/auth/cloud-platform'
 - 'https://www.googleapis.com/auth/compute'
 
-TIME_TO_PROPAGATE_BINDINGS: 10
+TIME_TO_PROPAGATE_BINDINGS: 20
