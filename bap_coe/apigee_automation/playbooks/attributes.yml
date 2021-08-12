@@ -1,6 +1,6 @@
 ---
 ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "delete-test-project-073"
+PROJECT_ID: "delete-test-project-074"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -50,7 +50,7 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "{{ ORG_ROLE_BINDINGS }}"
 
 ORG_ROLE_BINDINGS:
-  - "roles/billing.admin"
+#  - "roles/billing.admin"
   - "roles/billing.projectManager"
   - "roles/iam.serviceAccountAdmin"
   - "roles/iam.serviceAccountKeyAdmin"
