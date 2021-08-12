@@ -26,11 +26,26 @@
       gcloud compute networks create default \
         --bgp-routing-mode=global
 
+#  - name: Create control server
+#    shell: |
+#      gcloud compute instances create control-server \
+#        --zone {{ GCP_ZONE }} \
+#        --service-account {{ SERVICE_ACCOUNT }} \
+#        --shielded-secure-boot \
+#        --no-address
+
+  - name: Build control server image
+    community.docker.docker_image:
+      name: ubuntu
+      repository: gcr.io/
+
+
   - name: Create control server
     shell: |
-      gcloud compute instances create control-server \
+      gcloud compute instances create-with-container control-server \
         --zone {{ GCP_ZONE }} \
-        --scopes {{ SCOPE_COMPUTE | join(',') }} \
+        --service-account {{ SERVICE_ACCOUNT }} \
+        --container-image {{ CONTROL_SERVER_IMAGE }} \
         --shielded-secure-boot \
         --no-address
 
