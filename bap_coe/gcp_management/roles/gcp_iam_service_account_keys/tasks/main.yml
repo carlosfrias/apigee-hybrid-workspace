@@ -21,15 +21,19 @@
     path: "{{ WORK_DIR }}"
     state: directory
 
-- name: Enable creation of the service account key file
+#- name: Enable creation of the service account key file
+#  shell: |
+#    gcloud resource-manager \
+#    org-policies disable-enforce iam.disableServiceAccountKeyCreation \
+#    --project {{ PROJECT_ID }} \
+#    --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+
+- name: Create initial service account key file
   shell: |
     gcloud resource-manager \
     org-policies disable-enforce iam.disableServiceAccountKeyCreation \
     --project {{ PROJECT_ID }} \
     --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
-
-- name: Create initial service account key file
-  shell: |
     gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_FILE_PATH }}  \
       --iam-account={{ SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
