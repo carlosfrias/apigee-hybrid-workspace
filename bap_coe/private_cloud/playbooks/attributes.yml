@@ -56,16 +56,16 @@ IMAGE_PROJECT: 'centos-cloud'
 IMAGE_FAMILY: 'centos-7'
 
 #firewall_ports:
-#  - { ports: "{{ ms_ports }}", port_type: 'ms' }
-#  - { ports: "{{ router_ports }}", port_type: 'router' }
-#  - { ports: "{{ mp_ports }}", port_type: 'mp' }
-#  - { ports: "{{ zk_ports }}", port_type: 'zk' }
-#  - { ports: "{{ cassandra_ports }}", port_type: 'ds' }
-#  - { ports: "{{ qpid_ports }}", port_type: 'qs' }
-#  - { ports: "{{ pg_ports }}", port_type: 'pg' }
-#  - { ports: "{{ ui_ports }}", port_type: 'ui' }
-#  - { ports: "{{ ldap_ports }}", port_type: 'ldap' }
-#  - { ports: "{{ aio_ports }}", port_type: 'aio' }
+#  - { ports: "{{ ms_ports }}", port_name_suffix: 'ms' }
+#  - { ports: "{{ router_ports }}", port_name_suffix: 'router' }
+#  - { ports: "{{ mp_ports }}", port_name_suffix: 'mp' }
+#  - { ports: "{{ zk_ports }}", port_name_suffix: 'zk' }
+#  - { ports: "{{ cassandra_ports }}", port_name_suffix: 'ds' }
+#  - { ports: "{{ qpid_ports }}", port_name_suffix: 'qs' }
+#  - { ports: "{{ pg_ports }}", port_name_suffix: 'pg' }
+#  - { ports: "{{ ui_ports }}", port_name_suffix: 'ui' }
+#  - { ports: "{{ ldap_ports }}", port_name_suffix: 'ldap' }
+#  - { ports: "{{ aio_ports }}", port_name_suffix: 'aio' }
 
 address_types:
   - 'ms'

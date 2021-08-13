@@ -1,6 +1,6 @@
 ---
 ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "delete-test-project-075"
+PROJECT_ID: "delete-test-project-076"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -95,3 +95,7 @@ SCOPE_COMPUTE:
 - 'https://www.googleapis.com/auth/compute'
 
 #TIME_TO_PROPAGATE_BINDINGS: 20
+
+
+firewall_ports:
+  - { ports: ['22'], port_name_suffix: 'control-server' }
