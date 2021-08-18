@@ -18,7 +18,8 @@
     - { role: gcp_project_services_enable, tags: ['services'] }
     - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
     - { role: gce_network_create }
-    - { role: gce_instance-create }
+    - { role: gce_firewall_create }
+    - { role: gce_instance_create, TARGET_TAGS: ['allow-ssh'], ACCESS_TYPE: "int" }
 #    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 
 #  tasks:
