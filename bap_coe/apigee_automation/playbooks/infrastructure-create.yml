@@ -49,11 +49,11 @@
     community.docker.docker_image:
       state: absent
       force_absent: yes
-      name: "{{ CONTROL_SERVER_IMAGE }}"
+      name: "{{ CONTROL_SERVER_IMAGE_NAME }}"
 
   - name: Build image
     community.docker.docker_image:
-      name: "{{ CONTROL_SERVER_IMAGE }}"
+      name: "{{ CONTROL_SERVER_IMAGE_REPO_PATH }}"
       source: build
       state: present
       build:
