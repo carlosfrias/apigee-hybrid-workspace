@@ -17,25 +17,33 @@
     - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
     - { role: gcp_project_services_enable, tags: ['services'] }
     - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
-    - { role: gce_network_create }
-    - { role: gce_firewall_create }
-    - { role: gce_instance_create, TARGET_TAGS: ['allow-ssh'], ACCESS_TYPE: "int" }
+#    - { role: gce_network_create }
+#    - { role: gce_firewall_create }
+#    - { role: gce_instance_create, tags: ['instance'], TARGET_TAGS: ['allow-ssh'], ACCESS_TYPE: "int" }
 #    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 
-#  tasks:
-#  - name: Create default VPC Network
-#    ignore_errors: yes
-#    shell: |
-#      gcloud compute networks create default \
-#        --bgp-routing-mode=global
+  tasks:
+  - name: Create default VPC Network
+    ignore_errors: yes
+    shell: |
+      gcloud compute networks create {{ NETWORK_NAME | default('default') }} \
+        --bgp-routing-mode=global
 
-#  - name: Create control server
-#    shell: |
-#      gcloud compute instances create control-server \
-#        --zone {{ GCP_ZONE }} \
-#        --service-account {{ SERVICE_ACCOUNT }} \
-#        --shielded-secure-boot \
-#        --no-address
+  - name: Create SSH FW rule for the control server
+    shell: |
+      gcloud compute firewall-rules create {{ FW_RULE_NAME | default('allow-ssh-from-iap') }} \
+        --project={{ PROJECT_ID }} \
+        --source-ranges=35.235.240.0/24 \
+        --allow=tcp:22
+
+  - name: Create control server
+    shell: |
+      gcloud compute instances create ops-server \
+        --zone {{ GCP_ZONE }} \
+        --service-account {{ SERVICE_ACCOUNT }} \
+        --shielded-secure-boot \
+        --network=default \
+        --no-address
 
 #  - name: Build control server image
 #    community.docker.docker_image:

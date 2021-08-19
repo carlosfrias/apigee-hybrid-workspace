@@ -1,6 +1,6 @@
 ---
-ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "delete-test-project-078"
+#ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
+PROJECT_ID: "delete-test-project-089"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -9,6 +9,8 @@ NAME_INSTANCE_PREFIX: dc-1
 GCP_ZONE: us-east1-b
 DISK_SIZE: 100
 CONTROL_SERVER_IMAGE: control-server
+ORG_BINDING_PROPAGATION_TIMEOUT: 100
+#TIME_TO_PROPAGATE_BINDINGS: 20
 
 GCP_SERVICES:
   - "compute.googleapis.com"
@@ -65,6 +67,7 @@ ORG_ROLE_BINDINGS:
   - "roles/iam.serviceAccountKeyAdmin"
   - "roles/iam.serviceAccountAdmin"
   - "roles/resourcemanager.organizationAdmin"
+  - "roles/iap.tunnelResourceAccessor"
 
 SYSTEM_TOOLS:
   - 'rsync'
@@ -93,9 +96,6 @@ CLUSTER_SEED: 1
 SCOPE_COMPUTE:
 - 'https://www.googleapis.com/auth/cloud-platform'
 - 'https://www.googleapis.com/auth/compute'
-
-#TIME_TO_PROPAGATE_BINDINGS: 20
-
 
 firewall_ports:
   - { ports: ['22'], port_name_suffix: 'control-server' }
