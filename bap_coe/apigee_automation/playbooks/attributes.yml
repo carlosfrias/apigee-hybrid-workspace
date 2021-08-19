@@ -1,6 +1,6 @@
 ---
 #ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "delete-test-project-091"
+PROJECT_ID: "delete-test-project-092"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -8,7 +8,8 @@ SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
 NAME_INSTANCE_PREFIX: dc-1
 GCP_ZONE: us-east1-b
 DISK_SIZE: 100
-CONTROL_SERVER_IMAGE: gcr.io/friasc-lab/ops-server
+CONTROL_SERVER_IMAGE_NAME: ops-server
+CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
 #TIME_TO_PROPAGATE_BINDINGS: 20
 

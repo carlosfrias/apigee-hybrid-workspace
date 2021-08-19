@@ -33,9 +33,8 @@
     shell: |
       gcloud compute firewall-rules create {{ FW_RULE_NAME | default('allow-ssh-from-iap') }} \
         --project={{ PROJECT_ID }} \
-        --source-ranges=35.235.240.0/24 \
-        --allow=tcp:22
-
+        --source-ranges=35.235.240.0/20
+      
 #  - name: Create control server
 #    shell: |
 #      gcloud compute instances create ops-server \
@@ -63,10 +62,10 @@
 
   - name: Create control server
     shell: |
-      gcloud compute instances create-with-container control-server \
+      gcloud compute instances create-with-container {{ CONTROL_SERVER_IMAGE_NAME }} \
         --zone {{ GCP_ZONE }} \
         --service-account {{ SERVICE_ACCOUNT }} \
-        --container-image {{ CONTROL_SERVER_IMAGE }} \
+        --container-image {{ CONTROL_SERVER_IMAGE_REPO_PATH }} \
         --shielded-secure-boot \
         --no-address
 
