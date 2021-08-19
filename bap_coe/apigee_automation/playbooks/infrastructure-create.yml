@@ -23,6 +23,24 @@
 #    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 
   tasks:
+  - name: Authorized account
+    shell: gcloud config set account friasc@google.com
+
+  - name: Remove image
+    community.docker.docker_image:
+      state: absent
+      force_absent: yes
+      name: gcr.io/friasc-lab/ops-server
+
+  - name: Build an image and push it to a private repo
+    community.docker.docker_image:
+      name: gcr.io/friasc-lab/ops-server
+      source: build
+      state: present
+      build:
+        rm: yes
+        path: .
+
   - name: Create default VPC Network
     ignore_errors: yes
     shell: |
