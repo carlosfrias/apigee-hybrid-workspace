@@ -12,3 +12,5 @@ requests==2.23.0
 pycryptodome==3.10.1
 cryptography==3.4.6
 rsa==4.7.2
+docker-py
+molecule
