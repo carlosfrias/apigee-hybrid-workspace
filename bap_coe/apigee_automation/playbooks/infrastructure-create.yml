@@ -38,7 +38,7 @@
 
 #  - name: Create control server
 #    shell: |
-#      gcloud compute instances create ops-server \
+#      gcloud compute instances create {{ CONTROL_SERVER_IMAGE_NAME }} \
 #        --zone {{ GCP_ZONE }} \
 #        --service-account {{ SERVICE_ACCOUNT }} \
 #        --shielded-secure-boot \
