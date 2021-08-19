@@ -23,24 +23,6 @@
 #    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 
   tasks:
-  - name: Authorized account
-    shell: gcloud config set account friasc@google.com
-
-  - name: Remove image
-    community.docker.docker_image:
-      state: absent
-      force_absent: yes
-      name: gcr.io/friasc-lab/ops-server
-
-  - name: Build an image and push it to a private repo
-    community.docker.docker_image:
-      name: gcr.io/friasc-lab/ops-server
-      source: build
-      state: present
-      build:
-        rm: yes
-        path: .
-
   - name: Create default VPC Network
     ignore_errors: yes
     shell: |
@@ -54,36 +36,39 @@
         --source-ranges=35.235.240.0/24 \
         --allow=tcp:22
 
-  - name: Create control server
-    shell: |
-      gcloud compute instances create ops-server \
-        --zone {{ GCP_ZONE }} \
-        --service-account {{ SERVICE_ACCOUNT }} \
-        --shielded-secure-boot \
-        --network=default \
-        --no-address
-
-#  - name: Build control server image
-#    community.docker.docker_image:
-#      name: ubuntu
-#      repository: gcr.io/
-
 #  - name: Create control server
 #    shell: |
-#      gcloud compute instances create-with-container control-server \
+#      gcloud compute instances create ops-server \
 #        --zone {{ GCP_ZONE }} \
 #        --service-account {{ SERVICE_ACCOUNT }} \
-#        --container-image {{ CONTROL_SERVER_IMAGE }} \
 #        --shielded-secure-boot \
+#        --network=default \
 #        --no-address
 
-#  - name: Allow SSH to control-server
-#    include_role:
-#      name: gce_firewall_create
-#
-#  - name: Update SSH config
-#    shell: |
-#      gcloud compute config-ssh
+  - name: Remove image
+    community.docker.docker_image:
+      state: absent
+      force_absent: yes
+      name: "{{ CONTROL_SERVER_IMAGE }}"
+
+  - name: Build image
+    community.docker.docker_image:
+      name: "{{ CONTROL_SERVER_IMAGE }}"
+      source: build
+      state: present
+      build:
+        nocache: yes
+        rm: yes
+        path: .
+
+  - name: Create control server
+    shell: |
+      gcloud compute instances create-with-container control-server \
+        --zone {{ GCP_ZONE }} \
+        --service-account {{ SERVICE_ACCOUNT }} \
+        --container-image {{ CONTROL_SERVER_IMAGE }} \
+        --shielded-secure-boot \
+        --no-address
 
 - name: Update runtime environment of instances
   hosts: edge
