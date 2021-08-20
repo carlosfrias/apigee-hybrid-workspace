@@ -36,39 +36,39 @@
         --source-ranges=35.235.240.0/20 \
         --allow=tcp
 
-#  - name: Create control server
-#    shell: |
-#      gcloud compute instances create {{ CONTROL_SERVER_IMAGE_NAME }} \
-#        --zone {{ GCP_ZONE }} \
-#        --service-account {{ SERVICE_ACCOUNT }} \
-#        --shielded-secure-boot \
-#        --network=default \
-#        --no-address
-
-  - name: Remove image
-    community.docker.docker_image:
-      state: absent
-      force_absent: yes
-      name: "{{ CONTROL_SERVER_IMAGE_NAME }}"
-
-  - name: Build image
-    community.docker.docker_image:
-      name: "{{ CONTROL_SERVER_IMAGE_REPO_PATH }}"
-      source: build
-      state: present
-      build:
-        nocache: yes
-        rm: yes
-        path: .
-
   - name: Create control server
     shell: |
-      gcloud compute instances create-with-container {{ CONTROL_SERVER_IMAGE_NAME }} \
+      gcloud compute instances create {{ CONTROL_SERVER_IMAGE_NAME }} \
         --zone {{ GCP_ZONE }} \
         --service-account {{ SERVICE_ACCOUNT }} \
-        --container-image {{ CONTROL_SERVER_IMAGE_REPO_PATH }} \
         --shielded-secure-boot \
+        --network=default \
         --no-address
+
+#  - name: Remove image
+#    community.docker.docker_image:
+#      state: absent
+#      force_absent: yes
+#      name: "{{ CONTROL_SERVER_IMAGE_NAME }}"
+
+#  - name: Build image
+#    community.docker.docker_image:
+#      name: "{{ CONTROL_SERVER_IMAGE_REPO_PATH }}"
+#      source: build
+#      state: present
+#      build:
+#        nocache: yes
+#        rm: yes
+#        path: .
+
+#  - name: Create control server
+#    shell: |
+#      gcloud compute instances create-with-container {{ CONTROL_SERVER_IMAGE_NAME }} \
+#        --zone {{ GCP_ZONE }} \
+#        --service-account {{ SERVICE_ACCOUNT }} \
+#        --container-image {{ CONTROL_SERVER_IMAGE_REPO_PATH }} \
+#        --shielded-secure-boot \
+#        --no-address
 
 - name: Update runtime environment of instances
   hosts: edge
