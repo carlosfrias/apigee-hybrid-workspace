@@ -35,7 +35,6 @@
   homebrew:
     name: "{{ item }}"
     state: present
-    update_homebrew: yes
   with_items:
     - "pyenv"
     - "sshpass"
