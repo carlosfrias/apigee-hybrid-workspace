@@ -34,7 +34,7 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
-    - { regexp: "^export PATH=~/.pyenv/bin:$PATH", line: "PATH=~/.pyenv/bin:$PATH"}
-    - { regexp: "^eval '$(pyenv init -)'", line: "eval '$(pyenv init -)'"}
-    - { regexp: "^eval '$(pyenv virtualenv-init -)'", line: "eval '$(pyenv virtualenv-init -)'"}
+    - { regexp: '^export PATH="~/.pyenv/bin:$PATH"', line: 'export PATH="$HOME/.pyenv/bin:$PATH"'}
+    - { regexp: '^eval "$(pyenv init -)"', line: 'eval "$(pyenv init -)"'}
+    - { regexp: '^eval "$(pyenv virtualenv-init -)"', line: 'eval "$(pyenv virtualenv-init -)"'}
 
