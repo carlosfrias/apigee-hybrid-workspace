@@ -20,10 +20,12 @@
       name: "{{ os_packages }}"
       state: present
 
-  - name: Install pyenv
-    shell: curl https://pyenv.run | bash
-
   become: true
+
+- name: Install pyenv
+  shell: |
+    rm -rf ~/.pyenv;
+    curl https://pyenv.run | bash
 
 - name: Update .bashrc
   lineinfile:
