@@ -23,7 +23,7 @@
       update_cache: yes
 
   - name: Install pyenv
-    command: "curl https://pyenv.run | bash"
+    shell: curl https://pyenv.run | bash
 
   become: true
 
