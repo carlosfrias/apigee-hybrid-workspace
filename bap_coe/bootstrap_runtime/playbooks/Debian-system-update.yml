@@ -26,6 +26,8 @@
   shell: |
     rm -rf ~/.pyenv;
     curl https://pyenv.run | bash
+    args:
+      creates: "{{ ansible_env.HOME }}/.pyenv"
 
 - name: Update .bashrc
   lineinfile:
