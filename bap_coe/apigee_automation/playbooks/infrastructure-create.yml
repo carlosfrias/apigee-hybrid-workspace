@@ -3,9 +3,19 @@
   hosts: localhost
   connection: local
 
-  vars_files:
-    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - attributes.yml
+  vars:
+    GCLOUD_ACCOUNT_DOMAIN: "friasc.altostrat.com"
+    GCLOUD_ACCOUNT_ADMIN_USER: "admin"
+    GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "admin"
+    SERVICE_ACCOUNT_NAME: "service-account-default"
+    SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+    GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+    GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+    GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+
+#  vars_files:
+#    - attributes.yml
+#    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 
   collections:
     - bap_coe.gcp_management
@@ -13,38 +23,38 @@
 
   roles:
     - { role: gcp_project_create, tags: [ 'project' ] }
-    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
-    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
-    - { role: gcp_project_services_enable, tags: ['services'] }
-    - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
+#    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
+#    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
+#    - { role: gcp_project_services_enable, tags: ['services'] }
+#    - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
 #    - { role: gce_network_create }
 #    - { role: gce_firewall_create }
 #    - { role: gce_instance_create, tags: ['instance'], TARGET_TAGS: ['allow-ssh'], ACCESS_TYPE: "int" }
 #    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 
-  tasks:
-  - name: Create default VPC Network
-    ignore_errors: yes
-    shell: |
-      gcloud compute networks create {{ NETWORK_NAME | default('default') }} \
-        --bgp-routing-mode=global
-
-  - name: Create SSH FW rule for the control server
-    shell: |
-      gcloud compute firewall-rules create {{ FW_RULE_NAME | default('allow-ssh-from-iap') }} \
-        --project={{ PROJECT_ID }} \
-        --source-ranges=35.235.240.0/20 \
-        --allow=tcp
-
-  - name: Create control server
-    shell: |
-      gcloud compute instances create {{ CONTROL_SERVER_IMAGE_NAME }} \
-        --zone {{ GCP_ZONE }} \
-        --service-account {{ SERVICE_ACCOUNT }} \
-        --shielded-secure-boot \
-        --network=default \
-        --no-address
-
+#  tasks:
+#  - name: Create default VPC Network
+#    ignore_errors: yes
+#    shell: |
+#      gcloud compute networks create {{ NETWORK_NAME | default('default') }} \
+#        --bgp-routing-mode=global
+#
+#  - name: Create SSH FW rule for the control server
+#    shell: |
+#      gcloud compute firewall-rules create {{ FW_RULE_NAME | default('allow-ssh-from-iap') }} \
+#        --project={{ PROJECT_ID }} \
+#        --source-ranges=35.235.240.0/20 \
+#        --allow=tcp
+#
+#  - name: Create control server
+#    shell: |
+#      gcloud compute instances create {{ CONTROL_SERVER_IMAGE_NAME }} \
+#        --zone {{ GCP_ZONE }} \
+#        --service-account {{ SERVICE_ACCOUNT }} \
+#        --shielded-secure-boot \
+#        --network=default \
+#        --no-address
+#
 #  - name: Remove image
 #    community.docker.docker_image:
 #      state: absent
