@@ -4,6 +4,13 @@
   connection: local
 
   vars:
+    ARGOLIS_BILLING_ID: "01761B-1E12F2-917D22"
+    ##################
+    BILLING_ID: "{{ ARGOLIS_BILLING_ID }}"
+    ##################
+    PROJECT_ID: "frias-pca-09212021-1547"
+    WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
+    TOOLS_DIR: "{{ ansible_user_dir }}/bin"
     GCLOUD_ACCOUNT_DOMAIN: "friasc.altostrat.com"
     GCLOUD_ACCOUNT_ADMIN_USER: "admin"
     GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "admin"
