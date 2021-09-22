@@ -12,16 +12,16 @@
     - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
-- name: Assert that the GCLOUD_ACCOUNT_USER is available
+- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
   assert:
     that:
-    - GCLOUD_ACCOUNT_USER is defined
-    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+    - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
 - name: Set IAM roles to installation user
   shell: |
     gcloud alpha organizations add-iam-policy-binding {{ ORG_ID }} \
-     --member user:{{ GCLOUD_ACCOUNT_USER }} --role={{ item }} \
+     --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }} \
      --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
   with_items: "{{ ROLE_BINDINGS }}"
 
