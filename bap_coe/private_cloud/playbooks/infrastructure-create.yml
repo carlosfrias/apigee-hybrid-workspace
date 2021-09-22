@@ -15,7 +15,7 @@
     - { role: gcp_project_create, tags: [ 'project' ] }
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_project_services_enable, tags: ['services'] }
-    - { role: gcp_iam_policy_bindings_member_service_account, tags: ['roles'] }
+    - { role: gcp_iam_policy_bindings_service_account, tags: ['roles'] }
     - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
 
 - name: Update runtime environment of instances

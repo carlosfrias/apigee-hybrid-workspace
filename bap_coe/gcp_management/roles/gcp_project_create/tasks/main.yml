@@ -12,16 +12,15 @@
       - PROJECT_ID is defined
     msg: "PROJECT_ID must be provided."
 
-- name: Assert BILLING_ID
-  assert:
-    that:
-      - BILLING_ID is defined
-    msg: "BILLING_ID must be provided"
+- name: Advise status BILLING_ID AND GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL
+  pause:
+    echo: "Please note that BILLING_ID and GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL have not been provided"
+    seconds: 3
 
 - name: Construct base project create command
   set_fact:
     cacheable: yes
-    GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }}"
+    GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}"
 
 - name: Add FOLDER_ID if provided to base project create command
   set_fact:
@@ -29,8 +28,8 @@
     GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization={{ FOLDER_ID }}"
   when: FOLDER_ID is defined
 
-- name: Set active account
-  shell: gcloud config set account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+#- name: Set active account
+#  shell: gcloud config set account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
 
 - name: Create GCP Project with provided FOLDER_ID
   shell: "{{ GCLOUD_PROJECT_CREATE_CMD }}"
@@ -44,6 +43,7 @@
 
 - name: Connect GCP Project to Billing Account, if provided
   shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }} --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+  when: BILLING_ID is defined and GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is defined
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"

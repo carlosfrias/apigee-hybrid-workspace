@@ -8,8 +8,8 @@
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
   vars_files:
-    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
     - test-attributes.yml
+#    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 
   collections:
     - bap_coe.gcp_management

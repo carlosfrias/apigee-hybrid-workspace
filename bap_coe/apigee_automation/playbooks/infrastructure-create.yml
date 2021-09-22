@@ -4,6 +4,7 @@
   connection: local
 
   vars:
+    ORG_ID: "441697784715"
     ARGOLIS_BILLING_ID: "01761B-1E12F2-917D22"
     ##################
     BILLING_ID: "{{ ARGOLIS_BILLING_ID }}"
@@ -38,22 +39,22 @@
       - "roles/resourcemanager.projectCreator"
       - "roles/editor"
 
-#    ORG_ROLE_BINDINGS:
-#      - "roles/billing.admin"
-#      - "roles/billing.projectManager"
-#      - "roles/iam.serviceAccountAdmin"
-#      - "roles/iam.serviceAccountKeyAdmin"
-#      - "roles/owner"
-#      - "roles/resourcemanager.projectCreat0r"
-#      - "roles/resourcemanager.projectDeleter"
-#      - "roles/resourcemanager.projectIamAdmin"
-#      - "roles/serviceusage.serviceUsageAdmin"
-#      - "roles/serviceusage.serviceUsageViewer"
-#      - "roles/serviceusage.apiKeysAdmin"
-#      - "roles/iam.serviceAccountKeyAdmin"
-#      - "roles/iam.serviceAccountAdmin"
-#      - "roles/resourcemanager.organizationAdmin"
-#      - "roles/iap.tunnelResourceAccessor"
+    ORG_ROLE_BINDINGS:
+      - "roles/billing.admin"
+      - "roles/billing.projectManager"
+      - "roles/iam.serviceAccountAdmin"
+      - "roles/iam.serviceAccountKeyAdmin"
+      - "roles/owner"
+      - "roles/resourcemanager.projectCreat0r"
+      - "roles/resourcemanager.projectDeleter"
+      - "roles/resourcemanager.projectIamAdmin"
+      - "roles/serviceusage.serviceUsageAdmin"
+      - "roles/serviceusage.serviceUsageViewer"
+      - "roles/serviceusage.apiKeysAdmin"
+      - "roles/iam.serviceAccountKeyAdmin"
+      - "roles/iam.serviceAccountAdmin"
+      - "roles/resourcemanager.organizationAdmin"
+      - "roles/iap.tunnelResourceAccessor"
 
 #  vars_files:
 #    - attributes.yml
@@ -69,7 +70,7 @@
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
     - { role: gcp_project_services_enable, tags: ['services'] }
-    - { role: gcp_iam_policy_bindings_member_service_account, tags: ['roles'] }
+    - { role: gcp_iam_policy_bindings_service_account, tags: ['roles'] }
 #    - { role: gce_network_create }
 #    - { role: gce_firewall_create }
 #    - { role: gce_instance_create, tags: ['instance'], TARGET_TAGS: ['allow-ssh'], ACCESS_TYPE: "int" }
@@ -123,13 +124,13 @@
 #        --shielded-secure-boot \
 #        --no-address
 
-- name: Update runtime environment of instances
-  hosts: edge
-  gather_facts: yes
-  tags: ['python','infra']
-
-  collections:
-    - bap_coe.bootstrap_runtime
-
-  roles:
-    - python_install_minimal
+#- name: Update runtime environment of instances
+#  hosts: edge
+#  gather_facts: yes
+#  tags: ['python','infra']
+#
+#  collections:
+#    - bap_coe.bootstrap_runtime
+#
+#  roles:
+#    - python_install_minimal
