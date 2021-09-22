@@ -1,13 +1,13 @@
 ---
 # tasks file for gcp_project_delete
-- name: Assert GCLOUD_ACCOUNT_ADMIN_EMAIL
+- name: Assert GCLOUD_ACCOUNT_EMAIL
   assert:
     that:
-    - GCLOUD_ACCOUNT_ADMIN_EMAIL is defined
-    msg: "GCLOUD_ACCOUNT_ADMIN_EMAIL must contain the GCP account email"
+    - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "GCLOUD_ACCOUNT_EMAIL must contain the GCP account email"
 
 - name: Set active account
-  shell: gcloud config set account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+  shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
 
 - name: Delete Cloud Repository for GCP Project
   ignore_errors: true
@@ -18,7 +18,7 @@
 
 - name: Delete GCP project
   ignore_errors: true
-  shell: gcloud projects delete {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }} --quiet
+  shell: gcloud projects delete {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }} --quiet
 #  poll: 0
 #  retries: 50
 #  async: 90

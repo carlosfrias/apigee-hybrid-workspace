@@ -18,6 +18,10 @@
     SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
     SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
 
+    PROJECT_ADMIN_ROLE_BINDINGS:
+    - "roles/resourcemanager.projectDeleter"
+    - "roles/resourcemanager.projectCreator"
+
     SERVICE_ACCOUNT_ROLE_BINDINGS:
       - "roles/compute.admin"
       - "roles/compute.networkUser"
@@ -61,7 +65,7 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-  - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"] }
+  - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ PROJECT_ADMIN_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
   - { role: gcp_project_create, tags: [ 'project' ] }
 #    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
 #    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }

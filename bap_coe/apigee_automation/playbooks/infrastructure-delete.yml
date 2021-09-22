@@ -13,7 +13,7 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: gcp_project_delete }
+    - { role: gcp_project_delete, GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
 
 #  tasks:
 #    - name: Remove projects in list
