@@ -54,12 +54,12 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 #  - "{{ ORG_ROLE_BINDINGS }}"
 
 ORG_ROLE_BINDINGS:
-#  - "roles/billing.admin"
+  - "roles/billing.admin"
   - "roles/billing.projectManager"
   - "roles/iam.serviceAccountAdmin"
   - "roles/iam.serviceAccountKeyAdmin"
   - "roles/owner"
-#  - "roles/resourcemanager.projectCreater"
+  - "roles/resourcemanager.projectCreater"
   - "roles/resourcemanager.projectDeleter"
   - "roles/resourcemanager.projectIamAdmin"
   - "roles/serviceusage.serviceUsageAdmin"

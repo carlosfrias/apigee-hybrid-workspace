@@ -21,5 +21,6 @@
 - name: Set IAM roles to installation user
   shell: |
     gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-     --member usear:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }}
+      --member usear:{{ GCLOUD_ACCOUNT_EMAIL }} \
+      --role={{ item }}
   with_items: "{{ ROLE_BINDINGS }}"

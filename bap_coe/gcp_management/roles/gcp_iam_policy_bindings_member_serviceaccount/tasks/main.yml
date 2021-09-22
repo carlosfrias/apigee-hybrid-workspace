@@ -12,7 +12,7 @@
     - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
-- name: Assert that the GCLOUD_ACCOUNT_USER is available
+- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
   assert:
     that:
     - GCLOUD_ACCOUNT_EMAIL is defined
@@ -27,7 +27,9 @@
 - name: Set IAM roles for service account
   shell: |
     gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-     --member serviceAccount:{{ SERVICE_ACCOUNT }} --role={{ item }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
+      --member serviceAccount:{{ SERVICE_ACCOUNT }} \
+      --role={{ item }} \
+      --account {{ GCLOUD_ACCOUNT_EMAIL }}
   with_items: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"
 
 - name: Wait for the policy bindings to propagate

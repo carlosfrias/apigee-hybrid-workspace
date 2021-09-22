@@ -8,17 +8,50 @@
     ##################
     BILLING_ID: "{{ ARGOLIS_BILLING_ID }}"
     ##################
-    PROJECT_ID: "frias-pca-09212021-1547"
+    PROJECT_ID: "frias-pca-09222021-1023"
     WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
     TOOLS_DIR: "{{ ansible_user_dir }}/bin"
+    GCLOUD_ACCOUNT_USER: "admin"
     GCLOUD_ACCOUNT_DOMAIN: "friasc.altostrat.com"
-    GCLOUD_ACCOUNT_ADMIN_USER: "admin"
-    GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "admin"
-    SERVICE_ACCOUNT_NAME: "service-account-default"
-    SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
-    GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
     GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+    GCLOUD_ACCOUNT_ADMIN_USER: "admin"
+    GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+    GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "admin"
     GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+
+    SERVICE_ACCOUNT_NAME: "service-account-default"
+    SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
+    SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+    SERVICE_ACCOUNT_ROLE_BINDINGS:
+      - "roles/compute.admin"
+      - "roles/compute.networkUser"
+      - "roles/compute.instanceAdmin"
+      - "roles/networkmanagement.admin"
+      - "roles/networkmanagement.viewer"
+      - "roles/iam.serviceAccountUser"
+      - "roles/iam.serviceAccountAdmin"
+      - "roles/iam.serviceAccountCreator"
+      - "roles/iam.serviceAccountKeyAdmin"
+      - "roles/compute.loadBalancerAdmin"
+      - "roles/resourcemanager.projectCreator"
+      - "roles/resourcemanager.projectDeleter"
+
+    ORG_ROLE_BINDINGS:
+      - "roles/billing.admin"
+      - "roles/billing.projectManager"
+      - "roles/iam.serviceAccountAdmin"
+      - "roles/iam.serviceAccountKeyAdmin"
+      - "roles/owner"
+      - "roles/resourcemanager.projectCreater"
+      - "roles/resourcemanager.projectDeleter"
+      - "roles/resourcemanager.projectIamAdmin"
+      - "roles/serviceusage.serviceUsageAdmin"
+      - "roles/serviceusage.serviceUsageViewer"
+      - "roles/serviceusage.apiKeysAdmin"
+      - "roles/iam.serviceAccountKeyAdmin"
+      - "roles/iam.serviceAccountAdmin"
+      - "roles/resourcemanager.organizationAdmin"
+      - "roles/iap.tunnelResourceAccessor"
 
 #  vars_files:
 #    - attributes.yml
@@ -30,10 +63,10 @@
 
   roles:
     - { role: gcp_project_create, tags: [ 'project' ] }
-#    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
+    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
 #    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
 #    - { role: gcp_project_services_enable, tags: ['services'] }
-#    - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
+    - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
 #    - { role: gce_network_create }
 #    - { role: gce_firewall_create }
 #    - { role: gce_instance_create, tags: ['instance'], TARGET_TAGS: ['allow-ssh'], ACCESS_TYPE: "int" }
