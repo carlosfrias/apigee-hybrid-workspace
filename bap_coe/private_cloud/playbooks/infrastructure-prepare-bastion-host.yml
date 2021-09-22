@@ -14,7 +14,7 @@
 
   roles:
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
-    - { role: gcp_iam_policy_bindings_member_serviceaccount, tags: ['roles'] }
+    - { role: gcp_iam_policy_bindings_member_service_account, tags: ['roles'] }
     - { role: gce_network_create, tags: [ 'network','firewall' ] }
     - { role: gce_firewall_create, tags: ['firewall'], FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}" }
     - { role: gce_bastion_host_create, tags: ['bastion'], NETWORK_TAGS: "bastion", ACCESS_TYPE: "int" }
