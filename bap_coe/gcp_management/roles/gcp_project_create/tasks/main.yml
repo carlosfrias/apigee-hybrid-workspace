@@ -12,10 +12,17 @@
       - PROJECT_ID is defined
     msg: "PROJECT_ID must be provided."
 
-- name: Advise status BILLING_ID AND GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL
+- name: Advise status BILLING_ID
   pause:
-    echo: "Please note that BILLING_ID and GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL have not been provided"
-    seconds: 3
+    echo: "Please note that BILLING_ID has not been provided"
+    seconds: 2
+  when: BILLING_ID is NOT defined
+
+- name: Advise status GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL
+  pause:
+    echo: "Please note that CLOUD_ACCOUNT_BILLING_ADMIN_EMAIL has not been provided"
+    seconds: 2
+  when: GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is NOT defined
 
 - name: Construct base project create command
   set_fact:
