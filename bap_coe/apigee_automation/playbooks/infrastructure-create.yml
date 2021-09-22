@@ -9,22 +9,14 @@
     ##################
     BILLING_ID: "{{ ARGOLIS_BILLING_ID }}"
     ##################
-    PROJECT_ID: "frias-pca-09222021-1453"
     WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
     TOOLS_DIR: "{{ ansible_user_dir }}/bin"
-    GCLOUD_ACCOUNT_USER: "admin"
-    GCLOUD_ACCOUNT_DOMAIN: "friasc.altostrat.com"
-    GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
-    GCLOUD_ACCOUNT_ADMIN_USER: "admin"
-    GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
     GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "admin"
     GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
     SERVICE_ACCOUNT_NAME: "service-account-default"
     SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
     SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
-    ROLE_BINDINGS:
-    - "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"
 
     SERVICE_ACCOUNT_ROLE_BINDINGS:
       - "roles/compute.admin"
@@ -59,7 +51,8 @@
       - "roles/resourcemanager.organizationAdmin"
       - "roles/iap.tunnelResourceAccessor"
 
-#  vars_files:
+  vars_files:
+  - create-delete-attributes.yml
 #    - attributes.yml
 #    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 
@@ -68,8 +61,8 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-    - { role: gcp_project_create, tags: [ 'project' ] }
-#    - { role: gcp_iam_policy_bindings_user, tags: ['user-roles'] }
+  - { role: gcp_iam_policy_bindings_user, tags: ['user-roles'], ROLE_BINDINGS: ["{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"] }
+  - { role: gcp_project_create, tags: [ 'project' ] }
 #    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
 #    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
 #    - { role: gcp_project_services_enable, tags: ['services'] }

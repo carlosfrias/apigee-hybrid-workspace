@@ -3,13 +3,9 @@
   hosts: localhost
   connection: local
 
-  vars:
-    PROJECT_ID: "frias-pca-09222021-1453"
-    GCLOUD_ACCOUNT_ADMIN_USER: "admin"
-    GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
-    GCLOUD_ACCOUNT_DOMAIN: "friasc.altostrat.com"
+  vars_files:
+  - create-delete-attributes.yml
 
-#  vars_files:
 #    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 #    - attributes.yml
 
