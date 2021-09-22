@@ -17,7 +17,7 @@
     that:
     - GCLOUD_ACCOUNT_USER is defined
     msg: "Please provide the GCLOUD_ACCOUNT_USER"
-    
+
 - name: Set default user
   shell: gcloud config set account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
 
