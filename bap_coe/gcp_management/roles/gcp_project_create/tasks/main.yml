@@ -16,13 +16,13 @@
   pause:
     echo: "Please note that BILLING_ID has not been provided"
     seconds: 2
-  when: BILLING_ID is NOT defined
+  when: BILLING_ID NOT defined
 
 - name: Advise status GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL
   pause:
     echo: "Please note that CLOUD_ACCOUNT_BILLING_ADMIN_EMAIL has not been provided"
     seconds: 2
-  when: GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is NOT defined
+  when: GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL NOT defined
 
 - name: Construct base project create command
   set_fact:
