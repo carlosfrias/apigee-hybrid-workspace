@@ -18,7 +18,7 @@
 
 - name: Delete GCP project
   ignore_errors: true
-  shell: gcloud projects delete {{ PROJECT_ID }} --quiet
+  shell: gcloud projects delete {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }} --quiet
 #  poll: 0
 #  retries: 50
 #  async: 90
