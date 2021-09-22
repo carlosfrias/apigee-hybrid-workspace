@@ -27,7 +27,7 @@
 - name: Construct base project create command
   set_fact:
     cacheable: yes
-    GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}"
+    GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}"
 
 - name: Add FOLDER_ID if provided to base project create command
   set_fact:

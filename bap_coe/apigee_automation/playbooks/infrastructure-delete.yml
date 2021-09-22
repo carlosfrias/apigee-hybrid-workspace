@@ -3,14 +3,23 @@
   hosts: localhost
   connection: local
 
-  vars_files:
-    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - attributes.yml
+  vars:
+    PROJECT_ID: "frias-pca-09222021-1453"
+    GCLOUD_ACCOUNT_ADMIN_USER: "admin"
+    GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+    GCLOUD_ACCOUNT_DOMAIN: "friasc.altostrat.com"
+
+#  vars_files:
+#    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+#    - attributes.yml
 
   collections:
     - bap_coe.gcp_management
 
-  tasks:
-    - name: Remove projects in list
-      include_role:
-        name: gcp_project_delete
+  roles:
+    - { role: gcp_project_delete }
+
+#  tasks:
+#    - name: Remove projects in list
+#      include_role:
+#        name: gcp_project_delete

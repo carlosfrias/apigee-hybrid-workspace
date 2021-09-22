@@ -9,7 +9,7 @@
     ##################
     BILLING_ID: "{{ ARGOLIS_BILLING_ID }}"
     ##################
-    PROJECT_ID: "frias-pca-09222021-1023"
+    PROJECT_ID: "frias-pca-09222021-1453"
     WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
     TOOLS_DIR: "{{ ansible_user_dir }}/bin"
     GCLOUD_ACCOUNT_USER: "admin"
@@ -23,6 +23,9 @@
     SERVICE_ACCOUNT_NAME: "service-account-default"
     SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
     SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+    ROLE_BINDINGS:
+    - "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+
     SERVICE_ACCOUNT_ROLE_BINDINGS:
       - "roles/compute.admin"
       - "roles/compute.networkUser"
@@ -66,11 +69,11 @@
 
   roles:
     - { role: gcp_project_create, tags: [ 'project' ] }
-    - { role: gcp_iam_policy_bindings_org, tags: ['org-roles'] }
-    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
-    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
-    - { role: gcp_project_services_enable, tags: ['services'] }
-    - { role: gcp_iam_policy_bindings_service_account, tags: ['roles'] }
+#    - { role: gcp_iam_policy_bindings_user, tags: ['user-roles'] }
+#    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
+#    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
+#    - { role: gcp_project_services_enable, tags: ['services'] }
+#    - { role: gcp_iam_policy_bindings_service_account, tags: ['roles'] }
 #    - { role: gce_network_create }
 #    - { role: gce_firewall_create }
 #    - { role: gce_instance_create, tags: ['instance'], TARGET_TAGS: ['allow-ssh'], ACCESS_TYPE: "int" }
