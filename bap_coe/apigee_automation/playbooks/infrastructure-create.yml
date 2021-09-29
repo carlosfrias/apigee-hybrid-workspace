@@ -11,16 +11,10 @@
     ##################
     WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
     TOOLS_DIR: "{{ ansible_user_dir }}/bin"
-    GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "admin"
-    GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
     SERVICE_ACCOUNT_NAME: "service-account-default"
     SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
     SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
-
-    PROJECT_ADMIN_ROLE_BINDINGS:
-    - "roles/resourcemanager.projectDeleter"
-    - "roles/resourcemanager.projectCreator"
 
     SERVICE_ACCOUNT_ROLE_BINDINGS:
       - "roles/compute.admin"
