@@ -1,6 +1,6 @@
 ---
 ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: friasc-hybrid-10212021-0851
+PROJECT_ID: friasc-hybrid-10212021-1128
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -47,6 +47,8 @@ ROLE_BINDINGS:
   - "roles/iam.serviceAccountCreator"
   - "roles/iam.serviceAccountKeyAdmin"
   - "roles/compute.loadBalancerAdmin"
+#  - "roles/vmwareengine.googleapis.com/services.use"
+#  - "roles/vmwareengine.googleapis.com/services.viewer"
 
 SYSTEM_TOOLS:
   - 'rsync'
@@ -71,3 +73,8 @@ CLUSTER_SEED: 1
 
 #PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
 #PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
+
+firewall_ports:
+  - { ports: "{{ gcve_ports }}", port_name_suffix: 'gcve' }
+
+gcve_ports: [53, 80, 443, 8000, 8080]
