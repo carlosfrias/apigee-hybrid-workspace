@@ -1,0 +1,19 @@
+---
+// Project Create & Delete
+PROJECT_ID: "frias-pca-09222021-1023"
+GCLOUD_ACCOUNT_DOMAIN: "friasc.altostrat.com"
+
+// Configure role bindings
+GCLOUD_ACCOUNT_ADMIN_USER: "admin"
+GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+PROJECT_ADMIN_ROLE_BINDINGS:
+- "roles/resourcemanager.projectDeleter"
+- "roles/resourcemanager.projectCreator"
+
+// Project Create
+GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "admin"
+GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+
+// Project Delete
+GCLOUD_ACCOUNT_PROJECT_ADMIN_USER: "project-admin"
+GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"

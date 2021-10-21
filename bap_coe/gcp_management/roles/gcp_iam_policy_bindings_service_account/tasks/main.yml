@@ -1,10 +1,10 @@
 ---
 # tasks file for gcp_iam_policy_bindings
-- name: Assert that SERVICE_ACCOUNT_ROLE_BINDINGS list is available
+- name: Assert that ROLE_BINDINGS list is available
   assert:
     that:
-    - SERVICE_ACCOUNT_ROLE_BINDINGS is defined
-    msg: "Please provide SERVICE_ACCOUNT_ROLE_BINDINGS collection with list of roles to assign."
+    - ROLE_BINDINGS is defined
+    msg: "Please provide ROLE_BINDINGS collection with list of roles to assign."
 
 - name: Assert that the PROJECT_ID is available
   assert:
@@ -30,7 +30,7 @@
       --member serviceAccount:{{ SERVICE_ACCOUNT }} \
       --role={{ item }} \
       --account {{ GCLOUD_ACCOUNT_EMAIL }}
-  with_items: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+  with_items: "{{ ROLE_BINDINGS }}"
 
 - name: Wait for the policy bindings to propagate
   pause:
