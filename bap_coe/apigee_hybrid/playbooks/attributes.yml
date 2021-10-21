@@ -75,6 +75,6 @@ CLUSTER_SEED: 1
 #PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
 
 firewall_ports:
-  - { ports: "{{ gcve_ports }}", port_name_suffix: 'gcve' }
+  - { ports: "{{ gcve_ports }}", port_name_suffix: 'gcve-allow' }
 
-gcve_ports: [53, 80, 443, 8000, 8080]
+gcve_ports: ["53", "80", "443", "8000", "8080"]
