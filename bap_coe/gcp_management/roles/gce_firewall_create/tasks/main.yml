@@ -17,5 +17,7 @@
     network: "{{ VPC_NETWORK_INFO }}"
     scopes: "{{ SCOPE_COMPUTE }}"
     allowed:
-      - { ip_protocol: "tcp", ports: "{{ item.ports }}" }
+      - { ip_protocol: "{{ item.protocol | default('tcp') }}", ports: "{{ item.ports | default('') }}" }
+    denied:
+      - { ip_protocol: "{{ item.protocol | default('tcp') }}", ports: "{{ item.ports | default('') }}" }
   with_items: "{{ firewall_ports }}"

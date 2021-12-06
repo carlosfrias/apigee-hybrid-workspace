@@ -49,8 +49,6 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/iam.serviceAccountUser"
   - "roles/iam.serviceAccountAdmin"
   - "roles/iam.serviceAccountCreator"
-  - "roles/iam.serviceAccountKeyAdmin"
-  - "roles/compute.loadBalancerAdmin"
 #  - "{{ ORG_ROLE_BINDINGS }}"
 
 ORG_ROLE_BINDINGS:
@@ -62,12 +60,12 @@ ORG_ROLE_BINDINGS:
   - "roles/resourcemanager.projectCreater"
   - "roles/resourcemanager.projectDeleter"
   - "roles/resourcemanager.projectIamAdmin"
+  - "roles/resourcemanager.organizationAdmin"
   - "roles/serviceusage.serviceUsageAdmin"
   - "roles/serviceusage.serviceUsageViewer"
   - "roles/serviceusage.apiKeysAdmin"
   - "roles/iam.serviceAccountKeyAdmin"
   - "roles/iam.serviceAccountAdmin"
-  - "roles/resourcemanager.organizationAdmin"
   - "roles/iap.tunnelResourceAccessor"
 
 SYSTEM_TOOLS:

@@ -1,0 +1,53 @@
+---
+- name: Installation of the Hercules CLI
+  hosts: localhost
+  connection: local
+
+  vars:
+    ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
+
+  tasks:
+  - name: Download latest build of Hercules
+    shell: |
+      mkdir -p ~/.local/bin
+      gsutil cp gs://anthos-hercules-public-artifacts/herc/latest/herc ~/.local/bin/ && chmod 755 ~/.local/bin/herc
+      grep -E 'export PATH=.*~/.local/bin.*' ~/.bashrc || echo 'export PATH=~/.local/bin/:$PATH' >> ~/.bashrc
+    args:
+      creates: ~/.local/bin/herc
+
+  - name: Install system packages
+    become: true
+    package:
+      name: ['sshuttle']
+      state: present
+
+  - name: Update SSH Config for CloudTop
+    blockinfile:
+      path: "{{ '~' | expanduser }}/.ssh/config"
+      create: yes
+      backup: yes
+      mode: 0600
+      marker: "# {mark} ANSIBLE MANAGED BLOCK"
+      marker_begin: "CLOUDTOP_CONFIG_BEGIN"
+      marker_end: "CLOUDTOP_CONFIG_END"
+      block: |
+        Match host *.corp.google.com,*.ceplabs.dev
+        ProxyCommand corp-ssh-helper %h %p
+
+  - name: Update SSH Config
+    blockinfile:
+      path: "{{ '~' | expanduser }}/.ssh/config"
+      create: yes
+      backup: yes
+      mode: 0600
+      marker: "# {mark} ANSIBLE MANAGED BLOCK"
+      marker_begin: "HERCULES_CONFIG_BEGIN"
+      marker_end: "HERCULES_CONFIG_END"
+      block: |
+        Match host 10.128.*,10.254.*,10.251.*,*.anthos
+          GSSAPIAuthentication no
+          GSSAPIKeyExchange no
+          Protocol 2
+          StrictHostKeyChecking no
+          UserKnownHostsFile /dev/null
+          ProxyCommand None
