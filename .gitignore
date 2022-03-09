@@ -4,4 +4,6 @@ workdir
 research
 *.iml
 transaction.yaml
+.cache
+.idea
 

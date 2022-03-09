@@ -1,0 +1,35 @@
+[defaults]
+remote_user = {{ remote_user }}
+private_key_file = {{ private_key_file }}
+
+inventory = {{ target_ansible_workspace }}/inventory
+fact_caching_connection = {{ target_ansible_workspace }}/tmp
+log_path = {{ target_ansible_workspace }}/logs/ansible.log
+roles_path = {{ target_ansible_workspace }}/roles
+local_tmp = {{ target_ansible_workspace }}/tmp
+library = {{ target_ansible_workspace }}/library
+
+host_key_checking = False
+forks = 10
+retry_files_enabled = False
+
+ansible_shell_type=sh
+gathering = smart
+fact_caching = jsonfile
+module_name = shell
+
+merge_multiple_cli_tags=True
+gather_subset = !ohai,!facter
+display_args_to_stdout = True
+
+timeout = 60
+
+[ssh_connection]
+pipelining = True
+# Sample ssh_args with extended arguments
+# ssh_args = -o ControlMaster=auto -o ControlPersist=7200s -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -q
+
+# Plain vanilla ssh configuration
+ssh_args = -o ControlMaster=auto -o ControlPersist=7200s -q
+control_path=%(directory)s/ansible-ssh-%%h-%%p-%%r
+
