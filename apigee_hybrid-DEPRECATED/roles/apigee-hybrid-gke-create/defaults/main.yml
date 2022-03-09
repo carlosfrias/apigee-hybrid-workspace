@@ -1,7 +1,0 @@
----
-# defaults file for roles/apigee-hybrid-gke-create
-DEFAULT_NODE_COUNT: "4"
-DEFAULT_NODE_SIZE: "e2-standard-4"
-DEFAULT_SERVICE_ACCOUNT_NAME: "apigee-hybrid-asm"
-
-
