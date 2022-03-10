@@ -17,7 +17,7 @@
     network: "{{ VPC_NETWORK_INFO }}"
     scopes: "{{ SCOPE_COMPUTE }}"
     allowed:
-      - { ip_protocol: "{{ item.protocol | default('tcp') }}", ports: "{{ item.allow_ports.join(',') | default('') }}" }
+      - { ip_protocol: "{{ item.protocol | default('tcp') }}", ports: "{{ item.allow_ports | join(',') | default('') }}" }
     denied:
-      - { ip_protocol: "{{ item.protocol | default('tcp') }}", ports: "{{ item.deny_ports.join(',') | default('') }}" }
+      - { ip_protocol: "{{ item.protocol | default('tcp') }}", ports: "{{ item.deny_ports | join(',') | default('') }}" }
   with_items: "{{ firewall_ports }}"
