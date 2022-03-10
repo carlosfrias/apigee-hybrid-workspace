@@ -4,10 +4,8 @@
   connection: local
 
   vars_files:
-  - create-delete-attributes.yml
-
-#    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-#    - attributes.yml
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - attributes.yml
 
   collections:
     - bap_coe.gcp_management
@@ -15,7 +13,3 @@
   roles:
     - { role: gcp_project_delete, GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
 
-#  tasks:
-#    - name: Remove projects in list
-#      include_role:
-#        name: gcp_project_delete

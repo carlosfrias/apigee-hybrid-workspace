@@ -17,49 +17,31 @@
     SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
 
     SERVICE_ACCOUNT_ROLE_BINDINGS:
+      - "roles/editor"
       - "roles/compute.admin"
       - "roles/compute.networkUser"
       - "roles/compute.instanceAdmin"
+      - "roles/compute.loadBalancerAdmin"
       - "roles/networkmanagement.admin"
       - "roles/networkmanagement.viewer"
       - "roles/iam.serviceAccountUser"
       - "roles/iam.serviceAccountAdmin"
       - "roles/iam.serviceAccountCreator"
       - "roles/iam.serviceAccountKeyAdmin"
-      - "roles/compute.loadBalancerAdmin"
       - "roles/resourcemanager.organizationAdmin"
       - "roles/resourcemanager.projectDeleter"
       - "roles/resourcemanager.projectCreator"
-      - "roles/editor"
-
-    ORG_ROLE_BINDINGS:
-      - "roles/billing.admin"
-      - "roles/billing.projectManager"
-      - "roles/iam.serviceAccountAdmin"
-      - "roles/iam.serviceAccountKeyAdmin"
-      - "roles/owner"
-      - "roles/resourcemanager.projectCreat0r"
-      - "roles/resourcemanager.projectDeleter"
-      - "roles/resourcemanager.projectIamAdmin"
-      - "roles/serviceusage.serviceUsageAdmin"
-      - "roles/serviceusage.serviceUsageViewer"
-      - "roles/serviceusage.apiKeysAdmin"
-      - "roles/iam.serviceAccountKeyAdmin"
-      - "roles/iam.serviceAccountAdmin"
-      - "roles/resourcemanager.organizationAdmin"
-      - "roles/iap.tunnelResourceAccessor"
 
   vars_files:
-  - create-delete-attributes.yml
-#    - attributes.yml
-#    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - attributes.yml
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
 
   collections:
     - bap_coe.gcp_management
     - bap_coe.bootstrap_runtime
 
   roles:
-  - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ PROJECT_ADMIN_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
+  - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ ORG_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
   - { role: gcp_project_create, tags: [ 'project' ] }
 #    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
 #    - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
