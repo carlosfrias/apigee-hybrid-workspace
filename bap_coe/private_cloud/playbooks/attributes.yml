@@ -1,5 +1,5 @@
 ---
-PROJECT_ID: edge-ops-lab
+PROJECT_ID: friasc-opdk-03102022-1111
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key

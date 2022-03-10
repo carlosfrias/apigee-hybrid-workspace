@@ -12,11 +12,11 @@
     - bap_coe.gcp_management
 
   tasks:
-#    - name: Create planet instances
-#      include_tasks: ../resources/infrastructure-create-controller.yml
-#      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
-#      loop_control:
-#        loop_var: instance
+    - name: Create planet instances
+      include_tasks: ../resources/infrastructure-create-controller.yml
+      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+      loop_control:
+        loop_var: instance
 
     - name: Next Step
       debug:

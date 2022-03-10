@@ -1,6 +1,6 @@
 ---
 #ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "friasc-03102022-1055"
+PROJECT_ID: "friasc-03102022-1147"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -49,7 +49,6 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/iam.serviceAccountUser"
   - "roles/iam.serviceAccountAdmin"
   - "roles/iam.serviceAccountCreator"
-#  - "{{ ORG_ROLE_BINDINGS }}"
 
 ORG_ROLE_BINDINGS:
   - "roles/owner"
@@ -100,4 +99,4 @@ SCOPE_COMPUTE:
 - 'https://www.googleapis.com/auth/compute'
 
 firewall_ports:
-  - { ports: ['22'], port_name_suffix: 'control-server' }
+  - { allow_ports: ['22'], port_name_suffix: 'control-server' }
