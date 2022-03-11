@@ -20,7 +20,7 @@
 
 - name: Disable enfocement of constraints
   shell: |
-    gcloud resource-manager \
+    gcloud beta resource-manager \
     org-policies disable-enforce {{ item }} \
     --project {{ PROJECT_ID }} \
     --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
