@@ -1,4 +1,6 @@
 ---
+MOLECULE_DEBUG: "True"
+MOLECULE_VERBOSITY: "10"
 dependency:
   name: galaxy
 driver:
@@ -12,6 +14,8 @@ platforms:
   - name: instance
 provisioner:
   name: ansible
+  options:
+    vvv: true
   playbooks:
     create: ../../infrastructure-create.yml
     destroy: ../../infrastructure-delete.yml

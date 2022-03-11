@@ -1,6 +1,6 @@
 ---
 #ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "friasc-03102022-1428"
+PROJECT_ID: "friasc-03102022-2159"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -100,3 +100,19 @@ SCOPE_COMPUTE:
 
 firewall_ports:
   - { allow_ports: ['22'], port_name_suffix: 'control-server' }
+
+PRIVATE_CLOUD_INSTANCES:
+  - { node_type: bastion, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+#  - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
+
+CONSTRAINTS_DISABLE_ENFORCEMENT:
+  - compute.requireShieldedVm
+  - compute.requireOsLogin
+  - iam.disableServiceAccountKeyCreation
+  - iam.disableServiceAccountCreation
+#  - compute.vmExternalIpAccess
+
+

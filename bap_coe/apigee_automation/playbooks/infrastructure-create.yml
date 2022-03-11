@@ -43,6 +43,8 @@
   roles:
     - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ ORG_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
     - { role: gcp_project_create, tags: [ 'project' ] }
+#      { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: ["{{  }}"] }
+    - { role: gcp_resource_manager_constraints_disable_enforce }
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
     - { role: gcp_project_services_enable, tags: ['services'] }
@@ -51,6 +53,18 @@
     - { role: gce_firewall_create }
     - { role: gce_instance_create, tags: ['instance'], TARGET_TAGS: ['allow-ssh'], ACCESS_TYPE: "int" }
     - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
+
+  tasks:
+    - name: Create planet instances
+      include_tasks: infrastructure-create-controller.yml
+      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+      loop_control:
+        loop_var: instance
+
+    - name: Next Step
+      debug:
+        msg: "This scenario created the project and dynamic infrastructure inventory. Please use one of the next scenarios to complete your deployment"
+
 
 #  tasks:
 #  - name: Create default VPC Network
