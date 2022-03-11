@@ -24,7 +24,7 @@
     --member user:{{ GCLOUD_ACCOUNT_EMAIL }} \
     --role {{ item }} \
     --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
-  WITH_ITEMS: ['roles/resourcemanager.folderEditor','roles/resourcemanager.folderViewer']
+  WITH_ITEMS: "{{ FOLDER_ROLE_BINDINGS }}"
 
 - name: Wait for the organization folder to be created
   pause:

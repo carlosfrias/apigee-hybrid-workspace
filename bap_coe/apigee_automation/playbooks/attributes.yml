@@ -76,6 +76,10 @@ PROJECT_ADMIN_ROLE_BINDINGS:
   - "roles/resourcemanager.projectDeleter"
   - "roles/resourcemanager.projectCreator"
 
+FOLDER_ROLE_BINDINGS:
+  - roles/resourcemanager.folderEditor
+  - roles/resourcemanager.folderViewer
+
 SYSTEM_TOOLS:
   - 'rsync'
   - 'tree'
