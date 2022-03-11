@@ -6,7 +6,7 @@
 
 - name: Assert ACCESS_TYPE is set
   set_fact:
-    ACCESS_TYPE: "{{ ACCESS_TYPE | default('ext') }}"
+    ACCESS_TYPE: "{{ ACCESS_TYPE | default('int') }}"
 
 - name: Set gce_instance_name
   set_fact:
