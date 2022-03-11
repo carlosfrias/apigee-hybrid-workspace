@@ -4,8 +4,8 @@
   connection: local
 
   vars_files:
-    - attributes.yml
-    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - attributes.yml
 
   collections:
     - bap_coe.gcp_management
