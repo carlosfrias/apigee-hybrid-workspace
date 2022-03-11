@@ -109,10 +109,14 @@ PRIVATE_CLOUD_INSTANCES:
 #  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
 
 CONSTRAINTS_DISABLE_ENFORCEMENT:
-  - compute.requireShieldedVm
-  - compute.requireOsLogin
-  - iam.disableServiceAccountKeyCreation
-  - iam.disableServiceAccountCreation
-#  - compute.vmExternalIpAccess
+- iam.disableServiceAccountKeyCreation
+- iam.disableServiceAccountCreation
+- compute.requireShieldedVm
+- compute.requireOsLogin
+- compute.trustedImageProjects
+- compute.restrictSharedVpcSubnetworks
+- compute.restrictSharedVpcHostProjects
+- compute.restrictVpcPeering
+- compute.vmExternalIpAccess
 
 

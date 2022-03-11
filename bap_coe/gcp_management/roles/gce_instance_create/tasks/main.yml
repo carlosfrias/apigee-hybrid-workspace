@@ -92,6 +92,6 @@
   async: 300
   when: ACCESS_TYPE == "int"
 
-#- name: Refreshing SSH
-#  command: "echo 'Refreshing GCP Compute SSH Config'"
-#  notify: "refresh gcp compute ssh config"
+- name: Refreshing SSH
+  command: "echo 'Refreshing GCP Compute SSH Config'"
+  notify: "refresh gcp compute ssh config"
