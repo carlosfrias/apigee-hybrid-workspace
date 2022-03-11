@@ -4,6 +4,7 @@
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - shared-properties.yml
 
   vars:
     DISPLAY_NAME: apigee
@@ -12,6 +13,6 @@
   - bap_coe.gcp_management
 
   roles:
-    - gcp_iam_policy_bindings_org, ROLE_BINDINGS: "{{ FOLDER_ROLE_BINDINGS }}"
-    - gcp_resource_manager_folders_create
+  - { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: "{{ FOLDER_ROLE_BINDINGS }}" }
+  - { role: gcp_resource_manager_folders_create }
 #  - gcp_resource_manager_folders_permissions
