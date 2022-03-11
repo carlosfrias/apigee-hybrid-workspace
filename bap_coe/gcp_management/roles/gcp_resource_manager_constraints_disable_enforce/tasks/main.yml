@@ -18,7 +18,7 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
-- name: Disable enfocement of constraints
+- name: Disable enforcement of constraints
   shell: |
     gcloud beta resource-manager \
     org-policies disable-enforce {{ item }} \
