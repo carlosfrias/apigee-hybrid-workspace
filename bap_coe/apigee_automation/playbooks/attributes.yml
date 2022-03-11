@@ -119,10 +119,10 @@ CONSTRAINTS_DISABLE_ENFORCEMENT:
 - iam.disableServiceAccountCreation
 - compute.requireShieldedVm
 - compute.requireOsLogin
-- compute.trustedImageProjects
-- compute.restrictSharedVpcSubnetworks
-- compute.restrictSharedVpcHostProjects
-- compute.restrictVpcPeering
-- compute.vmExternalIpAccess
+#- compute.trustedImageProjects
+#- compute.restrictSharedVpcSubnetworks
+#- compute.restrictSharedVpcHostProjects
+#- compute.restrictVpcPeering
+#- compute.vmExternalIpAccess
 
 
