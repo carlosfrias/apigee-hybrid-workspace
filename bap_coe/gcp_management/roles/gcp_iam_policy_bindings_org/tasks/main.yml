@@ -18,7 +18,7 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
-- name: Set IAM roles to installation user
+- name: Update IAM roles to installation user
   shell: |
     gcloud alpha organizations add-iam-policy-binding {{ ORG_ID }} \
      --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }} \
