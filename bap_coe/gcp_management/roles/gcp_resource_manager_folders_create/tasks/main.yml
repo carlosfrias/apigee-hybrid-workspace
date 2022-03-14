@@ -32,7 +32,7 @@
   rescue:
     - debug:
         msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} exists"
-      when: FOLDER_CREATE_STATUS contains('violates display name uniqueness')
+      when: FOLDER_CREATE_STATUS search('violates display name uniqueness')
 
 - name: Folder create status output
   debug:
