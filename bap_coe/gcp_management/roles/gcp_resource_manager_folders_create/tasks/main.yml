@@ -29,8 +29,8 @@
       --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
     register: FOLDER_CREATE_STATUS
 
-  rescue:
-    - debug:
+rescue:
+  - debug:
       msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} exists"
     when: FOLDER_CREATE_STATUS contains('violates display name uniqueness')
 
