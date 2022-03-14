@@ -6,9 +6,6 @@
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
   - shared-properties.yml
 
-  vars:
-    DISPLAY_NAME: apigee
-
   collections:
   - bap_coe.gcp_management
 

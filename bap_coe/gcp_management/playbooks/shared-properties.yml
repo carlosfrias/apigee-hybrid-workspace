@@ -23,5 +23,6 @@ STARTUP_SCRIPT: |
   sudo cp /usr/local/src/wrk /usr/local/bin/
 
 FOLDER_ROLE_BINDINGS:
-- roles/resourcemanager.folderEditor
-- roles/resourcemanager.folderViewer
+- roles/resourcemanager.folderAdmin
+
+FOLDER_DISPLAY_NAME: apigee
