@@ -18,21 +18,21 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
-- name: Attempt to create organization folder.
-  block:
-    - name: Create organization folder
-      shell: |
-        gcloud beta resource-manager \
-        folders create \
-        --display-name {{ FOLDER_DISPLAY_NAME }} \
-        --organization {{ ORG_ID }} \
-        --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
-      register: FOLDER_CREATE_STATUS
+#- name: Attempt to create organization folder.
+#  block:
+- name: Create organization folder
+  shell: |
+    gcloud beta resource-manager \
+    folders create \
+    --display-name {{ FOLDER_DISPLAY_NAME }} \
+    --organization {{ ORG_ID }} \
+    --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+  register: FOLDER_CREATE_STATUS
 
-  rescue:
-    debug:
-      msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} exists"
-    when: FOLDER_CREATE_STATUS contains('violates display name uniqueness')
+#  rescue:
+#    debug:
+#      msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} exists"
+#    when: FOLDER_CREATE_STATUS contains('violates display name uniqueness')
 
 - name: Folder create status output
   debug:
