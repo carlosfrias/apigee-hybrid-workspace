@@ -19,15 +19,15 @@
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
 #- name: Attempt to create organization folder.
-#  block:
-- name: Create organization folder
-  shell: |
-    gcloud beta resource-manager \
-    folders create \
-    --display-name {{ FOLDER_DISPLAY_NAME }} \
-    --organization {{ ORG_ID }} \
-    --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
-  register: FOLDER_CREATE_STATUS
+- block:
+  - name: Create organization folder
+    shell: |
+      gcloud beta resource-manager \
+      folders create \
+      --display-name {{ FOLDER_DISPLAY_NAME }} \
+      --organization {{ ORG_ID }} \
+      --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+    register: FOLDER_CREATE_STATUS
 
 #  rescue:
 #    debug:
