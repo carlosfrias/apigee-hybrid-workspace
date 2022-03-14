@@ -30,7 +30,7 @@
     register: FOLDER_CREATE_STATUS
 
   rescue:
-    debug:
+    - debug:
       msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} exists"
     when: FOLDER_CREATE_STATUS contains('violates display name uniqueness')
 
