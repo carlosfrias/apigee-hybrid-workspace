@@ -4,8 +4,7 @@ PROJECT_ID: "friasc-apigee-03152022-1442"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
-NAME_INSTANCE_PREFIX: dc-1
-#NAME_INSTANCE_PREFIX: "bap-coe-{{ MACHINE_TYPE }}"
+NAME_INSTANCE_PREFIX: gcp-management-test
 GCP_ZONE: us-east1-b
 DISK_SIZE: 100
 CONTROL_SERVER_IMAGE_NAME: ops-server
@@ -15,9 +14,9 @@ ACCESS_TYPE: int
 #TIME_TO_PROPAGATE_BINDINGS: 20
 
 AUTHORIZATION_KIND: serviceaccount
-#SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
 RESOURCE_GCP_ZONE: "us-central1-c"
-MACHINE_TYPE: n1-standard-1
+MACHINE_TYPE: f1-micro
+#MACHINE_TYPE: n1-standard-1
 #MACHINE_TYPE: n2-highcpu-2
 SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
 INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
