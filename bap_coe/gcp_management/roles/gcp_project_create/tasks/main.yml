@@ -33,7 +33,7 @@
   set_fact:
     cacheable: yes
     GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization {{ ORG_ID }}"
-  when: ORG_ID is defined
+  when: ORG_ID is defined and FOLDER_ID not defined
 
 - name: Add FOLDER_ID if provided to base project create command
   set_fact:
