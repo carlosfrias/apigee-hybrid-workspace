@@ -18,28 +18,14 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
-- name: List organization folders
-  shell: gcloud resource-manager folders list --organization {{ ORG_ID }} --format json
-  register: ORG_FOLDERS_LIST
-
-- name: Format response into JSON object
-  set_fact:
-    ORG_FOLDERS: "{{ ORG_FOLDERS_LIST.stdout | from_json }}"
-
-- name: Find target folder
-  set_fact:
-    target_folder: "{{ item.name | split('/') }}"
-  with_items: "{{ ORG_FOLDERS }}"
-  when: item.displayName is search(FOLDER_DISPLAY_NAME)
-
-- name: Show target folder
-  set_fact:
-    target_folder: "{{ target_folder[1] }}"
+- name: Retrieve Folder ID
+  import_role:
+    name: gcp_resource_manager_folders_get_folder_id
 
 - name: Delete organization folder
   shell: |
     gcloud beta resource-manager \
-    folders delete {{ target_folder }} \
+    folders delete {{ FOLDER_ID }} \
     --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
   register: FOLDER_CREATE_STATUS
 
