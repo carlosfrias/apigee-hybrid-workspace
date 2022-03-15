@@ -24,7 +24,7 @@
 
 - name: Show ORG_FOLDERS
   debug:
-    var: ORG_FOLDERS_LIST.stdout_lines
+    var: ORG_FOLDERS_LIST.stdout_lines[0]
 
 - name: Find target folder
   set_fact:
