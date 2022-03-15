@@ -22,14 +22,18 @@
   shell: gcloud resource-manager folders list --organization {{ ORG_ID }} --format json
   register: ORG_FOLDERS_LIST
 
-- name: Show ORG_FOLDERS
+- name: Format response into JSON object
+  set_fact:
+    ORG_FOLDERS: ORG_FOLDERS_LIST.stdout | from_json
+
+- name: Show JSON object
   debug:
-    var: ORG_FOLDERS_LIST.stdout | from_json
+    var: ORG_FOLDERS[0].displayName
 
 - name: Find target folder
   set_fact:
     target_folder: "{{ item.displayName }}"
-  with_items: "{{ ORG_FOLDERS.stdout_lines }}"
+  with_items: "{{ ORG_FOLDERS }}"
   when: item.displayName is search(FOLDER_DISPLAY_NAME)
 
 - name: Show target folder
