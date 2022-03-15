@@ -28,9 +28,9 @@
 
 - name: Find target folder
   set_fact:
-    target_folder: "{{ item }}"
+    target_folder: "{{ item.displayName }}"
   with_items: "{{ ORG_FOLDERS.stdout_lines }}"
-  when: item is match(FOLDER_DISPLAY_NAME)
+  when: item.displayName is search(FOLDER_DISPLAY_NAME)
 
 - name: Show target folder
   debug:
