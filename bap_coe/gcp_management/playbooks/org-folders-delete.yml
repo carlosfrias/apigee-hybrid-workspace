@@ -1,0 +1,14 @@
+---
+- name: Create Apigee organization folder
+  hosts: localhost
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - shared-properties.yml
+
+  collections:
+  - bap_coe.gcp_management
+
+  roles:
+  - { role: gcp_resource_manager_folders_delete }
+#  - gcp_resource_manager_folders_permissions
