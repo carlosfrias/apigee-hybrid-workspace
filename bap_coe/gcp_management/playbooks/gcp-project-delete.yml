@@ -11,4 +11,4 @@
 
   roles:
     - { role: gcp_resource_manager_folders_get_folder_id }
-    - { role: gcp_project_create }
+    - { role: gcp_project_delete }

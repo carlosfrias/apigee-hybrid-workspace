@@ -36,6 +36,7 @@
   set_fact:
     cacheable: true
     FOLDER_ID: "{{ FOLDER_ID_FIELDS[1] }}"
+  when: FOLDER_ID_FIELDS[1] is defined
 
 - name: Display FOLDER_ID for folder display name {{ FOLDER_DISPLAY_NAME }}
   debug:
