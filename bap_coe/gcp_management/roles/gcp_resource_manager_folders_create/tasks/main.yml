@@ -39,7 +39,7 @@
     name: gcp_resource_manager_folders_get_folder_id
 
 - name: Cache FOLDER_ID
-  set_cache:
+  set_fact:
     cacheable: true
     FOLDER_ID: "{{ FOLDER_ID }}"
 
