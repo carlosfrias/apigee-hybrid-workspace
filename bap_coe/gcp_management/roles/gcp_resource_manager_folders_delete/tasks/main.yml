@@ -18,10 +18,6 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
-- name: Retrieve Folder ID
-  import_role:
-    name: gcp_resource_manager_folders_get_folder_id
-
 - name: Delete organization folder
   shell: |
     gcloud beta resource-manager \

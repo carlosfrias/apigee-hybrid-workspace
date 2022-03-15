@@ -34,10 +34,6 @@
         msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} exists"
       when: FOLDER_CREATE_STATUS is match('violates display name uniqueness')
 
-- name: Retrieve Folder ID
-  import_role:
-    name: gcp_resource_manager_folders_get_folder_id
-
 - name: Cache FOLDER_ID
   set_fact:
     cacheable: true

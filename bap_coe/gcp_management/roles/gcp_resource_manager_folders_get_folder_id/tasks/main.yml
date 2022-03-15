@@ -28,7 +28,7 @@
 
 - name: Find target folder in JSON object
   set_fact:
-    cacheable: true
+    cacheable: True
     FOLDER_ID: "{{ item.name | split('/') }}"
   with_items: "{{ ORG_FOLDERS_JSON }}"
   when: item.displayName is search(FOLDER_DISPLAY_NAME)
