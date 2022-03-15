@@ -19,7 +19,7 @@
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
 - name: List organization folders
-  shell: gcloud resource-manager folders list --organization {{ ORG_ID }}
+  shell: gcloud resource-manager folders list --organization {{ ORG_ID }} --format json
   register: ORG_FOLDERS
 
 - name: Show ORG_FOLDERS
