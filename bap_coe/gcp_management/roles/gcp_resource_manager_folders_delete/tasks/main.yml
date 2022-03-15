@@ -22,6 +22,10 @@
   shell: gcloud resource-manager folders list --organization {{ ORG_ID }}
   register: ORG_FOLDERS
 
+- name: Show FOLDER_DISPLAY_NAME
+  debug:
+    var: FOLDER_DISPLAY_NAME
+    
 - name: Find target folder
   set_fact:
     target_folder: "{{ item }}"
