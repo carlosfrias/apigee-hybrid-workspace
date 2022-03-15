@@ -31,5 +31,5 @@
 
   rescue:
     - debug:
-        msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} exists"
+        msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} already exists!"
       when: FOLDER_CREATE_STATUS is match('violates display name uniqueness')
