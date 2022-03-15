@@ -11,6 +11,7 @@ DISK_SIZE: 100
 CONTROL_SERVER_IMAGE_NAME: ops-server
 CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
+ACCESS_TYPE: ext
 #TIME_TO_PROPAGATE_BINDINGS: 20
 
 AUTHORIZATION_KIND: serviceaccount
@@ -103,10 +104,10 @@ firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
 
 CONSTRAINTS_DISABLE_ENFORCEMENT:
-- iam.disableServiceAccountKeyCreation
-- iam.disableServiceAccountCreation
-- compute.requireShieldedVm
-- compute.requireOsLogin
+- constraints/iam.disableServiceAccountKeyCreation
+- constraints/iam.disableServiceAccountCreation
+- constraints/compute.requireShieldedVm
+- constraints/compute.requireOsLogin
 #- compute.trustedImageProjects
 #- compute.restrictSharedVpcSubnetworks
 #- compute.restrictSharedVpcHostProjects
