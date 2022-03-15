@@ -34,7 +34,7 @@
 
 - name: Show target folder
   set_fact:
-    target_folder: target_folder[1]
+    target_folder: "{{ target_folder[1] }}"
 
 - name: Create organization folder
   shell: |
