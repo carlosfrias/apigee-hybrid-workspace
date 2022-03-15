@@ -36,11 +36,10 @@
   set_fact:
     target_folder: "{{ target_folder[1] }}"
 
-- name: Create organization folder
+- name: Delete organization folder
   shell: |
     gcloud beta resource-manager \
-    folders delete \
-    --folder {{ target_folder }} \
+    folders delete {{ target_folder }} \
     --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
   register: FOLDER_CREATE_STATUS
 
