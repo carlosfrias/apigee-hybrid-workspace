@@ -24,7 +24,7 @@
 
 - name: Format response into JSON object
   set_fact:
-    ORG_FOLDERS: ORG_FOLDERS_LIST.stdout | from_json
+    ORG_FOLDERS: "{{ ORG_FOLDERS_LIST.stdout | from_json }}"
 
 - name: Show ORG_FOLDERS
   debug:
