@@ -28,7 +28,7 @@
 
 - name: Find target folder
   set_fact:
-    target_folder: "{{ item.name | split('/')[1] }}"
+    target_folder: "{{ item.name | split('/') }}"
   with_items: "{{ ORG_FOLDERS }}"
   when: item.displayName is search(FOLDER_DISPLAY_NAME)
 
