@@ -20,6 +20,7 @@
     - { role: service_account_file_processing, tags: [ 'service-account'] }
     - { role: gce_network_create }
     - { role: gce_firewall_create }
+    - { role: gcp_resource_manager_constraints_disable_enforce }
 
   tasks:
     - name: create instances

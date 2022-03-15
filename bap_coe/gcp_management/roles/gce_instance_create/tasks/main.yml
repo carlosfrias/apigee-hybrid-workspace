@@ -57,6 +57,8 @@
       tags:
         items:
           - "{{ TARGET_TAGS }}"
+#      poll: 0
+#      async: 300
     register: gce_instance
 
   - name: Store GCE Instance Ext IP Address

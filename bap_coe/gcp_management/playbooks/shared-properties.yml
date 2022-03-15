@@ -101,3 +101,14 @@ ROLE_BINDINGS:
 
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
+
+CONSTRAINTS_DISABLE_ENFORCEMENT:
+- iam.disableServiceAccountKeyCreation
+- iam.disableServiceAccountCreation
+- compute.requireShieldedVm
+- compute.requireOsLogin
+#- compute.trustedImageProjects
+#- compute.restrictSharedVpcSubnetworks
+#- compute.restrictSharedVpcHostProjects
+#- compute.restrictVpcPeering
+#- compute.vmExternalIpAccess
