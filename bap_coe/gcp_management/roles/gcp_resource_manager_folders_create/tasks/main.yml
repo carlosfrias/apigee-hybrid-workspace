@@ -33,12 +33,3 @@
     - debug:
         msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} exists"
       when: FOLDER_CREATE_STATUS is match('violates display name uniqueness')
-
-- name: Cache FOLDER_ID
-  set_fact:
-    cacheable: true
-    FOLDER_ID: "{{ FOLDER_ID }}"
-
-- name: Folder create status output
-  debug:
-    var: FOLDER_CREATE_STATUS
