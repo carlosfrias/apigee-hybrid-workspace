@@ -41,9 +41,6 @@
     GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --folder {{ FOLDER_ID }}"
   when: FOLDER_ID is defined
 
-#- name: Set active account
-#  shell: gcloud config set account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
-
 - name: Create GCP Project with provided FOLDER_ID
   shell: "{{ GCLOUD_PROJECT_CREATE_CMD }}"
   register: status
