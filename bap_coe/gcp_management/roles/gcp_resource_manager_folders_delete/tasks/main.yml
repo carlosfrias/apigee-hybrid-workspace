@@ -26,7 +26,7 @@
   set_fact:
     ORG_FOLDERS: ORG_FOLDERS_LIST.stdout | from_json
 
-- name: Show JSON object
+- name: Show JSON object fields
   debug:
     msg: "{{ item }}"
   with_items: "{{ ORG_FOLDERS }}"
