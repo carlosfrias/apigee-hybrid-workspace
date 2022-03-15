@@ -28,7 +28,8 @@
 
 - name: Show JSON object
   debug:
-    var: ORG_FOLDERS[0].displayName
+    msg: "{{ item }}"
+  with_items: "{{ ORG_FOLDERS }}"
 
 - name: Find target folder
   set_fact:
