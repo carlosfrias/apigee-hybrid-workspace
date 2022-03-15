@@ -11,5 +11,5 @@
 
   roles:
   - { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: "{{ FOLDER_ROLE_BINDINGS }}" }
-  - { role: gcp_resource_manager_folders_get_folder_id }
   - { role: gcp_resource_manager_folders_create }
+  - { role: gcp_resource_manager_folders_get_folder_id }
