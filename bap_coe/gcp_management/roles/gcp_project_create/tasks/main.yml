@@ -29,10 +29,16 @@
     cacheable: yes
     GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}"
 
+- name: Add ORG_ID if provided to base project create command
+  set_fact:
+    cacheable: yes
+    GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization {{ ORG_ID }}"
+  when: ORG_ID is defined
+
 - name: Add FOLDER_ID if provided to base project create command
   set_fact:
     cacheable: yes
-    GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization={{ FOLDER_ID }}"
+    GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --folder {{ FOLDER_ID }}"
   when: FOLDER_ID is defined
 
 #- name: Set active account

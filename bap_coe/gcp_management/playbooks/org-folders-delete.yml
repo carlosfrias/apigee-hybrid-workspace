@@ -12,4 +12,3 @@
   roles:
     - { role: gcp_resource_manager_folders_get_folder_id }
     - { role: gcp_resource_manager_folders_delete }
-#  - gcp_resource_manager_folders_permissions
