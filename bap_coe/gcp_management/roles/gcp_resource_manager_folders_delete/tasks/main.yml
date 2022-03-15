@@ -26,7 +26,7 @@
   set_fact:
     target_folder: "{{ item }}"
   with_items: "{{ ORG_FOLDERS }}"
-  when: item.displayName == FOLDER_DISPLAY_NAME
+  when: item.displayName is match(FOLDER_DISPLAY_NAME)
 
 - name: Create organization folder
   shell: |
