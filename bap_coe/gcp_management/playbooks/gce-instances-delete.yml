@@ -12,8 +12,8 @@
   - bap_coe.gcp_management
 
   roles:
-    - service_account_file_path
-    - service_account_file_processing
+    - { role: service_account_file_path }
+    - { role: service_account_file_processing }
 
   tasks:
   - name: Remove instances
