@@ -1,11 +1,11 @@
 ---
-#ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "friasc-gcp-03152022-1224"
+#ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
+PROJECT_ID: "friasc-apigee-03152022-1442"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
-SERVICE_ACCOUNT_FILE_SUFFIX: service-account-key
-NAME_INSTANCE_PREFIX: dc-1
+#NAME_INSTANCE_PREFIX: dc-1
+NAME_INSTANCE_PREFIX: "bap-coe-{{ MACHINE_TYPE }}"
 GCP_ZONE: us-east1-b
 DISK_SIZE: 100
 CONTROL_SERVER_IMAGE_NAME: ops-server
@@ -14,11 +14,10 @@ ORG_BINDING_PROPAGATION_TIMEOUT: 100
 #TIME_TO_PROPAGATE_BINDINGS: 20
 
 AUTHORIZATION_KIND: serviceaccount
-SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
+#SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
 RESOURCE_GCP_ZONE: "us-central1-c"
 MACHINE_TYPE: n1-standard-1
 #MACHINE_TYPE: n2-highcpu-2
-NAME_INSTANCE_PREFIX: "bap-coe-{{ MACHINE_TYPE }}"
 SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
 INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
 

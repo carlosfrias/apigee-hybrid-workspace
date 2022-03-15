@@ -13,10 +13,10 @@
 
   roles:
     - { role: gcp_project_services_enable, tags: ['services'] }
+    - { role: service_account_file_path }
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
     - { role: gcp_iam_policy_bindings_service_account, tags: [ 'roles' ] }
-    - { role: service_account_file_path }
     - { role: service_account_file_processing }
     - { role: gce_network_create }
     - { role: gce_firewall_create }

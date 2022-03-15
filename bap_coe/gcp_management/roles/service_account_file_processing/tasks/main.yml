@@ -1,6 +1,6 @@
 ---
 # tasks file for service_account_file_processing
-- name: Assert that the service account file is indicated
+- name: Assert that the service account file path is indicated
   assert:
     that:
     - SERVICE_ACCOUNT_FILE_PATH is defined

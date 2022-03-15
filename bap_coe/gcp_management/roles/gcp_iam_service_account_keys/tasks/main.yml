@@ -6,21 +6,6 @@
     - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
-- name: Set service account file name
-  set_fact:
-    cacheable: yes
-    SERVICE_ACCOUNT_FILE: "{{ SERVICE_ACCOUNT_NAME }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
-
-- name: Set service account file path
-  set_fact:
-    cacheable: yes
-    SERVICE_ACCOUNT_FILE_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_FILE }}"
-
-- name: Assert work directory
-  file:
-    path: "{{ WORK_DIR }}"
-    state: directory
-
 - name: Enable creation of the service account key file
   shell: |
     gcloud resource-manager \
