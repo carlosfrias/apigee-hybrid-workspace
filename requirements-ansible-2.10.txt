@@ -9,4 +9,4 @@ google-auth
 pyasn1_modules==0.2.8
 requests==2.23.0
 pycryptodome==3.10.1
-
+NumPy

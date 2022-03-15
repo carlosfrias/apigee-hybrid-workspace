@@ -6,7 +6,7 @@
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - shared-properties.yml
+    - attributes.yml
 
   collections:
     - bap_coe.gcp_management
