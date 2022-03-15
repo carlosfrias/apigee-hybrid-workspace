@@ -1,6 +1,6 @@
 ---
 #ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "friasc-gcp-03152022-2259"
+PROJECT_ID: "friasc-gcp-03152022-1205"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -47,11 +47,14 @@ ORG_ROLE_BINDINGS:
 - "roles/billing.projectManager"
 - "roles/iam.serviceAccountAdmin"
 - "roles/iam.serviceAccountKeyAdmin"
-- "roles/resourcemanager.projectCreator"
-- "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectIamAdmin"
 - "roles/resourcemanager.organizationAdmin"
 - "roles/serviceusage.serviceUsageAdmin"
 - "roles/serviceusage.serviceUsageViewer"
 - "roles/serviceusage.apiKeysAdmin"
 - "roles/iap.tunnelResourceAccessor"
+
+#  Configure project admin role bindings
+PROJECT_ADMIN_ROLE_BINDINGS:
+- "roles/resourcemanager.projectDeleter"
+- "roles/resourcemanager.projectCreator"
