@@ -33,8 +33,8 @@
   when: item.displayName is search(FOLDER_DISPLAY_NAME)
 
 - name: Show target folder
-  debug:
-    var: target_folder
+  set_fact:
+    target_folder: target_folder[1]
 
 - name: Create organization folder
   shell: |
