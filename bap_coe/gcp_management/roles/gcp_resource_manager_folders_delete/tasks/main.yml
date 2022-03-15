@@ -30,7 +30,7 @@
   set_fact:
     target_folder: "{{ item }}"
   with_items: "{{ ORG_FOLDERS.stdout_lines }}"
-  when: item.displayName is match(FOLDER_DISPLAY_NAME)
+  when: item is match(FOLDER_DISPLAY_NAME)
 
 - name: Show target folder
   debug:
