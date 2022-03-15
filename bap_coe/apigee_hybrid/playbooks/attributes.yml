@@ -40,6 +40,7 @@ ROLE_BINDINGS:
   - "roles/compute.admin"
   - "roles/compute.networkUser"
   - "roles/compute.instanceAdmin"
+  - "roles/compute.disks.*"
   - "roles/networkmanagement.admin"
   - "roles/networkmanagement.viewer"
   - "roles/iam.serviceAccountUser"

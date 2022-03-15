@@ -1,0 +1,23 @@
+---
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+  tags: ['instances']
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ../../shared-properties.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  tasks:
+#    - name: Create planet instances
+#      include_tasks: ../../infrastructure-create-controller.yml
+#      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+#      loop_control:
+#        loop_var: instance
+
+#    - name: Next Step
+#      debug:
+#        msg: "This scenario created the project and dynamic infrastructure inventory. Please use one of the next scenarios to complete your deployment"

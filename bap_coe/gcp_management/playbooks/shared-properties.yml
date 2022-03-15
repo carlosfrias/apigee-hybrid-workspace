@@ -1,6 +1,6 @@
 ---
 #ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "friasc-gcp-03152022-1205"
+PROJECT_ID: "friasc-gcp-03152022-1224"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -16,8 +16,8 @@ ORG_BINDING_PROPAGATION_TIMEOUT: 100
 AUTHORIZATION_KIND: serviceaccount
 SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
 RESOURCE_GCP_ZONE: "us-central1-c"
-#MACHINE_TYPE: n1-standard-1
-MACHINE_TYPE: n2-highcpu-2
+MACHINE_TYPE: n1-standard-1
+#MACHINE_TYPE: n2-highcpu-2
 NAME_INSTANCE_PREFIX: "bap-coe-{{ MACHINE_TYPE }}"
 SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
 INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
@@ -58,3 +58,47 @@ ORG_ROLE_BINDINGS:
 PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
+
+GCP_SERVICES:
+- "compute.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
+- "servicenetworking.googleapis.com"
+- "serviceusage.googleapis.com"
+- "iam.googleapis.com"
+- "container.googleapis.com"
+- "stackdriver.googleapis.com"
+- "meshca.googleapis.com"
+- "meshtelemetry.googleapis.com"
+- "meshconfig.googleapis.com"
+- "iamcredentials.googleapis.com"
+- "anthos.googleapis.com"
+- "gkeconnect.googleapis.com"
+- "gkehub.googleapis.com"
+- "sourcerepo.googleapis.com"
+- "cloudbuild.googleapis.com"
+- "secretmanager.googleapis.com"
+- "dns.googleapis.com"
+- "pubsub.googleapis.com"
+- "apigee.googleapis.com"
+- "apigeeconnect.googleapis.com"
+- "monitoring.googleapis.com"
+- "logging.googleapis.com"
+- "cloudtrace.googleapis.com"
+- "privateca.googleapis.com"
+
+ROLE_BINDINGS:
+- "roles/compute.admin"
+- "roles/compute.networkUser"
+- "roles/compute.instanceAdmin"
+- "roles/networkmanagement.admin"
+- "roles/networkmanagement.viewer"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountCreator"
+- "roles/iam.serviceAccountKeyAdmin"
+- "roles/compute.loadBalancerAdmin"
+#  - "roles/vmwareengine.googleapis.com/services.use"
+#  - "roles/vmwareengine.googleapis.com/services.viewer"
+
+firewall_ports:
+- { allow_ports: ['22'], port_name_suffix: 'control-server' }

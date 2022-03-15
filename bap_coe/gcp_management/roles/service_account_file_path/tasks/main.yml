@@ -1,0 +1,22 @@
+---
+# tasks file for service_account_file_path
+
+- name: Assert work directory
+  file:
+    path: "{{ WORK_DIR }}"
+    state: directory
+
+- name: Set service account name
+  set_fact:
+    cacheable: yes
+    SERVICE_ACCOUNT_NAME: "{{ GCLOUD_ACCOUNT_USER }}-{{ GCLOUD_SERVICE_ACCOUNT_SUFFIX | default('service-account') }}"
+
+- name: Set service account file name
+  set_fact:
+    cacheable: yes
+    SERVICE_ACCOUNT_FILE: "{{ SERVICE_ACCOUNT_NAME }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
+
+- name: Set service account file path
+  set_fact:
+    cacheable: yes
+    SERVICE_ACCOUNT_FILE_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_FILE }}"

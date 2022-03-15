@@ -5,12 +5,14 @@
   gather_facts: no
 
   vars_files:
-  - shared-3-properties.yml
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - shared-properties.yml
 
   collections:
   - bap_coe.gcp_management
 
   roles:
+    - service_account_file_path
     - service_account_file_processing
 
   tasks:
