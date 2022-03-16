@@ -47,10 +47,6 @@
   with_items:
     - "{{ INVENTORY_DIR }}"
 
-- name: Setup GCP Attributes from service account file
-  include_role:
-    name: bap_coe.gcp_management.service_account_file_processing
-
 - name: Create tempfile
   tempfile:
     state: file
