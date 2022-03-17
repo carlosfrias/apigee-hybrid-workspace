@@ -10,7 +10,7 @@
   collections:
     - bap_coe.gcp_management
 
-  tasks:
-    - name: Remove projects in list
-      include_role:
-        name: gcp_project_delete
+  roles:
+    - { role: gcp_project_delete }
+    - { role: gcp_resource_manager_folders_get_folder_id }
+    - { role: gcp_resource_manager_folders_delete }
