@@ -64,6 +64,19 @@ PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 
+SERVICE_ACCOUNT_ROLE_BINDINGS:
+- "roles/compute.admin"
+- "roles/compute.networkUser"
+- "roles/compute.instanceAdmin"
+- "roles/compute.disks.*"
+- "roles/networkmanagement.admin"
+- "roles/networkmanagement.viewer"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountCreator"
+- "roles/iam.serviceAccountKeyAdmin"
+- "roles/compute.loadBalancerAdmin"
+
 GCP_SERVICES:
 - "compute.googleapis.com"
 - "cloudresourcemanager.googleapis.com"
