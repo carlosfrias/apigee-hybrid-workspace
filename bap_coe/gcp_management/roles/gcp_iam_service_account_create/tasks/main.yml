@@ -32,7 +32,8 @@
         gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
           --description={{ SERVICE_ACCOUNT_NAME }} \
           --display-name={{ SERVICE_ACCOUNT_NAME }} \
-          --project {{ PROJECT_ID }}
+          --project {{ PROJECT_ID }} \
+          --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
       register: status
       failed_when:
         - status.rc == 1

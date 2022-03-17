@@ -6,6 +6,12 @@
     - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
+- name: Assert that the SERVICE_ACCOUNT_FILE_PATH is available
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
+
 - name: Enable creation of the service account key file
   shell: |
     gcloud resource-manager \

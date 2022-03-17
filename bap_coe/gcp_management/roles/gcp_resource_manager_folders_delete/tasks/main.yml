@@ -6,7 +6,7 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
   when: FOLDER_ID is defined
-    
+
 - name: FOLDER_ID status
   debug:
     msg: "Folder ID is not defined"
