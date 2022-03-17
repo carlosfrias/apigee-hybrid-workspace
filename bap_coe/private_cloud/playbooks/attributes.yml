@@ -1,6 +1,6 @@
 ---
 #ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "friasc-opdk-03152022-2150"
+PROJECT_ID: "friasc-opdk-03152022-1635"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
