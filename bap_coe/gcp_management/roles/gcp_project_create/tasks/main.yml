@@ -80,9 +80,9 @@
       cacheable: yes
       PROJECT_NUMBER: "{{ project_number.stdout }}"
 
-  when:  and delete_requested is falsy
+  when: delete_requested is falsy
 
 - name: Fail this invocation to create a project that has been deleted
   fail:
     msg: "The project to be created has been deleted and cannot be created"
-  when: delete_requested is true
+  when: delete_requested is truthy
