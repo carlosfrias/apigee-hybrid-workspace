@@ -83,6 +83,6 @@
   when: delete_requested is falsy
 
 - name: Fail this invocation to create a project that has been deleted
-  fail:
-    msg: "The project to be created has been deleted and cannot be created"
+  debug:
+    msg: "The project to be created has been deleted and will not be recreated"
   when: delete_requested is truthy
