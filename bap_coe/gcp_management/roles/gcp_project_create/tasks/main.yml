@@ -28,47 +28,56 @@
   shell: gcloud projects list --filter='lifecycleState:DELETE_REQUESTED'
   register: DELETED_PROJECTS
 
+- name: Set default status for delete_requested
+  set_fact:
+    delete_requested: false
+
 - name: Search for this project
   set_fact:
     delete_requested: true
   when: DELETED_PROJECTS.stdout search(PROJECT_ID) is true
 
-- name: Construct base project create command
-  set_fact:
-    cacheable: yes
-    GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}"
+- name: Create project if delete_requested is not true
+  block:
 
-- name: Add ORG_ID if provided to base project create command
-  set_fact:
-    cacheable: yes
-    GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization {{ ORG_ID }}"
-  when: ORG_ID is defined and FOLDER_ID is not defined
+  - name: Construct base project create command
+    set_fact:
+      cacheable: yes
+      GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}"
 
-- name: Add FOLDER_ID if provided to base project create command
-  set_fact:
-    cacheable: yes
-    GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --folder {{ FOLDER_ID }}"
-  when: FOLDER_ID is defined
+  - name: Add ORG_ID if provided to base project create command
+    set_fact:
+      cacheable: yes
+      GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization {{ ORG_ID }}"
+    when: ORG_ID is defined and FOLDER_ID is not defined
 
-- name: Create GCP Project with provided FOLDER_ID
-  shell: "{{ GCLOUD_PROJECT_CREATE_CMD }}"
-  register: status
-  failed_when:
-  - status.rc == 1
-  - "'already in use' not in status.stderr"
+  - name: Add FOLDER_ID if provided to base project create command
+    set_fact:
+      cacheable: yes
+      GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --folder {{ FOLDER_ID }}"
+    when: FOLDER_ID is defined
 
-- name: Set Project Default
-  shell: gcloud config set project {{ PROJECT_ID }}
+  - name: Create GCP Project with provided FOLDER_ID
+    shell: "{{ GCLOUD_PROJECT_CREATE_CMD }}"
+    register: status
+    failed_when:
+    - status.rc == 1
+    - "'already in use' not in status.stderr"
 
-- name: Connect GCP Project to Billing Account, if provided
-  shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }} --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
-  when: BILLING_ID is defined and GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is defined
+  - name: Set Project Default
+    shell: gcloud config set project {{ PROJECT_ID }}
 
-- name: Obtain PROJECT_NUMBER
-  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
-  register: project_number
+  - name: Connect GCP Project to Billing Account, if provided
+    shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }} --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+    when: BILLING_ID is defined and GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is defined
 
-- name: Cache PROJECT_NUMBER
-  set_fact:
-    cacheable: yes
-    PROJECT_NUMBER: "{{ project_number.stdout }}"
+  - name: Obtain PROJECT_NUMBER
+    shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
+    register: project_number
+
+  - name: Cache PROJECT_NUMBER
+    set_fact:
+      cacheable: yes
+      PROJECT_NUMBER: "{{ project_number.stdout }}"
+      
+  when:  and delete_requested is not true
