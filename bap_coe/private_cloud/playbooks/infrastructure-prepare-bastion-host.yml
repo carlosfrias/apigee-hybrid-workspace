@@ -9,24 +9,25 @@
 
   collections:
     - bap_coe.gcp_management
-    - bap_coe.bootstrap_runtime
+#    - bap_coe.bootstrap_runtime
     - bap_coe.bastion_host
 
   vars:
     ROLE_BINDINGS: ["{{ FOLDER_ROLE_BINDINGS }}","{{ ORG_ROLE_BINDINGS }}","{{ PROJECT_ADMIN_ROLE_BINDINGS }}"]
 
   roles:
-    - {
-      role: gcp_iam_policy_bindings_org,
-        tags: ['user-roles'],
-        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
-      }
+#    - {
+#      role: gcp_iam_policy_bindings_org,
+#        tags: ['user-roles'],
+#        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+#      }
 #    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
-#    - { role: service_account_file_path, tags: [ 'service-account'] }
+    - { role: service_account_file_path, tags: [ 'service-account'] }
 #    - { role: gcp_iam_policy_bindings_service_account, tags: ['roles'] }
-#    - { role: gce_network_create, tags: [ 'network','firewall' ] }
+    - { role: gce_network_create, tags: [ 'network','firewall' ] }
 #    - { role: gce_firewall_create, tags: ['firewall'], FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}" }
-    - { role: gce_bastion_host_create, tags: ['bastion'], NETWORK_TAGS: "bastion", ACCESS_TYPE: "int" }
+    - { role: gcp_resource_manager_constraints_disable_enforce }
+    - { role: gce_bastion_host_create, tags: ['bastion'], TARGET_TAGS: "default-control-server", ACCESS_TYPE: "int" }
 #    - { role: gce_tunnel_through_iap, tags: ['iap'] }
 
   vars:

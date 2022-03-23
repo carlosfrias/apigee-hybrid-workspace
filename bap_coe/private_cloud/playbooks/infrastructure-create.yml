@@ -34,16 +34,17 @@
       }
     - { role: service_account_file_processing }
     - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
+    - { role: gcp_resource_manager_constraints_disable_enforce }
     - { role: gce_network_create, tags: ['network','firewall'] }
     - { role: gce_firewall_create, tags: ['firewall'] }
 
-- name: Update runtime environment of instances
-  hosts: edge
-  gather_facts: yes
-  tags: ['python','infra']
-
-  collections:
-    - bap_coe.bootstrap_runtime
-
-  roles:
-    - python_install_minimal
+#- name: Update runtime environment of instances
+#  hosts: edge
+#  gather_facts: yes
+#  tags: ['python','infra']
+#
+#  collections:
+#    - bap_coe.bootstrap_runtime
+#
+#  roles:
+#    - python_install_minimal

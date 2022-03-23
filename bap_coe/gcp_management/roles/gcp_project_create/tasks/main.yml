@@ -24,6 +24,15 @@
     seconds: 2
   when: GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is undefined
 
+- name: Query for deleted projects list
+  shell: gcloud projects list --filter='lifecycleState:DELETE_REQUESTED'
+  register: DELETED_PROJECTS
+
+- name: Search for this project
+  set_fact:
+    delete_requested: true
+  when: DELETED_PROJECTS.stdout search(PROJECT_ID) is true
+
 - name: Construct base project create command
   set_fact:
     cacheable: yes

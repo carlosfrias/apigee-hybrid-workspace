@@ -1,5 +1,6 @@
 ansible
 ansible-base
+ansible-core
 ansible-lint
 molecule
 yamllint

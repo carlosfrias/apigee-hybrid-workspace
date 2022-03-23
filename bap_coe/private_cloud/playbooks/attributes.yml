@@ -1,6 +1,6 @@
 ---
 #ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "friasc-opdk-03162022-1703"
+PROJECT_ID: "friasc-opdk-03232022-1600"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -68,7 +68,6 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
-- "roles/compute.disks.*"
 - "roles/networkmanagement.admin"
 - "roles/networkmanagement.viewer"
 - "roles/iam.serviceAccountUser"
@@ -108,11 +107,11 @@ firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
 
 CONSTRAINTS_DISABLE_ENFORCEMENT:
-- constraints/iam.disableServiceAccountKeyCreation
-- constraints/iam.disableServiceAccountCreation
-- constraints/compute.requireShieldedVm
-- constraints/compute.requireOsLogin
-#- compute.trustedImageProjects
+- iam.disableServiceAccountKeyCreation
+- iam.disableServiceAccountCreation
+- compute.requireShieldedVm
+- compute.requireOsLogin
+- compute.trustedImageProjects
 #- compute.restrictSharedVpcSubnetworks
 #- compute.restrictSharedVpcHostProjects
 #- compute.restrictVpcPeering
