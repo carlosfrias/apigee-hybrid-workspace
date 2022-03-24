@@ -1,0 +1,20 @@
+---
+# tasks file for terraform-installer
+- name: Set terraform link
+  tags: ['terraform']
+  set_fact:
+    terraform_download_link: "{{ terraform_download_links[ansible_distribution] }}"
+
+- name: Download Terraform binary
+  tags: ['terraform']
+  get_url:
+    url: "{{ terraform_download_link }}"
+    dest: "./{{ terraform_download_link | basename }}"
+    validate_certs: no
+
+- name: Unarchive terraform binary
+  tags: ['terraform']
+  unarchive:
+    src: "{{ terraform_download_link | basename }}"
+    dest: ./
+    remote_src: yes
