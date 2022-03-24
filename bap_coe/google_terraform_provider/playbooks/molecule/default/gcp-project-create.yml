@@ -8,7 +8,6 @@
 
   collections:
   - bap_coe.gcp_management
-  - bap_coe.bootstrap_runtime
 
   roles:
     - { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: "{{ FOLDER_ROLE_BINDINGS }}" }
