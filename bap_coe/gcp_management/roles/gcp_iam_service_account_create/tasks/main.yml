@@ -24,7 +24,7 @@
 
 - name: Assert project ACTIVE state
   set_fact:
-    PROJECT_ACTIVE: ACTIVE_PROJECTS.stdout is search(PROJECT_ID) | default(false)
+    PROJECT_ACTIVE: "{{ ACTIVE_PROJECTS.stdout is search(PROJECT_ID) | default(false) }}"
 
 - name: Show PROJECT_ACTIVE variable
   debug:
