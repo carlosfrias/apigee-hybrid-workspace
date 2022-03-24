@@ -34,18 +34,18 @@
         --display-name={{ SERVICE_ACCOUNT_NAME }} \
         --project {{ PROJECT_ID }}
 
-  rescue:
-    - name: RESCUE - Create an initial service account, rescue for idempotency
-      shell: |
-        gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
-          --description={{ SERVICE_ACCOUNT_NAME }} \
-          --display-name={{ SERVICE_ACCOUNT_NAME }} \
-          --project {{ PROJECT_ID }} \
-          --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
-      register: status
-      failed_when:
-        - status.rc == 1
-        - "'already exists' not in status.stderr"
+    rescue:
+      - name: RESCUE - Create an initial service account, rescue for idempotency
+        shell: |
+          gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
+            --description={{ SERVICE_ACCOUNT_NAME }} \
+            --display-name={{ SERVICE_ACCOUNT_NAME }} \
+            --project {{ PROJECT_ID }} \
+            --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+        register: status
+        failed_when:
+          - status.rc == 1
+          - "'already exists' not in status.stderr"
   when: PROJECT_ACTIVE is truthy
 
 - name: Wait for the policy bindings to propagate
