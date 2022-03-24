@@ -19,7 +19,7 @@
     msg: "Please provide the PROJECT_ID"
 
 - name: Query for ACTIVE projects list
-  shell: gcloud projects list  --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='lifecycleState:ACTIVE'
+  shell: gcloud projects list --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='lifecycleState:ACTIVE'
   register: ACTIVE_PROJECTS
 
 - name: Assert project ACTIVE state
