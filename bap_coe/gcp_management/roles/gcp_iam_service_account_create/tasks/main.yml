@@ -18,6 +18,14 @@
       - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
+- name: Query for ACTIVE projects list
+  shell: gcloud projects list --filter='lifecycleState:ACTIVE'
+  register: ACTIVE_PROJECTS
+
+- name: Assert project ACTIVE state
+  set_fact:
+    PROJECT_ACTIVE: ACTIVE_PROJECTS.stdout is search(PROJECT_ID)
+
 - block:
   - name: Create an initial service account
     shell: |
@@ -38,8 +46,10 @@
       failed_when:
         - status.rc == 1
         - "'already exists' not in status.stderr"
+  when: PROJECT_ACTIVE is truthy
 
 - name: Wait for the policy bindings to propagate
   pause:
     seconds: "{{ TIME_TO_PROPAGATE_BINDINGS  | default(10) }}"
     prompt: "Wait for the policy bindings to propagate"
+  when: PROJECT_ACTIVE is truthy

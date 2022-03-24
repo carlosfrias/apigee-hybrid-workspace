@@ -6,7 +6,6 @@ TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 NAME_INSTANCE_PREFIX: gcp-management-test
 GCP_ZONE: us-east1-b
-DISK_SIZE: 100
 CONTROL_SERVER_IMAGE_NAME: ops-server
 CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
@@ -29,7 +28,7 @@ INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
 # Additional values for IMAGE_FAMILY: 'centos-7'
 DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1804-lts') }}"
 DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
-DISK_SIZE: 50
+DISK_SIZE: 100
 
 STARTUP_SCRIPT: |
   sudo apt update -y
@@ -111,7 +110,7 @@ CONSTRAINTS_DISABLE_ENFORCEMENT:
 - iam.disableServiceAccountCreation
 - compute.requireShieldedVm
 - compute.requireOsLogin
-- compute.trustedImageProjects
+#- compute.trustedImageProjects
 #- compute.restrictSharedVpcSubnetworks
 #- compute.restrictSharedVpcHostProjects
 #- compute.restrictVpcPeering
