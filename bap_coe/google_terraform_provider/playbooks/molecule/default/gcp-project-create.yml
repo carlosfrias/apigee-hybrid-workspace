@@ -8,6 +8,7 @@
 
   collections:
   - bap_coe.gcp_management
+  - bap_coe.bootstrap_runtime
 
   roles:
     - { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: "{{ FOLDER_ROLE_BINDINGS }}" }
@@ -18,11 +19,11 @@
 
   tasks:
 
-  - name: Clone apigee/terraform-modules github repo
-    git:
-      repo: "git@github.com:carlosfrias/terraform-modules.git"
-      dest: "../../terraform-modules"
-      accept_hostkey: yes
-      update: yes
-      clone: yes
-      force: no
+    - name: Clone apigee/terraform-modules github repo
+      git:
+        repo: "{{ GITHUB_REPO_URL }}"
+        dest: "{{ GITHUB_REPO_DEST }}"
+        accept_hostkey: yes
+        update: yes
+        clone: yes
+        force: no

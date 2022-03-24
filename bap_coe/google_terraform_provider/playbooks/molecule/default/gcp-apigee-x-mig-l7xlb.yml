@@ -9,12 +9,8 @@
   collections:
   - bap_coe.gcp_management
 
-#  roles:
-#    - { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: "{{ FOLDER_ROLE_BINDINGS }}" }
-#    - { role: gcp_resource_manager_folders_create }
-#    - { role: gcp_resource_manager_folders_get_folder_id }
-#    - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ ORG_ROLE_BINDINGS }}","{{ PROJECT_ADMIN_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
-#    - { role: gcp_project_create }
+  roles:
+    - { role: terraform-installer }
 
   tasks:
   - name: Create mig-l7xlb Apigee X Instance
@@ -24,5 +20,25 @@
       force_init: yes
       variables:
         project_id: "{{ PROJECT_ID }}"
-      bak
-#        name: "{{ NAME_INSTANCE_PREFIX }}"
+      backend_config:
+        ax_region: "europe-west1"
+        apigee_environments: ["test1", "test2"]
+        apigee_instances:
+          euw1-instance:
+            region: "europe-west1"
+            ip_range: "10.0.0.0/22"
+            environments: ["test1", "test2"]
+        apigee_envgroups:
+          test:
+            environments: ["test1", "test2"]
+            hostnames: ["test.api.example.com"]
+        network: "apigee-network"
+        exposure_subnets:
+          - {
+              name              : "apigee-exposure",
+              ip_cidr_range     : "10.100.0.0/24",
+              region            : "europe-west1",
+              secondary_ip_range: null
+            }
+        peering_range: "10.0.0.0/22"
+        support_range: "10.1.0.0/28"
