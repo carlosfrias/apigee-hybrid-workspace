@@ -1,0 +1,28 @@
+---
+- name: Create Apigee hybrid runtime on GCP
+  hosts: localhost
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - ../resources/attributes.yml
+
+  collections:
+  - bap_coe.gcp_management
+
+  roles:
+    - { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: "{{ FOLDER_ROLE_BINDINGS }}" }
+    - { role: gcp_resource_manager_folders_create }
+    - { role: gcp_resource_manager_folders_get_folder_id }
+    - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ ORG_ROLE_BINDINGS }}","{{ PROJECT_ADMIN_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
+    - { role: gcp_project_create }
+
+  tasks:
+
+  - name: Clone apigee/terraform-modules github repo
+    git:
+      repo: "git@github.com:carlosfrias/terraform-modules.git"
+      dest: "../../terraform-modules"
+      accept_hostkey: yes
+      update: yes
+      clone: yes
+      force: no
