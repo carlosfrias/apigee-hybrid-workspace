@@ -24,7 +24,7 @@
 
 - name: Assert project ACTIVE state
   set_fact:
-    PROJECT_ACTIVE: ACTIVE_PROJECTS.stdout is search(PROJECT_ID)
+    PROJECT_ACTIVE: ACTIVE_PROJECTS.stdout is search(PROJECT_ID) | default(false)
 
 - block:
   - name: Create an initial service account
