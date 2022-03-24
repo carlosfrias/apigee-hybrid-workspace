@@ -30,9 +30,10 @@
 
 - name: Assert project deleted state
   set_fact:
-    delete_requested: DELETED_PROJECTS.stdout is search(PROJECT_ID)
+    cacheable: true
+    DELETE_REQUESTED: "{{ DELETED_PROJECTS.stdout is search(PROJECT_ID) }}"
 
-- name: Create project if delete_requested is not true
+- name: Create project if DELETE_REQUESTED is not true
   block:
 
   - name: Construct base project create command
@@ -75,9 +76,9 @@
       cacheable: yes
       PROJECT_NUMBER: "{{ project_number.stdout }}"
 
-  when: delete_requested is falsy
+  when: DELETE_REQUESTED is falsy
 
 - name: Fail this invocation to create a project that has been deleted
   debug:
     msg: "The project to be created has been deleted and will not be recreated"
-  when: delete_requested is truthy
+  when: DELETE_REQUESTED is truthy

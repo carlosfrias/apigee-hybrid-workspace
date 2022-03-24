@@ -24,11 +24,8 @@
 
 - name: Assert project ACTIVE state
   set_fact:
+    cacheable: true
     PROJECT_ACTIVE: "{{ ACTIVE_PROJECTS.stdout is search(PROJECT_ID) | default(false) }}"
-
-- name: Show PROJECT_ACTIVE variable
-  debug:
-    var: PROJECT_ACTIVE
 
 - block:
   - name: Create an initial service account
