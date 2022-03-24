@@ -58,4 +58,4 @@
 - name: Assert no service account created on condition
   debug:
     msg: "No service account can be created when there is no project"
-  when: PROJECT_ACTIVE is truthy
+  when: PROJECT_ACTIVE is falsy
