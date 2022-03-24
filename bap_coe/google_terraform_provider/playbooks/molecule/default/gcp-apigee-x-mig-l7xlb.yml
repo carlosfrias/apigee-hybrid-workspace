@@ -10,7 +10,7 @@
   - bap_coe.bootstrap_runtime
 
   roles:
-    - { role: terraform-installer }
+  - { role: terraform-installer }
 
   tasks:
   - name: Create mig-l7xlb Apigee X Instance
