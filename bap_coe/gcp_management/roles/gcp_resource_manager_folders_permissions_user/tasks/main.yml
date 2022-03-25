@@ -5,6 +5,12 @@
     - FOLDER_ID is defined
     msg: "Please provide the FOLDER_ID"
 
+- name: Assert that the folder FOLDER_ROLE_BINDINGS is available
+  assert:
+    that:
+    - FOLDER_ROLE_BINDINGS is defined
+    msg: "Please provide the FOLDER_ROLE_BINDINGS"
+
 - name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
   assert:
     that:
@@ -24,7 +30,7 @@
     --member user:{{ GCLOUD_ACCOUNT_EMAIL }} \
     --role {{ item }} \
     --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
-  WITH_ITEMS: "{{ FOLDER_ROLE_BINDINGS }}"
+  with_items: "{{ FOLDER_ROLE_BINDINGS }}"
 
 - name: Wait for the organization folder to be created
   pause:
