@@ -11,3 +11,4 @@ pyasn1_modules
 requests
 pycryptodome
 NumPy
+netaddr

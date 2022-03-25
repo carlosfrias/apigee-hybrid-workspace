@@ -9,4 +9,4 @@ pyasn1_modules==0.2.8
 requests==2.23.0
 pycryptodome
 NumPy
-
+netaddr
