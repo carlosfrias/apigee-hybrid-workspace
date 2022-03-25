@@ -26,6 +26,11 @@
       dest: "{{ TERRAFORM_DOWNLOAD_PATH.path }}/{{ terraform_download_link | basename }}"
       validate_certs: no
 
+  - name: Assert terraform bin dest path
+    file:
+      path: "{{ TERRAFORM_BIN_DEST_PATH }}"
+      state: directory
+
   - name: Unarchive terraform binary
     tags: ['terraform']
     unarchive:

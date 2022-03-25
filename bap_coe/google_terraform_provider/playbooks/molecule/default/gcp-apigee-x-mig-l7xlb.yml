@@ -16,6 +16,7 @@
   - name: Create mig-l7xlb Apigee X Instance
     terraform:
       project_path: ../../terraform-modules/samples/x-l7xlb
+      binary_path: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"
       state: present
       force_init: yes
       variables:
