@@ -20,4 +20,3 @@
     file:
       path: ../../terraform-modules
       state: absent
-      

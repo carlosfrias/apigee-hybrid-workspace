@@ -16,7 +16,7 @@
   tags: ['terraform']
   set_fact:
     cacheable: true
-    TERRAFORM_DOWNL
+    TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_DOWNLOAD_PATH.path }}"
     terraform_download_link: "{{ terraform_download_links[ansible_distribution] }}"
 
 - name: Download and unarchive terraform binary
