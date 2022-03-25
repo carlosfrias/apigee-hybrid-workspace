@@ -1,20 +1,37 @@
 ---
 # tasks file for terraform_installer
+- name: Assert terraform binary destination path
+  assert:
+    that:
+      - TERRAFORM_BIN_DEST_PATH is defined
+    msg: "Please provide the path for the terraform binary"
+
+- name: Create temporary download directory
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: terraform-binary
+  register: TERRAFORM_DOWNLOAD_PATH
+
 - name: Set terraform link
   tags: ['terraform']
   set_fact:
+    cacheable: true
+    TERRAFORM_DOWNL
     terraform_download_link: "{{ terraform_download_links[ansible_distribution] }}"
 
-- name: Download Terraform binary
-  tags: ['terraform']
-  get_url:
-    url: "{{ terraform_download_link }}"
-    dest: "./{{ terraform_download_link | basename }}"
-    validate_certs: no
+- name: Download and unarchive terraform binary
+  block:
+  - name: Download Terraform binary
+    tags: ['terraform']
+    get_url:
+      url: "{{ terraform_download_link }}"
+      dest: "{{ TERRAFORM_DOWNLOAD_PATH.path }}/{{ terraform_download_link | basename }}"
+      validate_certs: no
 
-- name: Unarchive terraform binary
-  tags: ['terraform']
-  unarchive:
-    src: "{{ terraform_download_link | basename }}"
-    dest: ./
-    remote_src: yes
+  - name: Unarchive terraform binary
+    tags: ['terraform']
+    unarchive:
+      src: "{{ TERRAFORM_DOWNLOAD_PATH.path }}/{{ terraform_download_link | basename }}"
+      dest: "{{ TERRAFORM_BIN_DEST_PATH }}"
+      remote_src: yes
+  when: TERRAFORM_DOWNLOAD_PATH.path is defined

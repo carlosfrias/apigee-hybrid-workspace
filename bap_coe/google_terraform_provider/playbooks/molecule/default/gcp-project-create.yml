@@ -1,5 +1,5 @@
 ---
-- name: Create Apigee hybrid runtime on GCP
+- name: Create Apigee runtime on GCP
   hosts: localhost
 
   vars_files:

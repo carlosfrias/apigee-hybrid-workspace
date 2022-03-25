@@ -1,5 +1,5 @@
 ---
-- name: Create Apigee hybrid runtime on GCP
+- name: Create Apigee runtime on GCP
   hosts: localhost
 
   vars_files:
@@ -11,5 +11,6 @@
 
   roles:
     - { role: gcp_resource_manager_folders_get_folder_id }
+    - { role: gcp_project_delete }
     - { role: gcp_resource_manager_folders_delete }
     - { role: gcp_project_delete }

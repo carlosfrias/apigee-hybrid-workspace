@@ -1,5 +1,5 @@
 ---
-- name: Create infrastructure for private cloud in GCP
+- name: Create infrastructure for Apigee instance
   hosts: localhost
   connection: local
   tags: ['instances']
