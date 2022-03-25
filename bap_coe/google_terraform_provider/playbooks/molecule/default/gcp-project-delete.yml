@@ -14,3 +14,10 @@
     - { role: gcp_project_delete }
     - { role: gcp_resource_manager_folders_delete }
     - { role: gcp_project_delete }
+
+  tasks:
+  - name: Remove downloaded terraform modules
+    file:
+      path: ../../terraform-modules
+      state: absent
+      
