@@ -6,7 +6,8 @@
     that:
     - SERVICE_ACCOUNT_EMAIL is defined
     fail_msg: "SERVICE_ACCOUNT_EMAIL must be provided"
-
+- debug:
+    var: SERVICE_ACCOUNT_EMAIL
 - name: Assert SERVICE_ACCOUNT_FILE_PATH is provided
   assert:
     that:
