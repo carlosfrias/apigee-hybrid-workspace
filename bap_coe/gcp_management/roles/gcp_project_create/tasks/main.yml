@@ -81,6 +81,8 @@
           - name: RESCUE - Enable cloud resourcemanager if not enabled
             include_role:
               name: gcp_project_services_enable
+            vars:
+              GCP_SERVICES: ['cloudresourcemanager.googleapis.com']
 
           - name: RESCUE - Obtain PROJECT_NUMBER
             shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
