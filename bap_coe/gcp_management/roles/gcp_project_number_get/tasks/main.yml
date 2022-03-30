@@ -1,0 +1,37 @@
+---
+# tasks file for gcp_project_create
+- name: Assert GCLOUD_ACCOUNT_ADMIN_EMAIL
+  assert:
+    that:
+      - GCLOUD_ACCOUNT_ADMIN_EMAIL is defined
+    msg: "GCLOUD_ACCOUNT_ADMIN_EMAIL must contain the GCP account email"
+
+- name: Assert PROJECT_ID
+  assert:
+    that:
+      - PROJECT_ID is defined
+    msg: "PROJECT_ID must be provided."
+
+- name: Advise status BILLING_ID
+  pause:
+    echo: "Please note that BILLING_ID has not been provided"
+    seconds: 2
+  when: BILLING_ID is undefined
+
+- name: Advise status GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL
+  pause:
+    echo: "Please note that CLOUD_ACCOUNT_BILLING_ADMIN_EMAIL has not been provided"
+    seconds: 2
+  when: GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is undefined
+
+- name: Set Project Default
+  shell: gcloud config set project {{ PROJECT_ID }}
+
+- name: Obtain PROJECT_NUMBER
+  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
+  register: project_number
+
+- name: Cache PROJECT_NUMBER
+  set_fact:
+    cacheable: yes
+    PROJECT_NUMBER: "{{ project_number.stdout }}"

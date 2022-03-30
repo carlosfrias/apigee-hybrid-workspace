@@ -6,7 +6,7 @@
   no_log: "{{ molecule_no_log }}"
 
   vars_files:
-  - shared-3-properties.yml
+  - shared-attribute.yml
 
   collections:
   - bap_coe.gcp_management
