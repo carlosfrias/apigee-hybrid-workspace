@@ -69,20 +69,20 @@
 
   - name: Obtain PROJECT_NUMBER
     block:
-      
+
     - name: Obtain PROJECT_NUMBER
       shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
       register: project_number
 
     rescue:
-      - name: RESCUE - Reenable cloudresourcemanager.googleapis.com API
+      - name: RESCUE - Obtain PROJECT_NUMBER
         block:
 
-          - name: Enable cloud resourcemanager if not enabled
+          - name: RESCUE - Enable cloud resourcemanager if not enabled
             include_role:
               name: gcp_project_services_enable
 
-          - name: Obtain PROJECT_NUMBER
+          - name: RESCUE - Obtain PROJECT_NUMBER
             shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
             register: project_number
 
