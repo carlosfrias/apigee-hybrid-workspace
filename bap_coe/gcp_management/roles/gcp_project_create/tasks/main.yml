@@ -85,7 +85,7 @@
               shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
               register: project_number
 
-            when: project_number.stderr is search('API [cloudresourcemanager.googleapis.com] not enabled on project')
+          when: project_number.stderr is search('API [cloudresourcemanager.googleapis.com] not enabled on project')
 
   - name: Cache PROJECT_NUMBER
     set_fact:
