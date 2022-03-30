@@ -34,6 +34,7 @@
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_iam_service_account_keys, tags: [ 'service-account','roles','firewall' ] }
     - { role: service_account_file_processing }
+    - { role: gcp_auth_service_account_activate }
 #    - { role: gcp_resource_manager_constraints_disable_enforce }
     - { role: gcp_project_services_enable, tags: ['services'] }
 
@@ -48,14 +49,10 @@
         force: no
 
   tasks:
-    - name: Clone apigee/terraform-modules github repo
-      git:
-        repo: "{{ GITHUB_REPO_URL }}"
-        dest: "{{ GITHUB_REPO_DEST }}"
-        accept_hostkey: yes
-        update: yes
-        clone: yes
-        force: no
+    - name: Login service account
+      shell: |
+        gcloud auth activate-service-account {{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }} \
+        --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
 
     - name: Terraform init
       shell: |
