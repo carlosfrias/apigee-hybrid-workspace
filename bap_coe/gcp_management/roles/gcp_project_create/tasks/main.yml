@@ -69,6 +69,7 @@
 
   - name: Obtain PROJECT_NUMBER
     block:
+      
     - name: Obtain PROJECT_NUMBER
       shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
       register: project_number
