@@ -28,6 +28,11 @@
   shell: gcloud projects list --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='lifecycleState:DELETE_REQUESTED' --format=yaml
   register: DELETED_PROJECTS
 
+- name: Set deleted projects object type
+    set_fact:
+      cacheable: true
+      deleted_projects: "{{ DELETED_PROJECTS.stdout | to_yaml }}"
+
 - name: Assert project deleted state
   set_fact:
     cacheable: true
