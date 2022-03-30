@@ -49,11 +49,6 @@
         force: no
 
   tasks:
-    - name: Login service account
-      shell: |
-        gcloud auth activate-service-account {{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }} \
-        --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
-
     - name: Terraform init
       shell: |
         {{ TERRAFORM_BIN_PATH }} init
