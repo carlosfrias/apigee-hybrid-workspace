@@ -25,20 +25,13 @@
   when: GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is undefined
 
 - name: Query for deleted projects list
-  shell: gcloud projects list --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='lifecycleState:DELETE_REQUESTED' --format=yaml
+  shell: gcloud projects list --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='lifecycleState:DELETE_REQUESTED'
   register: DELETED_PROJECTS
-
-- name: Set deleted projects object type
-  set_fact:
-    cacheable: true
-    deleted_projects: "{{ DELETED_PROJECTS.stdout | from_yaml }}"
 
 - name: Assert project deleted state
   set_fact:
     cacheable: true
-    DELETE_REQUESTED: true
-  with_items: "{{ DELETED_PROJECTS }}"
-  when: item.projectId == {{ PROJECT_ID }}
+    DELETE_REQUESTED: "{{ DELETED_PROJECTS.stdout is search(PROJECT_ID) }}"
 
 - name: Create project if DELETE_REQUESTED is not true
   block:
