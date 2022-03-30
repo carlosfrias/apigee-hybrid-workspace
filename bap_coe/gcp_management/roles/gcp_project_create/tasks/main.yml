@@ -31,7 +31,7 @@
 - name: Set deleted projects object type
   set_fact:
     cacheable: true
-    deleted_projects: "{{ DELETED_PROJECTS.stdout | to_yaml }}"
+    deleted_projects: "{{ DELETED_PROJECTS.stdout | from_yaml }}"
 
 - name: Assert project deleted state
   set_fact:
