@@ -34,7 +34,7 @@
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_iam_service_account_keys, tags: [ 'service-account','roles','firewall' ] }
     - { role: service_account_file_processing }
-    - { role: gcp_auth_service_account_activate }
+#    - { role: gcp_auth_service_account_activate }
 #    - { role: gcp_resource_manager_constraints_disable_enforce }
     - { role: gcp_project_services_enable, tags: ['services'] }
     - { role: terraform_provider_configure }

@@ -6,6 +6,12 @@
     - TERRAFORM_PROJECT_PATH is defined
     msg: "Please provide the TERRAFORM_PROJECT_PATH"
 
+- name: Assert that SERVICE_ACCOUNT_FILE_PATH is provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
+
 - name: Construct version file
   template:
     src: version.tf.template
