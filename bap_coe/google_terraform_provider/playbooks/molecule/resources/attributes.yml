@@ -1,11 +1,12 @@
 ---
 #ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: "friasc-apigeex-03302022-1450"
+PROJECT_ID: "friasc-apigeex-03302022-1724"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 NAME_INSTANCE_PREFIX: apigee-x
 GCP_ZONE: us-east1-b
+GCP_REGION: us-east1
 CONTROL_SERVER_IMAGE_NAME: ops-server
 CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
@@ -111,6 +112,7 @@ CONSTRAINTS_DISABLE_ENFORCEMENT:
 
 GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
 GITHUB_REPO_DEST: "/usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-workspace/bap_coe/google_terraform_provider/playbooks/terraform-modules"
-TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/samples/x-l7xlb/"
+TERRAFORM_PROJECT_NAME: "samples/x-l7xlb"
+TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/{{ TERRAFORM_PROJECT_NAME }}"
 TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"
 TERRAFORM_BIN_PATH: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"

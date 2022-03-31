@@ -54,18 +54,24 @@
         {{ TERRAFORM_BIN_PATH }} init
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+#      environment:
+#        GOOGLE_CLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
 
     - name: Terraform plan
       shell: |
         {{ TERRAFORM_BIN_PATH }} plan --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}"
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+#      environment:
+#        GOOGLE_CLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
 
     - name: Terraform apply
       shell: |
         {{ TERRAFORM_BIN_PATH }} apply --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}" -auto-approve
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+#      environment:
+#        GOOGLE_CLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
 
 #      - name: Create mig-l7xlb Apigee X Instance
 #        terraform:
@@ -75,26 +81,26 @@
 #          force_init: yes
 #          variables:
 #            project_id: "{{ PROJECT_ID }}"
-#            ax_region: "europe-west1"
+#            ax_region: "{{ GCP_ZONE }}"
 #            network: "apigee-network"
 #            peering_range: "10.0.0.0/22"
 #            support_range: "10.1.0.0/28"
 #            exposure_subnets:
-#              - { name: "apigee-exposure", ip_cidr_range: "10.100.0.0/24", region: "europe-west1", secondary_ip_range: null }
+#              - { name: "apigee-exposure", ip_cidr_range: "10.100.0.0/24", region: "{{ GCP_REGION }}", secondary_ip_range: null }
 #            apigee_environments:
 #              - "test1"
 #              - "test2"
 #            apigee_instances:
 #              euw1-instance:
-#              region: "europe-west1"
-#              ip_range: "10.0.0.0/22"
-#              environments:
-#              - "test1"
-#              - "test2"
+#                region: "{{ GCP_REGION }}"
+#                ip_range: "10.0.0.0/22"
+#                environments:
+#                  - "test1"
+#                  - "test2"
 #            apigee_envgroups:
 #              test:
-#              environments:
-#              - "test1"
-#              - "test2"
-#              hostnames:
-#              - "test.api.example.com"
+#                environments:
+#                  - "test1"
+#                  - "test2"
+#                hostnames:
+#                  - "test.api.example.com"

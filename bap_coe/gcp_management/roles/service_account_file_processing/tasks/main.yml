@@ -16,6 +16,7 @@
   block:
   - name: Read service account file contents
     set_fact:
+      cacheable: yes
       SERVICE_ACCOUNT_FILE_CONTENT: "{{ lookup('file', SERVICE_ACCOUNT_FILE_PATH) }}"
 
   - name: update local cache with basic project attributes

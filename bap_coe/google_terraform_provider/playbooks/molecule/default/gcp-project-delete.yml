@@ -13,9 +13,14 @@
     - { role: gcp_resource_manager_folders_get_folder_id }
     - { role: gcp_project_delete }
     - { role: gcp_resource_manager_folders_delete }
-    - { role: gcp_project_delete }
 
-  tasks:
+  pre_tasks:
+  - name: Terraform apply
+    shell: |
+      {{ TERRAFORM_BIN_PATH }} destroy --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}" -auto-approve
+    args:
+      chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+
   - name: Remove downloaded terraform modules
     file:
       path: ../../terraform-modules
