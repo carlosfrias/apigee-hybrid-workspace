@@ -1,0 +1,13 @@
+---
+# tasks file for terraform_provider_configure
+- name: Assert that TERRAFORM_PROJECT_PATH is provided
+  assert:
+    that:
+    - TERRAFORM_PROJECT_PATH is defined
+    msg: "Please provide the TERRAFORM_PROJECT_PATH"
+
+- name: Construct version file
+  template:
+    src: version.tf.template
+    dest: "{{ TERRAFORM_PROJECT_PATH }}/versions.tf"
+

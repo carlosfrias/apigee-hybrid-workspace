@@ -37,6 +37,7 @@
     - { role: gcp_auth_service_account_activate }
 #    - { role: gcp_resource_manager_constraints_disable_enforce }
     - { role: gcp_project_services_enable, tags: ['services'] }
+    - { role: terraform_provider_configure }
 
   pre_tasks:
     - name: Clone apigee/terraform-modules github repo
@@ -55,7 +56,7 @@
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
 #      environment:
-#        GOOGLE_CLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
+#        GCLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
 
     - name: Terraform plan
       shell: |
@@ -63,7 +64,7 @@
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
 #      environment:
-#        GOOGLE_CLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
+#        GCLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
 
     - name: Terraform apply
       shell: |
@@ -71,7 +72,7 @@
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
 #      environment:
-#        GOOGLE_CLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
+#        GCLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
 
 #      - name: Create mig-l7xlb Apigee X Instance
 #        terraform:
