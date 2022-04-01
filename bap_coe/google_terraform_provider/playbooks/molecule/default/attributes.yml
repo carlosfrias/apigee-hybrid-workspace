@@ -69,7 +69,7 @@ GCP_SERVICES:
 - "compute.googleapis.com"
 - "apigee.googleapis.com"
 - "servicenetworking.googleapis.com"
-#- "cloudresourcemanager.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
 #- "serviceusage.googleapis.com"
 #- "iam.googleapis.com"
 #- "container.googleapis.com"
