@@ -18,7 +18,7 @@ provisioner:
     vvv: true
   playbooks:
     create: ./gcp-project-create.yml
-#    prepare: ./gcp-apigee-x-mig-l7xlb.yml
+    prepare: ./gcp-project-prepare.yml
     destroy: ./gcp-project-delete.yml
   config_options:
     defaults:

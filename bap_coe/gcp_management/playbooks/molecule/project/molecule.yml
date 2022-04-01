@@ -17,7 +17,7 @@ provisioner:
   options:
     vvv: true
   playbooks:
-    create: ../../gcp-project-create.yml
+    create: ../../gcp-project-prepare.yml
     destroy: ../../gcp-project-delete.yml
   config_options:
     defaults:

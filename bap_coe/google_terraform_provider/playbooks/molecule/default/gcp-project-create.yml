@@ -30,14 +30,6 @@
 #    - { role: gcp_iam_policy_bindings_service_account, tags: ['user-roles'], ROLE_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}", GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
     - { role: gcp_resource_manager_folders_permissions_user, tags: ['user-roles'] }
     - { role: gcp_project_create }
-    - { role: service_account_file_path, tags: [ 'service-account'] }
-    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
-    - { role: gcp_iam_service_account_keys, tags: [ 'service-account','roles','firewall' ] }
-    - { role: service_account_file_processing }
-#    - { role: gcp_auth_service_account_activate }
-#    - { role: gcp_resource_manager_constraints_disable_enforce }
-    - { role: gcp_project_services_enable, tags: ['services'] }
-    - { role: terraform_provider_configure }
 
   pre_tasks:
     - name: Clone apigee/terraform-modules github repo
@@ -48,60 +40,3 @@
         update: yes
         clone: yes
         force: no
-
-  tasks:
-    - name: Terraform init
-      shell: |
-        {{ TERRAFORM_BIN_PATH }} init
-      args:
-        chdir: "{{ TERRAFORM_PROJECT_PATH }}"
-#      environment:
-#        GCLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-
-    - name: Terraform plan
-      shell: |
-        {{ TERRAFORM_BIN_PATH }} plan --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}"
-      args:
-        chdir: "{{ TERRAFORM_PROJECT_PATH }}"
-#      environment:
-#        GCLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-
-    - name: Terraform apply
-      shell: |
-        {{ TERRAFORM_BIN_PATH }} apply --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}" -auto-approve
-      args:
-        chdir: "{{ TERRAFORM_PROJECT_PATH }}"
-#      environment:
-#        GCLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-
-#      - name: Create mig-l7xlb Apigee X Instance
-#        terraform:
-#          project_path: "{{ TERRAFORM_PROJECT_PATH }}"
-#          binary_path: "{{ TERRAFORM_BIN_PATH }}"
-#          state: present
-#          force_init: yes
-#          variables:
-#            project_id: "{{ PROJECT_ID }}"
-#            ax_region: "{{ GCP_ZONE }}"
-#            network: "apigee-network"
-#            peering_range: "10.0.0.0/22"
-#            support_range: "10.1.0.0/28"
-#            exposure_subnets:
-#              - { name: "apigee-exposure", ip_cidr_range: "10.100.0.0/24", region: "{{ GCP_REGION }}", secondary_ip_range: null }
-#            apigee_environments:
-#              - "test1"
-#              - "test2"
-#            apigee_instances:
-#              euw1-instance:
-#                region: "{{ GCP_REGION }}"
-#                ip_range: "10.0.0.0/22"
-#                environments:
-#                  - "test1"
-#                  - "test2"
-#            apigee_envgroups:
-#              test:
-#                environments:
-#                  - "test1"
-#                  - "test2"
-#                hostnames:
-#                  - "test.api.example.com"
