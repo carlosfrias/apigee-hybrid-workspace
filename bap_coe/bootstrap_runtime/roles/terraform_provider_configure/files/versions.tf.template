@@ -13,24 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
-terraform {
-  required_version = ">= 1.0.0"
-  required_providers {
-    google = {
-      credentials = "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-      source  = "hashicorp/google"
-      version = ">= 4.8.0"
-    }
-    google-beta = {
-      credentials = "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-      source  = "hashicorp/google-beta"
-      version = ">= 4.0.0"
-    }
-  }
-}
-*/
-
 provider "google" {
     credentials = "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     project = "{{ PROJECT_ID }}"
