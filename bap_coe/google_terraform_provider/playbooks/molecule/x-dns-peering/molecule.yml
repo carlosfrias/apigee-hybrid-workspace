@@ -17,9 +17,10 @@ provisioner:
   options:
     vvv: true
   playbooks:
-    create: ./gcp-project-prepare.yml
-#    prepare: ./gcp-apigee-x-mig-l7xlb.yml
-    destroy: ./gcp-project-delete.yml
+    create: create.yml
+    prepare: prepare.yml
+    converge: converge.yml
+    destroy: delete.yml
   config_options:
     defaults:
       inventory: $MOLECULE_PROJECT_DIRECTORY/work_dir/${PROJECT_ID}

@@ -1,7 +1,8 @@
 ---
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-l7xlb"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04012022-1503"
+#PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04042022-1427"
+PROJECT_ID: "friasc-apigeex-04052022-1016"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -19,7 +20,7 @@ CONTROL_SERVER_IMAGE_NAME: ops-server
 CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
 ACCESS_TYPE: int
-#TIME_TO_PROPAGATE_BINDINGS: 20
+TIME_TO_PROPAGATE_BINDINGS: 20
 
 AUTHORIZATION_KIND: serviceaccount
 RESOURCE_GCP_ZONE: "us-central1-c"
@@ -47,7 +48,6 @@ FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigeex
-
 ORG_ROLE_BINDINGS:
 - "roles/billing.admin"
 - "roles/billing.projectManager"

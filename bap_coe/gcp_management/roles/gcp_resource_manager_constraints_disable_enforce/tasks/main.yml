@@ -20,7 +20,7 @@
 
 - name: Disable enforcement of constraints
   shell: |
-    gcloud beta resource-manager \
+    gcloud resource-manager \
     org-policies disable-enforce {{ item }} \
     --project {{ PROJECT_ID }} \
     --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}

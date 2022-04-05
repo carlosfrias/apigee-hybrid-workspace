@@ -1,7 +1,7 @@
 ---
 #ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-dns-peering"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME}}-03312022-1138"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME}}-04052022-1042"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -11,7 +11,6 @@ GITHUB_REPO_DEST: "/usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-
 TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
 TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"
 TERRAFORM_BIN_PATH: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"
-
 
 NAME_INSTANCE_PREFIX: apigee-x
 GCP_ZONE: us-east1-b
@@ -118,3 +117,20 @@ CONSTRAINTS_DISABLE_ENFORCEMENT:
 #- compute.restrictSharedVpcHostProjects
 #- compute.restrictVpcPeering
 #- compute.vmExternalIpAccess
+
+KEY_VALUE_PAIRS:
+  - { key: "project_path", value: "{{ TERRAFORM_PROJECT_PATH }}", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "binary_path", value: "{{ TERRAFORM_BIN_PATH }}", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "project_id", value: "{{ PROJECT_ID }}", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "ax_region", value: "{{ GCP_ZONE }}", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "apigee_environments", value: "['test1','test2']", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "region", value: "{{ GCP_REGION }}", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "ip_range", value: "10.2.0.0/22", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "environments", value: '["test1","test2"]', separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "hostnames", value: '["test.api.example.com"]', separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "network", value: "apigee-network", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "name", value: "apigee-exposure", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "ip_cidr_range", value: "10.100.0.0/24", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "secondary_ip_range", value: "null", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "peering_range", value: "10.0.0.0/22", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+  - { key: "support_range", value: "10.1.0.0/28", separator: ":", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }

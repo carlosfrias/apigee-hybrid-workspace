@@ -22,9 +22,9 @@
   #  This is required here before the install_asm requires it.
   shell: gcloud services enable {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
   with_items: "{{ GCP_SERVICES }}"
-  poll: 2
-  retries: 50
-  async: 180
+#  poll: 2
+#  retries: 50
+#  async: 180
 
 #- name: Set IAM roles to installation user
 #  shell: |
