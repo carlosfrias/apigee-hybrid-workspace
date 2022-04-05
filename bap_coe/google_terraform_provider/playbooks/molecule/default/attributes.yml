@@ -1,7 +1,7 @@
 ---
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-l7xlb"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04052022-1924"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04052022-1934"
 #PROJECT_ID: "friasc-apigeex-04052022-1016"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
@@ -123,7 +123,7 @@ KEY_VALUE_PAIRS:
 - { key: "binary_path", value: "{{ TERRAFORM_BIN_PATH }}", separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "project_id", value: "{{ PROJECT_ID }}", separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "ax_region", value: "{{ GCP_ZONE }}", separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "apigee_environments", value: "['test1','test2']", separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "region", value: "{{ GCP_REGION }}", separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "ip_range", value: "10.2.0.0/22", separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
