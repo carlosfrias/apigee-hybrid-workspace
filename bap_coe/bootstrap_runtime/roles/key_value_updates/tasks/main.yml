@@ -5,7 +5,7 @@
     msg: "Please provide KEY_VALUE_PAIRS={ key: '<key>', value: '<value>', separator: '<character>' file_name: '<filename>' }"
   when: KEY_VALUE_PAIRS is not defined
 
-- include_tasks: update-key-value-pairs.yml
+- include_tasks: update-key-value-pair.yml
   with_items:  '{{ KEY_VALUE_PAIRS }}'
   loop_control:
     loop_var: key_value_pair

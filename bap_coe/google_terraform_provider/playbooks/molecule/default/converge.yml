@@ -7,8 +7,11 @@
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
     - attributes.yml
 
-#  roles:
-#    - { role: terraform_provider_configure }
+  collections:
+  - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: key_value_updates }
 
   tasks:
     - name: Terraform init

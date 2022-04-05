@@ -5,7 +5,7 @@
     msg: "Please provide cwc_properties={ key: '<key>', value: '<value>', file_name: '<filename>' }"
   when: cwc_properties is not defined
 
-- include_tasks: cwc-update.yml
+- include_tasks: update-key-value-pair.yml
   with_items:  '{{ cwc_properties }}'
   loop_control:
     loop_var: cwc_property
