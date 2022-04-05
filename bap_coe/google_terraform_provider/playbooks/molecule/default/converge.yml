@@ -19,24 +19,18 @@
         {{ TERRAFORM_BIN_PATH }} init
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
-#      environment:
-#        GCLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
 
     - name: Terraform plan
       shell: |
         {{ TERRAFORM_BIN_PATH }} plan --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}"
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
-#      environment:
-#        GCLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
 
     - name: Terraform apply
       shell: |
         {{ TERRAFORM_BIN_PATH }} apply --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}" -auto-approve
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
-#      environment:
-#        GCLOUD_KEYFILE_JSON: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
 
 #      - name: Create mig-l7xlb Apigee X Instance
 #        terraform:
