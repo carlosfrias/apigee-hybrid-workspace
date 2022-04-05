@@ -25,6 +25,7 @@
     create: yes
     mode: 0644
     state: present
-    regexp: "^{{ key_value_pair.key }}.*"
-    line: '{{ key_value_pair.key }}{{ key_value_pair.separator }}.*{{ key_value_pair.value }}'
+    backrefs: yes
+    regexp: "^{{ key_value_pair.key }}(.*){{ key_value_pair.separator }}(.*)"
+    line: '{{ key_value_pair.key }}/1{{ key_value_pair.separator }}/2{{ key_value_pair.value }}'
     dest: "{{ key_value_pair.file_name }}"
