@@ -20,7 +20,6 @@
   when: key_value_pair.file_name is not defined
 
 - name: Update defaults.sh with replace_address option for Cassandra
-  become: yes
   lineinfile:
     backup: yes
     create: yes
