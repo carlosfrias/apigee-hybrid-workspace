@@ -22,6 +22,6 @@
 - name: Update key value settings in target file
   lineinfile:
     backrefs: yes
-    regexp: "^{{ key_value_pair.key }}(.*){{ key_value_pair.separator }}(.*)"
+    regexp: "^{{ key_value_pair.key }}(.*){{ key_value_pair.separator }}(\s)(.*)"
     line: '{{ key_value_pair.key }}\1{{ key_value_pair.separator }}\2{{ key_value_pair.value }}'
     dest: "{{ key_value_pair.file_name }}"
