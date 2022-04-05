@@ -24,10 +24,8 @@
   lineinfile:
     backup: yes
     create: yes
-    group: "{{ opdk_group_name }}"
-    owner: "{{ opdk_user_name }}"
     mode: 0644
     state: present
     regexp: "^{{ key_value_pair.key }}"
     line: '{{ key_value_pair.key }}{{ key_value_pair.separator }}{{ key_value_pair.value }}'
-    dest: "{{ apigee_home | default('/opt/apigee') }}/customer/application/{{ key_value_pair.file_name }}.properties"
+    dest: "{{ key_value_pair.file_name }}"
