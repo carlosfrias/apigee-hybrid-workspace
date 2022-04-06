@@ -23,6 +23,6 @@
   lineinfile:
     backrefs: "yes"
     state: present
-    regexp: '^{{ item.key }}(\s*){{ item.separator }}(\s*)'
+    regexp: '^{{ item.key }}(\s*){{ item.separator }}(\s*)(.*)'
     line: '{{ item.key }}\1{{ item.separator }}\2{{ item.value }}'
     path: "{{ item.file_name }}"
