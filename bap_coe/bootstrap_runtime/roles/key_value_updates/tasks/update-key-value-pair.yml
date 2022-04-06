@@ -29,6 +29,6 @@
 - name: Update key only in target file
   replace:
     regexp: '(/s*)({{ key_value_pair.key }})(\s*)(=)(\s)({)(.*)'
-    replace: '/0{{ key_value_pair.value }}\3\4\5\6\7'
+    replace: '/0{{ key_value_pair.value }}\2\3\4\5\6\7'
     path: "{{ key_value_pair.file_name }}"
   when: key_value_pair | length == 0
