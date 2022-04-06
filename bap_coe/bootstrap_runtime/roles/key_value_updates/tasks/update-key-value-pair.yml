@@ -21,6 +21,6 @@
 
 - name: Update key value settings in target file
   replace:
-    regexp: '^{{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)'
+    regexp: '^{{ key_value_pair.key }}( *){{ key_value_pair.separator }}( *)'
     replace: '{{ key_value_pair.key }}\1{{ key_value_pair.separator }}\2{{ key_value_pair.value }}'
     path: "{{ key_value_pair.file_name }}"
