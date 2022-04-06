@@ -8,5 +8,5 @@
 - include_tasks: update-key-value-pair.yml
   loop:  "{{ key_value_pairs }}"
   loop_control:
-    loop_var: item
+    loop_var: key_value_pair
 

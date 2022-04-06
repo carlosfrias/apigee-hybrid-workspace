@@ -2,27 +2,27 @@
 - name: Validate that key_value_pair is provided
   fail:
     msg: "Please provide a key_value_pair to update"
-  when: item is not defined
+  when: key_value_pair is not defined
 
 - name: Validate that key_value_pair.key is provided
   fail:
-    msg: "Please provide a item.key to update"
-  when: item.key is not defined
+    msg: "Please provide a key_value_pair.key to update"
+  when: key_value_pair.key is not defined
 
 - name: Validate that key_value_pair.value is provided
   fail:
-    msg: "Please provide a item.value to update"
-  when: item.value is not defined
+    msg: "Please provide a key_value_pair.value to update"
+  when: key_value_pair.value is not defined
 
 - name: Validate that key_value_pair.file_name is provided
   fail:
-    msg: "Please provide a item.file_name to update"
-  when: item.file_name is not defined
+    msg: "Please provide a key_value_pair.file_name to update"
+  when: key_value_pair.file_name is not defined
 
 - name: Update key value settings in target file
   lineinfile:
     backrefs: "yes"
     state: present
-    regexp: '^{{ item.key }}(\s*){{ item.separator }}(\s*)(.*)'
-    line: '{{ item.key }}\1{{ item.separator }}\2{{ item.value }}'
-    path: "{{ item.file_name }}"
+    regexp: '^{{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
+    line: '{{ key_value_pair.key }}\1{{ key_value_pair.separator }}\2{{ key_value_pair.value }}'
+    path: "{{ key_value_pair.file_name }}"
