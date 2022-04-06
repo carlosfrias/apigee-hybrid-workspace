@@ -28,7 +28,7 @@
 
 - name: Update key value settings in target file
   replace:
-    regexp: '{({ key_value_pair.key }})(.*)'
-    replace: '{{ key_value_pair.value }}\1'
+    regexp: '({{ key_value_pair.key }})(.*)'
+    replace: '{{ key_value_pair.value }}\2'
     path: "{{ key_value_pair.file_name }}"
   when: key_value_pair | length == 0
