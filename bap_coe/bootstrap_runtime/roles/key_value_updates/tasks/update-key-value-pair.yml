@@ -19,16 +19,16 @@
     msg: "Please provide a key_value_pair.file_name to update"
   when: key_value_pair.file_name is not defined
 
-- name: Update key value settings in target file
+- name: Update key and value in target file
   replace:
     regexp: '{{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
     replace: '{{ key_value_pair.key }}\1{{ key_value_pair.separator }}\2{{ key_value_pair.value }}'
     path: "{{ key_value_pair.file_name }}"
   when: key_value_pair | length > 0
 
-- name: Update key value settings in target file
+- name: Update key only in target file
   replace:
     regexp: '(/s*)({{ key_value_pair.key }})(\s*)(=)(\s)({)(.*)'
-    replace: '/1{{ key_value_pair.value }}\3\4\5\6\7'
+    replace: '/0{{ key_value_pair.value }}\3\4\5\6\7'
     path: "{{ key_value_pair.file_name }}"
   when: key_value_pair | length == 0
