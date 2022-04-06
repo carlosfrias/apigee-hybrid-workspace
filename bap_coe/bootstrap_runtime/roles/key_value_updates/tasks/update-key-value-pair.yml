@@ -20,9 +20,7 @@
   when: key_value_pair.file_name is not defined
 
 - name: Update key value settings in target file
-  lineinfile:
-    backrefs: "yes"
-    state: present
+  replace:
     regexp: '^{{ key_value_pair.key }}(.*){{ key_value_pair.separator }}(\s*)(.*)'
-    line: '{{ key_value_pair.key }}\1{{ key_value_pair.separator }}\2{{ key_value_pair.value }}'
+    replace: '{{ key_value_pair.key }}\1{{ key_value_pair.separator }}\2{{ key_value_pair.value }}'
     path: "{{ key_value_pair.file_name }}"
