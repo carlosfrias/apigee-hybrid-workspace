@@ -39,4 +39,4 @@
         accept_hostkey: yes
         update: yes
         clone: yes
-        force: no
+        force: yes
