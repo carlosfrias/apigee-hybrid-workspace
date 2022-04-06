@@ -1,7 +1,7 @@
 ---
-#ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
+ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-multi-region"
-PROJECT_ID: "friasc-xmultireg-03312022-1307"
+PROJECT_ID: "friasc-xmulti-04062022-0927"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -19,7 +19,7 @@ CONTROL_SERVER_IMAGE_NAME: ops-server
 CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
 ACCESS_TYPE: int
-#TIME_TO_PROPAGATE_BINDINGS: 20
+TIME_TO_PROPAGATE_BINDINGS: 2
 
 AUTHORIZATION_KIND: serviceaccount
 RESOURCE_GCP_ZONE: "us-central1-c"
@@ -47,7 +47,6 @@ FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigeex
-
 ORG_ROLE_BINDINGS:
 - "roles/billing.admin"
 - "roles/billing.projectManager"
@@ -69,7 +68,7 @@ GCP_SERVICES:
 - "compute.googleapis.com"
 - "apigee.googleapis.com"
 - "servicenetworking.googleapis.com"
-#- "cloudresourcemanager.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
 #- "serviceusage.googleapis.com"
 #- "iam.googleapis.com"
 #- "container.googleapis.com"
@@ -117,3 +116,18 @@ CONSTRAINTS_DISABLE_ENFORCEMENT:
 #- compute.restrictSharedVpcHostProjects
 #- compute.restrictVpcPeering
 #- compute.vmExternalIpAccess
+
+key_value_pairs:
+- { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "ip_range", value: '"10.2.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "hostnames", value: '["test.api.example.com"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "network", value: '"apigee-network"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "name", value: '"apigee-exposure"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "ip_cidr_range", value: '"10.100.0.0/24"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "secondary_ip_range", value: 'null', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "peering_range", value: '"10.0.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "support_range", value: '"10.1.0.0/28"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
