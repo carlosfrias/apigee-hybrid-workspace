@@ -28,6 +28,7 @@
 
 - name: Update key only in target file
   lineinfile:
+    backrefs: yes
     regexp: '^(\s*){{ key_value_pair.key }}(\s*)(=)(\s)({)(.*)'
     line: "\1{{ key_value_pair.value }}\2 = {"
     path: "{{ key_value_pair.file_name }}"
