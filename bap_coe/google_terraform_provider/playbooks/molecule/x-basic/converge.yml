@@ -30,6 +30,7 @@
     - name: Terraform init
       shell: |
         {{ TERRAFORM_BIN_PATH }} init
+        {{ TERRAFORM_BIN_PATH }} fmt
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
       environment:

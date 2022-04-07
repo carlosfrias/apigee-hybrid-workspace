@@ -48,6 +48,7 @@ FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigeex
+
 ORG_ROLE_BINDINGS:
 - "roles/billing.admin"
 - "roles/billing.projectManager"
@@ -59,7 +60,7 @@ ORG_ROLE_BINDINGS:
 - "roles/serviceusage.serviceUsageViewer"
 - "roles/serviceusage.apiKeysAdmin"
 - "roles/iap.tunnelResourceAccessor"
-#- "roles/compute.networkAdmin"
+- "roles/compute.networkAdmin"
 
 #  Configure project admin role bindings
 PROJECT_ADMIN_ROLE_BINDINGS:
@@ -95,7 +96,7 @@ GCP_SERVICES:
 
 SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
-#- "roles/compute.networkAdmin"
+- "roles/compute.networkAdmin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
 - "roles/apigee.admin"
@@ -116,10 +117,11 @@ CONSTRAINTS_DISABLE_ENFORCEMENT:
 - compute.requireShieldedVm
 - compute.requireOsLogin
 #- compute.trustedImageProjects
-#- compute.restrictSharedVpcSubnetworks
-#- compute.restrictSharedVpcHostProjects
-#- compute.restrictVpcPeering
-#- compute.vmExternalIpAccess
+- compute.restrictSharedVpcSubnetworks
+- compute.restrictSharedVpcHostProjects
+- compute.restrictVpcPeering
+- compute.vmExternalIpAccess
+- compute restrictVpnPeerIPs
 
 key_value_pairs:
 - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
