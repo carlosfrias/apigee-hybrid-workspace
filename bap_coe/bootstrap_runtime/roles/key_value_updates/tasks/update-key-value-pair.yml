@@ -36,8 +36,8 @@
 
 - name: Add missing key and value in target file
   lineinfile:
-    regexp: '(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
-    line: '\1{{ key_value_pair.key }}\2{{ key_value_pair.separator }}\3{{ key_value_pair.value }}'
+    regexp: '{{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
+    line: '{{ key_value_pair.key }}\1{{ key_value_pair.separator }}\2{{ key_value_pair.value }}'
     path: "{{ key_value_pair.file_name }}"
     state: present
     backrefs: yes
