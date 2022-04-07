@@ -24,12 +24,11 @@
     regexp: '{{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
     replace: '{{ key_value_pair.key }}\1{{ key_value_pair.separator }}\2{{ key_value_pair.value }}'
     path: "{{ key_value_pair.file_name }}"
-  when: key_value_pair | length > 0
+  when: key_value_pair.separator | length > 0
 
 - name: Update key only in target file
   replace:
-
     regexp: '^(.*){{ key_value_pair.key }}(.*)'
     replace: '{{ key_value_pair.value }}\2'
     path: "{{ key_value_pair.file_name }}"
-  when: key_value_pair | length == 0
+  when: key_value_pair.separator | length == 0
