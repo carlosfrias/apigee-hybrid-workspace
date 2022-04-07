@@ -8,10 +8,23 @@
     - attributes.yml
 
   collections:
-  - bap_coe.bootstrap_runtime
+    - bap_coe.bootstrap_runtime
+    - bap_coe.gcp_management
 
   roles:
-  - { role: key_value_updates }
+    - {
+      role: gcp_iam_policy_bindings_org,
+      tags: ['user-roles'],
+      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+      ROLE_BINDINGS: ["{{ FOLDER_ROLE_BINDINGS }}","{{ ORG_ROLE_BINDINGS }}"]
+    }
+    - {
+      role: gcp_iam_policy_bindings_org,
+      tags: ['user-roles'],
+      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+      ROLE_BINDINGS: ["{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"]
+    }
+    - { role: key_value_updates }
 
   tasks:
     - name: Terraform init
@@ -32,7 +45,6 @@
         TF_LOG: "{{ TF_LOG }}"
         TF_LOG_PATH: "{{ TF_LOG_PATH }}"
 
-
     - name: Terraform apply
       shell: |
         {{ TERRAFORM_BIN_PATH }} apply --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}" -auto-approve
@@ -42,7 +54,7 @@
         TF_LOG: "{{ TF_LOG }}"
         TF_LOG_PATH: "{{ TF_LOG_PATH }}"
 
-#      - name: Create mig-l7xlb Apigee X Instance
+#      - name: Create Apigee X Instance
 #        terraform:
 #          project_path: "{{ TERRAFORM_PROJECT_PATH }}"
 #          binary_path: "{{ TERRAFORM_BIN_PATH }}"
