@@ -1,7 +1,7 @@
 ---
 #ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-basic"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04072022-1224"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04072022-1244"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -12,7 +12,7 @@ TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAM
 TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"
 TERRAFORM_BIN_PATH: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"
 TF_LOG: "DEBUG"
-TF_LOG_PATH: "{{ WORK_DIR }}/{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04072022-1042.log"
+TF_LOG_PATH: "{{ WORK_DIR }}/terraform-{{ PROJECT_ID }}.log"
 NAME_INSTANCE_PREFIX: apigee-x
 GCP_ZONE: us-east1-b
 GCP_REGION: us-east1
@@ -59,6 +59,7 @@ ORG_ROLE_BINDINGS:
 - "roles/serviceusage.serviceUsageViewer"
 - "roles/serviceusage.apiKeysAdmin"
 - "roles/iap.tunnelResourceAccessor"
+#- "roles/compute.networkAdmin"
 
 #  Configure project admin role bindings
 PROJECT_ADMIN_ROLE_BINDINGS:
@@ -94,16 +95,17 @@ GCP_SERVICES:
 
 SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
+#- "roles/compute.networkAdmin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
 - "roles/apigee.admin"
-#- "roles/networkmanagement.admin"
-#- "roles/networkmanagement.viewer"
-#- "roles/iam.serviceAccountUser"
-#- "roles/iam.serviceAccountAdmin"
-#- "roles/iam.serviceAccountCreator"
-#- "roles/iam.serviceAccountKeyAdmin"
-#- "roles/compute.loadBalancerAdmin"
+- "roles/networkmanagement.admin"
+- "roles/networkmanagement.viewer"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountCreator"
+- "roles/iam.serviceAccountKeyAdmin"
+- "roles/compute.loadBalancerAdmin"
 
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
