@@ -1,7 +1,7 @@
 ---
 #ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-basic"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME}}-04062022-1026"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04072022-1127"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -11,8 +11,8 @@ GITHUB_REPO_DEST: "/usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-
 TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
 TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"
 TERRAFORM_BIN_PATH: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"
-
-
+TF_LOG: "DEBUG"
+TF_LOG_PATH: "{{ WORK_DIR }}/{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04072022-1042 }}.log"
 NAME_INSTANCE_PREFIX: apigee-x
 GCP_ZONE: us-east1-b
 GCP_REGION: us-east1
@@ -20,7 +20,7 @@ CONTROL_SERVER_IMAGE_NAME: ops-server
 CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
 ACCESS_TYPE: int
-#TIME_TO_PROPAGATE_BINDINGS: 20
+TIME_TO_PROPAGATE_BINDINGS: 2
 
 AUTHORIZATION_KIND: serviceaccount
 RESOURCE_GCP_ZONE: "us-central1-c"
@@ -48,7 +48,6 @@ FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigeex
-
 ORG_ROLE_BINDINGS:
 - "roles/billing.admin"
 - "roles/billing.projectManager"
@@ -70,7 +69,7 @@ GCP_SERVICES:
 - "compute.googleapis.com"
 - "apigee.googleapis.com"
 - "servicenetworking.googleapis.com"
-#- "cloudresourcemanager.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
 #- "serviceusage.googleapis.com"
 #- "iam.googleapis.com"
 #- "container.googleapis.com"
@@ -97,6 +96,7 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
+- "roles/apigee.admin"
 #- "roles/networkmanagement.admin"
 #- "roles/networkmanagement.viewer"
 #- "roles/iam.serviceAccountUser"
