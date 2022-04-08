@@ -1,8 +1,8 @@
 ---
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-multi-region"
-DATE_TIME: "04072022-2109"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-{{ DATE_TIME }}"
+DATE_TIME: "04082022-1024"
+PROJECT_ID: "friasc-xmultireg-{{ DATE_TIME }}"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -12,7 +12,8 @@ GITHUB_REPO_DEST: "/usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-
 TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
 TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"
 TERRAFORM_BIN_PATH: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"
-
+TF_LOG: "DEBUG"
+TF_LOG_PATH: "{{ WORK_DIR }}/terraform-{{ PROJECT_ID }}.log"
 NAME_INSTANCE_PREFIX: apigee-x
 GCP_ZONE: us-east1-b
 GCP_REGION: us-east1
@@ -54,13 +55,13 @@ ORG_ROLE_BINDINGS:
 - "roles/billing.projectManager"
 - "roles/iam.serviceAccountAdmin"
 - "roles/iam.serviceAccountKeyAdmin"
-- "roles/resourcemanager.projectIamAdmin"
-- "roles/resourcemanager.organizationAdmin"
-- "roles/serviceusage.serviceUsageAdmin"
-- "roles/serviceusage.serviceUsageViewer"
-- "roles/serviceusage.apiKeysAdmin"
-- "roles/iap.tunnelResourceAccessor"
-- "roles/compute.networkAdmin"
+#- "roles/resourcemanager.projectIamAdmin"
+#- "roles/resourcemanager.organizationAdmin"
+#- "roles/serviceusage.serviceUsageAdmin"
+#- "roles/serviceusage.serviceUsageViewer"
+#- "roles/serviceusage.apiKeysAdmin"
+#- "roles/iap.tunnelResourceAccessor"
+#- "roles/compute.networkAdmin"
 
 #  Configure project admin role bindings
 PROJECT_ADMIN_ROLE_BINDINGS:
@@ -73,40 +74,40 @@ GCP_SERVICES:
 - "servicenetworking.googleapis.com"
 - "cloudresourcemanager.googleapis.com"
 - "cloudkms.googleapis.com"
-- "serviceusage.googleapis.com"
-- "iam.googleapis.com"
-- "container.googleapis.com"
-- "stackdriver.googleapis.com"
-- "meshca.googleapis.com"
-- "meshtelemetry.googleapis.com"
-- "meshconfig.googleapis.com"
-- "iamcredentials.googleapis.com"
-- "anthos.googleapis.com"
-- "gkeconnect.googleapis.com"
-- "gkehub.googleapis.com"
-- "sourcerepo.googleapis.com"
-- "cloudbuild.googleapis.com"
-- "secretmanager.googleapis.com"
-- "dns.googleapis.com"
-- "pubsub.googleapis.com"
-- "apigeeconnect.googleapis.com"
-- "monitoring.googleapis.com"
-- "logging.googleapis.com"
-- "cloudtrace.googleapis.com"
-- "privateca.googleapis.com"
+#- "serviceusage.googleapis.com"
+#- "iam.googleapis.com"
+#- "container.googleapis.com"
+#- "stackdriver.googleapis.com"
+#- "meshca.googleapis.com"
+#- "meshtelemetry.googleapis.com"
+#- "meshconfig.googleapis.com"
+#- "iamcredentials.googleapis.com"
+#- "anthos.googleapis.com"
+#- "gkeconnect.googleapis.com"
+#- "gkehub.googleapis.com"
+#- "sourcerepo.googleapis.com"
+#- "cloudbuild.googleapis.com"
+#- "secretmanager.googleapis.com"
+#- "dns.googleapis.com"
+#- "pubsub.googleapis.com"
+#- "apigeeconnect.googleapis.com"
+#- "monitoring.googleapis.com"
+#- "logging.googleapis.com"
+#- "cloudtrace.googleapis.com"
+#- "privateca.googleapis.com"
 
 SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
 - "roles/compute.networkAdmin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
-- "roles/apigee.admin"
-- "roles/networkmanagement.admin"
-- "roles/iam.serviceAccountUser"
-- "roles/iam.serviceAccountAdmin"
-- "roles/iam.serviceAccountCreator"
-- "roles/iam.serviceAccountKeyAdmin"
-- "roles/compute.loadBalancerAdmin"
+#- "roles/apigee.admin"
+#- "roles/networkmanagement.admin"
+#- "roles/iam.serviceAccountUser"
+#- "roles/iam.serviceAccountAdmin"
+#- "roles/iam.serviceAccountCreator"
+#- "roles/iam.serviceAccountKeyAdmin"
+#- "roles/compute.loadBalancerAdmin"
 
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
@@ -123,21 +124,32 @@ CONSTRAINTS_DISABLE_ENFORCEMENT:
 #- constraints/compute.restrictVpcPeering
 #- constraints/compute.restrictVpnPeerIPs
 
-IP_RANGE: "10.0.0.0/22"
-PEERING_RANGE: "{{ IP_RANGE }}"
-SUPPORT_RANGE: "10.1.0.0/28"
-key_value_pairs:
-- { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "euw1-instance", value: 'east1-instance', separator: "", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "ip_range", value: '{{ IP_RANGE }}', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "hostnames", value: '["test.api.example.com"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "network", value: '"apigee-network"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "name", value: '"apigee-exposure"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "ip_cidr_range", value: '"10.100.0.0/24"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "secondary_ip_range", value: 'null', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "peering_range", value: '{{ PEERING_RANGE }}', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "support_range", value: '{{ SUPPORT_RANGE }}', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+TERRAFORM_VARS:
+  PROJECT_ID: "{{ PROJECT_ID }}"
+  AX_REGION: "{{ GCP_REGION }}"
+  APIGEE_ENVIRONMENTS_LIST: '["test1","test2"]'
+  APIGEE_INSTANCE_1: "east_instance1"
+  APIGEE_INSTANCE_1_REGION: "{{ GCP_REGION }}"
+  APIGEE_INSTANCE_1_IP_RANGE: "10.0.0.0/22"
+  APIGEE_INSTANCE_1_ENVIRONMENTS: "{{ TERRAFORM_VARS.APIGEE_ENVIRONMENTS_LIST }}"
+  APIGEE_INSTANCE_2: "east_instance2"
+  APIGEE_INSTANCE_2_REGION: "{{ GCP_REGION }}"
+  APIGEE_INSTANCE_2_IP_RANGE: "10.0.0.0/22"
+  APIGEE_INSTANCE_2_ENVIRONMENTS: "{{ TERRAFORM_VARS.APIGEE_ENVIRONMENTS_LIST }}"
+  APIGEE_ENVGROUPS_NAME: "test"
+  APIGEE_ENVGROUPS_ENVIROMENTS: "{{ TERRAFORM_VARS.APIGEE_ENVIRONMENTS_LIST }}"
+  APIGEE_ENVGROUPS_HOSTNAMES: '["test.api.example.com"]'
+  NETWORK: "apigee-network"
+  EXPOSURE_SUBNETS_1_NAME: "apigee-exposure-1"
+  EXPOSURE_SUBNETS_1_IP_CIDR_RANGE: "10.100.0.0/24"
+  EXPOSURE_SUBNETS_1_REGION: "{{ GCP_REGION }}"
+  EXPOSURE_SUBNETS_1_INSTANCE: "east1-instance"
+  EXPOSURE_SUBNETS_1_SECONDARY_IP_RANGE: 'null'
+  EXPOSURE_SUBNETS_2_NAME: "apigee-exposure-1"
+  EXPOSURE_SUBNETS_2_IP_CIDR_RANGE: "10.100.0.0/24"
+  EXPOSURE_SUBNETS_2_REGION: "{{ GCP_REGION }}"
+  EXPOSURE_SUBNETS_2_INSTANCE: "east1-instance"
+  EXPOSURE_SUBNETS_2_SECONDARY_IP_RANGE: 'null'
+  PEERING_RANGE: "10.0.0.0/16"
+  SUPPORT_RANGE_1: "10.1.0.0/28"
+  SUPPORT_RANGE_2: "10.2.0.0/28"
