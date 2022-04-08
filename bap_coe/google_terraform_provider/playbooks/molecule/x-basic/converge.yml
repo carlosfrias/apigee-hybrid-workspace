@@ -12,18 +12,6 @@
     - bap_coe.gcp_management
 
   roles:
-    - {
-      role: gcp_iam_policy_bindings_org,
-      tags: ['user-roles'],
-      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
-      ROLE_BINDINGS: ["{{ FOLDER_ROLE_BINDINGS }}","{{ ORG_ROLE_BINDINGS }}"]
-    }
-    - {
-      role: gcp_iam_policy_bindings_org,
-      tags: ['user-roles'],
-      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
-      ROLE_BINDINGS: ["{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"]
-    }
     - { role: key_value_updates }
 
   tasks:

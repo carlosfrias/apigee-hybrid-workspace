@@ -1,7 +1,8 @@
 ---
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-multi-region"
-PROJECT_ID: "friasc-xmulti-04062022-0927"
+DATE_TIME: "04072022-2109"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-{{ DATE_TIME }}"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -47,6 +48,7 @@ FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigeex
+
 ORG_ROLE_BINDINGS:
 - "roles/billing.admin"
 - "roles/billing.projectManager"
@@ -58,6 +60,7 @@ ORG_ROLE_BINDINGS:
 - "roles/serviceusage.serviceUsageViewer"
 - "roles/serviceusage.apiKeysAdmin"
 - "roles/iap.tunnelResourceAccessor"
+- "roles/compute.networkAdmin"
 
 #  Configure project admin role bindings
 PROJECT_ADMIN_ROLE_BINDINGS:
@@ -69,65 +72,72 @@ GCP_SERVICES:
 - "apigee.googleapis.com"
 - "servicenetworking.googleapis.com"
 - "cloudresourcemanager.googleapis.com"
-#- "serviceusage.googleapis.com"
-#- "iam.googleapis.com"
-#- "container.googleapis.com"
-#- "stackdriver.googleapis.com"
-#- "meshca.googleapis.com"
-#- "meshtelemetry.googleapis.com"
-#- "meshconfig.googleapis.com"
-#- "iamcredentials.googleapis.com"
-#- "anthos.googleapis.com"
-#- "gkeconnect.googleapis.com"
-#- "gkehub.googleapis.com"
-#- "sourcerepo.googleapis.com"
-#- "cloudbuild.googleapis.com"
-#- "secretmanager.googleapis.com"
-#- "dns.googleapis.com"
-#- "pubsub.googleapis.com"
-#- "apigeeconnect.googleapis.com"
-#- "monitoring.googleapis.com"
-#- "logging.googleapis.com"
-#- "cloudtrace.googleapis.com"
-#- "privateca.googleapis.com"
+- "cloudkms.googleapis.com"
+- "serviceusage.googleapis.com"
+- "iam.googleapis.com"
+- "container.googleapis.com"
+- "stackdriver.googleapis.com"
+- "meshca.googleapis.com"
+- "meshtelemetry.googleapis.com"
+- "meshconfig.googleapis.com"
+- "iamcredentials.googleapis.com"
+- "anthos.googleapis.com"
+- "gkeconnect.googleapis.com"
+- "gkehub.googleapis.com"
+- "sourcerepo.googleapis.com"
+- "cloudbuild.googleapis.com"
+- "secretmanager.googleapis.com"
+- "dns.googleapis.com"
+- "pubsub.googleapis.com"
+- "apigeeconnect.googleapis.com"
+- "monitoring.googleapis.com"
+- "logging.googleapis.com"
+- "cloudtrace.googleapis.com"
+- "privateca.googleapis.com"
 
 SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
+- "roles/compute.networkAdmin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
-#- "roles/networkmanagement.admin"
-#- "roles/networkmanagement.viewer"
-#- "roles/iam.serviceAccountUser"
-#- "roles/iam.serviceAccountAdmin"
-#- "roles/iam.serviceAccountCreator"
-#- "roles/iam.serviceAccountKeyAdmin"
-#- "roles/compute.loadBalancerAdmin"
+- "roles/apigee.admin"
+- "roles/networkmanagement.admin"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountCreator"
+- "roles/iam.serviceAccountKeyAdmin"
+- "roles/compute.loadBalancerAdmin"
 
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
 
 CONSTRAINTS_DISABLE_ENFORCEMENT:
-- iam.disableServiceAccountKeyCreation
-- iam.disableServiceAccountCreation
-- compute.requireShieldedVm
-- compute.requireOsLogin
-#- compute.trustedImageProjects
-#- compute.restrictSharedVpcSubnetworks
-#- compute.restrictSharedVpcHostProjects
-#- compute.restrictVpcPeering
-#- compute.vmExternalIpAccess
+- constraints/iam.disableServiceAccountKeyCreation
+- constraints/iam.disableServiceAccountCreation
+- constraints/compute.requireShieldedVm
+- constraints/compute.requireOsLogin
+#- constraints/compute.vmExternalIpAccess
+#- constraints/compute.trustedImageProjects
+#- constraints/compute.restrictSharedVpcSubnetworks
+#- constraints/compute.restrictSharedVpcHostProjects
+#- constraints/compute.restrictVpcPeering
+#- constraints/compute.restrictVpnPeerIPs
 
+IP_RANGE: "10.0.0.0/22"
+PEERING_RANGE: "{{ IP_RANGE }}"
+SUPPORT_RANGE: "10.1.0.0/28"
 key_value_pairs:
 - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "euw1-instance", value: 'east1-instance', separator: "", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "ip_range", value: '"10.2.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "ip_range", value: '{{ IP_RANGE }}', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "hostnames", value: '["test.api.example.com"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "network", value: '"apigee-network"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "name", value: '"apigee-exposure"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "ip_cidr_range", value: '"10.100.0.0/24"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "secondary_ip_range", value: 'null', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "peering_range", value: '"10.0.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "support_range", value: '"10.1.0.0/28"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "peering_range", value: '{{ PEERING_RANGE }}', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "support_range", value: '{{ SUPPORT_RANGE }}', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
