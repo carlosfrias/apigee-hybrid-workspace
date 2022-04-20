@@ -5,16 +5,16 @@
 
 - name: Create policy name
   set_fact:
-    policy_name: policy_name_parts[1]
+    policy_name: "{{ policy_name_parts[1] }}"
 
 - name: Create policy update file
   set_fact:
     cacheable: True
-    UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/update_policy-{{ policy_name }}.yaml"
+    UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/update-policy-{{ policy_name }}.yaml"
 
 - name: Create policy update file
   template:
-    src: update_policy.yaml.j2
+    src: update-policy.yaml.j2
     dest: "{{ UPDATE_POLICY_FILE_PATH }}"
 
 - name: Update Org Policy
