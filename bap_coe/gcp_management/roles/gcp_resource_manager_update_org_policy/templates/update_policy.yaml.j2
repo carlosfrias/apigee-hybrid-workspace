@@ -1,0 +1,7 @@
+
+{% for policy in UPDATE_ORG_POLICIES %}
+---
+constraint: {{ policy }}
+listPolicy:
+  allValues: ALLOW
+{% endfor %}

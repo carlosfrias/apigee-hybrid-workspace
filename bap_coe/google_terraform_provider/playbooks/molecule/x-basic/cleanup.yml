@@ -1,0 +1,15 @@
+---
+- name: Create Apigee runtime on GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - attributes.yml
+
+  tasks:
+  - name: Remove downloaded terraform modules
+    file:
+      path: ../../terraform-modules
+      state: absent
+    when: TERRAFORM_PROJECT_PATH_STATUS.stat.exists is truthy

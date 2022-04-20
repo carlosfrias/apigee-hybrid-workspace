@@ -17,7 +17,7 @@ provisioner:
   options:
     vvv: true
   playbooks:
-    create: ../../infrastructure-create.yml
+    create: ../../infrastructure-converge.yml
     destroy: ../../infrastructure-delete.yml
   config_options:
     defaults:

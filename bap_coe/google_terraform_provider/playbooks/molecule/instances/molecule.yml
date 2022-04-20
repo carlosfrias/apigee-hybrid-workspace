@@ -17,7 +17,7 @@ provisioner:
   options:
     vvv: true
   playbooks:
-    create: ./gce-instances-create.yml
+    create: ./gce-instances-converge.yml
     destroy: ./gce-instances-delete.yml
   config_options:
     defaults:

@@ -16,8 +16,17 @@
   tasks:
     - name: Update terraform variables file
       template:
-        src: x-demos.tvars.template
+        src: x-demo.tfvars.template
         dest: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars"
+
+    - name: Update variables file
+      blockinfile:
+        path: "{{ TERRAFORM_PROJECT_PATH }}/variables.tf"
+        block: |
+          variable "support_range2" {
+            description = "Support CIDR range of length /28 for second instance (required by Apigee for troubleshooting purposes)."
+            type        = string
+          }
 
     - name: Terraform init
       shell: |

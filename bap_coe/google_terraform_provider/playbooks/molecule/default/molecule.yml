@@ -17,7 +17,6 @@ provisioner:
   options:
     vvv: true
   playbooks:
-    create: create.yml
     prepare: prepare.yml
     converge: converge.yml
     destroy: delete.yml

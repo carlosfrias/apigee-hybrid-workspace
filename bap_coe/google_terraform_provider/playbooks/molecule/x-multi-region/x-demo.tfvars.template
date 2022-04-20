@@ -17,27 +17,27 @@
 project_id = "{{ TERRAFORM_VARS.PROJECT_ID }}"
 ax_region = "{{ TERRAFORM_VARS.AX_REGION }}"
 
-apigee_environments = "{{ TERRAFORM_VARS.APIGEE_ENVIRONMENTS_LIST }}"
+apigee_environments = ["{{ TERRAFORM_VARS.APIGEE_ENVIRONMENTS_LIST | join('", "') }}"]
 
 apigee_instances = {
   # Single instance only for eval, add a second instance for prod setups
   {{ TERRAFORM_VARS.APIGEE_INSTANCE_1 }} = {
     region       = "{{ TERRAFORM_VARS.APIGEE_INSTANCE_1_REGION }}"
     ip_range     = "{{ TERRAFORM_VARS.APIGEE_INSTANCE_1_IP_RANGE }}"
-    environments = "{{ TERRAFORM_VARS.APIGEE_INSTANCE_1_ENVIRONMENTS }}"
+    environments = ["{{ TERRAFORM_VARS.APIGEE_INSTANCE_1_ENVIRONMENTS  | join('", "') }}"]
   }
   # Example of second instance
   {{ TERRAFORM_VARS.APIGEE_INSTANCE_2 }} = {
     region       = "{{ TERRAFORM_VARS.APIGEE_INSTANCE_2_REGION }}"
     ip_range     = "{{ TERRAFORM_VARS.APIGEE_INSTANCE_2_IP_RANGE }}"
-    environments = "{{ TERRAFORM_VARS.APIGEE_INSTANCE_2_ENVIRONMENTS }}"
+    environments = ["{{ TERRAFORM_VARS.APIGEE_INSTANCE_2_ENVIRONMENTS | join('", "') }}"]
   }
 }
 
 apigee_envgroups = {
   {{ TERRAFORM_VARS.APIGEE_ENVGROUPS_NAME }} = {
-    environments = "{{ TERRAFORM_VARS.APIGEE_ENVIRONMENTS_LIST }}"
-    hostnames    = "{{ TERRAFORM_VARS.APIGEE_ENVIRONMENTS_HOSTNAMES }}"
+    environments = ["{{ TERRAFORM_VARS.APIGEE_ENVIRONMENTS_LIST | join('", "') }}"]
+    hostnames    = ["{{ TERRAFORM_VARS.APIGEE_ENVIRONMENTS_HOSTNAMES | join('", "') }}"]
   }
 }
 
@@ -49,14 +49,14 @@ exposure_subnets = [
     ip_cidr_range      = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_IP_CIDR_RANGE }}"
     region             = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_REGION }}"
     instance           = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_INSTANCE }}"
-    secondary_ip_range = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_NAME_SECONDARY_IP_RANGE | default(null) }}"
+    secondary_ip_range = {{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_SECONDARY_IP_RANGE }}
   },
   {
-    name               = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_NAME }}"
-    ip_cidr_range      = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_IP_CIDR_RANGE }}"
-    region             = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_REGION }}"
-    instance           = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_INSTANCE }}"
-    secondary_ip_range = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_1_NAME_SECONDARY_IP_RANGE | default(null) }}"
+    name               = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_2_NAME }}"
+    ip_cidr_range      = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_2_IP_CIDR_RANGE }}"
+    region             = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_2_REGION }}"
+    instance           = "{{ TERRAFORM_VARS.EXPOSURE_SUBNETS_2_INSTANCE }}"
+    secondary_ip_range = {{ TERRAFORM_VARS.EXPOSURE_SUBNETS_2_SECONDARY_IP_RANGE }}
   }
 ]
 
