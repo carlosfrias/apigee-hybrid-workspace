@@ -24,27 +24,16 @@
     - WORK_DIR is defined
     msg: "Please provide the WORK_DIR"
 
-- name: Create policy update file
-  set_fact:
-    cacheable: True
-    UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/update_policy.yaml"
-
 - name: Assert WORK_DIR exists
   file:
     path: "{{ WORK_DIR }}"
     state: directory
 
-- name: Create policy update file
-  template:
-    src: update_policy.yaml.j2
-    dest: "{{ UPDATE_POLICY_FILE_PATH }}"
+- include_tasks: update-policy.yml
+  loop:  "{{ UPDATE_ORG_POLICIES }}"
+  loop_control:
+    loop_var: policy
 
-- name: Update Org Policy
-  shell: |
-    gcloud resource-manager \
-    org-policies set-policy {{ UPDATE_POLICY_FILE_PATH }} \
-    --project {{ PROJECT_ID }} \
-    --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
 
 - name: Wait for the policy bindings to propagate
   pause:

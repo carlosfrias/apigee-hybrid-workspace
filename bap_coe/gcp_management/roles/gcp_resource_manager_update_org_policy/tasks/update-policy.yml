@@ -1,0 +1,25 @@
+---
+- name: Extract policy file name
+  set_fact:
+    policy_name_parts: '{{ policy | split("/") }}'
+
+- name: Create policy name
+  set_fact:
+    policy_name: policy_name_parts[1]
+
+- name: Create policy update file
+  set_fact:
+    cacheable: True
+    UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/update_policy-{{ policy_name }}.yaml"
+
+- name: Create policy update file
+  template:
+    src: update_policy.yaml.j2
+    dest: "{{ UPDATE_POLICY_FILE_PATH }}"
+
+- name: Update Org Policy
+  shell: |
+    gcloud resource-manager \
+    org-policies set-policy {{ UPDATE_POLICY_FILE_PATH }} \
+    --project {{ PROJECT_ID }} \
+    --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
