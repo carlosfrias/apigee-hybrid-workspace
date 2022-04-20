@@ -32,7 +32,7 @@
 - name: Assert WORK_DIR exists
   file:
     path: "{{ WORK_DIR }}"
-    state: present
+    state: directory
 
 - name: Create policy update file
   template:
