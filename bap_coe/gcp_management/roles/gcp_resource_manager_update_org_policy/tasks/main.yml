@@ -29,6 +29,11 @@
     cacheable: True
     UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/update_policy.yaml"
 
+- name: Assert WORK_DIR exists
+  file:
+    path: "{{ WORK_DIR }}"
+    state: present
+
 - name: Create policy update file
   template:
     src: update_policy.yaml.j2
