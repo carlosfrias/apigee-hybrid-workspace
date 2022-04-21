@@ -117,12 +117,16 @@ CONSTRAINTS_DISABLE_ENFORCEMENT:
 - constraints/iam.disableServiceAccountCreation
 - constraints/compute.requireShieldedVm
 - constraints/compute.requireOsLogin
-#- constraints/compute.vmExternalIpAccess
-#- constraints/compute.trustedImageProjects
-#- constraints/compute.restrictSharedVpcSubnetworks
-#- constraints/compute.restrictSharedVpcHostProjects
-#- constraints/compute.restrictVpcPeering
-#- constraints/compute.restrictVpnPeerIPs
+- constraints/compute.skipDefaultNetworkCreation
+
+UPDATE_ORG_POLICIES:
+- constraints/compute.trustedImageProjects
+- constraints/compute.restrictSharedVpcSubnetworks
+- constraints/compute.restrictSharedVpcHostProjects
+- constraints/compute.restrictVpcPeering
+- constraints/compute.restrictVpcPeering
+- constraints/compute.vmExternalIpAccess
+- constraints/compute.vmCanIpForward
 
 APIGEE_ENVIRONMENTS_LIST: ["test1","test2"]
 APIGEE_ENVIRONMENTS_HOSTNAMES: ["test.api.example.com"]

@@ -1,7 +1,7 @@
 ---
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-l7xlb"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04212022-1127"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04212022-1145"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
@@ -109,16 +109,22 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
 
+
 CONSTRAINTS_DISABLE_ENFORCEMENT:
-- iam.disableServiceAccountKeyCreation
-- iam.disableServiceAccountCreation
-- compute.requireShieldedVm
-- compute.requireOsLogin
-#- compute.trustedImageProjects
-#- compute.restrictSharedVpcSubnetworks
-#- compute.restrictSharedVpcHostProjects
-#- compute.restrictVpcPeering
-#- compute.vmExternalIpAccess
+- constraints/iam.disableServiceAccountKeyCreation
+- constraints/iam.disableServiceAccountCreation
+- constraints/compute.requireShieldedVm
+- constraints/compute.requireOsLogin
+- constraints/compute.skipDefaultNetworkCreation
+
+UPDATE_ORG_POLICIES:
+- constraints/compute.trustedImageProjects
+- constraints/compute.restrictSharedVpcSubnetworks
+- constraints/compute.restrictSharedVpcHostProjects
+- constraints/compute.restrictVpcPeering
+- constraints/compute.restrictVpcPeering
+- constraints/compute.vmExternalIpAccess
+- constraints/compute.vmCanIpForward
 
 key_value_pairs:
 - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }

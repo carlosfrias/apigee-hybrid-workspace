@@ -19,7 +19,7 @@ provisioner:
   playbooks:
     create: create.yml
     prepare: prepare.yml
-    converge: create.yml
+    converge: converge.yml
     destroy: delete.yml
   config_options:
     defaults:
