@@ -13,6 +13,7 @@
 
   roles:
     - { role: terraform_installer }
+    - { role: terraform_credentials }
     - { role: key_value_updates }
 
   tasks:
@@ -25,8 +26,6 @@
       environment:
         TF_LOG: "{{ TF_LOG }}"
         TF_LOG_PATH: "{{ TF_LOG_PATH }}"
-        GOOGLE_APPLICATION_CREDENTIALS: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
-        GOOGLE_PROJECT: "{{ PROJECT_ID }}"
 
     - name: Terraform plan
       shell: |

@@ -1,5 +1,5 @@
 ---
-# tasks file for terraform_provider_configure
+# tasks file for terraform_credentials
 - name: Assert that TERRAFORM_PROJECT_PATH is provided
   assert:
     that:
