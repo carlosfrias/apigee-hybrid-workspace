@@ -32,8 +32,8 @@
 
 - name: Construct version file
   template:
-    src: credentials.tf.j2
-    dest: "{{ TERRAFORM_PROJECT_PATH }}/credentials.tf"
+    src: credentials_override.tf.j2
+    dest: "{{ TERRAFORM_PROJECT_PATH }}/credentials_override.tf"
     backup: yes
 
 
