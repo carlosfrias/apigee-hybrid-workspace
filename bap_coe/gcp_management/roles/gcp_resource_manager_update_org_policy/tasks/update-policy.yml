@@ -10,7 +10,7 @@
 - name: Create policy update file
   set_fact:
     cacheable: True
-    UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/update-policy-{{ policy_name }}.yaml"
+    UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/update-policy-constraint-{{ policy_name }}.yaml"
 
 - name: Create policy update file
   template:
