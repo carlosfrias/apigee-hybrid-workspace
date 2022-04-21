@@ -20,7 +20,6 @@ provisioner:
     create: create.yml
     prepare: prepare.yml
     converge: converge.yml
-    cleanup: cleanup.yml
     destroy: delete.yml
   config_options:
     defaults:

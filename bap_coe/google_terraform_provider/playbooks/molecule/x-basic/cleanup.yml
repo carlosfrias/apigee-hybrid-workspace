@@ -7,6 +7,13 @@
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
   - attributes.yml
 
+  collections:
+  - bap_coe.bootstrap_runtime
+  - bap_coe.gcp_management
+
+  roles:
+    - { role: service_account_file_path, tags: [ 'service-account'] }
+
   tasks:
   - name: Remove old WORK_DIR
     file:

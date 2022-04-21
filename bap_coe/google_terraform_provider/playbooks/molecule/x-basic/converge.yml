@@ -13,6 +13,7 @@
 
   roles:
     - { role: terraform_installer }
+    - { role: service_account_file_path }
     - { role: terraform_credentials }
     - { role: key_value_updates }
 

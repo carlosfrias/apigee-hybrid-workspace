@@ -32,7 +32,7 @@
 
 - name: Construct version file
   template:
-    src: "{{ role_path }}/files/credentials.tf.j2"
+    src: credentials.tf.j2
     dest: "{{ TERRAFORM_PROJECT_PATH }}/credentials.tf"
     backup: yes
 
