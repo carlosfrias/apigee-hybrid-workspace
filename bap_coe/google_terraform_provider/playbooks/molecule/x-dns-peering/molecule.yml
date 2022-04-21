@@ -11,7 +11,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: instance
+  - name: x-dns-peering
 provisioner:
   name: ansible
   options:

@@ -11,7 +11,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: instance
+  - name: x-iac-pipeline
 provisioner:
   name: ansible
   options:

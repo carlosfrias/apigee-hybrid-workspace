@@ -13,6 +13,7 @@
   when: FOLDER_ID is not defined
 
 - name: Delete organization folder
+  ignore_errors: true
   shell: |
     gcloud beta resource-manager \
     folders delete {{ FOLDER_ID }} \

@@ -16,18 +16,13 @@
         role: gcp_iam_policy_bindings_org,
         tags: ['user-roles'],
         GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
-        ROLE_BINDINGS: ["{{ FOLDER_ROLE_BINDINGS }}","{{ ORG_ROLE_BINDINGS }}"]
-      }
-    - {
-        role: gcp_iam_policy_bindings_org,
-        tags: ['user-roles'],
-        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
-        ROLE_BINDINGS: ["{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"]
+        ROLE_BINDINGS: [
+            "{{ FOLDER_ROLE_BINDINGS }}",
+            "{{ ORG_ROLE_BINDINGS }}",
+            "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+            ]
       }
     - { role: gcp_resource_manager_folders_create }
     - { role: gcp_resource_manager_folders_get_folder_id }
-#    - { role: gcp_iam_policy_bindings_service_account, tags: ['user-roles'], ROLE_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}", GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
     - { role: gcp_resource_manager_folders_permissions_user, tags: ['user-roles'] }
     - { role: gcp_project_create }
-
-
