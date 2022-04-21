@@ -8,7 +8,7 @@ platforms:
 provisioner:
   name: ansible
   playbooks:
-    create: converge.yml
+    create: create.yml
     destroy: destroy.yml
 verifier:
   name: ansible

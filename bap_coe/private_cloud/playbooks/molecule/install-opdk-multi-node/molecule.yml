@@ -17,7 +17,7 @@ provisioner:
     - -u=friasc
     - --private-key=~/.ssh/google_compute_engine
   playbooks:
-    create: ../../infrastructure-converge.yml
+    create: ../../infrastructure-create.yml
     destroy: ../../infrastructure-delete.yml
     prepare: ../../infrastructure-prepare-multi-node.yml
     converge: ../../install-multi-node.yml

@@ -15,6 +15,7 @@
     - { role: gcp_resource_manager_folders_get_folder_id }
     - { role: gcp_project_services_enable, tags: ['services'], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
     - { role: gcp_resource_manager_constraints_disable_enforce }
+    - { role: gcp_resource_manager_update_org_policy }
     - { role: service_account_file_path, tags: [ 'service-account'] }
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_iam_service_account_keys, tags: [ 'service-account','roles','firewall' ] }

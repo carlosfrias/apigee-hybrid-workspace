@@ -17,7 +17,7 @@ provisioner:
   options:
     vvv: true
   playbooks:
-    create: ../../org-folders-converge.yml
+    create: ../../org-folders-create.yml
     destroy: ../../org-folders-delete.yml
   config_options:
     defaults:

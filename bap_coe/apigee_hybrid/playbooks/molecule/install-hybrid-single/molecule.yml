@@ -17,7 +17,7 @@ provisioner:
     - -u=friasc
     - --private-key=~/.ssh/google_compute_engine
   playbooks:
-    create: ../../infrastructure-converge.yml
+    create: ../../infrastructure-create.yml
     destroy: ../../infrastructure-delete.yml
     converge: ../../apigee-hybrid-installation.yml
 verifier:

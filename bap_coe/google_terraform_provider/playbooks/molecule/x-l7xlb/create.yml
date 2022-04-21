@@ -12,7 +12,6 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-    - { role: terraform_installer }
     - {
         role: gcp_iam_policy_bindings_org,
         tags: ['user-roles'],
@@ -27,16 +26,11 @@
       }
     - { role: gcp_resource_manager_folders_create }
     - { role: gcp_resource_manager_folders_get_folder_id }
-#    - { role: gcp_iam_policy_bindings_service_account, tags: ['user-roles'], ROLE_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}", GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
+#    - {
+#        role: gcp_iam_policy_bindings_service_account,
+#        tags: ['user-roles'],
+#        ROLE_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}",
+#        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+#      }
     - { role: gcp_resource_manager_folders_permissions_user, tags: ['user-roles'] }
     - { role: gcp_project_create }
-
-  pre_tasks:
-    - name: Clone apigee/terraform-modules github repo
-      git:
-        repo: "{{ GITHUB_REPO_URL }}"
-        dest: "{{ GITHUB_REPO_DEST }}"
-        accept_hostkey: yes
-        update: yes
-        clone: yes
-        force: yes

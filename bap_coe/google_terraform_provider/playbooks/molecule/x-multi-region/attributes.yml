@@ -1,7 +1,7 @@
 ---
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-multi-region"
-DATE_TIME: "04132022-1035"
+DATE_TIME: "04202022-1514"
 PROJECT_ID: "friasc-xmulti-{{ DATE_TIME }}"
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"

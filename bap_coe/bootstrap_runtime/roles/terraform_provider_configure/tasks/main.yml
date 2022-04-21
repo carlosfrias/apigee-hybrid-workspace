@@ -24,10 +24,16 @@
     - GCP_REGION is defined
     msg: "Please provide the GCP_REGION"
 
+- name: Assert that GCP_ZONE is provided
+  assert:
+    that:
+    - GCP_ZONE is defined
+    msg: "Please provide the GCP_ZONE"
+
 - name: Construct version file
   template:
-    src: "{{ role_path }}/files/versions.tf.template"
-    dest: "{{ TERRAFORM_PROJECT_PATH }}/versions.tf"
+    src: "{{ role_path }}/files/credentials.tf.j2"
+    dest: "{{ TERRAFORM_PROJECT_PATH }}/credentials.tf"
     backup: yes
 
 
