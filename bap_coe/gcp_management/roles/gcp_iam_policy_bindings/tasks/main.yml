@@ -18,11 +18,11 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
-- name: Assert that the ACCOUNT_EMAIL is available
+- name: Assert that the GCLOUD_BINDING_ACCOUNT is available
   assert:
     that:
-    - ACCOUNT_EMAIL is defined
-    msg: "Please provide the ACCOUNT_EMAIL (fully qualified domain name)"
+    - GCLOUD_BINDING_ACCOUNT is defined
+    msg: "Please provide the GCLOUD_BINDING_ACCOUNT (fully qualified domain name)"
 
 - name: Assert that the ACCOUNT_TYPE is available
   assert:
@@ -38,13 +38,13 @@
 
 - name: Inform of availbility of IGNORE_ERRORS
   debug:
-    msg: "You can force stop on error by passing IGNORE_ERRORS: False if you need to."
+    msg: "You can force stop on error by passing IGNORE_ERRORS: True if you need to."
 
 - name: Modify IAM roles {{ BINDING_OP }} for {{ ACCOUNT_TYPE }}
-  ignore_errors: "{{ IGNORE_ERRORS | default(True) }}"
+  ignore_errors: "{{ IGNORE_ERRORS | default(False) }}"
   shell: |
     gcloud projects {{ BINDING_OP }}-iam-policy-binding {{ PROJECT_ID }} \
-      --member {{ ACCOUNT_TYPE }}:{{ ACCOUNT_EMAIL }} \
+      --member {{ ACCOUNT_TYPE }}:{{ GCLOUD_BINDING_ACCOUNT }} \
       --role={{ item }} \
       --account {{ GCLOUD_ACCOUNT_EMAIL }}
   with_items: "{{ POLICY_BINDINGS }}"

@@ -24,9 +24,10 @@
   - { role: gcp_iam_service_account_create }
   - {
       role: gcp_iam_policy_bindings,
+      IGNORE_ERRORS: True,
       BINDING_OP: "remove",
       ACCOUNT_TYPE: "serviceAccount",
-      ACCOUNT_EMAIL: "{{ SERVICE_ACCOUNT }}",
+      GCLOUD_BINDING_ACCOUNT: "{{ SERVICE_ACCOUNT }}",
       POLICY_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}",
       GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
     }
