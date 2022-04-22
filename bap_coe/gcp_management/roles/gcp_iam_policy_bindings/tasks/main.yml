@@ -36,7 +36,7 @@
     - BINDING_OP is defined
     msg: "Please provide the BINDING_OP, accepted values are 'add' or 'remove'"
 
-- name: IAM roles {{ BINDING_OP }} for {{ ACCOUNT_TYPE }}
+- name: Modify IAM roles {{ BINDING_OP }} for {{ ACCOUNT_TYPE }}
   shell: |
     gcloud projects {{ BINDING_OP }}-iam-policy-binding {{ PROJECT_ID }} \
       --member {{ ACCOUNT_TYPE }}:{{ ACCOUNT_EMAIL }} \
