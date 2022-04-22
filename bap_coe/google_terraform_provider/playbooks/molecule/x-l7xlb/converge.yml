@@ -6,33 +6,53 @@
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
     - attributes.yml
+    - "{{ playbook_dir }}/../default/attributes.yml"
 
   collections:
-  - bap_coe.bootstrap_runtime
+    - bap_coe.bootstrap_runtime
+    - bap_coe.gcp_management
 
   roles:
-  - { role: key_value_updates }
+    - { role: terraform_installer }
+    - { role: service_account_file_path }
+    - { role: terraform_credentials }
+    - { role: key_value_updates }
+
+  pre_tasks:
+    - name: Include defaults
+      include_vars:
+        file: "{{ playbook_dir }}/../default/attributes.yml"
 
   tasks:
     - name: Terraform init
       shell: |
         {{ TERRAFORM_BIN_PATH }} init
+        {{ TERRAFORM_BIN_PATH }} fmt
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+      environment:
+        TF_LOG: "{{ TF_LOG }}"
+        TF_LOG_PATH: "{{ TF_LOG_PATH }}"
 
     - name: Terraform plan
       shell: |
         {{ TERRAFORM_BIN_PATH }} plan --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}"
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+      environment:
+        TF_LOG: "{{ TF_LOG }}"
+        TF_LOG_PATH: "{{ TF_LOG_PATH }}"
 
     - name: Terraform apply
       shell: |
         {{ TERRAFORM_BIN_PATH }} apply --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}" -auto-approve
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+      environment:
+        TF_LOG: "{{ TF_LOG }}"
+        TF_LOG_PATH: "{{ TF_LOG_PATH }}"
 
-#      - name: Create mig-l7xlb Apigee X Instance
+#      - name: Create Apigee X Instance
 #        terraform:
 #          project_path: "{{ TERRAFORM_PROJECT_PATH }}"
 #          binary_path: "{{ TERRAFORM_BIN_PATH }}"
@@ -68,3 +88,17 @@
 #              }
 #            peering_range: "10.0.0.0/22"
 #            support_range: "10.1.0.0/28"
+#      environment:
+#        TF_LOG: "{{ TF_LOG }}"
+#        TF_LOG_PATH: "{{ TF_LOG_PATH }}"
+
+  pre_tasks:
+    - name: Clone apigee/terraform-modules github repo
+      git:
+        repo: "{{ GITHUB_REPO_URL }}"
+        dest: "{{ GITHUB_REPO_DEST }}"
+        accept_hostkey: yes
+        update: yes
+        clone: yes
+        force: no
+

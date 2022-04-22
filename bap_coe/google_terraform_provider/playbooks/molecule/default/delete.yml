@@ -5,6 +5,7 @@
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ MOLECULE_SCENARIO_DIRECTORY }}/attributes.yml"
   - attributes.yml
 
   collections:
@@ -15,11 +16,11 @@
     - { role: gcp_project_delete }
     - { role: gcp_resource_manager_folders_delete }
 
-  pre_tasks:
-    - name: Assert TERRAFORM_PROJECT_PATH
-      stat:
-        path: "{{ TERRAFORM_PROJECT_PATH }}"
-      register: TERRAFORM_PROJECT_PATH_STATUS
+#  pre_tasks:
+#    - name: Assert TERRAFORM_PROJECT_PATH
+#      stat:
+#        path: "{{ TERRAFORM_PROJECT_PATH }}"
+#      register: TERRAFORM_PROJECT_PATH_STATUS
 
 #    - name: Terraform destroy
 #      ignore_errors: true
@@ -29,10 +30,10 @@
 #        chdir: "{{ TERRAFORM_PROJECT_PATH }}"
 #      when: TERRAFORM_PROJECT_PATH_STATUS.stat.exists is truthy
 
-    - name: Remove downloaded terraform modules
-      file:
-        path: ../../terraform-modules
-        state: absent
-      when: TERRAFORM_PROJECT_PATH_STATUS.stat.exists is truthy
+#    - name: Remove downloaded terraform modules
+#      file:
+#        path: ../../terraform-modules
+#        state: absent
+#      when: TERRAFORM_PROJECT_PATH_STATUS.stat.exists is truthy
 
 

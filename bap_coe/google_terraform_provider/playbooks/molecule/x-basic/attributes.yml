@@ -1,17 +1,17 @@
 ---
-#ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "x-basic"
-DATE_TIME: "04212022-1044"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-{{ DATE_TIME }}"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04222022-1154"
+ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 
 GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
-GITHUB_REPO_DEST: "/usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-workspace/bap_coe/google_terraform_provider/playbooks/terraform-modules"
+GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-modules"
 TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
 TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"
 TERRAFORM_BIN_PATH: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"
+
 TF_LOG: "DEBUG"
 TF_LOG_PATH: "{{ WORK_DIR }}/terraform-{{ PROJECT_ID }}.log"
 NAME_INSTANCE_PREFIX: apigee-x
@@ -49,8 +49,8 @@ FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigeex
-
 ORG_ROLE_BINDINGS:
+- "roles/owner"
 - "roles/billing.admin"
 - "roles/billing.projectManager"
 - "roles/iam.serviceAccountAdmin"
@@ -61,7 +61,6 @@ ORG_ROLE_BINDINGS:
 - "roles/serviceusage.serviceUsageViewer"
 - "roles/serviceusage.apiKeysAdmin"
 - "roles/iap.tunnelResourceAccessor"
-- "roles/compute.networkAdmin"
 
 #  Configure project admin role bindings
 PROJECT_ADMIN_ROLE_BINDINGS:
@@ -73,28 +72,28 @@ GCP_SERVICES:
 - "apigee.googleapis.com"
 - "servicenetworking.googleapis.com"
 - "cloudresourcemanager.googleapis.com"
-- "cloudkms.googleapis.com"
 - "serviceusage.googleapis.com"
 - "iam.googleapis.com"
-#- "container.googleapis.com"
-#- "stackdriver.googleapis.com"
-#- "meshca.googleapis.com"
-#- "meshtelemetry.googleapis.com"
-#- "meshconfig.googleapis.com"
-#- "iamcredentials.googleapis.com"
-#- "anthos.googleapis.com"
-#- "gkeconnect.googleapis.com"
-#- "gkehub.googleapis.com"
-#- "sourcerepo.googleapis.com"
-#- "cloudbuild.googleapis.com"
-#- "secretmanager.googleapis.com"
-#- "dns.googleapis.com"
-#- "pubsub.googleapis.com"
-#- "apigeeconnect.googleapis.com"
-#- "monitoring.googleapis.com"
-#- "logging.googleapis.com"
-#- "cloudtrace.googleapis.com"
-#- "privateca.googleapis.com"
+- "container.googleapis.com"
+- "stackdriver.googleapis.com"
+- "meshca.googleapis.com"
+- "meshtelemetry.googleapis.com"
+- "meshconfig.googleapis.com"
+- "iamcredentials.googleapis.com"
+- "anthos.googleapis.com"
+- "gkeconnect.googleapis.com"
+- "gkehub.googleapis.com"
+- "sourcerepo.googleapis.com"
+- "cloudbuild.googleapis.com"
+- "cloudkms.googleapis.com"
+- "secretmanager.googleapis.com"
+- "dns.googleapis.com"
+- "pubsub.googleapis.com"
+- "apigeeconnect.googleapis.com"
+- "monitoring.googleapis.com"
+- "logging.googleapis.com"
+- "cloudtrace.googleapis.com"
+- "privateca.googleapis.com"
 
 SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/owner"
@@ -109,12 +108,6 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/iam.serviceAccountCreator"
 - "roles/iam.serviceAccountKeyAdmin"
 - "roles/compute.loadBalancerAdmin"
-- "roles/resourcemanager.projectIamAdmin"
-- "roles/resourcemanager.organizationAdmin"
-- "roles/serviceusage.serviceUsageAdmin"
-- "roles/serviceusage.serviceUsageViewer"
-- "roles/serviceusage.apiKeysAdmin"
-- "roles/iap.tunnelResourceAccessor"
 
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
@@ -141,7 +134,7 @@ key_value_pairs:
 - { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "apigee_environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "ip_range", value: '"10.0.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "ip_range", value: '"10.2.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "hostnames", value: '["test.api.example.com"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "network", value: '"apigee-network"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }

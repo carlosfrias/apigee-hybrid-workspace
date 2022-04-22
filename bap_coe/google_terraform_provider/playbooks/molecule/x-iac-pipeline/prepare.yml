@@ -5,7 +5,8 @@
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - attributes.yml
+    - ./attributes.yml
+    - "{{ playbook_dir }}/../default/attributes.yml"
 
   collections:
     - bap_coe.gcp_management
@@ -31,3 +32,9 @@
     - { role: gcp_iam_service_account_keys }
     - { role: service_account_file_processing }
     - { role: gcp_auth_service_account_activate }
+
+  pre_tasks:
+    - name: Include defaults
+      include_vars:
+        file: "{{ playbook_dir }}/../default/attributes.yml"
+

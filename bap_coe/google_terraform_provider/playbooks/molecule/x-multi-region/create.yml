@@ -14,7 +14,6 @@
   roles:
     - {
         role: gcp_iam_policy_bindings_org,
-        tags: ['user-roles'],
         GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
         ROLE_BINDINGS: [
             "{{ FOLDER_ROLE_BINDINGS }}",
@@ -24,5 +23,11 @@
       }
     - { role: gcp_resource_manager_folders_create }
     - { role: gcp_resource_manager_folders_get_folder_id }
-    - { role: gcp_resource_manager_folders_permissions_user, tags: ['user-roles'] }
+    - { role: gcp_resource_manager_folders_permissions_user }
     - { role: gcp_project_create }
+
+  pre_tasks:
+    - name: Include defaults
+      include_vars:
+        file: "{{ playbook_dir }}/../default/attributes.yml"
+

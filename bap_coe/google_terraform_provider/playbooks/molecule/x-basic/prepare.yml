@@ -31,3 +31,17 @@
     - { role: gcp_iam_service_account_keys }
     - { role: service_account_file_processing }
     - { role: gcp_auth_service_account_activate }
+    - { role: terraform_installer }
+    - { role: service_account_file_path }
+    - { role: terraform_credentials }
+    - { role: key_value_updates }
+
+  pre_tasks:
+  - name: Clone apigee/terraform-modules github repo
+    git:
+      repo: "{{ GITHUB_REPO_URL }}"
+      dest: "{{ GITHUB_REPO_DEST }}"
+      accept_hostkey: yes
+      update: no
+      clone: yes
+      force: no
