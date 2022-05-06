@@ -25,9 +25,3 @@
     - { role: gcp_resource_manager_folders_get_folder_id }
     - { role: gcp_resource_manager_folders_permissions_user }
     - { role: gcp_project_create }
-
-  pre_tasks:
-    - name: Include defaults
-      include_vars:
-        file: "{{ playbook_dir }}/../default/attributes.yml"
-

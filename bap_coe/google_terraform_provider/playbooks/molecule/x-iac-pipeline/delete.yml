@@ -6,7 +6,6 @@
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
   - attributes.yml
-  - "{{ playbook_dir }}/../default/attributes.yml"
 
   collections:
   - bap_coe.gcp_management
@@ -15,9 +14,3 @@
     - { role: gcp_resource_manager_folders_get_folder_id }
     - { role: gcp_project_delete }
     - { role: gcp_resource_manager_folders_delete }
-
-  pre_tasks:
-    - name: Include defaults
-      include_vars:
-        file: "{{ playbook_dir }}/../default/attributes.yml"
-

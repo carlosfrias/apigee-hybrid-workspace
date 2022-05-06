@@ -1,21 +1,23 @@
 ---
+TERRAFORM_PROJECT_NAME: "x-basic"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04222022-1816"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 
 GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
-GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-modules"
+GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-projects"
 TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
 TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"
 TERRAFORM_BIN_PATH: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"
 
 TF_LOG: "DEBUG"
-TF_LOG_PATH: "{{ WORK_DIR }}/terraform-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04072022-1042 }}.log"
+TF_LOG_PATH: "{{ WORK_DIR }}/terraform-{{ PROJECT_ID }}.log"
 NAME_INSTANCE_PREFIX: apigee-x
 GCP_ZONE: us-east1-b
 GCP_REGION: us-east1
-CONTROL_SERVER_IMAGE_NAME: ops-server
+CONTROL_SERVER_IMAGrE_NAME: ops-server
 CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
 ACCESS_TYPE: int
@@ -48,6 +50,7 @@ FOLDER_ROLE_BINDINGS:
 
 FOLDER_DISPLAY_NAME: apigeex
 ORG_ROLE_BINDINGS:
+- "roles/owner"
 - "roles/billing.admin"
 - "roles/billing.projectManager"
 - "roles/iam.serviceAccountAdmin"
@@ -70,28 +73,30 @@ GCP_SERVICES:
 - "servicenetworking.googleapis.com"
 - "cloudresourcemanager.googleapis.com"
 - "serviceusage.googleapis.com"
-- "iam.googleapis.com"
-- "container.googleapis.com"
-- "stackdriver.googleapis.com"
-- "meshca.googleapis.com"
-- "meshtelemetry.googleapis.com"
-- "meshconfig.googleapis.com"
-- "iamcredentials.googleapis.com"
-- "anthos.googleapis.com"
-- "gkeconnect.googleapis.com"
-- "gkehub.googleapis.com"
-- "sourcerepo.googleapis.com"
-- "cloudbuild.googleapis.com"
-- "secretmanager.googleapis.com"
-- "dns.googleapis.com"
-- "pubsub.googleapis.com"
-- "apigeeconnect.googleapis.com"
-- "monitoring.googleapis.com"
-- "logging.googleapis.com"
-- "cloudtrace.googleapis.com"
-- "privateca.googleapis.com"
+#- "iam.googleapis.com"
+#- "container.googleapis.com"
+#- "stackdriver.googleapis.com"
+#- "meshca.googleapis.com"
+#- "meshtelemetry.googleapis.com"
+#- "meshconfig.googleapis.com"
+#- "iamcredentials.googleapis.com"
+#- "anthos.googleapis.com"
+#- "gkeconnect.googleapis.com"
+#- "gkehub.googleapis.com"
+#- "sourcerepo.googleapis.com"
+#- "cloudbuild.googleapis.com"
+#- "cloudkms.googleapis.com"
+#- "secretmanager.googleapis.com"
+#- "dns.googleapis.com"
+#- "pubsub.googleapis.com"
+#- "apigeeconnect.googleapis.com"
+#- "monitoring.googleapis.com"
+#- "logging.googleapis.com"
+#- "cloudtrace.googleapis.com"
+#- "privateca.googleapis.com"
 
 SERVICE_ACCOUNT_ROLE_BINDINGS:
+- "roles/owner"
 - "roles/compute.admin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
@@ -106,7 +111,6 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
-
 
 CONSTRAINTS_DISABLE_ENFORCEMENT:
 - constraints/iam.disableServiceAccountKeyCreation

@@ -6,7 +6,6 @@
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
     - attributes.yml
-    - "{{ playbook_dir }}/../default/attributes.yml"
 
   collections:
     - bap_coe.bootstrap_runtime
@@ -17,11 +16,6 @@
     - { role: service_account_file_path }
     - { role: terraform_credentials }
     - { role: key_value_updates }
-
-  pre_tasks:
-    - name: Include defaults
-      include_vars:
-        file: "{{ playbook_dir }}/../default/attributes.yml"
 
   tasks:
     - name: Terraform init
@@ -51,54 +45,4 @@
       environment:
         TF_LOG: "{{ TF_LOG }}"
         TF_LOG_PATH: "{{ TF_LOG_PATH }}"
-
-#      - name: Create Apigee X Instance
-#        terraform:
-#          project_path: "{{ TERRAFORM_PROJECT_PATH }}"
-#          binary_path: "{{ TERRAFORM_BIN_PATH }}"
-#          state: present
-#          force_init: yes
-#          variables:
-#            project_id: "{{ PROJECT_ID }}"
-#            ax_region: "{{ GCP_ZONE }}"
-#            apigee_environments:
-#              - "test1"
-#              - "test2"
-#            apigee_instances:
-#              euw1-instance:
-#                region: "{{ GCP_REGION }}"
-#                ip_range: "10.2.0.0/22"
-#                environments:
-#                  - "test1"
-#                  - "test2"
-#            apigee_envgroups:
-#              test:
-#                environments:
-#                  - "test1"
-#                  - "test2"
-#                hostnames:
-#                  - "test.api.example.com"
-#            network: "apigee-network"
-#            exposure_subnets:
-#            - {
-#                name: "apigee-exposure",
-#                ip_cidr_range: "10.100.0.0/24",
-#                region: "{{ GCP_REGION }}",
-#                secondary_ip_range: null
-#              }
-#            peering_range: "10.0.0.0/22"
-#            support_range: "10.1.0.0/28"
-#      environment:
-#        TF_LOG: "{{ TF_LOG }}"
-#        TF_LOG_PATH: "{{ TF_LOG_PATH }}"
-
-  pre_tasks:
-    - name: Clone apigee/terraform-modules github repo
-      git:
-        repo: "{{ GITHUB_REPO_URL }}"
-        dest: "{{ GITHUB_REPO_DEST }}"
-        accept_hostkey: yes
-        update: yes
-        clone: yes
-        force: no
 

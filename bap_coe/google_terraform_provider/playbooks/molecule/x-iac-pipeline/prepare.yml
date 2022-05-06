@@ -5,8 +5,7 @@
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - ./attributes.yml
-    - "{{ playbook_dir }}/../default/attributes.yml"
+    - attributes.yml
 
   collections:
     - bap_coe.gcp_management
@@ -24,17 +23,27 @@
     - { role: service_account_file_path }
     - { role: gcp_iam_service_account_create }
     - {
-        role: gcp_iam_policy_bindings_service_account,
-        tags: ['user-roles'],
-        ROLE_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}",
+        role: gcp_iam_policy_bindings,
+        BINDING_OP: "add",
+        ACCOUNT_TYPE: "serviceAccount",
+        GCLOUD_BINDING_ACCOUNT: "{{ SERVICE_ACCOUNT }}",
+        POLICY_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}",
         GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
       }
     - { role: gcp_iam_service_account_keys }
     - { role: service_account_file_processing }
     - { role: gcp_auth_service_account_activate }
+    - { role: terraform_installer }
+    - { role: service_account_file_path }
+    - { role: terraform_credentials }
+    - { role: key_value_updates }
 
   pre_tasks:
-    - name: Include defaults
-      include_vars:
-        file: "{{ playbook_dir }}/../default/attributes.yml"
-
+  - name: Clone apigee/terraform-modules github repo
+    git:
+      repo: "{{ GITHUB_REPO_URL }}"
+      dest: "{{ GITHUB_REPO_DEST }}"
+      accept_hostkey: yes
+      update: no
+      clone: yes
+      force: no
