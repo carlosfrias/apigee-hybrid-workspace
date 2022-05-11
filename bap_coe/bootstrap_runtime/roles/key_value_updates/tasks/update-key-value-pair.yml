@@ -35,11 +35,11 @@
 
 - name: Debug RegExp
   pause:
-    echo: "'(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'"
+    echo: "'(.*){{ key_value_pair.key }}(\s){{ key_value_pair.separator }}(\s)(.*)'"
 
 - name: Add missing key and value in target file
   lineinfile:
-    regexp: '(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
+    regexp: '(.*){{ key_value_pair.key }}(\s){{ key_value_pair.separator }}(\s)(.*)'
 #    search_string: '(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
     line: '{{ key_value_pair.key }} {{ key_value_pair.separator }} {{ key_value_pair.value }}'
     path: "{{ key_value_pair.file_name }}"

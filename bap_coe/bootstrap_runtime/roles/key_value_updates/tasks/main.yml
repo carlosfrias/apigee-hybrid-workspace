@@ -6,7 +6,7 @@
   when: key_value_pairs is not defined
 
 - include_tasks: update-key-value-pair.yml
-  loop:  "{{ key_value_pairs }}"
+  loop: "{{ key_value_pairs }}"
   loop_control:
     loop_var: key_value_pair
 
