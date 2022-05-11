@@ -35,7 +35,7 @@
 
     - name: Terraform plan
       shell: |
-        {{ TERRAFORM_BIN_PATH }} plan --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}"
+        {{ TERRAFORM_BIN_PATH }} plan --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars ##-var "project_id={{ PROJECT_ID }}"
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
       environment:
@@ -44,7 +44,7 @@
 
     - name: Terraform apply
       shell: |
-        {{ TERRAFORM_BIN_PATH }} apply --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -var "project_id={{ PROJECT_ID }}" -auto-approve
+        {{ TERRAFORM_BIN_PATH }} apply --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -auto-approve #-var "project_id={{ PROJECT_ID }}"
       args:
         chdir: "{{ TERRAFORM_PROJECT_PATH }}"
       environment:
