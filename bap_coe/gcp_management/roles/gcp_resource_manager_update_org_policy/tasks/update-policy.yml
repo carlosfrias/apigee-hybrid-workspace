@@ -10,12 +10,13 @@
 - name: Create policy update file
   set_fact:
     cacheable: True
-    UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/update-policy-constraint-{{ policy_name }}.yaml"
+    UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/org-policies"
+    UPDATE_POLICY_FILE_NAME: "update-policy-constraint-{{ policy_name }}.yaml"
 
 - name: Create policy update file
   template:
     src: update-policy.yaml.j2
-    dest: "{{ UPDATE_POLICY_FILE_PATH }}"
+    dest: "{{ UPDATE_POLICY_FILE_PATH }}/{{ UPDATE_POLICY_FILE_NAME }}"
 
 - name: Update Org Policy
   shell: |

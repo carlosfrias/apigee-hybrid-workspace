@@ -5,7 +5,7 @@
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - attributes.yml
+      - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   collections:
     - bap_coe.gcp_management

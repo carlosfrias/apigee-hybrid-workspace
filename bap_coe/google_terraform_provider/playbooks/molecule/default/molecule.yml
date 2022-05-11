@@ -18,12 +18,11 @@ provisioner:
     vvv: true
   playbooks:
     create: create.yml
-    prepare: prepare.yml
     converge: converge.yml
     destroy: delete.yml
   config_options:
     defaults:
-      inventory: $MOLECULE_PROJECT_DIRECTORY/work_dir/${PROJECT_ID}
+      inventory: $MOLECULE_PROJECT_DIRECTORY/../shared/work_dir/inventory/$PROJECT_ID
 verifier:
   name: ansible
   log: True
