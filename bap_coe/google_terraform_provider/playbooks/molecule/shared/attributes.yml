@@ -1,6 +1,6 @@
 ---
 TERRAFORM_PROJECT_NAME: "x-basic"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-05112022-1034"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-05112022-1122"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir | dirname }}/shared/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
@@ -13,7 +13,8 @@ TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"
 TERRAFORM_BIN_PATH: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"
 
 TF_LOG: "DEBUG"
-TF_LOG_PATH: "{{ WORK_DIR }}/terraform-{{ PROJECT_ID }}.log"
+TF_LOG_PATH: "{{ WORK_DIR }}/logs"
+TF_LOG_FILE_NAME: "terraform-{{ PROJECT_ID }}.log"
 NAME_INSTANCE_PREFIX: apigee-x
 GCP_ZONE: us-east1-b
 GCP_REGION: us-east1
@@ -130,16 +131,16 @@ UPDATE_ORG_POLICIES:
 
 key_value_pairs:
 - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "euw1-instance", value: 'east1-instance', separator: "", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "ip_range", value: '"10.2.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "hostnames", value: '["test.api.example.com"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "network", value: '"apigee-network"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "name", value: '"apigee-exposure"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "ip_cidr_range", value: '"10.100.0.0/24"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "secondary_ip_range", value: 'null', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "peering_range", value: '"10.0.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
-- { key: "support_range", value: '"10.1.0.0/28"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "euw1-instance", value: 'east1-instance', separator: "", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "ip_range", value: '"10.2.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "environments", value: '["test1","test2"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "hostnames", value: '["test.api.example.com"]', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "network", value: '"apigee-network"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "name", value: '"apigee-exposure"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "ip_cidr_range", value: '"10.100.0.0/24"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "secondary_ip_range", value: 'null', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "peering_range", value: '"10.0.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "support_range", value: '"10.1.0.0/28"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }

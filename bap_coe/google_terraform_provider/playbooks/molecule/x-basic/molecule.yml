@@ -14,13 +14,11 @@ platforms:
   - name: x-basic
 provisioner:
   name: ansible
+  log: True
   options:
-    vvv: true
-  playbooks:
-    create: create.yml
-    prepare: prepare.yml
-    converge: converge.yml
-    destroy: delete.yml
+    vvv: True
+  ansible_args:
+  - -vvv
   config_options:
     defaults:
       inventory: $MOLECULE_PROJECT_DIRECTORY/work_dir/${PROJECT_ID}

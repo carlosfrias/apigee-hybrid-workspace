@@ -5,30 +5,12 @@
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
-  collections:
-  - bap_coe.gcp_management
-  - bap_coe.bootstrap_runtime
-
-  roles:
-#  - { role: gcp_resource_manager_folders_get_folder_id }
-#  - {
-#    role: gcp_project_services_enable,
-#    tags: ['services'],
-#    GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
-#  }
-#  - { role: gcp_resource_manager_constraints_disable_enforce }
-#  - { role: gcp_resource_manager_update_org_policy }
-  - { role: service_account_file_path }
-  - { role: gcp_iam_service_account_create }
-  - {
-      role: gcp_iam_policy_bindings,
-      IGNORE_ERRORS: True,
-      BINDING_OP: "remove",
-      ACCOUNT_TYPE: "serviceAccount",
-      GCLOUD_BINDING_ACCOUNT: "{{ SERVICE_ACCOUNT }}",
-      POLICY_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}",
-      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
-    }
-
+  tasks:
+  - name: Remove old WORK_DIR
+    file:
+      path: "{{ item }}"
+      state: absent
+    with_items:
+    - "{{ GITHUB_REPO_DEST }}"

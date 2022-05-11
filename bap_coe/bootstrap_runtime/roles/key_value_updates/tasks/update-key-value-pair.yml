@@ -40,4 +40,5 @@
     path: "{{ key_value_pair.file_name }}"
     state: present
     backrefs: yes
+    insertafter: EOF
   when: key_value_pair.separator | length > 0
