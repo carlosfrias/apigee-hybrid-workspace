@@ -33,9 +33,9 @@
     path: "{{ key_value_pair.file_name }}"
   when: key_value_pair.separator | length == 0
 
-- name: Debug regexp
+- name: Debug RegExp
   pause:
-    echo: "regexp on lineinfile: '(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'"
+    echo: "'(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'"
 
 - name: Add missing key and value in target file
   lineinfile:
