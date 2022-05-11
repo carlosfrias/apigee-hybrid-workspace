@@ -48,7 +48,7 @@
 #      when: PROJECT_ACTIVE is truthy
 #      failed_when:
 #        - status.rc == 1
-        - "'already exists' not in status.stderr"
+#        - "'already exists' not in status.stderr"
 
 - name: Wait for the policy bindings to propagate
   pause:
