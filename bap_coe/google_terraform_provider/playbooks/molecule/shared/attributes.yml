@@ -130,7 +130,7 @@ UPDATE_ORG_POLICIES:
 - constraints/compute.vmCanIpForward
 
 key_value_pairs:
-- { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+- { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/extra-args-project-id.tfvars" }
 - { key: "euw1-instance", value: 'east1-instance', separator: "", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
@@ -144,3 +144,4 @@ key_value_pairs:
 - { key: "secondary_ip_range", value: 'null', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "peering_range", value: '"10.0.0.0/22"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "support_range", value: '"10.1.0.0/28"', separator: "=", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+
