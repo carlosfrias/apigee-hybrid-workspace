@@ -27,27 +27,27 @@
     cacheable: true
     PROJECT_ACTIVE: "{{ ACTIVE_PROJECTS.stdout is search(PROJECT_ID) | default(false) }}"
 
-- block:
-  - name: Create an initial service account
-    shell: |
-      gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
-        --description={{ SERVICE_ACCOUNT_NAME }} \
-        --display-name={{ SERVICE_ACCOUNT_NAME }} \
-        --project {{ PROJECT_ID }}
-    when: PROJECT_ACTIVE is truthy
+#- block:
+- name: Create an initial service account
+  shell: |
+    gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
+      --description={{ SERVICE_ACCOUNT_NAME }} \
+      --display-name={{ SERVICE_ACCOUNT_NAME }} \
+      --project {{ PROJECT_ID }}
+  when: PROJECT_ACTIVE is truthy
 
-  rescue:
-    - name: RESCUE - Create an initial service account, rescue for idempotency
-      shell: |
-        gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
-          --description={{ SERVICE_ACCOUNT_NAME }} \
-          --display-name={{ SERVICE_ACCOUNT_NAME }} \
-          --project {{ PROJECT_ID }} \
-          --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
-      register: status
-      when: PROJECT_ACTIVE is truthy
-      failed_when:
-        - status.rc == 1
+#  rescue:
+#    - name: RESCUE - Create an initial service account, rescue for idempotency
+#      shell: |
+#        gcloud iam service-accounts create {{ SERVICE_ACCOUNT_NAME }} \
+#          --description={{ SERVICE_ACCOUNT_NAME }} \
+#          --display-name={{ SERVICE_ACCOUNT_NAME }} \
+#          --project {{ PROJECT_ID }} \
+#          --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+#      register: status
+#      when: PROJECT_ACTIVE is truthy
+#      failed_when:
+#        - status.rc == 1
         - "'already exists' not in status.stderr"
 
 - name: Wait for the policy bindings to propagate

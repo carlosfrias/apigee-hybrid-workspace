@@ -13,5 +13,5 @@
       path: "{{ item }}"
       state: absent
     with_items:
-    - "{{ WORK_DIR }}"
     - "{{ GITHUB_REPO_DEST }}"
+    - "{{ WORK_DIR }}"
