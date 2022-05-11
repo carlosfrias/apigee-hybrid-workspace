@@ -13,6 +13,12 @@
     UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/org-policies"
     UPDATE_POLICY_FILE_NAME: "update-policy-constraint-{{ policy_name }}.yaml"
 
+
+- name: Assert policy file path
+  file:
+    path: "{{ UPDATE_POLICY_FILE_PATH }}"
+    state: directory
+
 - name: Create policy update file
   template:
     src: update-policy.yaml.j2

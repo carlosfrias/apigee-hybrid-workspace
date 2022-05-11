@@ -4,7 +4,7 @@
   connection: local
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
     - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   tasks:
