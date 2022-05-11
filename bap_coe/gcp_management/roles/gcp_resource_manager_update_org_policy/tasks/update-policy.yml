@@ -13,7 +13,6 @@
     UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/org-policies"
     UPDATE_POLICY_FILE_NAME: "update-policy-constraint-{{ policy_name }}.yaml"
 
-
 - name: Assert policy file path
   file:
     path: "{{ UPDATE_POLICY_FILE_PATH }}"
@@ -27,6 +26,6 @@
 - name: Update Org Policy
   shell: |
     gcloud resource-manager \
-    org-policies set-policy {{ UPDATE_POLICY_FILE_PATH }} \
+    org-policies set-policy {{ UPDATE_POLICY_FILE_PATH }}/{{ UPDATE_POLICY_FILE_NAME }} \
     --project {{ PROJECT_ID }} \
     --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
