@@ -17,6 +17,17 @@
     - { role: terraform_credentials }
     - { role: key_value_updates }
 
+  pre_tasks:
+    - name: Clone apigee/terraform-modules github repo
+      git:
+        repo: "{{ GITHUB_REPO_URL }}"
+        dest: "{{ GITHUB_REPO_DEST }}"
+        accept_hostkey: yes
+        update: no
+        clone: yes
+        force: no
+
+
   tasks:
     - name: Assert terraform log folder exists
       file:
