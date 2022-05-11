@@ -34,10 +34,8 @@
   when: key_value_pair.separator | length == 0
 
 - name: Debug regexp
-  debug:
-    message: "regexp on lineinfile: '(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'"
-
-- pause:
+  pause:
+    echo: "regexp on lineinfile: '(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'"
 
 - name: Add missing key and value in target file
   lineinfile:
