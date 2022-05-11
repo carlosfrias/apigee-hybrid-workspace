@@ -24,14 +24,14 @@
     regexp: '(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
     replace: '\1{{ key_value_pair.key }}\2{{ key_value_pair.separator }}\3{{ key_value_pair.value }}'
     path: "{{ key_value_pair.file_name }}"
-  when: key_value_pair.separator | length > 0
+  when: key_value_pair.separator is truthy
 
 - name: Update key only in target file
   replace:
     regexp: '^(.*){{ key_value_pair.key }}(.*)'
     replace: '\1{{ key_value_pair.value }}\2'
     path: "{{ key_value_pair.file_name }}"
-  when: key_value_pair.separator | length == 0
+  when: key_value_pair.separator is falsy
 
 #- name: Debug RegExp
 #  pause:
@@ -39,11 +39,10 @@
 
 - name: Add missing key and value in target file
   lineinfile:
-    regexp: '{{ key_value_pair.key }} {{ key_value_pair.separator }} (.*)'
-#    search_string: '(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
+    regexp: '(.*){{ key_value_pair.key }}\s{{ key_value_pair.separator }}(.*)'
     line: '{{ key_value_pair.key }} {{ key_value_pair.separator }} {{ key_value_pair.value }}'
     path: "{{ key_value_pair.file_name }}"
-#    state: present
+    state: present
     backrefs: yes
     insertafter: EOF
-  when: key_value_pair.separator | length > 0
+  when: key_value_pair.separator is truthy
