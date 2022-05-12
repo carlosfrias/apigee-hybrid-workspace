@@ -3,7 +3,7 @@
 
 - name: Assert work directory
   file:
-    path: "{{ WORK_DIR }}"
+    path: "{{ WORK_DIR }}/credentials"
     state: directory
 
 - name: Set service account name
@@ -19,4 +19,4 @@
 - name: Set service account file path
   set_fact:
     cacheable: yes
-    SERVICE_ACCOUNT_FILE_PATH: "{{ WORK_DIR }}/{{ SERVICE_ACCOUNT_FILE }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ WORK_DIR }}/credentials/{{ SERVICE_ACCOUNT_FILE }}"
