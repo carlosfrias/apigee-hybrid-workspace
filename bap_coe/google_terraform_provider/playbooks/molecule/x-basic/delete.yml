@@ -8,7 +8,19 @@
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   tasks:
+
+  - name: Terraform destroy
+    ignore_errors: True
+    shell: |
+      {{ TERRAFORM_BIN_PATH }} destroy --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -auto-approve #-var "project_id={{ PROJECT_ID }}"
+    args:
+      chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+    environment:
+      TF_LOG: "{{ TF_LOG }}"
+      TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"
+
   - name: Remove old WORK_DIR
+    ignore_errors: True
     file:
       path: "{{ item }}"
       state: absent

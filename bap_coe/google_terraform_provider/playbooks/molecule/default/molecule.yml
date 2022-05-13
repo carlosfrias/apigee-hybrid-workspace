@@ -16,6 +16,8 @@ provisioner:
   name: ansible
   options:
     vvv: true
+  ansible-args:
+    - -vvv
   playbooks:
     create: create.yml
     converge: converge.yml
