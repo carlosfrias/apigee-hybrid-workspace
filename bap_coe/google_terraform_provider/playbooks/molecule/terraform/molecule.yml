@@ -23,7 +23,7 @@ provisioner:
     destroy: ../shared/delete.yml
   config_options:
     defaults:
-      inventory: ../shared/work_dir/inventory/$PROJECT_ID
+      inventory: ../../shared/work_dir/inventory/$PROJECT_ID
 verifier:
   name: ansible
   log: True

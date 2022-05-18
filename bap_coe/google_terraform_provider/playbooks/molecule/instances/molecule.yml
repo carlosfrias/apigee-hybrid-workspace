@@ -16,12 +16,14 @@ provisioner:
   name: ansible
   options:
     vvv: true
+  ansible-args:
+  - -vvv
   playbooks:
-    create: ./gce-instances-create.yml
-    destroy: ./gce-instances-delete.yml
+    create: create.yml
+    destroy: delete.yml
   config_options:
     defaults:
-      inventory: $MOLECULE_PROJECT_DIRECTORY/work_dir/${PROJECT_ID}
+      inventory: ../../work_dir/inventory/${PROJECT_ID}
 verifier:
   name: ansible
   log: True

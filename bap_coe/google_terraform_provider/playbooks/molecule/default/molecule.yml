@@ -24,7 +24,7 @@ provisioner:
     destroy: delete.yml
   config_options:
     defaults:
-      inventory: $MOLECULE_PROJECT_DIRECTORY/../shared/work_dir/inventory/$PROJECT_ID
+      inventory: ../../work_dir/inventory/$PROJECT_ID
 verifier:
   name: ansible
   log: True
