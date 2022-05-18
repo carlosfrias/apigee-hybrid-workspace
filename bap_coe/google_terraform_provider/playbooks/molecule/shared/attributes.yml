@@ -1,12 +1,13 @@
 ---
-TERRAFORM_PROJECT_NAME: "x-basic"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-05132022-0938"
+TERRAFORM_PROJECT_NAME: "x-l7xlb"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-05182022-1230"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
-WORK_DIR: "{{ playbook_dir | dirname }}/shared/work_dir/{{ PROJECT_ID }}"
+WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
 INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 
-GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
+#GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
+GITHUB_REPO_URL: git@github.com:apigee/terraform-modules.git
 GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-projects"
 TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
 TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"

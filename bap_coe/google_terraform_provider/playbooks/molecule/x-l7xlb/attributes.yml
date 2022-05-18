@@ -1,4 +1,0 @@
----
-TERRAFORM_PROJECT_NAME: "x-basic"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-04212022-1320"
-

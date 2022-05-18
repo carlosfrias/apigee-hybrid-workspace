@@ -22,7 +22,6 @@ provisioner:
     create: create.yml
     converge: converge.yml
     destroy: delete.yml
-    prepare: prepare.yml
   config_options:
     defaults:
       inventory: $MOLECULE_PROJECT_DIRECTORY/../shared/work_dir/inventory/$PROJECT_ID

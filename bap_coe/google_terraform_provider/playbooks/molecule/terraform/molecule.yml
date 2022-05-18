@@ -11,19 +11,19 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: x-dns-peering
+  - name: terraform-deployment
 provisioner:
   name: ansible
   options:
     vvv: true
+  ansible-args:
+    - -vvv
   playbooks:
-    create: create.yml
-    prepare: prepare.yml
-    converge: converge.yml
-    destroy: delete.yml
+    converge: ../shared/converge.yml
+    destroy: ../shared/delete.yml
   config_options:
     defaults:
-      inventory: $MOLECULE_PROJECT_DIRECTORY/work_dir/${PROJECT_ID}
+      inventory: ../shared/work_dir/inventory/$PROJECT_ID
 verifier:
   name: ansible
   log: True

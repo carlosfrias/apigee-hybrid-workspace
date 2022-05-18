@@ -1,5 +1,5 @@
 ---
-- name: Create Apigee runtime on GCP
+- name: Terraform destroy Apigee runtime on GCP
   hosts: localhost
   connection: local
 
