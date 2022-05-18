@@ -1,8 +1,7 @@
 ---
-- name: Create Instance
+- name: Create Apigee runtime on GCP
   hosts: localhost
   connection: local
-  gather_facts: no
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -12,9 +11,14 @@
   - bap_coe.gcp_management
 
   roles:
-    - { role: service_account_file_path }
-    - { role: service_account_file_processing }
-    - { role: gcp_resource_manager_folders_get_folder_id }
-    - { role: gcp_project_delete }
-    - { role: gcp_resource_manager_folders_delete }
+  - { role: service_account_file_path, tags: [ 'service-account'] }
+  - { role: service_account_file_processing, tags: [ 'service-account'] }
 
+
+  tasks:
+  - name: Remove instances
+    include_role:
+      name: gce_instance_remove
+    with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
+    loop_control:
+      loop_var: sequence

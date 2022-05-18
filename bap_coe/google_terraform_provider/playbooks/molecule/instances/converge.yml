@@ -1,23 +1,38 @@
 ---
-- name: Create infrastructure for private cloud in GCP
+- name: Create Instance
   hosts: localhost
   connection: local
-  tags: ['instances']
+  gather_facts: no
 
   vars_files:
-    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   collections:
-    - bap_coe.gcp_management
+  - bap_coe.gcp_management
+
+  roles:
+  - { role: gcp_project_services_enable, tags: ['services'] }
+  - { role: service_account_file_path, tags: [ 'service-account'] }
+  - { role: gcp_iam_service_account_create, tags: [ 'service-account'] }
+  - { role: gcp_iam_service_account_keys, tags: [ 'service-account'] }
+  - {
+    role: gcp_iam_policy_bindings,
+    BINDING_OP: "add",
+    ACCOUNT_TYPE: "serviceAccount",
+    GCLOUD_BINDING_ACCOUNT: "{{ SERVICE_ACCOUNT }}",
+    POLICY_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}",
+    GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+  }
+  - { role: service_account_file_processing, tags: [ 'service-account'] }
+  - { role: gce_network_create }
+  - { role: gce_firewall_create }
+  - { role: gcp_resource_manager_constraints_disable_enforce }
 
   tasks:
-#    - name: Create planet instances
-#      include_tasks: ../../infrastructure-create-controller.yml
-#      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
-#      loop_control:
-#        loop_var: instance
-
-#    - name: Next Step
-#      debug:
-#        msg: "This scenario created the project and dynamic infrastructure inventory. Please use one of the next scenarios to complete your deployment"
+  - name: create instances
+    include_role:
+      name: gce_instance_create
+    with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
+    loop_control:
+      loop_var: sequence

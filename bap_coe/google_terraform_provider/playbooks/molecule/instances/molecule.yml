@@ -19,7 +19,6 @@ provisioner:
   ansible-args:
   - -vvv
   playbooks:
-    create: create.yml
     destroy: delete.yml
   config_options:
     defaults:
