@@ -1,6 +1,7 @@
 ---
-TERRAFORM_PROJECT_NAME: "x-l7xlb"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-05182022-1230"
+TERRAFORM_PROJECT_NAME: "x-multi-region"
+#PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-05182022-1552"
+PROJECT_ID: "friasc-xmulti-05182022-1730"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
@@ -134,6 +135,7 @@ peering_range: "10.0.0.0/22"
 support_range: "10.1.0.0/28"
 key_value_pairs:
 - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "extra", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
+#- { key: "svpc_host_project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "extra", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "euw1-instance", value: 'east1-instance', separator: "", type: "arg", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
 - { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars" }
