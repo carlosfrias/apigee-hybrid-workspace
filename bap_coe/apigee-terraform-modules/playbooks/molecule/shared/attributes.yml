@@ -1,7 +1,7 @@
 ---
 TERRAFORM_PROJECT_NAME: "x-multi-region"
 #PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-05182022-1552"
-PROJECT_ID: "friasc-xmulti-05182022-1730"
+PROJECT_ID: "friasc-xmultireg-05192022-1011"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ ansible_user_dir }}/bin"
