@@ -35,6 +35,9 @@
         --display-name={{ SERVICE_ACCOUNT_NAME }} \
         --project {{ PROJECT_ID }}
     when: PROJECT_ACTIVE is truthy
+    failed_when:
+      - status.rc == 1
+      - "'already exists' not in status.stderr"
 
   rescue:
     - name: RESCUE - Create an initial service account, rescue for idempotency
