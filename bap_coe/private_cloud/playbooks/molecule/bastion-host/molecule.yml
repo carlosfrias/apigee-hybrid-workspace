@@ -9,18 +9,21 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: instance
+  - name: bastion-host
 provisioner:
   name: ansible
   ansible_args:
-    - -i=$MOLECULE_PROJECT_DIRECTORY/inventory
+    - -i=../../work_dir/${PROJECT_ID}/inventory
     - -u=friasc
     - --private-key=~/.ssh/google_compute_engine
   playbooks:
-    create: ../../infrastructure-create.yml
-    prepare: ../../infrastructure-prepare-bastion-host.yml
-    converge: ../../install-aio.yml
-    destroy: ../../infrastructure-delete.yml
+#    create: ../shared/create.yml
+#    prepare: ../../infrastructure-prepare-bastion-host.yml
+    destroy: destroy.yml
+    converge: converge.yml
+  config_options:
+    defaults:
+      inventory: ../../work_dir/${PROJECT_ID}/inventory
 verifier:
   name: ansible
   log: True

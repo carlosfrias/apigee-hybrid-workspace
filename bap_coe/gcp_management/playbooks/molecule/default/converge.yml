@@ -13,7 +13,7 @@
 
   tasks:
 #    - name: Create planet instances
-#      include_tasks: ../../infrastructure-create-controller.yml
+#      include_tasks: ../../create-instance.yml
 #      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
 #      loop_control:
 #        loop_var: instance

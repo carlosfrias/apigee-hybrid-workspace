@@ -70,6 +70,20 @@ PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 
+SERVICE_ACCOUNT_ROLE_BINDINGS:
+- "roles/owner"
+- "roles/compute.admin"
+- "roles/compute.networkUser"
+- "roles/compute.instanceAdmin"
+- "roles/apigee.admin"
+#- "roles/networkmanagement.admin"
+#- "roles/networkmanagement.viewer"
+#- "roles/iam.serviceAccountUser"
+#- "roles/iam.serviceAccountAdmin"
+#- "roles/iam.serviceAccountCreator"
+#- "roles/iam.serviceAccountKeyAdmin"
+#- "roles/compute.loadBalancerAdmin"
+
 GCP_SERVICES:
 - "compute.googleapis.com"
 - "apigee.googleapis.com"
@@ -96,21 +110,8 @@ GCP_SERVICES:
 #- "monitoring.googleapis.com"
 #- "logging.googleapis.com"
 #- "cloudtrace.googleapis.com"
-#- "privateca.googleapis.com"
 
-SERVICE_ACCOUNT_ROLE_BINDINGS:
-- "roles/owner"
-- "roles/compute.admin"
-- "roles/compute.networkUser"
-- "roles/compute.instanceAdmin"
-- "roles/apigee.admin"
-#- "roles/networkmanagement.admin"
-#- "roles/networkmanagement.viewer"
-#- "roles/iam.serviceAccountUser"
-#- "roles/iam.serviceAccountAdmin"
-#- "roles/iam.serviceAccountCreator"
-#- "roles/iam.serviceAccountKeyAdmin"
-#- "roles/compute.loadBalancerAdmin"
+#- "privateca.googleapis.com"
 
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
@@ -126,7 +127,6 @@ UPDATE_ORG_POLICIES:
 - constraints/compute.trustedImageProjects
 - constraints/compute.restrictSharedVpcSubnetworks
 - constraints/compute.restrictSharedVpcHostProjects
-- constraints/compute.restrictVpcPeering
 - constraints/compute.restrictVpcPeering
 - constraints/compute.vmExternalIpAccess
 - constraints/compute.vmCanIpForward

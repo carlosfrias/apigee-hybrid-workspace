@@ -1,9 +1,47 @@
 ---
 # tasks file for gce_firewall_remove
+- name: Assert FIREWALL_NAME provided
+  assert:
+    that:
+    - FIREWALL_NAME is defined
+    msg: "Please provide FIREWALL_NAME"
+
+- name: Assert PROJECT_ID provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide PROJECT_ID"
+
+- name: Assert SERVICE_ACCOUNT_EMAIL provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_EMAIL is defined
+    msg: "Please provide SERVICE_ACCOUNT_EMAIL"
+
+- name: Assert SERVICE_ACCOUNT_FILE provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE"
+
+- name: Assert AUTHORIZATION_KIND provided
+  assert:
+    that:
+    - AUTHORIZATION_KIND is defined
+    msg: "Please provide AUTHORIZATION_KIND"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
+
 - name: Create Firewall Rule
   community.google.gce_net:
+    fwname: "{{ FIREWALL_NAME }}"
     project_id: "{{ PROJECT_ID }}"
     service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
     credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    fwname: "{{ FIREWALL_NAME }}"
+    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     state: "absent"

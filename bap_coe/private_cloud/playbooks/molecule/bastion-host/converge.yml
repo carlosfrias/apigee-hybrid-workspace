@@ -1,19 +1,40 @@
 ---
-- name: Create infrastructure for private cloud in GCP
+- name: Create GCP Bastion Host
   hosts: localhost
   connection: local
-  tags: ['instances']
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - ../../attributes.yml
+#    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  vars:
+    PROJECT_ID: "friasc-opdk-05242022-1426"
+    WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
+    NAME_INSTANCE_PREFIX: "bastion"
+    PRIVATE_CLOUD_INSTANCES:
+      - { node_type: "{{ NAME_INSTANCE_PREFIX }}", count: 1, dc: 1, machine_type: 'n2-standard-4', access_type: 'ext' }
+#    firewall_ports:
+#    - { ports: "22", port_type: 'bastion' }
+    firewall_ports:
+    - { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
+    GCP_ZONE: us-east1-b
+
 
   collections:
     - bap_coe.gcp_management
+    - bap_coe.bastion_host
+
+  roles:
+  - { role: service_account_file_path }
+  - { role: gce_network_create }
+  - { role: gce_firewall_create, FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}" }
+  - { role: gce_bastion_host_create, TARGET_TAGS: "{{ NAME_INSTANCE_PREFIX }}-server", ACCESS_TYPE: "int" }
+#    - { role: gce_tunnel_through_iap, tags: ['iap'] }
+
 
   tasks:
-    - name: Create planet instances
-      include_tasks: ../resources/infrastructure-create-controller.yml
+    - name: Create bastion instances
+      include_tasks: ../shared/create-instance.yml
       with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
       loop_control:
         loop_var: instance
