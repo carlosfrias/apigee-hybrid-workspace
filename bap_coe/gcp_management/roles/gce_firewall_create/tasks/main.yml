@@ -65,8 +65,8 @@
 
 - name: create firewall rule
   google.cloud.gcp_compute_firewall:
-    name: "{{ VPC_NETWORK_INFO_NAME }}"
-    target_tags: "{{ VPC_NETWORK_INFO_NAME }}"
+    name: "{{ VPC_NETWORK_NAME }}"
+    target_tags: "{{ VPC_NETWORK_NAME }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
