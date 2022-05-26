@@ -17,6 +17,8 @@
     - { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
     GCP_ZONE: us-east1-b
     FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}"
+    AUTHORIZATION_KIND: 'serviceaccount'
+    VPC_NETWORK_NAME: 'default'
 
 
   collections:
@@ -25,6 +27,7 @@
 
   roles:
   - { role: service_account_file_path }
+  - { role: service_account_file_processing }
   - { role: gce_network_create }
   - { role: gce_firewall_create }
   - { role: gce_bastion_host_create, TARGET_TAGS: "{{ NAME_INSTANCE_PREFIX }}-server", ACCESS_TYPE: "int" }

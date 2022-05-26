@@ -5,6 +5,7 @@
     that:
       - firewall_ports is defined
     msg: "Please provide the collection of firewall_ports"
+
 - name: Assert FIREWALL_NAME provided
   assert:
     that:
@@ -47,12 +48,25 @@
     - VPC_NETWORK_INFO is defined
     msg: "Please provide VPC_NETWORK_INFO"
 
+- name: Load VPC Network info
+  gcp_compute_network_info:
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+  register: VPC_NETWORK_INFO
+
+- name: Load VPC_NETWORK_INFO
+  debug:
+    var: VPC_NETWORK_INFO
+
+- pause: 
+
 - name: create firewall rule
   google.cloud.gcp_compute_firewall:
-    name: "{{ FIREWALL_NAME }}"
-    target_tags: "{{ FIREWALL_NAME }}-{{ item.port_name_suffix }}"
+    name: "{{ VPC_NETWORK_INFO.name }}-{{ item.port_name_suffix }}"
+    target_tags: "{{ VPC_NETWORK_INFO.name  }}-{{ item.port_name_suffix }}"
     project: "{{ PROJECT_ID }}"
-    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     state: present
     network: "{{ VPC_NETWORK_INFO }}"
