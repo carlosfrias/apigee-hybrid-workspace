@@ -53,7 +53,7 @@
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-    filter:
+    filters:
     - name = {{ VPC_NETWORK_NAME }}
   register: VPC_NETWORK_INFO
 
