@@ -12,6 +12,8 @@
   vars:
     PRIVATE_CLOUD_INSTANCES:
     - { node_type: "{{ NAME_INSTANCE_PREFIX }}", count: 1, dc: 1, machine_type: 'n2-standard-4', access_type: 'ext' }
+    FIREWALL_NAME: "default-bastion"
+    NAME_INSTANCE_PREFIX: "bastion"
 
   collections:
     - bap_coe.gcp_management
@@ -19,7 +21,7 @@
   roles:
   - { role: service_account_file_path }
   - { role: service_account_file_processing }
-  - { role: gce_firewall_remove, FIREWALL_NAME: "default-bastion" }
+  - { role: gce_firewall_remove }
 
   tasks:
     - name: Remove bastion instances
