@@ -48,7 +48,6 @@
     - VPC_NETWORK_INFO is defined
     msg: "Please provide VPC_NETWORK_INFO"
 
-
 - name: create firewall rule
   google.cloud.gcp_compute_firewall:
     name: "{{ FIREWALL_NAME }}"

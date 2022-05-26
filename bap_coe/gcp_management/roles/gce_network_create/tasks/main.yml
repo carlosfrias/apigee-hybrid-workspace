@@ -24,7 +24,7 @@
     - SCOPE_COMPUTE is defined
     msg: "Please provide SCOPE_COMPUTE"
 
-- name: create a network
+- name: Assert network is defined
   google.cloud.gcp_compute_network:
     name: "{{ VPC_NETWORK_NAME }}"
     project: "{{ PROJECT_ID }}"

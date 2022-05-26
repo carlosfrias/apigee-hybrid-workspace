@@ -14,12 +14,11 @@
     PRIVATE_CLOUD_INSTANCES:
       - { node_type: "{{ NAME_INSTANCE_PREFIX }}", count: 1, dc: 1, machine_type: 'n2-standard-4', access_type: 'ext' }
     firewall_ports:
-    - { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
+      - { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
     GCP_ZONE: us-east1-b
     FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}-bastion"
     AUTHORIZATION_KIND: 'serviceaccount'
     VPC_NETWORK_NAME: 'default'
-
 
   collections:
     - bap_coe.gcp_management
@@ -30,13 +29,12 @@
   - { role: service_account_file_processing }
   - { role: gce_network_create }
   - { role: gce_firewall_create }
-  - { role: gce_bastion_host_create, TARGET_TAGS: "{{ NAME_INSTANCE_PREFIX }}-server", ACCESS_TYPE: "int" }
+  - { role: gce_bastion_host_create, TARGET_TAGS: "{{ NAME_INSTANCE_PREFIX }}-bastion", ACCESS_TYPE: "ext" }
 #    - { role: gce_tunnel_through_iap, tags: ['iap'] }
 
-
-  tasks:
-    - name: Create bastion instances
-      include_tasks: ../shared/create-instance.yml
-      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
-      loop_control:
-        loop_var: instance
+#  tasks:
+#    - name: Create bastion instances
+#      include_tasks: ../shared/create-instance.yml
+#      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+#      loop_control:
+#        loop_var: instance
