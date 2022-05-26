@@ -5,11 +5,52 @@
     that:
       - firewall_ports is defined
     msg: "Please provide the collection of firewall_ports"
+- name: Assert FIREWALL_NAME provided
+  assert:
+    that:
+    - FIREWALL_NAME is defined
+    msg: "Please provide FIREWALL_NAME"
+
+- name: Assert PROJECT_ID provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide PROJECT_ID"
+
+- name: Assert SERVICE_ACCOUNT_EMAIL provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_EMAIL is defined
+    msg: "Please provide SERVICE_ACCOUNT_EMAIL"
+
+- name: Assert SERVICE_ACCOUNT_FILE provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE"
+
+- name: Assert AUTHORIZATION_KIND provided
+  assert:
+    that:
+    - AUTHORIZATION_KIND is defined
+    msg: "Please provide AUTHORIZATION_KIND"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert VPC_NETWORK_INFO provided
+  assert:
+    that:
+    - VPC_NETWORK_INFO is defined
+    msg: "Please provide VPC_NETWORK_INFO"
 
 - name: create firewall rule
   google.cloud.gcp_compute_firewall:
-    name: "{{ VPC_NETWORK_INFO.name | default('default') }}-{{ item.port_name_suffix }}"
-    target_tags: "{{ VPC_NETWORK_INFO.name | default('default') }}-{{ item.port_name_suffix }}"
+    name: "{{ FIREWALL_NAME }}"
+    target_tags: "{{ FIREWALL_NAME }}-{{ item.port_name_suffix }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"

@@ -15,7 +15,7 @@
   roles:
   - { role: service_account_file_path }
   - { role: service_account_file_processing }
-  - { role: gce_firewall_remove }
+  - { role: gce_firewall_remove, FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}" }
 
   tasks:
     - name: Remove bastion instances

@@ -13,11 +13,10 @@
     NAME_INSTANCE_PREFIX: "bastion"
     PRIVATE_CLOUD_INSTANCES:
       - { node_type: "{{ NAME_INSTANCE_PREFIX }}", count: 1, dc: 1, machine_type: 'n2-standard-4', access_type: 'ext' }
-#    firewall_ports:
-#    - { ports: "22", port_type: 'bastion' }
     firewall_ports:
     - { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
     GCP_ZONE: us-east1-b
+    FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}"
 
 
   collections:
@@ -27,7 +26,7 @@
   roles:
   - { role: service_account_file_path }
   - { role: gce_network_create }
-  - { role: gce_firewall_create, FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}" }
+  - { role: gce_firewall_create }
   - { role: gce_bastion_host_create, TARGET_TAGS: "{{ NAME_INSTANCE_PREFIX }}-server", ACCESS_TYPE: "int" }
 #    - { role: gce_tunnel_through_iap, tags: ['iap'] }
 
