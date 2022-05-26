@@ -48,19 +48,11 @@
     - VPC_NETWORK_INFO is defined
     msg: "Please provide VPC_NETWORK_INFO"
 
-#- name: Load VPC Network info
-#  gcp_compute_network_info:
-#    project: "{{ PROJECT_ID }}"
-#    auth_kind: "{{ AUTHORIZATION_KIND }}"
-#    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-#    filters:
-#    - name = {{ VPC_NETWORK_NAME }}
-#  register: VPC_NETWORK_INFO
 
 - name: create firewall rule
   google.cloud.gcp_compute_firewall:
-    name: "{{ VPC_NETWORK_NAME }}"
-    target_tags: "{{ VPC_NETWORK_NAME }}"
+    name: "{{ FIREWALL_NAME }}"
+    target_tags: "{{ FIREWALL_NAME }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"

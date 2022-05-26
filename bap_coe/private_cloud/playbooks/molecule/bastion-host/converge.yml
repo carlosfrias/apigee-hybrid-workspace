@@ -16,7 +16,7 @@
     firewall_ports:
     - { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
     GCP_ZONE: us-east1-b
-    FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}"
+    FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}-bastion"
     AUTHORIZATION_KIND: 'serviceaccount'
     VPC_NETWORK_NAME: 'default'
 
