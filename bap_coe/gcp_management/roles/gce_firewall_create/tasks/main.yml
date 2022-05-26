@@ -53,13 +53,15 @@
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    filter:
+    - name = {{ VPC_NETWORK_NAME }}
   register: VPC_NETWORK_INFO
 
 - name: Load VPC_NETWORK_INFO
   debug:
     var: VPC_NETWORK_INFO
 
-- pause: 
+- pause:
 
 - name: create firewall rule
   google.cloud.gcp_compute_firewall:
