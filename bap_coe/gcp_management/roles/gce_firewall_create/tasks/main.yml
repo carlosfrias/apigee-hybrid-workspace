@@ -65,7 +65,7 @@
 
 - name: create firewall rule
   google.cloud.gcp_compute_firewall:
-    name: "{{ VPC_NETWORK_INFO.name }}-{{ item.port_name_suffix }}"
+    name: "{{ VPC_NETWORK_INFO.resources[0].name }}-{{ item.port_name_suffix }}"
     target_tags: "{{ VPC_NETWORK_INFO.name  }}-{{ item.port_name_suffix }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
