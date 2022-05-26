@@ -36,7 +36,7 @@
     - SERVICE_ACCOUNT_FILE_PATH is defined
     msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
 
-- name: create firewall rule
+- name: Remove firewall rule
   google.cloud.gcp_compute_firewall:
     name: "{{ FIREWALL_NAME }}"
     project: "{{ PROJECT_ID }}"
