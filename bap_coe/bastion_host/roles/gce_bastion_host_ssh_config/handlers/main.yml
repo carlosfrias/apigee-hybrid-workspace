@@ -1,2 +1,19 @@
 ---
 # handlers file for gce_bastion_host_ssh_config
+
+
+- name: Remove the old key(s) from known_hosts
+  command: ssh-keygen -R {{ hostvars[item].ansible_ssh_host }}
+  delegate_to: 127.0.0.1
+  with_items: "{{ groups['all'] }}"
+  when: hostvars[item].ansible_ssh_host is defined
+  listen: "refresh gcp compute ssh config"
+
+
+- name: Refresh gcloud compute config-ssh
+  command: "{{ item }}"
+  with_items:
+    - "gcloud compute config-ssh --remove"
+    - "gcloud compute config-ssh"
+  listen: "refresh gcp compute ssh config"
+

@@ -73,7 +73,6 @@
     GCE_INSTANCE_NAME: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
     DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
 
-
 - name: create a disk
   gcp_compute_disk:
     name: '{{ DISK_NAME }}-{{ current_node_count }}'
@@ -156,4 +155,4 @@
 
 - name: Refreshing SSH
   command: "echo 'Refreshing GCP Compute SSH Config'"
-  notify: "Refresh ssh config:  'gcp compute ssh config'"
+  notify: "refresh gcp compute ssh config"

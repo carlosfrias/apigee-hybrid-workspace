@@ -70,19 +70,8 @@
         ControlMaster auto
         ControlPath ~/.ssh/ansible-%r@%h:%p
         ControlPersist 5m
+  notify: "refresh gcp compute ssh config"
 
 # Match host DESTINATION
 #  ProxyCommand /usr/bin/trumpssh --user=%r --host=%h --port=%p --notls --fdpass --proxy localhost --proxy_ports 9558
 #  ProxyUseFdpass yes
-
-- name: Remove the old key(s) from known_hosts
-  command: ssh-keygen -R {{ hostvars[item].ansible_ssh_host }}
-  delegate_to: 127.0.0.1
-  with_items: "{{ groups['all'] }}"
-  when: hostvars[item].ansible_ssh_host is defined
-
-- name: Refresh gcloud compute config-ssh
-  command: "{{ item }}"
-  with_items:
-  - "gcloud compute config-ssh --remove"
-  - "gcloud compute config-ssh"
