@@ -9,6 +9,7 @@
     name: bap_coe.gcp_management.gce_instance_create
   vars:
     current_node_count: "1"
+    ACCESS_TYPE: "ext"
 
 - name: Configure SSH ProxyCommand
   include_role:
