@@ -30,11 +30,18 @@
       - SERVICE_ACCOUNT_FILE_PATH is defined
     msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
 
+- name: Assert GCP_ZONE is defined
+  assert:
+    that:
+      - GCP_ZONE is defined
+    msg: "Please provide the GCP_ZONE"
+
 - name: Load instance info
   gcp_compute_instance_info:
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    zone: "{{ GCP_ZONE }}"
     filters:
       - name = {{ INSTANCE_NAME }}
   register: instance_info
