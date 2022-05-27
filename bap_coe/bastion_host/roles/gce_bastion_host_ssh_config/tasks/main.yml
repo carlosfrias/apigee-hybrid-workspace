@@ -43,6 +43,8 @@
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     zone: "{{ GCP_ZONE }}"
     scopes: "{{ SCOPE_COMPUTE }}"
+    filters:
+    - resources.name = {{ NAME_INSTANCE_PREFIX }}
   register: instance_info
 
 - name: Extract external IP address
