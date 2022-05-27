@@ -7,7 +7,6 @@
   when: hostvars[item].ansible_ssh_host is defined
   listen: "refresh gcp compute ssh config"
 
-
 - name: Refresh gcloud compute config-ssh
   command: "{{ item }}"
   with_items:
