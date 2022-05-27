@@ -55,6 +55,8 @@
   set_fact:
     instance_info: "{{ instance_info.stdout | from_yaml }}"
 
+- pause:
+    
 - block:
   - name: Extract external IP address
     set_fact:
