@@ -44,12 +44,12 @@
     zone: "{{ GCP_ZONE }}"
     scopes: "{{ SCOPE_COMPUTE }}"
     filters:
-    - resources.name = {{ NAME_INSTANCE_PREFIX }}
+    - name ~ {{ NAME_INSTANCE_PREFIX }}
   register: instance_info
 
 - name: Extract external IP address
   set_fact:
-    bastion_host_ip: "{{ instance_info.networkInterfaces[0].accessConfigs[0].natIP }}"
+    bastion_host_ip: "{{ instance_info.resources[0].networkInterfaces[0].accessConfigs[0].natIP }}"
 
 - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
   blockinfile:
