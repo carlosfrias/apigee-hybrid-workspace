@@ -5,12 +5,8 @@
 #    BASTION_NAME_PREFIX: "{{ NAME_INSTANCE_PREFIX }}"
 
 - name: Delete Firewall Rule for Bastion Host
-  community.google.gce_net:
-    project_id: "{{ PROJECT_ID }}"
-    service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
-    credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    fwname: "{{ BASTION_NAME_PREFIX }}"
-    state: "absent"
+  include_role:
+    name: bap_coe.gcp_management.gce_firewall_remove
 
 - name: Configure SSH ProxyCommand
   include_role:
