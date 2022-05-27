@@ -143,7 +143,7 @@
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     tags:
       items:
-      - "{{ TARGET_TAGS }}"
+        - "{{ TARGET_TAGS }}"
     metadata:
       app_type: "{{ app_type | default('') }}"
       'startup-script': |

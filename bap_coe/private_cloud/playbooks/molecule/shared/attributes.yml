@@ -101,7 +101,7 @@ GCP_SERVICES:
 #- "privateca.googleapis.com"
 
 firewall_ports:
-- { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
+  - { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
 
 CONSTRAINTS_DISABLE_ENFORCEMENT:
 - constraints/iam.disableServiceAccountKeyCreation
