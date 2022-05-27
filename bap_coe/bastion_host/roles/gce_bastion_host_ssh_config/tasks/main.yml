@@ -36,6 +36,7 @@
       - GCP_ZONE is defined
     msg: "Please provide the GCP_ZONE"
 
+
 - name: Load instance info
   command: gcloud compute instances list --format yaml --project {{ PROJECT_ID }} --filter "name ~ {{ NAME_INSTANCE_PREFIX }}"
   register: instance_info
@@ -51,9 +52,16 @@
 #    - app_type = {{ NAME_INSTANCE_PREFIX }}
 #  register: instance_info
 
-- name: Extract external IP address
+- name: Convert to yaml
   set_fact:
-    bastion_host_ip: "{{ instance_info.resources[0].networkInterfaces[0].accessConfigs[0].natIP }}"
+    instance_info: "{{ instance_info.stdout | from_yaml }}"
+
+- pause:
+
+- block:
+  - name: Extract external IP address
+    set_fact:
+      bastion_host_ip: "{{ instance_info.networkInterfaces[0].accessConfigs[0].natIP }}"
 
 - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
   blockinfile:
