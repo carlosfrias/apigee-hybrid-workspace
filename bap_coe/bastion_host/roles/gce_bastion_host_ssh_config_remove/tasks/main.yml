@@ -47,33 +47,35 @@
     - name = {{ NAME_INSTANCE_PREFIX }}
   register: instance_info
 
-- name: Extract external IP address
-  set_fact:
-    bastion_host_ip: "{{ instance_info.networkInterfaces[0].accessConfigs[0].natIP }}"
+- block:
+  - name: Extract external IP address
+    set_fact:
+      bastion_host_ip: "{{ instance_info.networkInterfaces[0].accessConfigs[0].natIP }}"
 
-- name: Update SSH Config with ProxyCommand and Bastion Host Configuration
-  blockinfile:
-    path: ~/.ssh/config
-    create: yes
-    backup: yes
-    state: absent
-    mode: 0600
-    marker: "# {mark} {{ NAME_INSTANCE_PREFIX }}* ANSIBLE MANAGED BLOCK"
-    marker_begin: "{{ marker_begin }}"
-    marker_end: "{{ marker_end }}"
-    block: |
-      Host {{ NAME_INSTANCE_PREFIX }}*
-        ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}
-        IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
-
-      Host {{ bastion_host_ip }}
-        Hostname {{ NAME_INSTANCE_PREFIX }}
-        User {{ GCLOUD_ACCOUNT_USER }}
-        IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') | expanduser }}
-        ControlMaster auto
-        ControlPath ~/.ssh/ansible-%r@%h:%p
-        ControlPersist 5m
-  notify: "refresh gcp compute ssh config"
+  - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
+    blockinfile:
+      path: ~/.ssh/config
+      create: yes
+      backup: yes
+      state: absent
+      mode: 0600
+      marker: "# {mark} {{ NAME_INSTANCE_PREFIX }}* ANSIBLE MANAGED BLOCK"
+      marker_begin: "{{ marker_begin }}"
+      marker_end: "{{ marker_end }}"
+      block: |
+        Host {{ NAME_INSTANCE_PREFIX }}*
+          ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}
+          IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
+  
+        Host {{ bastion_host_ip }}
+          Hostname {{ NAME_INSTANCE_PREFIX }}
+          User {{ GCLOUD_ACCOUNT_USER }}
+          IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') | expanduser }}
+          ControlMaster auto
+          ControlPath ~/.ssh/ansible-%r@%h:%p
+          ControlPersist 5m
+    notify: "refresh gcp compute ssh config"
+  when: instance_info is defined and instance_info.networkInterfaces is defined and instance_info.networkInterfaces[0].accessConfigs[0] is defined
 
 # Match host DESTINATION
 #  ProxyCommand /usr/bin/trumpssh --user=%r --host=%h --port=%p --notls --fdpass --proxy localhost --proxy_ports 9558
