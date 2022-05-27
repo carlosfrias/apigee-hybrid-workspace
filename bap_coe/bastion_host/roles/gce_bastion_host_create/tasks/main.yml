@@ -10,6 +10,7 @@
   vars:
     current_node_count: "1"
     ACCESS_TYPE: "ext"
+    app_type: "{{ NAME_INSTANCE_PREFIX }}"
 
 - name: Configure SSH ProxyCommand
   include_role:
