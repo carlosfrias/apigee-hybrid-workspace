@@ -6,11 +6,11 @@
       - firewall_ports is defined
     msg: "Please provide the collection of firewall_ports"
 
-- name: Assert FIREWALL_NAME provided
+- name: Assert NAME_INSTANCE_PREFIX provided
   assert:
     that:
-    - FIREWALL_NAME is defined
-    msg: "Please provide FIREWALL_NAME"
+    - NAME_INSTANCE_PREFIX is defined
+    msg: "Please provide NAME_INSTANCE_PREFIX"
 
 - name: Assert PROJECT_ID provided
   assert:
@@ -50,8 +50,8 @@
 
 - name: create firewall rule
   google.cloud.gcp_compute_firewall:
-    name: "{{ FIREWALL_NAME }}"
-    target_tags: "{{ FIREWALL_NAME }}"
+    name: "{{ NAME_INSTANCE_PREFIX }}"
+    target_tags: "{{ NAME_INSTANCE_PREFIX }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"

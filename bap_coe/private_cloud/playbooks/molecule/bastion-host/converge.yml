@@ -9,6 +9,7 @@
 
   vars:
     FIREWALL_NAME_SUFFIX: "bastion"
+    bastion_host_name: "bastion-1"
 
   collections:
     - bap_coe.gcp_management

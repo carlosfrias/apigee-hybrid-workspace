@@ -71,7 +71,7 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.instanceAdmin"
 #- "roles/networkmanagement.admin"
 #- "roles/networkmanagement.viewer"
-#- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountUser"
 #- "roles/iam.serviceAccountAdmin"
 #- "roles/iam.serviceAccountCreator"
 #- "roles/iam.serviceAccountKeyAdmin"
