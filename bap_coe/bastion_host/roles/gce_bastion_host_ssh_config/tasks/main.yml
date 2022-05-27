@@ -36,12 +36,6 @@
       - SERVICE_ACCOUNT_FILE_PATH is defined
     msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
 
-- name: Assert bastion_host_private_key is defined
-  assert:
-    that:
-      - bastion_host_private_key is defined
-    msg: "Please provide the bastion_host_private_key"
-
 - name: Load instance info
   gcp_compute_instance_info:
     project: "{{ PROJECT_ID }}"
@@ -51,10 +45,9 @@
       - name = {{ INSTANCE_NAME }}
   register: instance_info
 
-- debug:
-    var: instance_info
-
-- pause:
+- name: Extract external IP address
+  set_fact:
+    bastion_host_ip: "{{ instance_info.networkInterfaces[0].accessConfigs[0].natIP }}"
 
 - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
   blockinfile:
