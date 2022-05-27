@@ -12,7 +12,7 @@
   vars:
     current_node_count: "1"
 
-#- name: Configure SSH ProxyCommand
+- name: Configure SSH ProxyCommand
   include_role:
     name: gce_bastion_host_ssh_config
   vars:
