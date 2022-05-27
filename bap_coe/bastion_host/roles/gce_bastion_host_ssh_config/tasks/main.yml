@@ -42,6 +42,7 @@
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     zone: "{{ GCP_ZONE }}"
+    scopes: "{{ SCOPE_COMPUTE }}"
     filters:
       - name = {{ NAME_INSTANCE_PREFIX }}
   register: instance_info
