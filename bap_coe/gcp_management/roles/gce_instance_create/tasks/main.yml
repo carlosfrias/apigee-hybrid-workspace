@@ -145,7 +145,7 @@
       items:
       - "{{ TARGET_TAGS }}"
     metadata:
-      app_type: "{{ app_type | default("") }}"
+      app_type: "{{ app_type | default('') }}"
       'startup-script': |
         {{ STARTUP_SCRIPT | default('') }}
     scopes: "{{ SCOPE_COMPUTE }}"
