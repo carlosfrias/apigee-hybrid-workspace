@@ -37,15 +37,19 @@
     msg: "Please provide the GCP_ZONE"
 
 - name: Load instance info
-  gcp_compute_instance_info:
-    project: "{{ PROJECT_ID }}"
-    auth_kind: "{{ AUTHORIZATION_KIND }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-    zone: "{{ GCP_ZONE }}"
-    scopes: "{{ SCOPE_COMPUTE }}"
-    filters:
-    - app_type = {{ NAME_INSTANCE_PREFIX }}
+  command: gcloud compute instances list --format yamal --project {{ PROJECT_ID }} --filter name ~ {{ NAME_INSTANCE_PREFIX }}
   register: instance_info
+
+#- name: Load instance info
+#  gcp_compute_instance_info:
+#    project: "{{ PROJECT_ID }}"
+#    auth_kind: "{{ AUTHORIZATION_KIND }}"
+#    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+#    zone: "{{ GCP_ZONE }}"
+#    scopes: "{{ SCOPE_COMPUTE }}"
+#    filters:
+#    - app_type = {{ NAME_INSTANCE_PREFIX }}
+#  register: instance_info
 
 - name: Extract external IP address
   set_fact:
