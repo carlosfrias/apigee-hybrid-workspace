@@ -11,11 +11,9 @@ CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
 ACCESS_TYPE: int
 VPC_NETWORK_NAME: 'default'
-
 #TIME_TO_PROPAGATE_BINDINGS: 20
 FOLDER_ROLE_BINDINGS:
-
-- roles/resourcemanager.folderAdmin
+  - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigee-opdk
 AUTHORIZATION_KIND: serviceaccount
@@ -24,15 +22,12 @@ RESOURCE_GCP_ZONE: "us-central1-c"
 MACHINE_TYPE: n1-standard-1
 #MACHINE_TYPE: n2-highcpu-2
 SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
-
 INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
 
 # Additional values for IMAGE_PROJECT: 'centos-cloud'
 # Additional values for IMAGE_FAMILY: 'centos-7'
 DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1804-lts') }}"
-
 DISK_SIZE: 100
-
 STARTUP_SCRIPT: |
   sudo apt update -y
   sudo apt install -y build-essential libssl-dev git zlib1g-dev
