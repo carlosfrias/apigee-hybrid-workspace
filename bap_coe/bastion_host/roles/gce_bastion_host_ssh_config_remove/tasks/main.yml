@@ -6,12 +6,6 @@
       - bastion_host_name is defined
     msg: "Please provide the bastion_host_name"
 
-- name: Assert bastion_host_ip is defined
-  assert:
-    that:
-      - bastion_host_ip is defined
-    msg: "Please provide the bastion_host_ip"
-
 - name: Assert bastion_host_user is defined
   assert:
     that:
@@ -30,6 +24,19 @@
       - bastion_target_host_range is defined
     msg: "Please provide the bastion_target_host_range"
 
+- name: Load instance info
+  gcp_compute_instance_info:
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    filters:
+    - name = {{ INSTANCE_NAME }}
+  register: instance_info
+
+- name: Extract external IP address
+  set_fact:
+    bastion_host_ip: "{{ instance_info.networkInterfaces[0].accessConfigs[0].natIP }}"
+
 - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
   blockinfile:
     path: ~/.ssh/config
@@ -41,30 +48,19 @@
     marker_begin: "{{ marker_begin }}"
     marker_end: "{{ marker_end }}"
     block: |
-      Host {{ bastion_target_host_range }}
+      Host {{ NAME_INSTANCE_PREFIX }}
         ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}
         IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
 
-      Host {{ bastion_host_name }}
-        Hostname {{ bastion_host_ip }}
-        User {{ bastion_host_user }}
+      Host {{ bastion_host_ip }}
+        Hostname {{ NAME_INSTANCE_PREFIX }}
+        User {{ GCLOUD_ACCOUNT_USER }}
         IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') | expanduser }}
         ControlMaster auto
         ControlPath ~/.ssh/ansible-%r@%h:%p
         ControlPersist 5m
+  notify: "refresh gcp compute ssh config"
 
 # Match host DESTINATION
 #  ProxyCommand /usr/bin/trumpssh --user=%r --host=%h --port=%p --notls --fdpass --proxy localhost --proxy_ports 9558
 #  ProxyUseFdpass yes
-#
-#- name: Remove the old key(s) from known_hosts
-#  command: ssh-keygen -R {{ hostvars[item].ansible_ssh_host }}
-#  delegate_to: 127.0.0.1
-#  with_items: "{{ groups['all'] }}"
-#  when: hostvars[item].ansible_ssh_host is defined
-#
-#- name: Refresh gcloud compute config-ssh
-#  command: "{{ item }}"
-#  with_items:
-#  - "gcloud compute config-ssh --remove"
-#  - "gcloud compute config-ssh"

@@ -6,12 +6,6 @@
       - NAME_INSTANCE_PREFIX is defined
     msg: "Please provide the NAME_INSTANCE_PREFIX"
 
-- name: Assert bastion_host_ip is defined
-  assert:
-    that:
-      - bastion_host_ip is defined
-    msg: "Please provide the bastion_host_ip"
-
 - name: Assert GCLOUD_ACCOUNT_USER is defined
   assert:
     that:
