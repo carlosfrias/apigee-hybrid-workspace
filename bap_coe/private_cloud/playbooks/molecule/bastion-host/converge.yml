@@ -8,8 +8,7 @@
     - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
-    FIREWALL_NAME_SUFFIX: "bastion"
-    bastion_host_name: "bastion-1"
+    ACCESS_TYPE: "ext"
 
   collections:
     - bap_coe.gcp_management
@@ -18,7 +17,7 @@
   roles:
   - { role: service_account_file_path }
   - { role: service_account_file_processing }
-  - { role: gce_network_create, VPC_NETWORK_NAME: 'default' }
-  - { role: gce_firewall_create, FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}-{{ FIREWALL_NAME_SUFFIX }}" }
-  - { role: gce_bastion_host_create, TARGET_TAGS: "{{ NAME_INSTANCE_PREFIX }}-{{ FIREWALL_NAME_SUFFIX }}", ACCESS_TYPE: "ext" }
+  - { role: gce_network_create }
+  - { role: gce_firewall_create }
+  - { role: gce_bastion_host_create }
 
