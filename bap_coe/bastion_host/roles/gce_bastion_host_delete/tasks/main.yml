@@ -21,4 +21,4 @@
   include_role:
     name: bap_coe.gcp_management.gce_instance_remove
   vars:
-    sequence: "{{ INSTANCE_COUNT_START }}"
+    sequence: 1

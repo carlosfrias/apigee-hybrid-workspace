@@ -20,7 +20,5 @@
   roles:
   - { role: service_account_file_path }
   - { role: service_account_file_processing }
-  - { role: gce_firewall_remove, FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}-{{ FIREWALL_NAME_SUFFIX }}" }
-  - { role: gce_instance_remove }
-  - { role: gce_bastion_host_ssh_config_remove }
+  - { role: gce_bastion_host_delete }
 
