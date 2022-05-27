@@ -12,6 +12,8 @@
     fwname: "{{ BASTION_NAME_PREFIX }}"
     state: "absent"
 
+
+
 - name: Remove instances
   include_role:
     name: bap_coe.gcp_management.gce_instance_remove

@@ -1,29 +1,29 @@
 ---
-PROJECT_ID: "friasc-opdk-05242022-1426"
-
+PROJECT_ID: "friasc-opdk-05272022-1025"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
-#NAME_INSTANCE_PREFIX: bastion
+NAME_INSTANCE_PREFIX: bastion
 GCP_ZONE: us-east1-b
 CONTROL_SERVER_IMAGE_NAME: ops-server
 CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
 ACCESS_TYPE: int
-#TIME_TO_PROPAGATE_BINDINGS: 20
 
+#TIME_TO_PROPAGATE_BINDINGS: 20
 FOLDER_ROLE_BINDINGS:
+
 - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigee-opdk
-
 AUTHORIZATION_KIND: serviceaccount
 RESOURCE_GCP_ZONE: "us-central1-c"
 #MACHINE_TYPE: f1-micro
 MACHINE_TYPE: n1-standard-1
 #MACHINE_TYPE: n2-highcpu-2
 SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
+
 INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
 
 # Additional values for IMAGE_PROJECT: 'centos-cloud'
@@ -104,8 +104,8 @@ GCP_SERVICES:
 #- "cloudtrace.googleapis.com"
 #- "privateca.googleapis.com"
 
-#firewall_ports:
-#- { allow_ports: ['22'], port_name_suffix: 'control-server' }
+firewall_ports:
+- { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
 
 CONSTRAINTS_DISABLE_ENFORCEMENT:
 - constraints/iam.disableServiceAccountKeyCreation

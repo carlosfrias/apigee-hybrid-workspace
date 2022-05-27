@@ -10,25 +10,17 @@
     - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
-    NAME_INSTANCE_PREFIX: "bastion"
-    FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}-bastion"
-    PRIVATE_CLOUD_INSTANCES:
-    - { node_type: "{{ NAME_INSTANCE_PREFIX }}", count: 1, dc: 1, machine_type: 'n2-standard-4', access_type: 'ext' }
+    FIREWALL_NAME_SUFFIX: "bastion"
+    bastion_host_name: bastion-1
 
   collections:
     - bap_coe.gcp_management
+    - bap_coe.bastion_host
 
   roles:
   - { role: service_account_file_path }
   - { role: service_account_file_processing }
-  - { role: gce_firewall_remove }
+  - { role: gce_firewall_remove, FIREWALL_NAME: "{{ NAME_INSTANCE_PREFIX }}-{{ FIREWALL_NAME_SUFFIX }}" }
   - { role: gce_instance_remove }
-
-#  tasks:
-#    - name: Remove bastion instances
-#      include_role:
-#        name: gce_instance_remove
-#      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
-#      loop_control:
-#        loop_var: instance
+  - { role: gce_bastion_host_ssh_config_remove }
 
