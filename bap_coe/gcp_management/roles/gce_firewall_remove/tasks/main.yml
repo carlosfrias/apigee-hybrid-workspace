@@ -1,10 +1,10 @@
 ---
 # tasks file for gce_firewall_remove
-- name: Assert FIREWALL_NAME provided
+- name: Assert INSTANCE_NAME provided
   assert:
     that:
-    - FIREWALL_NAME is defined
-    msg: "Please provide FIREWALL_NAME"
+    - INSTANCE_NAME is defined
+    msg: "Please provide INSTANCE_NAME"
 
 - name: Assert PROJECT_ID provided
   assert:
@@ -38,8 +38,8 @@
 
 - name: Remove firewall rule
   google.cloud.gcp_compute_firewall:
-    name: "{{ FIREWALL_NAME }}"
+    name: "{{ INSTANCE_NAME }}"
     project: "{{ PROJECT_ID }}"
-    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     state: absent

@@ -30,7 +30,7 @@ INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
 # Additional values for IMAGE_PROJECT: 'centos-cloud'
 # Additional values for IMAGE_FAMILY: 'centos-7'
 DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1804-lts') }}"
-DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
+
 DISK_SIZE: 100
 
 STARTUP_SCRIPT: |

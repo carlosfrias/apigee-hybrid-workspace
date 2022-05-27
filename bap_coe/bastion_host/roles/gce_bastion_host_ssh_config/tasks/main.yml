@@ -1,10 +1,10 @@
 ---
 # tasks file for gce_bastion_host_ssh_config
-- name: Assert bastion_host_name is defined
+- name: Assert NAME_INSTANCE_PREFIX is defined
   assert:
     that:
-      - bastion_host_name is defined
-    msg: "Please provide the bastion_host_name"
+      - NAME_INSTANCE_PREFIX is defined
+    msg: "Please provide the NAME_INSTANCE_PREFIX"
 
 - name: Assert bastion_host_ip is defined
   assert:
@@ -12,11 +12,29 @@
       - bastion_host_ip is defined
     msg: "Please provide the bastion_host_ip"
 
-- name: Assert bastion_host_user is defined
+- name: Assert GCLOUD_ACCOUNT_USER is defined
   assert:
     that:
-      - bastion_host_user is defined
-    msg: "Please provide the bastion_host_user"
+      - GCLOUD_ACCOUNT_USER is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+
+- name: Assert PROJECT_ID is defined
+  assert:
+    that:
+      - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert AUTHORIZATION_KIND is defined
+  assert:
+    that:
+      - AUTHORIZATION_KIND is defined
+    msg: "Please provide the AUTHORIZATION_KIND"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH is defined
+  assert:
+    that:
+      - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
 
 - name: Assert bastion_host_private_key is defined
   assert:
@@ -24,11 +42,19 @@
       - bastion_host_private_key is defined
     msg: "Please provide the bastion_host_private_key"
 
-- name: Assert bastion_target_host_range is defined
-  assert:
-    that:
-      - bastion_target_host_range is defined
-    msg: "Please provide the bastion_target_host_range"
+- name: Load instance info
+  gcp_compute_instance_info:
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    filters:
+      - name = {{ INSTANCE_NAME }}
+  register: instance_info
+
+- debug:
+    var: instance_info
+
+- pause:
 
 - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
   blockinfile:
@@ -36,17 +62,17 @@
     create: yes
     backup: yes
     mode: 0600
-    marker: "# {mark} {{ bastion_target_host_range }} ANSIBLE MANAGED BLOCK"
+    marker: "# {mark} {{ NAME_INSTANCE_PREFIX }} ANSIBLE MANAGED BLOCK"
     marker_begin: "{{ marker_begin }}"
     marker_end: "{{ marker_end }}"
     block: |
-      Host {{ bastion_target_host_range }}
+      Host {{ NAME_INSTANCE_PREFIX }}
         ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}
         IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
 
       Host {{ bastion_host_ip }}
-        Hostname {{ bastion_host_name }}
-        User {{ bastion_host_user }}
+        Hostname {{ NAME_INSTANCE_PREFIX }}
+        User {{ GCLOUD_ACCOUNT_USER }}
         IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') | expanduser }}
         ControlMaster auto
         ControlPath ~/.ssh/ansible-%r@%h:%p
