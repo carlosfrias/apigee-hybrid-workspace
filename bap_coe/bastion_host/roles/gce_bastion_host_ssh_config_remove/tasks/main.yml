@@ -45,7 +45,7 @@
     zone: "{{ GCP_ZONE }}"
     scopes: "{{ SCOPE_COMPUTE }}"
     filters:
-    - name = {{ NAME_INSTANCE_PREFIX }}
+    - app_type = {{ NAME_INSTANCE_PREFIX }}
   register: instance_info
 
 - block:
