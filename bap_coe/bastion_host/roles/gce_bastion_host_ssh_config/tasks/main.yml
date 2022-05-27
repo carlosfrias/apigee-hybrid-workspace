@@ -44,7 +44,7 @@
     zone: "{{ GCP_ZONE }}"
     scopes: "{{ SCOPE_COMPUTE }}"
     filters:
-    - name ~ {{ NAME_INSTANCE_PREFIX }}
+    - "name = {{ NAME_INSTANCE_PREFIX }}"
   register: instance_info
 
 - name: Extract external IP address
