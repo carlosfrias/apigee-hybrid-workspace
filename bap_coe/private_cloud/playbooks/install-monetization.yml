@@ -1,6 +1,6 @@
 ---
 - name: Include install-aio playbook
-  import_playbook: install-aio.yml
+  import_playbook: converge.yml
 
 
 - name: Complete OS Pre-requisites

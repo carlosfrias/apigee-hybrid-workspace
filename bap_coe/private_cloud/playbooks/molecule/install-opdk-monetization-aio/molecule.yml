@@ -15,7 +15,7 @@ provisioner:
   playbooks:
     create: ../../infrastructure-create.yml
     destroy: ../../infrastructure-delete.yml
-    prepare: ../../infrastructure-prepare-aio.yml
+    prepare: ../../prepare.yml
     converge: ../../install-monetization-aio.yml
   config_options:
     defaults:

@@ -17,10 +17,10 @@ provisioner:
     - -u=friasc
     - --private-key=~/.ssh/google_compute_engine
   playbooks:
-    create: ../../infrastructure-create.yml
-    destroy: ../../infrastructure-delete.yml
-    prepare: ../../infrastructure-prepare-aio.yml
-    converge: ../../install-aio.yml
+#    create: ../../infrastructure-create.yml
+#    destroy: ../../infrastructure-delete.yml
+    prepare: ../../prepare.yml
+    converge: converge.yml
 verifier:
   name: ansible
   log: True
