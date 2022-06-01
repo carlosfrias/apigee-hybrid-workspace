@@ -4,7 +4,7 @@ dependency:
 driver:
   name: delegated
 platforms:
-  - name: instance
+  - name: opdk-monetization-multi-node
 provisioner:
   name: ansible
 verifier:

@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: instance
+  - name: opdk-monetization-aio
 provisioner:
   name: ansible
   playbooks:
