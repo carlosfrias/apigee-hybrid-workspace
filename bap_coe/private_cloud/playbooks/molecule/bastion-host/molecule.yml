@@ -17,8 +17,6 @@ provisioner:
     - -u=friasc
     - --private-key=~/.ssh/google_compute_engine
   playbooks:
-#    create: ../shared/create.yml
-#    prepare: ../../infrastructure-prepare-bastion-host.yml
     destroy: destroy.yml
     converge: converge.yml
   config_options:
