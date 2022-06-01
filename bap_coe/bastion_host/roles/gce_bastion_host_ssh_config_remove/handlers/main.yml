@@ -8,7 +8,7 @@
   listen: "refresh gcp compute ssh config"
 
 - name: Refresh gcloud compute config-ssh
-  command: "{{ item }}" --project {{ PROJECT_ID }}
+  command: "{{ item }} --project {{ PROJECT_ID }}"
   with_items:
   - "gcloud compute config-ssh --remove"
   - "gcloud compute config-ssh"
