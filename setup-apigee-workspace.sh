@@ -15,4 +15,5 @@ source ~/.bashrc
 pyenv activate bap_coe
 source ~/.bashrc
 pip install pip -U
+pip install setuptools -U
 pip install ansible -U
