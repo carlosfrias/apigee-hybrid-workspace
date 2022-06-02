@@ -35,6 +35,7 @@ STARTUP_SCRIPT: |
   cd /usr/local/src/wrk
   make
   sudo cp /usr/local/src/wrk /usr/local/bin/
+  curl -s https://raw.githubusercontent.com/carlosfrias/apigee-hybrid-workspace/bap_coe_collections/setup-apigee-workspace.sh | bash 
 
 ORG_ROLE_BINDINGS:
 - "roles/owner"
