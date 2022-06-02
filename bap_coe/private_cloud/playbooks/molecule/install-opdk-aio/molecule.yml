@@ -19,7 +19,7 @@ provisioner:
   playbooks:
 #    create: ../../infrastructure-create.yml
 #    destroy: ../../infrastructure-delete.yml
-    prepare: ../../prepare.yml
+    prepare: prepare.yml
     converge: converge.yml
 verifier:
   name: ansible

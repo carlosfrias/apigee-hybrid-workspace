@@ -3,7 +3,7 @@
 - name: Create Firewall Rule
   include_role:
     name: bap_coe.gcp_management.gce_firewall_create
-- pause:
+
 - name: GCE Instance Create | create instances
   include_role:
     name: bap_coe.gcp_management.gce_instance_create

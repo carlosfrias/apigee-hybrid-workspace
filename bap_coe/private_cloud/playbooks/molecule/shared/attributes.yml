@@ -1,5 +1,5 @@
 ---
-PROJECT_ID: "friasc-opdk-06012022-0826"
+PROJECT_ID: "friasc-opdk-06012022-1411"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
@@ -47,11 +47,11 @@ ORG_ROLE_BINDINGS:
 - "roles/serviceusage.serviceUsageViewer"
 - "roles/serviceusage.apiKeysAdmin"
 - "roles/iap.tunnelResourceAccessor"
+- "roles/iam.serviceAccountCreator"
 #- "roles/compute.networkUser"
 #- "roles/compute.instanceAdmin"
 #- "roles/compute.loadBalancerAdmin"
 #- "roles/iam.serviceAccountUser"
-#- "roles/iam.serviceAccountCreator"
 #- "roles/iam.serviceAccountKeyAdmin"
 #- "roles/networkmanagement.admin"
 #- "roles/networkmanagement.viewer"
@@ -65,11 +65,11 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountCreator"
 #- "roles/networkmanagement.admin"
 #- "roles/networkmanagement.viewer"
-- "roles/iam.serviceAccountUser"
 #- "roles/iam.serviceAccountAdmin"
-#- "roles/iam.serviceAccountCreator"
 #- "roles/iam.serviceAccountKeyAdmin"
 #- "roles/compute.loadBalancerAdmin"
 
