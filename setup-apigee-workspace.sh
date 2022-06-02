@@ -11,4 +11,5 @@ source ~/.bashrc
 pyenv install 3.9.1
 pyenv virtualenv 3.9.1 bap_coe
 pyenv activate bap_coe
-pip3 install ansible
+pip install pip -U
+pip install ansible -U
