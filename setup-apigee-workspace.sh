@@ -2,8 +2,8 @@
 
 echo "Setup apigee-workspace"
 
+export PATH=$HOME/.pyenv/bin:$PATH
 curl -s https://pyenv.run | bash
-export PATH=~/.pyenv/bin:$PATH
 echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
