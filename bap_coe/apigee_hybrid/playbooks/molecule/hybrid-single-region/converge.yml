@@ -1,11 +1,11 @@
-- name: Create Apigee hybrid runtime on GCP
+- name: Create Apigee hybrid single region runtime on GCP
   hosts: localhost
   connection: local
 
   vars_files:
-    - ./attributes.yml
-    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - variables/apigee-hybrid-region-single-asm-variables.yml
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+  - region-single-asm-variables.yml
 
   collections:
     - bap_coe.apigee_hybrid

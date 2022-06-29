@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: instance
+  - name: hybrid-single-region
 provisioner:
   name: ansible
   ansible_args:
@@ -17,9 +17,7 @@ provisioner:
     - -u=friasc
     - --private-key=~/.ssh/google_compute_engine
   playbooks:
-    create: ../../infrastructure-create.yml
-    destroy: ../../infrastructure-delete.yml
-    converge: ../../apigee-hybrid-installation.yml
+    converge: converge.yml
 verifier:
   name: ansible
   log: True

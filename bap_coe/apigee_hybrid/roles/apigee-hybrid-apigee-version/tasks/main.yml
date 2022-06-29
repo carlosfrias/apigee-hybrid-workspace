@@ -1,5 +1,11 @@
 ---
 # tasks file for apigee-hybrid-apigee-version
+- name: Assert WORK_DIR
+  assert:
+    that:
+    - WORK_DIR is defined
+    msg: "WORK_DIR must be provided."
+
 - name: Set Apigee hybrid base url
   set_fact:
     cacheable: yes
@@ -18,7 +24,7 @@
 - name: Download latest version file
   get_url:
     url: "{{ APIGEE_HYBRID_VERSION_URL }}"
-    dest: "{{ playbook_dir }}/current_apigee_version.txt"
+    dest: "{{ WORK_DIR }}/current_apigee_version.txt"
 
 - name: Store latest version
   command: curl -s {{ APIGEE_HYBRID_VERSION_URL }}
