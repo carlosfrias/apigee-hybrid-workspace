@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: opdk-infrastructure
+  - name: Basic hybrid infrastructure
 provisioner:
   name: ansible
   playbooks:

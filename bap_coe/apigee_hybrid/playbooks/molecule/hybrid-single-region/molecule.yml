@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: hybrid-single-region
+  - name: Configure hybrid in a single region
 provisioner:
   name: ansible
   ansible_args:

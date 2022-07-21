@@ -1,5 +1,5 @@
 ---
-PROJECT_ID: "friasc-opdk-06012022-1411"
+PROJECT_ID: "friasc-opdk-0721022-1355"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"

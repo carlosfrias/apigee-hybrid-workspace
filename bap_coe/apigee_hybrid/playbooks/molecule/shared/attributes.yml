@@ -1,6 +1,6 @@
 ---
 ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
-PROJECT_ID: friasc-hybrid-06292022-1127
+PROJECT_ID: friasc-hybrid-07202022-1209
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
@@ -12,7 +12,7 @@ DISK_SIZE: 100
 FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
-FOLDER_DISPLAY_NAME: apigee-opdk
+FOLDER_DISPLAY_NAME: apigee-hybrid
 
 GCP_SERVICES:
   - "compute.googleapis.com"
@@ -105,7 +105,7 @@ GCP_SYSTEM_TOOLS:
   - ca-certificates
   - apt-transport-https
 
-APIGEE_VERSION: 1.4.2
+APIGEE_VERSION: 1.7
 ISTIO_VERSION: 1.7.8
 ISTIO_VERSION_REVISION: "asm.8"
 ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split('.')[0] }}.{{ ISTIO_VERSION.split('.')[1] }}"
