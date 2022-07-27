@@ -60,7 +60,7 @@
     marker_end: "{{ marker_end }}"
     block: |
       Host {{ NAME_INSTANCE_PREFIX }}*
-        ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}
+        ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}.{{ GCP_ZONE }}.{{ PROJECT_ID }}
         IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
 
       Host {{ bastion_host_ip }}
