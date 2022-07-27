@@ -70,6 +70,7 @@
 
 - name: Set GCE_INSTANCE_NAME
   set_fact:
+    cacheable: Yes
     GCE_INSTANCE_NAME: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
     DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
 
