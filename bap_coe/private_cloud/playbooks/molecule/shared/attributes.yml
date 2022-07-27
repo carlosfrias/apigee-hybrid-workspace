@@ -1,5 +1,5 @@
 ---
-PROJECT_ID: "friasc-opdk-0721022-1355"
+PROJECT_ID: "friasc-opdk-0726022-1401"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
@@ -61,6 +61,7 @@ ORG_ROLE_BINDINGS:
 PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
+- "roles/resourcemanager.projects.createBillingAssignment"
 
 SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
