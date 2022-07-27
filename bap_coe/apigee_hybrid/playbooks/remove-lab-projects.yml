@@ -2,13 +2,14 @@
   hosts: localhost
 
   vars_files:
+  - ./attributes.yml
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-  - ./variables/apigee-hybrid-region-single-asm-variables.yml
+  - ./variables/region-single-asm-variables.yml
 
   vars: 
     PROJECTS:
-    - "friasc-hybrid-03222021-1039"
-#    - "friasc-hybrid-03222021-1645"
+    - "friasc-hybrid-03232021-1034"
+    - "friasc-hybrid-03222021-1645"
 
   collections: bap_coe.apigee_hybrid
 
@@ -19,7 +20,7 @@
 
     - name: set WORK_DIR to tmp
       set_fact: 
-        tmp_work_dir: "{{ playbook_dir + '/workdir' }}"
+        tmp_work_dir: "{{ playbook_dir }}/{{ WORK_DIR }}"
 
     - name: Remove projects
       include_role:

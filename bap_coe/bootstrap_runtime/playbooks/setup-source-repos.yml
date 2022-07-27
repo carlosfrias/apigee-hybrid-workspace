@@ -1,6 +1,6 @@
 ---
 - name: This playbook configures and install my local workstation
-  hosts: "{{ target_hosts }}"
+  hosts: "{{ target_hosts | default('localhost') }}"
   connection: local
   vars_files:
     - workstation-properties.yml

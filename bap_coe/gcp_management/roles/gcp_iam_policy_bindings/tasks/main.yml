@@ -1,0 +1,55 @@
+---
+# tasks file for gcp_iam_policy_bindings
+- name: Assert that POLICY_BINDINGS list is available
+  assert:
+    that:
+    - POLICY_BINDINGS is defined
+    msg: "Please provide POLICY_BINDINGS collection with list of roles to assign."
+
+- name: Assert that the PROJECT_ID is available
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+  assert:
+    that:
+    - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+
+- name: Assert that the GCLOUD_BINDING_ACCOUNT is available
+  assert:
+    that:
+    - GCLOUD_BINDING_ACCOUNT is defined
+    msg: "Please provide the GCLOUD_BINDING_ACCOUNT (fully qualified domain name)"
+
+- name: Assert that the ACCOUNT_TYPE is available
+  assert:
+    that:
+    - ACCOUNT_TYPE is defined
+    msg: "Please provide the ACCOUNT_TYPE, accepted values are 'serviceAccount' or 'userar'"
+
+- name: Assert that the BINDING_OP is available
+  assert:
+    that:
+    - BINDING_OP is defined
+    msg: "Please provide the BINDING_OP, accepted values are 'add' or 'remove'"
+
+- name: Inform of availbility of IGNORE_ERRORS
+  debug:
+    msg: "You can force stop on error by passing IGNORE_ERRORS: True if you need to."
+
+- name: Modify IAM roles {{ BINDING_OP }} for {{ ACCOUNT_TYPE }}
+  ignore_errors: "{{ IGNORE_ERRORS | default(False) }}"
+  shell: |
+    gcloud projects {{ BINDING_OP }}-iam-policy-binding {{ PROJECT_ID }} \
+      --member {{ ACCOUNT_TYPE }}:{{ GCLOUD_BINDING_ACCOUNT }} \
+      --role={{ item }} \
+      --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  with_items: "{{ POLICY_BINDINGS }}"
+
+- name: Wait for the policy bindings to propagate
+  pause:
+    seconds: "{{ TIME_TO_PROPAGATE_BINDINGS  | default(10) }}"
+    prompt: "Wait for the policy bindings to propagate"

@@ -1,5 +1,8 @@
 ---
 # tasks file for roles/apigee-hybrid-tls-certs
+- name: Assert cert file path is provided
+  assert:
+    that:
 
 - name: Set TLS path names to cache
   set_fact: 

@@ -1,0 +1,25 @@
+---
+# tasks file for roles/gcp_iam_service_account_keys
+- name: Assert that the PROJECT_ID is available
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert that the SERVICE_ACCOUNT_FILE_PATH is available
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Wait for the policy bindings to propagate
+  pause:
+    seconds: "{{ ORG_BINDING_PROPAGATION_TIMEOUT  | default(70) }}"
+    prompt: "Wait for the policy bindings to propagate"
+
+- name: Create initial service account key file
+  shell: |
+    gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_FILE_PATH }}  \
+      --iam-account={{ SERVICE_ACCOUNT }} \
+      --project {{ PROJECT_ID }} \
+      --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}

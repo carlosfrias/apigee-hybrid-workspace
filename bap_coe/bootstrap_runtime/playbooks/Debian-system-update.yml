@@ -13,19 +13,20 @@
     apt:
       name: "{{ debian_os_packages }}"
       state: present
-      update_cache: yes
 
   - name: Install system packages
     tags: ['os']
     apt:
       name: "{{ os_packages }}"
       state: present
-      update_cache: yes
-
-  - name: Install pyenv
-    command: "curl https://pyenv.run | bash"
 
   become: true
+
+- name: Install pyenv
+  shell: |
+    curl https://pyenv.run | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.pyenv"
 
 - name: Update .bashrc
   lineinfile:
@@ -34,7 +35,7 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
-    - { regexp: "^PATH=~/.pyenv/bin:$PATH", line: "PATH=~/.pyenv/bin:$PATH"}
-    - { regexp: "^eval '$(pyenv init -)'", line: "eval '$(pyenv init -)'"}
-    - { regexp: "^eval '$(pyenv virtualenv-init -)'", line: "eval '$(pyenv virtualenv-init -)'"}
+    - { regexp: '^export PATH="~/.pyenv/bin:$PATH"', line: 'export PATH="$HOME/.pyenv/bin:$PATH"'}
+    - { regexp: '^eval "$(pyenv init -)"', line: 'eval "$(pyenv init -)"'}
+    - { regexp: '^eval "$(pyenv virtualenv-init -)"', line: 'eval "$(pyenv virtualenv-init -)"'}
 

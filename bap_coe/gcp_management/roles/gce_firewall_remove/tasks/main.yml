@@ -1,9 +1,45 @@
 ---
 # tasks file for gce_firewall_remove
-- name: Create Firewall Rule
-  community.google.gce_net:
-    project_id: "{{ PROJECT_ID }}"
-    service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
-    credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    fwname: "{{ FIREWALL_NAME }}"
-    state: "absent"
+- name: Assert NAME_INSTANCE_PREFIX provided
+  assert:
+    that:
+    - NAME_INSTANCE_PREFIX is defined
+    msg: "Please provide NAME_INSTANCE_PREFIX"
+
+- name: Assert PROJECT_ID provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide PROJECT_ID"
+
+- name: Assert SERVICE_ACCOUNT_EMAIL provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_EMAIL is defined
+    msg: "Please provide SERVICE_ACCOUNT_EMAIL"
+
+- name: Assert SERVICE_ACCOUNT_FILE provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE"
+
+- name: Assert AUTHORIZATION_KIND provided
+  assert:
+    that:
+    - AUTHORIZATION_KIND is defined
+    msg: "Please provide AUTHORIZATION_KIND"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Remove firewall rule
+  google.cloud.gcp_compute_firewall:
+    name: "{{ NAME_INSTANCE_PREFIX }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    state: absent

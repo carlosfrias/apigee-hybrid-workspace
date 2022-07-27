@@ -6,33 +6,23 @@
 
 - name: Set instance name
   set_fact:
-    gce_instance_ext_name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence | default(start_pos) }}"
+    gce_instance_name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence | default(start_pos) }}"
 
 - name: Gather instance info
   gcp_compute_instance_info:
     zone: "{{ GCP_ZONE }}"
     filters:
-      - name = "{{ gce_instance_ext_name }}"
+      - name = "{{ gce_instance_name }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
   register: instance_info
 
-- name: remove an instance
+- name: Remove GCE instance
   gcp_compute_instance:
-    name: "{{ gce_instance_ext_name }}"
+    name: "{{ gce_instance_name }}"
     state: absent
     zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-#    poll: 0
-#    async: 300
-
-- debug:
-    var: instance_info
-
-- name: Set instance_ip
-  ignore_errors: true
-  set_fact:
-    gce_instance_ext_IP: "{{ instance_info.resources[0].networkInterfaces[0].accessConfigs[0].natIP }}"

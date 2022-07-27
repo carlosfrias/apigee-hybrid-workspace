@@ -22,10 +22,5 @@ bin_ansible_callbacks = True
 stdout_callback = yaml
 stderr_callback = yaml
 
-[ssh_connection]
-pipelining = True
-ssh_args = None
-
 [inventory]
-enable_plugins = gcp_compute
-
+enable_plugins = google.cloud.gcp_compute

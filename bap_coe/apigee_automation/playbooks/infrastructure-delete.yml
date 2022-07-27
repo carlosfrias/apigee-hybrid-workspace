@@ -1,0 +1,15 @@
+---
+- name: Delete infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  roles:
+    - { role: gcp_project_delete, GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
+

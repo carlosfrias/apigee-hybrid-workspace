@@ -5,7 +5,7 @@
   gather_facts: no
 
   vars_files:
-    - 3-properties.yml
+    - attribute.yml
 
   collections:
     - bap_coe.gcp_management
@@ -42,7 +42,7 @@
       include_role:
         name: gce_bastion_host_ssh_config
       vars:
-        bastion_host_name: "{{ gce_instance_ext_name }}"
+        bastion_host_name: "{{ gce_instance_name }}"
         bastion_host_user: "{{ GCLOUD_ACCOUNT_USER }}"
         bastion_host_ip: "{{ gce_instance_ext_IP }}"
         bastion_target_host_range: "{{ NAME_INSTANCE_PREFIX }}*"

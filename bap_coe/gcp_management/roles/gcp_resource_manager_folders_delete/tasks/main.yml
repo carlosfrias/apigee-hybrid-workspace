@@ -1,0 +1,30 @@
+---
+# tasks file for gcp_resource_manager_folders_delete
+- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+  assert:
+    that:
+    - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+  when: FOLDER_ID is defined
+
+- name: FOLDER_ID status
+  debug:
+    msg: "Folder ID is not defined"
+  when: FOLDER_ID is not defined
+
+- name: Delete organization folder
+  ignore_errors: true
+  shell: |
+    gcloud beta resource-manager \
+    folders delete {{ FOLDER_ID }} \
+    --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+  register: FOLDER_CREATE_STATUS
+  when: FOLDER_ID is defined
+
+- name: Folder create status output
+  debug:
+    var: FOLDER_CREATE_STATUS
+  when: FOLDER_ID is defined
+
+
+

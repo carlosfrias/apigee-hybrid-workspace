@@ -1,0 +1,63 @@
+---
+- name: Create Apigee runtime on GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  collections:
+  - bap_coe.bootstrap_runtime
+  - bap_coe.gcp_management
+
+  roles:
+  - { role: terraform_installer }
+  - { role: service_account_file_path }
+  - { role: terraform_credentials }
+  - { role: key_value_updates }
+
+  pre_tasks:
+  - name: Clone apigee/terraform-modules github repo
+    git:
+      repo: "{{ GITHUB_REPO_URL }}"
+      dest: "{{ GITHUB_REPO_DEST }}"
+      accept_hostkey: yes
+      update: no
+      clone: yes
+      force: no
+
+
+  tasks:
+  - name: Assert terraform log folder exists
+    file:
+      path: "{{ TF_LOG_PATH }}"
+      state: directory
+
+  - name: Terraform init
+    shell: |
+      {{ TERRAFORM_BIN_PATH }} init
+    args:
+      chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+    environment:
+      TF_LOG: "{{ TF_LOG }}"
+      TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"
+
+  - name: Terraform plan
+    shell: |
+      {{ TERRAFORM_BIN_PATH }} plan --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars ##-var "project_id={{ PROJECT_ID }}"
+    args:
+      chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+    environment:
+      TF_LOG: "{{ TF_LOG }}"
+      TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"
+
+  - name: Terraform apply
+    shell: |
+      {{ TERRAFORM_BIN_PATH }} apply --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -auto-approve #-var "project_id={{ PROJECT_ID }}"
+    args:
+      chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+    environment:
+      TF_LOG: "{{ TF_LOG }}"
+      TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"
+

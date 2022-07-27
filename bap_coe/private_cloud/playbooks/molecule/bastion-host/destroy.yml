@@ -1,23 +1,24 @@
 ---
-- name: Destroy
+- name: Delete Project & Infrastructure
   hosts: localhost
   connection: local
   gather_facts: false
   no_log: "{{ molecule_no_log }}"
-  tasks:
-    # Developer must implement.
 
-    # Mandatory configuration for Molecule to function.
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
-#    - name: Populate instance config
-#      set_fact:
-#        instance_conf: {}
-#
-#    - name: Dump instance config
-#      copy:
-#        content: |
-#          # Molecule managed
-#
-#          {{ instance_conf | to_json | from_json | to_yaml }}
-#        dest: "{{ molecule_instance_config }}"
-#      when: server.changed | default(false) | bool
+  vars:
+    FIREWALL_NAME_SUFFIX: "bastion"
+    bastion_host_name: bastion-1
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bastion_host
+
+  roles:
+  - { role: service_account_file_path }
+  - { role: service_account_file_processing }
+  - { role: gce_bastion_host_delete }
+

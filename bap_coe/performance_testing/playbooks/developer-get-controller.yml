@@ -8,7 +8,7 @@
     - bap_coe.gcp_management
 
   vars_files:
-    - "{{ playbook_dir }}/3-properties.yml"
+    - "{{ playbook_dir }}/attribute.yml"
     - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
 
   roles:

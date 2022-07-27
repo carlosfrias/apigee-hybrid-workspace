@@ -1,0 +1,9 @@
+---
+# Used for proxy settings when required
+# yum_proxy:
+# yum_proxy_port:
+# yum_proxy_password:
+# yum_proxy_username:
+# http_proxy: {{ yum_proxy }}:{{ yum_proxy_port }}
+# https_proxy: {{ yum_proxy }}:{{ yum_proxy_port }}
+# no_proxy: 127.0.0.1

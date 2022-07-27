@@ -1,10 +1,34 @@
 ---
 # tasks file for gce_network_create
-- name: create a network
+- name: Assert PROJECT_ID provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide PROJECT_ID"
+
+- name: Assert VPC_NETWORK_NAME provided
+  assert:
+    that:
+    - VPC_NETWORK_NAME is defined
+    msg: "Please provide VPC_NETWORK_NAME"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert SCOPE_COMPUTE provided
+  assert:
+    that:
+    - SCOPE_COMPUTE is defined
+    msg: "Please provide SCOPE_COMPUTE"
+
+- name: Assert network is defined
   google.cloud.gcp_compute_network:
-    name: "{{ VPC_NETWORK_NAME | default('default') }}"
+    name: "{{ VPC_NETWORK_NAME }}"
     project: "{{ PROJECT_ID }}"
-    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     scopes: "{{ SCOPE_COMPUTE }}"
     state: present

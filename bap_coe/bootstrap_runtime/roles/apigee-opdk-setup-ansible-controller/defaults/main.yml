@@ -1,0 +1,69 @@
+---
+# defaults file for apigee-opdk-setup-ansible
+
+# Default local Apigee Workspace
+local_workspace: "~/.apigee-workspace"
+
+# Default Ansible workspace, used if not provided.
+ansible_config_folder: "{{ local_workspace }}/ansible"
+
+# Resolve folder for the Ansible workspace to either provided or default
+target_ansible_workspace: "{{ ansible_workspace | default(ansible_config_folder) }}"
+
+# Ansible library set relative to the Ansible workspace
+library_folder: "{{ target_ansible_workspace }}/library"
+
+# Resolved folder for Ansible configurations set relative to the Ansible workspace
+target_ansible_configurations: "{{ target_ansible_workspace }}/multi-planet-configurations"
+
+# Set a default Ansible configuration file
+default_ansible_config: "~/.ansible.cfg"
+
+# Ansible folder for sensitive data like license or credentials file.
+target_apigee_secure_folder: "{{ apigee_secure_folder }}"
+
+# Ansible folder in which to place a template for custome properties.
+target_apigee_custom_properties_folder: "{{ apigee_custom_properties_folder }}"
+
+# Folders that should be setup on file system
+setup_dirs:
+- "{{ target_ansible_configurations }}"
+- "{{ target_ansible_workspace }}/roles"
+- "{{ target_ansible_workspace }}/logs"
+- "{{ target_ansible_workspace }}/tmp"
+- "{{ target_ansible_workspace }}/inventory"
+- "{{ ansible_workspace }}"
+- "{{ target_apigee_secure_folder }}"
+- "{{ target_apigee_custom_properties_folder }}"
+
+# Folders that should be cleaned up if they exists
+clean_folders:
+- "{{ target_ansible_workspace }}/logs"
+- "{{ target_ansible_workspace }}/roles"
+- "{{ target_ansible_workspace }}/tmp"
+- "{{ target_ansible_workspace }}/cache"
+
+# Location of the ssh key to include in the default .ansible.cfg file
+#private_key_file: ~/.ssh/id_rsa
+
+# Use this endpoint to clone github.com using HTTPS
+repository_secure_endpoint_https: "https://github.com/carlosfrias"
+
+# Use this endpoint to clone github.com using SSH
+repository_secure_endpoint_ssh: "git@github.com:carlosfrias"
+
+# Default to cloning github.com using HTTPS
+checkout_type: https
+
+# Location of configuration and inventory template folders inside the multi-planet-configurations and inventory folders of Ansible
+template_repos:
+- { dir: '{{ target_ansible_configurations }}', repo_name: apigee-opdk-ansible-configuration-samples, dest_name: templates }
+- { dir: "{{ target_ansible_workspace }}/inventory", repo_name: apigee-opdk-ansible-inventory-samples, dest_name: templates }
+
+# Required system packages that should be installed on an Ansible control server.
+os_packages:
+- git
+- rsync
+- tree
+- ansible
+- vim

@@ -1,10 +1,10 @@
 ---
 # tasks file for gcp_project_create
-- name: Assert GCLOUD_ACCOUNT_EMAIL
+- name: Assert GCLOUD_ACCOUNT_ADMIN_EMAIL
   assert:
     that:
-      - GCLOUD_ACCOUNT_EMAIL is defined
-    msg: "GCLOUD_ACCOUNT_EMAIL must contain the GCP account email"
+      - GCLOUD_ACCOUNT_ADMIN_EMAIL is defined
+    msg: "GCLOUD_ACCOUNT_ADMIN_EMAIL must contain the GCP account email"
 
 - name: Assert PROJECT_ID
   assert:
@@ -12,45 +12,92 @@
       - PROJECT_ID is defined
     msg: "PROJECT_ID must be provided."
 
-- name: Assert BILLING_ID
-  assert:
-    that:
-      - BILLING_ID is defined
-    msg: "BILLING_ID must be provided"
+- name: Advise status BILLING_ID
+  pause:
+    echo: "Please note that BILLING_ID has not been provided"
+    seconds: 2
+  when: BILLING_ID is undefined
 
-- name: Construct base project create command
+- name: Advise status GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL
+  pause:
+    echo: "Please note that CLOUD_ACCOUNT_BILLING_ADMIN_EMAIL has not been provided"
+    seconds: 2
+  when: GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is undefined
+
+- name: Query for deleted projects list
+  shell: gcloud projects list --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='lifecycleState:DELETE_REQUESTED'
+  register: DELETED_PROJECTS
+
+- name: Assert project deleted state
   set_fact:
-    cacheable: yes
-    GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }}"
+    cacheable: true
+    DELETE_REQUESTED: "{{ DELETED_PROJECTS.stdout is search(PROJECT_ID) }}"
 
-- name: Add FOLDER_ID if provided to base project create command
-  set_fact:
-    cacheable: yes
-    GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --folder={{ FOLDER_ID }} --account={{ GCLOUD_ACCOUNT_EMAIL }}"
+- name: Create project if DELETE_REQUESTED is not true
+  block:
 
-- name: Set active account
-  shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
+  - name: Construct base project create command
+    set_fact:
+      cacheable: yes
+      GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}"
 
-- name: Create GCP Project with provided FOLDER_ID
-#  ignore_errors: yes
-  shell: "{{ GCLOUD_PROJECT_CREATE_CMD }}"
-  register: status
-  failed_when:
-  - status.rc == 1
-  - "'already in use' not in status.stderr"
+  - name: Add ORG_ID if provided to base project create command
+    set_fact:
+      cacheable: yes
+      GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization {{ ORG_ID }}"
+    when: ORG_ID is defined and FOLDER_ID is not defined
 
-- name: Set Project Default
-  shell: gcloud config set project {{ PROJECT_ID }}
+  - name: Add FOLDER_ID if provided to base project create command
+    set_fact:
+      cacheable: yes
+      GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --folder {{ FOLDER_ID }}"
+    when: FOLDER_ID is defined
 
-- name: Connect GCP Project to Billing Account
-  shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }}
+  - name: Create GCP Project with provided FOLDER_ID
+    shell: "{{ GCLOUD_PROJECT_CREATE_CMD }}"
+    register: status
+    failed_when:
+    - status.rc == 1
+    - "'already in use' not in status.stderr"
 
-- name: Obtain PROJECT_NUMBER
-  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
-  register: project_number
+  - name: Set Project Default
+    shell: gcloud config set project {{ PROJECT_ID }}
 
-- name: Cache PROJECT_NUMBER
-  set_fact:
-    cacheable: yes
-    PROJECT_NUMBER: "{{ project_number.stdout }}"
+  - name: Connect GCP Project to Billing Account, if provided
+    shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }} --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+    when: BILLING_ID is defined and GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is defined
 
+  - name: Obtain PROJECT_NUMBER
+    block:
+
+    - name: Obtain PROJECT_NUMBER
+      shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)" --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+      register: project_number
+
+    rescue:
+      - name: RESCUE - Obtain PROJECT_NUMBER
+        block:
+
+          - name: RESCUE - Enable cloud resourcemanager if not enabled
+            include_role:
+              name: gcp_project_services_enable
+            vars:
+              GCP_SERVICES: ['cloudresourcemanager.googleapis.com']
+
+          - name: RESCUE - Obtain PROJECT_NUMBER
+            shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)" --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+            register: project_number
+
+        when: project_number.stderr is search('cloudresourcemanager.googleapis.com') and project_number.stderr is search('not enabled on project')
+
+  - name: Cache PROJECT_NUMBER
+    set_fact:
+      cacheable: yes
+      PROJECT_NUMBER: "{{ project_number.stdout }}"
+
+  when: DELETE_REQUESTED is falsy
+
+- name: Fail this invocation to create a project that has been deleted
+  debug:
+    msg: "The project to be created has been deleted and will not be recreated"
+  when: DELETE_REQUESTED is truthy

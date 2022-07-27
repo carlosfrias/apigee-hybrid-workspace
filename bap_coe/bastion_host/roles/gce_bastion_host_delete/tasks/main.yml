@@ -1,28 +1,15 @@
 ---
 # tasks file for gce_bastion_host_delete
-- name: Update NAME_INSTANCE_PREFIX for bastion host name
-  set_fact:
-    BASTION_NAME_PREFIX: "{{ NAME_INSTANCE_PREFIX }}"
-
 - name: Delete Firewall Rule for Bastion Host
-  community.google.gce_net:
-    project_id: "{{ PROJECT_ID }}"
-    service_account_email: "{{ SERVICE_ACCOUNT_EMAIL }}"
-    credentials_file: "{{ SERVICE_ACCOUNT_FILE }}"
-    fwname: "{{ BASTION_NAME_PREFIX }}"
-    state: "absent"
+  include_role:
+    name: bap_coe.gcp_management.gce_firewall_remove
+
+- name: Configure SSH ProxyCommand
+  include_role:
+    name: gce_bastion_host_ssh_config_remove
 
 - name: Remove instances
   include_role:
     name: bap_coe.gcp_management.gce_instance_remove
   vars:
-    sequence: "{{ INSTANCE_COUNT_START }}"
-
-- name: Configure SSH ProxyCommand
-  include_role:
-    name: gce_bastion_host_ssh_config_remove
-  vars:
-    bastion_host_name: "{{ gce_instance_ext_name }}"
-    bastion_host_user: "{{ GCLOUD_ACCOUNT_USER }}"
-    bastion_host_ip: "{{ gce_instance_ext_IP }}"
-    bastion_target_host_range: "{{ NAME_INSTANCE_PREFIX }}*"
+    sequence: 1

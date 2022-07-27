@@ -1,0 +1,131 @@
+---
+#ansible_python_interpreter: /usr/local/google/home/friasc/.pyenv/shims/python3
+PROJECT_ID: "friasc-03112022-1330"
+WORK_DIR: "{{ playbook_dir }}/work_dir/{{ PROJECT_ID }}"
+TOOLS_DIR: "{{ ansible_user_dir }}/bin"
+INVENTORY_DIR: "{{ playbook_dir }}/inventory"
+NAME_INSTANCE_PREFIX: dc-1
+GCP_ZONE: us-east1-b
+DISK_SIZE: 100
+CONTROL_SERVER_IMAGE_NAME: ops-server
+CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
+ORG_BINDING_PROPAGATION_TIMEOUT: 100
+#TIME_TO_PROPAGATE_BINDINGS: 20
+
+GCP_SERVICES:
+  - "compute.googleapis.com"
+  - "cloudresourcemanager.googleapis.com"
+  - "servicenetworking.googleapis.com"
+  - "serviceusage.googleapis.com"
+  - "iam.googleapis.com"
+  - "container.googleapis.com"
+  - "stackdriver.googleapis.com"
+  - "meshca.googleapis.com"
+  - "meshtelemetry.googleapis.com"
+  - "meshconfig.googleapis.com"
+  - "iamcredentials.googleapis.com"
+  - "anthos.googleapis.com"
+  - "gkeconnect.googleapis.com"
+  - "gkehub.googleapis.com"
+  - "sourcerepo.googleapis.com"
+  - "cloudbuild.googleapis.com"
+  - "secretmanager.googleapis.com"
+  - "dns.googleapis.com"
+  - "pubsub.googleapis.com"
+  - "apigee.googleapis.com"
+  - "apigeeconnect.googleapis.com"
+  - "monitoring.googleapis.com"
+  - "logging.googleapis.com"
+  - "cloudtrace.googleapis.com"
+  - "privateca.googleapis.com"
+
+SERVICE_ACCOUNT_ROLE_BINDINGS:
+  - "roles/editor"
+  - "roles/compute.admin"
+  - "roles/compute.networkUser"
+  - "roles/compute.instanceAdmin"
+  - "roles/compute.loadBalancerAdmin"
+  - "roles/networkmanagement.admin"
+  - "roles/networkmanagement.viewer"
+  - "roles/iam.serviceAccountUser"
+  - "roles/iam.serviceAccountAdmin"
+  - "roles/iam.serviceAccountCreator"
+  - "roles/iam.serviceAccountKeyAdmin"
+  - "roles/resourcemanager.organizationAdmin"
+  - "roles/resourcemanager.projectDeleter"
+  - "roles/resourcemanager.projectCreator"
+
+ORG_ROLE_BINDINGS:
+  - "roles/owner"
+  - "roles/billing.admin"
+  - "roles/billing.projectManager"
+  - "roles/iam.serviceAccountAdmin"
+  - "roles/iam.serviceAccountKeyAdmin"
+  - "roles/resourcemanager.projectCreator"
+  - "roles/resourcemanager.projectDeleter"
+  - "roles/resourcemanager.projectIamAdmin"
+  - "roles/resourcemanager.organizationAdmin"
+  - "roles/serviceusage.serviceUsageAdmin"
+  - "roles/serviceusage.serviceUsageViewer"
+  - "roles/serviceusage.apiKeysAdmin"
+  - "roles/iap.tunnelResourceAccessor"
+
+#  Configure project admin role bindings
+PROJECT_ADMIN_ROLE_BINDINGS:
+  - "roles/resourcemanager.projectDeleter"
+  - "roles/resourcemanager.projectCreator"
+
+FOLDER_ROLE_BINDINGS:
+  - roles/resourcemanager.folderEditor
+  - roles/resourcemanager.folderViewer
+
+SYSTEM_TOOLS:
+  - 'rsync'
+  - 'tree'
+  - 'netcat'
+  - 'kubectl'
+  - 'docker-ce'
+
+GCP_SYSTEM_TOOLS:
+  - gnupg2
+  - ca-certificates
+  - apt-transport-https
+
+APIGEE_VERSION: 1.4.2
+ISTIO_VERSION: 1.7.8
+ISTIO_VERSION_REVISION: "asm.8"
+ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split('.')[0] }}.{{ ISTIO_VERSION.split('.')[1] }}"
+ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split('.')[2] }}"
+ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
+REGION_SEED: "us-east1"
+CLUSTER_SEED: 1
+
+#PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
+#PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
+
+SCOPE_COMPUTE:
+- 'https://www.googleapis.com/auth/cloud-platform'
+- 'https://www.googleapis.com/auth/compute'
+
+firewall_ports:
+  - { allow_ports: ['22'], port_name_suffix: 'control-server' }
+
+PRIVATE_CLOUD_INSTANCES:
+  - { node_type: bastion, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+#  - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
+
+CONSTRAINTS_DISABLE_ENFORCEMENT:
+- iam.disableServiceAccountKeyCreation
+- iam.disableServiceAccountCreation
+- compute.requireShieldedVm
+- compute.requireOsLogin
+#- compute.trustedImageProjects
+#- compute.restrictSharedVpcSubnetworks
+#- compute.restrictSharedVpcHostProjects
+#- compute.restrictVpcPeering
+#- compute.vmExternalIpAccess
+
+

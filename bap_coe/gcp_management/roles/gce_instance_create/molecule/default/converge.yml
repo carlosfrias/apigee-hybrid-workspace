@@ -5,7 +5,7 @@
   gather_facts: no
 
   vars_files:
-  - shared-properties.yml
+  - attributes.yml
 
   collections:
   - bap_coe.gcp_management

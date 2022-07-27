@@ -1,0 +1,33 @@
+---
+# Version of Apigee Private Cloud to install
+opdk_version: 4.19.06
+
+# Apigee release version used with bootstrap.
+apigeereleasever: "{{ opdk_version }}"
+
+# Enable setup scripts to check system compliance to Apigee requirements.
+enable_system_check: n
+
+# Apigee group is created by default unless this is set to False
+# opdk_group_create: False
+
+# Variable to indicate the previous OPDK version to upgrade from
+# upgrade_from_opdk_version: 4.17.01
+
+# Location from where to download Apigee Private Cloud binaries
+apigee_repo_url: "http://software.apigee.com"
+
+# Installation resources staging folder
+opdk_resources_path: /opt/apigee/customer/installation
+
+# Local resource location
+local_apigee_path: ~/.apigee
+
+# Local secure resource location
+local_apigee_secure_path: ~/.apigee-secure
+
+ # Location of the Apigee license file on the control server.
+opdk_license_source_file_name: "{{ local_apigee_secure_path }}/license.txt"
+
+ # Location of the Apigee license file on the target node.
+opdk_license_target_file_path: "{{ opdk_resources_path }}/license.conf"

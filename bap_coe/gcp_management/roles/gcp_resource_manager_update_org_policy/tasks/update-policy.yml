@@ -1,0 +1,31 @@
+---
+- name: Extract policy file name
+  set_fact:
+    policy_name_parts: '{{ policy | split("/") }}'
+
+- name: Create policy name
+  set_fact:
+    policy_name: "{{ policy_name_parts[1] }}"
+
+- name: Create policy update file
+  set_fact:
+    cacheable: True
+    UPDATE_POLICY_FILE_PATH: "{{ WORK_DIR }}/org-policies"
+    UPDATE_POLICY_FILE_NAME: "update-policy-constraint-{{ policy_name }}.yaml"
+
+- name: Assert policy file path
+  file:
+    path: "{{ UPDATE_POLICY_FILE_PATH }}"
+    state: directory
+
+- name: Create policy update file
+  template:
+    src: update-policy.yaml.j2
+    dest: "{{ UPDATE_POLICY_FILE_PATH }}/{{ UPDATE_POLICY_FILE_NAME }}"
+
+- name: Update Org Policy
+  shell: |
+    gcloud resource-manager \
+    org-policies set-policy {{ UPDATE_POLICY_FILE_PATH }}/{{ UPDATE_POLICY_FILE_NAME }} \
+    --project {{ PROJECT_ID }} \
+    --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}

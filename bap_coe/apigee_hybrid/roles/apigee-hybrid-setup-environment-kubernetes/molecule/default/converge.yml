@@ -3,7 +3,7 @@
   hosts: all
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-  - ../../../../playbooks/variables/apigee-hybrid-region-single-asm-variables.yml
+  - ../../../../playbooks/variables/region-single-asm-variables.yml
 
   tasks:
     - name: "Include apigee-hybrid-setup-environment-kubernetes/"

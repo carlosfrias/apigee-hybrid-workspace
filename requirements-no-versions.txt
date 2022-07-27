@@ -1,5 +1,6 @@
 ansible
 ansible-base
+ansible-core
 ansible-lint
 molecule
 yamllint
@@ -9,3 +10,5 @@ google-auth
 pyasn1_modules
 requests
 pycryptodome
+NumPy
+netaddr
