@@ -13,7 +13,7 @@
 
   - name: Load variables
     include_vars:
-      file: "{{ item.path | expanduser }}"
+      file: "{{ item.path }}"
     with_items:
     - "{{ props.results }}"
 #    - files
