@@ -13,19 +13,14 @@ platforms:
 provisioner:
   name: ansible
   ansible_args:
-  - -i=../../work_dir/${PROJECT_ID}/inventory
   - -u=friasc
   - --private-key=~/.ssh/google_compute_engine
   playbooks:
     destroy: destroy.yml
     create: create.yml
     converge: converge.yml
-  inventory:
-    links:
-      hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory
   config_options:
     defaults:
-      inventory: ../../work_dir/${PROJECT_ID}/inventory
       interpreter_python: auto_silent
       callbacks_whitelist: profile_tasks, timer, yaml
       local_tmp: ../../work_dir/${PROJECT_ID}/tmp
@@ -45,8 +40,6 @@ provisioner:
     ssh_connection:
       pipelining: false
       scp_if_ssh: True
-    inventory:
-      enable_plugins: gcp_compute
 verifier:
   name: ansible
   log: True
@@ -67,6 +60,4 @@ verifier:
     ssh_connection:
       pipelining: false
       scp_if_ssh: True
-    inventory:
-      enable_plugins: gcp_compute
 

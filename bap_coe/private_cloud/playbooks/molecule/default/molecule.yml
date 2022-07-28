@@ -16,9 +16,6 @@ provisioner:
     create: ../shared/create.yml
     converge: ../shared/converge.yml
     destroy: ../shared/delete.yml
-  config_options:
-    defaults:
-      inventory: ../../work_dir/${PROJECT_ID}/inventory
 verifier:
   name: ansible
   log: True

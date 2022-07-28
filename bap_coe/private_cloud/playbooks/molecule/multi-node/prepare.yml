@@ -1,25 +1,14 @@
 ---
-- name: Collect Configuration Information for Planet
-  hosts: edge
+- name: Update molecule variables
+  hosts: localhost
+  connection: local
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
-  vars:
-    property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
-
   collections:
-  - bap_coe.private_cloud
+    bap_coe.bootstrap_runtime
 
   roles:
-    - apigee_opdk_modules
-    - apigee_opdk_settings_private_address
-    - apigee_opdk_settings_management_server
-    - apigee_opdk_settings_region
-    - apigee_opdk_settings_response_file
-    - apigee_opdk_settings_ldap
-    - apigee_opdk_settings_cassandra
-    - apigee_opdk_settings_postgres
+  - { role: key_value_updates }
