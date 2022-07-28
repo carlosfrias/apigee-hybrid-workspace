@@ -11,6 +11,5 @@
   command: "{{ item }} --project {{ PROJECT_ID }}"
   with_items:
   - "gcloud compute config-ssh --remove"
-  - "gcloud compute config-ssh"
   listen: "refresh gcp compute ssh config"
 
