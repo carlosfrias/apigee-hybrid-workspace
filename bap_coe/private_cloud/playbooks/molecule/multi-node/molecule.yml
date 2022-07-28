@@ -22,7 +22,7 @@ provisioner:
     converge: converge.yml
   inventory:
     links:
-      hosts: ${MOLECULE_SCENARIO_DIRECTORY}/../../work_dir/${PROJECT_ID}/inventory
+      hosts: MOLECULE_SCENARIO_DIRECTORY/../../work_dir/${PROJECT_ID}/inventory
   config_options:
     defaults:
       inventory: ../../work_dir/${PROJECT_ID}/inventory
