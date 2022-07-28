@@ -70,7 +70,8 @@
     marker: "# {mark} {{ NAME_INSTANCE_PREFIX }}* ANSIBLE MANAGED BLOCK"
     marker_begin: "{{ marker_begin }}"
     marker_end: "{{ marker_end }}"
-    block: "{{ bastion_host_config }}"
+    block: |
+      {{ bastion_host_config }}
   notify: "refresh gcp compute ssh config"
 
 # Match host DESTINATION
