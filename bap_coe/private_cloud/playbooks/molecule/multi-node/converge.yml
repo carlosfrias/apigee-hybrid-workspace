@@ -15,7 +15,6 @@
     - bap_coe.private_cloud
 
   roles:
-    - apigee_opdk_modules
     - apigee_opdk_settings_private_address
     - apigee_opdk_settings_management_server
     - apigee_opdk_settings_region
