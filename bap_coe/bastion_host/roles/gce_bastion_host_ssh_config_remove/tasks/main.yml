@@ -50,6 +50,7 @@
       bastion_host_ip: "{{ instance_info.networkInterfaces[0].accessConfigs[0].natIP }}"
 
   - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
+    ignore_errors: yes
     blockinfile:
       path: ~/.ssh/config
       backup: yes
