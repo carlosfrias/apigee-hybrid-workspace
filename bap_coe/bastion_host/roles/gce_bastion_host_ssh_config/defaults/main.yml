@@ -17,10 +17,3 @@ bastion_host_config: |
     ProxyCommand ssh -W %h:%p {{ NAME_INSTANCE_PREFIX }}-1.{{ GCP_ZONE }}.{{ PROJECT_ID }}
     IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
 
-  Host {{ bastion_host_ip }}
-    Hostname {{ NAME_INSTANCE_PREFIX }}-1
-    User {{ GCLOUD_ACCOUNT_USER }}
-    IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') | expanduser }}
-    ControlMaster auto
-    ControlPath ~/.ssh/ansible-%r@%h:%p
-    ControlPersist 5m
