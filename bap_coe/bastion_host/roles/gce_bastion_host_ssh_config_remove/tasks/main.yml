@@ -37,7 +37,7 @@
     msg: "Please provide the GCP_ZONE"
 
 - name: Load instance info
-  command: gcloud compute instances list --format yaml --project {{ PROJECT_ID }} --filter "name ~ {{ NAME_INSTANCE_PREFIX }}-1"
+  command: gcloud compute instances list --format yaml --project {{ PROJECT_ID }} --filter "name = {{ NAME_INSTANCE_PREFIX }}-1"
   register: instance_info
 
 - name: Capture data as string
