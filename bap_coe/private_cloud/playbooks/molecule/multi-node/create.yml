@@ -27,6 +27,7 @@
     - { role: gce_firewall_create }
 
   vars:
+    ACCESS_TYPE: 'int'
     PRIVATE_CLOUD_INSTANCES:
       - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
       - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }

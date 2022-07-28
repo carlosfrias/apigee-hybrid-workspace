@@ -16,3 +16,5 @@
     - name: Remove projects in list
       include_role:
         name: gcp_project_delete
+
+

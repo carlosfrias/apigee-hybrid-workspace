@@ -2,22 +2,64 @@
 - name: Destroy
   hosts: localhost
   connection: local
-  gather_facts: false
-  no_log: "{{ molecule_no_log }}"
+#  no_log: "{{ molecule_no_log }}"
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  collections:
+     - bap_coe.gcp_management
+
+
+  vars:
+    ACCESS_TYPE: 'int'
+    PRIVATE_CLOUD_INSTANCES:
+    - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+    - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
+    firewall_ports:
+    - { ports: "{{ ms_ports }}", port_type: 'ms' }
+    - { ports: "{{ router_ports }}", port_type: 'router' }
+    - { ports: "{{ mp_ports }}", port_type: 'mp' }
+    - { ports: "{{ zk_ports }}", port_type: 'zk' }
+    - { ports: "{{ cassandra_ports }}", port_type: 'ds' }
+    - { ports: "{{ qpid_ports }}", port_type: 'qs' }
+    - { ports: "{{ pg_ports }}", port_type: 'pg' }
+    - { ports: "{{ ui_ports }}", port_type: 'ui' }
+    - { ports: "{{ ldap_ports }}", port_type: 'ldap' }
+
   tasks:
-    # Developer must implement.
+  - name: Create planet instances
+    include_tasks: "{{ playbook_dir | dirname }}/shared/remove-instance.yml"
+    with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+    loop_control:
+      loop_var: instance
 
-    # Mandatory configuration for Molecule to function.
-
-#    - name: Populate instance config
-#      set_fact:
-#        instance_conf: {}
 #
-#    - name: Dump instance config
-#      copy:
-#        content: |
-#          # Molecule managed
 #
-#          {{ instance_conf | to_json | from_json | to_yaml }}
-#        dest: "{{ molecule_instance_config }}"
-#      when: server.changed | default(false) | bool
+#
+#  vars:
+#    NAME_INSTANCE_PREFIX: dc-1-ds
+#  #    PROJECT_IDS:
+#  #      - friasc-opdk-03292021-1347
+#
+#  tasks:
+##    - name: Remove projects in list
+##      include_role:
+##        name: gce_instance_remove
+##      vars:
+##        PROJECT_ID: "{{ item }}"
+##      with_items: "{{ INSTANCE_NAMES }}"
+#    - name: Create Private Cloud instances
+#      include_role:
+#        name: gce_instance_remove
+#      vars:
+#        NAME_INSTANCE_PREFIX: "{{ PRE_NAME_INSTANCE_PREFIX }}"
+#        NETWORK_TAGS: "{{ PRE_NETWORK_TAGS }}"
+#      with_sequence: "start=1 end={{ PRE_INSTANCE_COUNT }}"
+#      with_items:
+#      loop_control:
+#        loop_var: next_count

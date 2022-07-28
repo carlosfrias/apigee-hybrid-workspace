@@ -1,0 +1,14 @@
+---
+- name: Setup names
+  set_fact:
+    PRE_NAME_INSTANCE_PREFIX: "dc-{{ instance.dc }}-{{ instance.node_type }}"
+    PRE_INSTANCE_COUNT: "{{ instance.count }}"
+
+- name: Create Private Cloud instances
+  include_role:
+    name: gce_instance_remove
+  vars:
+    NAME_INSTANCE_PREFIX: "{{ PRE_NAME_INSTANCE_PREFIX }}"
+  with_sequence: "start=1 end={{ PRE_INSTANCE_COUNT }}"
+  loop_control:
+    loop_var: next_count

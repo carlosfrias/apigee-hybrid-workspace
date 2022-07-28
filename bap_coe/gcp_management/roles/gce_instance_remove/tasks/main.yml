@@ -1,26 +1,51 @@
 ---
 # tasks file for gce_instance_remove
+- name: Assert NAME_INSTANCE_PREFIX
+  assert:
+    that:
+    - NAME_INSTANCE_PREFIX is defined
+    fail_msg: "Please provide NAME_INSTANCE_PREFIX"
+
+- name: Assert GCP_ZONE
+  assert:
+    that:
+    - GCP_ZONE is defined
+    fail_msg: "Please provide GCP_ZONE"
+
+- name: Assert PROJECT_ID
+  assert:
+    that:
+    - PROJECT_ID is defined
+    fail_msg: "Please provide PROJECT_ID"
+
+- name: Assert AUTHORIZATION_KIND
+  assert:
+    that:
+    - AUTHORIZATION_KIND is defined
+    fail_msg: "Please provide AUTHORIZATION_KIND"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    fail_msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert use of next_count if set
+  set_fact:
+    current_node_count: "{{ next_count | default(sequence) | default(1) }}"
+
 - name: Capture start if available
   set_fact:
     start_pos: "{{ INSTANCE_COUNT_START | default(1) }}"
 
-- name: Set instance name
+- name: Set GCE_INSTANCE_NAME
   set_fact:
-    gce_instance_name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence | default(start_pos) }}"
-
-- name: Gather instance info
-  gcp_compute_instance_info:
-    zone: "{{ GCP_ZONE }}"
-    filters:
-      - name = "{{ gce_instance_name }}"
-    project: "{{ PROJECT_ID }}"
-    auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-  register: instance_info
+    cacheable: Yes
+    GCE_INSTANCE_NAME: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
 
 - name: Remove GCE instance
   gcp_compute_instance:
-    name: "{{ gce_instance_name }}"
+    name: "{{ GCE_INSTANCE_NAME }}"
     state: absent
     zone: "{{ GCP_ZONE }}"
     project: "{{ PROJECT_ID }}"
