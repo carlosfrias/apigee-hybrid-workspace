@@ -1,34 +1,51 @@
 ---
-- name: Create
+- name: Create infrastructure for private cloud in GCP
   hosts: localhost
   connection: local
-  gather_facts: false
-  no_log: "{{ molecule_no_log }}"
+#  no_log: "{{ molecule_no_log }}"
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  collections:
+    - bap_coe.gcp_management
+
+  roles:
+    - { role: gcp_iam_service_account_create }
+    - {
+        role: gcp_iam_policy_bindings,
+        BINDING_OP: "add",
+        ACCOUNT_TYPE: "serviceAccount",
+        GCLOUD_BINDING_ACCOUNT: "{{ SERVICE_ACCOUNT }}",
+        POLICY_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}",
+        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+      }
+    - { role: gce_network_create }
+    - { role: gce_firewall_create }
+
+  vars:
+    PRIVATE_CLOUD_INSTANCES:
+      - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+      - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+      - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+      - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+      - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
+    firewall_ports:
+      - { ports: "{{ ms_ports }}", port_type: 'ms' }
+      - { ports: "{{ router_ports }}", port_type: 'router' }
+      - { ports: "{{ mp_ports }}", port_type: 'mp' }
+      - { ports: "{{ zk_ports }}", port_type: 'zk' }
+      - { ports: "{{ cassandra_ports }}", port_type: 'ds' }
+      - { ports: "{{ qpid_ports }}", port_type: 'qs' }
+      - { ports: "{{ pg_ports }}", port_type: 'pg' }
+      - { ports: "{{ ui_ports }}", port_type: 'ui' }
+      - { ports: "{{ ldap_ports }}", port_type: 'ldap' }
+
   tasks:
+  - name: Create planet instances
+    include_tasks: "{{ playbook_dir | dirname }}/shared/create-instance.yml"
+    with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+    loop_control:
+      loop_var: instance
 
-    # TODO: Developer must implement and populate 'server' variable
-
-#    - when: server.changed | default(false) | bool
-#      block:
-#        - name: Populate instance config dict
-#          set_fact:
-#            instance_conf_dict: {
-#              'instance': "{{ }}",
-#              'address': "{{ }}",
-#              'user': "{{ }}",
-#              'port': "{{ }}",
-#              'identity_file': "{{ }}", }
-#          with_items: "{{ server.results }}"
-#          register: instance_config_dict
-#
-#        - name: Convert instance config dict to a list
-#          set_fact:
-#            instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
-#
-#        - name: Dump instance config
-#          copy:
-#            content: |
-#              # Molecule managed
-#
-#              {{ instance_conf | to_json | from_json | to_yaml }}
-#            dest: "{{ molecule_instance_config }}"
