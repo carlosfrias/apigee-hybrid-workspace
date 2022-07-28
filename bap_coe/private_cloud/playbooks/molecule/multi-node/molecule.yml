@@ -20,6 +20,9 @@ provisioner:
     destroy: destroy.yml
     create: create.yml
     converge: converge.yml
+  inventory:
+    links:
+      hosts: ../../work_dir/${PROJECT_ID}/inventory
   config_options:
     defaults:
       inventory: ../../work_dir/${PROJECT_ID}/inventory

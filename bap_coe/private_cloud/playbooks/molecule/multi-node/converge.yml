@@ -54,7 +54,11 @@
 - name: Distribute Configuration File to Planet
   hosts: edge
   gather_facts: no
-  tags: ['copy']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee"
@@ -98,7 +102,11 @@
 
 - name: Complete OS Pre-requisites
   hosts: edge
-  tags: ['os']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -138,8 +146,8 @@
   #      - google-compute-engine
 
   vars_files:
-  - ./attributes.yml
-  #      - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   collections:
   - bap_coe.private_cloud
@@ -158,7 +166,11 @@
   hosts: "{{ CASSANDRA_SEED_NODE | default('ds[0]') }}"
   gather_facts: no
   serial: 1
-  tags: ['ds','ds-seed']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -176,7 +188,11 @@
   hosts: "ds,{{ CASSANDRA_SEED_NODE | default('ds[0]') }}!"
   gather_facts: no
   serial: 1
-  tags: ['ds']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -193,7 +209,11 @@
   hosts: ms
   gather_facts: no
   serial: 1
-  tags: ['ms']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -211,7 +231,11 @@
 - name: Configure & Install Router and Message Processor
   hosts: rmp
   gather_facts: no
-  tags: ['edge','rmp']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -230,7 +254,11 @@
 - name: Configure & Install Router
   hosts: router
   gather_facts: no
-  tags: ['router','edge']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -248,7 +276,11 @@
 - name: Configure & Install Message Processor
   hosts: mp
   gather_facts: no
-  tags: ['mp','edge']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -266,7 +298,11 @@
 - name: Configure & Install Qpid
   hosts: qpid
   gather_facts: no
-  tags: ['qpid','edge','analytics']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -286,7 +322,11 @@
   hosts: pgmaster,pgstandby,pg[0]
   serial: 1
   gather_facts: no
-  tags: ['pg','edge', 'analytics']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -305,7 +345,11 @@
   hosts: pgmaster
   serial: 1
   gather_facts: no
-  tags: ['pgmaster','edge', 'analytics']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -325,7 +369,11 @@
   hosts: pgstandby
   serial: 1
   gather_facts: no
-  tags: ['pgstandby','edge', 'analytics']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -346,6 +394,11 @@
   serial: 1
   gather_facts: no
   tags: ['org']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -362,6 +415,11 @@
   hosts: ds
   serial: 1
   tags: ['expansion']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
@@ -380,6 +438,11 @@
   hosts: ms
   serial: 1
   tags: ['validate']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "~/.apigee-secure"
