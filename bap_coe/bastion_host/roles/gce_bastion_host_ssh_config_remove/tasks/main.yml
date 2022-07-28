@@ -52,10 +52,6 @@
   set_fact:
     instance_info: "{{ instance_info | from_yaml }}"
 
-- name: Show instance_info
-  debug:
-    msg: "{{ instance_info }}"
-
 - block:
   - name: Extract external IP address
     set_fact:
