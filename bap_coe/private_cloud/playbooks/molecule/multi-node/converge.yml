@@ -9,8 +9,8 @@
 
   vars:
     property_folders:
-      - "{{ '~' | expanduser }}/.apigee-secure"
-      - "{{ '~' | expanduser }}/.apigee"
+      - "{{ '~' | expand_user }}/.apigee-secure"
+      - "{{ '~' | expand_user }}/.apigee"
 
   collections:
     - bap_coe.private_cloud
