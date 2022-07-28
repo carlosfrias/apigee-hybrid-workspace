@@ -1,6 +1,7 @@
 ---
 - name: Collect Configuration Information for Planet
   hosts: edge
+  tags: ['cache','response-file','copy']
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -27,6 +28,7 @@
 - name: Generate Configuration for Planet
   hosts: ms
   gather_facts: no
+  tags: ['response-file','copy']
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -54,6 +56,7 @@
 - name: Distribute Configuration File to Planet
   hosts: edge
   gather_facts: no
+  tags: ['copy']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -102,6 +105,7 @@
 
 - name: Complete OS Pre-requisites
   hosts: edge
+  tags: ['os']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -166,6 +170,7 @@
   hosts: "{{ CASSANDRA_SEED_NODE | default('ds[0]') }}"
   gather_facts: no
   serial: 1
+  tags: ['ds','ds-seed']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -188,6 +193,7 @@
   hosts: "ds,{{ CASSANDRA_SEED_NODE | default('ds[0]') }}!"
   gather_facts: no
   serial: 1
+  tags: ['ds']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -209,6 +215,7 @@
   hosts: ms
   gather_facts: no
   serial: 1
+  tags: ['ms']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -231,6 +238,7 @@
 - name: Configure & Install Router and Message Processor
   hosts: rmp
   gather_facts: no
+  tags: ['edge','rmp']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -254,6 +262,7 @@
 - name: Configure & Install Router
   hosts: router
   gather_facts: no
+  tags: ['router','edge']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -276,6 +285,7 @@
 - name: Configure & Install Message Processor
   hosts: mp
   gather_facts: no
+  tags: ['mp','edge']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -298,6 +308,7 @@
 - name: Configure & Install Qpid
   hosts: qpid
   gather_facts: no
+  tags: ['qpid','edge','analytics']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -322,6 +333,7 @@
   hosts: pgmaster,pgstandby,pg[0]
   serial: 1
   gather_facts: no
+  tags: ['pg','edge', 'analytics']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -345,6 +357,7 @@
   hosts: pgmaster
   serial: 1
   gather_facts: no
+  tags: ['pgmaster','edge', 'analytics']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -369,6 +382,7 @@
   hosts: pgstandby
   serial: 1
   gather_facts: no
+  tags: ['pgstandby','edge', 'analytics']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
