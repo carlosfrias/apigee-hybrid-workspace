@@ -14,11 +14,11 @@ bastion_host_private_key: ~/.ssh/google_compute_engine
 
 bastion_host_config: |
   Host {{ NAME_INSTANCE_PREFIX }}*
-    ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}.{{ GCP_ZONE }}.{{ PROJECT_ID }}
+    ProxyCommand ssh -W %h:%p {{ NAME_INSTANCE_PREFIX }}-1.{{ GCP_ZONE }}.{{ PROJECT_ID }}
     IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
 
   Host {{ bastion_host_ip }}
-    Hostname {{ NAME_INSTANCE_PREFIX }}
+    Hostname {{ NAME_INSTANCE_PREFIX }}-1
     User {{ GCLOUD_ACCOUNT_USER }}
     IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') | expanduser }}
     ControlMaster auto
