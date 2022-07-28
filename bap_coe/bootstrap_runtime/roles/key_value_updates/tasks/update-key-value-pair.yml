@@ -19,10 +19,10 @@
     msg: "Please provide a key_value_pair.file_name to update"
   when: key_value_pair.file_name is not defined
 
-#- name: Assert file name exists
-#  file:
-#    path: "{{ key_value_pair.file_name }}"
-#    state: touch
+- name: Assert file name exists
+  file:
+    path: "{{ key_value_pair.file_name }}"
+    state: touch
 
 - name: Update key and value in target file
   replace:
