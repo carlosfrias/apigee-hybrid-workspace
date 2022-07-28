@@ -14,6 +14,6 @@ bastion_host_private_key: ~/.ssh/google_compute_engine
 
 bastion_host_config: |
   Host {{ bastion_target_host_range }}
-    ProxyCommand ssh -W %h:%p {{ NAME_INSTANCE_PREFIX }}-1.{{ GCP_ZONE }}.{{ PROJECT_ID }}
-    IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
+      ProxyCommand ssh -W %h:%p {{ NAME_INSTANCE_PREFIX }}-1.{{ GCP_ZONE }}.{{ PROJECT_ID }}
+      IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
 
