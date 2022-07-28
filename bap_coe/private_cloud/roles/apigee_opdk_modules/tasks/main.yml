@@ -12,10 +12,9 @@
     register: props
 
   - name: Load variables
-    ignore_errors: yes
     include_vars:
       file: "{{ item.path | expanduser }}"
-    with_subelements:
+    with_items:
     - "{{ props.results }}"
 #    - files
 
