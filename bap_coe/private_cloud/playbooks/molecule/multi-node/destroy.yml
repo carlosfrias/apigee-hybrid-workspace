@@ -2,7 +2,7 @@
 - name: Destroy
   hosts: localhost
   connection: local
-#  no_log: "{{ molecule_no_log }}"
+  no_log: "{{ molecule_no_log }}"
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -28,29 +28,3 @@
     with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
     loop_control:
       loop_var: instance
-
-#
-#
-#
-#  vars:
-#    NAME_INSTANCE_PREFIX: dc-1-ds
-#  #    PROJECT_IDS:
-#  #      - friasc-opdk-03292021-1347
-#
-#  tasks:
-##    - name: Remove projects in list
-##      include_role:
-##        name: gce_instance_remove
-##      vars:
-##        PROJECT_ID: "{{ item }}"
-##      with_items: "{{ INSTANCE_NAMES }}"
-#    - name: Create Private Cloud instances
-#      include_role:
-#        name: gce_instance_remove
-#      vars:
-#        NAME_INSTANCE_PREFIX: "{{ PRE_NAME_INSTANCE_PREFIX }}"
-#        NETWORK_TAGS: "{{ PRE_NETWORK_TAGS }}"
-#      with_sequence: "start=1 end={{ PRE_INSTANCE_COUNT }}"
-#      with_items:
-#      loop_control:
-#        loop_var: next_count
