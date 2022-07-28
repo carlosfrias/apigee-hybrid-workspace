@@ -49,7 +49,7 @@ STARTUP_SCRIPT: |
   sudo cp /usr/local/src/wrk /usr/local/bin/
 #  curl -s https://raw.githubusercontent.com/carlosfrias/apigee-hybrid-workspace/bap_coe_collections/setup-apigee-workspace.sh | bash
 
-key_value_pair:
+key_value_pairs:
 - { key: 'MOLECULE_DEBUG', value: 'True', separator: ':', filename: "{{ playbook_dir }}/.env.yml" }
 - { key: 'MOLECULE_VERBOSITY', value: '10', separator: ':', filename: "{{ playbook_dir }}/.env.yml" }
 - { key: 'PROJECT_ID', value: '{{ PROJECT_ID }}', separator: ':', filename: "{{ playbook_dir }}/.env.yml" }

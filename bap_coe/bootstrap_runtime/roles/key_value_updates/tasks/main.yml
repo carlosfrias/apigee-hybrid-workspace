@@ -2,7 +2,7 @@
 # tasks file for key-value-updates
 - name: Validate that key_value_pairs are provided
   fail:
-    msg: "Please provide KEY_VALUE_PAIRS={ key: '<key>', value: '<value>', separator: '<character>' file_name: '<filename>' }"
+    msg: "Please provide key_value_pairs={ key: '<key>', value: '<value>', separator: '<character>' file_name: '<filename>' }"
   when: key_value_pairs is not defined
 
 - include_tasks: update-key-value-pair.yml
