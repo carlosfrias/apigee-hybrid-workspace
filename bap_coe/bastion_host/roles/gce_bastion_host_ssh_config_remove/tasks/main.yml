@@ -42,7 +42,7 @@
 
 - name: Capture data as string
   set_fact:
-    instance_info: "{{ instance_info.stdout | str }}"
+    instance_info: "{{ instance_info.stdout }}"
 
 - name: Remove '---'
   set_fact:
