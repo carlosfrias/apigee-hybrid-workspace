@@ -11,6 +11,8 @@
   collections:
      - bap_coe.gcp_management
 
+  roles:
+    - { role: service_account_file_path }
 
   vars:
     ACCESS_TYPE: 'int'

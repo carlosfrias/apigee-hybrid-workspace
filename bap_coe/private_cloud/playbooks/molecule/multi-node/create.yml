@@ -22,7 +22,6 @@
         GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
       }
     - { role: service_account_file_path }
-
     - { role: gce_network_create }
     - { role: gce_firewall_create }
 
