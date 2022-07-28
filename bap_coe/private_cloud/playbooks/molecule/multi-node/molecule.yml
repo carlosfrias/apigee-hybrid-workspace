@@ -13,14 +13,18 @@ platforms:
 provisioner:
   name: ansible
   ansible_args:
-    - -i=$MOLECULE_PROJECT_DIRECTORY/inventory
-    - -u=friasc
-    - --private-key=~/.ssh/google_compute_engine
+  - -i=../../work_dir/${PROJECT_ID}/inventory
+  - -u=friasc
+  - --private-key=~/.ssh/google_compute_engine
   playbooks:
     create: create.yml
 #    destroy: ../../infrastructure-delete.yml
 #    prepare: ../../infrastructure-prepare-multi-node.yml
-#    converge: ../../install-multi-node.yml
+    prepare: prepare.yml
+    converge: converge.yml
+  config_options:
+    defaults:
+      inventory: ../../work_dir/${PROJECT_ID}/inventory
 verifier:
   name: ansible
   log: True
