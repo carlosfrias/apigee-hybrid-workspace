@@ -15,7 +15,7 @@ provisioner:
   playbooks:
     create: create.yml
     converge: converge.yml
-    destroy: delete.yml
+#    destroy: delete.yml
   config_options:
     defaults:
       inventory: ../../work_dir/${PROJECT_ID}/inventory
