@@ -18,12 +18,6 @@
     - PROJECT_ID is defined
     msg: "Please provide PROJECT_ID"
 
-- name: Assert SERVICE_ACCOUNT_EMAIL provided
-  assert:
-    that:
-    - SERVICE_ACCOUNT_EMAIL is defined
-    msg: "Please provide SERVICE_ACCOUNT_EMAIL"
-
 - name: Assert SERVICE_ACCOUNT_FILE provided
   assert:
     that:
