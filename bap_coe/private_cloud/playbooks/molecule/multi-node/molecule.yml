@@ -43,7 +43,7 @@ provisioner:
       pipelining: false
       scp_if_ssh: True
     inventory:
-      enable_plugins: google.cloud.gcp_compute
+      enable_plugins: gcp_compute
 verifier:
   name: ansible
   log: True
