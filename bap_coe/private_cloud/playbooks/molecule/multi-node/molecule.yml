@@ -19,6 +19,7 @@ provisioner:
     destroy: destroy.yml
     create: create.yml
     converge: converge.yml
+    prepare: prepare.yml
   config_options:
     defaults:
       interpreter_python: auto_silent
