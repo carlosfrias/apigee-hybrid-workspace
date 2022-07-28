@@ -13,9 +13,9 @@ platforms:
 provisioner:
   name: ansible
   playbooks:
-    create: ../create.yml
-    converge: ../converge.yml
-    destroy: ../delete.yml
+    create: create.yml
+    converge: converge.yml
+    destroy: delete.yml
   config_options:
     defaults:
       inventory: ../../work_dir/${PROJECT_ID}/inventory
