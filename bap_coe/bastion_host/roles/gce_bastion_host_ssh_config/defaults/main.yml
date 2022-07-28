@@ -11,3 +11,16 @@ bastion_host_private_key: ~/.ssh/google_compute_engine
 #bastion_host_ip: 35.237.195.103
 #bastion_host_ip: 35.202.241.245
 #bastion_host_user: friasc
+
+bastion_host_config: |
+  Host {{ NAME_INSTANCE_PREFIX }}*
+    ProxyCommand ssh -W %h:%p {{ bastion_host_ip }}.{{ GCP_ZONE }}.{{ PROJECT_ID }}
+    IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
+
+  Host {{ bastion_host_ip }}
+    Hostname {{ NAME_INSTANCE_PREFIX }}
+    User {{ GCLOUD_ACCOUNT_USER }}
+    IdentityFile {{ bastion_host_private_key | default('~/.ssh/id_rsa') | expanduser }}
+    ControlMaster auto
+    ControlPath ~/.ssh/ansible-%r@%h:%p
+    ControlPersist 5m
