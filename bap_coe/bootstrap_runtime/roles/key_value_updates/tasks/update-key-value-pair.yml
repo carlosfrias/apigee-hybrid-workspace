@@ -26,8 +26,8 @@
 
 - name: Update key and value in target file
   replace:
-    regexp: '(.*){{ key_value_pair.key }}(\s*){{ key_value_pair.separator }}(\s*)(.*)'
-    replace: '\1{{ key_value_pair.key }}\2{{ key_value_pair.separator }}\3{{ key_value_pair.value }}'
+    regexp: "{{ key_value_pair.key }}{{ key_value_pair.separator }}(.*)"
+    replace: '{{ key_value_pair.key }}{{ key_value_pair.separator }} {{ key_value_pair.value }}'
     path: "{{ key_value_pair.file_name }}"
   when: key_value_pair.separator is truthy and key_value_pair.type == "arg"
 
