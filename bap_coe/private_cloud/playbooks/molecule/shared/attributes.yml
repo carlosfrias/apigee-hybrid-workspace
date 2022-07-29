@@ -50,10 +50,10 @@ STARTUP_SCRIPT: |
 #  curl -s https://raw.githubusercontent.com/carlosfrias/apigee-hybrid-workspace/bap_coe_collections/setup-apigee-workspace.sh | bash
 
 key_value_pairs:
-- { key: 'MOLECULE_DEBUG', value: 'True', separator: ':', file_name: "{{ playbook_dir }}/.env.yml" }
-- { key: 'MOLECULE_VERBOSITY', value: '10', separator: ':', file_name: "{{ playbook_dir }}/.env.yml" }
-- { key: 'PROJECT_ID', value: '{{ PROJECT_ID }}', separator: ':', file_name: "{{ playbook_dir }}/.env.yml" }
-- { key: 'MOLECULE_INVENTORY_FILE', value: '$MOLECULE_PROJECT_DIRECTORY/inventory/${{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml', separator: ':', file_name: "{{ playbook_dir }}/.env.yml" }
+- { key: 'MOLECULE_DEBUG', value: 'True', separator: ':', file_name: "{{ playbook_dir }}/.env.yml" , type: "arg" }
+- { key: 'MOLECULE_VERBOSITY', value: '10', separator: ':', file_name: "{{ playbook_dir }}/.env.yml", type: "arg" }
+- { key: 'PROJECT_ID', value: '{{ PROJECT_ID }}', separator: ':', file_name: "{{ playbook_dir }}/.env.yml", type: "arg" }
+- { key: 'MOLECULE_INVENTORY_FILE', value: '$MOLECULE_PROJECT_DIRECTORY/inventory/${{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml', separator: ':', file_name: "{{ playbook_dir }}/.env.yml", type: "arg" }
 
 
 ORG_ROLE_BINDINGS:
