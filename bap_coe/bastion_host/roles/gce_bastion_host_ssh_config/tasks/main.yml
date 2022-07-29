@@ -56,10 +56,9 @@
   debug:
     msg: "{{ instance_info }}"
 
-- block:
-  - name: Extract external IP address
-    set_fact:
-      bastion_host_ip: "{{ instance_info.networkInterfaces[0].accessConfigs[0].natIP }}"
+- name: Extract external IP address
+  set_fact:
+    bastion_host_ip: "{{ instance_info.networkInterfaces[0].accessConfigs[0].natIP }}"
 
 - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
   blockinfile:
