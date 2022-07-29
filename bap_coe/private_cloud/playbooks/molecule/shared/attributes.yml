@@ -15,6 +15,7 @@ ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
+INVENTORY_FILENAME: "ansible_inventory.yml""
 NAME_INSTANCE_PREFIX: bastion
 bastion_target_host_range: 10.142.*.*
 TARGET_TAGS: "default-allow-ssh"

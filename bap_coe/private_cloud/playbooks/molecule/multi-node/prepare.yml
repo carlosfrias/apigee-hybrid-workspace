@@ -12,3 +12,5 @@
 
   roles:
   - { role: key_value_updates }
+  - { role: gce_dynamic_inventory_configure, INVENTORY_DIR: "{{ playbook_dir }}", INVENTORY_FILE_NAME: "ansible_inventory.yml" }
+
