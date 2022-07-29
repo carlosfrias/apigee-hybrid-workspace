@@ -50,6 +50,7 @@ STARTUP_SCRIPT: |
   sudo cp /usr/local/src/wrk /usr/local/bin/
 #  curl -s https://raw.githubusercontent.com/carlosfrias/apigee-hybrid-workspace/bap_coe_collections/setup-apigee-workspace.sh | bash
 
+# Update the .env.yml file for molecule to recognize the gcp dynamic inventory file.
 key_value_pairs:
 - { key: 'MOLECULE_DEBUG', value: 'True', separator: ':', file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml" , type: "arg" }
 - { key: 'MOLECULE_VERBOSITY', value: '10', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
