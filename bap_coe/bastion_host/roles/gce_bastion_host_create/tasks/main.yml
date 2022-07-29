@@ -11,7 +11,7 @@
     current_node_count: "1"
     ACCESS_TYPE: "ext"
     app_type: "{{ NAME_INSTANCE_PREFIX }}"
-    TARGET_TAGS: "{{ NAME_INSTANCE_PREFIX }}"
+    TARGET_TAGS: "{{ TARGET_TAGS }}"
 
 - name: Configure SSH ProxyCommand
   include_role:
