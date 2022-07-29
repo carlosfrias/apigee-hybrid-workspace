@@ -53,7 +53,7 @@ key_value_pairs:
 - { key: 'MOLECULE_DEBUG', value: 'True', separator: ':', file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml" , type: "arg" }
 - { key: 'MOLECULE_VERBOSITY', value: '10', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 - { key: 'PROJECT_ID', value: '{{ PROJECT_ID }}', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
-- { key: 'MOLECULE_INVENTORY_FILE', value: '$MOLECULE_PROJECT_DIRECTORY/inventory/${{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
+- { key: 'MOLECULE_INVENTORY_FILE', value: '$MOLECULE_PROJECT_DIRECTORY/inventory/$PROJECT_ID-gce-dynamic-inventory.gcp.yml', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 
 
 ORG_ROLE_BINDINGS:
@@ -138,10 +138,3 @@ UPDATE_ORG_POLICIES:
 - constraints/compute.restrictVpcPeering
 - constraints/compute.vmExternalIpAccess
 - constraints/compute.vmCanIpForward
-
-#PRIVATE_CLOUD_INSTANCES:
-#  - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
-#  - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
-#  - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
-#  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
-#  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
