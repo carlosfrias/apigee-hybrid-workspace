@@ -9,6 +9,7 @@
 
 - name: Refresh gcloud compute config-ssh
   command: "{{ item }} --project {{ PROJECT_ID }}"
+  delegate_to: 127.0.0.1
   with_items:
   - "gcloud compute config-ssh --remove"
   listen: "refresh gcp compute ssh config"
