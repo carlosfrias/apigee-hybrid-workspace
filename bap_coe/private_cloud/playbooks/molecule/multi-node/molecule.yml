@@ -37,7 +37,7 @@ provisioner:
       private_key_file: ~/.ssh/google_compute_engine
       ansible_shell_type: sh
       forks: 25
-      host_key_checking: false
+      host_key_checking: False
     ssh_connection:
       pipelining: false
       scp_if_ssh: True
