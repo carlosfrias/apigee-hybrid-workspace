@@ -67,7 +67,7 @@
     create: yes
     backup: yes
     mode: 0600
-    marker: "# {mark} {{ bastion_target_host_range }}* ANSIBLE MANAGED BLOCK"
+    marker: "# {mark} {{ bastion_target_host_range }}  * ANSIBLE MANAGED BLOCK"
     marker_begin: "{{ marker_begin }}"
     marker_end: "{{ marker_end }}"
     block: |
