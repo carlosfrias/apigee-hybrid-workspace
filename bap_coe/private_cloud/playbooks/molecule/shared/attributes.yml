@@ -52,8 +52,8 @@ STARTUP_SCRIPT: |
 
 # Update the .env.yml file for molecule to recognize the gcp dynamic inventory file.
 key_value_pairs:
-- { key: 'MOLECULE_DEBUG', value: 'True', separator: ':', file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml" , type: "arg" }
-- { key: 'MOLECULE_VERBOSITY', value: '10', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
+- { key: 'MOLECULE_DEBUG', value: '"True"', separator: ':', file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml" , type: "arg" }
+- { key: 'MOLECULE_VERBOSITY', value: '"10"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 - { key: 'PROJECT_ID', value: '{{ PROJECT_ID }}', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 - { key: 'MOLECULE_INVENTORY_FILE', value: '$MOLECULE_PROJECT_DIRECTORY/inventory/$PROJECT_ID-gce-dynamic-inventory.gcp.yml', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 
