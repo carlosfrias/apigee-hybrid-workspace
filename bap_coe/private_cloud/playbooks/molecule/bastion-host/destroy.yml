@@ -3,7 +3,6 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: "{{ molecule_no_log }}"
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
