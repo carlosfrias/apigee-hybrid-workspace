@@ -20,4 +20,5 @@
   - { role: service_account_file_path }
   - { role: service_account_file_processing }
   - { role: gce_bastion_host_delete }
+  - { role: gce_bastion_host_ssh_config_remove }
 
