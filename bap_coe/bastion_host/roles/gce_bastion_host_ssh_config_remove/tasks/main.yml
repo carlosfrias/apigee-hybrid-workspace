@@ -46,7 +46,7 @@
 
 - name: Show instance_info
   debug:
-    msg: "{{ data }}"
+    msg: "{{ data.name }}"
 
 - block:
   - name: Extract external IP address
