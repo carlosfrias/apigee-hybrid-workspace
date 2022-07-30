@@ -42,7 +42,7 @@
 
 - name: Show instance_info
   debug:
-    msg: "{{ instance_info.stdout }}"
+    msg: "{{ instance_info.stdout.networkInterfaces }}"
 
 - block:
   - name: Extract external IP address
