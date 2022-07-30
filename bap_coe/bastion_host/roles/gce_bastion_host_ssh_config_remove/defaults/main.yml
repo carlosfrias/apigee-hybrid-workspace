@@ -11,3 +11,4 @@ bastion_host_private_key: ~/.ssh/google_compute_engine
 #bastion_host_ip: 35.237.195.103
 #bastion_host_ip: 35.202.241.245
 #bastion_host_user: friasc
+
