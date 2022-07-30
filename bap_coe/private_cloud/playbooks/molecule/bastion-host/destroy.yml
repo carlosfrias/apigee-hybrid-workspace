@@ -8,10 +8,6 @@
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
     - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
-  vars:
-    FIREWALL_NAME_SUFFIX: "bastion"
-    bastion_host_name: bastion-1
-
   collections:
     - bap_coe.gcp_management
     - bap_coe.bastion_host

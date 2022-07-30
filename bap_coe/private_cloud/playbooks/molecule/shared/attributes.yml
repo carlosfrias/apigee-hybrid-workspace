@@ -18,6 +18,9 @@ INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
 INVENTORY_FILENAME: "ansible_inventory.yml"
 NAME_INSTANCE_PREFIX: bastion
 bastion_target_host_range: 10.142.*.*
+bastion_blockinfile_mark: "# {mark} {{ NAME_INSTANCE_PREFIX }}  * ANSIBLE MANAGED BLOCK"
+bastion_host_name: bastion-1
+FIREWALL_NAME_SUFFIX: "bastion"
 TARGET_TAGS: "default-allow-ssh"
 GCP_ZONE: us-east1-b
 CONTROL_SERVER_IMAGE_NAME: ops-server

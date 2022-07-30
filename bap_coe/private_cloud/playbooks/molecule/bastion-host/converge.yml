@@ -9,6 +9,8 @@
 
   vars:
     ACCESS_TYPE: "ext"
+    TARGET_TAGS: "default-allow-ssh"
+
 
   collections:
     - bap_coe.gcp_management
