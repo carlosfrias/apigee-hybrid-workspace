@@ -42,15 +42,15 @@
 
 - name: Capture data as string
   set_fact:
-    instance_info: "{{ instance_info.stdout }}"
+    instance_info_data: "{{ instance_info.stdout }}"
 
 - name: Remove '---'
   set_fact:
-    instance_info: "{{ instance_info | split('---') }}"
+    instance_info_data: "{{ instance_info_data | split('---') }}"
 
 - name: Convert to yaml
   set_fact:
-    instance_info: "{{ instance_info | from_yaml }}"
+    instance_info_data: "{{ instance_info_data | from_yaml }}"
 
 - block:
   - name: Extract external IP address
