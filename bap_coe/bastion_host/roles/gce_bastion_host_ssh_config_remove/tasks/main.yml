@@ -46,7 +46,7 @@
 
 - name: Show instance_info
   debug:
-    msg: "{{ data.name }}"
+    msg: "{{ data.networkInterfaces[0].accessConfigs[0].natIP }}"
 
 - block:
   - name: Extract external IP address
