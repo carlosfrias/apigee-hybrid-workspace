@@ -40,17 +40,9 @@
   command: gcloud compute instances list --format yaml --project {{ PROJECT_ID }} --filter "name = {{ NAME_INSTANCE_PREFIX }}-1"
   register: instance_info
 
-#- name: Capture data as string
-#  set_fact:
-#    instance_info: "{{ instance_info.stdout }}"
-#
-#- name: Remove '---'
-#  set_fact:
-#    instance_info: "{{ instance_info | split('---') }}"
-
-#- name: Convert to yaml
-#  set_fact:
-#    instance_info: "{{ instance_info | from_yaml }}"
+- name: Show instance_info
+  debug:
+    msg: instance_info
 
 - block:
   - name: Extract external IP address
