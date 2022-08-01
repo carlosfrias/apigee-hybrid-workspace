@@ -19,7 +19,7 @@
           "{{ FOLDER_ROLE_BINDINGS }}",
           "{{ ORG_ROLE_BINDINGS }}",
           "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"
-        ]
+        ],
         ORG_ID: "{{ PROJECT_ID }}"
       }
     - { role: gcp_resource_manager_constraints_disable_enforce }
