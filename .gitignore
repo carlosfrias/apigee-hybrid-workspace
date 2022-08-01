@@ -14,3 +14,4 @@ transaction.yaml
 **/resources/**
 *.swp
 **/ansible.cfg
+**/attributes.yml
