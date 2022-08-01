@@ -1,5 +1,5 @@
 ---
-- name: Create infrastructure for private cloud in GCP
+- name: Delete infrastructure for private cloud in GCP
   hosts: localhost
   connection: local
 
@@ -9,8 +9,8 @@
 
   collections:
     - bap_coe.gcp_management
-    - bap_coe.bootstrap_runtime
 
   roles:
-    - { role: gcp_project_create }
-
+    - { role: gcp_project_delete }
+    - { role: gcp_resource_manager_folders_get_folder_id }
+    - { role: gcp_resource_manager_folders_delete }

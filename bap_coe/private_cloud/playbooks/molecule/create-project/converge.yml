@@ -18,8 +18,6 @@
       tags: ['services'],
       GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
     }
-  - { role: gcp_resource_manager_constraints_disable_enforce }
-  - { role: gcp_resource_manager_update_org_policy }
   - { role: service_account_file_path }
   - { role: gcp_iam_service_account_create }
   - {
