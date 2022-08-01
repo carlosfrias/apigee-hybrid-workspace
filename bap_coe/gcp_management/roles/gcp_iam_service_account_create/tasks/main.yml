@@ -18,6 +18,12 @@
       - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
+- name: Assert that SERVICE_OP is indicated
+  assert:
+    that:
+      - SERVICE_OP is defined
+    msg: "Please indicate the SERVICE_OP, should be either 'create' or 'delete'"
+
 - name: Query for ACTIVE projects list
   shell: gcloud projects list --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='lifecycleState:ACTIVE'
   register: ACTIVE_PROJECTS

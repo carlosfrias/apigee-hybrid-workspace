@@ -20,7 +20,7 @@
       SERVICE_OP: "enable"
     }
   - { role: service_account_file_path }
-  - { role: gcp_iam_service_account_create }
+  - { role: gcp_iam_service_account_create, SERVICE_OP: 'create' }
   - {
       role: gcp_iam_policy_bindings,
       BINDING_OP: "add",
