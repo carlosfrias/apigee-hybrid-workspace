@@ -12,7 +12,7 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-  - { role: gcp_resource_manager_folders_get_folder_id }
+  - { role: gcp_resource_manager_folders_get_folder_id, ORG_ID: "{{ PROJECT_ID }}" }
   - {
       role: gcp_project_services_enable,
       tags: ['services'],
