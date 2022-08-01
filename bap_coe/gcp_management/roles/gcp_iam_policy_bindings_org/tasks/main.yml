@@ -9,7 +9,7 @@
 - name: Assert that the ORG_ID is available
   assert:
     that:
-    - PROJECT_ID is defined
+    - ORG_ID is defined
     msg: "Please provide the ORG_ID"
 
 - name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
@@ -20,7 +20,7 @@
 
 - name: Update IAM roles to installation user
   shell: |
-    gcloud alpha organizations add-iam-policy-binding {{ ORG_ID | default( PROJECT_ID }} \
+    gcloud alpha organizations add-iam-policy-binding {{ ORG_ID }} \
      --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }} \
      --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
   with_items: "{{ ROLE_BINDINGS }}"
