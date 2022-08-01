@@ -17,10 +17,16 @@
     GCP_SERVICES: "{{ GCP_SERVICES }}"
 #    ROLE_BINDING: "{{ ROLE_BINDING  }}"
 
+- name: Assert that service enable or disable operation indicated
+  assert:
+    that:
+      - SERVICE_OP is defined
+    msg: "Please indicate the service operation, should be either 'enable' or 'disable'"
+
 - name: Enabling GCP APIs
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
-  shell: gcloud services enable {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
   with_items: "{{ GCP_SERVICES }}"
 #  poll: 2
 #  retries: 50
