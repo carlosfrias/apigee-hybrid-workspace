@@ -15,7 +15,8 @@
     - {
         role: gcp_project_services_enable,
         tags: ['services'],
-        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+        SERVICE_OP: "enable"
       }
     # - { role: gcp_resource_manager_constraints_disable_enforce }
     # - { role: gcp_resource_manager_update_org_policy }

@@ -18,7 +18,7 @@ provisioner:
     - --private-key=~/.ssh/google_compute_engine
   playbooks:
     destroy: destroy.yml
-    create: create.yml
+#    create: create.yml
     converge: converge.yml
   config_options:
     defaults:
