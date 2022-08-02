@@ -36,7 +36,7 @@
     - BINDING_OP is defined
     msg: "Please provide the BINDING_OP, accepted values are 'add' or 'remove'"
 
-- name: Inform of availbility of IGNORE_ERRORS
+- name: Inform of availability of IGNORE_ERRORS
   debug:
     msg: "You can force stop on error by passing IGNORE_ERRORS: True if you need to."
 
@@ -44,7 +44,7 @@
   ignore_errors: "{{ IGNORE_ERRORS | default(False) }}"
   shell: |
     gcloud projects {{ BINDING_OP }}-iam-policy-binding {{ PROJECT_ID }} \
-      --member {{ ACCOUNT_TYPE }}:{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }} \
+      --member {{ ACCOUNT_TYPE }}:{{ SERVICE_ACCOUNT_EMAIL }} \
       --role={{ item }}
   with_items: "{{ POLICY_BINDINGS }}"
 

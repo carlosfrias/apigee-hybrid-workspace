@@ -11,7 +11,7 @@ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ 
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
 project_type: "opdk"
-PROJECT_ID: "friasc-{{ project_type }}-08022022-1223"
+PROJECT_ID: "friasc-{{ project_type }}-08022022-1409"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 FOLDER_DISPLAY_NAME: apigee-{{ project_type }}
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
