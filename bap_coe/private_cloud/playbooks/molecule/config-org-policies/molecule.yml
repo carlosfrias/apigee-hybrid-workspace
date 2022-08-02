@@ -12,6 +12,7 @@ platforms:
   - name: config-org-policies
 provisioner:
   name: ansible
+#  ansible_args:
   playbooks:
 #    create: create.yml
     converge: converge.yml

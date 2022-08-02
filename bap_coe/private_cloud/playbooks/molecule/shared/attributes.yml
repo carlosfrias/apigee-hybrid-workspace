@@ -10,8 +10,10 @@ GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
-PROJECT_ID: "friasc-abm-07182022-1621"
+project_type: "opdk"
+PROJECT_ID: "friasc-{{ project_type }}-08022022-0823"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
+FOLDER_DISPLAY_NAME: apigee-{{ project_type }}
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
@@ -29,10 +31,9 @@ ORG_BINDING_PROPAGATION_TIMEOUT: 100
 ACCESS_TYPE: int
 VPC_NETWORK_NAME: 'default'
 #TIME_TO_PROPAGATE_BINDINGS: 20
+
 FOLDER_ROLE_BINDINGS:
   - roles/resourcemanager.folderAdmin
-
-FOLDER_DISPLAY_NAME: apigee-opdk
 AUTHORIZATION_KIND: serviceaccount
 RESOURCE_GCP_ZONE: "us-central1-c"
 #MACHINE_TYPE: f1-micro

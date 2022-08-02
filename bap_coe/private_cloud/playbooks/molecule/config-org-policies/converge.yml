@@ -1,5 +1,5 @@
 ---
-- name: Create infrastructure for private cloud in GCP
+- name: Configure org policies
   hosts: localhost
   connection: local
 

@@ -24,3 +24,4 @@
       cacheable: yes
       PROJECT_ID: "{{ SERVICE_ACCOUNT_FILE_CONTENT['project_id'] }}"
       SERVICE_ACCOUNT_EMAIL: "{{ SERVICE_ACCOUNT_FILE_CONTENT['client_email'] }}"
+  when: valid_service_account_file_path.stat.exists
