@@ -41,11 +41,11 @@
       cacheable: yes
       GCLOUD_PROJECT_CREATE_CMD: "gcloud projects create {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}"
 
-  - name: Add ORG_ID if provided to base project create command
+  - name: Add GCLOUD_ORG_ID if provided to base project create command
     set_fact:
       cacheable: yes
-      GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization {{ ORG_ID }}"
-    when: ORG_ID is defined and FOLDER_ID is not defined
+      GCLOUD_PROJECT_CREATE_CMD: "{{ GCLOUD_PROJECT_CREATE_CMD }} --organization {{ GCLOUD_ORG_ID }}"
+    when: GCLOUD_ORG_ID is defined and FOLDER_ID is not defined
 
   - name: Add FOLDER_ID if provided to base project create command
     set_fact:
@@ -82,7 +82,7 @@
             include_role:
               name: gcp_project_services_enable
             vars:
-              GCP_SERVICES: ['cloudresourcemanager.googleapis.com']
+              GCLOUD_PROJECT_SERVICES: ['cloudresourcemanager.googleapis.com']
 
           - name: RESCUE - Obtain PROJECT_NUMBER
             shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)" --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}

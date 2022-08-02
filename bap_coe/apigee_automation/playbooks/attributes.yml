@@ -12,7 +12,7 @@ CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }
 ORG_BINDING_PROPAGATION_TIMEOUT: 100
 #TIME_TO_PROPAGATE_BINDINGS: 20
 
-GCP_SERVICES:
+GCLOUD_PROJECT_SERVICES:
   - "compute.googleapis.com"
   - "cloudresourcemanager.googleapis.com"
   - "servicenetworking.googleapis.com"
@@ -39,7 +39,7 @@ GCP_SERVICES:
   - "cloudtrace.googleapis.com"
   - "privateca.googleapis.com"
 
-SERVICE_ACCOUNT_ROLE_BINDINGS:
+GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/editor"
   - "roles/compute.admin"
   - "roles/compute.networkUser"
@@ -55,7 +55,7 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/resourcemanager.projectDeleter"
   - "roles/resourcemanager.projectCreator"
 
-ORG_ROLE_BINDINGS:
+GCLOUD_ORG_ROLE_BINDINGS:
   - "roles/owner"
   - "roles/billing.admin"
   - "roles/billing.projectManager"
@@ -71,11 +71,11 @@ ORG_ROLE_BINDINGS:
   - "roles/iap.tunnelResourceAccessor"
 
 #  Configure project admin role bindings
-PROJECT_ADMIN_ROLE_BINDINGS:
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
   - "roles/resourcemanager.projectDeleter"
   - "roles/resourcemanager.projectCreator"
 
-FOLDER_ROLE_BINDINGS:
+GCLOUD_FOLDER_ROLE_BINDINGS:
   - roles/resourcemanager.folderEditor
   - roles/resourcemanager.folderViewer
 

@@ -29,7 +29,7 @@ ORG_BINDING_PROPAGATION_TIMEOUT: 100
 ACCESS_TYPE: int
 VPC_NETWORK_NAME: 'default'
 #TIME_TO_PROPAGATE_BINDINGS: 20
-FOLDER_ROLE_BINDINGS:
+GCLOUD_FOLDER_ROLE_BINDINGS:
   - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigee-opdk
@@ -63,7 +63,7 @@ key_value_pairs:
 - { key: 'MOLECULE_INVENTORY_FILE', value: '\"$MOLECULE_PROJECT_DIRECTORY/inventory/$PROJECT_ID-gce-dynamic-inventory.gcp.yml\"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 
 
-ORG_ROLE_BINDINGS:
+GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/billing.admin"
 - "roles/billing.projectManager"
@@ -84,12 +84,12 @@ ORG_ROLE_BINDINGS:
 #- "roles/networkmanagement.viewer"
 
 #  Configure project admin role bindings
-PROJECT_ADMIN_ROLE_BINDINGS:
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 - "roles/resourcemanager.projects.createBillingAssignment"
 
-SERVICE_ACCOUNT_ROLE_BINDINGS:
+GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
@@ -101,7 +101,7 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 #- "roles/iam.serviceAccountKeyAdmin"
 #- "roles/compute.loadBalancerAdmin"
 
-GCP_SERVICES:
+GCLOUD_PROJECT_SERVICES:
 - "compute.googleapis.com"
 - "apigee.googleapis.com"
 - "servicenetworking.googleapis.com"

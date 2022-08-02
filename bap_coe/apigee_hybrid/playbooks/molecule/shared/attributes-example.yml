@@ -12,7 +12,7 @@ ORG_BINDING_PROPAGATION_TIMEOUT: 100
 ACCESS_TYPE: int
 VPC_NETWORK_NAME: 'default'
 #TIME_TO_PROPAGATE_BINDINGS: 20
-FOLDER_ROLE_BINDINGS:
+GCLOUD_FOLDER_ROLE_BINDINGS:
   - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigee-opdk
@@ -37,7 +37,7 @@ STARTUP_SCRIPT: |
   sudo cp /usr/local/src/wrk /usr/local/bin/
 #  curl -s https://raw.githubusercontent.com/carlosfrias/apigee-hybrid-workspace/bap_coe_collections/setup-apigee-workspace.sh | bash
 
-ORG_ROLE_BINDINGS:
+GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/billing.admin"
 - "roles/billing.projectManager"
@@ -58,11 +58,11 @@ ORG_ROLE_BINDINGS:
 #- "roles/networkmanagement.viewer"
 
 #  Configure project admin role bindings
-PROJECT_ADMIN_ROLE_BINDINGS:
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 
-SERVICE_ACCOUNT_ROLE_BINDINGS:
+GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
@@ -74,7 +74,7 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 #- "roles/iam.serviceAccountKeyAdmin"
 #- "roles/compute.loadBalancerAdmin"
 
-GCP_SERVICES:
+GCLOUD_PROJECT_SERVICES:
 - "compute.googleapis.com"
 - "apigee.googleapis.com"
 - "servicenetworking.googleapis.com"

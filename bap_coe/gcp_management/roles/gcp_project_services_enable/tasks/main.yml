@@ -3,8 +3,8 @@
 - name: Assert that GCP services list is available
   assert:
     that:
-      - GCP_SERVICES is defined
-    msg: "Please provide GCP_SERVICES collection with list of services to enable."
+      - GCLOUD_PROJECT_SERVICES is defined
+    msg: "Please provide GCLOUD_PROJECT_SERVICES collection with list of services to enable."
 
 - name: Assert that the PROJECT_ID is available
   assert:
@@ -14,7 +14,7 @@
 
 - name: Set GCP Services List
   set_fact:
-    GCP_SERVICES: "{{ GCP_SERVICES }}"
+    GCLOUD_PROJECT_SERVICES: "{{ GCLOUD_PROJECT_SERVICES }}"
 #    ROLE_BINDING: "{{ ROLE_BINDING  }}"
 
 - name: Assert that service enable or disable operation indicated
@@ -27,7 +27,7 @@
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
   shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
-  with_items: "{{ GCP_SERVICES }}"
+  with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
 #  poll: 2
 #  retries: 50
 #  async: 180

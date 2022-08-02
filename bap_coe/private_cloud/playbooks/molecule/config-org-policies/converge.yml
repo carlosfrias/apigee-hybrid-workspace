@@ -16,11 +16,10 @@
         role: gcp_iam_policy_bindings_org,
         GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
         ROLE_BINDINGS: [
-          "{{ FOLDER_ROLE_BINDINGS }}",
-          "{{ ORG_ROLE_BINDINGS }}",
-          "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"
-        ],
-        ORG_ID: "{{ PROJECT_ID }}"
+          "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}",
+          "{{ GCLOUD_ORG_ROLE_BINDINGS }}",
+          "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+        ]
       }
     - { role: gcp_resource_manager_constraints_disable_enforce }
     - { role: gcp_resource_manager_update_org_policy }

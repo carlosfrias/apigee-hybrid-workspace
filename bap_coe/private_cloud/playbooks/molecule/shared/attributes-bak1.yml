@@ -7,7 +7,7 @@ INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 NAME_INSTANCE_PREFIX: dc-1
 GCP_ZONE: us-east1-b
 DISK_SIZE: 100
-GCP_SERVICES:
+GCLOUD_PROJECT_SERVICES:
   - "compute.googleapis.com"
   - "cloudresourcemanager.googleapis.com"
   - "servicenetworking.googleapis.com"
@@ -35,12 +35,12 @@ GCP_SERVICES:
 #  - "privateca.googleapis.com"
 
 
-FOLDER_ROLE_BINDINGS:
+GCLOUD_FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigee-private-cloud
 
-ORG_ROLE_BINDINGS:
+GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/billing.admin"
 - "roles/billing.projectManager"
@@ -54,7 +54,7 @@ ORG_ROLE_BINDINGS:
 - "roles/iap.tunnelResourceAccessor"
 
 #  Configure project admin role bindings
-PROJECT_ADMIN_ROLE_BINDINGS:
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 

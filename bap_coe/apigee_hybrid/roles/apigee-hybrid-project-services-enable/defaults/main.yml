@@ -1,6 +1,6 @@
 ---
 # defaults file for roles/apigee-hybrid-project-services-enable
-DEFAULT_GCP_SERVICES:
+DEFAULT_GCLOUD_PROJECT_SERVICES:
 - "container.googleapis.com"
 - "compute.googleapis.com"
 - "stackdriver.googleapis.com"
@@ -24,7 +24,7 @@ DEFAULT_GCP_SERVICES:
 - "logging.googleapis.com"
 - "cloudtrace.googleapis.com"
 - "privateca.googleapis.com"
-DEFAULT_ROLE_BINDING:
+DEFAULT_GCLOUD_PROJECT_ROLE_BINDING:
 - roles/editor
 - roles/compute.admin
 - roles/container.admin

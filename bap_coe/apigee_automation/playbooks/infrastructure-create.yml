@@ -12,14 +12,14 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-    - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ ORG_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
+    - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ GCLOUD_ORG_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
     - { role: gcp_project_create, tags: [ 'project' ] }
 #      { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: ["{{  }}"] }
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
     - { role: gcp_iam_service_account_keys, tags: [ 'keys','roles','firewall'] }
     - { role: gcp_project_services_enable, tags: ['services'] }
     - { role: gcp_resource_manager_constraints_disable_enforce }
-    - { role: gcp_iam_policy_bindings_service_account, tags: ['roles'], ROLE_BINDINGS: ["{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}"] }
+    - { role: gcp_iam_policy_bindings_service_account, tags: ['roles'], ROLE_BINDINGS: ["{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}"] }
     - { role: gce_network_create }
     - { role: gce_firewall_create }
     - { role: gce_instance_create, tags: ['instance'], TARGET_TAGS: ['allow-ssh'], ACCESS_TYPE: "int" }

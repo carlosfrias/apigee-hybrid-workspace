@@ -6,11 +6,11 @@
     - ROLE_BINDINGS is defined
     msg: "Please provide ROLE_BINDINGS collection with list of roles to assign."
 
-- name: Assert that the ORG_ID is available
+- name: Assert that the GCLOUD_ORG_ID is available
   assert:
     that:
-    - ORG_ID is defined
-    msg: "Please provide the ORG_ID"
+    - GCLOUD_ORG_ID is defined
+    msg: "Please provide the GCLOUD_ORG_ID"
 
 - name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
   assert:
@@ -20,7 +20,7 @@
 
 - name: Update IAM roles to installation user
   shell: |
-    gcloud alpha organizations add-iam-policy-binding {{ ORG_ID }} \
+    gcloud alpha organizations add-iam-policy-binding {{ GCLOUD_ORG_ID }} \
      --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }} \
      --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
   with_items: "{{ ROLE_BINDINGS }}"

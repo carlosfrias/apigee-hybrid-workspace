@@ -1,10 +1,10 @@
 ---
 # tasks file for gcp_resource_manager_folders_get_folder_id
-- name: Assert that ORG_ID is available
+- name: Assert that GCLOUD_ORG_ID is available
   assert:
     that:
-    - ORG_ID is defined
-    msg: "Please provide ORG_ID collection with list of constraints to no longer enforce."
+    - GCLOUD_ORG_ID is defined
+    msg: "Please provide GCLOUD_ORG_ID collection with list of constraints to no longer enforce."
 
 - name: Assert that the FOLDER_DISPLAY_NAME is available
   assert:
@@ -19,7 +19,7 @@
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
 - name: List organization folders
-  shell: gcloud resource-manager folders list --organization {{ ORG_ID }} --format json --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  shell: gcloud resource-manager folders list --organization {{ GCLOUD_ORG_ID }} --format json --account {{ GCLOUD_ACCOUNT_EMAIL }}
   register: ORG_FOLDERS_LIST
 
 - name: Format folder list into JSON object

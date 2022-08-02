@@ -12,7 +12,7 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-#  - { role: gcp_resource_manager_folders_get_folder_id, ORG_ID: "{{ PROJECT_ID }}" }
+#  - { role: gcp_resource_manager_folders_get_folder_id, GCLOUD_ORG_ID: "{{ PROJECT_ID }}" }
   - {
       role: gcp_project_services_enable,
       tags: ['services'],
@@ -26,7 +26,7 @@
       BINDING_OP: "add",
       ACCOUNT_TYPE: "serviceAccount",
       GCLOUD_BINDING_ACCOUNT: "{{ SERVICE_ACCOUNT }}",
-      POLICY_BINDINGS: "{{ SERVICE_ACCOUNT_ROLE_BINDINGS }}",
+      POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
       GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
     }
   - { role: gcp_iam_service_account_keys }

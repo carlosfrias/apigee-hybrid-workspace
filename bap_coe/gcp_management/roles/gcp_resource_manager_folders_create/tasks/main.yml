@@ -1,10 +1,10 @@
 ---
 # tasks file for gcp_resource_manager_folders_create
-- name: Assert that ORG_ID is available
+- name: Assert that GCLOUD_ORG_ID is available
   assert:
     that:
-    - ORG_ID is defined
-    msg: "Please provide ORG_ID collection with list of constraints to no longer enforce."
+    - GCLOUD_ORG_ID is defined
+    msg: "Please provide GCLOUD_ORG_ID collection with list of constraints to no longer enforce."
 
 - name: Assert that the FOLDER_DISPLAY_NAME is available
   assert:
@@ -25,7 +25,7 @@
       gcloud beta resource-manager \
       folders create \
       --display-name {{ FOLDER_DISPLAY_NAME }} \
-      --organization {{ ORG_ID }} \
+      --organization {{ GCLOUD_ORG_ID }} \
       --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
     register: FOLDER_CREATE_STATUS
 

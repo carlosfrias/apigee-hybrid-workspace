@@ -2,8 +2,8 @@
 # tasks file for roles/apigee-hybrid-project-services-enable
 - name: Set GCP Services List
   set_fact:
-    GCP_SERVICES: "{{ GCP_SERVICES | default(DEFAULT_GCP_SERVICES) }}"
-    ROLE_BINDING: "{{ ROLE_BINDING | default(DEFAULT_ROLE_BINDING) }}"
+    GCP_SERVICES: "{{ GCLOUD_PROJECT_SERVICES | default(DEFAULT_GCLOUD_PROJECT_SERVICES) }}"
+    ROLE_BINDING: "{{ GCLOUD_PROJECT_ROLE_BINDING | default(DEFAULT_GCLOUD_PROJECT_ROLE_BINDING) }}"
 
 - name: Enabling GCP APIs
 #  this is now also done in the install_asm bash script.

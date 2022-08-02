@@ -3,7 +3,7 @@ GCLOUD_ACCOUNT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
 GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
 SERVICE_ACCOUNT_NAME: "{{ GCLOUD_ACCOUNT_USER }}-service-account"
 GCLOUD_ACCOUNT_PROJECT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
-SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+SERVICE_ACCOUNT_EMAIL: "{{ SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
 SERVICE_ACCOUNT_FILE_SUFFIX: "service-account-key"
 GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
@@ -11,7 +11,7 @@ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ 
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
 project_type: "opdk"
-PROJECT_ID: "friasc-{{ project_type }}-08022022-0823"
+PROJECT_ID: "friasc-{{ project_type }}-08022022-1125"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 FOLDER_DISPLAY_NAME: apigee-{{ project_type }}
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
@@ -32,7 +32,7 @@ ACCESS_TYPE: int
 VPC_NETWORK_NAME: 'default'
 #TIME_TO_PROPAGATE_BINDINGS: 20
 
-FOLDER_ROLE_BINDINGS:
+GCLOUD_FOLDER_ROLE_BINDINGS:
   - roles/resourcemanager.folderAdmin
 AUTHORIZATION_KIND: serviceaccount
 RESOURCE_GCP_ZONE: "us-central1-c"
@@ -64,7 +64,7 @@ key_value_pairs:
 - { key: 'MOLECULE_INVENTORY_FILE', value: '\"$MOLECULE_PROJECT_DIRECTORY/inventory/$PROJECT_ID-gce-dynamic-inventory.gcp.yml\"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 
 
-ORG_ROLE_BINDINGS:
+GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/billing.admin"
 - "roles/billing.projectManager"
@@ -85,12 +85,12 @@ ORG_ROLE_BINDINGS:
 #- "roles/networkmanagement.viewer"
 
 #  Configure project admin role bindings
-PROJECT_ADMIN_ROLE_BINDINGS:
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 - "roles/resourcemanager.projects.createBillingAssignment"
 
-SERVICE_ACCOUNT_ROLE_BINDINGS:
+GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
@@ -102,7 +102,7 @@ SERVICE_ACCOUNT_ROLE_BINDINGS:
 #- "roles/iam.serviceAccountKeyAdmin"
 #- "roles/compute.loadBalancerAdmin"
 
-GCP_SERVICES:
+GCLOUD_PROJECT_SERVICES:
 - "compute.googleapis.com"
 - "apigee.googleapis.com"
 - "servicenetworking.googleapis.com"

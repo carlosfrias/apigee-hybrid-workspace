@@ -45,11 +45,11 @@ STARTUP_SCRIPT: |
   make
   sudo cp /usr/local/src/wrk /usr/local/bin/
 
-FOLDER_ROLE_BINDINGS:
+GCLOUD_FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
 FOLDER_DISPLAY_NAME: apigeex
-ORG_ROLE_BINDINGS:
+GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/billing.admin"
 - "roles/billing.projectManager"
@@ -63,11 +63,11 @@ ORG_ROLE_BINDINGS:
 - "roles/iap.tunnelResourceAccessor"
 
 #  Configure project admin role bindings
-PROJECT_ADMIN_ROLE_BINDINGS:
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 
-GCP_SERVICES:
+GCLOUD_PROJECT_SERVICES:
 - "compute.googleapis.com"
 - "apigee.googleapis.com"
 - "servicenetworking.googleapis.com"
@@ -95,7 +95,7 @@ GCP_SERVICES:
 #- "cloudtrace.googleapis.com"
 #- "privateca.googleapis.com"
 
-SERVICE_ACCOUNT_ROLE_BINDINGS:
+GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/compute.admin"
 - "roles/compute.networkUser"
