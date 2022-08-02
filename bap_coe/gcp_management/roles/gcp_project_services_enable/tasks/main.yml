@@ -23,19 +23,23 @@
       - SERVICE_OP is defined
     msg: "Please indicate the service operation, should be either 'enable' or 'disable'"
 
-- name: Construct base gcloud services command
-  set_fact:
-    gcloud_command: "gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}"
-
-- name: Update base command for disable
-  set_fact:
-    gcloud_command: "{{ gcloud_command }} disable_dependent_services=true"
+- name: Enabling GCP APIs
+  #  this is now also done in the install_asm bash script.
+  #  This is required here before the install_asm requires it.
+  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
+  when: SERVICE_OP == 'enable'
+#  poll: 2
+#  retries: 50
+#  async: 180
 
 - name: Enabling GCP APIs
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
-  shell: "{{ gcloud_command }}"
+  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }} disable_dependent_services=true
+
   with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
+  when: SERVICE_OP == 'disable'
 #  poll: 2
 #  retries: 50
 #  async: 180
