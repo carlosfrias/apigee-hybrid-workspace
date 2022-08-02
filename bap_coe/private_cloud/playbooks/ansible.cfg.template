@@ -26,4 +26,4 @@ stderr_callback = yaml
 pipelining = True
 
 [inventory]
-enable_plugins = google.cloud.gcp_compute
+enable_plugins = gcp_compute

@@ -1,5 +1,5 @@
 ---
-- name: Create infrastructure for private cloud in GCP
+- name: Configure permissions and service accounts
   hosts: localhost
   connection: local
 

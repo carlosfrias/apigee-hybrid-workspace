@@ -1,22 +1,7 @@
 ---
-- name: Update molecule variables
-  hosts: localhost
-  connection: local
-
-  vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
-
-  collections:
-    bap_coe.bootstrap_runtime
-
-  roles:
-  - { role: key_value_updates }
-
 - name: Create infrastructure for private cloud in GCP
   hosts: localhost
   connection: local
-#  no_log: "{{ molecule_no_log }}"
 
   vars_files:
     - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
@@ -27,20 +12,10 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-    - { role: gcp_iam_service_account_create }
-    - {
-        role: gcp_iam_policy_bindings,
-        BINDING_OP: "add",
-        ACCOUNT_TYPE: "serviceAccount",
-        GCLOUD_BINDING_ACCOUNT: "{{ SERVICE_ACCOUNT }}",
-        POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
-        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
-      }
     - { role: service_account_file_path }
     - { role: service_account_file_processing }
     - { role: gce_network_create }
     - { role: gce_firewall_create }
-    - { role: gce_dynamic_inventory_configure }
 
   vars:
     ACCESS_TYPE: 'int'

@@ -12,53 +12,58 @@ platforms:
   - name: opdk-multi-node
 provisioner:
   name: ansible
-  ansible_args:
-  - -u=friasc
-  - --private-key=~/.ssh/google_compute_engine
   playbooks:
     destroy: destroy.yml
     create: create.yml
     converge: converge.yml
-    prepare: prepare.yml
+#    prepare: prepare.yml
+  inventory:
+    links:
+      hosts: ../../work_dir/${PROJECT_ID}/inventory
   config_options:
     defaults:
       interpreter_python: auto_silent
-      callbacks_whitelist: profile_tasks, timer, yaml
-      local_tmp: ../../work_dir/${PROJECT_ID}/tmp
-      fact_caching_connection: ../../work_dir/${PROJECT_ID}/bap_coe_apigee_hybrid
-      fact_caching: jsonfile
-      gathering: smart
-      merge_multiple_cli_tags: True
-      display_args_to_stdout: True
-      timeout: 60
       bin_ansible_callbacks: True
       stdout_callback: yaml
       stderr_callback: yaml
-      private_key_file: ~/.ssh/google_compute_engine
-      ansible_shell_type: sh
+      merge_multiple_cli_tags: True
+      display_args_to_stdout: True
+      timeout: 60
       forks: 25
-      host_key_checking: False
     ssh_connection:
       pipelining: false
       scp_if_ssh: True
+    inventory:
+      enable_plugins: gcp_compute
+
+
+#      callbacks_whitelist: profile_tasks, timer, yaml
+#      local_tmp: ../../work_dir/${PROJECT_ID}/tmp
+#      fact_caching_connection: ../../work_dir/${PROJECT_ID}/bap_coe_apigee_hybrid
+#      fact_caching: jsonfile
+#      gathering: smart
+#      private_key_file: ~/.ssh/google_compute_engine
+#      ansible_shell_type: sh
+#      host_key_checking: False
+
 verifier:
   name: ansible
-  log: True
-  config_options:
-    defaults:
-      interpreter_python: auto_silent
-      callback_whitelist: profile_tasks, timer, yaml
-      local_tmp: ~/.ansible/tmp
-      fact_caching_connection: ~/.ansible/cache/bap_coe_apigee_hybrid
-      fact_caching: jsonfile
-      gathering: smart
-      merge_multiple_cli_tags: True
-      display_args_to_stdout: True
-      timeout: 60
-      bin_ansible_callbacks: True
-      stdout_callback: yaml
-      stderr_callback: yaml
-    ssh_connection:
-      pipelining: false
-      scp_if_ssh: True
-
+#  log: True
+#  config_options:
+#    defaults:
+#      interpreter_python: auto_silent
+#      callback_whitelist: profile_tasks, timer, yaml
+#      local_tmp: ~/.ansible/tmp
+#      fact_caching_connection: ~/.ansible/cache/bap_coe_apigee_hybrid
+#      fact_caching: jsonfile
+#      gathering: smart
+#      merge_multiple_cli_tags: True
+#      display_args_to_stdout: True
+#      timeout: 60
+#      bin_ansible_callbacks: True
+#      stdout_callback: yaml
+#      stderr_callback: yaml
+#    ssh_connection:
+#      pipelining: false
+#      scp_if_ssh: True
+#
