@@ -78,14 +78,14 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 #- "roles/iam.serviceAccountKeyAdmin"
 #- "roles/compute.loadBalancerAdmin"
 
-CONSTRAINTS_DISABLE_ENFORCEMENT:
+GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
 - constraints/iam.disableServiceAccountKeyCreation
 - constraints/iam.disableServiceAccountCreation
 - constraints/compute.requireShieldedVm
 - constraints/compute.requireOsLogin
 - constraints/compute.skipDefaultNetworkCreation
 
-UPDATE_ORG_POLICIES:
+GCLOUD_ORG_POLICIES_UPDATE:
 - constraints/compute.trustedImageProjects
 - constraints/compute.restrictSharedVpcSubnetworks
 - constraints/compute.restrictSharedVpcHostProjects

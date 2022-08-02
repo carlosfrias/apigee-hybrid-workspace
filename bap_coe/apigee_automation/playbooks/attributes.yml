@@ -117,7 +117,7 @@ PRIVATE_CLOUD_INSTANCES:
 #  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
 #  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
 
-CONSTRAINTS_DISABLE_ENFORCEMENT:
+GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
 - iam.disableServiceAccountKeyCreation
 - iam.disableServiceAccountCreation
 - compute.requireShieldedVm

@@ -104,14 +104,14 @@ GCLOUD_PROJECT_SERVICES:
 firewall_ports:
   - { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
 
-CONSTRAINTS_DISABLE_ENFORCEMENT:
+GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
 - constraints/iam.disableServiceAccountKeyCreation
 - constraints/iam.disableServiceAccountCreation
 - constraints/compute.requireShieldedVm
 - constraints/compute.requireOsLogin
 - constraints/compute.skipDefaultNetworkCreation
 
-UPDATE_ORG_POLICIES:
+GCLOUD_ORG_POLICIES_UPDATE:
 - constraints/compute.trustedImageProjects
 - constraints/compute.restrictSharedVpcSubnetworks
 - constraints/compute.restrictSharedVpcHostProjects

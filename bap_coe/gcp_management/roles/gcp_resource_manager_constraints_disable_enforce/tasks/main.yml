@@ -1,10 +1,10 @@
 ---
-# tasks file for gcp_CONSTRAINTS_DISABLE_ENFORCEMENT
-- name: Assert that CONSTRAINTS_DISABLE_ENFORCEMENT list is available
+# tasks file for gcp_GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE
+- name: Assert that GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE list is available
   assert:
     that:
-    - CONSTRAINTS_DISABLE_ENFORCEMENT is defined
-    msg: "Please provide CONSTRAINTS_DISABLE_ENFORCEMENT collection with list of constraints to no longer enforce."
+    - GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE is defined
+    msg: "Please provide GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE collection with list of constraints to no longer enforce."
 
 - name: Assert that the PROJECT_ID is available
   assert:
@@ -24,7 +24,7 @@
     org-policies disable-enforce {{ item }} \
     --project {{ PROJECT_ID }} \
     --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
-  with_items: "{{ CONSTRAINTS_DISABLE_ENFORCEMENT }}"
+  with_items: "{{ GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE }}"
 
 - name: Wait for the policy bindings to propagate
   pause:

@@ -102,7 +102,7 @@ ROLE_BINDINGS:
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
 
-CONSTRAINTS_DISABLE_ENFORCEMENT:
+GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
 - constraints/iam.disableServiceAccountKeyCreation
 - constraints/iam.disableServiceAccountCreation
 - constraints/compute.requireShieldedVm

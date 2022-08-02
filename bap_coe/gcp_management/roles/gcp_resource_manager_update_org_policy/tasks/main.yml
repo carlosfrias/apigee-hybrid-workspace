@@ -1,10 +1,10 @@
 ---
-# tasks file for gcp_CONSTRAINTS_DISABLE_ENFORCEMENT
-- name: Assert that UPDATE_ORG_POLICIES list is available
+# tasks file for gcp_GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE
+- name: Assert that GCLOUD_ORG_POLICIES_UPDATE list is available
   assert:
     that:
-    - UPDATE_ORG_POLICIES is defined
-    msg: "Please provide UPDATE_ORG_POLICIES collection with list of constraints to no longer enforce."
+    - GCLOUD_ORG_POLICIES_UPDATE is defined
+    msg: "Please provide GCLOUD_ORG_POLICIES_UPDATE collection with list of constraints to no longer enforce."
 
 - name: Assert that the PROJECT_ID is available
   assert:
@@ -30,7 +30,7 @@
     state: directory
 
 - include_tasks: update-policy.yml
-  loop:  "{{ UPDATE_ORG_POLICIES }}"
+  loop:  "{{ GCLOUD_ORG_POLICIES_UPDATE }}"
   loop_control:
     loop_var: policy
 
