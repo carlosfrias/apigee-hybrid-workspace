@@ -11,7 +11,7 @@ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ 
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
 project_type: "opdk"
-PROJECT_ID: "friasc-{{ project_type }}-08022022-1125"
+PROJECT_ID: "friasc-{{ project_type }}-08022022-1223"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 FOLDER_DISPLAY_NAME: apigee-{{ project_type }}
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
@@ -58,10 +58,10 @@ STARTUP_SCRIPT: |
 
 # Update the .env.yml file for molecule to recognize the gcp dynamic inventory file.
 key_value_pairs:
-- { key: 'MOLECULE_DEBUG', value: '\"True\"', separator: ':', file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml" , type: "arg" }
-- { key: 'MOLECULE_VERBOSITY', value: '\"10\"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
-- { key: 'PROJECT_ID', value: '\"{{ PROJECT_ID }}\"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
-- { key: 'MOLECULE_INVENTORY_FILE', value: '\"$MOLECULE_PROJECT_DIRECTORY/inventory/$PROJECT_ID-gce-dynamic-inventory.gcp.yml\"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
+- { key: 'MOLECULE_DEBUG', value: '"True"', separator: ':', file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml" , type: "arg" }
+- { key: 'MOLECULE_VERBOSITY', value: '"10"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
+- { key: 'PROJECT_ID', value: '"{{ PROJECT_ID }}"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
+- { key: 'MOLECULE_INVENTORY_FILE', value: '"$MOLECULE_PROJECT_DIRECTORY/inventory/$PROJECT_ID-gce-dynamic-inventory.gcp.yml"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 
 
 GCLOUD_ORG_ROLE_BINDINGS:
