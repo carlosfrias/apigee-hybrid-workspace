@@ -36,7 +36,7 @@
 - name: Enabling GCP APIs
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
-  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }} disable_dependent_services=true
+  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }} --disable_dependent_services=true
 
   with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
   when: SERVICE_OP == 'disable'
