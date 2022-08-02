@@ -23,7 +23,7 @@
       - SERVICE_OP is defined
     msg: "Please indicate the service operation, should be either 'enable' or 'disable'"
 
-- name: Enabling GCP APIs
+- name: Enable GCP APIs
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
   shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
@@ -33,7 +33,7 @@
 #  retries: 50
 #  async: 180
 
-- name: Enabling GCP APIs
+- name: Disable GCP APIs
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
   shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }} --force
