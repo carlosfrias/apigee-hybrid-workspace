@@ -17,7 +17,7 @@
     GCLOUD_PROJECT_SERVICES: "{{ GCLOUD_PROJECT_SERVICES }}"
 #    ROLE_BINDING: "{{ ROLE_BINDING  }}"
 
-- name: Assert that service enable or disable operation indicated
+- name: Assert SERVICE_OP
   assert:
     that:
       - SERVICE_OP is defined
@@ -37,7 +37,6 @@
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
   shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }} --force
-
   with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
   when: SERVICE_OP == 'disable'
 #  poll: 2
