@@ -13,9 +13,11 @@
 
   roles:
   - { role: service_account_file_path }
-#  - { role: gcp_iam_service_account_keys }
-  - { role: service_account_file_processing }
+  - { role: gcp_iam_service_account_keys }
+  #  - { role: gcp_iam_service_account_keys }
 #  - { role: gcp_resource_manager_folders_get_folder_id, GCLOUD_ORG_ID: "{{ PROJECT_ID }}" } Add logic to skip if no permissions
+  - { role: gcp_iam_service_account_keys }
+  - { role: service_account_file_processing }
   - { role: gcp_auth_service_account_activate }
   - {
       role: gcp_project_services_enable,
