@@ -34,5 +34,5 @@
       --iam-account={{ SERVICE_ACCOUNT_EMAIL }} \
       --project {{ PROJECT_ID }} \
       --account {{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}
-  when: file_exists.stat.exist is falsy
+  when: file_exists.stat.exists is falsy
 
