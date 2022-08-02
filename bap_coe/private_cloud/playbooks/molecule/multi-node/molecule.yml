@@ -20,21 +20,22 @@ provisioner:
   inventory:
     links:
       hosts: ../../work_dir/${PROJECT_ID}/inventory
-  config_options:
-    defaults:
-      interpreter_python: auto_silent
-      bin_ansible_callbacks: True
-      stdout_callback: yaml
-      stderr_callback: yaml
-      merge_multiple_cli_tags: True
-      display_args_to_stdout: True
-      timeout: 60
-      forks: 25
-    ssh_connection:
-      pipelining: false
-      scp_if_ssh: True
-    inventory:
-      enable_plugins: gcp_compute
+#  config_options:
+#    defaults:
+#      interpreter_python: auto_silent
+#      bin_ansible_callbacks: True
+#      stdout_callback: yaml
+#      stderr_callback: yaml
+#      merge_multiple_cli_tags: True
+#      display_args_to_stdout: True
+#      timeout: 60
+#      forks: 25
+#      private_key_file: ~/.ssh/google_compute_engine
+#    ssh_connection:
+#      pipelining: false
+#      scp_if_ssh: True
+#    inventory:
+#      enable_plugins: gcp_compute
 
 
 #      callbacks_whitelist: profile_tasks, timer, yaml
@@ -42,7 +43,6 @@ provisioner:
 #      fact_caching_connection: ../../work_dir/${PROJECT_ID}/bap_coe_apigee_hybrid
 #      fact_caching: jsonfile
 #      gathering: smart
-#      private_key_file: ~/.ssh/google_compute_engine
 #      ansible_shell_type: sh
 #      host_key_checking: False
 
