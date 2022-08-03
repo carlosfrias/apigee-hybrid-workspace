@@ -16,9 +16,9 @@ provisioner:
 #    create: create.yml
     converge: converge.yml
     destroy: delete.yml
-  config_options:
-    defaults:
-      inventory: ../../work_dir/${PROJECT_ID}/inventory
+#  config_options:
+#    defaults:
+#      inventory: ../../work_dir/${PROJECT_ID}/inventory
 verifier:
   name: ansible
 #  log: True
