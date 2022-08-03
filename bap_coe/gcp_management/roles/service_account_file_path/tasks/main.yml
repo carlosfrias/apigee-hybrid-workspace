@@ -9,12 +9,12 @@
 - name: Set service account name
   set_fact:
     cacheable: yes
-    SERVICE_ACCOUNT_NAME: "{{ GCLOUD_ACCOUNT_USER }}-{{ GCLOUD_SERVICE_ACCOUNT_SUFFIX | default('service-account') }}"
+    GCLOUD_SERVICE_ACCOUNT_NAME: "{{ GCLOUD_ACCOUNT_USER }}-{{ GCLOUD_SERVICE_ACCOUNT_SUFFIX | default('service-account') }}"
 
 - name: Set service account file name
   set_fact:
     cacheable: yes
-    SERVICE_ACCOUNT_FILE: "{{ SERVICE_ACCOUNT_NAME }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
+    SERVICE_ACCOUNT_FILE: "{{ GCLOUD_SERVICE_ACCOUNT_NAME }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
 
 - name: Set service account file path
   set_fact:

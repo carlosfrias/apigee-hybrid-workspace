@@ -1,12 +1,12 @@
 [defaults]
-inventory = inventory
-fact_caching_connection = ~/.ansible/cache/friasc-opdk-05202022-1017
-log_path = ~/.ansible/logs/friasc-opdk-05202022-1017.log
+#inventory = inventory
+#fact_caching_connection = ~/.ansible/cache/friasc-opdk-05202022-1017
+#log_path = ~/.ansible/logs/friasc-opdk-05202022-1017.log
 private_key_file = ~/.ssh/google_compute_engine
 roles_path = ./roles:../../roles:~/.ansible/roles
 local_tmp = ~/.ansible/tmp
 library = ~/.ansible/library
-remote_user = admin
+#remote_user = admin
 host_key_checking = False
 forks = 25
 retry_files_enabled = False

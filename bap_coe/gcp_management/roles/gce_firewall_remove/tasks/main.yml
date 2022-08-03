@@ -12,11 +12,11 @@
     - PROJECT_ID is defined
     msg: "Please provide PROJECT_ID"
 
-- name: Assert SERVICE_ACCOUNT_EMAIL provided
+- name: Assert  GCLOUD_SERVICE_ACCOUNT provided
   assert:
     that:
-    - SERVICE_ACCOUNT_EMAIL is defined
-    msg: "Please provide SERVICE_ACCOUNT_EMAIL"
+    -  GCLOUD_SERVICE_ACCOUNT is defined
+    msg: "Please provide  GCLOUD_SERVICE_ACCOUNT"
 
 - name: Assert SERVICE_ACCOUNT_FILE provided
   assert:

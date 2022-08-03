@@ -36,9 +36,9 @@
 - block:
   - name: Create an initial service account
     shell: |
-      gcloud iam service-accounts {{ SERVICE_OP }} {{ SERVICE_ACCOUNT_NAME }} \
-        --description={{ SERVICE_ACCOUNT_NAME }} \
-        --display-name={{ SERVICE_ACCOUNT_NAME }} \
+      gcloud iam service-accounts {{ SERVICE_OP }} {{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
+        --description={{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
+        --display-name={{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
         --project {{ PROJECT_ID }}
     when: PROJECT_ACTIVE is truthy
     failed_when:
@@ -48,9 +48,9 @@
   rescue:
     - name: RESCUE - Create an initial service account, rescue for idempotency
       shell: |
-        gcloud iam service-accounts {{ SERVICE_OP }} {{ SERVICE_ACCOUNT_NAME }} \
-          --description={{ SERVICE_ACCOUNT_NAME }} \
-          --display-name={{ SERVICE_ACCOUNT_NAME }} \
+        gcloud iam service-accounts {{ SERVICE_OP }} {{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
+          --description={{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
+          --display-name={{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
           --project {{ PROJECT_ID }} \
           --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
       register: status
@@ -67,7 +67,7 @@
 
 - name: Create an initial service account
   shell: |
-    gcloud iam service-accounts {{ SERVICE_OP }} {{ SERVICE_ACCOUNT_NAME }} \
+    gcloud iam service-accounts {{ SERVICE_OP }} {{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
       --project {{ PROJECT_ID }}
   when: SERVICE_OP == "delete"
 

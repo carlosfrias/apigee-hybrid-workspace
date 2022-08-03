@@ -18,6 +18,21 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
+- name: Query for permission to work with resource-manager folders
+  command: |
+    gcloud beta resource-manager folders list \
+      --organization {{ GCLOUD_ORG_ID }} \
+      --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+  register: permission
+
+- name: Extract permission to work with resource-manager folders
+  set_fact:
+    org_folder_access_denied: "{{ permission.stdout | search('PERMISSION_DENIED') | bool }}"
+
+- name: Status of resource-manager permission query
+  debug:
+    msg: "Current user does not have permission to work with resource-manager."
+
 #- name: Attempt to create organization folder.
 - block:
   - name: Create organization folder
@@ -33,3 +48,4 @@
     - debug:
         msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} already exists!"
       when: FOLDER_CREATE_STATUS is match('violates display name uniqueness')
+  when: org_folder_access_denied is falsy

@@ -44,7 +44,7 @@
   ignore_errors: "{{ IGNORE_ERRORS | default(False) }}"
   shell: |
     gcloud projects {{ BINDING_OP }}-iam-policy-binding {{ PROJECT_ID }} \
-      --member {{ ACCOUNT_TYPE }}:{{ SERVICE_ACCOUNT_EMAIL }} \
+      --member {{ ACCOUNT_TYPE }}:{{  GCLOUD_SERVICE_ACCOUNT }} \
       --role={{ item }}
   with_items: "{{ POLICY_BINDINGS }}"
 

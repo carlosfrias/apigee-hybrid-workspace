@@ -18,16 +18,16 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_USER"
 
-- name: Assert that the SERVICE_ACCOUNT is available
+- name: Assert that the GCLOUD_SERVICE_ACCOUNT is available
   assert:
     that:
-    - SERVICE_ACCOUNT is defined
-    msg: "Please provide the SERVICE_ACCOUNT (fully qualified domain name)"
+    - GCLOUD_SERVICE_ACCOUNT is defined
+    msg: "Please provide the GCLOUD_SERVICE_ACCOUNT(fully qualified domain name)"
 
 - name: Set IAM roles for service account
   shell: |
     gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-      --member serviceAccount:{{ SERVICE_ACCOUNT }} \
+      --member serviceAccount:{{ GCLOUD_SERVICE_ACCOUNT}} \
       --role={{ item }} \
       --account {{ GCLOUD_ACCOUNT_EMAIL }}
   with_items: "{{ ROLE_BINDINGS }}"
