@@ -10,5 +10,12 @@
   collections:
     bap_coe.bootstrap_runtime
 
+  pre_task:
+  - name: Assert files is in place
+    file:
+      path: "{{ item.file_name }}"
+      state: touch
+    with_items: "{{ key_value_pairs }}"
+
   roles:
   - { role: key_value_updates }
