@@ -17,9 +17,9 @@ provisioner:
     create: create.yml
     converge: converge.yml
 #    prepare: prepare.yml
-  inventory:
-    links:
-      hosts: ../../work_dir/${PROJECT_ID}/inventory
+#  inventory:
+#    links:
+#      hosts: ../../work_dir/${PROJECT_ID}/inventory
 #  config_options:
 #    defaults:
 #      interpreter_python: auto_silent
