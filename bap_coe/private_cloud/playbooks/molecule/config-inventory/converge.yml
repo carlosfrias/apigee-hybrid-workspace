@@ -12,4 +12,6 @@
     - bap_coe.bootstrap_runtime
 
   roles:
+  - { role: service_account_file_path }
+  - { role: service_account_file_processing }
   - { role: gce_dynamic_inventory_configure }
