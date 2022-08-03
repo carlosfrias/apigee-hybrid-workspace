@@ -27,7 +27,7 @@
 
 - name: Extract permission to work with resource-manager folders
   set_fact:
-    org_folder_access_denied: "{{ permission.stdout | search('PERMISSION_DENIED') | bool }}"
+    org_folder_access_denied: "{{ permission.stdout | regex_search('.*PERMISSION_DENIED') | bool }}"
 
 - name: Status of resource-manager permission query
   debug:
