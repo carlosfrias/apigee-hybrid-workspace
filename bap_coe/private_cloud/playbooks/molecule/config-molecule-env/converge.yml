@@ -10,7 +10,7 @@
   collections:
     bap_coe.bootstrap_runtime
 
-  pre_task:
+  pre_tasks:
   - name: Assert files is in place
     file:
       path: "{{ item.file_name }}"
