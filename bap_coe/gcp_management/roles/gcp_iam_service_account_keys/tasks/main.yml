@@ -20,7 +20,7 @@
 
 - name: Wait for the policy bindings to propagate
   pause:
-    seconds: "{{ ORG_BINDING_PROPAGATION_TIMEOUT  | default(70) }}"
+    seconds: "{{ GCLOUD_ORG_BINDING_PROPAGATION_TIMEOUT  | default(10) }}"
     prompt: "Wait for the policy bindings to propagate"
 
 - name: Assert that SERVICE_ACCOUNT_FILE_PATH availability
