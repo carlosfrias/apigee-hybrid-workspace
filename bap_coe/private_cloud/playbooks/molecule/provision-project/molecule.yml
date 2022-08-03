@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: create-project
+  - name: provision-project
 provisioner:
   name: ansible
   playbooks:
