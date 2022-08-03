@@ -44,4 +44,3 @@ verifier:
 #    inventory:
 #      enable_plugins: gcp_compute
 #
-#
