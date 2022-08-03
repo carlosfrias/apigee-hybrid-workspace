@@ -64,7 +64,7 @@
     ignore_errors: true
     shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }} --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
     when: BILLING_ID is defined and GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is defined
-when: PROJECT_FOUND is falsy
+  when: PROJECT_FOUND is falsy
 
 - name: Set Project Default
   shell: gcloud config set project {{ PROJECT_ID }}
@@ -101,4 +101,3 @@ when: PROJECT_FOUND is falsy
   debug:
     msg: "The project already exists and will not be recreated"
   when: PROJECT_FOUND is truthy
-  
