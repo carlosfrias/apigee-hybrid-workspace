@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: molecule-config-env-vars
+  - name: config-molecule-env
 provisioner:
   name: ansible
 #  ansible_args:
