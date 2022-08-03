@@ -29,11 +29,6 @@
       POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
       GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
     }
-  - { role: gcp_iam_service_account_keys }
-  - { role: service_account_file_processing }
-  - { role: gcp_auth_service_account_activate }
-  - { role: gce_dynamic_inventory_configure }
-
 
     #- name: Update runtime environment of instances
     #  hosts: edge

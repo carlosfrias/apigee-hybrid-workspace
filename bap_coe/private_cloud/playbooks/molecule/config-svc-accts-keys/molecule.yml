@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: config-permission-svc-accts
+  - name: config-svc-accts
 provisioner:
   name: ansible
   playbooks:

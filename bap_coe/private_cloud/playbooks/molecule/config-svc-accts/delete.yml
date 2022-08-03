@@ -1,0 +1,36 @@
+---
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  collections:
+  - bap_coe.gcp_management
+  - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: service_account_file_path }
+  - { role: gcp_iam_service_account_keys }
+#  - { role: gcp_iam_service_account_keys }
+#  - { role: gcp_resource_manager_folders_get_folder_id, GCLOUD_ORG_ID: "{{ PROJECT_ID }}" } Add logic to skip if no permissions
+  - { role: gcp_iam_service_account_keys }
+  - { role: service_account_file_processing }
+  - { role: gcp_auth_service_account_activate }
+  - {
+      role: gcp_iam_policy_bindings,
+      BINDING_OP: "remove",
+      ACCOUNT_TYPE: "serviceAccount",
+      GCLOUD_BINDING_ACCOUNT: "{{ GCLOUD_SERVICE_ACCOUNT}}",
+      POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
+      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+    }
+  - {
+      role: gcp_project_services_enable,
+      tags: ['services'],
+      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+      SERVICE_OP: 'disable'
+    }
+  - { role: gcp_iam_service_account_create, SERVICE_OP: 'delete'  }
