@@ -12,6 +12,8 @@ platforms:
   - name: opdk-multi-node
 provisioner:
   name: ansible
+  ansible-args:
+    - --inventory=../../work_dir/${PROJECT_ID}/inventory/
   playbooks:
     destroy: destroy.yml
     create: create.yml
@@ -19,7 +21,7 @@ provisioner:
 #    prepare: prepare.yml
 #  inventory:
 #    links:
-#      hosts: ../../work_dir/${PROJECT_ID}/inventory
+#      hosts: ../../work_dir/${PROJECT_ID}/inventory/
 #  config_options:
 #    defaults:
 #      interpreter_python: auto_silent
