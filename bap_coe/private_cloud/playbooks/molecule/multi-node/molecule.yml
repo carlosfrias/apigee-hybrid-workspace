@@ -13,7 +13,7 @@ platforms:
 provisioner:
   name: ansible
   ansible-args:
-    - --inventory=../../work_dir/${PROJECT_ID}/inventory/
+    - --inventory=${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
   playbooks:
     destroy: destroy.yml
     create: create.yml
