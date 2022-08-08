@@ -19,10 +19,18 @@ provisioner:
     create: create.yml
     converge: converge.yml
 #    prepare: prepare.yml
-#  inventory:
-#    links:
-#      hosts: ../../work_dir/${PROJECT_ID}/inventory/
-#  config_options:
+inventory:
+  links:
+    hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
+config_options:  
+  defaults:
+    host_key_checking: False
+  inventory:
+    enable_plugins: gcp_compute
+  ssh_connection:
+    pipelining: false
+  
+    #  config_options:
 #    defaults:
 #      interpreter_python: auto_silent
 #      bin_ansible_callbacks: True
@@ -33,11 +41,7 @@ provisioner:
 #      timeout: 60
 #      forks: 25
 #      private_key_file: ~/.ssh/google_compute_engine
-#    ssh_connection:
-#      pipelining: false
 #      scp_if_ssh: True
-#    inventory:
-#      enable_plugins: gcp_compute
 
 
 #      callbacks_whitelist: profile_tasks, timer, yaml
