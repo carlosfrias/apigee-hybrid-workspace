@@ -4,13 +4,13 @@
   tags: ['cache','response-file','copy']
 
   vars_files:
-    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
     - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-      - "{{ '~' | expand_user }}/.apigee-secure"
-      - "{{ '~' | expand_user }}/.apigee"
+      - "{{ '~' | expanduser }}/.apigee-secure"
+      - "{{ '~' | expanduser }}/.apigee"
 
   collections:
     - bap_coe.private_cloud
@@ -31,13 +31,14 @@
   tags: ['response-file','copy']
 
   vars_files:
-    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
     - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
-#  vars:
-#    property_folders:
-#      - "~/.apigee-secure"
-#      - "~/.apigee"
+  vars:
+    property_folders:
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -59,13 +60,14 @@
   tags: ['copy']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee"
-    - "~/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -108,13 +110,13 @@
   tags: ['os']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
 
   collections:
   - bap_coe.private_cloud
@@ -141,16 +143,18 @@
 - name: Install Edge
   hosts: edge
   tags: ['bootstrap']
+
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
   #    disable_yum_repos:
   #      - google-cloud-sdk
   #      - google-compute-engine
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   collections:
@@ -173,13 +177,13 @@
   tags: ['ds','ds-seed']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
-
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -196,13 +200,14 @@
   tags: ['ds']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -218,13 +223,14 @@
   tags: ['ms']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -241,13 +247,14 @@
   tags: ['edge','rmp']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -265,13 +272,14 @@
   tags: ['router','edge']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -288,13 +296,14 @@
   tags: ['mp','edge']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -311,13 +320,14 @@
   tags: ['qpid','edge','analytics']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -336,13 +346,14 @@
   tags: ['pg','edge', 'analytics']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -360,13 +371,14 @@
   tags: ['pgmaster','edge', 'analytics']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -385,13 +397,14 @@
   tags: ['pgstandby','edge', 'analytics']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -410,13 +423,14 @@
   tags: ['org']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -431,13 +445,14 @@
   tags: ['expansion']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud
@@ -454,13 +469,14 @@
   tags: ['validate']
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
     property_folders:
-    - "~/.apigee-secure"
-    - "~/.apigee"
+    - "{{ '~' | expanduser }}/.apigee-secure"
+    - "{{ '~' | expanduser }}/.apigee"
+
 
   collections:
   - bap_coe.private_cloud

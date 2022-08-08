@@ -113,6 +113,7 @@
       auth_kind: "{{ AUTHORIZATION_KIND }}"
       service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
       metadata:
+
         'startup-script': |
           {{ STARTUP_SCRIPT | default('') }}
       scopes: "{{ SCOPE_COMPUTE }}"
