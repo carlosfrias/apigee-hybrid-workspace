@@ -13,7 +13,7 @@
 
   - name: Show var structure
     debug:
-      var: props.results[0].files
+      var: props.results[0].files[0].path
 
   - name: Load variables
     include_vars:
