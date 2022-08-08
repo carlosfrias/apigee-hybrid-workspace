@@ -17,7 +17,7 @@
 
   - name: Load variables
     include_vars:
-      file: "{{ item.path }}"
+      file: "{{ item }}"
     with_items:
     - props.results
     - files
