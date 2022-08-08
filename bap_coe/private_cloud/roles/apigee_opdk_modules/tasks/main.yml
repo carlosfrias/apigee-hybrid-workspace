@@ -17,9 +17,9 @@
 
   - name: Load variables
     include_vars:
-      file: "{{ item }}"
-    with_items:
-    - props.results
+      file: "{{ item.1.path }}"
+    with_subelements:
+    - "{{ props.results }}"
     - files
 
 #  - name: Update cache with key and value
