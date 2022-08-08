@@ -11,16 +11,16 @@
     with_items: "{{ property_folders }}"
     register: props
 
-#  - name: Show var structure
-#    debug:
-#      var: props.results[0].files[0]
+  - name: Show var structure
+    debug:
+      var: props.results[0].files[0]
 
   - name: Load variables
     include_vars:
       file: "{{ item.path }}"
     with_items:
-    - props.results[0]
-    - files[0]
+    - props.results
+    - files
 
 #  - name: Update cache with key and value
 #    set_fact:
