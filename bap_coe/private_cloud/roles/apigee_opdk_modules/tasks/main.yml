@@ -20,7 +20,7 @@
       file: "{{ item.path }}"
     with_items:
     - props.results[0]
-    - files
+    - files[0]
 
 #  - name: Update cache with key and value
 #    set_fact:
