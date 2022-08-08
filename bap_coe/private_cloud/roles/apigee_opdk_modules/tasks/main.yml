@@ -13,14 +13,13 @@
 
   - name: Show var structure
     debug:
-      var: props.results
+      var: props.results.files[0]
 
   - name: Load variables
     include_vars:
       file: "{{ item.path }}"
     with_items:
-    - props
-    - results
+    - props.results
     - files
 
 #  - name: Update cache with key and value
