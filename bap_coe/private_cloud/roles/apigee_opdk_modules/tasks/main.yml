@@ -13,7 +13,7 @@
 
   - name: Show var structure
     debug:
-      var: props.results | length
+      var: props | length
 
   - name: Load variables
     include_vars:
