@@ -19,8 +19,9 @@
     include_vars:
       file: "{{ item.path }}"
     with_items:
-    - "{{ props.results }}"
-    - "{{ files }}"
+    - props
+    - results
+    - files
 
 #  - name: Update cache with key and value
 #    set_fact:
