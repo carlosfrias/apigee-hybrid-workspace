@@ -19,7 +19,7 @@
     include_vars:
       file: "{{ item.path }}"
     with_items:
-    - props.results
+    - props.results[0]
     - files
 
 #  - name: Update cache with key and value
