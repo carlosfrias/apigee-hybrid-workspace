@@ -44,6 +44,8 @@
     GCE_INSTANCE_NAME: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
 
 - name: Remove GCE instance
+  async: 300
+  poll: 0
   gcp_compute_instance:
     name: "{{ GCE_INSTANCE_NAME }}"
     state: absent
@@ -51,6 +53,4 @@
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-    poll: 0
-    async: 300
 
