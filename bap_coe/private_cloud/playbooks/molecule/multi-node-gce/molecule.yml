@@ -127,40 +127,40 @@ platforms:
     - allow-rdp
 provisioner:
   name: ansible
-  ansible-args:
-  - --inventory=${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
-  playbooks:
-    create: converge.yml
-    converge: converge.yml
+#  ansible-args:
+#  - --inventory=${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
+#  playbooks:
+#    create: converge.yml
+#    converge: converge.yml
 #    destroy: destroy.yml
 #    prepare: prepare.yml
-  inventory:
-    links:
-      hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
-  config_options:
-    inventory:
-      enable_plugins: gcp_compute
-    ssh_connection:
-      pipelining: true
-    defaults:
-      remote_user: admin_
-      interpreter_python: auto_silent
-      bin_ansible_callbacks: True
-      stdout_callback: yaml
-      stderr_callback: yaml
-      merge_multiple_cli_tags: True
-      display_args_to_stdout: True
-      timeout: 60
-      forks: 25
-      private_key_file: ~/.ssh/google_compute_engine
-      scp_if_ssh: True
-      callbacks_whitelist: profile_tasks, timer, yaml
-      local_tmp: ../../work_dir/${PROJECT_ID}/tmp
-      fact_caching_connection: ../../work_dir/${PROJECT_ID}/bap_coe_apigee_hybrid
-      fact_caching: jsonfile
-      gathering: smart
-      ansible_shell_type: sh
-      host_key_checking: False
+#  inventory:
+#    links:
+#      hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
+#  config_options:
+#    inventory:
+#      enable_plugins: gcp_compute
+#    ssh_connection:
+#      pipelining: true
+#    defaults:
+#      remote_user: admin_
+#      interpreter_python: auto_silent
+#      bin_ansible_callbacks: True
+#      stdout_callback: yaml
+#      stderr_callback: yaml
+#      merge_multiple_cli_tags: True
+#      display_args_to_stdout: True
+#      timeout: 60
+#      forks: 25
+#      private_key_file: ~/.ssh/google_compute_engine
+#      scp_if_ssh: True
+#      callbacks_whitelist: profile_tasks, timer, yaml
+#      local_tmp: ../../work_dir/${PROJECT_ID}/tmp
+#      fact_caching_connection: ../../work_dir/${PROJECT_ID}/bap_coe_apigee_hybrid
+#      fact_caching: jsonfile
+#      gathering: smart
+#      ansible_shell_type: sh
+#      host_key_checking: False
 
 
 
