@@ -11,10 +11,6 @@
     with_items: "{{ property_folders }}"
     register: props
 
-  - name: Show var structure
-    debug:
-      var: props | length
-
   - name: Load variables
     include_vars:
       file: "{{ item.1.path }}"
