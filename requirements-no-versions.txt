@@ -12,3 +12,4 @@ requests
 pycryptodome
 NumPy
 netaddr
+molecule-gce
