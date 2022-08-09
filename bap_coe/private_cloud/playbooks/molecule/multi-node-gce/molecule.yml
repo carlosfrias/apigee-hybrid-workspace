@@ -143,6 +143,7 @@ provisioner:
     ssh_connection:
       pipelining: true
     defaults:
+      remote_user: admin_
       interpreter_python: auto_silent
       bin_ansible_callbacks: True
       stdout_callback: yaml
