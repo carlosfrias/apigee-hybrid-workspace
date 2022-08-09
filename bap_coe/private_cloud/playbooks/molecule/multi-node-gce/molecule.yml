@@ -129,10 +129,10 @@ provisioner:
   name: ansible
   ansible-args:
   - --inventory=${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
-#  playbooks:
+  playbooks:
 #    destroy: destroy.yml
-#    create: create.yml
-#    converge: converge.yml
+    create:
+    converge:
 #    prepare: prepare.yml
   inventory:
     links:
