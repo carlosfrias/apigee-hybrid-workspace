@@ -25,13 +25,13 @@
     msg: "Please indicate the SERVICE_OP, should be either 'create' or 'delete'"
 
 - name: Query for ACTIVE projects list
-  shell: gcloud projects list --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='lifecycleState:ACTIVE' --filter='project_id={{ PROJECT_ID }}'
+  shell: gcloud projects list --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='project_id={{ PROJECT_ID }}' --format=yaml
   register: ACTIVE_PROJECTS
 
 - name: Assert project ACTIVE state
   set_fact:
     cacheable: true
-    PROJECT_ACTIVE: "{{ ACTIVE_PROJECTS.stdout is search(PROJECT_ID) | default(false) }}"
+    PROJECT_ACTIVE: "{{ ACTIVE_PROJECTS.stdout.lifecycleState == 'ACTIVE' | bool }}"
 
 - block:
   - name: Create an initial service account
