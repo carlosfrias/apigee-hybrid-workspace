@@ -28,6 +28,10 @@
   shell: gcloud projects list --account {{ GCLOUD_ACCOUNT_EMAIL }} --filter='lifecycleState:ACTIVE' --filter='project_id={{ PROJECT_ID }}' --format=yaml
   register: ACTIVE_PROJECTS
 
+- name: Show ACTIVE projects query result
+  debug:
+    var: ACTIVE_PROJECTS
+
 - name: Assert project ACTIVE state
   set_fact:
     cacheable: true
