@@ -6,6 +6,12 @@
       - GCLOUD_PROJECT_SERVICES is defined
     msg: "Please provide GCLOUD_PROJECT_SERVICES collection with list of services to enable."
 
+- name: Assert that GCLOUD_ACCOUNT_EMAIL list is available
+  assert:
+    that:
+      - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "Please provide GCLOUD_ACCOUNT_EMAIL collection with list of services to enable."
+
 - name: Assert that the PROJECT_ID is available
   assert:
     that:
@@ -21,7 +27,7 @@
   assert:
     that:
       - SERVICE_OP is defined
-    msg: "Please indicate the service operation, should be either 'enable' or 'disable'"
+    msg: "Please indicate the SERVICE_OP, should be either 'enable' or 'disable'"
 
 - name: Enable GCP APIs
   #  this is now also done in the install_asm bash script.
