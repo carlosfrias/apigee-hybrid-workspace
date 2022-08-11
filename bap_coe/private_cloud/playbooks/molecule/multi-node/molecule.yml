@@ -42,7 +42,7 @@ provisioner:
     - --inventory=${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
 #  playbooks:
 #    destroy: destroy.yml
-#    create: create.yml
+    create: create.yml
 #    converge: converge.yml
 #    prepare: prepare.yml
 #inventory:
