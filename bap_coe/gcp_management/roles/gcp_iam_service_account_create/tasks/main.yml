@@ -32,10 +32,14 @@
   debug:
     var: ACTIVE_PROJECTS
 
+- name: Format ACTIVE_PROJECTS results
+  set_fact:
+    ACTIVE_PROJECTS: "{{ ACTIVE_PROJECTS.stdout | from_yaml }}"
+
 - name: Assert project ACTIVE state
   set_fact:
     cacheable: true
-    PROJECT_ACTIVE: "{{ ACTIVE_PROJECTS.stdout.lifecycleState == 'ACTIVE' | bool }}"
+    PROJECT_ACTIVE: "{{ ACTIVE_PROJECTS.lifecycleState == 'ACTIVE' | bool }}"
 
 - block:
   - name: Create an initial service account
