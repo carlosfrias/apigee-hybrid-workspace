@@ -9,15 +9,15 @@
 
   vars:
     property_folders:
-      - "{{ '~' | expanduser }}/.apigee-secure"
       - "{{ '~' | expanduser }}/.apigee"
+#      - "{{ '~' | expanduser }}/.apigee-secure"
 
   collections:
     - bap_coe.private_cloud
 
   roles:
     - apigee_opdk_modules
-    - apigee_opdk_settings_private_address
+    - apigee_opdk_settings_private_addressdev
     - apigee_opdk_settings_management_server
     - apigee_opdk_settings_region
     - apigee_opdk_settings_response_file
