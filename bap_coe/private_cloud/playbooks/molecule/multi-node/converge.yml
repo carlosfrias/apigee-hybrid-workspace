@@ -1,65 +1,11 @@
 ---
 - name: Collect Configuration Information for Planet
   hosts: edge
-  tags: ['cache','response-file','copy']
-
-  vars_files:
-    - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
-    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
-
-  vars:
-    property_folders:
-      - "{{ '~' | expanduser }}/.apigee"
-
-
-  collections:
-    - bap_coe.private_cloud
-
-  roles:
-    - apigee_opdk_modules
-    - apigee_opdk_settings_private_address
-    - apigee_opdk_settings_management_server
-    - apigee_opdk_settings_region
-    - apigee_opdk_settings_response_file
-    - apigee_opdk_settings_ldap
-    - apigee_opdk_settings_cassandra
-    - apigee_opdk_settings_postgres
-
-- name: Generate Configuration for Planet
-  hosts: ms
-  gather_facts: no
-  tags: ['response-file','copy']
-
-  vars_files:
-    - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
-    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
-
-  vars:
-    property_folders:
-    - "{{ '~' | expanduser }}/.apigee"
-
-
-  collections:
-  - bap_coe.private_cloud
-
-  roles:
-    - apigee_opdk_modules
-    - apigee_opdk_settings_private_address
-    - apigee_opdk_settings_management_server
-    - apigee_opdk_settings_region
-    - apigee_opdk_settings_ldap
-    - apigee_opdk_setup_apigee_user
-    - apigee_opdk_settings_cassandra
-    - apigee_opdk_settings_postgres
-    - apigee_opdk_setup_silent_installation_config
-
-- name: Distribute Configuration File to Planet
-  hosts: edge
-  gather_facts: no
-  tags: ['copy']
+  tags: [ 'cache','response-file','copy' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
+  - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
@@ -71,10 +17,67 @@
   - bap_coe.private_cloud
 
   roles:
-  - { role: apigee_opdk_modules, tags: ['license'] }
-  - { role: apigee_opdk_setup_apigee_user, tags: ['user'] }
-  - { role: apigee_opdk_setup_license, tags: ['license'] }
-  - { role: apigee_opdk_setup_apigee_user_ownership, tags: ['owner'] }
+  - apigee_opdk_modules
+  - apigee_opdk_settings_private_address
+  - apigee_opdk_settings_management_server
+  - apigee_opdk_settings_region
+  - apigee_opdk_settings_response_file
+  - apigee_opdk_settings_ldap
+  - apigee_opdk_settings_cassandra
+  - apigee_opdk_settings_postgres
+
+- name: Generate Configuration for Planet
+  hosts: ms
+  gather_facts: no
+  tags: [ 'response-file','copy' ]
+
+  vars_files:
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
+  - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  vars:
+    property_folders:
+    - "{{ '~' | expanduser }}/.apigee"
+
+
+  collections:
+  - bap_coe.private_cloud
+
+  roles:
+  - apigee_opdk_modules
+  - apigee_opdk_settings_private_address
+  - apigee_opdk_settings_management_server
+  - apigee_opdk_settings_region
+  - apigee_opdk_settings_ldap
+  - apigee_opdk_setup_apigee_user
+  - apigee_opdk_settings_cassandra
+  - apigee_opdk_settings_postgres
+  - apigee_opdk_setup_silent_installation_config
+
+- name: Distribute Configuration File to Planet
+  hosts: edge
+  gather_facts: no
+  tags: [ 'copy' ]
+
+  vars_files:
+  - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
+  - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  vars:
+    property_folders:
+    - "{{ '~' | expanduser }}/.apigee"
+
+
+  collections:
+  - bap_coe.private_cloud
+
+  roles:
+  - { role: apigee_opdk_modules, tags: [ 'license' ] }
+  - { role: apigee_opdk_setup_apigee_user, tags: [ 'user' ] }
+  - { role: apigee_opdk_setup_license, tags: [ 'license' ] }
+  - { role: apigee_opdk_setup_apigee_user_ownership, tags: [ 'owner' ] }
   tasks:
   - name: Create Target Folder on Target Node
     become: yes
@@ -105,7 +108,7 @@
 
 - name: Complete OS Pre-requisites
   hosts: edge
-  tags: ['os']
+  tags: [ 'os' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -120,26 +123,26 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: apigee_opdk_setup_os_epel, tags: ['epel'] }
-  - { role: apigee_opdk_shutdown_iptables, tags: ['minimum', 'iptables'] }
-  - { role: apigee_opdk_yum_repository_proxy_config, tags: ['yum-proxy-config']}
-  - { role: apigee_opdk_setup_os_minimum, tags: ['os-minimum'] }
-  - { role: apigee_opdk_setup_os_limits, tags: ['limit'] }
-  - { role: apigee_opdk_setup_os_pip, tags: ['pip'] }
-  - { role: apigee_opdk_setup_os_sysctl, tags: ['sysctl'] }
-  - { role: apigee_opdk_setup_selinux_disable, tags: ['minimum', 'selinux'] }
+  - { role: apigee_opdk_setup_os_epel, tags: [ 'epel' ] }
+  - { role: apigee_opdk_shutdown_iptables, tags: [ 'minimum', 'iptables' ] }
+  - { role: apigee_opdk_yum_repository_proxy_config, tags: [ 'yum-proxy-config' ] }
+  - { role: apigee_opdk_setup_os_minimum, tags: [ 'os-minimum' ] }
+  - { role: apigee_opdk_setup_os_limits, tags: [ 'limit' ] }
+  - { role: apigee_opdk_setup_os_pip, tags: [ 'pip' ] }
+  - { role: apigee_opdk_setup_os_sysctl, tags: [ 'sysctl' ] }
+  - { role: apigee_opdk_setup_selinux_disable, tags: [ 'minimum', 'selinux' ] }
   - { role: apigee_server_restart,
-      tags: ['minimum','restart-server','selinux','sysctl'],
+      tags: [ 'minimum','restart-server','selinux','sysctl' ],
       start_check_delay: 45,
       when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)
   }
-  - { role: apigee_opdk_setup_os_common, tags: ['os-common'] }
-  - { role: apigee_opdk_setup_openjdk_cache, tags: ['minimum', 'openjdk','bootstrap'], jdk_version: '1.8' }
-  - { role: apigee_opdk_setup_openjdk, tags: ['minimum', 'openjdk','bootstrap'], jdk_version: '1.8' }
+  - { role: apigee_opdk_setup_os_common, tags: [ 'os-common' ] }
+  - { role: apigee_opdk_setup_openjdk_cache, tags: [ 'minimum', 'openjdk','bootstrap' ], jdk_version: '1.8' }
+  - { role: apigee_opdk_setup_openjdk, tags: [ 'minimum', 'openjdk','bootstrap' ], jdk_version: '1.8' }
 
 - name: Install Edge
   hosts: edge
-  tags: ['bootstrap']
+  tags: [ 'bootstrap' ]
 
   vars:
     property_folders:
@@ -159,7 +162,7 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: yum_config_manager, tags: ['yum-config'] }
+  - { role: yum_config_manager, tags: [ 'yum-config' ] }
   - { role: apigee_opdk_setup_java_home }
   - { role: apigee_opdk_setup_bootstrap_cache }
   - { role: apigee_opdk_setup_bootstrap }
@@ -170,7 +173,7 @@
   hosts: "{{ CASSANDRA_SEED_NODE | default('ds[0]') }}"
   gather_facts: no
   serial: 1
-  tags: ['ds','ds-seed']
+  tags: [ 'ds','ds-seed' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -192,7 +195,7 @@
   hosts: "ds,{{ CASSANDRA_SEED_NODE | default('ds[0]') }}!"
   gather_facts: no
   serial: 1
-  tags: ['ds']
+  tags: [ 'ds' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -214,7 +217,7 @@
   hosts: ms
   gather_facts: no
   serial: 1
-  tags: ['ms']
+  tags: [ 'ms' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -232,12 +235,12 @@
   - apigee_opdk_modules
   - { role: apigee_opdk_setup_component, profile: 'ms', when: region_num | int < 3 }
   - { role: apigee_opdk_setup_component, profile: 'ms', when: region_num | int> 2, port_timeout: 300 }
-  - { role: apigee_opdk_setup_component, profile: 'ui', tags: ['ui'] }
+  - { role: apigee_opdk_setup_component, profile: 'ui', tags: [ 'ui' ] }
 
 - name: Configure & Install Router and Message Processor
   hosts: rmp
   gather_facts: no
-  tags: ['edge','rmp']
+  tags: [ 'edge','rmp' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -253,15 +256,15 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: apigee_opdk_setup_component, profile: 'rmp', tags: ['minimum', 'rmp'] }
-  - { role: apigee_opdk_server_self, server_types: ['router'], tags: ['self'] }
-  - { role: apigee_opdk_server_self, server_types: ['mp'], tags: ['self'] }
-  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
+  - { role: apigee_opdk_setup_component, profile: 'rmp', tags: [ 'minimum', 'rmp' ] }
+  - { role: apigee_opdk_server_self, server_types: [ 'router' ], tags: [ 'self' ] }
+  - { role: apigee_opdk_server_self, server_types: [ 'mp' ], tags: [ 'self' ] }
+  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
 
 - name: Configure & Install Router
   hosts: router
   gather_facts: no
-  tags: ['router','edge']
+  tags: [ 'router','edge' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -277,14 +280,14 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: apigee_opdk_setup_component, profile: 'r', tags: ['minimum', 'router'] }
-  - { role: apigee_opdk_server_self, server_types: ['router'], tags: ['self'] }
-  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
+  - { role: apigee_opdk_setup_component, profile: 'r', tags: [ 'minimum', 'router' ] }
+  - { role: apigee_opdk_server_self, server_types: [ 'router' ], tags: [ 'self' ] }
+  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
 
 - name: Configure & Install Message Processor
   hosts: mp
   gather_facts: no
-  tags: ['mp','edge']
+  tags: [ 'mp','edge' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -300,14 +303,14 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: apigee_opdk_setup_component, profile: 'mp', tags: ['minimum', 'mp'] }
-  - { role: apigee_opdk_server_self, server_types: ['mp'], tags: ['self'] }
-  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: ['self']  }
+  - { role: apigee_opdk_setup_component, profile: 'mp', tags: [ 'minimum', 'mp' ] }
+  - { role: apigee_opdk_server_self, server_types: [ 'mp' ], tags: [ 'self' ] }
+  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
 
 - name: Configure & Install Qpid
   hosts: qpid
   gather_facts: no
-  tags: ['qpid','edge','analytics']
+  tags: [ 'qpid','edge','analytics' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -324,15 +327,15 @@
   roles:
   - apigee_opdk_modules
   - { role: apigee_opdk_update_component_qpidd }
-  - { role: apigee_opdk_setup_component, profile: 'qs', tags: ['minimum', 'qs-setup'] }
-  - { role: apigee_opdk_server_self, server_types: ['qs'], tags: ['self'] }
+  - { role: apigee_opdk_setup_component, profile: 'qs', tags: [ 'minimum', 'qs-setup' ] }
+  - { role: apigee_opdk_server_self, server_types: [ 'qs' ], tags: [ 'self' ] }
 
 
 - name: Configure & Install Postgres
   hosts: pgmaster,pgstandby,pg[0]
   serial: 1
   gather_facts: no
-  tags: ['pg','edge', 'analytics']
+  tags: [ 'pg','edge', 'analytics' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -348,15 +351,15 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: apigee_opdk_settings_postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee_opdk_setup_component, profile: 'ps', tags: ['minimum', 'pg-setup'] }
-  - { role: apigee_opdk_server_self, server_types: ['ps'], tags: ['self'] }
+  - { role: apigee_opdk_settings_postgres, tags: [ 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup' ] }
+  - { role: apigee_opdk_setup_component, profile: 'ps', tags: [ 'minimum', 'pg-setup' ] }
+  - { role: apigee_opdk_server_self, server_types: [ 'ps' ], tags: [ 'self' ] }
 
 - name: Configure Postgres Master
   hosts: pgmaster
   serial: 1
   gather_facts: no
-  tags: ['pgmaster','edge', 'analytics']
+  tags: [ 'pgmaster','edge', 'analytics' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -372,16 +375,16 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: apigee_opdk_settings_postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee_opdk_setup_postgres_config, tags: ['minimum', 'config', 'pgmaster-config'] }
-  - { role: apigee_opdk_setup_postgres_master, tags: ['minimum', 'pgmaster-setup']  }
-  - { role: apigee_opdk_server_self, server_types: ['ps'], tags: ['self'] }
+  - { role: apigee_opdk_settings_postgres, tags: [ 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup' ] }
+  - { role: apigee_opdk_setup_postgres_config, tags: [ 'minimum', 'config', 'pgmaster-config' ] }
+  - { role: apigee_opdk_setup_postgres_master, tags: [ 'minimum', 'pgmaster-setup' ] }
+  - { role: apigee_opdk_server_self, server_types: [ 'ps' ], tags: [ 'self' ] }
 
 - name: Configure Postgres Standby
   hosts: pgstandby
   serial: 1
   gather_facts: no
-  tags: ['pgstandby','edge', 'analytics']
+  tags: [ 'pgstandby','edge', 'analytics' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -397,16 +400,16 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: apigee_opdk_settings_postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
-  - { role: apigee_opdk_stop_components, component_name: 'apigee-postgresql', tags: ['minimum', 'pgstandby-config'] }
-  - { role: apigee_opdk_setup_postgres_config, clear_pgdata: True, tags: ['minimum', 'pgstandby-config'] }
-  - { role: apigee_opdk_setup_postgres_standby, tags: ['minimum', 'pgstandby-setup'] }
+  - { role: apigee_opdk_settings_postgres, tags: [ 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup' ] }
+  - { role: apigee_opdk_stop_components, component_name: 'apigee-postgresql', tags: [ 'minimum', 'pgstandby-config' ] }
+  - { role: apigee_opdk_setup_postgres_config, clear_pgdata: True, tags: [ 'minimum', 'pgstandby-config' ] }
+  - { role: apigee_opdk_setup_postgres_standby, tags: [ 'minimum', 'pgstandby-setup' ] }
 
 - name: Configure Organization and Environments
   hosts: ms[0]
   serial: 1
   gather_facts: no
-  tags: ['org']
+  tags: [ 'org' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -427,7 +430,7 @@
 - name: Update for Regions with No Management Server
   hosts: ds
   serial: 1
-  tags: ['expansion']
+  tags: [ 'expansion' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -443,14 +446,14 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: apigee_opdk_setup_cassandra_registration, when: region_num > "2", tags: ['cassandra-registration'] }
-  - { role: apigee_opdk_cassandra_rebuild, when: region_num > "2", tags: ['cassandra-rebuild']  }
+  - { role: apigee_opdk_setup_cassandra_registration, when: region_num > "2", tags: [ 'cassandra-registration' ] }
+  - { role: apigee_opdk_cassandra_rebuild, when: region_num > "2", tags: [ 'cassandra-rebuild' ] }
 
 
 - name: Validate setup
   hosts: ms
   serial: 1
-  tags: ['validate']
+  tags: [ 'validate' ]
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
@@ -466,5 +469,5 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: apigee_opdk_setup_validate, tags: ['validate'] }
-  - { role: apigee_opdk_setup_validate_cleanup, tags: ['validate', 'validate-cleanup'] }
+  - { role: apigee_opdk_setup_validate, tags: [ 'validate' ] }
+  - { role: apigee_opdk_setup_validate_cleanup, tags: [ 'validate', 'validate-cleanup' ] }
