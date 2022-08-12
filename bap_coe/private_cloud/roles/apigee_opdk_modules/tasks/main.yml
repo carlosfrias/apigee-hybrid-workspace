@@ -19,7 +19,6 @@
 #    - files
 
   - name: Load variables
-    ignore_errors: Yes
     ansible.builtin.include_vars:
       dir: "{{ item }}"
       extensions:
