@@ -24,7 +24,7 @@
     recurse: yes
     mode: "777"
     owner: '{{ opdk_user_name }}'
-    group: '{{ opdk_group_name | default(opdk_user_name) }}'
+    group: '{{ opdk_group_name }}'
 
 - name: Update cache with manual_response_file if provided
   set_fact:
