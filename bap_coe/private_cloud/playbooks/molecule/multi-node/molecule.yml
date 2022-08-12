@@ -45,9 +45,9 @@ provisioner:
     create: create.yml
     convergee: converge.yml
 #    prepare: prepare.yml
-#inventory:
-#  links:
-#    hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
+inventory:
+  links:
+    hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
   config_options:
     defaults:
       host_key_checking: False
