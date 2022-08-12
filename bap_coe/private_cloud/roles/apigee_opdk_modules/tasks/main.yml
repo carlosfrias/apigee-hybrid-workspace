@@ -24,7 +24,7 @@
       extensions:
         - 'yml'
       ignore_files:
-      - '.git*'
+      - '.gitignore'
     with_items: "{{ property_folders }}"
 
 #  - name: Update cache with key and value
