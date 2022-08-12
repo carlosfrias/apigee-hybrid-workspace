@@ -1,22 +1,29 @@
 ---
 # tasks file for /usr/local/google/home/friasc/apigee-workspace/apigee-opdk-role-workspace/apigee-opdk-modules
 - block:
-  - name: Find yml property files
-    find:
-      path: '{{ item }}'
-      pattern: '*.yml'
-      file_type: file
-      hidden: yes
-      recurse: no
-    with_items: "{{ property_folders }}"
-    register: props
+#  - name: Find yml property files
+#    find:
+#      path: '{{ item }}'
+#      pattern: '*.yml'
+#      file_type: file
+#      hidden: yes
+#      recurse: no
+#    with_items: "{{ property_folders }}"
+#    register: props
+
+#  - name: Load variables
+#    include_vars:
+#      file: "{{ item.1.path }}"
+#    with_subelements:
+#    - "{{ props.results }}"
+#    - files
 
   - name: Load variables
-    include_vars:
-      file: "{{ item.1.path }}"
-    with_subelements:
-    - "{{ props.results }}"
-    - files
+    ansible.builtin.include_vars:
+      dir: "{{ item }}"
+      extensions:
+        - 'yml'
+    with_items: "{{ property_folders }}"
 
 #  - name: Update cache with key and value
 #    set_fact:

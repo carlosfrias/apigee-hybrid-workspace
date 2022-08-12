@@ -43,7 +43,7 @@ provisioner:
   playbooks:
 #    destroy: destroy.yml
     create: create.yml
-#    converge: converge.yml
+    convergee: converge.yml
 #    prepare: prepare.yml
 #inventory:
 #  links:
