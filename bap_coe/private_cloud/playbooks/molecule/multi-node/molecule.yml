@@ -44,16 +44,16 @@ provisioner:
     destroy: destroy.yml
     create: create.yml
     convergee: converge.yml
-inventory:
-  links:
-    hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
-  config_options:
-    defaults:
-      host_key_checking: False
-    inventory:
-      enable_plugins: gcp_compute
-    ssh_connection:
-      pipelining: false
+  inventory:
+    links:
+      hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
+    config_options:
+      defaults:
+        host_key_checking: False
+      inventory:
+        enable_plugins: gcp_compute
+      ssh_connection:
+        pipelining: false
     #  config_options:
 #    defaults:
 #      interpreter_python: auto_silent
