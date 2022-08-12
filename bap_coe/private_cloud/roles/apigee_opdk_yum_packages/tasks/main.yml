@@ -3,7 +3,7 @@
 - name: Update basic yum os packages with proxy and exclude some packages
   become: yes
   yum:
-    name: "{{ yum_os_minimum_packages }}"
+    name: "{{ yum_packages }}"
     state: present
     exclude: "{{ yum_exclude_packages | join(',') }}"
     disable_gpg_check: yes
@@ -17,7 +17,7 @@
 - name: Update basic yum os packages with proxy
   become: yes
   yum:
-    name: "{{ yum_os_minimum_packages }}"
+    name: "{{ yum_packages }}"
     state: present
     disable_gpg_check: yes
     allow_downgrade: yes

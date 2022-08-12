@@ -66,8 +66,6 @@ provisioner:
 #      forks: 25
 #      private_key_file: ~/.ssh/google_compute_engine
 #      scp_if_ssh: True
-
-
 #      callbacks_whitelist: profile_tasks, timer, yaml
 #      local_tmp: ../../work_dir/${PROJECT_ID}/tmp
 #      fact_caching_connection: ../../work_dir/${PROJECT_ID}/bap_coe_apigee_hybrid
