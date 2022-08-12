@@ -10,7 +10,7 @@
   vars:
     property_folders:
       - "{{ '~' | expanduser }}/.apigee"
-#      - "{{ '~' | expanduser }}/.apigee-secure"
+
 
   collections:
     - bap_coe.private_cloud
@@ -36,7 +36,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -65,7 +64,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -115,7 +113,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
   collections:
@@ -146,7 +143,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
   #    disable_yum_repos:
@@ -181,7 +177,6 @@
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -205,7 +200,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -228,7 +222,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -252,7 +245,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -277,7 +269,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -301,7 +292,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -325,7 +315,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -351,7 +340,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -376,7 +364,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -402,7 +389,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -428,7 +414,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -450,7 +435,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
@@ -474,7 +458,6 @@
 
   vars:
     property_folders:
-    - "{{ '~' | expanduser }}/.apigee-secure"
     - "{{ '~' | expanduser }}/.apigee"
 
 
