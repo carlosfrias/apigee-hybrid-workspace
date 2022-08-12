@@ -1,8 +1,0 @@
----
-- name: Access test
-  hosts: edge
-  gather_facts: yes
-
-  tasks:
-  - name: Ping hosts
-    ping:
