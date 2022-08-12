@@ -1,5 +1,5 @@
 ---
-- name: Destroy
+- name: Remove OPDK planet nodes
   hosts: localhost
   connection: local
 
@@ -22,7 +22,7 @@
     - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
 
   tasks:
-  - name: Create planet instances
+  - name: Remove planet instances
     include_tasks: "{{ playbook_dir | dirname }}/shared/remove-instance.yml"
     with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
     loop_control:
