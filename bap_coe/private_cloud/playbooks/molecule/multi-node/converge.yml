@@ -17,7 +17,7 @@
 
   roles:
     - apigee_opdk_modules
-    - apigee_opdk_settings_private_addressdev
+    - apigee_opdk_settings_private_address
     - apigee_opdk_settings_management_server
     - apigee_opdk_settings_region
     - apigee_opdk_settings_response_file
