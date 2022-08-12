@@ -113,13 +113,14 @@
       auth_kind: "{{ AUTHORIZATION_KIND }}"
       service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
       metadata:
-
         'startup-script': |
           {{ STARTUP_SCRIPT | default('') }}
       scopes: "{{ SCOPE_COMPUTE }}"
       tags:
         items:
           - "{{ TARGET_TAGS }}"
+    poll: 0
+    async: 300
     register: gce_instance
 
   - name: Store GCE Instance Ext IP Address
@@ -152,8 +153,8 @@
         {{ STARTUP_SCRIPT | default('') }}
     scopes: "{{ SCOPE_COMPUTE }}"
   register: gce_instance
-#  poll: 0
-#  async: 300
+  poll: 0
+  async: 300
   when: ACCESS_TYPE == "int"
 
 - name: Refreshing SSH
