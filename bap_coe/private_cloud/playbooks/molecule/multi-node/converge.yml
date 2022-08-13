@@ -12,7 +12,6 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
@@ -39,7 +38,6 @@
   vars:
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
-
 
   collections:
   - bap_coe.private_cloud
@@ -68,7 +66,6 @@
   vars:
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
-
 
   collections:
   - bap_coe.private_cloud
