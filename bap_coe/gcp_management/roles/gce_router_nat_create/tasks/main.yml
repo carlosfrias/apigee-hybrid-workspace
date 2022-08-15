@@ -58,12 +58,16 @@
 #      - range: 1.2.3.4
 #      - range: 6.7.0.0/16
 
+  GCP_ROUTER_NAME
+  GCP_ROUTER_NAT_NAME
+
+
 - name: create the nat
   ignore_errors: yes
   command: |
-    gcloud compute routers nats create opdk-nat
+    gcloud compute routers nats create {{ GCP_ROUTER_NAT_NAME }}
       --router-region {{ GCP_REGION }}
-      --router opdk-router
+      --router {{ GCP_ROUTER_NAME }}
       --nat-all-subnet-ip-ranges
       --auto-allocate-nat-external-ips
     

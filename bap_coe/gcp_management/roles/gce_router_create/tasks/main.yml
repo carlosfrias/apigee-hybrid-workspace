@@ -50,7 +50,7 @@
 - name: create a router
   google.cloud.gcp_compute_router:
     project: "{{ PROJECT_ID }}"
-    name: "opdk-router"
+    name: "{{ GCP_ROUTER_NAME }}"
     network: "{{ VPC_NETWORK_INFO }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
