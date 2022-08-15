@@ -13,8 +13,8 @@
   roles:
     - { role: service_account_file_path }
     - { role: service_account_file_processing }
-    - { role: gce_router_create }
-    - { role: gce_router_nat_create }
+    - { role: gce_router_nat_remove }
+    - { role: gce_router_remove }
 
   vars:
     PRIVATE_CLOUD_INSTANCES:
@@ -31,11 +31,4 @@
     with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
     loop_control:
       loop_var: instance
-
-
-#  - name: Remove router nats
-#    command: gcloud compute routers nats delete {{ GCP_ROUTER_NAT_NAME }} --router={{ GCP_ROUTER_NAME }} --router-region={{ GCP_REGION }}
-
-#  - name: Remove router
-#    command: gcloud compute routers delete {{ GCP_ROUTER_NAME }}
 
