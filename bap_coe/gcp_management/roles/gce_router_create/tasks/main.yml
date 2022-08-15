@@ -39,11 +39,19 @@
 #    cacheable: yes
 #    VPC_NETWORK_INFO: "{{ VPC_NETWORK_INFO }}"
 
+- name: get info on a network
+  gcp_compute_network_info:
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+  register: VPC_NETWORK_INFO
+
+
 - name: create a router
   google.cloud.gcp_compute_router:
     project: "{{ PROJECT_ID }}"
     name: "opdk-router"
-    network: "{{ VPC_NETWORK_NAME }}"
+    network: "{{ VPC_NETWORK_INFO }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     scopes: "{{ SCOPE_COMPUTE }}"
