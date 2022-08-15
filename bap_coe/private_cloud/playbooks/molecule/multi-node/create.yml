@@ -16,6 +16,8 @@
     - { role: service_account_file_processing }
     - { role: gce_network_create }
     - { role: gce_firewall_create }
+    - { role: gce_router_create }
+    - { role: gce_router_nat_create }
 
   vars:
     ACCESS_TYPE: 'int'

@@ -1,0 +1,68 @@
+---
+# tasks file for gce_network_create
+- name: Assert PROJECT_ID provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide PROJECT_ID"
+
+- name: Assert VPC_NETWORK_NAME provided
+  assert:
+    that:
+    - VPC_NETWORK_NAME is defined
+    msg: "Please provide VPC_NETWORK_NAME"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert SCOPE_COMPUTE provided
+  assert:
+    that:
+    - SCOPE_COMPUTE is defined
+    msg: "Please provide SCOPE_COMPUTE"
+
+#- name: Assert network is defined
+#  google.cloud.gcp_compute_network:
+#    project: "{{ PROJECT_ID }}"
+#    auth_kind: "{{ AUTHORIZATION_KIND }}"
+#    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+#    scopes: "{{ SCOPE_COMPUTE }}"
+#    state: present
+#    auto_create_subnetworks: yes
+#  register: VPC_NETWORK_INFO
+
+#- name: Cache NETWORK_INFO for downstream relo
+#  set_fact:
+#    cacheable: yes
+#    VPC_NETWORK_INFO: "{{ VPC_NETWORK_INFO }}"
+
+#- name: create a router
+#  google.cloud.gcp_compute_router:
+#    project: "{{ PROJECT_ID }}"
+#    name: "opdk-router"
+#    network: "{{ VPC_NETWORK_NAME }}"
+#    auth_kind: "{{ AUTHORIZATION_KIND }}"
+#    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+#    scopes: "{{ SCOPE_COMPUTE }}"
+#    state: present
+#    region: "{{ GCP_REGION }}"
+#    bgp:
+#      asn: 64514
+#      advertise_mode: CUSTOM
+#      advertised_groups:
+#      - ALL_SUBNETS
+#      advertised_ip_ranges:
+#      - range: 1.2.3.4
+#      - range: 6.7.0.0/16
+
+- name: create the nat
+  command: |
+    gcloud compute routers nats create opdk-nat
+      --router-region {{ GCP_REGION }}
+      --router opdk-router
+      --nat-all-subnet-ip-ranges
+      --auto-allocate-nat-external-ips
+    
