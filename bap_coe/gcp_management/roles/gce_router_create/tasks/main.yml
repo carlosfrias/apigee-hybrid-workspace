@@ -38,7 +38,8 @@
   google.cloud.gcp_compute_router:
     project: "{{ PROJECT_ID }}"
     name: "{{ GCP_ROUTER_NAME }}"
-    network: "{{ VPC_NETWORK_NAME }}"
+#    network: "{{ VPC_NETWORK_NAME }}"
+    network: "default"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     scopes: "{{ SCOPE_COMPUTE }}"
