@@ -22,7 +22,10 @@ bastion_blockinfile_mark: "# {mark} {{ bastion_target_host_range }}  * ANSIBLE M
 bastion_host_name: bastion-1
 FIREWALL_NAME_SUFFIX: "bastion"
 TARGET_TAGS: "default-allow-ssh"
+GCP_REGION: us-east1
 GCP_ZONE: us-east1-b
+GCP_ROUTER_NAME: opdk-router
+GCP_ROUTER_NAT_NAME: opdk-nat
 CONTROL_SERVER_IMAGE_NAME: ops-server
 CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
 GCLOUD_ORG_BINDING_PROPAGATION_TIMEOUT: 10
