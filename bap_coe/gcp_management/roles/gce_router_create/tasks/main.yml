@@ -42,8 +42,8 @@
     scopes: "{{ SCOPE_COMPUTE }}"
     state: present
     region: "{{ GCP_REGION }}"
-    bgp:
-      asn: 64514
+#    bgp:
+#      asn: 64514
 #      advertise_mode: CUSTOM
 #      advertised_groups:
 #      - ALL_SUBNETS
