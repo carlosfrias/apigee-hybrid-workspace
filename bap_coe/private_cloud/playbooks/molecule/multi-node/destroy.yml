@@ -29,7 +29,7 @@
       loop_var: instance
 
   - name: Remove router nats
-    command: gcloud compute routers nats delete opdk-nat
+    command: gcloud compute routers nats delete opdk-nat --router=opdk-router
 
 
   - name: Remove router
