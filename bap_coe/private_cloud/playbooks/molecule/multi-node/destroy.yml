@@ -12,6 +12,9 @@
 
   roles:
     - { role: service_account_file_path }
+    - { role: service_account_file_processing }
+    - { role: gce_router_create }
+    - { role: gce_router_nat_create }
 
   vars:
     PRIVATE_CLOUD_INSTANCES:
@@ -21,6 +24,7 @@
     - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
     - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
 
+
   tasks:
   - name: Remove planet instances
     include_tasks: "{{ playbook_dir | dirname }}/shared/remove-instance.yml"
@@ -28,9 +32,10 @@
     loop_control:
       loop_var: instance
 
-  - name: Remove router nats
-    command: gcloud compute routers nats delete {{ GCP_ROUTER_NAT_NAME }} --router={{ GCP_ROUTER_NAME }} --router-region={{ GCP_REGION }}
 
+#  - name: Remove router nats
+#    command: gcloud compute routers nats delete {{ GCP_ROUTER_NAT_NAME }} --router={{ GCP_ROUTER_NAME }} --router-region={{ GCP_REGION }}
 
-  - name: Remove router
-    command: glcoud compute routers delete opdk-router
+#  - name: Remove router
+#    command: gcloud compute routers delete {{ GCP_ROUTER_NAME }}
+

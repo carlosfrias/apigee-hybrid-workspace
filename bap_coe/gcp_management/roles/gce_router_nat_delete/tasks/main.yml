@@ -24,13 +24,8 @@
     - SCOPE_COMPUTE is defined
     msg: "Please provide SCOPE_COMPUTE"
 
-
-- name: create the nat
-  ignore_errors: yes
+- name: Remove router nats
   command: |
-    gcloud compute routers nats create {{ GCP_ROUTER_NAT_NAME }}
-      --router-region {{ GCP_REGION }}
-      --router {{ GCP_ROUTER_NAME }}
-      --nat-all-subnet-ip-ranges
-      --auto-allocate-nat-external-ips
-    
+    gcloud compute routers nats delete {{ GCP_ROUTER_NAT_NAME }} 
+      --router={{ GCP_ROUTER_NAME }} 
+      --router-region={{ GCP_REGION }}

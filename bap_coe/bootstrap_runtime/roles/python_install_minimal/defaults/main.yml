@@ -8,4 +8,3 @@ python_Debian_system_installation_sequence:
 python_RedHat_system_installation_sequence:
   - "yum update"
   - "yum install python3 -y"
-

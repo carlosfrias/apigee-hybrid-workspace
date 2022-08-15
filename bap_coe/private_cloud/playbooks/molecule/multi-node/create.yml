@@ -1,4 +1,19 @@
 ---
+- name: Update with python
+  hosts: edge
+  serial: free
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  collections:
+  - bap_coe.gcp_management
+  - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: python_install_minimal }
+
 - name: Create infrastructure for private cloud in GCP
   hosts: localhost
   connection: local
@@ -45,17 +60,3 @@
     loop_control:
       loop_var: instance
 
-- name: Update with python
-  hosts: edge
-  serial: free
-
-  vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
-
-  collections:
-  - bap_coe.gcp_management
-  - bap_coe.bootstrap_runtime
-
-  roles:
-  - { role: python_install_minimal }

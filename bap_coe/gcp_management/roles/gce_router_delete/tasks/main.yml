@@ -24,6 +24,21 @@
     - SCOPE_COMPUTE is defined
     msg: "Please provide SCOPE_COMPUTE"
 
+#- name: Assert network is defined
+#  google.cloud.gcp_compute_network:
+#    project: "{{ PROJECT_ID }}"
+#    auth_kind: "{{ AUTHORIZATION_KIND }}"
+#    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+#    scopes: "{{ SCOPE_COMPUTE }}"
+#    state: present
+#    auto_create_subnetworks: yes
+#  register: VPC_NETWORK_INFO
+
+#- name: Cache NETWORK_INFO for downstream relo
+#  set_fact:
+#    cacheable: yes
+#    VPC_NETWORK_INFO: "{{ VPC_NETWORK_INFO }}"
+
 - name: get info on a network
   gcp_compute_network_info:
     project: "{{ PROJECT_ID }}"
@@ -32,22 +47,7 @@
   register: VPC_NETWORK_INFO
 
 
-- name: create a router
-  google.cloud.gcp_compute_router:
-    project: "{{ PROJECT_ID }}"
-    name: "{{ GCP_ROUTER_NAME }}"
-    network: "{{ VPC_NETWORK_INFO }}"
-    auth_kind: "{{ AUTHORIZATION_KIND }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-    scopes: "{{ SCOPE_COMPUTE }}"
-    state: present
-    region: "{{ GCP_REGION }}"
-    bgp:
-      asn: 64514
-#      advertise_mode: CUSTOM
-#      advertised_groups:
-#      - ALL_SUBNETS
-#      advertised_ip_ranges:
-#      - range: 1.2.3.4
 
-#      - range: 6.7.0.0/16
+- name: delete router
+  command: gcloud compute routers delete {{ GCP_ROUTER_NAME }}
+
