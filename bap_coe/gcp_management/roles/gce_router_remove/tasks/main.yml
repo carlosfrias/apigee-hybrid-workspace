@@ -32,5 +32,7 @@
   register: VPC_NETWORK_INFO
 
 - name: delete router
-  command: gcloud compute routers delete {{ GCP_ROUTER_NAME }}
+  command: |
+    gcloud compute routers delete {{ GCP_ROUTER_NAME }} 
+      --region {{ GCP_REGION }}
 
