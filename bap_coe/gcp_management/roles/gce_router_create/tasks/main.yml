@@ -35,7 +35,7 @@
 
 
 - name: create a router
-  comand: |
+  command: |
     gcloud compute routers create {{ GCP_ROUTER_NAME }} \
         --network {{ VPC_NETWORK_NAME }} \
         --region {{ GCP_REGION }}
