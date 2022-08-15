@@ -47,6 +47,7 @@
 
 - name: Update with python
   hosts: edge
+  serial: free
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml

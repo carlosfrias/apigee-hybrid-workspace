@@ -27,3 +27,10 @@
     with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
     loop_control:
       loop_var: instance
+
+  - name: Remove router nats
+    command: gcloud compute routers nats delete opdk-nat
+
+
+  - name: Remove router
+    command: glcoud compute routers delete opdk-router
