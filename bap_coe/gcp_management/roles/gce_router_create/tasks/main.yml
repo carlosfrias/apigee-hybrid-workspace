@@ -12,48 +12,16 @@
     - VPC_NETWORK_NAME is defined
     msg: "Please provide VPC_NETWORK_NAME"
 
-- name: Assert SERVICE_ACCOUNT_FILE_PATH provided
+- name: Assert GCP_REGION provided
   assert:
     that:
-    - SERVICE_ACCOUNT_FILE_PATH is defined
-    msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
-
-- name: Assert SCOPE_COMPUTE provided
-  assert:
-    that:
-    - SCOPE_COMPUTE is defined
-    msg: "Please provide SCOPE_COMPUTE"
-
-- name: get info on a network
-  gcp_compute_network_info:
-    filters:
-    - name = {{ VPC_NETWORK_NAME }}
-    project: "{{ PROJECT_ID }}"
-    auth_kind: "{{ AUTHORIZATION_KIND }}"
-    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-  register: VPC_NETWORK_INFO
-
+    - GCP_REGION is defined
+    msg: "Please provide GCP_REGION"
 
 - name: create a router
   command: |
     gcloud compute routers create {{ GCP_ROUTER_NAME }} \
         --network {{ VPC_NETWORK_NAME }} \
         --region {{ GCP_REGION }}
-#  google.cloud.gcp_compute_router:
-#    project: "{{ PROJECT_ID }}"
-#    name: "{{ GCP_ROUTER_NAME }}"
-#    network: "{{ PROJECT_ID }}/global/networks/{{ VPC_NETWORK_NAME }}"
-#    auth_kind: "{{ AUTHORIZATION_KIND }}"
-#    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-#    scopes: "{{ SCOPE_COMPUTE }}"
-#    state: present
-#    region: "{{ GCP_REGION }}"
-#    bgp:
-#      asn: 64514
-#      advertise_mode: CUSTOM
-#      advertised_groups:
-#      - ALL_SUBNETS
-#      advertised_ip_ranges:
-#      - range: 1.2.3.4
 
-#      - range: 6.7.0.0/16
+
