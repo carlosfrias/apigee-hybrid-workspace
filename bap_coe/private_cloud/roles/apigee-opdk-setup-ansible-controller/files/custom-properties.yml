@@ -15,7 +15,7 @@ enable_system_check: n
 # upgrade_from_opdk_version: 4.17.01
 
 # Location from where to download Apigee Private Cloud binaries
-apigee_repo_url: "http://software.apigee.com"
+apigee_repo_url: "https://software.apigee.com"
 
 # Installation resources staging folder
 opdk_resources_path: /opt/apigee/customer/installation
