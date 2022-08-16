@@ -167,7 +167,7 @@
 
   roles:
   - apigee_opdk_modules
-  - { role: yum_config_manager, tags: [ 'yum-config' ] }
+#  - { role: yum_config_manager, tags: [ 'yum-config' ] }
   - { role: apigee_opdk_setup_java_home }
   - { role: apigee_opdk_setup_bootstrap_cache }
   - { role: apigee_opdk_setup_bootstrap }
