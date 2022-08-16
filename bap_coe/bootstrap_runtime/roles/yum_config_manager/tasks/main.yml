@@ -4,3 +4,4 @@
   become: true
   shell: yum-config-manager --disable {{ item }}
   with_items: "{{ disable_yum_repos }}"
+  when: disable_yum_repos is defined
