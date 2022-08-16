@@ -145,6 +145,7 @@
 - name: Install Edge
   hosts: edge
   tags: [ 'bootstrap' ]
+  gather_facts: yes
 
   vars:
     property_folders:
