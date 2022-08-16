@@ -64,9 +64,8 @@
             https_proxy: "{{ https_proxy | default('') }}"
             no_proxy: "{{ no_proxy | default('') }}"
 
-  when: pip.stat.exists == false
+  when: pip.stat.exists is falsy
   become: yes
-
 
 - name: Pull pip3 path
   command: which pip3
