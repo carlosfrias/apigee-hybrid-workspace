@@ -147,6 +147,7 @@
   hosts: edge
   tags: [ 'bootstrap' ]
   gather_facts: yes
+  serial: 1
 
   vars:
     property_folders:
