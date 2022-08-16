@@ -3,7 +3,7 @@
 - block:
   - name: Install python if necessary
     become: yes
-    raw: 'type {{ PYTHON_EXE | default("python") }} >/dev/null 2>&1 || sudo apt install -y {{ PYTHON_EXE | default("python") }}'
+    raw: 'type {{ PYTHON_EXE | default(default_python) }} >/dev/null 2>&1 || sudo apt install -y {{ PYTHON_EXE | default(default_python) }}'
     changed_when: false
 
   - name: Added python3 for package manager
@@ -16,7 +16,7 @@
 - block:
   - name: Install python if necessary
     become: yes
-    raw: 'type {{ PYTHON_EXE | default("python") }} >/dev/null 2>&1 || yum install -y {{ PYTHON_EXE | default("python") }}'
+    raw: 'type {{ PYTHON_EXE | default(default_python) }} >/dev/null 2>&1 || yum install -y {{ PYTHON_EXE | default(default_python) }}'
     changed_when: false
 
   - name: Added python3 for package manager
