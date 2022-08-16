@@ -1,6 +1,7 @@
 ---
 - name: Collect Configuration Information for Planet
   hosts: edge
+  gather_facts: true
   tags: [ 'cache','response-file','copy' ]
 
   vars_files:
