@@ -12,6 +12,15 @@
     dest: "{{ pip_conf_dir }}/pip.conf"
   when: pip_conf_dir is defined
 
+- name: Pull pip3 path
+  command: which pip3
+  register: pip_path
+
+- name: Check for pip
+  stat:
+    path: "{{ PIP_EXECUTABLE | default(pip_path.stat.path) }}"
+  register: pip
+
 - name: Install pip using multiple approaches
   block:
   - name: Install pip
@@ -66,10 +75,6 @@
 
   when: pip.stat.exists is falsy
   become: yes
-
-- name: Pull pip3 path
-  command: which pip3
-  register: pip_path
 
 - name: Assert update_pip settings
   set_fact:
