@@ -472,4 +472,3 @@
   - { role: apigee_opdk_setup_validate, tags: [ 'validate' ] }
   - { role: apigee_opdk_setup_validate_cleanup, tags: [ 'validate', 'validate-cleanup' ] }
 
-    

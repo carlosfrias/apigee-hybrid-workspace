@@ -43,9 +43,9 @@
     when: bootstrap_file.stat.size == 0
 
   rescue:
-    - name: Download bootstrap using wget
+    - name: Download bootstrap using curl
       become: true
-      shell: "wget {{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }} -O {{ bootstrap_file_path }}"
+      shell: "curl {{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }} -o {{ bootstrap_file_path }}"
       environment:
         no_proxy: "{{ no_proxy | default('') }}"
         http_proxy: "{{ http_proxy | default('') }}"
