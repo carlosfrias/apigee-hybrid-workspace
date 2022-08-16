@@ -19,23 +19,27 @@
 - block:
   - name: Download bootstrap without proxy
     become: yes
-    uri:
+    get_url:
       url: '{{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }}'
       dest: '{{ bootstrap_file_path }}'
-      creates: '{{ bootstrap_file_path }}'
-      user: '{{ apigee_repo_user | default(default_apigee_repo_user) }}'
-      password: '{{ apigee_repo_password | default(default_apigee_repo_password) }}'
+      url_username: '{{ apigee_repo_user | default(default_apigee_repo_user) }}'
+      url_password: '{{ apigee_repo_password | default(default_apigee_repo_password) }}'
+      force: yes
+      timeout: 10
+      use_proxy: no
     register: results
     when: http_proxy is not defined
 
   - name: Download bootstrap with proxy
     become: yes
-    uri:
+    get_url:
       url: '{{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }}'
       dest: '{{ bootstrap_file_path }}'
-      creates: '{{ bootstrap_file_path }}'
-      user: '{{ apigee_repo_user | default(default_apigee_repo_user) }}'
-      password: '{{ apigee_repo_password | default(default_apigee_repo_password) }}'
+      url_username: '{{ apigee_repo_user | default(default_apigee_repo_user) }}'
+      url_password: '{{ apigee_repo_password | default(default_apigee_repo_password) }}'
+      force: yes
+      timeout: 10
+      use_proxy: no
     register: results
     environment:
       no_proxy: "{{ no_proxy | default('') }}"
