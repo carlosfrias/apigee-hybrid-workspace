@@ -45,7 +45,7 @@
   rescue:
     - name: Download bootstrap using curl
       become: true
-      shell: "curl -v {{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }} -o {{ bootstrap_file_path }}"
+      shell: "wget {{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }} -O {{ bootstrap_file_path }}"
       environment:
         no_proxy: "{{ no_proxy | default('') }}"
         http_proxy: "{{ http_proxy | default('') }}"
