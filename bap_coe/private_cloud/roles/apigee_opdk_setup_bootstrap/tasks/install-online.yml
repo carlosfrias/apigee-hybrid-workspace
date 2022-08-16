@@ -17,6 +17,17 @@
     bootstrap_file_path: "{{ opdk_resources_path }}/{{ bootstrap_file_name }}"
 
 - block:
+  - name: Download bootstrap without proxy
+    become: yes
+    uri:
+      url: '{{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }}'
+      dest: '{{ bootstrap_file_path }}'
+      creates: '{{ bootstrap_file_path }}'
+      user: '{{ apigee_repo_user | default(default_apigee_repo_user) }}'
+      password: '{{ apigee_repo_password | default(default_apigee_repo_password) }}'
+    register: results
+    when: http_proxy is not defined
+
   - name: Download bootstrap with proxy
     become: yes
     uri:
@@ -30,6 +41,7 @@
       no_proxy: "{{ no_proxy | default('') }}"
       http_proxy: "{{ http_proxy | default('') }}"
       https_proxy: "{{ https_proxy | default('') }}"
+    when: http_proxy is defined and https_proxy is defined and no_proxy is defined
 
   - name: Assert script download
     become: yes
@@ -43,13 +55,19 @@
     when: bootstrap_file.stat.size == 0
 
   rescue:
-    - name: Download bootstrap using curl
+    - name: Download bootstrap using wget and no proxy
+      become: true
+      command: "wget {{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }} -O {{ bootstrap_file_path }}"
+      when: http_proxy is not defined
+
+    - name: Download bootstrap using wget with proxy
       become: true
       command: "wget {{ apigee_repo_url | default(default_apigee_repo_url) }}/{{ bootstrap_file_name }} -O {{ bootstrap_file_path }}"
       environment:
         no_proxy: "{{ no_proxy | default('') }}"
         http_proxy: "{{ http_proxy | default('') }}"
         https_proxy: "{{ https_proxy | default('') }}"
+      when: http_proxy is defined and https_proxy is defined and no_proxy is defined
 
 - name: Assert bootstrap script exists
   become: yes
