@@ -1,6 +1,5 @@
 ---
 # tasks file for apigee-opdk-setup-os-pip/
-
 - name: Create pip config folder
   file:
     path: "{{ pip_conf_dir }}"
@@ -13,16 +12,11 @@
     dest: "{{ pip_conf_dir }}/pip.conf"
   when: pip_conf_dir is defined
 
-- name: Check for pip
-  stat:
-    path: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
-  register: pip
-
 - name: Install pip using multiple approaches
   block:
   - name: Install pip
     yum:
-      name: python-pip
+      name: python3-pip
       state: present
     environment:
       http_proxy: "{{ http_proxy | default('') }}"
@@ -39,7 +33,7 @@
 
       - name: Install pip, after installing epel repository
         yum:
-          name: python-pip
+          name: python3-pip
           state: present
         environment:
           http_proxy: "{{ http_proxy | default('') }}"
@@ -73,6 +67,11 @@
   when: pip.stat.exists == false
   become: yes
 
+
+- name: Pull pip3 path
+  command: which pip3
+  register: pip_path
+
 - name: Assert update_pip settings
   set_fact:
     update_pip: "{{ UPDATE_PIP | default(false) }}"
@@ -83,7 +82,7 @@
   pip:
     name: pip
     state: latest
-    executable: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
+    executable: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
   environment:
     http_proxy: "{{ http_proxy | default('') }}"
     https_proxy: "{{ https_proxy | default('') }}"
@@ -93,7 +92,7 @@
 - name: Update managed system python modules
   block:
     - name: Get current version of python
-      raw: python --version
+      raw: python3 --version
       register: python_version
 
     - name: Update setuptool<45 to enable other package installations
@@ -101,6 +100,7 @@
         name: setuptools
         version: "<45"
         state: present
+        executable: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
       when: (python_version.stdout | regex_search('^Python 2')) == true
 
     - name: Update managed system python modules
@@ -108,7 +108,7 @@
       pip:
         name: "{{ pip_packages }}"
         state: present
-        executable: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
+        executable: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
       environment:
         http_proxy: "{{ http_proxy | default('') }}"
         https_proxy: "{{ https_proxy | default('') }}"
@@ -130,7 +130,7 @@
       pip:
         name: "{{ pip_packages }}"
         state: present
-        executable: "{{ PIP_EXECUTABLE | default('/usr/bin/pip') }}"
+        executable: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
       environment:
         http_proxy: "{{ http_proxy | default('') }}"
         https_proxy: "{{ https_proxy | default('') }}"
