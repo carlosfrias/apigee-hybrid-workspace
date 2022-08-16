@@ -54,6 +54,7 @@
   - apigee_opdk_settings_postgres
   - apigee_opdk_setup_silent_installation_config
 
+
 - name: Distribute Configuration File to Planet
   hosts: edge
   gather_facts: no
@@ -104,6 +105,7 @@
       owner: '{{ opdk_user_name }}'
       group: '{{ opdk_group_name }}'
 
+
 - name: Complete OS Pre-requisites
   hosts: edge
   tags: [ 'os' ]
@@ -134,10 +136,11 @@
       tags: [ 'minimum','restart-server','selinux','sysctl' ],
       start_check_delay: 45,
       when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)
-  }
+    }
   - { role: apigee_opdk_setup_os_common, tags: [ 'os-common' ] }
   - { role: apigee_opdk_setup_openjdk_cache, tags: [ 'minimum', 'openjdk','bootstrap' ], jdk_version: '1.8' }
   - { role: apigee_opdk_setup_openjdk, tags: [ 'minimum', 'openjdk','bootstrap' ], jdk_version: '1.8' }
+
 
 - name: Install Edge
   hosts: edge
@@ -169,6 +172,7 @@
   - { role: apigee_opdk_setup_component_install, component: 'apigee-setup' }
   - { role: apigee_opdk_setup_apigee_user_ownership }
 
+
 - name: Configure & Install Cassandra & Zookeeper - Seed Node
   hosts: "{{ CASSANDRA_SEED_NODE | default('ds[0]') }}"
   gather_facts: no
@@ -178,10 +182,10 @@
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
   vars:
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
-
 
   collections:
   - bap_coe.private_cloud
@@ -205,13 +209,13 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
   roles:
   - apigee_opdk_modules
   - { role: apigee_opdk_setup_component, profile: 'ds' }
+
 
 - name: Configure & Install Management Server
   hosts: ms
@@ -227,7 +231,6 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
@@ -236,6 +239,7 @@
   - { role: apigee_opdk_setup_component, profile: 'ms', when: region_num | int < 3 }
   - { role: apigee_opdk_setup_component, profile: 'ms', when: region_num | int> 2, port_timeout: 300 }
   - { role: apigee_opdk_setup_component, profile: 'ui', tags: [ 'ui' ] }
+
 
 - name: Configure & Install Router and Message Processor
   hosts: rmp
@@ -249,7 +253,6 @@
   vars:
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
-
 
   collections:
   - bap_coe.private_cloud
@@ -274,7 +277,6 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
@@ -283,6 +285,7 @@
   - { role: apigee_opdk_setup_component, profile: 'r', tags: [ 'minimum', 'router' ] }
   - { role: apigee_opdk_server_self, server_types: [ 'router' ], tags: [ 'self' ] }
   - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
+
 
 - name: Configure & Install Message Processor
   hosts: mp
@@ -297,7 +300,6 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
@@ -306,6 +308,7 @@
   - { role: apigee_opdk_setup_component, profile: 'mp', tags: [ 'minimum', 'mp' ] }
   - { role: apigee_opdk_server_self, server_types: [ 'mp' ], tags: [ 'self' ] }
   - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
+
 
 - name: Configure & Install Qpid
   hosts: qpid
@@ -319,7 +322,6 @@
   vars:
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
-
 
   collections:
   - bap_coe.private_cloud
@@ -345,7 +347,6 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
@@ -354,6 +355,7 @@
   - { role: apigee_opdk_settings_postgres, tags: [ 'minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup' ] }
   - { role: apigee_opdk_setup_component, profile: 'ps', tags: [ 'minimum', 'pg-setup' ] }
   - { role: apigee_opdk_server_self, server_types: [ 'ps' ], tags: [ 'self' ] }
+
 
 - name: Configure Postgres Master
   hosts: pgmaster
@@ -369,7 +371,6 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
@@ -379,6 +380,7 @@
   - { role: apigee_opdk_setup_postgres_config, tags: [ 'minimum', 'config', 'pgmaster-config' ] }
   - { role: apigee_opdk_setup_postgres_master, tags: [ 'minimum', 'pgmaster-setup' ] }
   - { role: apigee_opdk_server_self, server_types: [ 'ps' ], tags: [ 'self' ] }
+
 
 - name: Configure Postgres Standby
   hosts: pgstandby
@@ -394,7 +396,6 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
@@ -404,6 +405,7 @@
   - { role: apigee_opdk_stop_components, component_name: 'apigee-postgresql', tags: [ 'minimum', 'pgstandby-config' ] }
   - { role: apigee_opdk_setup_postgres_config, clear_pgdata: True, tags: [ 'minimum', 'pgstandby-config' ] }
   - { role: apigee_opdk_setup_postgres_standby, tags: [ 'minimum', 'pgstandby-setup' ] }
+
 
 - name: Configure Organization and Environments
   hosts: ms[0]
@@ -419,13 +421,13 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
   roles:
   - apigee_opdk_modules
   - { role: apigee_opdk_setup_org }
+
 
 - name: Update for Regions with No Management Server
   hosts: ds
@@ -439,7 +441,6 @@
   vars:
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
-
 
   collections:
   - bap_coe.private_cloud
@@ -463,7 +464,6 @@
     property_folders:
     - "{{ '~' | expanduser }}/.apigee"
 
-
   collections:
   - bap_coe.private_cloud
 
@@ -471,3 +471,5 @@
   - apigee_opdk_modules
   - { role: apigee_opdk_setup_validate, tags: [ 'validate' ] }
   - { role: apigee_opdk_setup_validate_cleanup, tags: [ 'validate', 'validate-cleanup' ] }
+
+    
