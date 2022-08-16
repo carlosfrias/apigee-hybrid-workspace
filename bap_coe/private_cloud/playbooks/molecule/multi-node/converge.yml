@@ -126,7 +126,7 @@
   - { role: apigee_opdk_yum_repository_proxy_config, tags: [ 'yum-proxy-config' ] }
   - { role: apigee_opdk_setup_os_minimum, tags: [ 'os-minimum' ] }
   - { role: apigee_opdk_setup_os_limits, tags: [ 'limit' ] }
-  - { role: apigee_opdk_setup_os_pip, tags: [ 'pip' ] }
+#  - { role: apigee_opdk_setup_os_pip, tags: [ 'pip' ] }
   - { role: apigee_opdk_setup_os_sysctl, tags: [ 'sysctl' ] }
   - { role: apigee_opdk_setup_selinux_disable, tags: [ 'minimum', 'selinux' ] }
   - { role: apigee_server_restart,
