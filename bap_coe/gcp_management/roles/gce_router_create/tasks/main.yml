@@ -19,6 +19,7 @@
     msg: "Please provide GCP_REGION"
 
 - name: create a router
+  ignore_errors: true
   command: |
     gcloud compute routers create {{ GCP_ROUTER_NAME }} \
         --network {{ VPC_NETWORK_NAME }} \
