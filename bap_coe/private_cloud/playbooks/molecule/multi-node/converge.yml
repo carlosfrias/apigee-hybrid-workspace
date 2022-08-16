@@ -28,7 +28,7 @@
 
 - name: Generate Configuration for Planet
   hosts: ms
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'response-file','copy' ]
 
   vars_files:
@@ -57,7 +57,7 @@
 
 - name: Distribute Configuration File to Planet
   hosts: edge
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'copy' ]
 
   vars_files:
@@ -108,6 +108,7 @@
 
 - name: Complete OS Pre-requisites
   hosts: edge
+  gather_facts: yes
   tags: [ 'os' ]
 
   vars_files:
@@ -176,7 +177,7 @@
 
 - name: Configure & Install Cassandra & Zookeeper - Seed Node
   hosts: "{{ CASSANDRA_SEED_NODE | default('ds[0]') }}"
-  gather_facts: no
+  gather_facts: yes
   serial: 1
   tags: [ 'ds','ds-seed' ]
 
@@ -198,7 +199,7 @@
 
 - name: Configure & Install Cassandra & Zookeeper - Remaining Nodes
   hosts: "ds,{{ CASSANDRA_SEED_NODE | default('ds[0]') }}!"
-  gather_facts: no
+  gather_facts: yes
   serial: 1
   tags: [ 'ds' ]
 
@@ -220,7 +221,7 @@
 
 - name: Configure & Install Management Server
   hosts: ms
-  gather_facts: no
+  gather_facts: yes
   serial: 1
   tags: [ 'ms' ]
 
@@ -244,7 +245,7 @@
 
 - name: Configure & Install Router and Message Processor
   hosts: rmp
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'edge','rmp' ]
 
   vars_files:
@@ -267,7 +268,7 @@
 
 - name: Configure & Install Router
   hosts: router
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'router','edge' ]
 
   vars_files:
@@ -290,7 +291,7 @@
 
 - name: Configure & Install Message Processor
   hosts: mp
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'mp','edge' ]
 
   vars_files:
@@ -313,7 +314,7 @@
 
 - name: Configure & Install Qpid
   hosts: qpid
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'qpid','edge','analytics' ]
 
   vars_files:
@@ -337,7 +338,7 @@
 - name: Configure & Install Postgres
   hosts: pgmaster,pgstandby,pg[0]
   serial: 1
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'pg','edge', 'analytics' ]
 
   vars_files:
@@ -361,7 +362,7 @@
 - name: Configure Postgres Master
   hosts: pgmaster
   serial: 1
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'pgmaster','edge', 'analytics' ]
 
   vars_files:
@@ -386,7 +387,7 @@
 - name: Configure Postgres Standby
   hosts: pgstandby
   serial: 1
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'pgstandby','edge', 'analytics' ]
 
   vars_files:
@@ -411,7 +412,7 @@
 - name: Configure Organization and Environments
   hosts: ms[0]
   serial: 1
-  gather_facts: no
+  gather_facts: yes
   tags: [ 'org' ]
 
   vars_files:
@@ -433,6 +434,7 @@
 - name: Update for Regions with No Management Server
   hosts: ds
   serial: 1
+  gather_facts: yes
   tags: [ 'expansion' ]
 
   vars_files:
@@ -455,6 +457,7 @@
 - name: Validate setup
   hosts: ms
   serial: 1
+  gather_facts: yes
   tags: [ 'validate' ]
 
   vars_files:
