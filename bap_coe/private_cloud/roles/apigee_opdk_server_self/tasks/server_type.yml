@@ -7,9 +7,7 @@
     return_content: yes
   register: self
 
--
-
 - name: Construct self report variable name
   set_fact:
     cacheable: yes
-    server_uuid: '{{ self.json.uUID }}'
+    server_uuid: '{{ self.json }}'
