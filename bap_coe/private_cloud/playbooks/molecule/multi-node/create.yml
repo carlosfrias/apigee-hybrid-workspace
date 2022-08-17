@@ -1,6 +1,8 @@
 ---
 - name: Update with python
   hosts: edge
+  gather_facts: yes
+  tags: ['python']
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
