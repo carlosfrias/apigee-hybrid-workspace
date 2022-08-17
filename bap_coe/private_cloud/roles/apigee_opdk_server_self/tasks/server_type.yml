@@ -7,9 +7,13 @@
     return_content: yes
   register: self
 
+- name: Convert type
+  set_fact:
+    converted_self: "{{ self | from_json }}"
+
 - name: Show self
   debug:
-    msg: "{{ self.buildInfo }}"
+    msg: "{{ converted_self.json }}"
 
 - pause:
 
