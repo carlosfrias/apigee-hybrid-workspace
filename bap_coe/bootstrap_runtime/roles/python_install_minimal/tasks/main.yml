@@ -1,7 +1,7 @@
 ---
 # tasks file for python_install_minimal
 - block:
-  - name: Install python if necessary on Debian
+  - name: Install python on Debian
     become: yes
     raw: 'type {{ PYTHON_EXE | default(default_python) }} >/dev/null 2>&1 || sudo apt install -y {{ PYTHON_EXE | default(default_python) }}'
     changed_when: false
@@ -14,7 +14,7 @@
   when: ansible_os_family == "Debian"
 
 - block:
-  - name: Install python if necessary on Centos / Redhat
+  - name: Install python on Centos / Redhat
     become: yes
     raw: 'type {{ PYTHON_EXE | default(default_python) }} >/dev/null 2>&1 || yum install -y {{ PYTHON_EXE | default(default_python) }}'
     changed_when: false
