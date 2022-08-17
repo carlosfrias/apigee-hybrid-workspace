@@ -7,6 +7,12 @@
     return_content: yes
   register: self
 
+- name: Show self
+  debug:
+    msg: "{{ self }}"
+
+- pause:
+    
 - name: Construct self report variable name
   set_fact:
     cacheable: yes
