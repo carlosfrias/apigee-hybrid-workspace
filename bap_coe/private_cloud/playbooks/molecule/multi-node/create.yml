@@ -14,6 +14,7 @@
 
   roles:
   - { role: python_install_minimal }
+  - { role: python_pip_install_config }
 
 
 - name: Create infrastructure for private cloud in GCP
