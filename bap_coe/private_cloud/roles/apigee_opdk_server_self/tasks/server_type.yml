@@ -9,11 +9,11 @@
 
 - name: Convert type
   set_fact:
-    converted_self: "{{ self | from_yaml }}"
+    info: "{{ self.status }}"
 
 - name: Show self
   debug:
-    msg: "{{ self.date }}"
+    msg: "{{ info }}"
 
 - pause:
 
