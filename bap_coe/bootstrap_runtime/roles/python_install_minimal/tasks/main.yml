@@ -21,13 +21,13 @@
 
   - name: Update redhat package manager
     become: yes
-    raw: yum update
+    raw: yum update -y
 #    raw: "{{ item }}"
 #    with_items: "{{ python_RedHat_system_installation_sequence }}"
 
   - name: Install python3 with redhat package manager
     become: yes
-    raw: "yum install python3 -y"
+    raw: yum install python3 -y
 #    raw: "{{ item }}"
 #    with_items: "{{ python_RedHat_system_installation_sequence }}"
 
