@@ -7,9 +7,9 @@
     body_format: json
   register: self
 
-#- name: Convert type
-#  set_fact:
-#    converted_self: "{{ self }}"
+- name: Convert type
+  set_fact:
+    converted_self: "{{ self | from_yaml }}"
 
 - name: Show self
   debug:
