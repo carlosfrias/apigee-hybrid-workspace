@@ -6,7 +6,7 @@
     raw: 'type {{ PYTHON_EXE | default(default_python) }} >/dev/null 2>&1 || sudo apt install -y {{ PYTHON_EXE | default(default_python) }}'
     changed_when: false
 
-  - name: Added python3 for package manager
+  - name: Add python with package manager
     become: yes
     raw: "{{ item }}"
     with_items: "{{ python_Debian_system_installation_sequence }}"
@@ -19,7 +19,7 @@
     raw: 'type {{ PYTHON_EXE | default(default_python) }} >/dev/null 2>&1 || yum install -y {{ PYTHON_EXE | default(default_python) }}'
     changed_when: false
 
-  - name: Added python3 for package manager
+  - name: Added python with package manager
     become: yes
     raw: "{{ item }}"
     with_items: "{{ python_RedHat_system_installation_sequence }}"
