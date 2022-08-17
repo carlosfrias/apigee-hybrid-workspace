@@ -7,13 +7,9 @@
     body_format: json
   register: self
 
-- name: Convert type
-  set_fact:
-    info: "{{ self.status }}"
-
-- name: Show self
+- name: Show self type
   debug:
-    msg: "{{ info }}"
+    msg: "self type: {{ self | type_debug }}"
 
 - pause:
 
