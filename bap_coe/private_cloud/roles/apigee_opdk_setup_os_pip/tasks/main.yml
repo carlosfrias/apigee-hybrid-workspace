@@ -18,7 +18,7 @@
 
 - name: Check for pip
   stat:
-    path: "{{ PIP_EXECUTABLE | default(pip_path.stat.path) }}"
+    path: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
   register: pip
 
 - name: Install pip using multiple approaches
