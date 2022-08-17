@@ -9,10 +9,10 @@
 
 - name: Show self
   debug:
-    msg: "{{ self }}"
+    msg: "{{ self.content  }}"
 
 - pause:
-    
+
 - name: Construct self report variable name
   set_fact:
     cacheable: yes
