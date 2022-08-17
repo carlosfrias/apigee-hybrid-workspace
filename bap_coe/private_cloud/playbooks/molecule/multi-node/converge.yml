@@ -263,7 +263,7 @@
   roles:
   - apigee_opdk_modules
   - { role: apigee_opdk_setup_component, profile: 'rmp', tags: [ 'minimum', 'rmp' ] }
-  - { role: apigee_opdk_server_self, server_types: [ 'router' ], tags: [ 'self' ] }
+  - { role: apigee_opdk_server_self, server_types: [ 'router' ], apigee_server_port:  tags: [ 'self' ] }
   - { role: apigee_opdk_server_self, server_types: [ 'mp' ], tags: [ 'self' ] }
   - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
 

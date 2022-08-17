@@ -1,7 +1,7 @@
 ---
 - name: Obtain server self report
   uri:
-    url: http://localhost:{{ port }}/v1/servers/self
+    url: http://localhost:{{ server_port }}/v1/servers/self
     url_username: '{{ opdk_user_email }}'
     url_password: '{{ opdk_user_pass }}'
   register: self_report
@@ -10,11 +10,11 @@
 #  opdk_server_self:
 #    server_type: '{{ server_type }}'
 
-- name: Construct self report variable name
-  set_fact:
-    self_report_name: 'edge_{{ server_type }}_self'
+#- name: Construct self report variable name
+#  set_fact:
+#    self_report_name: 'edge_{{ server_type }}_self'
 
-- name: Server self report
-  debug:
-    msg: "{{ hostvars[inventory_hostname][self_report_name] }}"
-  when: self_report_name is defined
+#- name: Server self report
+#  debug:
+#    msg: "{{ hostvars[inventory_hostname][self_report_name] }}"
+#  when: self_report_name is defined
