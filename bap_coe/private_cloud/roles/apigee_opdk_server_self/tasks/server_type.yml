@@ -7,13 +7,13 @@
     body_format: json
   register: self
 
-- name: Convert type
-  set_fact:
-    converted_self: "{{ self }}"
+#- name: Convert type
+#  set_fact:
+#    converted_self: "{{ self }}"
 
 - name: Show self
   debug:
-    msg: "{{ converted_self }}"
+    msg: "{{ self.date }}"
 
 - pause:
 
