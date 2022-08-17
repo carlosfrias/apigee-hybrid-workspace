@@ -105,7 +105,7 @@
         version: "<45"
         state: present
         executable: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
-      when: (python_version.stdout | regex_search('^Python 2')) == true
+      when: (python_version.stdout | regex_search('^Python 2')) is truthy
 
     - name: Update managed system python modules
       become: true
