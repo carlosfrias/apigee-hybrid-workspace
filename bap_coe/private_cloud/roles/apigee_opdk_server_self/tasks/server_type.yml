@@ -9,7 +9,7 @@
 - name: Construct self report variable name
   set_fact:
     cacheable: yes
-    server_self_info: '{{ self }}'
+    server_self: '{{ self }}'
 
 
 #- name: Obtain server self report for {{ server_type }}
