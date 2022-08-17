@@ -1,7 +1,7 @@
 ---
 - block:
 
-  - name: Setup utilities in cache
+  - name: Setup utilities path for nodetool, cqlsh and cassandra_cli in cache
     set_fact:
       cacheable: yes
       nodetool: '{{ apigee_home }}/apigee-cassandra/bin/nodetool'
@@ -12,7 +12,7 @@
 
 - block:
 
-  - name: Setup utilities in cache
+  - name: Setup utilities path afor ldapsearch in cache
     set_fact:
       cacheable: yes
       ldapsearch: '/usr/bin/ldapsearch'
@@ -21,7 +21,7 @@
 
 - block:
 
-  - name: Setup utilities in cache
+  - name: Setup utilities path for psql in cache
     set_fact:
       cacheable: yes
       psql: '"/usr/bin/psql"'
@@ -30,7 +30,7 @@
 
 - block:
 
-  - name: Setup utilities in cache
+  - name: Setup utilities path for qpid_stat and check_queue_depth in cache
     set_fact:
       cacheable: yes
       qpid_stat: '{{ apigee_home }}/apigee-qpidd/bin/qpid-stat'
