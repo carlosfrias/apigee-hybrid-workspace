@@ -9,7 +9,7 @@
 
 - name: Show self
   debug:
-    msg: "{{ self.content  }}"
+    msg: "{{ self.buildInfo }}"
 
 - pause:
 
