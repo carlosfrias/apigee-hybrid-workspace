@@ -11,6 +11,10 @@
   debug:
     msg: "self type: {{ self | type_debug }}"
 
+- name: Show self var
+  debug:
+    var: self
+
 - pause:
 
 - name: Construct self report variable name
