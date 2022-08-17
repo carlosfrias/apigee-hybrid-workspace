@@ -263,9 +263,9 @@
   roles:
   - apigee_opdk_modules
   - { role: apigee_opdk_setup_component, profile: 'rmp', tags: [ 'minimum', 'rmp' ] }
-  - { role: apigee_opdk_server_self, server_types: [ 'router' ], server_port: 8081, tags: [ 'self' ] }
   - { role: apigee_opdk_server_self, server_types: [ 'mp' ], server_port: 8082, tags: [ 'self' ] }
-  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
+  - { role: apigee_opdk_server_self, server_types: [ 'router' ], server_port: 8081, tags: [ 'self' ] }
+  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ server_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
 
 
 - name: Configure & Install Router
@@ -289,7 +289,7 @@
   - apigee_opdk_modules
   - { role: apigee_opdk_setup_component, profile: 'r', tags: [ 'minimum', 'router' ] }
   - { role: apigee_opdk_server_self, server_types: [ 'router' ], server_port: 8081, tags: [ 'self' ] }
-  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_router_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
+  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ server_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
 
 
 - name: Configure & Install Message Processor
@@ -312,7 +312,7 @@
   - apigee_opdk_modules
   - { role: apigee_opdk_setup_component, profile: 'mp', tags: [ 'minimum', 'mp' ] }
   - { role: apigee_opdk_server_self, server_types: [ 'mp' ], server_port: 8082, tags: [ 'self' ] }
-  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ edge_mp_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
+  - { role: apigee_opdk_server_registration_state, username: "{{ opdk_user_email }}", password: "{{ opdk_user_pass }}", server_self: "{{ server_self }}", mgmt_server_ip: "{{ local_mgmt_ip }}", tags: [ 'self' ] }
 
 
 - name: Configure & Install Qpid
