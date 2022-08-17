@@ -19,10 +19,23 @@
     raw: 'type {{ PYTHON_EXE | default(default_python) }} >/dev/null 2>&1 || yum install -y {{ PYTHON_EXE | default(default_python) }}'
     changed_when: false
 
-  - name: Added python with redhat package manager
+  - name: Update redhat package manager
     become: yes
-    raw: "{{ item }}"
-    with_items: "{{ python_RedHat_system_installation_sequence }}"
+    raw: yum update
+#    raw: "{{ item }}"
+#    with_items: "{{ python_RedHat_system_installation_sequence }}"
+
+  - name: Install python3 with redhat package manager
+    become: yes
+    raw: "yum install python3 -y"
+#    raw: "{{ item }}"
+#    with_items: "{{ python_RedHat_system_installation_sequence }}"
+
+  - name: Install python3-pip with redhat package manager
+    become: yes
+    raw: yum install python3-pip -y
+#    raw: "{{ item }}"
+#    with_items: "{{ python_RedHat_system_installation_sequence }}"
 
   when: ansible_os_family == "RedHat"
 
