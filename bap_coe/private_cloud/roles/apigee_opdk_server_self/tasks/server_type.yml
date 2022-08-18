@@ -16,7 +16,7 @@
 
 - name: Show self var
   debug:
-    var: "{{ self.content }}"
+    var: "{{ self }}"
 
 
 - pause:
