@@ -182,6 +182,7 @@
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
+  - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
@@ -204,6 +205,7 @@
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
+  - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
@@ -299,6 +301,7 @@
 
   vars_files:
   - "{{ '~' | expanduser }}/.apigee-secure/apigee-hybrid-sensitive-attributes.yml"
+  - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   vars:
