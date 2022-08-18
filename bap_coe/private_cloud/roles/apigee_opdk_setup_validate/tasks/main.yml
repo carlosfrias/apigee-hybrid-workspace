@@ -42,39 +42,6 @@
     force: yes
   when: groups['r'] is defined and groups['mp']
 
-#- name: Construct the local Edge response file path
-#  set_fact:
-#    cacheable: yes
-#    local_response_file_path: "{{ local_apigee_secure_path }}/{{ apigee_validate_config_file | basename }}"
-#
-#- name: Create Local Response File Folder
-#  become: yes
-#  file:
-#    path: "{{ local_apigee_secure_path }}"
-#    state: directory
-#
-#
-#- name: Copy response file to target
-#  become: yes
-#  copy:
-#    src: '{{ local_response_file_path }}'
-#    dest: "{{ target_response_file_path }}"
-#    owner: '{{ opdk_user_name }}'
-#    group: '{{ opdk_group_name }}'
-#    mode: 777
-#    backup: yes
-#    force: yes
-#  when: manual_response_file is defined
-#
-#- name: Assert Permissions are Correct
-#  become: yes
-#  file:
-#    path: "{{ target_response_file_path | dirname }}"
-#    recurse: yes
-#    mode: "777"
-#    owner: '{{ opdk_user_name }}'
-#    group: '{{ opdk_group_name }}'
-
 - name: Validate OPDK Installation
   shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-validate setup -f {{ apigee_validate_config_file }}'
   environment:
