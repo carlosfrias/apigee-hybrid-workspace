@@ -6,7 +6,7 @@
 #    url_password: '{{ opdk_user_pass }}'
 #    body_format: json
 #    return_content: true
-#  register: self
+#  register: server_rpt
 
 
 - name: Obtain server self report
