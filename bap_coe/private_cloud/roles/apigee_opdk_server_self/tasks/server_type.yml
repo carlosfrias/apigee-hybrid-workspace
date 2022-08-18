@@ -18,10 +18,13 @@
   debug:
     msg: "server_rpt: {{ server_rpt.stdout | from_json }}"
 
+- name: assign data
+  set_fact:
+    server_rpt: "{{ server_rpt.stdout | from_json }}"
 
 - name: Show self var
   debug:
-    var: "{{ server_rpt }}"
+    var: "{{ server_rpt.uUID }}"
 
 
 - pause:
