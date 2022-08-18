@@ -13,7 +13,7 @@
 
 - name: Show self var
   debug:
-    var: "{{ self.status }}"
+    var: self.status
 
 - pause:
 
