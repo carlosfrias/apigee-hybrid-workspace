@@ -11,6 +11,7 @@
 
 - name: Obtain server self report
   command: curl -u {{ opdk_user_email }}:{{ opdk_user_pass }} http://localhost:{{ server_port }}/v1/servers/self
+  register: self
 
 
 - name: Show self type
