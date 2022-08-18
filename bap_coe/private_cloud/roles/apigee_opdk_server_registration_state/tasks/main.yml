@@ -7,17 +7,19 @@
     msg: "Please provide the server_uuid"
 
 
-- name: Register server
-  command: curl -u {{ opdk_user_email }}:{{ opdk_user_pass }} http://{{ local_mgmt_ip }}:8080/v1/servers/{{ server_uuid }}
-  register: registered
-
-
 #- name: Register server
-#  uri:
-#    url: http://{{ local_mgmt_ip }}:8080/v1/servers/{{ server_uuid }}
-#    url_username: "{{ opdk_user_email }}"
-#    url_password: "{{ opdk_user_pass }}"
+#  command: curl -u {{ opdk_user_email }}:{{ opdk_user_pass }} http://{{ local_mgmt_ip }}:8080/v1/servers/{{ server_uuid }}
 #  register: registered
+
+
+- name: Register server
+  uri:
+    url: http://{{ local_mgmt_ip }}:8080/v1/servers/{{ server_uuid }}
+    url_username: "{{ opdk_user_email }}"
+    url_password: "{{ opdk_user_pass }}"
+    body_format: json
+    return_content: true
+  register: registered
 
 #- name: Obtain server registration report
 #  opdk_server_registration_state:
@@ -33,6 +35,6 @@
 
 - name: Server Registration State Report
   debug:
-    msg: "State of Server Registration: {{ registered }}"
+    msg: "State of Server Registration: {{ registered.json }}"
 #  when: server_self is defined
 
