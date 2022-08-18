@@ -24,7 +24,7 @@
 
 - name: Show self var
   debug:
-    var: "{{ server_rpt.uUID }}"
+    var: server_rpt.uUID
 
 
 - pause:
