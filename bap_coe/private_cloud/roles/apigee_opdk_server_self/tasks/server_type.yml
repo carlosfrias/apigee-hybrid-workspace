@@ -21,7 +21,7 @@
 
 - name: Show self var
   debug:
-    var: "{{ self }}"
+    var: "{{ self.stdout }}"
 
 
 - pause:
