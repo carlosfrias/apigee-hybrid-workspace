@@ -10,7 +10,7 @@
 
 
 - name: Obtain server self report
-  command: curl -u {{ opdk_user_email }}:{{ opdk_user_pass }} http://localhost:{{ server_port }}/v1/servers/self
+  command: curl -v -u {{ opdk_user_email }}:{{ opdk_user_pass }} http://localhost:{{ server_port }}/v1/servers/self
   register: self
 
 
@@ -31,3 +31,4 @@
   set_fact:
     cacheable: yes
     server_uuid: '{{ self.json }}'
+
