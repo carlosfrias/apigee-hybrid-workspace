@@ -5,6 +5,7 @@
     url_username: '{{ opdk_user_email }}'
     url_password: '{{ opdk_user_pass }}'
     body_format: json
+    return_content: true
   register: self
 
 - name: Show self type
@@ -13,7 +14,7 @@
 
 - name: Show self var
   debug:
-    var: "{{ self.status | string }}"
+    var: "{{ self.content }}"
 
 - pause:
 
