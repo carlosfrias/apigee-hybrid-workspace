@@ -20,7 +20,7 @@
 
 - name: assign data
   set_fact:
-    server_rpt: "{{ server_rpt.stdout | from_json }}"
+    server_rpt: "{{ server_rpt.json }}"
 
 - name: Show self var
   debug:
