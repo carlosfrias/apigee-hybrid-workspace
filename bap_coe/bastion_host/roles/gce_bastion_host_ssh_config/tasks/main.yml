@@ -33,6 +33,3 @@
           IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
   notify: "refresh gcp compute ssh config"
 
-# Match host DESTINATION
-#  ProxyCommand /usr/bin/trumpssh --user=%r --host=%h --port=%p --notls --fdpass --proxy localhost --proxy_ports 9558
-#  ProxyUseFdpass yes

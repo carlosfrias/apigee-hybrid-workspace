@@ -38,7 +38,7 @@
       - name: Install epel repository
         tags: ['epel']
         import_role:
-          name: apigee_opdk_setup_os_epel
+          name: bap_coe.private_cloud.apigee_opdk_setup_os_epel
 
       - name: Install pip, after installing epel repository
         yum:
