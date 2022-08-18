@@ -16,7 +16,7 @@
 
 - name: Show self type
   debug:
-    msg: "server_rpt: {{ server_rpt.stdout | from_json }}"
+    msg: "server_rpt: {{ server_rpt.json }}"
 
 - name: assign data
   set_fact:
