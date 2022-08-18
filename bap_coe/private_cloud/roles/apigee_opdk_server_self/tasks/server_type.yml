@@ -6,32 +6,16 @@
     url_password: '{{ opdk_user_pass }}'
     body_format: json
     return_content: true
-  register: server_rpt
+  register: self_rpt
 
-
-#- name: Obtain server self report
-#  command: curl -v -u {{ opdk_user_email }}:{{ opdk_user_pass }} http://localhost:{{ server_port }}/v1/servers/self
-#  register: server_rpt
-
-
-- name: Show self type
-  debug:
-    msg: "server_rpt: {{ server_rpt.json }}"
 
 - name: assign data
   set_fact:
-    server_rpt: "{{ server_rpt.json }}"
-
-- name: Show self var
-  debug:
-    var: server_rpt.uUID
-
-
-- pause:
+    self_rpt: "{{ self_rpt.json }}"
 
 
 - name: Construct self report variable name
   set_fact:
     cacheable: yes
-    server_uuid: '{{ server_rpt.json }}'
+    server_uuid: '{{ self_rpt.uUID }}'
 
