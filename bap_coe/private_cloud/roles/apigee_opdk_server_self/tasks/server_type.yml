@@ -11,17 +11,17 @@
 
 - name: Obtain server self report
   command: curl -v -u {{ opdk_user_email }}:{{ opdk_user_pass }} http://localhost:{{ server_port }}/v1/servers/self
-  register: self
+  register: server_rpt
 
 
 - name: Show self type
   debug:
-    msg: "self type: {{ self | type_debug }}"
+    msg: "server_rpt: {{ server_rpt | from_json }}"
 
 
 - name: Show self var
   debug:
-    var: "{{ self.stdout }}"
+    var: "{{ server_rpt.stdout }}"
 
 
 - pause:
@@ -30,5 +30,5 @@
 - name: Construct self report variable name
   set_fact:
     cacheable: yes
-    server_uuid: '{{ self.json }}'
+    server_uuid: '{{ server_rpt.json }}'
 
