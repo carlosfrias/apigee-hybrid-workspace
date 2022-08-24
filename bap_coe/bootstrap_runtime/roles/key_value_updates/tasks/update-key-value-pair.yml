@@ -21,7 +21,7 @@
 
 - name: Validate that key_value_pair.type is provided
   fail:
-    msg: "Please provide a key_value_pair.type to update. Must be set to either 'arg' or 'extra'"
+    msg: "Please provide a key_value_pair.type to update. Must be set to either 'arg' or 'extra'.  {{ key_value_pair }}"
   when: key_value_pair.type is not defined
 
 - name: Assert file name exists
