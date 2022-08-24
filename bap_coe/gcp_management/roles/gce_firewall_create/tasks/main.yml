@@ -45,7 +45,7 @@
 - name: create firewall rule
   google.cloud.gcp_compute_firewall:
     name: "{{ NAME_INSTANCE_PREFIX }}"
-    target_tags: "{{ NAME_INSTANCE_PREFIX }}"
+    target_tags: "{{ item.target_tags }}"
     project: "{{ PROJECT_ID }}"
     auth_kind: "{{ AUTHORIZATION_KIND }}"
     service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"

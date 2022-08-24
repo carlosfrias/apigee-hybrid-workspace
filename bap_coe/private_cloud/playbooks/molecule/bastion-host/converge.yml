@@ -10,6 +10,8 @@
   vars:
     ACCESS_TYPE: "ext"
     TARGET_TAGS: "default-allow-ssh"
+    firewall_ports:
+    - { allow_ports: [ '22' ], target_tags: "bastion-host"" }
 
   collections:
     - bap_coe.gcp_management

@@ -12,6 +12,11 @@
   register: valid_service_account_file_path
   delegate_to: localhost
 
+- name: Assert the file is not empty
+  fail:
+    msg: "Service account file is empty, please remove the file and re-run."
+  when: valid_service_account_file_path.stat.size == 0
+
 - name: Configure attributes from the service account file
   block:
   - name: Read service account file contents
