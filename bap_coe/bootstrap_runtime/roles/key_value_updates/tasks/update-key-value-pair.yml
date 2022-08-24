@@ -19,6 +19,11 @@
     msg: "Please provide a key_value_pair.file_name to update"
   when: key_value_pair.file_name is not defined
 
+- name: Validate that key_value_pair.type is provided
+  fail:
+    msg: "Please provide a key_value_pair.type to update. Must be set to either 'arg' or 'extra'"
+  when: key_value_pair.type is not defined
+
 - name: Assert file name exists
   file:
     path: "{{ key_value_pair.file_name }}"
