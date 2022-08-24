@@ -14,7 +14,7 @@
 
 - name: Assert the file is not empty
   fail:
-    msg: "Service account file is empty, please remove the file and re-run."
+    msg: "Service account file is empty, please remove the file and re-run.  File Location: {{ SERVICE_ACCOUNT_FILE_PATH }}"
   when: valid_service_account_file_path.stat.size == 0
 
 - name: Configure attributes from the service account file
