@@ -39,7 +39,7 @@
 - name: Assert project ACTIVE state
   set_fact:
     cacheable: true
-    PROJECT_ACTIVE: "{{ ACTIVE_PROJECTS.lifecycleState == 'ACTIVE' }}"
+    PROJECT_ACTIVE: "{{ (ACTIVE_PROJECTS.lifecycleState is defined and ACTIVE_PROJECTS.lifecycleState == 'ACTIVE') | default(False) }}"
 
 - block:
   - name: Create an initial service account
