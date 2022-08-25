@@ -36,7 +36,7 @@
   tasks:
   - name: Assert terraform log folder exists
     file:
-      path: "{{ TF_LOG_PATH }}"
+      path: "{{ TERRAFORM_LOG_PATH }}"
       state: directory
 
   - name: Terraform init
@@ -45,8 +45,8 @@
     args:
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
-      TF_LOG: "{{ TF_LOG }}"
-      TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"
+      TERRAFORM_LOG: "{{ TERRAFORM_LOG }}"
+      TERRAFORM_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
 
   - name: Terraform plan
     shell: |
@@ -54,8 +54,8 @@
     args:
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
-      TF_LOG: "{{ TF_LOG }}"
-      TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"
+      TERRAFORM_LOG: "{{ TERRAFORM_LOG }}"
+      TERRAFORM_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
 
   - name: Terraform apply
     shell: |
@@ -63,6 +63,6 @@
     args:
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
-      TF_LOG: "{{ TF_LOG }}"
-      TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"
+      TERRAFORM_LOG: "{{ TERRAFORM_LOG }}"
+      TERRAFORM_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
 

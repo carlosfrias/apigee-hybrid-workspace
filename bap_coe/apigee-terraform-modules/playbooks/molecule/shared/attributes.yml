@@ -1,11 +1,23 @@
 ---
-TERRAFORM_PROJECT_NAME: "x-multi-region"
-#PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-05182022-1552"
-PROJECT_ID: "friasc-xmultireg-05192022-1011"
+GCLOUD_ACCOUNT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_SERVICE_ACCOUNT_NAME: "{{ GCLOUD_ACCOUNT_USER }}-service-account"
+GCLOUD_ACCOUNT_PROJECT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_SERVICE_ACCOUNT_EMAIL: "{{ GCLOUD_SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+SERVICE_ACCOUNT_FILE_SUFFIX: "service-account-key"
+GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
+TERRAFORM_PROJECT_NAME: "apigee-x-core"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-08252022-1131"
+#PROJECT_ID: "friasc-xmultireg-05192022-1011"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
-TOOLS_DIR: "{{ ansible_user_dir }}/bin"
-INVENTORY_DIR: "{{ playbook_dir }}/inventory"
+TOOLS_DIR: "{{ WORK_DIR }}/bin"
+INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
+INVENTORY_FILENAME: "ansible_inventory.yml"
 
 #GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
 GITHUB_REPO_URL: git@github.com:apigee/terraform-modules.git
@@ -14,9 +26,9 @@ TERRAFORM_PATH_PROJECT: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAM
 TERRAFORM_PATH_BIN_DEST: "{{ TERRAFORM_PATH_PROJECT }}"
 TERRAFORM_PATH_BIN: "{{ TERRAFORM_PATH_BIN_DEST }}/terraform"
 
-TF_LOG: "DEBUG"
-TF_LOG_PATH: "{{ WORK_DIR }}/logs"
-TF_LOG_FILE_NAME: "terraform-{{ PROJECT_ID }}.log"
+TERRAFORM_LOG: "DEBUG"
+TERRAFORM_LOG_PATH: "{{ WORK_DIR }}/logs"
+TERRAFORM_LOG_FILE_NAME: "terraform-{{ PROJECT_ID }}.log"
 NAME_INSTANCE_PREFIX: apigee-x
 GCP_ZONE: us-east1-b
 GCP_REGION: us-east1
@@ -133,19 +145,19 @@ GCLOUD_ORG_POLICIES_UPDATE:
 
 peering_range: "10.0.0.0/22"
 support_range: "10.1.0.0/28"
-key_value_pairs:
-- { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "extra", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#key_value_pairs:
+#- { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "extra", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
 #- { key: "svpc_host_project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "extra", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "euw1-instance", value: 'east1-instance', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "ip_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "hostnames", value: '["test.api.example.com"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "network", value: '"apigee-network"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "name", value: '"apigee-exposure"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "secondary_ip_range", value: 'null', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "peering_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-- { key: "support_range", value: '"{{ support_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "euw1-instance", value: 'east1-instance', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "ip_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "hostnames", value: '["test.api.example.com"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "network", value: '"apigee-network"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "name", value: '"apigee-exposure"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "secondary_ip_range", value: 'null', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "peering_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+#- { key: "support_range", value: '"{{ support_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
 

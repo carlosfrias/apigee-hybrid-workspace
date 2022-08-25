@@ -1,0 +1,41 @@
+---
+- name: Configure permissions and service accounts
+  hosts: localhost
+  connection: local
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: service_account_file_path }
+  - { role: gcp_iam_service_account_keys }
+  - { role: service_account_file_processing }
+  - { role: gcp_auth_service_account_activate }
+
+
+    #- name: Update runtime environment of instances
+    #  hosts: edge
+    #  gather_facts: yes
+    #  tags: ['python','infra']
+    #
+    #  collections:
+    #    - bap_coe.bootstrap_runtime
+    #
+    #  roles:
+    #    - python_install_minimal
+
+#  tasks:
+#    - name: Create planet instances
+#      include_tasks: create-instance.yml
+#      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+#      loop_control:
+#        loop_var: instance
+
+#    - name: Next Step
+#      debug:
+#        msg: "This scenario created the project and dynamic infrastructure inventory. Please use one of the next scenarios to complete your deployment"
