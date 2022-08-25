@@ -11,54 +11,17 @@
   - bap_coe.bootstrap_runtime
   - bap_coe.gcp_management
 
-  vars:
-    peering_range: "10.0.0.0/22"
-    support_range: "10.1.0.0/28"
-    key_value_pairs:
-    - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "extra", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "svpc_host_project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "extra", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "euw1-instance", value: 'east1-instance', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "apigee_environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "ip_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "hostnames", value: '["test.api.example.com"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "network", value: '"apigee-network"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "name", value: '"apigee-exposure"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "secondary_ip_range", value: 'null', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "peering_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "support_range", value: '"{{ support_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "euw1", value: '"use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "europe-west1", value: '"us-east1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-
   roles:
     - { role: terraform_installer }
     - { role: service_account_file_path }
     - { role: service_account_file_processing }
     - { role: gcp_auth_service_account_activate }
 
-  pre_tasks:
-  - name: Clone apigee/terraform-modules github repo
-    git:
-      repo: "{{ GITHUB_REPO_URL }}"
-      dest: "{{ GITHUB_REPO_DEST }}"
-      accept_hostkey: yes
-      update: no
-      clone: yes
-      force: no
-
   tasks:
   - name: Assert terraform log folder exists
     file:
       path: "{{ TERRAFORM_LOG_PATH }}"
       state: directory
-
-  - name: Assert files is in place
-    file:
-      path: "{{ item.file_name }}"
-      state: touch
-    with_items: "{{ key_value_pairs }}"
 
   - name: Terraform init
     shell: |
