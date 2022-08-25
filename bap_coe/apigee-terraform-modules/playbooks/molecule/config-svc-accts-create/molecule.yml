@@ -12,10 +12,10 @@ platforms:
   - name: config-svc-accts-create
 provisioner:
   name: ansible
-  playbooks:
+#  playbooks:
 #    create: converge.yml
-    converge: converge.yml
-    destroy: delete.yml
+#    converge: converge.yml
+#    destroy: delete.yml
 #  config_options:
 #    defaults:
 #      inventory: ../../work_dir/${PROJECT_ID}/inventory

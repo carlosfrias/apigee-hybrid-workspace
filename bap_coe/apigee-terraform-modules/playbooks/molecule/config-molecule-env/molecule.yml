@@ -12,13 +12,6 @@ platforms:
   - name: config-molecule-env
 provisioner:
   name: ansible
-#  ansible_args:
-#  - -u=friasc
-#  - --private-key=~/.ssh/google_compute_engine
-  playbooks:
-#    destroy: destroy.yml
-#    create: converge.yml
-    converge: converge.yml
 verifier:
   name: ansible
   log: True

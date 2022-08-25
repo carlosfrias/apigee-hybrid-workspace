@@ -13,10 +13,10 @@ platforms:
 provisioner:
   name: ansible
 #  ansible_args:
-  playbooks:
+#  playbooks:
 #    create: converge.yml
-    converge: converge.yml
-    destroy: delete.yml
+#    converge: converge.yml
+#    destroy: delete.yml
 #  config_options:
 #    defaults:
 #      inventory: ../../work_dir/${PROJECT_ID}/inventory

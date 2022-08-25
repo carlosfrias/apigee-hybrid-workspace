@@ -1,0 +1,17 @@
+---
+- name: Update molecule variables
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  vars:
+    file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml"
+
+  tasks:
+  - name: Remove molecule .env.yml
+    file:
+      path: "{{ file_name }}"
+      state: absent
