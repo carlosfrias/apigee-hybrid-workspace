@@ -11,8 +11,9 @@ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ 
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
-TERRAFORM_PROJECT_NAME: "apgxcore"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-08252022-1229"
+TERRAFORM_PROJECT_NAME: x-sb-psc
+GCLOUD_PROJECT_ID: "x-sb-psc"
+PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08252022-1610"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
@@ -24,10 +25,9 @@ GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-projects"
 TERRAFORM_PATH_PROJECT: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
 TERRAFORM_PATH_BIN_DEST: "{{ TERRAFORM_PATH_PROJECT }}"
 TERRAFORM_PATH_BIN: "{{ TERRAFORM_PATH_BIN_DEST }}/terraform"
-
 TERRAFORM_LOG: "DEBUG"
-TERRAFORM_LOG_PATH: "{{ WORK_DIR }}/logs"
 TERRAFORM_LOG_FILE_NAME: "terraform-{{ PROJECT_ID }}.log"
+TERRAFORM_LOG_PATH: "{{ WORK_DIR }}/logs"
 NAME_INSTANCE_PREFIX: apigee-x
 GCP_ZONE: us-east1-b
 GCP_REGION: us-east1
@@ -140,22 +140,4 @@ GCLOUD_ORG_POLICIES_UPDATE:
 - constraints/compute.restrictVpcPeering
 - constraints/compute.vmExternalIpAccess
 - constraints/compute.vmCanIpForward
-
-peering_range: "10.0.0.0/22"
-support_range: "10.1.0.0/28"
-#key_value_pairs:
-#- { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "extra", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "svpc_host_project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "extra", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "euw1-instance", value: 'east1-instance', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "apigee_environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "ip_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "hostnames", value: '["test.api.example.com"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "network", value: '"apigee-network"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "name", value: '"apigee-exposure"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "secondary_ip_range", value: 'null', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "peering_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#- { key: "support_range", value: '"{{ support_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
 

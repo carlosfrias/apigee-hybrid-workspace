@@ -11,20 +11,19 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: default
+  - name: terraform-deployment
 provisioner:
   name: ansible
-  options:
-    vvv: true
-  ansible-args:
-    - -vvv
-  playbooks:
-    create: create.yml
-    converge: converge.yml
-    destroy: delete.yml
-  config_options:
-    defaults:
-      inventory: ../../work_dir/inventory/$PROJECT_ID
+#  options:
+#    vvv: true
+#  ansible-args:
+#    - -vvv
+#  playbooks:
+#    converge: ../shared/converge.yml
+#    destroy: ../shared/delete.yml
+#  config_options:
+#    defaults:
+#      inventory: ../../shared/work_dir/inventory/$PROJECT_ID
 verifier:
   name: ansible
   log: True
