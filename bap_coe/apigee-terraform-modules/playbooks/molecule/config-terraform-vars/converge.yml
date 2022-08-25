@@ -32,7 +32,8 @@
     - { key: '"europe-west1"', value: '"us-east1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
 
   roles:
-    - { role: key_value_updates }
+  - { role: terraform_installer }
+  - { role: key_value_updates }
 
   pre_tasks:
   - name: Clone apigee/terraform-modules github repo
