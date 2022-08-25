@@ -1,0 +1,14 @@
+---
+- name: Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - attributes.yml
+
+  tasks:
+    - name: Assert test.yml file
+      file:
+        path: "{{ test_file }}"
+        state: absent
