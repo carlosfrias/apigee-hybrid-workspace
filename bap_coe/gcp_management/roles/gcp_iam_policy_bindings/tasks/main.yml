@@ -45,7 +45,8 @@
   shell: |
     gcloud projects {{ BINDING_OP }}-iam-policy-binding {{ PROJECT_ID }} \
       --member {{ ACCOUNT_TYPE }}:{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
-      --role={{ item }}
+      --role={{ item }} \
+      --account={{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
   with_items: "{{ POLICY_BINDINGS }}"
 
 - name: Wait for the policy bindings to propagate

@@ -18,27 +18,4 @@
       BINDING_OP: "add",
       ACCOUNT_TYPE: "serviceAccount",
       POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
-#      GCLOUD_SERVICE_ACCOUNT_EMAIL: "{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}"
     }
-
-    #- name: Update runtime environment of instances
-    #  hosts: edge
-    #  gather_facts: yes
-    #  tags: ['python','infra']
-    #
-    #  collections:
-    #    - bap_coe.bootstrap_runtime
-    #
-    #  roles:
-    #    - python_install_minimal
-
-#  tasks:
-#    - name: Create planet instances
-#      include_tasks: create-instance.yml
-#      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
-#      loop_control:
-#        loop_var: instance
-
-#    - name: Next Step
-#      debug:
-#        msg: "This scenario created the project and dynamic infrastructure inventory. Please use one of the next scenarios to complete your deployment"
