@@ -46,7 +46,7 @@
 
 - name: Update key only in target file
   replace:
-    regexp: '^(.*){{ key_value_pair.key }}(.*)'
+    regexp: '(.*){{ key_value_pair.key }}(.*)'
     replace: '\1{{ key_value_pair.value }}\2'
     path: "{{ key_value_pair.file_name }}"
   when: key_value_pair.separator is falsy and key_value_pair.type == "arg"

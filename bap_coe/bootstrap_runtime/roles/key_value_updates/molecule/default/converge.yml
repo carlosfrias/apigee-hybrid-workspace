@@ -8,16 +8,11 @@
   - attributes.yml
 
   tasks:
-#    - name: Assert test.yml file
-#      file:
-#        path: "{{ test_file }}"
-#        state: touch
-
-#    - include_tasks: update-key-value-pair.yml
-#      loop: "{{ key_value_pairs }}"
-#      loop_control:
-#        loop_var: key_value_pair
-
+    - name: Assert test.yml file
+      template:
+        src: "{{ test_file_template }}"
+        dest: "{{ test_file }}"
+        force: yes
 
     - name: "Include gce_dynamic_inventory_configure"
       include_role:

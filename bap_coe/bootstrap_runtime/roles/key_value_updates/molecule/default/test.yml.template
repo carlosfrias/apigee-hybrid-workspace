@@ -43,7 +43,7 @@ backend_network = "backend-network"
 backend_region  = "us-east1"
 backend_subnet = {
   name               = "backend-use1"
-  ip_cidr_range      = "10.220.0.0/28"
+  ip_cidr_range      = "10.200.0.0/28"
   region             = "us-east1"
   secondary_ip_range = null
 }
@@ -53,5 +53,3 @@ backend_psc_nat_subnet = {
 }
 
 psc_name = "demopsc"
-project_id = my_project
-region = my_region
