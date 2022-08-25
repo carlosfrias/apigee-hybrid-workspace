@@ -66,13 +66,13 @@
   tags: ['install_asm_skip']
   shell: |
     gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-     --member="serviceAccount:{{ GCLOUD_SERVICE_ACCOUNT }}" \
+     --member="serviceAccount:{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}" \
      --role="roles/gkehub.connect"
 
 - name: Download service account credential file
   shell: |
     gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_KEY_PATH }} \
-      --iam-account="{{ GCLOUD_SERVICE_ACCOUNT }}"
+      --iam-account="{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}"
   args:
     creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
 

@@ -18,11 +18,11 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_USER"
 
-- name: Assert that the GCLOUD_SERVICE_ACCOUNT is available
+- name: Assert that the GCLOUD_SERVICE_ACCOUNT_EMAIL is available
   assert:
     that:
-    - GCLOUD_SERVICE_ACCOUNT is defined
-    msg: "Please provide the GCLOUD_SERVICE_ACCOUNT(fully qualified domain name)"
+    - GCLOUD_SERVICE_ACCOUNT_EMAIL is defined
+    msg: "Please provide the GCLOUD_SERVICE_ACCOUNT_EMAIL(fully qualified domain name)"
 
 - name: Set IAM roles for service account
   shell: |
