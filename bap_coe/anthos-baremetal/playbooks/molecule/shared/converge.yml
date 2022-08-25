@@ -29,8 +29,8 @@
 
   - name: Copy .tfvars.sample file
     copy:
-      src: "{{ TERRAFORM_PROJECT_PATH }}/terraform.tfvars.sample"
-      dest: "{{ TERRAFORM_PROJECT_PATH }}/terraform.tfvars"
+      src: "{{ TERRAFORM_PATH_PROJECT }}/terraform.tfvars.sample"
+      dest: "{{ TERRAFORM_PATH_PROJECT }}/terraform.tfvars"
       remote_src: no
 
   tasks:
@@ -41,27 +41,27 @@
 
   - name: Terraform init
     shell: |
-      {{ TERRAFORM_BIN_PATH }} init
+      {{ TERRAFORM_PATH_BIN }} init
     args:
-      chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+      chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
       TF_LOG: "{{ TF_LOG }}"
       TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"
 
   - name: Terraform plan
     shell: |
-      {{ TERRAFORM_BIN_PATH }} plan
+      {{ TERRAFORM_PATH_BIN }} plan
     args:
-      chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+      chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
       TF_LOG: "{{ TF_LOG }}"
       TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"
 
   - name: Terraform apply
     shell: |
-      {{ TERRAFORM_BIN_PATH }} apply -auto-approve
+      {{ TERRAFORM_PATH_BIN }} apply -auto-approve
     args:
-      chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+      chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
       TF_LOG: "{{ TF_LOG }}"
       TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"

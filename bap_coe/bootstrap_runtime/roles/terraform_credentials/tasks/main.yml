@@ -1,10 +1,10 @@
 ---
 # tasks file for terraform_credentials
-- name: Assert that TERRAFORM_PROJECT_PATH is provided
+- name: Assert that TERRAFORM_PATH_PROJECT is provided
   assert:
     that:
-    - TERRAFORM_PROJECT_PATH is defined
-    msg: "Please provide the TERRAFORM_PROJECT_PATH"
+    - TERRAFORM_PATH_PROJECT is defined
+    msg: "Please provide the TERRAFORM_PATH_PROJECT"
 
 - name: Assert that SERVICE_ACCOUNT_FILE_PATH is provided
   assert:
@@ -33,7 +33,7 @@
 - name: Construct version file
   template:
     src: credentials_override.tf.j2
-    dest: "{{ TERRAFORM_PROJECT_PATH }}/credentials_override.tf"
+    dest: "{{ TERRAFORM_PATH_PROJECT }}/credentials_override.tf"
     backup: yes
 
 

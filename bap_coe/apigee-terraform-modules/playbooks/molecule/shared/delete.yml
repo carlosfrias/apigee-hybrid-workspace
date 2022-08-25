@@ -12,9 +12,9 @@
   - name: Terraform destroy
     ignore_errors: True
     shell: |
-      {{ TERRAFORM_BIN_PATH }} destroy --var-file={{ TERRAFORM_PROJECT_PATH }}/x-demo.tfvars -auto-approve #-var "project_id={{ PROJECT_ID }}"
+      {{ TERRAFORM_PATH_BIN }} destroy --var-file={{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars -auto-approve #-var "project_id={{ PROJECT_ID }}"
     args:
-      chdir: "{{ TERRAFORM_PROJECT_PATH }}"
+      chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
       TF_LOG: "{{ TF_LOG }}"
       TF_LOG_PATH: "{{ TF_LOG_PATH }}/{{ TF_LOG_FILE_NAME }}"

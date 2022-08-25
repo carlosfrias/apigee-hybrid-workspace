@@ -10,10 +10,10 @@ INVENTORY_DIR: "{{ playbook_dir }}/inventory"
 #GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
 GITHUB_REPO_URL: git@github.com:carlosfrias/baremetal1.git
 GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-project/{{ TERRAFORM_PROJECT_NAME }}"
-#TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
-TERRAFORM_PROJECT_PATH: "{{ GITHUB_REPO_DEST }}"
-TERRAFORM_BIN_DEST_PATH: "{{ TERRAFORM_PROJECT_PATH }}"
-TERRAFORM_BIN_PATH: "{{ TERRAFORM_BIN_DEST_PATH }}/terraform"
+#TERRAFORM_PATH_PROJECT: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
+TERRAFORM_PATH_PROJECT: "{{ GITHUB_REPO_DEST }}"
+TERRAFORM_PATH_BIN_DEST: "{{ TERRAFORM_PATH_PROJECT }}"
+TERRAFORM_PATH_BIN: "{{ TERRAFORM_PATH_BIN_DEST }}/terraform"
 
 TF_LOG: "DEBUG"
 TF_LOG_PATH: "{{ WORK_DIR }}/logs"
@@ -134,8 +134,8 @@ GCLOUD_ORG_POLICIES_UPDATE:
 
 variable_filename: "terraform.tfvars"
 key_value_pairs:
-- { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PROJECT_PATH }}/{{ variable_filename }}" }
-- { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PROJECT_PATH }}/{{ variable_filename }}" }
-- { key: "zone", value: '"{{ GCP_ZONE }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PROJECT_PATH }}/{{ variable_filename }}" }
-- { key: "credentials_file", value: '"{{ SERVICE_ACCOUNT_FILE_PATH }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PROJECT_PATH }}/{{ variable_filename }}" }
+- { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ variable_filename }}" }
+- { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ variable_filename }}" }
+- { key: "zone", value: '"{{ GCP_ZONE }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ variable_filename }}" }
+- { key: "credentials_file", value: '"{{ SERVICE_ACCOUNT_FILE_PATH }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ variable_filename }}" }
 

@@ -1,7 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include gcp_iam_policy_bindings"
-      include_role:
-        name: "gcp_iam_policy_bindings"
