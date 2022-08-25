@@ -59,6 +59,7 @@
     failed_when:
     - status.rc == 1
     - "'already in use' not in status.stderr"
+    - "'Project IDs must be between 6 and 30 characters' in status.stderror"
 
   - name: Connect GCP Project to Billing Account, if provided
     ignore_errors: true

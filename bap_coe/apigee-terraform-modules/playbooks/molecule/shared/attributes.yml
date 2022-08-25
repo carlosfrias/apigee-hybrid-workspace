@@ -11,7 +11,7 @@ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ 
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
-TERRAFORM_PROJECT_NAME: "apigee-x-core"
+TERRAFORM_PROJECT_NAME: "apgxcore"
 PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-08252022-1131"
 #PROJECT_ID: "friasc-xmultireg-05192022-1011"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
