@@ -17,9 +17,8 @@
       role: gcp_iam_policy_bindings,
       BINDING_OP: "add",
       ACCOUNT_TYPE: "serviceAccount",
-      GCLOUD_BINDING_ACCOUNT: "{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}",
-      POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
-      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+      POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+#      GCLOUD_SERVICE_ACCOUNT_EMAIL: "{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}"
     }
 
     #- name: Update runtime environment of instances
