@@ -35,6 +35,7 @@
 - name: Format ACTIVE_PROJECTS results
   set_fact:
     ACTIVE_PROJECTS: "{{ ACTIVE_PROJECTS.stdout | from_yaml }}"
+  when: "{{ ACTIVE_PROJECTS.stdout is defined }}"
 
 - name: Assert project ACTIVE state
   set_fact:
