@@ -19,13 +19,13 @@
           "{{ GCLOUD_ORG_ROLE_BINDINGS }}"
         ]
       }
-    - {
-        role: gcp_iam_policy_bindings_org,
-        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
-        ROLE_BINDINGS: [
-          "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}"
-        ]
-      }
+#    - {
+#        role: gcp_iam_policy_bindings_org,
+#        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+#        ROLE_BINDINGS: [
+#          "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}"
+#        ]
+#      }
     - {
         role: gcp_iam_policy_bindings_org,
         GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
@@ -35,7 +35,7 @@
       }
     - { role: gcp_resource_manager_constraints_disable_enforce }
     - { role: gcp_resource_manager_update_org_policy }
-    - { role: gcp_resource_manager_folders_create }
-    - { role: gcp_resource_manager_folders_get_folder_id }
-    - { role: gcp_resource_manager_folders_permissions_user }
+#    - { role: gcp_resource_manager_folders_create }
+#    - { role: gcp_resource_manager_folders_get_folder_id }
+#    - { role: gcp_resource_manager_folders_permissions_user }
 

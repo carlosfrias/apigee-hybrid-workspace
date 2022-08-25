@@ -60,10 +60,10 @@ STARTUP_SCRIPT: |
   make
   sudo cp /usr/local/src/wrk /usr/local/bin/
 
-GCLOUD_FOLDER_ROLE_BINDINGS:
-- roles/resourcemanager.folderAdmin
+#GCLOUD_FOLDER_ROLE_BINDINGS:
+#- roles/resourcemanager.folderAdmin
 
-FOLDER_DISPLAY_NAME: apigeex
+#FOLDER_DISPLAY_NAME: apigeex
 GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/billing.admin"
@@ -88,13 +88,13 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
 - "roles/apigee.admin"
-#- "roles/networkmanagement.admin"
-#- "roles/networkmanagement.viewer"
-#- "roles/iam.serviceAccountUser"
-#- "roles/iam.serviceAccountAdmin"
-#- "roles/iam.serviceAccountCreator"
-#- "roles/iam.serviceAccountKeyAdmin"
-#- "roles/compute.loadBalancerAdmin"
+- "roles/networkmanagement.admin"
+- "roles/networkmanagement.viewer"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountCreator"
+- "roles/iam.serviceAccountKeyAdmin"
+- "roles/compute.loadBalancerAdmin"
 
 GCLOUD_PROJECT_SERVICES:
 - "compute.googleapis.com"
@@ -103,7 +103,7 @@ GCLOUD_PROJECT_SERVICES:
 - "cloudresourcemanager.googleapis.com"
 - "serviceusage.googleapis.com"
 - "iam.googleapis.com"
-- "cloudkms.googleapis.com"
+#- "cloudkms.googleapis.com"
 #- "container.googleapis.com"
 #- "stackdriver.googleapis.com"
 #- "meshca.googleapis.com"
