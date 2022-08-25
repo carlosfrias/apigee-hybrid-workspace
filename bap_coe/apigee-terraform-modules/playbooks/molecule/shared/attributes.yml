@@ -12,7 +12,8 @@ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ 
 
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: "apgxcore"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-08252022-1131"
+#TERRAFORM_PROJECT_NAME: "apigee-x-core"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-08252022-1229"
 #PROJECT_ID: "friasc-xmultireg-05192022-1011"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
@@ -60,10 +61,10 @@ STARTUP_SCRIPT: |
   make
   sudo cp /usr/local/src/wrk /usr/local/bin/
 
-#GCLOUD_FOLDER_ROLE_BINDINGS:
-#- roles/resourcemanager.folderAdmin
+GCLOUD_FOLDER_ROLE_BINDINGS:
+- roles/resourcemanager.folderAdmin
 
-#FOLDER_DISPLAY_NAME: apigeex
+FOLDER_DISPLAY_NAME: apigee-opdk
 GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/billing.admin"

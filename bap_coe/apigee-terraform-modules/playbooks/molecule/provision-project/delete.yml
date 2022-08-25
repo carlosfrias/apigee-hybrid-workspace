@@ -12,5 +12,5 @@
 
   roles:
     - { role: gcp_project_delete }
-    - { role: gcp_resource_manager_folders_get_folder_id }
-    - { role: gcp_resource_manager_folders_delete }
+    - { role: gcp_resource_manager_folders_get_folder_id, when: FOLDER_DISPLAY_NAME is defined }
+    - { role: gcp_resource_manager_folders_delete, when: FOLDER_DISPLAY_NAME is defined }
