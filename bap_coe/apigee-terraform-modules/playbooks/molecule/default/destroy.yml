@@ -1,28 +1,26 @@
 ---
-- name: Terraform destroy Apigee runtime on GCP
-  hosts: localhost
-  connection: local
 
-  vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+- name: Provision project - destroy invocation
+  import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"
 
-  tasks:
+- name: Update organization policies - destroy invocation
+  import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/destroy.yml"
 
-  - name: Terraform destroy
-    ignore_errors: True
-    shell: |
-      {{ TERRAFORM_PATH_BIN }} destroy --var-file={{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars -auto-approve -var "project_id={{ PROJECT_ID }}"
-    args:
-      chdir: "{{ TERRAFORM_PATH_PROJECT }}"
-    environment:
-      TERRAFORM_LOG: "{{ TERRAFORM_LOG }}"
-      TERRAFORM_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
+- name: Update services api - destroy invocation
+  import_playbook: "{{ playbook_dir | dirname }}/config-services/destroy.yml"
 
-  - name: Remove old WORK_DIR
-    ignore_errors: True
-    file:
-      path: "{{ item }}"
-      state: absent
-    with_items:
-    - "{{ GITHUB_REPO_DEST }}"
+- name: Create service accounts - destroy invocation
+  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-create/destroy.yml"
+
+- name: Create service account keys - destroy invocation
+  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-keys/destroy.yml"
+
+- name: Update service account permissions - destroy invocation
+  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-permissions/destroy.yml"
+
+- name: Configure terraform variables - destroy invocation
+  import_playbook: "{{ playbook_dir | dirname }}/config-terraform-vars/destroy.yml"
+
+- name: Execute terraform scripts - destroy invocation
+  import_playbook: "{{ playbook_dir | dirname }}/terraform/destroy.yml"
+
