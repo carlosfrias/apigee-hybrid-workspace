@@ -18,7 +18,7 @@
     - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "euw1-instance", value: 'use1-instance', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: '"europe-west1"', value: '"{{ GCP_REGION }}"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "apigee_environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "ip_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
@@ -28,7 +28,8 @@
     - { key: "secondary_ip_range", value: 'null', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "peering_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "support_range", value: '"{{ support_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: '"euw1"', value: '"use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: '"backend-euw1"', value: '"backend-use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: '"psc-nat-euw1"', value: '"psc-nat-use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: '"europe-west1"', value: '"us-east1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
 
   roles:
