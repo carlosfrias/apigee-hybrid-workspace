@@ -7,8 +7,6 @@
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
-  vars:
-    tf_var_file: x-demo.tfvars
 
   collections:
   - bap_coe.bootstrap_runtime
@@ -28,12 +26,13 @@
 
   - name: Assert terraform log file exists
     file:
-      path: "{{ TERRAFORM_LOG_PATH }}/{{ item }}"
+      path: "{{ item }}"
       state: touch
     with_items:
-      - "{{ TERRAFORM_LOG_FILE_NAME_INIT }}"
-      - "{{ TERRAFORM_LOG_FILE_NAME_PLAN }}"
-      - "{{ TERRAFORM_LOG_FILE_NAME_APPLY }}"
+      - "{{ TERRAFORM_LOG_FILE_NAME_INIT_PATH }}"
+      - "{{ TERRAFORM_LOG_FILE_NAME_PLAN_PATH }}"
+      - "{{ TERRAFORM_LOG_FILE_NAME_APPLY_PATH }}"
+      - "{{ TERRAFORM_LOG_FILE_NAME_DESTROY_PATH }}"
 
   - name: Terraform init
     shell: |
@@ -42,23 +41,23 @@
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
       TF_LOG: "{{ TERRAFORM_LOG }}"
-      TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_INIT }}"
+      TF_LOG_PATH: "{{ TERRAFORM_LOG_FILE_NAME_INIT_PATH }}"
 
   - name: Terraform plan
     shell: |
-      {{ TERRAFORM_PATH_BIN }} plan --var-file={{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars
+      {{ TERRAFORM_PATH_BIN }} plan --var-file={{ TERRAFORM_VAR_FILE_PATH }}
     args:
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
       TF_LOG: "{{ TERRAFORM_LOG }}"
-      TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_PLAN }}"
+      TF_LOG_PATH: "{{ TERRAFORM_LOG_FILE_NAME_PLAN_PATH }}"
 
   - name: Terraform apply
     shell: |
-      {{ TERRAFORM_PATH_BIN }} apply --var-file={{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars -auto-approve
+      {{ TERRAFORM_PATH_BIN }} apply --var-file={{ TERRAFORM_VAR_FILE_PATH }} -auto-approve
     args:
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
       TF_LOG: "{{ TERRAFORM_LOG }}"
-      TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_APPLY }}"
+      TF_LOG_PATH: "{{ TERRAFORM_LOG_FILE_NAME_APPLY_PATH }}"
 

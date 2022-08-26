@@ -8,16 +8,27 @@
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
   tasks:
+  - name: Assert terraform log folder exists
+    file:
+      path: "{{ TERRAFORM_LOG_PATH }}"
+      state: directory
+
+  - name: Assert terraform log file exists
+    file:
+      path: "{{ item }}"
+      state: touch
+    with_items:
+    - "{{ TERRAFORM_LOG_FILE_NAME_DESTROY_PATH }}"
 
   - name: Terraform destroy
     ignore_errors: True
     shell: |
-      {{ TERRAFORM_PATH_BIN }} destroy --var-file={{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars -auto-approve -var "project_id={{ PROJECT_ID }}"
+      {{ TERRAFORM_PATH_BIN }} destroy --var-file={{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars -auto-approve
     args:
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
-      TERRAFORM_LOG: "{{ TERRAFORM_LOG }}"
-      TERRAFORM_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
+      TF_LOG: "{{ TERRAFORM_LOG }}"
+      TF_LOG_PATH: "{{ TERRAFORM_LOG_FILE_NAME_DESTROY_PATH }}"
 
   - name: Remove old WORK_DIR
     ignore_errors: True
@@ -25,4 +36,7 @@
       path: "{{ item }}"
       state: absent
     with_items:
-    - "{{ GITHUB_REPO_DEST }}"
+    - "{{ TERRAFORM_PATH_PROJECT }}/.terraform"
+    - "{{ TERRAFORM_PATH_PROJECT }}/.terraform.lock.hcl"
+    - "{{ TERRAFORM_PATH_PROJECT }}/terraform.tfstate"
+    - "{{ TERRAFORM_PATH_PROJECT }}/terraform.tfstate.backup"
