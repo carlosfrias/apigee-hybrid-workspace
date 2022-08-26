@@ -7,7 +7,6 @@
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
   - "{{ playbook_dir | dirname }}/shared/attributes.yml"
 
-
   collections:
   - bap_coe.bootstrap_runtime
   - bap_coe.gcp_management
