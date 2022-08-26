@@ -34,8 +34,8 @@
     args:
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
-      TERRAFORM_LOG: "{{ TERRAFORM_LOG }}"
-      TERRAFORM_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
+      TF_LOG: "{{ TERRAFORM_LOG }}"
+      TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
 
   - name: Terraform plan
     shell: |
@@ -43,8 +43,8 @@
     args:
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
-      TERRAFORM_LOG: "{{ TERRAFORM_LOG }}"
-      TERRAFORM_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
+      TF_LOG: "{{ TERRAFORM_LOG }}"
+      TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
 
   - name: Terraform apply
     shell: |
@@ -52,6 +52,6 @@
     args:
       chdir: "{{ TERRAFORM_PATH_PROJECT }}"
     environment:
-      TERRAFORM_LOG: "{{ TERRAFORM_LOG }}"
-      TERRAFORM_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
+      TF_LOG: "{{ TERRAFORM_LOG }}"
+      TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME }}"
 
