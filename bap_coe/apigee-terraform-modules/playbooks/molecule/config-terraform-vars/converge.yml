@@ -20,8 +20,6 @@
     - { key: '"europe-west1"', value: '"{{ GCP_REGION }}"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "apigee_environments", value: '["test1", "test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "ip_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "environments", value: '["test1", "test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "peering_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: "support_range", value: '"{{ support_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: '"backend-euw1"', value: '"backend-use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }

@@ -13,7 +13,7 @@ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ 
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 TERRAFORM_PROJECT_NAME: x-sb-psc
 GCLOUD_PROJECT_ID: "x-sb-psc"
-PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08252022-2235"
+PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08252022-2247"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
