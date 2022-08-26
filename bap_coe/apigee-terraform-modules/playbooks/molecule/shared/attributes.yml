@@ -11,8 +11,8 @@ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ 
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
-GCLOUD_PROJECT_ID: "x-nb-psc-xlb"
-PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08262022-1003"
+GCLOUD_PROJECT_ID: "x-basic"
+PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08262022-1225"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
@@ -22,7 +22,7 @@ INVENTORY_FILENAME: "ansible_inventory.yml"
 GITHUB_REPO_URL: git@github.com:apigee/terraform-modules.git
 GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-projects"
 
-TERRAFORM_PROJECT_NAME: x-nb-psc-xlb
+TERRAFORM_PROJECT_NAME: x-basic
 TERRAFORM_VAR_FILE: x-demo.tfvars
 TERRAFORM_LOG: "DEBUG"
 
