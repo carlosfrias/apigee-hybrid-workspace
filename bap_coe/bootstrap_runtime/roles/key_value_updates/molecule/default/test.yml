@@ -53,3 +53,4 @@ backend_psc_nat_subnet = {
 }
 
 psc_name = "demopsc"
+project_id = "my_project"

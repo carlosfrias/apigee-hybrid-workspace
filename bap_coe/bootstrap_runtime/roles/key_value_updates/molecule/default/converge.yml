@@ -22,6 +22,6 @@
         dest: "{{ test_file }}"
         force: yes
 
-    - name: "Include gce_dynamic_inventory_configure"
+    - name: "Include key_value_updates"
       include_role:
         name: "key_value_updates"
