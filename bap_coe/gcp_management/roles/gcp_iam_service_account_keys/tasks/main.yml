@@ -64,3 +64,4 @@
 - name: Unable to create the service account file {{ SERVICE_ACCOUNT_FILE_PATH }}
   fail:
     msg: "Unable to create the service account file, please check your org policies and permissions. "
+  when: svc_acct_file.stat.exists is truthy and svc_acct_file.stat.size == 0
