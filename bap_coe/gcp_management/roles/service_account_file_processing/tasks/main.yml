@@ -10,7 +10,6 @@
   stat:
     path: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
   register: valid_service_account_file_path
-  delegate_to: localhost
 
 - name: Remove empty service account file
   block:
