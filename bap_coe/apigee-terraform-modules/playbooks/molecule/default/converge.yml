@@ -19,7 +19,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-permissions/converge.yml"
 
 - name: Configure terraform variables
-  import_playbook: "{{ playbook_dir | dirname }}/config-terraform-vars/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/terraform-vars/converge.yml"
 
 - name: Execute terraform scripts
   import_playbook: "{{ playbook_dir | dirname }}/terraform/converge.yml"

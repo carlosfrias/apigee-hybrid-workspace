@@ -19,7 +19,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-permissions/destroy.yml"
 
 - name: Configure terraform variables - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/config-terraform-vars/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/terraform-vars/destroy.yml"
 
 - name: Execute terraform scripts - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/terraform/destroy.yml"

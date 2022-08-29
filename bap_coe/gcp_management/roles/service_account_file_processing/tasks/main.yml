@@ -12,9 +12,18 @@
   register: valid_service_account_file_path
   delegate_to: localhost
 
-- name: Assert the file is not empty
-  fail:
-    msg: "Service account file is empty, please remove the file and re-run.  File Location: {{ SERVICE_ACCOUNT_FILE_PATH }}"
+- name: Remove empty service account file
+  block:
+
+  - name: Assert the file is not empty
+    file:
+      path: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+      state: absent
+
+  - name: Fail for having an empty service account file
+    fail:
+      msg: "Failing this run because an empty key file for the service account was found."
+
   when: valid_service_account_file_path.stat.exists is truthy and valid_service_account_file_path.stat.size == 0
 
 - name: Configure attributes from the service account file
