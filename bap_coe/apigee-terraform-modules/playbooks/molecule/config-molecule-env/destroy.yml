@@ -5,7 +5,7 @@
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/attributes.yml"
 
   vars:
     file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml"
