@@ -25,6 +25,7 @@
     - { key: '"backend-euw1"', value: '"backend-use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: '"psc-nat-euw1"', value: '"psc-nat-use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
     - { key: '"europe-west1"', value: '"us-east1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: '"test.api.example.com"', value: '"test-{{ PROJECT_ID }}.api.example.com"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
 
   roles:
   - { role: terraform_installer }

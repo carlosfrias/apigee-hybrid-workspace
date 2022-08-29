@@ -11,5 +11,5 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-  - { role: terraform-destroy }
+  - { role: terraform_destroy }
 
