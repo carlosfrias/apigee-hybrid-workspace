@@ -22,7 +22,7 @@
 
   - name: Fail for having an empty service account file
     fail:
-      msg: "Failing this run because an empty key file for the service account was found."
+      msg: "Failing this run because an empty key file for the service account was found. Please recreate the key file."
 
   when: valid_service_account_file_path.stat.exists is truthy and valid_service_account_file_path.stat.size == 0
 
