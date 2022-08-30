@@ -18,7 +18,7 @@ install_pip() {
 prepare_dev() {
     $SUDO apt update -y
     $SUDO apt dist-upgrade -y
-    $SUDO apt install software-properties-common curl git mc vim facter python python-is-python3 aptitude -y
+    $SUDO apt install software-properties-common curl git mc vim facter python python-is-python3 python3-apt aptitude -y
     [ $(uname -m) == "aarch64" ] && $SUDO apt install gcc python-dev libffi-dev libssl-dev make -y
 
     PYTHON_BIN=/usr/bin/python
