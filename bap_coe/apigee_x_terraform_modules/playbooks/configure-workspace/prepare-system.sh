@@ -28,7 +28,7 @@ prepare_dev() {
 #    [ $(uname -m) == "aarch64" ] && $SUDO apt install gcc libffi-dev libssl-dev make -y
 
     PYTHON_BIN=/usr/bin/python
-    install_pyenv
+#    install_pyenv
 #    $SUDO pip install python3-apt -U
 
 }
