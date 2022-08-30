@@ -21,7 +21,7 @@ install_pip() {
   $SUDO pip install bcrypt -U
 }
 
-#prepare_dev() {
+prepare_dev() {
     $SUDO apt update -y
     $SUDO apt dist-upgrade -y
     $SUDO apt install software-properties-common curl git mc vim facter aptitude -y
@@ -31,7 +31,7 @@ install_pip() {
     install_pyenv
 #    $SUDO pip install python3-apt -U
 
-#}
+}
 
 prepare_ubuntu() {
   $SUDO apt update -y
@@ -122,6 +122,8 @@ if [[ $EUID -ne 0 ]]; then
 else
   SUDO=''
 fi
+
+prepare_dev
 
 case $ID in
 #'ubuntu')
