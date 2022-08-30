@@ -11,14 +11,14 @@ install_pyenv() {
 }
 
 prepare_dev() {
-    $SUDO apt update -y
-    $SUDO apt dist-upgrade -y
-    $SUDO apt install software-properties-common curl git mc vim facter aptitude -y
-    [ $(uname -m) == "aarch64" ] && $SUDO apt install gcc libffi-dev libssl-dev make -y
+    apt update -y
+    apt dist-upgrade -y
+    apt install software-properties-common curl git mc vim facter aptitude -y
+    [ $(uname -m) == "aarch64" ] && apt install gcc libffi-dev libssl-dev make -y
 
     PYTHON_BIN=/usr/bin/python
     install_pyenv
-#    $SUDO pip install python3-apt -U
+#    pip install python3-apt -U
 }
 
 prepare_dev
