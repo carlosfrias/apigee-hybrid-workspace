@@ -12,6 +12,7 @@ install_pyenv() {
   command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
   pyenv install 3.10.2
   pyenv virtualenv 3.10.2 apigee
+  pyenv virtualenv-init -
   pyenv activate apigee
 
   $SUDO pip install setuptools -U
