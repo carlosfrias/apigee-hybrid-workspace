@@ -6,15 +6,11 @@ install_pyenv() {
   echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
   echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
   echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-
-  # Restart your shell for the changes to take effect.' >> ~/.bashrc
-
-  # Load pyenv-virtualenv automatically by adding
-  # the following to ~/.bashrc:' >> ~/.bashrc
-
   echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-
   exec $SHELL
+  pyenv install 3.10.2
+  pyenv virtualenv 3.10.2 apigee
+  pyenv activate apigee
 
   $SUDO pip install setuptools -U
   $SUDO pip install ansible -U
