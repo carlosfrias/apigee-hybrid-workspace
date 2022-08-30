@@ -24,7 +24,7 @@ install_pip() {
 prepare_dev() {
     $SUDO apt update -y
     $SUDO apt dist-upgrade -y
-#    $SUDO apt install software-properties-common curl git mc vim facter aptitude -y
+    $SUDO apt install software-properties-common curl git mc vim facter aptitude -y
 #    [ $(uname -m) == "aarch64" ] && $SUDO apt install gcc libffi-dev libssl-dev make -y
 
     PYTHON_BIN=/usr/bin/python
@@ -105,7 +105,7 @@ prepare_amzn() {
 usage() {
   echo
   echo "Linux distribution not detected."
-  echo "Use: ID=[ubuntu|debian|centos|raspbian|amzn|fedora] prepare_system.sh"
+  echo "Use: ID=[ubuntu|debian|centos|raspbian|amzn|fedora|dev] prepare_system.sh"
   echo "Other distributions not yet supported."
   echo
 }
