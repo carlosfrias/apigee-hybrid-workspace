@@ -3,16 +3,16 @@
 install_pyenv() {
   curl https://pyenv.run | bash
 
-  export PYENV_ROOT="$HOME/.pyenv"
-  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
+  echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+  echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+  echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 
-  # Restart your shell for the changes to take effect.
+  # Restart your shell for the changes to take effect.' >> ~/.bashrc
 
   # Load pyenv-virtualenv automatically by adding
-  # the following to ~/.bashrc:
+  # the following to ~/.bashrc:' >> ~/.bashrc
 
-  eval "$(pyenv virtualenv-init -)"
+  echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 
   exec $SHELL
 
