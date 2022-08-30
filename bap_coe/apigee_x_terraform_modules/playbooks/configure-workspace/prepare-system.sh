@@ -23,7 +23,7 @@ prepare_dev() {
 
     PYTHON_BIN=/usr/bin/python
     install_pyenv
-    $SUDO pip install python3-apt -U
+#    $SUDO pip install python3-apt -U
 
 }
 
