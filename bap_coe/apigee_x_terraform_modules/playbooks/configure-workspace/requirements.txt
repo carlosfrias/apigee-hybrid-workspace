@@ -1,0 +1,6 @@
+setuptools
+ansible
+netaddr
+dnspython
+passlib
+bcrypt
