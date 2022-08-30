@@ -7,8 +7,7 @@ install_pyenv() {
   echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
   echo 'eval "$(pyenv init -)"' >> ~/.bashrc
   echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-
-  source ~/.bashrc
+  exec $SHELL
 }
 
 install_pip() {
