@@ -7,13 +7,10 @@ install_pyenv() {
   echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
   echo 'eval "$(pyenv init -)"' >> ~/.bashrc
   echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-#  export PROMPT_COMMAND=""
+
   source ~/.bashrc
-#  export PYENV_ROOT="$HOME/.pyenv"
-#  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
   pyenv install 3.10.2
   pyenv virtualenv 3.10.2 apigee
-#  eval "$(pyenv virtualenv-init -)"
   pyenv activate apigee
 
   $SUDO pip install setuptools -U
