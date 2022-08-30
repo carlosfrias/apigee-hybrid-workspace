@@ -18,7 +18,7 @@ prepare_dev() {
 
     PYTHON_BIN=/usr/bin/python
     install_pyenv
-#    pip install python3-apt -U
+    pip install python3-apt -U
 }
 
 prepare_dev
