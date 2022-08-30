@@ -2,7 +2,20 @@
 
 install_pyenv() {
   curl https://pyenv.run | bash
+
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+
+  # Restart your shell for the changes to take effect.
+
+  # Load pyenv-virtualenv automatically by adding
+  # the following to ~/.bashrc:
+
+  eval "$(pyenv virtualenv-init -)"
+
   exec $SHELL
+
   $SUDO pip install setuptools -U
   $SUDO pip install ansible -U
   $SUDO pip install netaddr -U
