@@ -1,0 +1,23 @@
+---
+# tasks file for apigee-opdk-server-registration-state
+- name: Assert server_uuid is provided
+  assert:
+    that:
+    - server_uuid is defined
+    msg: "Please provide the server_uuid"
+
+
+- name: Register server
+  uri:
+    url: http://{{ local_mgmt_ip }}:8080/v1/servers/{{ server_uuid }}
+    url_username: "{{ opdk_user_email }}"
+    url_password: "{{ opdk_user_pass }}"
+    body_format: json
+    return_content: true
+  register: registered
+
+
+- name: Server Registration State Report
+  debug:
+    msg: "State of Server Registration: {{ registered.json }}"
+

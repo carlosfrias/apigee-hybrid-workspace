@@ -1,0 +1,169 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: gce
+  plugin: gcp_compute
+  project_id: friasc-opdk-08022022-1409  # if not set, will default to env GCE_PROJECT_ID
+  auth_kind: serviceaccount  # set to machineaccount or serviceaccount or application - if set to null will read env GCP_AUTH_KIND
+  region: us-east1  # REQUIRED
+  #  subnetwork_name: my-subnet  # specify if other than default
+  #  vpc_host_project: null  # if you use a shared vpc, set here the vpc host project. In that case, your GCP user needs the necessary permissions in the host project, see https://cloud.google.com/vpc/docs/shared-vpc#iam_in_shared_vpc
+  #  username: admin # used to connect with ssh to the GCE instance, will default to 'molecule'
+  service_account_file: /usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-workspace/bap_coe/private_cloud/playbooks/work_dir/friasc-opdk-08022022-1409/credentials/admin-service-account-service-account-key.json  # set to the path to the JSON credentials file - if set to null, will default to env GCP_SERVICE_ACCOUNT_FILE
+  scopes:
+  - "https://www.googleapis.com/auth/compute"  # will default to env GCP_SCOPES, https://www.googleapis.com/auth/compute is the minimum required scope.
+  - "https://www.googleapis.com/auth/cloud-platform"
+  external_access: false  # chose whether to create a public IP for the VM or not - default is private IP only
+  instance_os_type: linux  # Either windows or linux. Will be considered linux by default. You can NOT mix Windows and Linux VMs in the same scenario.
+platforms:
+- name: dc-1-ms-1 #  REQUIRED: this will be your VM name
+  zone: us-east1-b # Example: us-west1-b. Will default to zone b of region defined in driver (some regions do not have a zone-a)
+  machine_type: n1-standard-1  # If not specified, will default to n1-standard-1
+  preemptible: false  # If not specified, will default to false. Preemptible instances have no SLA, in case of resource shortage in the zone they might get destroyed (or not be created) without warning, and will always be terminated after 24 hours. But they cost less and will mitigate the financial consequences of a PAYG licenced VM that would be forgotten.
+  image: 'projects/rhel-cloud/global/images/family/rhel-7'  # Points to an image, you can get a list of available images with command 'gcloud compute images list'.
+    # The expected format of this string is projects/<project>/global/images/family/<family-name>
+  # (see https://googlecloudplatform.github.io/compute-image-tools/daisy-automating-image-creation.html)
+  #  Wille default to debian-10 image for os_type Linux, Windows 2019 for os_type Windows
+  tags: # Not required. Format must follow https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_compute_instance_module.html#parameter-tags
+    items:
+    - allow-ssh
+    - allow-rdp
+- name: dc-1-ds-1 #  REQUIRED: this will be your VM name
+  zone: us-east1-b # Example: us-west1-b. Will default to zone b of region defined in driver (some regions do not have a zone-a)
+  machine_type: n1-standard-1  # If not specified, will default to n1-standard-1
+  preemptible: false  # If not specified, will default to false. Preemptible instances have no SLA, in case of resource shortage in the zone they might get destroyed (or not be created) without warning, and will always be terminated after 24 hours. But they cost less and will mitigate the financial consequences of a PAYG licenced VM that would be forgotten.
+  image: 'projects/rhel-cloud/global/images/family/rhel-7'  # Points to an image, you can get a list of available images with command 'gcloud compute images list'.
+    # The expected format of this string is projects/<project>/global/images/family/<family-name>
+  # (see https://googlecloudplatform.github.io/compute-image-tools/daisy-automating-image-creation.html)
+  #  Wille default to debian-10 image for os_type Linux, Windows 2019 for os_type Windows
+  tags: # Not required. Format must follow https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_compute_instance_module.html#parameter-tags
+    items:
+    - allow-ssh
+    - allow-rdp
+- name: dc-1-ds-2 #  REQUIRED: this will be your VM name
+  zone: us-east1-b # Example: us-west1-b. Will default to zone b of region defined in driver (some regions do not have a zone-a)
+  machine_type: n1-standard-1  # If not specified, will default to n1-standard-1
+  preemptible: false  # If not specified, will default to false. Preemptible instances have no SLA, in case of resource shortage in the zone they might get destroyed (or not be created) without warning, and will always be terminated after 24 hours. But they cost less and will mitigate the financial consequences of a PAYG licenced VM that would be forgotten.
+  image: 'projects/rhel-cloud/global/images/family/rhel-7'  # Points to an image, you can get a list of available images with command 'gcloud compute images list'.
+    # The expected format of this string is projects/<project>/global/images/family/<family-name>
+  # (see https://googlecloudplatform.github.io/compute-image-tools/daisy-automating-image-creation.html)
+  #  Wille default to debian-10 image for os_type Linux, Windows 2019 for os_type Windows
+  tags: # Not required. Format must follow https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_compute_instance_module.html#parameter-tags
+    items:
+    - allow-ssh
+    - allow-rdp
+- name: dc-1-ds-3 #  REQUIRED: this will be your VM name
+  zone: us-east1-b # Example: us-west1-b. Will default to zone b of region defined in driver (some regions do not have a zone-a)
+  machine_type: n1-standard-1  # If not specified, will default to n1-standard-1
+  preemptible: false  # If not specified, will default to false. Preemptible instances have no SLA, in case of resource shortage in the zone they might get destroyed (or not be created) without warning, and will always be terminated after 24 hours. But they cost less and will mitigate the financial consequences of a PAYG licenced VM that would be forgotten.
+  image: 'projects/rhel-cloud/global/images/family/rhel-7'  # Points to an image, you can get a list of available images with command 'gcloud compute images list'.
+    # The expected format of this string is projects/<project>/global/images/family/<family-name>
+  # (see https://googlecloudplatform.github.io/compute-image-tools/daisy-automating-image-creation.html)
+  #  Wille default to debian-10 image for os_type Linux, Windows 2019 for os_type Windows
+  tags: # Not required. Format must follow https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_compute_instance_module.html#parameter-tags
+    items:
+    - allow-ssh
+    - allow-rdp
+- name: dc-1-rmp-1 #  REQUIRED: this will be your VM name
+  zone: us-east1-b # Example: us-west1-b. Will default to zone b of region defined in driver (some regions do not have a zone-a)
+  machine_type: n1-standard-1  # If not specified, will default to n1-standard-1
+  preemptible: false  # If not specified, will default to false. Preemptible instances have no SLA, in case of resource shortage in the zone they might get destroyed (or not be created) without warning, and will always be terminated after 24 hours. But they cost less and will mitigate the financial consequences of a PAYG licenced VM that would be forgotten.
+  image: 'projects/rhel-cloud/global/images/family/rhel-7'  # Points to an image, you can get a list of available images with command 'gcloud compute images list'.
+    # The expected format of this string is projects/<project>/global/images/family/<family-name>
+  # (see https://googlecloudplatform.github.io/compute-image-tools/daisy-automating-image-creation.html)
+  #  Wille default to debian-10 image for os_type Linux, Windows 2019 for os_type Windows
+  tags: # Not required. Format must follow https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_compute_instance_module.html#parameter-tags
+    items:
+    - allow-ssh
+    - allow-rdp
+- name: dc-1-rmp-2 #  REQUIRED: this will be your VM name
+  zone: us-east1-b # Example: us-west1-b. Will default to zone b of region defined in driver (some regions do not have a zone-a)
+  machine_type: n1-standard-1  # If not specified, will default to n1-standard-1
+  preemptible: false  # If not specified, will default to false. Preemptible instances have no SLA, in case of resource shortage in the zone they might get destroyed (or not be created) without warning, and will always be terminated after 24 hours. But they cost less and will mitigate the financial consequences of a PAYG licenced VM that would be forgotten.
+  image: 'projects/rhel-cloud/global/images/family/rhel-7'  # Points to an image, you can get a list of available images with command 'gcloud compute images list'.
+    # The expected format of this string is projects/<project>/global/images/family/<family-name>
+  # (see https://googlecloudplatform.github.io/compute-image-tools/daisy-automating-image-creation.html)
+  #  Wille default to debian-10 image for os_type Linux, Windows 2019 for os_type Windows
+  tags: # Not required. Format must follow https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_compute_instance_module.html#parameter-tags
+    items:
+    - allow-ssh
+    - allow-rdp
+- name: dc-1-qpid-1 #  REQUIRED: this will be your VM name
+  zone: us-east1-b # Example: us-west1-b. Will default to zone b of region defined in driver (some regions do not have a zone-a)
+  machine_type: n1-standard-1  # If not specified, will default to n1-standard-1
+  preemptible: false  # If not specified, will default to false. Preemptible instances have no SLA, in case of resource shortage in the zone they might get destroyed (or not be created) without warning, and will always be terminated after 24 hours. But they cost less and will mitigate the financial consequences of a PAYG licenced VM that would be forgotten.
+  image: 'projects/rhel-cloud/global/images/family/rhel-7'  # Points to an image, you can get a list of available images with command 'gcloud compute images list'.
+    # The expected format of this string is projects/<project>/global/images/family/<family-name>
+  # (see https://googlecloudplatform.github.io/compute-image-tools/daisy-automating-image-creation.html)
+  #  Wille default to debian-10 image for os_type Linux, Windows 2019 for os_type Windows
+  tags: # Not required. Format must follow https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_compute_instance_module.html#parameter-tags
+    items:
+    - allow-ssh
+    - allow-rdp
+- name: dc-1-qpid-2 #  REQUIRED: this will be your VM name
+  zone: us-east1-b # Example: us-west1-b. Will default to zone b of region defined in driver (some regions do not have a zone-a)
+  machine_type: n1-standard-1  # If not specified, will default to n1-standard-1
+  preemptible: false  # If not specified, will default to false. Preemptible instances have no SLA, in case of resource shortage in the zone they might get destroyed (or not be created) without warning, and will always be terminated after 24 hours. But they cost less and will mitigate the financial consequences of a PAYG licenced VM that would be forgotten.
+  image: 'projects/rhel-cloud/global/images/family/rhel-7'  # Points to an image, you can get a list of available images with command 'gcloud compute images list'.
+    # The expected format of this string is projects/<project>/global/images/family/<family-name>
+  # (see https://googlecloudplatform.github.io/compute-image-tools/daisy-automating-image-creation.html)
+  #  Wille default to debian-10 image for os_type Linux, Windows 2019 for os_type Windows
+  tags: # Not required. Format must follow https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_compute_instance_module.html#parameter-tags
+    items:
+    - allow-ssh
+    - allow-rdp
+- name: dc-1-pg-1 #  REQUIRED: this will be your VM name
+  zone: us-east1-b # Example: us-west1-b. Will default to zone b of region defined in driver (some regions do not have a zone-a)
+  machine_type: n1-standard-1  # If not specified, will default to n1-standard-1
+  preemptible: false  # If not specified, will default to false. Preemptible instances have no SLA, in case of resource shortage in the zone they might get destroyed (or not be created) without warning, and will always be terminated after 24 hours. But they cost less and will mitigate the financial consequences of a PAYG licenced VM that would be forgotten.
+  image: 'projects/rhel-cloud/global/images/family/rhel-7'  # Points to an image, you can get a list of available images with command 'gcloud compute images list'.
+    # The expected format of this string is projects/<project>/global/images/family/<family-name>
+  # (see https://googlecloudplatform.github.io/compute-image-tools/daisy-automating-image-creation.html)
+  #  Wille default to debian-10 image for os_type Linux, Windows 2019 for os_type Windows
+  tags: # Not required. Format must follow https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_compute_instance_module.html#parameter-tags
+    items:
+    - allow-ssh
+    - allow-rdp
+provisioner:
+  name: ansible
+#  ansible-args:
+#  - --inventory=${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
+#  playbooks:
+#    create: converge.yml
+#    converge: converge.yml
+#    destroy: destroy.yml
+#    prepare: prepare.yml
+#  inventory:
+#    links:
+#      hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
+#  config_options:
+#    inventory:
+#      enable_plugins: gcp_compute
+#    ssh_connection:
+#      pipelining: true
+#    defaults:
+#      remote_user: admin_
+#      interpreter_python: auto_silent
+#      bin_ansible_callbacks: True
+#      stdout_callback: yaml
+#      stderr_callback: yaml
+#      merge_multiple_cli_tags: True
+#      display_args_to_stdout: True
+#      timeout: 60
+#      forks: 25
+#      private_key_file: ~/.ssh/google_compute_engine
+#      scp_if_ssh: True
+#      callbacks_whitelist: profile_tasks, timer, yaml
+#      local_tmp: ../../work_dir/${PROJECT_ID}/tmp
+#      fact_caching_connection: ../../work_dir/${PROJECT_ID}/bap_coe_apigee_hybrid
+#      fact_caching: jsonfile
+#      gathering: smart
+#      ansible_shell_type: sh
+#      host_key_checking: False
+
+
+
+
+verifier:
+  name: ansible

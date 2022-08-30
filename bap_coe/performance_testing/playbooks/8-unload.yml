@@ -1,0 +1,22 @@
+---
+- name: Complete Bulk Load of Test Data for Products, Developers and Apps
+  hosts: "{{ target_hosts | default('localhost') }}"
+  strategy: free
+  gather_facts: yes
+
+  collections:
+    - bap_coe.performance_testing
+    - bap_coe.gcp_management
+
+  roles:
+    - service_account_file_processing
+    - gcp_token_retrieval
+    - { role: developers_apps_products_associate, APP_STATUS: 'revoked' }
+    - developers_apps_keys_delete
+    - developers_apps_delete
+    - developers_delete
+    - products_delete
+
+  vars_files:
+    - "{{ playbook_dir }}/attribute.yml"
+    - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"

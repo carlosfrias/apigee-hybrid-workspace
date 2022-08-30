@@ -1,0 +1,25 @@
+---
+
+# Location of folder on controller server that contains downloaded logs
+target_logs_folder: "~/.apigee/planet_resources/"
+
+# Pattern for selecting logs and configuration files to download from Planet nodes to control server.
+pattern:
+  - { dir: '/tmp', pattern: 'setup*.log' }
+  - { dir: '{{ opdk_resources_path }}/', pattern: '*' }
+  - { dir: '{{ apigee_home }}/', pattern: '*.out' }
+  - { dir: '{{ apigee_home }}/var/log', pattern: '*.log' }
+  - { dir: '{{ apigee_home }}/customer/', pattern: '*' }
+  - { dir: '{{ apigee_home }}/etc/', pattern: 'default*.sh' }
+  - { dir: '{{ apigee_home }}/customer', pattern: '*' }
+  - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*conf' }
+  - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*cfg' }
+  - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yml' }
+  - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*yaml' }
+  - { dir: '{{ apigee_home }}/apigee-cassandra/', pattern: '*properties' }
+  - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*conf' }
+  - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*cfg' }
+  - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yml' }
+  - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*yaml' }
+  - { dir: '{{ apigee_home }}/apigee-zookeeper/', pattern: '*properties' }
+  - { dir: '{{ apigee_home }}/apigee-postgresql/', pattern: '*conf' }

@@ -1,0 +1,127 @@
+---
+PROJECT_ID: "friasc-opdk-06012022-1411"
+ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
+WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
+TOOLS_DIR: "{{ WORK_DIR }}/bin"
+INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
+NAME_INSTANCE_PREFIX: bastion
+GCP_ZONE: us-east1-b
+CONTROL_SERVER_IMAGE_NAME: ops-server
+CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
+ORG_BINDING_PROPAGATION_TIMEOUT: 100
+ACCESS_TYPE: int
+VPC_NETWORK_NAME: 'default'
+#TIME_TO_PROPAGATE_BINDINGS: 20
+GCLOUD_FOLDER_ROLE_BINDINGS:
+  - roles/resourcemanager.folderAdmin
+
+FOLDER_DISPLAY_NAME: apigee-opdk
+AUTHORIZATION_KIND: serviceaccount
+RESOURCE_GCP_ZONE: "us-central1-c"
+#MACHINE_TYPE: f1-micro
+MACHINE_TYPE: n1-standard-1
+#MACHINE_TYPE: n2-highcpu-2
+SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
+INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
+
+# Additional values for IMAGE_PROJECT: 'centos-cloud'
+# Additional values for IMAGE_FAMILY: 'centos-7'
+DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1804-lts') }}"
+DISK_SIZE: 100
+STARTUP_SCRIPT: |
+  sudo apt update -y
+  sudo apt install -y build-essential libssl-dev git zlib1g-dev
+  sudo git clone https://github.com/giltene/wrk2.git /usr/local/src/wrk
+  cd /usr/local/src/wrk
+  make
+  sudo cp /usr/local/src/wrk /usr/local/bin/
+#  curl -s https://raw.githubusercontent.com/carlosfrias/apigee-hybrid-workspace/bap_coe_collections/setup-apigee-workspace.sh | bash
+
+GCLOUD_ORG_ROLE_BINDINGS:
+- "roles/owner"
+- "roles/billing.admin"
+- "roles/billing.projectManager"
+- "roles/iam.serviceAccountAdmin"
+- "roles/resourcemanager.projectIamAdmin"
+- "roles/resourcemanager.organizationAdmin"
+- "roles/serviceusage.serviceUsageAdmin"
+- "roles/serviceusage.serviceUsageViewer"
+- "roles/serviceusage.apiKeysAdmin"
+- "roles/iap.tunnelResourceAccessor"
+- "roles/iam.serviceAccountCreator"
+#- "roles/compute.networkUser"
+#- "roles/compute.instanceAdmin"
+#- "roles/compute.loadBalancerAdmin"
+#- "roles/iam.serviceAccountUser"
+#- "roles/iam.serviceAccountKeyAdmin"
+#- "roles/networkmanagement.admin"
+#- "roles/networkmanagement.viewer"
+
+#  Configure project admin role bindings
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
+- "roles/resourcemanager.projectDeleter"
+- "roles/resourcemanager.projectCreator"
+
+GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
+- "roles/compute.admin"
+- "roles/compute.networkUser"
+- "roles/compute.instanceAdmin"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountCreator"
+#- "roles/networkmanagement.admin"
+#- "roles/networkmanagement.viewer"
+#- "roles/iam.serviceAccountAdmin"
+#- "roles/iam.serviceAccountKeyAdmin"
+#- "roles/compute.loadBalancerAdmin"
+
+GCLOUD_PROJECT_SERVICES:
+- "compute.googleapis.com"
+- "apigee.googleapis.com"
+- "servicenetworking.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
+- "serviceusage.googleapis.com"
+- "iam.googleapis.com"
+#- "apigeeconnect.googleapis.com"
+#- "container.googleapis.com"
+#- "stackdriver.googleapis.com"
+#- "meshca.googleapis.com"
+#- "meshtelemetry.googleapis.com"
+#- "meshconfig.googleapis.com"
+#- "iamcredentials.googleapis.com"
+#- "anthos.googleapis.com"
+#- "gkeconnect.googleapis.com"
+#- "gkehub.googleapis.com"
+#- "sourcerepo.googleapis.com"
+#- "cloudbuild.googleapis.com"
+#- "secretmanager.googleapis.com"
+#- "dns.googleapis.com"
+#- "pubsub.googleapis.com"
+#- "monitoring.googleapis.com"
+#- "logging.googleapis.com"
+#- "cloudtrace.googleapis.com"
+#- "privateca.googleapis.com"
+
+firewall_ports:
+  - { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
+
+GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
+- constraints/iam.disableServiceAccountKeyCreation
+- constraints/iam.disableServiceAccountCreation
+- constraints/compute.requireShieldedVm
+- constraints/compute.requireOsLogin
+- constraints/compute.skipDefaultNetworkCreation
+
+GCLOUD_ORG_POLICIES_UPDATE:
+- constraints/compute.trustedImageProjects
+- constraints/compute.restrictSharedVpcSubnetworks
+- constraints/compute.restrictSharedVpcHostProjects
+- constraints/compute.restrictVpcPeering
+- constraints/compute.vmExternalIpAccess
+- constraints/compute.vmCanIpForward
+
+#PRIVATE_CLOUD_INSTANCES:
+#  - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+#  - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+#  - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }

@@ -1,0 +1,2 @@
+# ansible_python_interpreter=/usr/local/google/home/friasc/.pyenv/shims/python3
+ansible_python_interpreter={{ ansible_playbook_python }}

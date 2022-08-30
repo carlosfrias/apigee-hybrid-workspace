@@ -1,0 +1,93 @@
+---
+- name: Bootstrap pyenv virtualenv
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+
+  vars:
+    bootstrap_pyenv_packages:
+      - sudo
+      - make
+      - build-essential
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - wget
+      - curl
+      - llvm
+      - libncurses5-dev
+      - libncursesw5-dev
+      - xz-utils
+      - tk-dev
+      - libffi-dev
+      - liblzma-dev
+      - python-openssl
+      - software-properties-common
+      - git
+      - python3-apt
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
+
+  tasks:
+    - name: Update apt
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Install system packages to work with pyenv workspace
+      become: true
+      apt:
+        name: "{{ bootstrap_pyenv_packages }}"
+        state: present
+      environment:
+        DEBIAN_FRONTEND: "noninteractive apt-get install -y --no-install-recommends tzdata"
+
+    - name: Download pyenv
+      get_url:
+        url: https://pyenv.run
+        dest: ~/pyenv.run
+
+    - name: Install pyenv
+      command: bash pyenv.run
+      args:
+        creates: ~/.pyenv
+
+    - name: Copy dependency lists
+      copy:
+        src: "{{ item }}"
+        dest: "./{{ item }}"
+      with_items:
+        - requirements.txt
+        - collections.yml
+
+    - name: Update SSH Config with ProxyCommand and Bastion Host Configuration
+      blockinfile:
+        path: ~/.bashrc
+        create: yes
+        backup: yes
+        mode: 0600
+        marker: "# {mark} pyenv ANSIBLE MANAGED BLOCK"
+        block: |
+          export PATH=~/.pyenv/bin:$PATH
+          eval "$(pyenv init -)"
+          eval "$(pyenv virtualenv-init -)"
+
+    - name: Reset connection to reload .bashrc config update
+      meta: reset_connection
+
+    - name: Install python with pyenv + virtualenv bap_coe, long running process...
+      raw: |
+        #!/bin/bash
+        ~/.pyenv/bin/pyenv install {{ python_version | default('3.9.1') }}
+        ~/.pyenv/bin/pyenv virtualenv {{ python_version | default('3.9.1') }} bap_coe
+
+    - name: Configure virtualenv bap_coe
+      raw: |
+        #!/bin/bash
+        source ~/.bashrc
+        export PATH=~/.pyenv/bin:~/.pyenv/shims:$PATH
+        ~/.pyenv/bin/pyenv activate bap_coe
+        ~/.pyenv/shims/pip3 install -r requirements.txt
+        ansible-galaxy install -r collections.yml --force

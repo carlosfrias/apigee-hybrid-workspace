@@ -1,0 +1,28 @@
+---
+- name: Convert folders with hyphens to underscores
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+
+  tasks:
+    - name: Compose list of folders
+      find:
+        file_type: directory
+        depth: 1
+        paths: "{{ playbook_dir }}/../roles"
+        patterns: "apigee-server*"
+        use_regex: no
+      register: folder_list
+
+#    - name: Check files for hyphens
+#      include_tasks: update_for_hyphens.yml
+#      vars:
+#        folder: "{{ item.path }}"
+#        pattern: "{{ item.path | basename }}"
+#      with_items: "{{ folder_list.files }}"
+
+    - name: Rename folder
+      shell: "mv {{ item.path }} {{ item.path | dirname }}/{{ item.path | basename | regex_replace('-', '_') }}"
+      with_items: "{{ folder_list.files }}"

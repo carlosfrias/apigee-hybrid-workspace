@@ -1,0 +1,132 @@
+---
+# tasks file for apigee-opdk-setup-silent-file
+- name: Remove the old response file
+  become: yes
+  file:
+    path: "{{ opdk_installation_config_file }}"
+    state: absent
+  when: opdk_installation_config_file is defined and (manual_response_file is not defined or not manual_response_file)
+
+- name: Construct the Edge response file name
+  set_fact:
+    cacheable: yes
+    response_file_name: "edge-response-{{ opdk_version }}-{{ region }}.conf"
+
+- name: Construct the Target Edge Response File Folder Path
+  set_fact:
+    cacheable: yes
+    target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
+
+- name: Assert Permissions are Correct
+  become: yes
+  file:
+    path: "{{ target_response_file_path | dirname }}"
+    recurse: yes
+    mode: "777"
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+
+- name: Update cache with manual_response_file if provided
+  set_fact:
+    cacheable: yes
+    manual_response_file: '{{ manual_response_file }}'
+    local_response_file_path: "{{ manual_response_file }}"
+    response_file_name: "{{ manual_response_file | basename }}"
+  when: manual_response_file is defined and manual_response_file
+
+- block:
+  - name: Construct the local Edge response file path
+    set_fact:
+      cacheable: yes
+      local_response_file_path: "{{ local_apigee_secure_path }}/{{ response_file_name }}"
+
+  - name: Create Local Response File Folder
+    become: yes
+    file:
+      path: "{{ local_apigee_secure_path }}"
+      state: directory
+
+  - name: Assert that all necessary attributes have been provided
+    assert:
+      that:
+        - enable_system_check is defined and enable_system_check | trim | length > 0
+        - local_mgmt_ip is defined and local_mgmt_ip | trim | length > 0
+        - opdk_user_name is defined and opdk_user_name | trim | length > 0
+        - opdk_user_email is defined and opdk_user_email | trim | length > 0
+        - opdk_user_pass is defined and opdk_user_pass | trim | length > 0
+        - opdk_license_target_file_path is defined and opdk_license_target_file_path | trim | length > 0
+        - use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim | length > 0
+        - opdk_ldap_pass is defined and opdk_ldap_pass | trim | length > 0
+        - opdk_ldap_sid is defined and opdk_ldap_sid | trim | length > 0
+        - opdk_ldap_type is defined and opdk_ldap_type | trim | length > 0
+        - opdk_ldap_port is defined and opdk_ldap_port | trim | length > 0
+        - opdk_enable_ax is defined and opdk_enable_ax | trim | length > 0
+        - opdk_mp_pod is defined and opdk_mp_pod | trim | length > 0
+        - region is defined and region | trim | length > 0
+        - opdk_use_zk_cluster is defined and opdk_use_zk_cluster | trim | length > 0
+        - groups['ds'] is defined
+        - groups['dc_1_ds'] is defined
+        - opdk_use_cass_cluster is defined and opdk_use_cass_cluster | trim | length > 0
+        - opdk_cass_username is defined and opdk_cass_username | trim | length > 0
+        - opdk_cass_password is defined and opdk_cass_password | trim | length > 0
+        - opdk_cass_auth is defined and opdk_cass_auth | trim | length > 0
+        - opdk_smtp_skip is defined and opdk_smtp_skip | trim | length > 0
+        - opdk_smtp_mail_from is defined and opdk_smtp_mail_from | trim | length > 0
+        - pg_pass is defined and pg_pass | trim | length > 0
+        - opdk_monetization is defined and opdk_monetization | trim | length > 0
+        - private_address is defined and private_address | trim | length > 0
+      msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
+
+  - block:
+    - name: Assert that LDAP replication attributes are available
+      assert:
+        that:
+          - opdk_ldap_ip is defined and opdk_ldap_ip | trim | length > 0
+          - opdk_ldap_peer is defined and opdk_ldap_peer | trim | length > 0
+        msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
+      when: opdk_ldap_type == '2'
+
+  - name: Construct the response file
+    become: yes
+    template:
+      src: 'response-file-template.conf.j2'
+      dest: "{{ target_response_file_path }}"
+      mode: 777
+      owner: "{{ opdk_user_name }}"
+      group: "{{ opdk_group_name }}"
+
+  - name: Remove local response file
+    file:
+      path: "{{ local_response_file_path }}"
+      state: absent
+    delegate_to: 127.0.0.1
+
+  - name: Download a copy of the response file
+    become: yes
+    fetch:
+      src: "{{ target_response_file_path }}"
+      dest: "{{ local_response_file_path }}"
+      flat: "yes"
+
+  when: manual_response_file is not defined or not manual_response_file
+
+- name: Copy response file to target
+  become: yes
+  copy:
+    src: '{{ local_response_file_path }}'
+    dest: "{{ target_response_file_path }}"
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+    mode: 777
+    backup: yes
+    force: yes
+  when: manual_response_file is defined
+
+- name: Assert Permissions are Correct
+  become: yes
+  file:
+    path: "{{ target_response_file_path | dirname }}"
+    recurse: yes
+    mode: "777"
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'

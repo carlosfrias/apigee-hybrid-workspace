@@ -1,0 +1,65 @@
+---
+- name: Update with python
+  hosts: edge
+  gather_facts: yes
+  tags: ['python']
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  collections:
+  - bap_coe.gcp_management
+  - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: python_install_minimal }
+  - { role: python_pip_install_config }
+
+
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bootstrap_runtime
+
+  roles:
+    - { role: service_account_file_path }
+    - { role: service_account_file_processing }
+    - { role: gce_network_create }
+    - { role: gce_firewall_create }
+    - { role: gce_router_create }
+    - { role: gce_router_nat_create }
+
+
+  vars:
+    PRIVATE_CLOUD_INSTANCES:
+    - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+    - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
+    firewall_ports:
+    - { ports: "{{ ms_ports }}", target_tags: 'ms' }
+    - { ports: "{{ router_ports }}", target_tags: 'router' }
+    - { ports: "{{ mp_ports }}", target_tags: 'mp' }
+    - { ports: "{{ zk_ports }}", target_tags: 'zk' }
+    - { ports: "{{ cassandra_ports }}", target_tags: 'ds' }
+    - { ports: "{{ qpid_ports }}", target_tags: 'qs' }`
+    - { ports: "{{ pg_ports }}", target_tags: 'pg' }
+    - { ports: "{{ ui_ports }}", target_tags: 'ui' }
+    - { ports: "{{ ldap_ports }}", target_tags: 'ldap' }
+
+  tasks:
+  - name: Create planet instances
+    include_tasks: "{{ playbook_dir | dirname }}/shared/create-instance.yml"
+    with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+    loop_control:
+      loop_var: instance
+

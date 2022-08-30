@@ -1,0 +1,31 @@
+---
+# tasks file for gcp_iam_policy_bindings
+- name: Assert that ROLE_BINDINGS list is available
+  assert:
+    that:
+    - ROLE_BINDINGS is defined
+    msg: "Please provide ROLE_BINDINGS collection with list of roles to assign."
+
+- name: Assert that the GCLOUD_ORG_ID is available
+  assert:
+    that:
+    - GCLOUD_ORG_ID is defined
+    msg: "Please provide the GCLOUD_ORG_ID"
+
+- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+  assert:
+    that:
+    - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+
+- name: Update IAM roles to installation user
+  shell: |
+    gcloud alpha organizations add-iam-policy-binding {{ GCLOUD_ORG_ID }} \
+     --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }} \
+     --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+  with_items: "{{ ROLE_BINDINGS }}"
+
+- name: Wait for the policy bindings to propagate
+  pause:
+    seconds: "{{ TIME_TO_PROPAGATE_BINDINGS | default(10) }}"
+    prompt: "Wait for the policy bindings to propagate"

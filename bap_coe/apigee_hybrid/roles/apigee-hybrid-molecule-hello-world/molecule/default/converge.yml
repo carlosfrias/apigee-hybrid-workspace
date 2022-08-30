@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include roles/apigee-hybrid-molecule-hello-world"
+      include_role:
+        name: "roles/apigee-hybrid-molecule-hello-world"
+
+    - name: Molecule Hello World!
+      debug:
+        msg: Hello, World!

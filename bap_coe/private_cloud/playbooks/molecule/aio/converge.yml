@@ -1,0 +1,47 @@
+---
+- name: Install AIO
+  hosts: edge
+  gather_facts: no
+  vars:
+    ansible_workspace: "~/.ansible"
+    apigee_workspace: "~/.apigee-workspace"
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+
+  collections:
+    - bap_coe.private_cloud
+
+  roles:
+  - { role: apigee_opdk_modules, tags: ['cache', 'license', 'org','validate'] }
+  - { role: apigee_opdk_setup_os_epel, tags: ['epel', 'os'] }
+  - { role: apigee_opdk_shutdown_iptables, tags: ['minimum', 'iptables', 'os'] }
+  - { role: apigee_opdk_yum_repository_proxy_config, tags: ['yum-proxy-config', 'os']}
+  - { role: apigee_opdk_setup_os_minimum, tags: ['os-minimum', 'os'] }
+  - { role: apigee_opdk_setup_os_limits, tags: ['limit', 'os'] }
+  - { role: apigee_opdk_setup_os_sysctl, tags: ['sysctl', 'os'] }
+  - { role: apigee_opdk_setup_selinux_disable, tags: ['minimum', 'selinux', 'os'] }
+  - { role: apigee_server_restart, tags: ['os','reboot'], start_check_delay: 30, server_restart_timeout: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+  - { role: apigee_opdk_setup_os_common, tags: ['os-common', 'os'] }
+  - { role: apigee_opdk_setup_openjdk, tags: ['minimum', 'openjdk', 'os'], jdk_version: '1.8' }
+  - { role: apigee_opdk_setup_apigee_user, tags: ['config', 'apigee-user', 'bootstrap'] }
+  - { role: apigee_opdk_setup_apigee_user_ownership, tags: ['apigee-user', 'bootstrap'] }
+  - { role: apigee_opdk_setup_java_home, tags: ['java-home', 'bootstrap'] }
+  - { role: apigee_opdk_setup_bootstrap_cache, tags: ['apigee-bootstrap', 'bootstrap'] }
+  - { role: apigee_opdk_setup_bootstrap, tags: ['apigee-bootstrap', 'bootstrap'] }
+  - { role: apigee_opdk_setup_license, tags: ['license', 'bootstrap', 'common'] }
+  - { role: apigee_opdk_setup_component_install, component: 'apigee-setup', tags: ['setup', 'common'] }
+  - { role: apigee_opdk_setup_component_install, component: 'apigee-adminapi', tags: ['adminapi', 'common'] }
+  - { role: apigee_opdk_setup_apigee_user_ownership, tags: ['apigee-user','common'] }
+  - { role: apigee_opdk_settings_private_address, tags: ['config','cache', 'org']  }
+  - { role: apigee_opdk_settings_management_server, tags: ['config', 'cache', 'org']  }
+  - { role: apigee_opdk_settings_region, tags: ['config', 'minimum', 'cache', 'region', 'org']  }
+  - { role: apigee_opdk_settings_ldap, tags: ['config', 'minimum', 'cache', 'org' ]  }
+  - { role: apigee_opdk_settings_cassandra, tags: ['config', 'minimum', 'cache', 'org' ]  }
+  - { role: apigee_opdk_settings_postgres, tags: ['config', 'minimum', 'cache', 'org' ]  }
+  - { role: apigee_opdk_setup_silent_installation_config, tags: ['config'] }
+  - { role: apigee_opdk_setup_component, profile: 'aio', tags: ['aio'] }
+  - { role: apigee_opdk_setup_status, tags: ['status'] }
+  - { role: apigee_opdk_setup_org_config, tags: ['org','org-config'] }
+  - { role: apigee_opdk_setup_org, tags: ['org', 'org-create'] }
+  - { role: apigee_opdk_setup_validate, tags: ['validate'] }

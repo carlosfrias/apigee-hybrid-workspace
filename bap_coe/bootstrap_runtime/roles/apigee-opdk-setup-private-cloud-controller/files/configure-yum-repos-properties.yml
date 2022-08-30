@@ -1,0 +1,18 @@
+---
+
+# TODO: Add a sample yum repository configuration
+# Configure yum repositories
+#yum_repositories:
+#- {
+#    repo_id: 'customer-provided',
+#    name: 'Description of repository',
+#    baseurl: 'http://{some customer url and port}',
+#    gpgkey: 'file:///etc/pki/rpm-gpg/{some key file]',
+#    gpgcheck: '0',
+#    priority: '',
+#    exclude: '',
+#    repo_filename: "customer-provided",
+#    sslverify: false
+#    proxy: {{ https_proxy }}
+#    metalink: 'http://{some customer url and port}'
+#  }

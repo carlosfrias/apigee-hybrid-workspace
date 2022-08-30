@@ -1,0 +1,89 @@
+---
+# tasks file for roles/apigee-hybrid-setup-environment-docker
+- name: Configure Docker
+  block:
+  - name: Assert docker group exists
+    group:
+      name: docker
+      state: present
+
+  - name: Add user to docker group
+    command: adduser "{{ ansible_user }}" docker
+
+  # If you get the error:
+  #  adduser: The user "redis" already exists, but is not a system user. Exiting
+  #  chown: invalid group: "redis:redis"
+  # have a look at http://b/130240293#comment12
+
+  - name: Remove old docker-* packages (if installed)
+    #      become: yes
+    package:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+    - docker-engine
+    - docker-runc
+    - docker-containerd
+
+  - name: Add glinux repo
+    #      become: yes
+    command: glinux-add-repo -b docker-ce-"{{ ansible_distribution_release }}"
+
+  - name: docker-ce installation and recovery if failure
+    block:
+    - name: Install docker-ce
+      apt:
+        update_cache: yes
+        name: docker-ce
+        state: present
+    rescue:
+    # If the previous command fails, you may need to clear your
+    # docker lib (rm -rf /var/lib/docker) as well. Doing this will delete
+    # all images on disk. Ensure that they are backed up somewhere
+    # if you don't want this to happen.
+    - name: Clear docker lib
+      file:
+        path: /var/lib/docker
+        state: absent
+
+  - name: Stop Docker service
+    tags: ['docker']
+    service:
+      name: docker
+      state: stopped
+
+  - name: Down links
+    tags: ['docker']
+    command: "{{ item }}"
+    with_items:
+    - "ip link set docker0 down"
+    - "ip link del docker0"
+
+  - name: Update docker daemon config
+    tags: ['docker']
+    copy:
+      content: |
+        {
+          "data-root": "/usr/local/google/docker",
+          "bip": "192.168.9.1/24",
+          "default-address-pools": [
+            {
+              "base": "192.168.11.0/24",
+              "size": 24
+            }
+          ],
+          "storage-driver": "overlay2",
+          "debug": true,
+          "registry-mirrors": ["https://mirror.gcr.io"]
+        }
+      dest: /etc/docker/daemon.json
+
+  - name: Start Docker service
+    tags: ['docker']
+    service:
+      name: docker
+      state: started
+
+  become: yes
+  tags: ['docker']
+  when: ansible_distribution_release == "rodete" and ansible_system_vendor == "Google"

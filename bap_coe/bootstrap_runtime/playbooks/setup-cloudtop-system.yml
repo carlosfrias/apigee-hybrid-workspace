@@ -1,0 +1,87 @@
+---
+- name: This playbook configures a cloudtop workstation
+  hosts: "{{ target_hosts }}"
+  connection: local
+  vars_files:
+    - workstation-properties.yml
+
+  tasks:
+    - name: Update Cloudtop systems
+      block:
+        - name: Update Debian Google Apt Keys
+          tags: [ 'os' ]
+          become: yes
+          apt_key:
+            url: "{{ item }}"
+            state: present
+          with_items: "{{ debian_google_apt_keys }}"
+          when: ansible_system_vendor == "Google"
+
+        - name: Add Google source repository into sources list
+          tags: [ 'os' ]
+          become: yes
+          apt_repository:
+            repo: "{{ item }}"
+            state: present
+            filename: google-cloud-sdk.list
+          with_items: "{{ debian_google_apt_repositories }}"
+
+        - name: Install Debian Google packages
+          tags: [ 'packages' ]
+          apt:
+            name: "{{ debian_google_os_packages }}"
+            state: present
+            update_cache: yes
+
+        - name: Update with glinux updater
+          become: true
+          command: "glinux-updater"
+
+        - name: Configure Docker
+          block:
+            - name: Assert docker group exists
+              group:
+                name: docker
+                state: present
+
+            - name: Add user to docker group
+              command: adduser "{{ ansible_user | default(lookup('env', 'USER')) }}" docker
+
+            # If you get the error:
+            #  adduser: The user "redis" already exists, but is not a system user. Exiting
+            #  chown: invalid group: "redis:redis"
+            # have a look at http://b/130240293#comment12
+
+            - name: Remove old docker-* packages (if installed)
+              package:
+                name: "{{ item }}"
+                state: absent
+              with_items:
+                - docker-engine
+                - docker-runc
+                - docker-containerd
+
+            - name: Add glinux repo
+              shell: glinux-add-repo -b docker-ce-"{{ ansible_distribution_release }}"
+
+            - name: docker-ce installation and recovery if failure
+              block:
+                - name: Install docker-ce
+                  apt:
+                    update_cache: yes
+                    name: docker-ce
+                    state: present
+              rescue:
+                # If the previous command fails, you may need to clear your
+                # docker lib (rm -rf /var/lib/docker) as well. Doing this will delete
+                # all images on disk. Ensure that they are backed up somewhere
+                # if you don't want this to happen.
+                - name: Clear docker lib
+                  file:
+                    path: /var/lib/docker
+                    state: absent
+
+          tags: [ 'docker' ]
+
+      become: true
+      when: ansible_system_vendor == "Google"

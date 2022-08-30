@@ -1,0 +1,35 @@
+---
+# tasks file for gce_bastion_host_ssh_config
+- name: Assert NAME_INSTANCE_PREFIX is defined
+  assert:
+    that:
+      - NAME_INSTANCE_PREFIX is defined
+    msg: "Please provide the NAME_INSTANCE_PREFIX"
+
+- name: Assert PROJECT_ID is defined
+  assert:
+    that:
+      - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert GCP_ZONE is defined
+  assert:
+    that:
+      - GCP_ZONE is defined
+    msg: "Please provide the GCP_ZONE"
+
+- name: Update SSH Config with ProxyCommand and Bastion Host Configuration
+  blockinfile:
+    path: ~/.ssh/config
+    create: yes
+    backup: yes
+    mode: 0600
+    marker: "{{ bastion_blockinfile_mark }}"
+    marker_begin: "{{ marker_begin }}"
+    marker_end: "{{ marker_end }}"
+    block: |
+      Host {{ bastion_target_host_range }}
+          ProxyCommand ssh -W %h:%p {{ NAME_INSTANCE_PREFIX }}-1.{{ GCP_ZONE }}.{{ PROJECT_ID }}
+          IdentityFile {{ bastion_protected_private_key | default('~/.ssh/id_rsa') | expanduser }}
+  notify: "refresh gcp compute ssh config"
+

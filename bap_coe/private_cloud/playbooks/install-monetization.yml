@@ -1,0 +1,78 @@
+---
+- name: Include install-aio playbook
+  import_playbook: converge.yml
+
+
+- name: Complete OS Pre-requisites
+  hosts: edge
+  tags: ['os']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+
+  collections:
+    - bap_coe.private_cloud
+
+  roles:
+  - { role: apigee_opdk_modules, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+  - { role: apigee_opdk_setup_os_epel, tags: ['epel'] }
+  - { role: apigee_opdk_shutdown_iptables, tags: ['minimum', 'iptables'] }
+  - { role: apigee_opdk_yum_repository_proxy_config, tags: ['yum-proxy-config']}
+  - { role: apigee_opdk_setup_os_minimum, tags: ['os-minimum'] }
+  - { role: apigee_opdk_setup_os_limits, tags: ['limit'] }
+  - { role: apigee_opdk_setup_os_sysctl, tags: ['sysctl'] }
+  - { role: apigee_opdk_setup_selinux_disable, tags: ['minimum', 'selinux'] }
+  - { role: apigee_server_restart, tags: ['minimum', 'restart-server'], start_check_delay: 30, when: (selinux_disabled is defined and selinux_disabled.changed) or (iptables_disabled is defined and not iptables_disabled) or (force_restart is defined and force_restart)  }
+  - { role: apigee_opdk_setup_os_common, tags: ['os-common'] }
+  - { role: apigee_opdk_setup_openjdk, tags: ['minimum', 'openjdk'], jdk_version: '1.8' }
+
+- name: Install Edge
+  hosts: edge
+  tags: ['edge', 'edge-common']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+
+  collections:
+    - bap_coe.private_cloud
+
+  roles:
+  - { role: apigee_opdk_modules, tags: ['minimum', 'cache', 'license', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup'] }
+  - { role: apigee_opdk_settings_private_address, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee_opdk_settings_management_server, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee_opdk_settings_ldap, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee_opdk_settings_region, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee_opdk_settings_cassandra, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee_opdk_settings_postgres, tags: ['minimum', 'cache', 'ds', 'ms', 'rmp', 'r', 'mp', 'qpid', 'pg', 'pgmaster', 'pgstandby', 'org', 'validate', 'validate-cleanup']  }
+  - { role: apigee_opdk_setup_apigee_user, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+  - { role: apigee_opdk_setup_apigee_user_ownership, tags: ['minimum', 'apigee-user', 'bootstrap'] }
+  - { role: apigee_opdk_setup_java_home, tags: ['minimum', 'java-home', 'bootstrap'] }
+  - { role: apigee_opdk_setup_bootstrap_cache, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
+  - { role: apigee_opdk_setup_bootstrap, tags: ['minimum', 'apigee-bootstrap', 'bootstrap'] }
+  - { role: apigee_opdk_setup_license, tags: ['minimum', 'license', 'bootstrap', 'common'] }
+  - { role: apigee_opdk_setup_component_install, component: 'apigee-setup', tags: ['minimum', 'setup', 'apigee-component-install', 'apigee-pre-req','common-install', 'common'] }
+  - { role: apigee_opdk_setup_apigee_user_ownership, tags: ['minimum', 'apigee-user','ownership', 'apigee-pre-req','common-install', 'common'] }
+
+- name: Configure & Install Cassandra & Zookeeper
+  hosts: ms,rmp
+  gather_facts: no
+  serial: 1
+  tags: ['mo','edge']
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+
+  collections:
+    - bap_coe.private_cloud
+
+  roles:
+  - { role: apigee_opdk_modules, tags: ['minimum', 'config']  }
+  - { role: apigee_opdk_setup_silent_installation_config, tags: ['minimum', 'config'], opdk_monetization: true }
+  - { role: apigee_opdk_setup_component, profile: 'mo', tags: ['minimum'] }
+  - { role: apigee_opdk_setup_provisioning, provisioning_action: 'enable-monetization', provisioning_config_file: '{{ target_response_file_path }}'}
+  - { role: apigee_opdk_start_components, tags: ['start'] }
+  - { role: apigee_opdk_setup_status, tags: ['status'] }
+

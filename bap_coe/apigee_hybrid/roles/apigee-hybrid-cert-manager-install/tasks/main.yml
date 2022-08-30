@@ -1,0 +1,14 @@
+---
+# tasks file for roles/apigee-hybrid-cert-manager-install
+- name: Set ASM install cache
+  set_fact:
+    cacheable: yes
+    CERT_MANAGER_VERSION: "{{ CERT_MANAGER_VERSION | default(DEFAULT_CERT_MANAGER_VERSION) }}"
+#    KUBECTL_VERSION: "{{ KUBECTL_VERSION | default(DEFAULT_KUBECTL_VERSION) }}"
+
+- name: Select Cluster
+  shell: kubectx {{ CLUSTER_NAME }}
+
+- name: Download and install cert-manager, assuming Kubernetes is 1.15 or newer
+  shell: kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
+#  when: ( KUBECTL_VERSION | int ) is version_compare('1.15', '=>')

@@ -1,0 +1,72 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
+platforms:
+  - name: instance
+provisioner:
+  name: ansible
+  options:
+    vvv: True
+verifier:
+  name: ansible
+  log: True
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      inventory: inventory/gce-dyanmic-inventory.gcp.yml
+      callbacks_enabled: profile_tasks, timer, yaml
+      roles_path: ../../
+      local_tmp: ~/.ansible/tmp
+      fact_caching_connection: ~/.ansible/cache/molecule_developer_create
+      fact_caching: jsonfile
+      gathering: smart
+      merge_multiple_cli_tags: True
+      display_args_to_stdout: True
+      timeout: 60
+      bin_ansible_callbacks: True
+      stdout_callback: yaml
+      stderr_callback: yaml
+    ssh_connection:
+      pipelining: false
+      scp_if_ssh: True
+      ssh_args: -o StrictHostKeyChecking=no -q
+      control_path: %(directory)s/ansible-ssh-%%h-%%p-%%r
+
+
+#      inventory = inventory
+#      fact_caching_connection = ~/.ansible/cache/bap_coe_apigee_hybrid
+#      fact_caching = jsonfile
+#      gathering = smart
+#      log_path = ~/.ansible/logs/bap_coe_apigee_hybrid.log
+#      private_key_file = ~/.ssh/google_compute_engine
+#      roles_path = ~/.ansible/roles
+#      local_tmp = ~/.ansible/tmp
+#      library = ~/.ansible/library
+#      remote_user = friasc
+#      host_key_checking = False
+#      ; forks = 25
+#      retry_files_enabled = False
+#      ansible_shell_type = sh
+#      ansible_python_interpreter = /usr/bin/python3
+#      module_name = shell
+#      merge_multiple_cli_tags = True
+#      display_args_to_stdout = True
+#      timeout = 60
+#      ; callbacks_enabled = timer,profile_roles,profile_tasks
+#      callbacks_enabled = profile_roles,profile_tasks
+#      #strategy_plugins = ~/.ansible/plugins/mitogen-0.2.8/ansible_mitogen/plugins/strategy
+#      #strategy = mitogen_linear
+#      bin_ansible_callbacks = True
+#      stdout_callback = yaml
+#      stderr_callback = yaml
+#      enable_task_debugger = False
+#
+#      [ inventory ]
+#      enable_plugins = host_list, script, ini, yaml, auto, advanced_host_list, constructed, gcp_compute
+#

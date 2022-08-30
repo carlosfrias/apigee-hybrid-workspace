@@ -1,0 +1,27 @@
+---
+- name: Converge
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+
+  vars_files:
+  - attributes.yml
+
+  vars:
+    key_value_pairs:
+    - { key: "project_id", value: '"my_project"', separator: "=", file_name: "{{ test_file }}", type: "arg" }
+    - { key: "ax_region", value: '"my_region"', separator: "=", file_name: "{{ test_file }}", type: "arg" }
+    - { key: '"10.200.0.0/28"', value: '"10.220.0.0/28"', separator: "", file_name: "{{ test_file }}", type: "arg" }
+    - { key: 'euw1', value: 'use1', separator: "", file_name: "{{ test_file }}", type: "arg" }
+    - { key: 'europe-west1', value: 'us-east1', separator: "", file_name: "{{ test_file }}", type: "arg" }
+
+  tasks:
+    - name: Assert test.yml file
+      template:
+        src: "{{ test_file_template }}"
+        dest: "{{ test_file }}"
+        force: yes
+
+    - name: "Include key_value_updates"
+      include_role:
+        name: "key_value_updates"

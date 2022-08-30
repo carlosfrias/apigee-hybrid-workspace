@@ -1,0 +1,4 @@
+---
+# defaults file for products_delete
+APIGEE_API_URI: https://apigee.googleapis.com
+

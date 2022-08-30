@@ -1,0 +1,119 @@
+---
+- name: Set tools attribute cache
+  set_fact:
+    cacheable: yes
+    ASM_ARCHIVE_FOLDER: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}"
+
+- block:
+  - name: Construct ASM file name
+    set_fact:
+      ASM_FILE_NAME: "{{ ASM_DOWNLOAD | urlsplit('path') | basename }}"
+
+  - name: Download the ASM installation file
+    get_url:
+      url: "{{ ASM_DOWNLOAD }}"
+      dest: "{{ WORK_DIR }}/{{ ASM_FILE_NAME }}"
+
+  - name: Unarchive ASM installation file
+    unarchive:
+      remote_src: yes
+      src: "{{ WORK_DIR }}/{{ ASM_FILE_NAME }}"
+      dest: "{{ WORK_DIR }}"
+
+  - name: Update path for istio and asm installation
+    become: true
+    file:
+      src: "{{ item.src }}"
+      path: "{{ item.path }}"
+      state: link
+    with_items:
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/asmctl", path: "{{ TOOLS_DIR }}/asmctl" }
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/istioctl", path: "{{ TOOLS_DIR }}/istioctl" }
+
+  - name: Download ASM package
+    shell: kpt pkg get {{ ASM_KPT_PACKAGE }} .
+    args:
+      chdir: "{{ WORK_DIR }}"
+    #    poll: 5
+    #    retries: 50
+    #    async: 180
+    register: status
+    failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stderr"
+
+  rescue:
+  - name: RESCUE - Construct ASM file name
+    set_fact:
+      ASM_FILE_NAME: "{{ ASM_DOWNLOAD_RESCUE | urlsplit('path') | basename }}"
+
+  - name: RESCUE - Download the ASM installation file
+    get_url:
+      url: "{{ ASM_DOWNLOAD_RESCUE }}"
+      dest: "{{ WORK_DIR }}/{{ ASM_FILE_NAME }}"
+
+  - name: RESCUE - Unarchive ASM installation file
+    unarchive:
+      remote_src: yes
+      src: "{{ WORK_DIR }}/{{ ASM_FILE_NAME }}"
+      dest: "{{ WORK_DIR }}"
+
+  - name: RESCUE - Update path for istio and asm installation
+    become: true
+    file:
+      src: "{{ item.src }}"
+      path: "{{ item.path }}"
+      state: link
+    with_items:
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/asmctl", path: "{{ TOOLS_DIR }}/asmctl" }
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_FOLDER_NAME }}/bin/istioctl", path: "{{ TOOLS_DIR }}/istioctl" }
+
+  - name: RESCUE - Download ASM package
+    shell: kpt pkg get {{ ASM_KPT_PACKAGE }} .
+    args:
+      chdir: "{{ WORK_DIR }}"
+    #    poll: 5
+    #    retries: 50
+    #    async: 180
+    register: status
+    failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stderr"
+
+- name: Common config GKE
+  include_tasks: common-config-gke.yml
+
+- name: Set configuration profile - now getting set in the install_asm script
+# This setting is now creating a conflict when it is with install_asm.
+  tags: ['install_asm_skip']
+  shell: kpt cfg set asm anthos.servicemesh.profile {{ ASM_PROFILE_NAME }}
+  args:
+    chdir: "{{ WORK_DIR }}"
+
+- name: Update istio configuration file for Apigee hybrid
+  tags: ['istio-config']
+  include_tasks: istio-operator-file-update-1.6.11.yml
+
+- name: Install ASM
+  tags: ['istio-config']
+  shell: istioctl install -f asm/cluster/istio-operator-{{ CLUSTER_NAME }}.yaml --revision={{ ISTIO_ASM_REVISION }} --kubeconfig={{ CLUSTER_KUBECONFIG }}
+  args:
+    chdir: "{{ WORK_DIR }}"
+
+- name: Enable sidecar auto injection
+  shell: kubectl label namespace {{ AUTO_INJECTION_NAMESPACE }} istio-injection=enabled --overwrite --kubeconfig={{ CLUSTER_KUBECONFIG }}
+
+- name: Apply settings to ASM
+  shell: istioctl manifest apply --set profile={{ ASM_PROFILE_NAME }} -f asm/cluster/istio-operator-{{ CLUSTER_NAME }}.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
+  args:
+    chdir: "{{ WORK_DIR }}"
+  register: operation_status
+  until: "'Installation complete' in (operation_status.stdout or operation_status.stderr)"
+  poll: 5
+  retries: 50
+  async: 90
+
+- name: Deploy Canonical Service controller
+  shell: kubectl apply -f asm/canonical-service/controller.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
+  args:
+    chdir: "{{ WORK_DIR }}"

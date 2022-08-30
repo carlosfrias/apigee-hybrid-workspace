@@ -1,0 +1,31 @@
+---
+- name: Create Instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  roles:
+    - { role: gcp_project_services_enable, tags: ['services'] }
+    - { role: service_account_file_path, tags: [ 'service-account'] }
+    - { role: gcp_iam_service_account_create, tags: [ 'service-account'] }
+    - { role: gcp_iam_service_account_keys, tags: [ 'service-account'] }
+    - { role: gcp_iam_policy_bindings_service_account, tags: [ 'service-account'] }
+    - { role: service_account_file_processing, tags: [ 'service-account'] }
+    - { role: gce_network_create }
+    - { role: gce_firewall_create }
+    - { role: gcp_resource_manager_constraints_disable_enforce }
+
+  tasks:
+    - name: create instances
+      include_role:
+        name: gce_instance_create
+      with_sequence: start={{ start | default('1') }} end={{ end | default('1') }}
+      loop_control:
+        loop_var: sequence

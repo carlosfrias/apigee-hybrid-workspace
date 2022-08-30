@@ -1,0 +1,57 @@
+---
+# tasks file for gce_firewall_create
+- name: Assert we have firewall_ports
+  assert:
+    that:
+      - firewall_ports is defined
+    msg: "Please provide the collection of firewall_ports"
+
+- name: Assert NAME_INSTANCE_PREFIX provided
+  assert:
+    that:
+    - NAME_INSTANCE_PREFIX is defined
+    msg: "Please provide NAME_INSTANCE_PREFIX"
+
+- name: Assert PROJECT_ID provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide PROJECT_ID"
+
+- name: Assert SERVICE_ACCOUNT_FILE provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE"
+
+- name: Assert AUTHORIZATION_KIND provided
+  assert:
+    that:
+    - AUTHORIZATION_KIND is defined
+    msg: "Please provide AUTHORIZATION_KIND"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert VPC_NETWORK_INFO provided
+  assert:
+    that:
+    - VPC_NETWORK_INFO is defined
+    msg: "Please provide VPC_NETWORK_INFO"
+
+- name: create firewall rule
+  google.cloud.gcp_compute_firewall:
+    name: "{{ NAME_INSTANCE_PREFIX }}"
+    target_tags: "{{ item.target_tags }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    state: present
+    network: "{{ VPC_NETWORK_INFO }}"
+    scopes: "{{ SCOPE_COMPUTE }}"
+    allowed:
+      - { ip_protocol: "{{ item.protocol | default('tcp') }}", ports: "{{ item.allow_ports | join(',') | default('') }}" }
+  with_items: "{{ firewall_ports }}"

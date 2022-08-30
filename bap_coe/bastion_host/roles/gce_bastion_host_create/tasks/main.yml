@@ -1,0 +1,18 @@
+---
+# tasks file for gce_bastion_host_create
+- name: Create Firewall Rule
+  include_role:
+    name: bap_coe.gcp_management.gce_firewall_create
+
+- name: GCE Instance Create | create instances
+  include_role:
+    name: bap_coe.gcp_management.gce_instance_create
+  vars:
+    current_node_count: "1"
+    ACCESS_TYPE: "ext"
+    app_type: "{{ NAME_INSTANCE_PREFIX }}"
+
+- name: Configure SSH ProxyCommand
+  include_role:
+    name: gce_bastion_host_ssh_config
+

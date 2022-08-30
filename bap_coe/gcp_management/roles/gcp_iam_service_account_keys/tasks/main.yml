@@ -1,0 +1,67 @@
+---
+# tasks file for roles/gcp_iam_service_account_keys
+- name: Assert that the PROJECT_ID is available
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert that the SERVICE_ACCOUNT_FILE_PATH is available
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert that the  GCLOUD_SERVICE_ACCOUNT_EMAIL is available
+  assert:
+    that:
+    -  GCLOUD_SERVICE_ACCOUNT_EMAIL is defined
+    msg: "Please provide the  GCLOUD_SERVICE_ACCOUNT_EMAIL"
+
+- name: Wait for the policy bindings to propagate
+  pause:
+    seconds: "{{ GCLOUD_ORG_BINDING_PROPAGATION_TIMEOUT  | default(10) }}"
+    prompt: "Wait for the policy bindings to propagate"
+
+- name: Assert that SERVICE_ACCOUNT_FILE_PATH availability
+  stat:
+    path: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+  register: file_exists
+
+- name: Create initial service account key file
+  shell: |
+    gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_FILE_PATH }}  \
+      --iam-account={{  GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
+      --project {{ PROJECT_ID }} \
+      --account {{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}
+  when: file_exists.stat.exists is falsy
+
+- name: Assert that SERVICE_ACCOUNT_FILE_PATH is a valid path
+  stat:
+    path: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+  register: svc_acct_file
+
+- name: Regenerate the file, seems to be empty
+  block:
+  - name: Remove an empty file {{ SERVICE_ACCOUNT_FILE_PATH }}
+    file:
+      path: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+      state: absent
+
+  - name: Create initial service account key file
+    shell: |
+      gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_FILE_PATH }}  \
+        --iam-account={{  GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
+        --project {{ PROJECT_ID }} \
+        --account {{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}
+  when: svc_acct_file.stat.exists is truthy and svc_acct_file.stat.size == 0
+
+- name: Assert that SERVICE_ACCOUNT_FILE_PATH is a valid path
+  stat:
+    path: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+  register: svc_acct_file
+
+- name: Unable to create the service account file {{ SERVICE_ACCOUNT_FILE_PATH }}
+  fail:
+    msg: "Unable to create the service account file, please check your org policies and permissions. "
+  when: svc_acct_file.stat.exists is truthy and svc_acct_file.stat.size == 0

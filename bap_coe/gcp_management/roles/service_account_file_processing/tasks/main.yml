@@ -1,0 +1,40 @@
+---
+# tasks file for service_account_file_processing
+- name: Assert that the service account file path is indicated
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    fail_msg: "Please indicate the path to the SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert that SERVICE_ACCOUNT_FILE_PATH is a valid path
+  stat:
+    path: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+  register: valid_service_account_file_path
+
+- name: Remove empty service account file
+  block:
+
+  - name: Assert the file is not empty
+    file:
+      path: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+      state: absent
+
+  - name: Fail for having an empty service account file
+    fail:
+      msg: "Failing this run because an empty key file for the service account was found. Please recreate the key file."
+
+  when: valid_service_account_file_path.stat.exists is truthy and valid_service_account_file_path.stat.size == 0
+
+- name: Configure attributes from the service account file
+  block:
+  - name: Read service account file contents
+    set_fact:
+      cacheable: yes
+      SERVICE_ACCOUNT_FILE_CONTENT: "{{ lookup('file', SERVICE_ACCOUNT_FILE_PATH) }}"
+
+  - name: update local cache with basic project attributes
+    set_fact:
+      cacheable: yes
+      PROJECT_ID: "{{ SERVICE_ACCOUNT_FILE_CONTENT['project_id'] }}"
+      GCLOUD_SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_FILE_CONTENT['client_email'] }}"
+  when: valid_service_account_file_path.stat.exists

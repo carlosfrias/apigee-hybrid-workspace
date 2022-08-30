@@ -1,0 +1,5 @@
+---
+# defaults file for apigee-opdk-setup-provisioning
+
+# Default onboarding provisioning directory
+apigee_provision_dir: '{{ apigee_home }}/apigee-provision'

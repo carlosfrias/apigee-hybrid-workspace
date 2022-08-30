@@ -1,0 +1,120 @@
+---
+# tasks file for apigee-opdk-setup-ansible
+- name: Install system packages - yum
+  become: yes
+  tags: ['os']
+  yum:
+    name: "{{ os_packages }}"
+    state: present
+  when: ansible_os_family == 'Redhat'
+
+- name: Install system packages - apt
+  become: yes
+  tags: ['os']
+  apt:
+    name: "{{ os_packages }}"
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Clean all folders
+  tags: ['clean']
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ clean_folders }}"
+
+- name: Recreate folders
+  tags: ['folders']
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items: "{{ setup_dirs }}"
+
+#- name: Setting up Ansible working directory
+#  file:
+#    path: "{{ item }}"
+#    state: directory
+#  with_items:
+#  - "{{ setup_dirs }}"
+
+#- name: Update pip.conf
+#  tags: ['pip']
+#  template:
+#    src: "{{ item.file_name }}.j2"
+#    dest: "{{ item.dest_path }}/{{ item.file_name }}"
+#  with_items: "{{ pip_conf }}"
+#  when: pip_index_url is defined
+#
+#- name: Check for remote user name
+#  tags: ['config']
+#  assert:
+#    that:
+#      - remote_user is defined
+#    msg: "Please provide the remote user name: -e remote_user=<remote username>"
+
+#- name: Create a default ansible.cfg file
+#  tags: ['config']
+#  template:
+#    src: ansible.cfg.j2
+#    dest: "{{ default_ansible_config }}"
+#    backup: yes
+#    force: yes
+
+- name: Create starter template folders
+  tags: ['folders']
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ target_apigee_custom_properties_folder }}"
+    - "{{ target_apigee_secure_folder }}"
+
+- name: Load paths to starter templates
+  find:
+    pattern: "*-properties.yml"
+    path: '{{ role_path }}/files'
+    file_type: file
+    recurse: yes
+  register: property_files
+
+- name: Copy Starter Template Property Files
+  copy:
+    src: "{{ item.path }}"
+    dest: "{{ target_apigee_custom_properties_folder }}/{{ item.path | basename }}"
+    force: no
+  with_items: "{{ property_files.files }}"
+  when: property_files is defined
+
+- name: Copy Starter Credentials File
+  copy:
+    src: "credentials.yml"
+    dest: "{{ target_apigee_secure_folder }}"
+    force: no
+
+- name: Update Ansible cache
+  tags: ['cache']
+  set_fact:
+    cacheable: yes
+    ansible_workspace : '{{ target_ansible_workspace }}'
+    apigee_secure_folder : '{{ target_apigee_secure_folder }}'
+    apigee_custom_properties_folder : '{{ target_apigee_custom_properties_folder }}'
+
+- name: Git SSH checkout of configuration repositories
+  tags: ['config']
+  become: false
+  git:
+    repo: '{{ repository_secure_endpoint_ssh }}/{{ item.repo_name }}.git'
+    dest: "{{ item.dir }}/{{ item.dest_name }}"
+    accept_hostkey: yes
+  with_items: "{{ template_repos }}"
+  when: checkout_type | trim == 'ssh'
+
+- name: Git HTTPS checkout of configuration repositories
+  tags: ['config']
+  become: false
+  git:
+    repo: '{{ repository_secure_endpoint_https }}/{{ item.repo_name }}.git'
+    dest: "{{ item.dir }}/{{ item.dest_name }}"
+    accept_hostkey: yes
+  with_items: "{{ template_repos }}"
+  when: checkout_type | trim == 'https'

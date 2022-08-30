@@ -1,0 +1,12 @@
+---
+# defaults file for roles/setup-wrk2
+SYSTEM_PACKAGES:
+- build-essential
+- libssl-dev
+- git
+- zlib1g-dev
+
+WORKSPACE_FOLDER: "/usr/local/src"
+BUILD_FOLDER: wrk
+COMMAND_NAME: wrk
+WRK_REPO_URL: https://github.com/giltene/wrk2.git

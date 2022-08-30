@@ -1,9 +1,20 @@
 signed-certs
 ansible
-workdir
+**/work_dir
+**/workdir
+inventory
 research
 *.iml
 transaction.yaml
 .cache
-.idea
+*/collection*/**
+**/*.tar.gz
+**/ansible
+.idea/**
+**/git-repos/**
+**/resources/**
+*.swp
+**/ansible.cfg
+**/attributes.yml
+**/.env.yml
 

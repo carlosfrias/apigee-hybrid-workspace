@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include load_product_developers_apps"
+      include_role:
+        name: "load_product_developers_apps"

@@ -1,0 +1,12 @@
+---
+default_python: python3
+# defaults file for python_install_minimal
+python_Debian_system_installation_sequence:
+  - "apt update -y"
+  - "apt install -y {{ PYTHON_EXE | default(python) }}-apt"
+  - "update-alternatives --install /usr/bin/python python $(which {{ PYTHON_EXE | default(python) }}) 1;"
+
+python_RedHat_system_installation_sequence:
+  - "yum update"
+  - "yum install python3 -y"
+  - "yum install python3-pip -y"

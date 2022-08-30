@@ -1,0 +1,23 @@
+---
+# tasks file for roles/apigee-hybrid-apigee-connect-enable
+
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: bap_coe.gcp_management.gcp_token_retrieval
+
+- name: Enable apigee connect 
+  uri:
+    url: https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}
+    method: PUT
+    headers: 
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+    body_format: json
+    status_code: ['200', '409']
+    body:
+      name: "{{ PROJECT_ID }}"
+      properties: 
+        property:
+          - { name: "features.hybrid.enabled", value: "true" }
+          - { name: "features.mart.connect.enabled", value: "true" }
+
+

@@ -1,0 +1,36 @@
+---
+- name: Complete Bulk Load of Test Data for Products, Developers and Apps
+  hosts: "{{ target_hosts }}"
+  strategy: free
+  serial: 2
+  gather_facts: yes
+
+  collections:
+    - bap_coe.performance_testing
+    - bap_coe.gcp_management
+
+  vars_files:
+    - "{{ playbook_dir }}/attribute.yml"
+    - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
+
+  tasks:
+    - meta: clear_host_errors
+    - meta: refresh_inventory
+
+    - include_role:
+        name: service_account_file_processing
+      tags: [ 'developers','products','apps_create','apps_keys_create','apps_products' ]
+
+    - meta: clear_host_errors
+    - meta: refresh_inventory
+
+    - include_role:
+        name: gcp_token_retrieval
+      tags: [ 'developers','apps_create','apps_keys_create','apps_products' ]
+
+    - name: Controller for grouping requests
+      tags: ['developers','products','apps_create','apps_keys_create','apps_products']
+      include_tasks: 6-load-controller.yml
+      with_sequence: "start={{ CONTROLLER_REQUEST_START }} end={{ CONTROLLER_REQUEST_END }}"
+      loop_control:
+        loop_var: current_request

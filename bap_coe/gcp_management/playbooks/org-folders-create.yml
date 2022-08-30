@@ -1,0 +1,15 @@
+---
+- name: Create Apigee organization folder
+  hosts: localhost
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - attributes.yml
+
+  collections:
+  - bap_coe.gcp_management
+
+  roles:
+  - { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}" }
+  - { role: gcp_resource_manager_folders_create }
+  - { role: gcp_resource_manager_folders_get_folder_id }

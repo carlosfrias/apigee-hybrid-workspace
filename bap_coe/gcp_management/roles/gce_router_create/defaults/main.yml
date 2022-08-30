@@ -1,0 +1,5 @@
+---
+# defaults file for gce_network_create
+SCOPE_COMPUTE:
+  - 'https://www.googleapis.com/auth/cloud-platform'
+  - 'https://www.googleapis.com/auth/compute'

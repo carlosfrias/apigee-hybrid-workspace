@@ -1,0 +1,39 @@
+---
+# tasks file for terraform_credentials
+- name: Assert that TERRAFORM_PATH_PROJECT is provided
+  assert:
+    that:
+    - TERRAFORM_PATH_PROJECT is defined
+    msg: "Please provide the TERRAFORM_PATH_PROJECT"
+
+- name: Assert that SERVICE_ACCOUNT_FILE_PATH is provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert that PROJECT_ID is provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert that GCP_REGION is provided
+  assert:
+    that:
+    - GCP_REGION is defined
+    msg: "Please provide the GCP_REGION"
+
+- name: Assert that GCP_ZONE is provided
+  assert:
+    that:
+    - GCP_ZONE is defined
+    msg: "Please provide the GCP_ZONE"
+
+- name: Construct version file
+  template:
+    src: credentials_override.tf.j2
+    dest: "{{ TERRAFORM_PATH_PROJECT }}/credentials_override.tf"
+    backup: yes
+
+

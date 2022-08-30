@@ -1,0 +1,4 @@
+---
+# defaults file for developers_get
+DEVELOPER_STATUS: active
+APIGEE_API_URI: https://apigee.googleapis.com

@@ -1,0 +1,29 @@
+---
+- name: setup-wrk2 Create | Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+  - shared-attribute.yml
+
+  collections:
+  - bap_coe.gcp_management
+
+  roles:
+  - service_account_file_processing
+
+  tasks:
+  - name: setup-wrk2 Create | Remove instances
+    include_role:
+      name: gce_instance_remove
+    vars:
+      NAME_INSTANCE_PREFIX: "wrk-coe-bastion"
+      start: 1
+      end: 1
+  - name: setup-wrk2 Create | Remove instances
+    include_role:
+      name: gce_instance_remove
+    vars:
+      start: 2
+      end: 2

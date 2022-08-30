@@ -1,0 +1,106 @@
+---
+# tasks file for gce_dynamic_inventory_configure
+# The connection created is the equivalent of gcloud compute ssh — zone “<region>” “ssh-iap” — tunnel-through-iap — project “<project_ID>”
+# Google search: `ansible gcloud ssh-iap`
+# Used the following sources:
+# https://stackoverflow.com/questions/58996471/ansible-gcp-iap-tunnel
+# https://binx.io/blog/2021/03/10/how-to-tell-ansible-to-use-gcp-iap-tunneling/
+# https://unix.stackexchange.com/questions/545034/with-ansible-is-it-possible-to-connect-connect-to-hosts-that-are-behind-cloud-i
+- name: Set ip_scope to public
+  set_fact:
+    ip_scope: "{{ ip_scope | default('public') }}"
+
+- name: Assert that the GCLOUD_ACCOUNT_USER is provided
+  assert:
+    that:
+      - GCLOUD_ACCOUNT_USER is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+
+#- name: Assert SERVICE_ACCOUNT_FILE_PATH is provided
+#  assert:
+#    that:
+#      - SERVICE_ACCOUNT_FILE_PATH is defined
+#    msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert GCP_ZONE is provided
+  assert:
+    that:
+      - GCP_ZONE is defined
+    msg: "Please provide the GCP_ZONE"
+
+#- name: Assert PROJECT_ID is provided
+#  assert:
+#    that:
+#      - PROJECT_ID is defined
+#    msg: "Please provide the PROJECT_ID"
+
+- name: Assert INVENTORY_DIR is provided
+  assert:
+    that:
+      - INVENTORY_DIR is defined
+    msg: "Please provide the INVENTORY_DIR"
+
+- name: Assert INVENTORY_DIR exists
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ INVENTORY_DIR }}"
+    - "{{ INVENTORY_DIR }}/group_vars"
+
+#- name: Setup GCP Attributes from service account file
+#  include_role:
+#    name: bap_coe.gcp_management.service_account_file_processing
+#
+#- name: Create tempfile
+#  tempfile:
+#    state: file
+#    suffix: temp
+#  register: service_account_file_temp_path
+#
+#- name: Save credentials to tempfile
+#  copy:
+#    content: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
+#    dest: "{{ service_account_file_temp_path.path }}"
+
+- name: Generate config files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "gcp-ssh-wrapper.sh.j2", dest: "{{ INVENTORY_DIR }}/gcp-ssh-wrapper.sh" }
+    - { src: "gcp-scp-wrapper.sh.j2", dest: "{{ INVENTORY_DIR }}/gcp-scp-wrapper.sh" }
+
+- name: Set shell scripts to executable
+  file:
+    path: "{{ item }}"
+    mode: 0777
+  with_items:
+    - "{{ INVENTORY_DIR }}/gcp-ssh-wrapper.sh"
+    - "{{ INVENTORY_DIR }}/gcp-scp-wrapper.sh"
+
+- name: Update inventory for use of ssh-iap for access
+  copy:
+    src: "{{ item.src}}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "group_vars/all.yml", dest: "{{ INVENTORY_DIR }}/group_vars/all.yml" }
+
+- name: Assert [ssh_connection] in ansible.cfg for SSH wrappers
+  lineinfile:
+    path: "{{ playbook_dir }}/{{ ANSIBLE_CONFIG | default('ansible.cfg') }}"
+    line: "[ssh_connection]"
+    state: present
+
+- name: Update ansible.cfg for SSH wrappers
+  lineinfile:
+    path: "{{ playbook_dir }}/{{ ANSIBLE_CONFIG | default('ansible.cfg') }}"
+    insertafter: "[ssh_connection]"
+    state: present
+    line: "{{ item }}"
+  with_items: "{{ ssh_connection_configs }}"
+
+
+- name: Refresh the inventory
+  meta: refresh_inventory
+

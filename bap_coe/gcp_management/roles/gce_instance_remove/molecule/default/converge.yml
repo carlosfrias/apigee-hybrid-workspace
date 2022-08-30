@@ -1,0 +1,19 @@
+---
+- name: GCE Instance Remove | Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+  - shared-attribute.yml
+
+  collections:
+  - bap_coe.gcp_management
+
+  tasks:
+  - name: GCE Instance Remove | Remove instances
+    include_role:
+      name: gce_instance_remove
+    with_sequence: "start={{ INSTANCE_COUNT_START }} end={{ INSTANCE_COUNT_END }}"
+    loop_control:
+      loop_var: sequence

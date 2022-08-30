@@ -1,0 +1,126 @@
+plugin: gcp_compute
+projects:
+  - {{ PROJECT_ID }}
+auth_kind: serviceaccount
+service_account_file: {{ SERVICE_ACCOUNT_FILE_PATH }}
+zones:
+  - {{ GCP_ZONE }}
+scopes:
+  - 'https://www.googleapis.com/auth/compute'
+  - 'https://www.googleapis.com/auth/cloud-platform'
+keyed_groups:
+  - key: zone
+hostnames:
+{% if ip_scope == 'private' %}
+  - private_ip
+{% else %}
+  - public_ip
+{%  endif %}
+compose:
+  # Create vars from jinja2 expressions.
+  # Set an inventory parameter to use the Public IP address to connect to the host
+  # For Private ip use "networkInterfaces[0].networkIP"
+  # For Public ip use "networkInterfaces[0].accessConfigs[0].natIP"
+{%  if ip_scope == 'private' %}
+  ansible_host: networkInterfaces[0].networkIP
+{%  else %}
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+{% endif %}
+filters: []
+groups:
+  bastion: "'bastion' in name"
+  aio: "'aio' in name"
+  planet : "'planet' in name or 'aio' in name"
+  edge: "'dc-1' in name or 'dc-2' in name or 'dc-3' in name or 'dc-4' in name or 'dc-5' in name or'dc-6' in name or 'dc-7' in name or 'aio' in name"
+  ms: "'ms' in name or 'aio' in name"
+  ds: "'ds' in name or 'aio' in name"
+  ui: "'dc-1-ui' in name or 'dc-2-ui' in name or 'aio' in name"
+  ldap: "'ldap' in name or 'aio' in name"
+  rmp: "'rmp' in name or 'aio' in name"
+  router: "'rmp' in name or 'aio' in name"
+  mp: "'rmp' in name or 'aio' in name"
+  qpid: "'qpid' in name or 'aio' in name"
+  pg: "'pg' in name or 'aio' in name or 'aio' in name"
+  pgmaster: "'pgmaster' in name"
+  pgstandby: "'pgstandby' in name"
+  dc_1_dp_db: "'dc-1-dp-db' in name"
+  dc_1_dp_ui: "'dc-1-dp-ui' in name"
+  dc_1_dp: "'dc-1-dp-db' in name or 'dc-1-dp-ui' in name"
+  dp: "'dc-1-dp' in name"
+  dp_ui: "'dc-1-dp-ui' in name"
+  dp_db: "'dc-1-dp-db' in name"
+
+  dc_1: "'dc-1' in name or 'dc_1' in name or 'aio' in name"
+  dc_1_ds: "'dc-1-ds' in name or 'dc_1_ds' in name or 'aio' in name"
+  dc_1_ms: "'dc_1_ms' in name or 'dc-1-ms' in name or 'aio' in name"
+  dc_1_ldap: "'dc_1_ldap' in name or 'dc-1-ldap' in name or 'aio' in name"
+  dc_1_ui: "'dc_1_ui' in name or 'dc-1-ui' in name or 'aio' in name"
+  dc_1_rmp: "'dc_1_rmp' in name or 'dc-1-rmp' in name or 'aio' in name"
+  dc_1_router: "'dc_1_rmp' in name or 'dc-1-rmp' in name or 'aio' in name"
+  dc_1_mp: "'dc_1_rmp' in name or 'dc-1-rmp' in name or 'aio' in name"
+  dc_1_qpid: "'dc_1_qpid' in name or 'dc-1-qpid' in name or 'aio' in name"
+  dc_1_pg: "'dc_1_pg' in name or 'dc-1-pg' in name or 'aio' in name"
+  dc_1_pgmaster: "'dc_1_pgmaster' in name or 'dc-1-pgmaster' in name"
+  dc_1_pgstandby: "'dc_1_pgstandby' in name or 'dc-1-pgstandby' in name"
+
+  dc_2: "'dc-2' in name or 'dc_2' in name or 'aio' in name"
+  dc_2_ds: "'dc-2-ds' in name or 'dc_2_ds' in name or 'aio' in name"
+  dc_2_ms: "'dc_2_ms' in name or 'dc-2-ms' in name or 'aio' in name"
+  dc_2_ldap: "'dc_2_ldap' in name or 'dc-2-ldap' in name or 'aio' in name"
+  dc_2_ui: "'dc_2_ui' in name or 'dc-2-ui' in name or 'aio' in name"
+  dc_2_rmp: "'dc_2_rmp' in name or 'dc-2-rmp' in name or 'aio' in name"
+  dc_2_router: "'dc_2_rmp' in name or 'dc-2-rmp' in name or 'aio' in name"
+  dc_2_mp: "'dc_2_rmp' in name or 'dc-2-rmp' in name or 'aio' in name"
+  dc_2_qpid: "'dc_2_qpid' in name or 'dc-2-qpid' in name or 'aio' in name"
+  dc_2_pg: "'dc_2_pg' in name or 'dc-2-pg' in name or 'aio' in name"
+  dc_2_pgmaster: "'dc_2_pgmaster' in name or 'dc-2-pgmaster' in name"
+  dc_2_pgstandby: "'dc_2_pgstandby' in name or 'dc-2-pgstandby' in name"
+
+  dc_3: "'dc-3' in name or 'dc_3' in name or 'aio' in name"
+  dc_3_ds: "'dc-3-ds' in name or 'dc_3_ds' in name or 'aio' in name"
+  dc_3_rmp: "'dc_3_rmp' in name or 'dc-3-rmp' in name or 'aio' in name"
+  dc_3_router: "'dc_3_rmp' in name or 'dc-3-rmp' in name or 'aio' in name"
+  dc_3_mp: "'dc_3_rmp' in name or 'dc-3-rmp' in name or 'aio' in name"
+  dc_3_qpid: "'dc_3_qpid' in name or 'dc-3-qpid' in name or 'aio' in name"
+
+  dc_4: "'dc-4' in name or 'dc_4' in name or 'aio' in name"
+  dc_4_ds: "'dc-4-ds' in name or 'dc_4_ds' in name or 'aio' in name"
+  dc_4_rmp: "'dc_4_rmp' in name or 'dc-4-rmp' in name or 'aio' in name"
+  dc_4_router: "'dc_4_rmp' in name or 'dc-4-rmp' in name or 'aio' in name"
+  dc_4_mp: "'dc_4_rmp' in name or 'dc-4-rmp' in name or 'aio' in name"
+  dc_4_qpid: "'dc_4_qpid' in name or 'dc-4-qpid' in name or 'aio' in name"
+
+  dc_5: "'dc-5' in name or 'dc_5' in name or 'aio' in name"
+  dc_5_ds: "'dc-5-ds' in name or 'dc_5_ds' in name or 'aio' in name"
+  dc_5_rmp: "'dc_5_rmp' in name or 'dc-5-rmp' in name or 'aio' in name"
+  dc_5_router: "'dc_5_rmp' in name or 'dc-5-rmp' in name or 'aio' in name"
+  dc_5_mp: "'dc_5_rmp' in name or 'dc-5-rmp' in name or 'aio' in name"
+  dc_5_qpid: "'dc_5_qpid' in name or 'dc-5-qpid' in name or 'aio' in name"
+
+  dc_6: "'dc-6' in name or 'dc_6' in name or 'aio' in name"
+  dc_6_ds: "'dc-6-ds' in name or 'dc_6_ds' in name or 'aio' in name"
+  dc_6_rmp: "'dc_6_rmp' in name or 'dc-6-rmp' in name or 'aio' in name"
+  dc_6_router: "'dc_6_rmp' in name or 'dc-6-rmp' in name or 'aio' in name"
+  dc_6_mp: "'dc_6_rmp' in name or 'dc-6-rmp' in name or 'aio' in name"
+  dc_6_qpid: "'dc_6_qpid' in name or 'dc-6-qpid' in name or 'aio' in name"
+
+  dc_7: "'dc-7' in name or 'dc_7' in name or 'aio' in name"
+  dc_7_ds: "'dc-7-ds' in name or 'dc_7_ds' in name or 'aio' in name"
+  dc_7_rmp: "'dc_7_rmp' in name or 'dc-7-rmp' in name or 'aio' in name"
+  dc_7_router: "'dc_7_rmp' in name or 'dc-7-rmp' in name or 'aio' in name"
+  dc_7_mp: "'dc_7_rmp' in name or 'dc-7-rmp' in name or 'aio' in name"
+  dc_7_qpid: "'dc_7_qpid' in name or 'dc-7-qpid' in name or 'aio' in name"
+
+  dc_8: "'dc-8' in name or 'dc_8' in name or 'aio' in name"
+  dc_8_ds: "'dc-8-ds' in name or 'dc_8_ds' in name or 'aio' in name"
+  dc_8_rmp: "'dc_8_rmp' in name or 'dc-8-rmp' in name or 'aio' in name"
+  dc_8_router: "'dc_8_rmp' in name or 'dc-8-rmp' in name or 'aio' in name"
+  dc_8_mp: "'dc_8_rmp' in name or 'dc-8-rmp' in name or 'aio' in name"
+  dc_8_qpid: "'dc_8_qpid' in name or 'dc-8-qpid' in name or 'aio' in name"
+
+  dc_9: "'dc-9' in name or 'dc_9' in name or 'aio' in name"
+  dc_9_ds: "'dc-9-ds' in name or 'dc_9_ds' in name or 'aio' in name"
+  dc_9_rmp: "'dc_9_rmp' in name or 'dc-9-rmp' in name or 'aio' in name"
+  dc_9_router: "'dc_9_rmp' in name or 'dc-9-rmp' in name or 'aio' in name"
+  dc_9_mp: "'dc_9_rmp' in name or 'dc-9-rmp' in name or 'aio' in name"
+  dc_9_qpid: "'dc_9_qpid' in name or 'dc-9-qpid' in name or 'aio' in name"

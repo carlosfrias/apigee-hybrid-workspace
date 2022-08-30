@@ -1,0 +1,39 @@
+---
+# tasks file for roles/apigee-hybrid-setup-environment-gcp
+- name: Set system tools to install
+  set_fact:
+    SYSTEM_TOOLS: "{{ SYSTEM_TOOLS | default(DEFAULT_SYSTEM_TOOLS) }}"
+    GCP_SYSTEM_TOOLS: "{{ GCP_SYSTEM_TOOLS | default(DEFAULT_GCP_SYSTEM_TOOLS) }}"
+    APT_REPOSITORIES: "{{ APT_REPOSITORIES | default(DEFAULT_APT_REPOSITORIES) }}"
+    APT_REPOSITORIES_KEYS: "{{ APT_REPOSITORIES_KEYS | default(DEFAULT_APT_REPOSITORIES_KEYS) }}"
+
+- block:
+  - name: Update apt
+    command: apt update
+    changed_when: false
+
+  - name: Add system utilities
+    apt:
+      name: "{{ GCP_SYSTEM_TOOLS }}"
+      state: present
+
+  - name: Add key to repository
+    apt_key:
+      url: "{{ item }}"
+      state: present
+    with_items: "{{ APT_REPOSITORIES_KEYS }}"
+
+  - name: Add repository into sources
+    apt_repository:
+      repo: "{{ item }}"
+      state: present
+    with_items: "{{ APT_REPOSITORIES }}"
+
+  - name: Update Debian package manager
+    apt:
+      name: "{{ SYSTEM_TOOLS }}"
+      state: present
+      update_cache: yes
+
+  when: ansible_os_family == "Debian"
+  become: true

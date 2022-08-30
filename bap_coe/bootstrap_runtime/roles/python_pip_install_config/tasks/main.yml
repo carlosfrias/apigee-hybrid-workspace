@@ -1,0 +1,145 @@
+---
+# tasks file for apigee-opdk-setup-os-pip/
+- name: Create pip config folder
+  file:
+    path: "{{ pip_conf_dir }}"
+    state: directory
+  when: pip_conf_dir is defined
+
+- name: Configure pip
+  template:
+    src: pip.conf.j2
+    dest: "{{ pip_conf_dir }}/pip.conf"
+  when: pip_conf_dir is defined
+
+- name: Pull pip3 path
+  command: which pip3
+  register: pip_path
+
+- name: Check for pip
+  stat:
+    path: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
+  register: pip
+
+- name: Install pip using multiple approaches
+  block:
+  - name: Install pip
+    yum:
+      name: python3-pip
+      state: present
+    environment:
+      http_proxy: "{{ http_proxy | default('') }}"
+      https_proxy: "{{ https_proxy | default('') }}"
+      no_proxy: "{{ no_proxy | default('') }}"
+
+  rescue:
+    - name: Simple pip install failed, setting up epel repository and trying again...
+      block:
+      - name: Install epel repository
+        tags: ['epel']
+        import_role:
+          name: bap_coe.private_cloud.apigee_opdk_setup_os_epel
+
+      - name: Install pip, after installing epel repository
+        yum:
+          name: python3-pip
+          state: present
+        environment:
+          http_proxy: "{{ http_proxy | default('') }}"
+          https_proxy: "{{ https_proxy | default('') }}"
+          no_proxy: "{{ no_proxy | default('') }}"
+
+      rescue:
+        - name: RESCUE - Download pip installer
+          become: yes
+          tags: ['pip-manager']
+          get_url:
+            url: https://bootstrap.pypa.io/get-pip.py
+            dest: /tmp/get-pip.py
+            validate_certs: no
+          when: pip_conf_dir is not defined
+          environment:
+            http_proxy: "{{ http_proxy | default('') }}"
+            https_proxy: "{{ https_proxy | default('') }}"
+            no_proxy: "{{ no_proxy | default('') }}"
+
+        - name: RESCUE - Install pip installer
+          become: yes
+          tags: ['pip-manager']
+          shell: python /tmp/get-pip.py
+          when: pip_conf_dir is not defined
+          environment:
+            http_proxy: "{{ http_proxy | default('') }}"
+            https_proxy: "{{ https_proxy | default('') }}"
+            no_proxy: "{{ no_proxy | default('') }}"
+
+  when: pip.stat.exists is falsy
+  become: yes
+
+- name: Assert update_pip settings
+  set_fact:
+    update_pip: "{{ UPDATE_PIP | default(false) }}"
+
+- name: Update pip
+  tags: ['pip-upgrade']
+  become: yes
+  pip:
+    name: pip
+    state: latest
+    executable: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
+  environment:
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
+    no_proxy: "{{ no_proxy | default('') }}"
+  when: pip.stat.exists and update_pip | lower == "true"
+
+- name: Update managed system python modules
+  block:
+    - name: Get current version of python
+      raw: python3 --version
+      register: python_version
+
+    - name: Update setuptool<45 to enable other package installations
+      pip:
+        name: setuptools
+        version: "<45"
+        state: present
+        executable: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
+      when: (python_version.stdout | regex_search('^Python 2')) is truthy
+
+    - name: Update managed system python modules
+      become: true
+      pip:
+        name: "{{ pip_packages }}"
+        state: present
+        executable: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
+      environment:
+        http_proxy: "{{ http_proxy | default('') }}"
+        https_proxy: "{{ https_proxy | default('') }}"
+        no_proxy: "{{ no_proxy | default('') }}"
+      register: pip_status
+
+  rescue:
+    - name: RESCUE - Uninstall pip
+      yum:
+        name: python-pip
+        state: absent
+
+    - name: RESCUE - Reinstall pip
+      yum:
+        name: python-pip
+        state: latest
+
+    - name: RESCUE - Update managed system python modules
+      pip:
+        name: "{{ pip_packages }}"
+        state: present
+        executable: "{{ PIP_EXECUTABLE | default(pip_path.stdout) }}"
+      environment:
+        http_proxy: "{{ http_proxy | default('') }}"
+        https_proxy: "{{ https_proxy | default('') }}"
+        no_proxy: "{{ no_proxy | default('') }}"
+
+  become: true
+
+

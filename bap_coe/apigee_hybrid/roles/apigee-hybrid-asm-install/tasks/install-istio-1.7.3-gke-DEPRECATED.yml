@@ -1,0 +1,118 @@
+---
+- name: Install ASM system dependencies
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ASM_SYSTEM_DEPENDENCIES }}"
+
+- name: Download the SHA-256 signature of the file to the current working directory
+  get_url:
+    url: https://storage.googleapis.com/csm-artifacts/asm/install_asm.sha256
+    dest: "{{ WORK_DIR }}/install_asm.sha256"
+
+- name: Load SHA-256 signature from file
+  set_fact:
+    install_asm_sha256: "{{ lookup('file', WORK_DIR + '/install_asm.sha256') }}"
+
+- name: Download the script to the current working directory
+  get_url:
+    url: https://storage.googleapis.com/csm-artifacts/asm/install_asm
+    dest: "{{ WORK_DIR }}/install_asm"
+    checksum: sha256:{{ install_asm_sha256.split(' ')[0] }}
+
+- name: Validate Environment for ASM
+  tags: ['validate-asm','script']
+  shell: |
+    bash install_asm \
+      --project_id {{ PROJECT_ID }} \
+      --cluster_name {{ CLUSTER_NAME }} \
+      --cluster_location {{ CLUSTER_ZONE }} \
+      --output_dir {{ WORK_DIR }} \
+      --mode install \
+      --only_validate
+  args:
+    chdir: "{{ WORK_DIR }}"
+
+- name: Install ASM
+  tags: ['install-asm','script']
+  shell: |
+    bash install_asm \
+    --project_id {{ PROJECT_ID }} \
+    --cluster_name {{ CLUSTER_NAME }} \
+    --cluster_location {{ CLUSTER_ZONE }} \
+    --output_dir {{ WORK_DIR }} \
+    --mode install \
+    --enable_apis
+  args:
+    chdir: "{{ WORK_DIR }}"
+
+- name: Backup ASM output files with cluster name
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    backup: yes
+  with_items:
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded-{{ CLUSTER_NAME }}.yaml" }
+    - { src: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw.yaml", dest: "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw-{{ CLUSTER_NAME }}.yaml" }
+
+- name: Clear original ASM output files
+  file:
+    dest: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-expanded.yaml"
+    - "{{ WORK_DIR }}/{{ ISTIO_ASM_REVISION }}-manifest-raw.yaml"
+
+- name: Enable auto-injection
+  shell: kubectl label namespace {{ AUTO_INJECTION_NAMESPACE }} istio.io/rev={{ ISTIO_ASM_REVISION }} istio-injection- --overwrite --kubeconfig={{ CLUSTER_KUBECONFIG }}
+
+- name: Restart the Pods to trigger re-injection
+  shell: kubectl rollout restart deployment -n apigee --kubeconfig={{ CLUSTER_KUBECONFIG }}
+
+- name: Common config GKE
+  include_tasks: common-config-gke.yml
+
+- name: Create istio-system namespance
+  shell: kubectl create namespace istio-system --kubeconfig={{ CLUSTER_KUBECONFIG }}
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'already exists' not in status.stderr"
+
+- name: Cache istiod-service file name
+  set_fact:
+    cacheable: yes
+    ISTIOD_SERVICE_FILE_PATH: "{{ WORK_DIR }}/istiod-service-{{ ISTIO_ASM_REVISION }}.yaml"
+
+- name: Create ASM istiod-service.yaml template
+  template:
+    src: istiod-service.yaml.template
+    dest: "{{ ISTIOD_SERVICE_FILE_PATH }}"
+
+- name: Set asm-multicloud profile
+  shell: |
+    istioctl install \
+      --kubeconfig={{ CLUSTER_KUBECONFIG }} \
+      --set profile=asm-multicloud \
+      --set revision={{ ISTIO_ASM_REVISION }}
+
+- name: Configure validating webhook for istiod
+  shell: |
+    kubectl apply \
+      -f {{ ISTIOD_SERVICE_FILE_PATH }} \
+      --kubeconfig={{ CLUSTER_KUBECONFIG }}
+
+- name: Enable auto-injection
+  shell: |
+    kubectl label namespace istio-system \
+      istio-injection- \
+      istio.io/rev={{ ISTIO_ASM_REVISION }} \
+      --overwrite \
+      --kubeconfig={{ CLUSTER_KUBECONFIG }}
+
+- name: Restart deployment
+  shell: |
+    kubectl rollout restart deployment \
+      -n istio-system \
+      --kubeconfig={{ CLUSTER_KUBECONFIG }}

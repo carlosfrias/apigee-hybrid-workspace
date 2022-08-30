@@ -1,0 +1,34 @@
+plugin: google.cloud.gcp_compute
+zones:
+- us-east1-b
+- us-east1-c
+- us-east1-d
+- us-central1-c
+projects:
+  - bap-amer-south-demo1
+filters: []
+service_account_file: ~/.apigee-secure/friasc-service-account-2-bap-amer-south-demo1-1fb745a074c9.json
+auth_kind: serviceaccount
+hostnames:
+- name
+#- public_ip
+#- private_ip
+scopes:
+- 'https://www.googleapis.com/auth/compute'
+- 'https://www.googleapis.com/auth/cloud-platform'
+#keyed_groups:
+#- key: zone
+compose:
+  # Create vars from jinja2 expressions.
+  # Set an inventory parameter to use the Public IP address to connect to the host
+  # For Private ip use "networkInterfaces[0].networkIP"
+  # For Public ip use "networkInterfaces[0].accessConfigs[0].natIP"
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+groups:
+  ups: "'test' in name or 'perf-client' in name"
+  ups_test: "'test' in name"
+#  ups_perf_client: "'perf-client' in name"
+  ups_shell_client_run: "'shell-client' in name"
+  bap: "'bap' in name"
+  bastion: "'bastion' in name"
+  apigee: "'apigee' in name"

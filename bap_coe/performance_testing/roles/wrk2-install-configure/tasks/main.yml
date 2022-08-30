@@ -1,0 +1,47 @@
+---
+# tasks file for roles/setup-wrk2
+- block:
+  - name: update system package manager cache
+    apt:
+      update_cache: yes
+    when: ansible_os_family == "Debian"
+
+  - name: Update system package manager
+    package:
+      name: "{{ SYSTEM_PACKAGES }}"
+      state: present
+
+  - name: Create workspace folder
+    file:
+      path: "{{ WORKSPACE_FOLDER }}/{{ BUILD_FOLDER }}"
+      state: directory
+
+  - name: Obtain build for make installation
+    git:
+      repo: "{{ WRK_REPO_URL }}"
+      dest: "{{ WORKSPACE_FOLDER }}/{{ BUILD_FOLDER }}"
+
+  - name: Build installation
+    command: make
+    args:
+      chdir: "{{ WORKSPACE_FOLDER }}/{{ BUILD_FOLDER }}"
+
+  - name: Place built command in system path /usr/local/bin
+    become: true
+    copy:
+      src: "{{ WORKSPACE_FOLDER }}/{{ BUILD_FOLDER }}/{{ COMMAND_NAME }}"
+      dest: /usr/local/bin
+      mode: 0777
+      remote_src: yes
+
+  - name: Update system settings
+    sysctl:
+      name: "{{ item.name }}"
+      value: "{{ item.value }}"
+      state: present
+      sysctl_set: yes
+    with_items:
+      - { name: "net.ipv4.ip_local_port_range", value: "1025 65000" }
+      - { name: "fs.file-max", value: "65555" }
+
+  become: yes

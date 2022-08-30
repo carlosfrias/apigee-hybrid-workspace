@@ -1,0 +1,19 @@
+---
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+  tags: ['instances']
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ../../attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  tasks:
+    - name: Create planet instances
+      include_tasks: ../resources/create-instance.yml
+      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+      loop_control:
+        loop_var: instance

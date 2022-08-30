@@ -1,0 +1,48 @@
+---
+- name: Create Apigee runtime on GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+  - "{{ playbook_dir | dirname | dirname }}/attributes.yml"
+
+  collections:
+  - bap_coe.bootstrap_runtime
+  - bap_coe.gcp_management
+
+  vars:
+    peering_range: "10.0.0.0/22"
+    support_range: "10.1.0.0/28"
+    key_value_pairs:
+    - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "euw1-instance", value: 'use1-instance', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: '"europe-west1"', value: '"{{ GCP_REGION }}"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "apigee_environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "ip_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "environments", value: '["test1","test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "hostnames", value: '["test.api.example.com"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "network", value: '"apigee-network"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "name", value: '"apigee-exposure"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "secondary_ip_range", value: 'null', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "peering_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "support_range", value: '"{{ support_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: '"euw1"', value: '"use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: '"europe-west1"', value: '"us-east1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+
+  roles:
+    - { role: key_value_updates }
+
+  tasks:
+  - name: Assert files is in place
+    file:
+      path: "{{ item.file_name }}"
+      state: absent
+    with_items: "{{ key_value_pairs }}"
+
+  - name: Assert files is in place
+    file:
+      path: "{{ GITHUB_REPO_DEST }}"
+      state: absent
+

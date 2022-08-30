@@ -1,0 +1,21 @@
+---
+- name: Obtain server self report
+  ansible.builtin.uri:
+    url: http://localhost:{{ server_port }}/v1/servers/self
+    url_username: '{{ opdk_user_email }}'
+    url_password: '{{ opdk_user_pass }}'
+    body_format: json
+    return_content: true
+  register: self_rpt
+
+
+- name: assign data
+  set_fact:
+    self_rpt: "{{ self_rpt.json }}"
+
+
+- name: Construct self report variable name
+  set_fact:
+    cacheable: yes
+    server_uuid: '{{ self_rpt.uUID }}'
+

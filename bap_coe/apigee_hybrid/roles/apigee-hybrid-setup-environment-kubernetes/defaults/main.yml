@@ -1,0 +1,8 @@
+---
+# defaults file for kubernetes-tools
+DEFAULT_SYSTEM_TOOLS:
+  - 'rsync'
+  - 'tree'
+  - 'netcat'
+  - 'kubectl'
+  - 'docker-ce'

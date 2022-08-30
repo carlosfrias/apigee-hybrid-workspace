@@ -1,0 +1,162 @@
+---
+# tasks file for gce_instance_create
+- name: Assert NAME_INSTANCE_PREFIX
+  assert:
+    that:
+      - NAME_INSTANCE_PREFIX is defined
+    fail_msg: "Please provide NAME_INSTANCE_PREFIX"
+
+- name: Assert DISK_SOURCE_IMAGE
+  assert:
+    that:
+      - DISK_SOURCE_IMAGE is defined
+    fail_msg: "Please provide DISK_SOURCE_IMAGE"
+
+- name: Assert DISK_SIZE
+  assert:
+    that:
+      - DISK_SIZE is defined
+    fail_msg: "Please provide DISK_SIZE"
+
+- name: Assert GCP_ZONE
+  assert:
+    that:
+      - GCP_ZONE is defined
+    fail_msg: "Please provide GCP_ZONE"
+
+- name: Assert PROJECT_ID
+  assert:
+    that:
+      - PROJECT_ID is defined
+    fail_msg: "Please provide PROJECT_ID"
+
+- name: Assert AUTHORIZATION_KIND
+  assert:
+    that:
+      - AUTHORIZATION_KIND is defined
+    fail_msg: "Please provide AUTHORIZATION_KIND"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH
+  assert:
+    that:
+      - SERVICE_ACCOUNT_FILE_PATH is defined
+    fail_msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert SCOPE_COMPUTE
+  assert:
+    that:
+      - SCOPE_COMPUTE is defined
+    fail_msg: "Please provide SCOPE_COMPUTE"
+
+- name: Assert MACHINE_TYPE
+  assert:
+    that:
+      - MACHINE_TYPE is defined
+    fail_msg: "Please provide MACHINE_TYPE"
+
+- name: Assert TARGET_TAGS
+  assert:
+    that:
+      - TARGET_TAGS is defined
+    fail_msg: "Please provide TARGET_TAGS"
+
+- name: Assert use of next_count if set
+  set_fact:
+    current_node_count: "{{ next_count | default(sequence) | default(1) }}"
+
+- name: Assert ACCESS_TYPE is set
+  set_fact:
+    ACCESS_TYPE: "{{ ACCESS_TYPE | default('int') }}"
+
+- name: Set GCE_INSTANCE_NAME
+  set_fact:
+    cacheable: Yes
+    GCE_INSTANCE_NAME: "{{ NAME_INSTANCE_PREFIX }}-{{ current_node_count }}"
+    DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
+
+- name: create a disk
+  gcp_compute_disk:
+    name: '{{ DISK_NAME }}-{{ current_node_count }}'
+    size_gb: "{{ DISK_SIZE }}"
+    source_image: '{{ DISK_SOURCE_IMAGE }}'
+    zone: "{{ GCP_ZONE }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    scopes: "{{ SCOPE_COMPUTE }}"
+    state: present
+  register: disk_config
+
+- name: Assert ACCESS_TYPE contains the correct value
+  assert:
+    that:
+      - (ACCESS_TYPE is defined ) and (ACCESS_TYPE == "ext" or ACCESS_TYPE == "int")
+    fail_msg: "ACCESS_TYPE must be defined and set to either 'ext' or 'int'"
+
+- block:
+  - name: create an externally accessible instance
+    gcp_compute_instance:
+      name: "{{ GCE_INSTANCE_NAME }}"
+      state: present
+      machine_type: "{{ MACHINE_TYPE }}"
+      disks:
+      - auto_delete: true
+        boot: true
+        source: "{{ disk_config }}"
+      network_interfaces:
+      - network: "{{ VPC_NETWORK_INFO }}"
+        access_configs:
+        - name: 'External NAT'
+          type: 'ONE_TO_ONE_NAT'
+      zone: "{{ GCP_ZONE }}"
+      project: "{{ PROJECT_ID }}"
+      auth_kind: "{{ AUTHORIZATION_KIND }}"
+      service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+      metadata:
+        'startup-script': |
+          {{ STARTUP_SCRIPT | default('') }}
+      scopes: "{{ SCOPE_COMPUTE }}"
+      tags:
+        items:
+          - "{{ TARGET_TAGS }}"
+    poll: 0
+    async: 300
+    register: gce_instance
+
+  - name: Store GCE Instance Ext IP Address
+    set_fact:
+      cacheable: yes
+      gce_instance_ext_IP: "{{ gce_instance.networkInterfaces[0].accessConfigs[0].natIP }}"
+  when: ACCESS_TYPE == "ext"
+
+- name: create an internally only accessible instance
+  gcp_compute_instance:
+    name: "{{ GCE_INSTANCE_NAME }}"
+    state: present
+    machine_type: "{{ MACHINE_TYPE }}"
+    disks:
+    - auto_delete: true
+      boot: true
+      source: "{{ disk_config }}"
+    network_interfaces:
+    - network: "{{ VPC_NETWORK_INFO }}"
+    zone: "{{ GCP_ZONE }}"
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+    tags:
+      items:
+        - "{{ TARGET_TAGS }}"
+    metadata:
+      app_type: "{{ app_type | default('') }}"
+      'startup-script': |
+        {{ STARTUP_SCRIPT | default('') }}
+    scopes: "{{ SCOPE_COMPUTE }}"
+  register: gce_instance
+  poll: 0
+  async: 300
+  when: ACCESS_TYPE == "int"
+
+- name: Refreshing SSH
+  command: "echo 'Refreshing GCP Compute SSH Config'"
+  notify: "refresh gcp compute ssh config"

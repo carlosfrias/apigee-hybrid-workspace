@@ -1,0 +1,51 @@
+---
+# tasks file for gcp_resource_manager_folders_create
+- name: Assert that GCLOUD_ORG_ID is available
+  assert:
+    that:
+    - GCLOUD_ORG_ID is defined
+    msg: "Please provide GCLOUD_ORG_ID collection with list of constraints to no longer enforce."
+
+- name: Assert that the FOLDER_DISPLAY_NAME is available
+  assert:
+    that:
+    - FOLDER_DISPLAY_NAME is defined
+    msg: "Please provide the FOLDER_DISPLAY_NAME"
+
+- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+  assert:
+    that:
+    - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+
+- name: Query for permission to work with resource-manager folders
+  command: |
+    gcloud beta resource-manager folders list \
+      --organization {{ GCLOUD_ORG_ID }} \
+      --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+  register: permission
+
+- name: Extract permission to work with resource-manager folders
+  set_fact:
+    org_folder_access_denied: "{{ permission.stdout | regex_search('.*PERMISSION_DENIED') | bool }}"
+
+- name: Status of resource-manager permission query
+  debug:
+    msg: "Current user does not have permission to work with resource-manager."
+
+#- name: Attempt to create organization folder.
+- block:
+  - name: Create organization folder
+    shell: |
+      gcloud beta resource-manager \
+      folders create \
+      --display-name {{ FOLDER_DISPLAY_NAME }} \
+      --organization {{ GCLOUD_ORG_ID }} \
+      --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+    register: FOLDER_CREATE_STATUS
+
+  rescue:
+    - debug:
+        msg: "Organization folder {{ FOLDER_DISPLAY_NAME }} already exists!"
+      when: FOLDER_CREATE_STATUS is match('violates display name uniqueness')
+  when: org_folder_access_denied is falsy

@@ -1,0 +1,16 @@
+ansible
+ansible-base
+ansible-lint
+molecule
+yamllint
+passlib
+apache-libcloud
+google-auth
+pyasn1_modules
+requests
+pycryptodome
+cryptography
+google-api-python-client
+urllib3
+six
+httplib2

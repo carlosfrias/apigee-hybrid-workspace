@@ -1,0 +1,25 @@
+---
+- name: Create GCP Bastion Host
+  hosts: localhost
+  connection: local
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  vars:
+    ACCESS_TYPE: "ext"
+    TARGET_TAGS: "default-allow-ssh"
+    firewall_ports:
+    - { allow_ports: [ '22' ], target_tags: "bastion-host"" }
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bastion_host
+
+  roles:
+    - { role: service_account_file_path }
+    - { role: service_account_file_processing }
+    - { role: gce_network_create }
+    - { role: gce_bastion_host_create }
+

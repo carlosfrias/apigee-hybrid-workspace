@@ -1,0 +1,29 @@
+---
+# tasks file for gcp_iam_policy_bindings
+- name: Assert that ROLE_BINDINGS list is available
+  assert:
+    that:
+    - ROLE_BINDINGS is defined
+    msg: "Please provide ROLE_BINDINGS collection with list of roles to assign."
+
+- name: Assert that the PROJECT_ID is available
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert that the GCLOUD_ACCOUNT_USER is available
+  assert:
+    that:
+    - GCLOUD_ACCOUNT_USER is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+
+- name: Set default user
+  shell: gcloud config set account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+
+- name: Set IAM roles to installation user
+  shell: |
+    gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
+      --member usear:{{ GCLOUD_ACCOUNT_EMAIL }} \
+      --role={{ item }}
+  with_items: "{{ ROLE_BINDINGS }}"

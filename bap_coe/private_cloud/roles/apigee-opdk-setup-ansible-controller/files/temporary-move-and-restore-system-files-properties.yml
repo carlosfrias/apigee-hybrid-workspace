@@ -1,0 +1,5 @@
+---
+
+# Used to temporarily move and restore system files in order to enable installation of components.
+# temporary_move:
+# - { original_folder: "/etc/yum.repos.d", file_name: "redhat.repo", temporary_holding_folder: "/tmp/yum.repos.d" }

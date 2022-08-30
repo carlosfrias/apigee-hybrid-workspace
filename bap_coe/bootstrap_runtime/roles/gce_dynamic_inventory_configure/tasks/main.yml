@@ -1,0 +1,80 @@
+---
+# tasks file for gce_dynamic_inventory_configure
+# The connection created is the equivalent of gcloud compute ssh — zone “<region>” “ssh-iap” — tunnel-through-iap — project “<project_ID>”
+# Google search: `ansible gcloud ssh-iap`
+# Used the following sources:
+# https://stackoverflow.com/questions/58996471/ansible-gcp-iap-tunnel
+# https://binx.io/blog/2021/03/10/how-to-tell-ansible-to-use-gcp-iap-tunneling/
+# https://unix.stackexchange.com/questions/545034/with-ansible-is-it-possible-to-connect-connect-to-hosts-that-are-behind-cloud-i
+- name: Set ip_scope to public
+  set_fact:
+    ip_scope: "{{ ip_scope | default('public') }}"
+
+- name: Assert that the GCLOUD_ACCOUNT_USER is provided
+  assert:
+    that:
+      - GCLOUD_ACCOUNT_USER is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH is provided
+  assert:
+    that:
+      - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide the SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert GCP_ZONE is provided
+  assert:
+    that:
+      - GCP_ZONE is defined
+    msg: "Please provide the GCP_ZONE"
+
+- name: Assert PROJECT_ID is provided
+  assert:
+    that:
+      - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert INVENTORY_DIR is provided
+  assert:
+    that:
+      - INVENTORY_DIR is defined
+    msg: "Please provide the INVENTORY_DIR"
+
+- name: Assert INVENTORY_DIR exists
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ INVENTORY_DIR }}"
+
+- name: Assert DEFAULT_INVENTORY_FILE_NAME
+  set_fact:
+    DEFAULT_INVENTORY_FILE_NAME: "{{ PROJECT_ID }}-gce-dynamic-inventory.gcp.yml"
+
+- name: Assert INVENTORY_FILE_NAME
+  set_fact:
+    INVENTORY_FILE_NAME: "{{ INVENTORY_FILE_NAME | default(DEFAULT_INVENTORY_FILE_NAME) }}"
+
+- name: Create tempfile
+  tempfile:
+    state: file
+    suffix: temp
+  register: service_account_file_temp_path
+
+- name: Save credentials to tempfile
+  copy:
+    content: "{{ SERVICE_ACCOUNT_FILE_CONTENT }}"
+    dest: "{{ service_account_file_temp_path.path }}"
+
+- name: Generate config files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    force: yes
+  with_items:
+    - { src: "gce-dynamic-inventory.gcp.yml.j2", dest: "{{ INVENTORY_DIR }}/{{ INVENTORY_FILE_NAME }}" }
+    - { src: "ansible.cfg.j2", dest: "{{ playbook_dir }}/ansible.cfg.template" }
+
+- name: Refresh the inventory
+  meta: refresh_inventory
+

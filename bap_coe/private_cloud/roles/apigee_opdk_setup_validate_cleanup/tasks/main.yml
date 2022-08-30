@@ -1,0 +1,27 @@
+---
+# tasks file for apigee-opdk-setup-validate-cleanup
+- name: Remove validate
+  ignore_errors: yes
+  shell: '/opt/apigee/apigee-service/bin/apigee-service apigee-validate clean -f {{ apigee_validate_config_file }}'
+  when: opdk_version is version_compare('4.16.01', '>=')
+  async: 180
+  poll: 0
+
+- name: Confirm existence of edge-message-processor
+  stat:
+    path: "{{ apigee_home }}/edge-message-processor"
+  register: mp_exists
+
+- block:
+  - name: Stop Message Processor
+    import_role:
+      name: 'apigee_opdk_stop_components'
+    vars:
+      component_name: 'edge-message-processor'
+
+  - name: Start Message Processor
+    import_role:
+      name: 'apigee_opdk_start_components'
+    vars:
+      component_name: 'edge-message-processor'
+  when: mp_exists is defined and mp_exists.stat.exists is defined and mp_exists.stat.exists is true

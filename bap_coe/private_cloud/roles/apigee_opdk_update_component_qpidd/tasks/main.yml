@@ -1,0 +1,17 @@
+---
+# tasks file for apigee-opdk-update-component-qpidd
+
+- name: Work around remove for Qpid upgrade
+  become: true
+  become_user: root
+  yum:
+    name: "{{ remove_qpid_upgrade_components }}"
+    state: absent
+
+- name: Work around install for Qpid upgrade
+  become: true
+  become_user: root
+  yum:
+    name: "{{ install_qpid_upgrade_components }}"
+    state: present
+

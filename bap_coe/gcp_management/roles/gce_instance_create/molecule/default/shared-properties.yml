@@ -1,0 +1,45 @@
+---
+AUTHORIZATION_KIND: serviceaccount
+SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
+RESOURCE_GCP_ZONE: "us-central1-c"
+#MACHINE_TYPE: n1-standard-1
+MACHINE_TYPE: n2-highcpu-2
+SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
+TARGET_TAGS: "bastionssh"
+NAME_INSTANCE_PREFIX: "bap-coe-create-test"
+
+# Additional values for IMAGE_PROJECT: 'centos-cloud'
+# Additional values for IMAGE_FAMILY: 'centos-7'
+DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1804-lts') }}"
+DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
+DISK_SIZE: 50
+ACCESS_TYPE: ext
+INSTANCE_COUNT_START: 101
+INSTANCE_COUNT_END: 101
+
+#STARTUP_SCRIPT: |
+#  #! /bin/bash
+#  sudo apt update -y;
+#  sudo apt install -y build-essential libssl-dev git zlib1g-dev;
+#  cd;
+#  git clone https://github.com/giltene/wrk2.git wrk;
+#  cd ./wrk;
+#  make;
+#  sudo cp wrk /usr/local/bin/;
+#  cd;
+
+STARTUP_SCRIPT: |
+  #! /bin/bash
+  rm -f /etc/sudoers.d/remove-requiretty;
+  echo "Defaults !requiretty" >> /etc/sudoers.d/remove-requiretty
+  sudo apt update -y;
+  sudo apt install -y build-essential libssl-dev git zlib1g-dev;
+  ulimit -n 65555;
+  sudo sysctl -w net.ipv4.ip_local_port_range="1025 65000";
+  cd;
+  git clone https://github.com/giltene/wrk2.git wrk;
+  cd ./wrk;
+  make;
+  mkdir -p ~/bin
+  sudo cp wrk ~/bin/;
+  cd;

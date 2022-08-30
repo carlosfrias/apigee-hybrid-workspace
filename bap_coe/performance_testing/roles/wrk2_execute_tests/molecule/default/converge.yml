@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include wrk2_execute_tests"
+      include_role:
+        name: "wrk2_execute_tests"

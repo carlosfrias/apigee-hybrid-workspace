@@ -1,0 +1,30 @@
+---
+- name: Complete Bulk Load of Test Data for Products, Developers, Developer Apps and Developer App Keys
+  hosts: localhost
+  connection: local
+
+  collections:
+    - bap_coe.performance_testing
+    - bap_coe.gcp_management
+
+  vars_files:
+    - "{{ playbook_dir }}/attribute.yml"
+    - "{{ '~' | expanduser }}/.apigee-secure/credentials.yml"
+
+  roles:
+    - service_account_file_processing
+    - gcp_token_retrieval
+
+  tasks:
+    - name: Get Developer, Developer App and App keys
+      ignore_errors: yes
+      include_tasks: developer-get.yml
+      with_sequence: "start={{ START }} end={{ END }} stride={{ STRIDE | default(1) }}"
+      loop_control:
+        loop_var: DEVELOPER_COUNT
+      register: load_status
+
+    - name: Record load_status
+      debug:
+        var: load_status
+

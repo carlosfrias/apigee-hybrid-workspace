@@ -1,0 +1,119 @@
+---
+# tasks file for roles/apigee-hybrid-aks-create
+- name: Set aks cache
+  set_fact:
+    cacheable: yes
+    GCLOUD_SERVICE_ACCOUNT_NAME: "{{ SERVICE_ACCOUNT_NAME | default(DEFAULT_SERVICE_ACCOUNT_NAME) }}"
+
+- name: Set aks cache
+  set_fact:
+    cacheable: yes
+    ATTACHED_CLUSTER: True
+    AKS_NODE_COUNT: "{{ AKS_NODE_COUNT | default(DEFAULT_AKS_NODE_COUNT) }}"
+    AKS_NODE_SIZE: "{{ AKS_NODE_SIZE | default(DEFAULT_AKS_NODE_SIZE) }}"
+    KUBERNETES_VERSION: "{{ KUBERNETES_VERSION | default(DEFAULT_KUBERNETES_VERSION) }}"
+    AZ_KUBECONFIG: "{{ WORK_DIR }}/kubeconfig-azure.yaml"
+    DEFAULT_SERVICE_ACCOUNT_NAME: "apigee-hybrid-asm"
+    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ GCLOUD_SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
+
+#- name: Retrieve service principal
+#  shell: az ad sp list --show-mine
+#  register: SERVICE_PRINCIPAL
+
+- name: Assert that whether cluster already exists
+  shell: az aks list
+  register: AZ_AKS_LIST
+
+- name: Format cluster assertion
+  set_fact:
+    cacheable: yes
+    aks_list: "{{ AZ_AKS_LIST.stdout | from_json }}"
+
+- name: Create aks Cluster
+  shell: |
+    az aks create \
+      --resource-group {{ AZ_RESOURCE_GROUP }} \
+      -n {{ CLUSTER_NAME }} \
+      --kubernetes-version {{ KUBERNETES_VERSION }} \
+      --node-count {{ AKS_NODE_COUNT }} \
+      --service-cidr 10.0.0.0/16 \
+      --docker-bridge-address 172.17.0.1/16 \
+      --dns-name-prefix apigee-hybrid-1-dns \
+      --dns-service-ip 10.0.0.10 \
+      --pod-cidr 10.240.0.0/16 \
+      --network-plugin kubenet
+#      --node-vm-size {{ AKS_NODE_SIZE }} \
+##      --ssh-key-value {{ SSL_CERT_PATH }} \
+##      --nodepool-name agentpool \
+##      --node-osdisk-type linux \
+##      --node-osdisk-size {{ NODE_SIZE }} \
+  when: aks_list[0].name is not defined or aks_list[0].name != CLUSTER_NAME
+
+- name: Get aks credentials
+  shell: |
+    az aks get-credentials \
+      --resource-group {{ AZ_RESOURCE_GROUP }} \
+      --name {{ CLUSTER_NAME }} \
+      --file {{ AZ_KUBECONFIG }} \
+      --verbose --overwrite-existing
+
+- name: Set Current context
+  shell: kubectl config use-context {{ CLUSTER_NAME }}
+  environment:
+    KUBECONFIG: "{{ AZ_KUBECONFIG }}"
+
+- name: Create ASM service account
+  ignore_errors: yes
+  shell: gcloud iam service-accounts create {{ GCLOUD_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'already exists' not in status.stderr"
+
+- name: Download service account credential file
+  shell: |
+    gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_KEY_PATH }} \
+      --iam-account="{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}"
+  args:
+    creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
+
+- name: Register AKS Cluster with Anthos
+  shell: |
+    gcloud container hub memberships register {{ CLUSTER_NAME }} \
+      --context={{ CLUSTER_NAME }} \
+      --kubeconfig={{ AZ_KUBECONFIG }} \
+      --service-account-key-file={{ SERVICE_ACCOUNT_KEY_PATH }}
+
+- name: Create Kubernetes service account
+  shell: kubectl create serviceaccount aksadmin --kubeconfig={{ AZ_KUBECONFIG }}
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'already exists' not in status.stderr"
+
+- name: Create Kubernetes cluster role binding
+  shell: |
+    kubectl create clusterrolebinding aksadminbinding \
+      --clusterrole {{ item }} \
+      --serviceaccount default:aksadmin \
+      --kubeconfig={{ AZ_KUBECONFIG }}
+  with_items: ['view', 'node-reader', 'cluster-admin']
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'already exists' not in status.stderr"
+
+- name: Obtain secret name for service account
+  shell: kubectl get serviceaccount aksadmin -o jsonpath='{$.secrets[0].name}' --kubeconfig={{ AZ_KUBECONFIG }}
+  register: SECRET_NAME
+
+- name: Obtain token for service account
+  shell: kubectl get secret {{ SECRET_NAME.stdout }} -o jsonpath='{$.data.token}' --kubeconfig={{ AZ_KUBECONFIG }}
+  register: TOKEN
+
+- name: Store token in WORK_DIR
+  copy:
+    content: "{{ TOKEN | b64decode }}"
+    dest: "{{ WORK_DIR }}/aksadmin-token.conf"
+
+

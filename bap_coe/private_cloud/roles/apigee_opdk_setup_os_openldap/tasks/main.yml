@@ -1,0 +1,78 @@
+---
+# tasks file for apigee-opdk-setup-os-openldap
+- block:
+
+  - name: Install openldap packages if needed
+    become: yes
+    yum:
+      name: "{{ openldap }}"
+      state: present
+      allow_downgrade: yes
+    when: opdk_version is version_compare('4.17.05', '>')
+    environment:
+      http_proxy: "{{ http_proxy | default('') }}"
+      https_proxy: "{{ https_proxy | default('') }}"
+      no_proxy: "{{ no_proxy | default('') }}"
+
+  rescue:
+
+    - block:
+
+      - name: Downgrade openldap packages if needed
+        become: yes
+        yum:
+          name: "{{ openldap_downgrade_version }}"
+          state: present
+          allow_downgrade: yes
+        when:  opdk_version is version_compare('4.17.09', '<')
+        environment:
+          http_proxy: "{{ http_proxy | default('') }}"
+          https_proxy: "{{ https_proxy | default('') }}"
+          no_proxy: "{{ no_proxy | default('') }}"
+
+      rescue:
+        - block:
+
+          - name: Installed named version
+            yum:
+              name: "{{ openldap_named_versions }}"
+              state: present
+            environment:
+              http_proxy: "{{ http_proxy | default('') }}"
+              https_proxy: "{{ https_proxy | default('') }}"
+              no_proxy: "{{ no_proxy | default('') }}"
+
+
+          rescue:
+            - name: Install the remainder openldap manually
+              shell: "rpm -ivh --oldpackage {{ openldap_named_versions }}"
+              environment:
+                http_proxy: "{{ http_proxy | default('') }}"
+                https_proxy: "{{ https_proxy | default('') }}"
+                no_proxy: "{{ no_proxy | default('') }}"
+
+
+      become: yes
+      when: opdk_version is version_compare('4.17.05', '<=') and ansible_distribution_major_version is version_compare("6", ">" )
+
+#- block:
+#  - name: Update LDAP dependent libraries
+#    file:
+#      force: yes
+#      state: link
+#      src: "{{ item.src }}"
+#      path: "{{ item.path }}"
+#    with_items: "{{ ldap_dependent_library_links }}"
+
+#  rescue:
+
+#        - name: Update LDAP dependent libraries
+#          file:
+#            force: yes
+#            state: link
+#            src: "{{ item.src }}"
+#            path: "{{ item.path }}"
+#          with_items: "{{ ldap_dependent_library_links }}"
+
+#  when: opdk_version | version_compare('4.17.01', '>=') and opdk_version | version_compare('4.17.05', '<=')
+

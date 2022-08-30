@@ -1,0 +1,41 @@
+---
+- name: Update package manager folder permissions
+  tags: ['os']
+  become: true
+  file:
+    path: "{{ item }}"
+    owner: "{{ ansible_ssh_user }}"
+  with_items:
+  - /usr/local/bin
+  - /usr/local/sbin
+  - /usr/local/etc
+  - /usr/local/share
+  - /usr/local/share/doc
+
+- name: Assert gcloud
+  shell: which gcloud
+  register: gcloud_status
+
+- name: Update gMac
+  tags: ['os']
+  shell: "{{ item }}"
+  with_items:
+  - "{{ gcloud_status.stdout }} components update -q"
+  - "git gmac-update"
+
+- name: Install system packages
+  tags: ['os', 'packages']
+  homebrew:
+    name: "{{ os_packages }}"
+    state: present
+    update_homebrew: yes
+
+- name: Install mac specific system packages
+  tags: ['os', 'packages']
+  homebrew:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "pyenv"
+    - "sshpass"
+

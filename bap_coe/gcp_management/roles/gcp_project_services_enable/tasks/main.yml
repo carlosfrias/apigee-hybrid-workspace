@@ -1,0 +1,67 @@
+---
+# tasks file for roles/gcp_project_services_enable
+- name: Assert that GCP services list is available
+  assert:
+    that:
+      - GCLOUD_PROJECT_SERVICES is defined
+    msg: "Please provide GCLOUD_PROJECT_SERVICES collection with list of services to enable."
+
+- name: Assert that GCLOUD_ACCOUNT_EMAIL list is available
+  assert:
+    that:
+      - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "Please provide GCLOUD_ACCOUNT_EMAIL collection with list of services to enable."
+
+- name: Assert that the PROJECT_ID is available
+  assert:
+    that:
+      - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Set GCP Services List
+  set_fact:
+    GCLOUD_PROJECT_SERVICES: "{{ GCLOUD_PROJECT_SERVICES }}"
+#    ROLE_BINDING: "{{ ROLE_BINDING  }}"
+
+- name: Assert SERVICE_OP
+  assert:
+    that:
+      - SERVICE_OP is defined
+    msg: "Please indicate the SERVICE_OP, should be either 'enable' or 'disable'"
+
+- name: Enable GCP APIs
+  #  this is now also done in the install_asm bash script.
+  #  This is required here before the install_asm requires it.
+  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
+  when: SERVICE_OP == 'enable'
+#  poll: 2
+#  retries: 50
+#  async: 180
+
+- name: Disable GCP APIs
+  #  this is now also done in the install_asm bash script.
+  #  This is required here before the install_asm requires it.
+  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }} --force
+  with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
+  when: SERVICE_OP == 'disable'
+#  poll: 2
+#  retries: 50
+#  async: 180
+
+#- name: Set IAM roles to installation user
+#  shell: |
+#    gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
+#     --member usear:{{ GCLOUD_ACCOUNT_USER }} --role={{ item }}
+#  with_items: "{{ ROLE_BINDING }}"
+
+#- name: Obtain PROJECT_NUMBER
+#  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
+#  register: project_number
+
+#- name: Cache PROJECT_NUMBER
+#  set_fact:
+#    cacheable: yes
+#    PROJECT_NUMBER: "{{ project_number.stdout }}"
+#    FOLDER_ID: "{{ FOLDER_ID }}"
+#    BILLING_ID: "{{ BILLING_ID }}"

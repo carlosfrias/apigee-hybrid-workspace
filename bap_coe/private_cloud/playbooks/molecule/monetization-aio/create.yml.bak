@@ -1,0 +1,58 @@
+---
+- name: Create Project & Infrastructure
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  no_log: "{{ molecule_no_log }}"
+
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ../../attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bootstrap_runtime
+
+  roles:
+    - { role: gcp_project_create, tags: [ 'project' ] }
+    - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles'] }
+    - { role: gcp_project_services_enable, tags: ['services'] }
+    - { role: gcp_iam_policy_bindings_member_service_account, tags: ['roles'] }
+    - { role: gce_network_create, tags: ['network'] }
+    - { role: gce_firewall_create, tags: ['firewall'] }
+    - { role: gce_dynamic_inventory_configure, tags: ['inventory'] }
+
+- name: Update runtime environment of instances
+  hosts: edge
+  gather_facts: yes
+  tags: ['python','infra']
+
+  collections:
+    - bap_coe.bootstrap_runtime
+
+  roles:
+    - python_install_minimal
+
+
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+  tags: ['instances']
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - ../../attributes.yml
+
+  collections:
+    - bap_coe.gcp_management
+
+  tasks:
+    - name: Create planet instances
+      include_tasks: ../resources/infrastructure-create-controller.yml
+      with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+      loop_control:
+        loop_var: instance
+

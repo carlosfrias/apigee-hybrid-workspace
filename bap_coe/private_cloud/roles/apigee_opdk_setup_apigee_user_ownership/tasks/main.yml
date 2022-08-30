@@ -1,0 +1,26 @@
+---
+# tasks file for apigee-opdk-setup-apigee-user-ownership
+- name: Installation home stats
+  stat:
+    path: '{{ target_dir | default(apigee_home) }}'
+  register: apigee_home_status
+
+- name: Setup permission for apigee installation home directory
+  become: yes
+  file:
+    path: '{{ target_dir | default(apigee_home) }}'
+    group: '{{ opdk_group_name }}'
+    owner: '{{ opdk_user_name }}'
+    mode: "755"
+    recurse: yes
+    state: directory
+  when: not apigee_home_status.stat.exists
+
+- name: Assert Permissions are Correct
+  become: yes
+  file:
+    path: "{{  target_dir | default(apigee_home)  }}"
+    recurse: yes
+    mode: "755"
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'

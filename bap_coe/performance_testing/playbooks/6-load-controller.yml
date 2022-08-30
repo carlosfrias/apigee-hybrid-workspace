@@ -1,0 +1,73 @@
+---
+- name: Assert need to update security tokens
+  set_fact:
+    dont_update_credentials: "{{ current_request | int % update_frequency }}"
+
+- block:
+  - meta: reset_connection
+
+  - include_role:
+      name: service_account_file_processing
+    tags: ['developers','products','apps_create','apps_keys_create','apps_products']
+
+  - include_role:
+      name: gcp_token_retrieval
+    tags: ['developers','apps_create','apps_keys_create','apps_products']
+
+  when: dont_update_credentials | bool is not true
+
+- meta: clear_host_errors
+- meta: refresh_inventory
+
+- include_role:
+    name: products_create
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+  tags: ['products']
+
+- meta: clear_host_errors
+- meta: refresh_inventory
+
+- include_role:
+    name: developers_create
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+    LOAD_DEVELOPER_START_POSITION: "{{ current_request }}"
+    LOAD_DEVELOPER_COUNT: "{{ current_request }}"
+  tags: ['developers']
+
+- meta: clear_host_errors
+- meta: refresh_inventory
+
+- include_role:
+    name: developers_apps_create
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+    LOAD_DEVELOPER_START_POSITION: "{{ current_request }}"
+    LOAD_DEVELOPER_COUNT: "{{ current_request }}"
+  tags: ['apps_create']
+
+- meta: clear_host_errors
+- meta: refresh_inventory
+
+- include_role:
+    name: developers_apps_keys_create
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+    LOAD_APPS_KEYS_START_POSITION: "{{ current_request }}"
+    LOAD_APPS_KEYS_COUNT: "{{ current_request }}"
+  tags: ['apps_keys_create']
+
+- meta: clear_host_errors
+- meta: refresh_inventory
+
+- include_role:
+    name: developers_apps_products_associate
+  vars:
+    ORG: "{{ PROJECT_ID }}"
+    LOAD_DEVELOPER_START_POSITION: "{{ current_request }}"
+    LOAD_DEVELOPER_COUNT: "{{ current_request }}"
+  tags: ['apps_products']
+
+- meta: clear_host_errors
+- meta: refresh_inventory

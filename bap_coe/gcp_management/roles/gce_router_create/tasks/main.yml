@@ -1,0 +1,28 @@
+---
+# tasks file for gce_network_create
+- name: Assert PROJECT_ID provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide PROJECT_ID"
+
+- name: Assert VPC_NETWORK_NAME provided
+  assert:
+    that:
+    - VPC_NETWORK_NAME is defined
+    msg: "Please provide VPC_NETWORK_NAME"
+
+- name: Assert GCP_REGION provided
+  assert:
+    that:
+    - GCP_REGION is defined
+    msg: "Please provide GCP_REGION"
+
+- name: create a router
+  ignore_errors: true
+  command: |
+    gcloud compute routers create {{ GCP_ROUTER_NAME }} \
+        --network {{ VPC_NETWORK_NAME }} \
+        --region {{ GCP_REGION }}
+
+

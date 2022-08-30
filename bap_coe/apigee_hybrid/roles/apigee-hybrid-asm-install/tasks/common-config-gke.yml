@@ -1,0 +1,54 @@
+---
+- block:   #- now getting set in the install_asm script
+
+  - name: Setup GCP Attributes from service account file
+    include_role:
+      name: bap_coe.gcp_management.gcp_token_retrieval
+
+  - name: Set permissions for sidecar proxy
+    uri:
+      url: https://meshconfig.googleapis.com/v1alpha1/projects/{{ PROJECT_ID }}:initialize
+      method: POST
+      headers:
+        Authorization: Bearer {{ GCLOUD_TOKEN }}
+  when: ATTACHED_CLUSTER == False
+
+- name: Select Cluster
+  shell: kubectx {{ CLUSTER_NAME }}
+
+- name: Grant cluster admin permissions to current user
+  ignore_errors: true
+  shell: |
+    kubectl create clusterrolebinding cluster-admin-binding \
+      --clusterrole=cluster-admin \
+      --user="{{ GCLOUD_ACCOUNT }}" \
+      --kubeconfig={{ CLUSTER_KUBECONFIG }}
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'already exists' not in status.stderr"
+
+- name: Service Account Key Storage Location
+  debug:
+    msg: "This service account key is stored as a secret named 'creds-gcp' in the 'gke-connect' namespace."
+
+#- name: Set the project id - now getting set in the install_asm script
+#  shell: kpt cfg set asm gcloud.core.project {{ PROJECT_ID }}
+#  args:
+#    chdir: "{{ WORK_DIR }}"
+#
+#- name: Set project number for the environ host project - now getting set in the install_asm script
+#  shell: kpt cfg set asm gcloud.project.environProjectNumber {{ PROJECT_NUMBER }}
+#  args:
+#    chdir: "{{ WORK_DIR }}"
+#
+#- name: Set the cluster name - now getting set in the install_asm script
+#  ignore_errors: yes
+#  shell: kpt cfg set asm gcloud.container.cluster {{ CLUSTER_NAME }}
+#  args:
+#    chdir: "{{ WORK_DIR }}"
+#
+#- name: Set the default zone - now getting set in the install_asm script
+#  shell: kpt cfg set asm gcloud.compute.location {{ CLUSTER_ZONE }}
+#  args:
+#    chdir: "{{ WORK_DIR }}"

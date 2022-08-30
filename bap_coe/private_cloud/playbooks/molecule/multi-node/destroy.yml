@@ -1,0 +1,34 @@
+---
+- name: Remove OPDK planet nodes
+  hosts: localhost
+  connection: local
+
+  vars_files:
+    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+
+  collections:
+     - bap_coe.gcp_management
+
+  roles:
+    - { role: service_account_file_path }
+    - { role: service_account_file_processing }
+    - { role: gce_router_nat_remove }
+    - { role: gce_router_remove }
+
+  vars:
+    PRIVATE_CLOUD_INSTANCES:
+    - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+    - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
+
+
+  tasks:
+  - name: Remove planet instances
+    include_tasks: "{{ playbook_dir | dirname }}/shared/remove-instance.yml"
+    with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+    loop_control:
+      loop_var: instance
+

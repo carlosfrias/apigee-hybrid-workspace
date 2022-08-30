@@ -1,0 +1,43 @@
+---
+- name: Converge
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+  - properties.yml
+
+  collections:
+  - bap_coe.gcp_management
+
+  roles:
+    - bap_coe.gcp_management.service_account_file_processing
+
+  tasks:
+    - name: Capture start if available
+      set_fact:
+        start_pos: "{{ INSTANCE_COUNT_START | default(1) }}"
+
+    - name: Gather instance info
+      gcp_compute_instance_info:
+        zone: "{{ GCP_ZONE }}"
+        filters:
+          - name = "{{ gce_instance_name }}"
+        project: "{{ PROJECT_ID }}"
+        auth_kind: "{{ AUTHORIZATION_KIND | default('serviceaccount') }}"
+        service_account_file: "{{ SERVICE_ACCOUNT_FILE }}"
+      register: instance_info
+
+    - name: Capture info for ProxyCommand
+      set_fact:
+        gce_instance_ext_IP: "{{ instance_info.resources[0].networkInterfaces[0].accessConfigs[0].natIP }}"
+        gce_instance_name: "{{ NAME_INSTANCE_PREFIX }}-{{ sequence | default(start_pos) }}"
+
+    - name: Configure SSH ProxyCommand
+      include_role:
+        name: gce_bastion_host_ssh_config
+      vars:
+        bastion_host_name: "{{ gce_instance_name }}"
+        bastion_host_user: "{{ GCLOUD_ACCOUNT_USER }}"
+        bastion_host_ip: "{{ gce_instance_ext_IP }}"
+        bastion_target_host_range: "{{ NAME_INSTANCE_PREFIX }}*"

@@ -1,0 +1,22 @@
+---
+# tasks file for roles/apigee-hybrid-group-create
+- name: Set env create cache
+  set_fact:
+    cacheable: yes
+    ENV_GROUP: "{{ ENV_GROUP | default(DEFAULT_ENV_GROUP) }}"
+
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: bap_coe.gcp_management.gcp_token_retrieval
+
+- name: Create environment group
+  uri: 
+    url: https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/envgroups
+    method: POST
+    headers: 
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+    body_format: json
+    status_code: ['200', '409']
+    body: 
+      name: "{{ ENV_GROUP }}"
+      hostnames: ["{{ DOMAIN_NAME }}"]

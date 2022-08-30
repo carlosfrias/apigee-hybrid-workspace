@@ -1,0 +1,44 @@
+- name: Bootstrap pyenv virtualenv
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+
+  vars:
+    bootstrap_pyenv_packages:
+      - sudo
+      - make
+      - build-essential
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - wget
+      - curl
+      - llvm
+      - libncurses5-dev
+      - libncursesw5-dev
+      - xz-utils
+      - tk-dev
+      - libffi-dev
+      - liblzma-dev
+      - python-openssl
+      - software-properties-common
+      - git
+      - python3-apt
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
+
+  tasks:
+    - name: Update apt
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Install system packages to work with pyenv workspace
+      become: true
+      apt:
+        name: "{{ bootstrap_pyenv_packages }}"
+        state: present
+      environment:
+        DEBIAN_FRONTEND: "noninteractive apt-get install -y --no-install-recommends tzdata"

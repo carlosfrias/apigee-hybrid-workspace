@@ -1,0 +1,70 @@
+---
+# tasks file for roles/apigee-hybrid-tls-certs
+- name: Assert cert file path is provided
+  assert:
+    that:
+
+- name: Set TLS path names to cache
+  set_fact: 
+    cacheable: yes
+    CSR_COMMON_NAME: "{{ CSR_COMMON_NAME | default('*.hybrid-apigee.net') }}"
+    SSL_CERT_PATH: "{{  HYBRID_FILES + '/certs/keystore.pem' }}"
+    SSL_KEY_PATH: "{{ HYBRID_FILES + '/certs/keystore.key' }}"
+    CERT_SIGNING_REQUEST: "{{ HYBRID_FILES + '/certs/keystore.csr' }}"
+
+- name: Assert whether private key was provided
+  stat:
+    path: "{{ PROVIDED_PRIVATE_KEY | default(' ') }}"
+  register: is_provided_private_key
+
+- name: Assert whether public cert was provided
+  stat:
+    path: "{{ PROVIDED_PUBLIC_CERT  | default(' ') }}"
+  register: is_provided_public_cert
+
+- block:
+
+  - name: Create target folder
+    file: 
+      path: "{{ item | dirname }}"
+      state: directory
+    with_items: ["{{ SSL_KEY_PATH }}", "{{ SSL_CERT_PATH }}"]
+
+  - name: Copy provided cert and key to correct location and filename
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      force: yes
+    with_items:
+      - { src: "{{ PROVIDED_PRIVATE_KEY }}", dest: "{{ SSL_KEY_PATH }}" }
+      - { src: "{{ PROVIDED_PUBLIC_CERT }}", dest: "{{ SSL_CERT_PATH }}" }
+
+  when: is_provided_public_cert.stat.exists == True and is_provided_private_key.stat.exists == True
+
+- block: 
+  - name: Create Directory Structure
+    file:
+      path: "{{ HYBRID_FILES }}/certs"
+      state: directory
+      mode: "0755"
+
+  - name: Create Private Key for TLS credentials
+    openssl_privatekey:
+      path: "{{ SSL_KEY_PATH }}"
+      size: 2048
+
+  - name: Generate an OpenSSL Certificate Signing Request
+    openssl_csr:
+      path: "{{ CERT_SIGNING_REQUEST }}"
+      privatekey_path: "{{ SSL_KEY_PATH }}"
+      common_name: "{{ CSR_COMMON_NAME }}"
+
+  - name: Generate a Self Signed OpenSSL certificate for TLS credentials
+    openssl_certificate:
+      path: "{{ SSL_CERT_PATH }}"
+      privatekey_path: "{{ SSL_KEY_PATH }}"
+      csr_path: "{{ CERT_SIGNING_REQUEST }}"
+      provider: selfsigned
+
+  when: is_provided_public_cert.stat.exists == False and is_provided_private_key.stat.exists == False
+

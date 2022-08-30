@@ -1,0 +1,25 @@
+---
+- name: UPS Performance Test
+  hosts: "{{ target_hosts }}"
+  gather_facts: yes
+  strategy: free
+
+  vars_files:
+  - attribute.yml
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.performance_testing
+
+  roles:
+    - apigee_internal_load_balancer
+
+  tasks:
+    - name: Construct URL using ILB
+      set_fact:
+        cacheable: yes
+        TARGET_URL: https://{{ TARGET_ILB_IP}}{{ TARGET_URI }}
+
+    - name: Execute Tests
+      include_role:
+        name: wrk2_execute_tests

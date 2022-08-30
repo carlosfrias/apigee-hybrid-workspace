@@ -1,0 +1,43 @@
+---
+# tasks file for gcp_resource_manager_folders_get_folder_id
+- name: Assert that GCLOUD_ORG_ID is available
+  assert:
+    that:
+    - GCLOUD_ORG_ID is defined
+    msg: "Please provide GCLOUD_ORG_ID collection with list of constraints to no longer enforce."
+
+- name: Assert that the FOLDER_DISPLAY_NAME is available
+  assert:
+    that:
+    - FOLDER_DISPLAY_NAME is defined
+    msg: "Please provide the FOLDER_DISPLAY_NAME"
+
+- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+  assert:
+    that:
+    - GCLOUD_ACCOUNT_EMAIL is defined
+    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+
+- name: List organization folders
+  shell: gcloud resource-manager folders list --organization {{ GCLOUD_ORG_ID }} --format json --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  register: ORG_FOLDERS_LIST
+
+- name: Format folder list into JSON object
+  set_fact:
+    ORG_FOLDERS_JSON: "{{ ORG_FOLDERS_LIST.stdout | from_json }}"
+
+- name: Find target folder in JSON object
+  set_fact:
+    FOLDER_ID_FIELDS: "{{ item.name | split('/') }}"
+  with_items: "{{ ORG_FOLDERS_JSON }}"
+  when: item.displayName is search(FOLDER_DISPLAY_NAME)
+
+- name: Set FOLDER_ID
+  ansible.builtin.set_fact:
+    cacheable: true
+    FOLDER_ID: "{{ FOLDER_ID_FIELDS[1] }}"
+  when: FOLDER_ID_FIELDS[1] is defined
+
+- name: Display FOLDER_ID for folder display name {{ FOLDER_DISPLAY_NAME }}
+  ansible.builtin.debug:
+    var: FOLDER_ID

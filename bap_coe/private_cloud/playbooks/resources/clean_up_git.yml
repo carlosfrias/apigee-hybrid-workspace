@@ -1,0 +1,25 @@
+---
+- name: Remove .git folders from roles
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Collect list of target folders
+      find:
+        paths: "/usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-workspace/bap_coe"
+#        paths: "{{ playbook_dir }}/../../roles/"
+        recurse: yes
+        hidden: yes
+        file_type: directory
+        patterns: ".git"
+      register: target_folders
+
+    - name: Show list of target folders
+      debug:
+        var: target_folders
+
+    - name: Remove .git folder from target folders
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ target_folders.files }}"

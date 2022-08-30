@@ -1,0 +1,5 @@
+---
+
+# Use this to remove additional files that should be removed don't delete through on rollback
+#remove_on_rollback:
+#- {path to files or directories that should be removed on rollback }

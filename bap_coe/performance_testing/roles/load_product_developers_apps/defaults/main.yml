@@ -1,0 +1,3 @@
+---
+# defaults file for load_product_developers_apps
+APIGEE_API_URI: https://apigee.googleapis.com

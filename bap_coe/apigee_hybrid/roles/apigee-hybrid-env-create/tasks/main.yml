@@ -1,0 +1,45 @@
+---
+# tasks file for roles/apigee-hybrid-env-create
+- name: Set env create cache
+  set_fact:
+    cacheable: yes
+    ENV_NAME: "{{ ENV_NAME | default('test') }}"
+    ENV_DISPLAY_NAME: "{{ ENV_DISPLAY_NAME | default('test') }}"
+    ENV_DESCRIPTION: "{{ ENV_DESCRIPTION | default('test environment') }}"
+    ENV_GROUP: "{{ ENV_GROUP | default(DEFAULT_ENV_GROUP) }}"
+    ENV_CREATION_TIMEOUT: "{{ ENV_CREATION_TIMEOUT | default(60) }}"
+
+- name: Setup GCP Attributes from service account file
+  include_role:
+    name: bap_coe.gcp_management.gcp_token_retrieval
+
+- name: Add an environment
+  uri:
+    url: https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/environments
+    method: POST
+    status_code: ['200','409']
+    headers: 
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+    body_format: json
+    body:
+      name: "{{ ENV_NAME }}"
+      displayName: "{{ ENV_DISPLAY_NAME }}"
+      description: "{{ ENV_DESCRIPTION }}"
+  register: env_creation
+
+- name: Record operation id
+  set_fact:
+    LONG_RUNNING_OPERATION_ID: "{{ env_creation.json.name | urlsplit('path') | basename }}"
+  when: env_creation.json.name is defined
+
+- name: Allow environment to be created
+  uri:
+    url: "https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/operations/{{ LONG_RUNNING_OPERATION_ID }}"
+    headers: 
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+  when: LONG_RUNNING_OPERATION_ID is defined
+  register: operation_status
+  until: operation_status.json.metadata.state == "FINISHED"
+  poll: 5
+  retries: 50
+  async: 90

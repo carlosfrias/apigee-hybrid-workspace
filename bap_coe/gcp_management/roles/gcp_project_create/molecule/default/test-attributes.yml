@@ -1,0 +1,18 @@
+---
+PROJECT_ID: "friasc-project-create-test-09222021-1354"
+GCLOUD_ACCOUNT_EMAIL: friasc
+GCLOUD_ACCOUNT_ADMIN_EMAIL: friasc
+AUTHORIZATION_KIND: serviceaccount
+SERVICE_ACCOUNT_FILE: ~/.apigee-secure/friasc-service-account-bap-amer-south-demo1-1c3f3cd05ad0.json
+RESOURCE_GCP_ZONE: "us-central1-c"
+ansible_python_interpreter: "{{ ansible_playbook_python }}"
+
+CE_BILLING_ID: "01382E-07CCE9-615E10"
+FRIASC_BILLING_ID: "019A33-F14A82-622625"
+ARGOLIS_BILLING_ID: "01761B-1E12F2-917D22"
+##################
+BILLING_ID: "{{ CE_BILLING_ID }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_USER: friasc
+GCLOUD_ACCOUNT_DOMAIN: "google.com"
+

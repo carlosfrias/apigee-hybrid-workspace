@@ -1,0 +1,42 @@
+---
+# tasks file for wrk2_execute_tests
+- name: Performance Test Execution Controller
+  include_tasks: test-executor.yml
+  loop: "{{ EXECUTION_SAMPLINGS }}"
+  loop_control:
+    loop_var: EXECUTION_SAMPLING
+
+- name: Cache perf_output
+  set_fact:
+    cacheable: yes
+    perf_output: "{{ perf_output }}"
+
+- name: Create remote temp folder for results storage
+  tempfile:
+    state: directory
+  register: perf_result_remote_folder
+
+- name: Capture timestamp for perf-results file name
+  command: date +"%Y-%m-%d_%H-%M-%S"
+  register: file_timestamp
+
+- name: Construct perf results file name
+  set_fact:
+    perf_results_filename: "perf-results-{{ ansible_hostname }}-{{ file_timestamp.stdout }}.txt"
+
+- name: Save performance test results collected to temp folder
+  become: yes
+  template:
+    src: perf_results.txt.j2
+    dest: "{{ perf_result_remote_folder.path }}/{{ perf_results_filename }}"
+
+- name: Fetch results to controller node
+  fetch:
+    src: "{{ perf_result_remote_folder.path }}/{{ perf_results_filename }}"
+    dest: ./perf_results/
+    flat: yes
+
+- name: Clean up remote temp folder
+  file:
+    path: "{{ perf_result_remote_folder.path }}"
+    state: absent

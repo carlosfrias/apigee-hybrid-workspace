@@ -1,0 +1,4 @@
+---
+
+# Load balancer to use with the Virtual Host definition if available
+# load_balancer: 'fqdn or ip address for load balancer'

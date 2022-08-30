@@ -1,0 +1,39 @@
+---
+# tasks file for gce_network_create
+- name: Assert PROJECT_ID provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide PROJECT_ID"
+
+- name: Assert VPC_NETWORK_NAME provided
+  assert:
+    that:
+    - VPC_NETWORK_NAME is defined
+    msg: "Please provide VPC_NETWORK_NAME"
+
+- name: Assert SERVICE_ACCOUNT_FILE_PATH provided
+  assert:
+    that:
+    - SERVICE_ACCOUNT_FILE_PATH is defined
+    msg: "Please provide SERVICE_ACCOUNT_FILE_PATH"
+
+- name: Assert SCOPE_COMPUTE provided
+  assert:
+    that:
+    - SCOPE_COMPUTE is defined
+    msg: "Please provide SCOPE_COMPUTE"
+
+- name: get info on a network
+  gcp_compute_network_info:
+    project: "{{ PROJECT_ID }}"
+    auth_kind: "{{ AUTHORIZATION_KIND }}"
+    service_account_file: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+  register: VPC_NETWORK_INFO
+
+- name: delete router
+  ignore_errors: yes
+  command: |
+    gcloud compute routers delete {{ GCP_ROUTER_NAME }} 
+      --region {{ GCP_REGION }}
+

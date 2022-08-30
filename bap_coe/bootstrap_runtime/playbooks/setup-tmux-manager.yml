@@ -1,0 +1,18 @@
+---
+- name: This playbook configures and install my local workstation
+  hosts: "{{ target_hosts }}"
+  connection: local
+  vars_files:
+    - workstation-properties.yml
+
+  tasks:
+    - name: Add plugin to the list of tmux plugins
+      tags: ['tmux']
+      lineinfile:
+        path: "~/.tmux.conf"
+        owner: "{{ ansible_ssh_user }}"
+        regex: "{{ item.regex }}"
+        line: "{{ item.line }}"
+        state: present
+        create: true
+      with_items: "{{ tmux_entries }}"

@@ -1,0 +1,11 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+platforms:
+  - name: opdk-monetization-multi-node
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

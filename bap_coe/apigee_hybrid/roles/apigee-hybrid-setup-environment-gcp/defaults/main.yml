@@ -1,0 +1,17 @@
+---
+# defaults file for roles/apigee-hybrid-setup-environment-gcp
+DEFAULT_SYSTEM_TOOLS:
+- 'google-cloud-sdk-kpt'
+- 'google-cloud-sdk'
+
+DEFAULT_GCP_SYSTEM_TOOLS:
+  - gnupg2
+  - ca-certificates
+  - apt-transport-https
+
+DEFAULT_APT_REPOSITORIES: []
+#  - "deb https://packages.cloud.google.com/apt cloud-sdk main"
+#  - "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+
+DEFAULT_APT_REPOSITORIES_KEYS:
+  - https://packages.cloud.google.com/apt/doc/apt-key.gpg
