@@ -3,6 +3,12 @@
 install_pyenv() {
   curl https://pyenv.run | bash
   exec $SHELL
+  $SUDO pip install setuptools -U
+  $SUDO pip install ansible -U
+  $SUDO pip install netaddr -U
+  $SUDO pip install dnspython -U
+  $SUDO pip install passlib -U
+  $SUDO pip install bcrypt -U
 }
 
 install_pip() {
