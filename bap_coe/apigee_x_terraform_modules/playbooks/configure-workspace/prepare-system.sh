@@ -10,10 +10,9 @@ install_pyenv() {
 
   source ~/.bashrc
   export PYENV_ROOT="$HOME/.pyenv"
-  export PROMPT_COMMAND="__bp_precmd_invoke_cmd _pyenv_virtualenv_hook __bp_interactive_mode"
   command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
   pyenv init
-  pyenv virtualenv-init
+#  pyenv virtualenv-init
   pyenv install 3.10.2
   pyenv virtualenv 3.10.2 apigee
   pyenv activate apigee
