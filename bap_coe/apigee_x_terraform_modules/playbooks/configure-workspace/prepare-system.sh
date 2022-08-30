@@ -7,7 +7,11 @@ install_pyenv() {
   echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
   echo 'eval "$(pyenv init -)"' >> ~/.bashrc
   echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-  exec $SHELL
+
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
   pyenv install 3.10.2
   pyenv virtualenv 3.10.2 apigee
   pyenv activate apigee
@@ -18,6 +22,8 @@ install_pyenv() {
   $SUDO pip install dnspython -U
   $SUDO pip install passlib -U
   $SUDO pip install bcrypt -U
+
+  exec $SHELL
 }
 
 install_pip() {
