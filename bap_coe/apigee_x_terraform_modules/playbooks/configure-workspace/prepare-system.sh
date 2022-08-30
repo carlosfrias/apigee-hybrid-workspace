@@ -24,8 +24,8 @@ install_pip() {
 prepare_dev() {
     $SUDO apt update -y
     $SUDO apt dist-upgrade -y
-    $SUDO apt install software-properties-common curl git mc vim facter aptitude python3-apt python3-apt-dbg python-apt-doc python-apt-common -y
-    [ $(uname -m) == "aarch64" ] && $SUDO apt install gcc libffi-dev libssl-dev make -y
+    $SUDO apt install software-properties-common curl git mc vim facter aptitude -y
+#    [ $(uname -m) == "aarch64" ] && $SUDO apt install gcc libffi-dev libssl-dev make -y
 
     PYTHON_BIN=/usr/bin/python
     install_pyenv
