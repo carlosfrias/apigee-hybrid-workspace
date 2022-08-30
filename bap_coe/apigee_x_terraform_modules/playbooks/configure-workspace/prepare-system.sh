@@ -20,8 +20,6 @@ install_pyenv() {
   $SUDO pip install dnspython -U
   $SUDO pip install passlib -U
   $SUDO pip install bcrypt -U
-
-  exec $SHELL
 }
 
 install_pip() {
