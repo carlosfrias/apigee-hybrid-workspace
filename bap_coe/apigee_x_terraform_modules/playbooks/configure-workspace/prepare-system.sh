@@ -15,6 +15,18 @@ install_pip() {
   $SUDO pip install bcrypt -U
 }
 
+prepare_ubuntu_dev() {
+    $SUDO apt update -y
+    $SUDO apt dist-upgrade -y
+    $SUDO apt install software-properties-common curl git mc vim facter python python-is-python3 aptitude -y
+    [ $(uname -m) == "aarch64" ] && $SUDO apt install gcc python-dev libffi-dev libssl-dev make -y
+
+    PYTHON_BIN=/usr/bin/python
+    install_pip
+    $SUDO pip install python-apt -U
+
+}
+
 prepare_ubuntu() {
   $SUDO apt update -y
   $SUDO apt dist-upgrade -y
