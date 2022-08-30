@@ -43,10 +43,6 @@ prepare_ubuntu() {
   install_pip
   $SUDO pip install python-apt -U
 
-  set +x
-  echo
-  echo "   Ubuntu Sytem ready for nextcloud."
-  echo
   ansible --version
 }
 
@@ -60,10 +56,6 @@ prepare_debian() {
   install_pip
   $SUDO pip install python-apt -U
 
-  set +x
-  echo
-  echo "   Debian Sytem ready for nextcloud."
-  echo
   ansible --version
 }
 
@@ -74,10 +66,6 @@ prepare_raspbian() {
   PYTHON_BIN=/usr/bin/python
   install_pip
 
-  set +x
-  echo
-  echo "   Rasbpian System ready for nextcloud."
-  echo
   ansible --version
 }
 
@@ -89,10 +77,6 @@ prepare_centos() {
   PYTHON_BIN=/usr/bin/python
   install_pip
 
-  set +x
-  echo
-  echo "   CentOS Sytem ready for nextcloud."
-  echo
   ansible --version
 }
 
@@ -104,10 +88,6 @@ prepare_fedora() {
   install_pip
   $SUDO dnf reinstall python3-pip -y
 
-  set +x
-  echo
-  echo "   Fedora Sytem ready for nextcloud."
-  echo
   ansible --version
 }
 
@@ -119,10 +99,6 @@ prepare_amzn() {
   PYTHON_BIN=/usr/bin/python
   install_pip
 
-  set +x
-  echo
-  echo "   Amazon Linux 2 ready for nextcloud."
-  echo
   ansible --version
 }
 
@@ -148,24 +124,24 @@ else
 fi
 
 case $ID in
-'ubuntu')
-  prepare_ubuntu
-  ;;
-'debian')
-  prepare_debian
-  ;;
-'raspbian')
-  prepare_raspbian
-  ;;
-'centos')
-  prepare_centos
-  ;;
-'fedora')
-  prepare_fedora
-  ;;
-'amzn')
-  prepare_amzn
-  ;;
+#'ubuntu')
+#  prepare_ubuntu
+#  ;;
+#'debian')
+#  prepare_debian
+#  ;;
+#'raspbian')
+#  prepare_raspbian
+#  ;;
+#'centos')
+#  prepare_centos
+#  ;;
+#'fedora')
+#  prepare_fedora
+#  ;;
+#'amzn')
+#  prepare_amzn
+#  ;;
 'dev')
   prepare_dev
   ;;
