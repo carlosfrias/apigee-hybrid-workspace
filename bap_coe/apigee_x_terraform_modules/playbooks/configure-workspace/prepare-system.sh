@@ -10,8 +10,6 @@ install_pyenv() {
 
   export PYENV_ROOT="$HOME/.pyenv"
   command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
   pyenv install 3.10.2
   pyenv virtualenv 3.10.2 apigee
   pyenv activate apigee
