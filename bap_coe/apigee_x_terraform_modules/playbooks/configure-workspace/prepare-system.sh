@@ -9,6 +9,10 @@ install_pyenv() {
   echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 
   source ~/.bashrc
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  pyenv init
+  pyenv virtualenv-init
   pyenv install 3.10.2
   pyenv virtualenv 3.10.2 apigee
   pyenv activate apigee
