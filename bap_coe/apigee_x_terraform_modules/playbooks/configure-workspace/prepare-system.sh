@@ -15,7 +15,7 @@ install_pip() {
   $SUDO pip install bcrypt -U
 }
 
-prepare_ubuntu_dev() {
+prepare_dev() {
     $SUDO apt update -y
     $SUDO apt dist-upgrade -y
     $SUDO apt install software-properties-common curl git mc vim facter python python-is-python3 aptitude -y
@@ -159,6 +159,9 @@ case $ID in
   ;;
 'amzn')
   prepare_amzn
+  ;;
+'dev')
+  prepare_dev
   ;;
 
 *)
