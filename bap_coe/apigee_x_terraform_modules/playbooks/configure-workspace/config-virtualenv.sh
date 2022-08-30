@@ -2,4 +2,4 @@
 pyenv install 3.10.2
 pyenv virtualenv 3.10.2 apigee
 pyenv activate apigee
-pip install -r .requirements.txt
+pip install -r ./requirements.txt
