@@ -32,4 +32,3 @@
 
   roles:
     - { role: key_value_updates }
-    - { role: google_cloud_sdk_installer }
