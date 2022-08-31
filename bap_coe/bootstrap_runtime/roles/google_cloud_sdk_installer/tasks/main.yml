@@ -1,0 +1,18 @@
+---
+# tasks file for terraform_installer
+- name: Download repo key
+  get_url:
+    url:  "{{ cloud_google_gpg_key_url }}"
+    dest: "{{ cloud_google_gpg_path }}"
+
+- name: Add repository
+  apt_repository:
+    repo: "{{ cloud_google_repo_config }}"
+    state: present
+    filename
+
+- name: Update system packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ system_packages }}"
