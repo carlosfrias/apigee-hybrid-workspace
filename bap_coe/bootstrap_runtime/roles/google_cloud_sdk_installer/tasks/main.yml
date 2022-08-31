@@ -12,10 +12,10 @@
       url:  "{{ cloud_google_gpg_key_url }}"
       dest: "{{ cloud_google_gpg_path }}"
 
-#  - name: Add repo key
-#    apt_key:
-#      url: "{{ cloud_google_gpg_key_url }}"
-#      state: present
+  - name: Add repo key
+    apt_key:
+      url: "{{ cloud_google_gpg_key_url }}"
+      state: present
 
   - name: Add repository
     ansible.builtin.apt_repository:
