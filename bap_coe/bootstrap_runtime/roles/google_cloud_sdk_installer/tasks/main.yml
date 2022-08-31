@@ -28,7 +28,12 @@
     state: present
     update_cache: yes
 
+#- name: Install gcloud
+#  shell: |
+#    echo "deb [signed-by={{ cloud_google_gpg_path }}] {{ cloud_google_repo_url }} cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+#    && curl {{ cloud_google_gpg_key_url }} | apt-key --keyring {{ cloud_google_gpg_path }}  add -
+#    && apt-get update -y &&
+#    apt-get install google-cloud-cli -y
 
-#  RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | tee /usr/share/keyrings/cloud.google.gpg && apt-get update -y && apt-get install google-cloud-sdk -y
 
 
