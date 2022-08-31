@@ -2,8 +2,9 @@ FROM python:3.10.2
 WORKDIR /usr/local/src
 RUN git clone https://github.com/carlosfrias/apigee-hybrid-workspace.git
 WORKDIR /usr/local/src/apigee-hybrid-workspace
-RUN git checkout master \
-    && git pull 
+RUN git config pull.ff only \
+    && git checkout master \
+    && git pull
 
 RUN apt-get update -y \
     && apt-get install software-properties-common curl git mc vim facter aptitude -y
