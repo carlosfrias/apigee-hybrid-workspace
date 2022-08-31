@@ -8,4 +8,4 @@
     remote_user: friasc
 
   roles:
-  - { role: apigee-opdk-setup-ansible-controller }
+  - { role: apigee_opdk_setup_ansible_controller }
