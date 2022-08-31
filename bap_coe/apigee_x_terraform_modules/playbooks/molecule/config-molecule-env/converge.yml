@@ -2,6 +2,7 @@
 - name: Update molecule variables
   hosts: localhost
   connection: local
+  become: true
 
   vars_files:
   - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
