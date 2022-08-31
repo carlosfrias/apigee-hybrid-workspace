@@ -12,7 +12,9 @@
     filename: "{{ cloud_google_gpg_path | basename }}"
 
 - name: Update system packages
-  package:
+  apt:
     name: "{{ item }}"
     state: present
   with_items: "{{ system_packages }}"
+
+  
