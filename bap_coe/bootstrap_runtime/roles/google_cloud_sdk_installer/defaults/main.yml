@@ -5,7 +5,7 @@ system_packages:
   - ca-certificates
   - gnupg
 
-cloud_google_gpg_key_url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+cloud_google_gpg_key_url: "https://packages.cloud.google.com/apt/dists/cloud-sdk/Release.gpg"
 cloud_google_gpg_path: "/usr/share/keyrings/cloud.google.gpg"
 cloud_google_repo_url: "https://packages.cloud.google.com/apt"
 cloud_google_repo_config: "deb [signed-by={{ cloud_google_gpg_path }}] {{ cloud_google_repo_url }} cloud-sdk InRelease"
