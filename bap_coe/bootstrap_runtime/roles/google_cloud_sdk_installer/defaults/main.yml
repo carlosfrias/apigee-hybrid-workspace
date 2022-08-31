@@ -4,7 +4,6 @@ system_packages:
   - apt-transport-https
   - ca-certificates
   - gnupg
-  - google-cloud-cli
 
 cloud_google_gpg_key_url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
 cloud_google_gpg_path: "/usr/share/keyrings/cloud.google.gpg"

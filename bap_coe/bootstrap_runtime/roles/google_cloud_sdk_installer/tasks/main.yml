@@ -1,24 +1,30 @@
 ---
 # tasks file for terraform_installer
-- name: Download repo key
-  get_url:
-    url:  "{{ cloud_google_gpg_key_url }}"
-    dest: "{{ cloud_google_gpg_path }}"
-
-#- name: Add repo key
-#  apt_key:
-#    url: "{{ cloud_google_gpg_key_url }}"
-#    state: present
-
-- name: Add repository
-  apt_repository:
-    repo: "{{ cloud_google_repo_config }}"
-    state: present
-    filename: "{{ cloud_google_gpg_path | basename }}"
-
 - name: Update system packages
   apt:
     name: "{{ item }}"
     state: present
   with_items: "{{ system_packages }}"
+
+- name: Download repo key
+  get_url:
+    url:  "{{ cloud_google_gpg_key_url }}"
+    dest: "{{ cloud_google_gpg_path }}"
+
+- name: Add repo key
+  apt_key:
+    url: "{{ cloud_google_gpg_key_url }}"
+    state: present
+
+- name: Add repository
+  apt_repository:
+    repo: "{{ cloud_google_repo_config }}"
+    state: present
+    filename: "google-cloud-sdk.list"
+
+- name: Install gcloud
+  apt:
+    name: google-cloud-cli
+    state: present
+
 
