@@ -6,34 +6,34 @@
     state: present
   with_items: "{{ system_packages }}"
 
-- block:
-  - name: Download repo key
-    ansible.builtin.get_url:
-      url:  "{{ cloud_google_gpg_key_url }}"
-      dest: "{{ cloud_google_gpg_path }}"
-
-  - name: Add repo key
-    apt_key:
-      url: "{{ cloud_google_repo_url }}"
-      state: present
-
-  - name: Add repository
-    ansible.builtin.apt_repository:
-      repo: "{{ cloud_google_repo_config }}"
-      state: present
-
-- name: Install gcloud
-  apt:
-    name: google-cloud-cli
-    state: present
-    update_cache: yes
-
+#- block:
+#  - name: Download repo key
+#    ansible.builtin.get_url:
+#      url:  "{{ cloud_google_gpg_key_url }}"
+#      dest: "{{ cloud_google_gpg_path }}"
+#
+#  - name: Add repo key
+#    apt_key:
+#      url: "{{ cloud_google_repo_url }}"
+#      state: present
+#
+#  - name: Add repository
+#    ansible.builtin.apt_repository:
+#      repo: "{{ cloud_google_repo_config }}"
+#      state: present
+#
 #- name: Install gcloud
-#  shell: |
-#    echo "deb [signed-by={{ cloud_google_gpg_path }}] {{ cloud_google_repo_url }} cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-#    && curl {{ cloud_google_gpg_key_url }} | apt-key --keyring {{ cloud_google_gpg_path }}  add -
-#    && apt-get update -y &&
-#    apt-get install google-cloud-cli -y
+#  apt:
+#    name: google-cloud-cli
+#    state: present
+#    update_cache: yes
+#
+- name: Install gcloud
+  shell: |
+    echo "deb [signed-by={{ cloud_google_gpg_path }}] {{ cloud_google_repo_url }} cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+    && curl {{ cloud_google_gpg_key_url }} | apt-key --keyring {{ cloud_google_gpg_path }}  add -
+    && apt-get update -y &&
+    apt-get install google-cloud-cli -y
 
 
 
