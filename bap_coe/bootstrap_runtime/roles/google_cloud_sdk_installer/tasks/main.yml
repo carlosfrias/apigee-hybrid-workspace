@@ -18,7 +18,7 @@
 #      state: present
 
   - name: Add repository
-    ansible.bultin.apt_repository:
+    ansible.builtin.apt_repository:
       repo: "{{ cloud_google_repo_config }}"
       state: present
 
