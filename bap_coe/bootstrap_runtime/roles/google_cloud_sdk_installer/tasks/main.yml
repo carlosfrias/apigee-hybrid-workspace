@@ -9,7 +9,7 @@
   apt_repository:
     repo: "{{ cloud_google_repo_config }}"
     state: present
-    filename
+    filename: "{{ cloud_google_gpg_path | basename }}"
 
 - name: Update system packages
   package:
