@@ -29,8 +29,7 @@ RUN bash /root/.bashrc
 RUN $(which pip) install pip -U
 WORKDIR /usr/local/src/apigee-hybrid-workspace/bap_coe/apigee_x_terraform_modules/playbooks
 RUN $(which pip) install -r ./configure-workspace/requirements.txt
-RUN cp molecule/shared/defaults.yml override.yml \
-    && mkdir -p /root/.apigee-secure \
+RUN mkdir -p /root/.apigee-secure \
     && touch /root/.apigee-secure/argolis-credentials.yml \
     && echo 'GCLOUD_ACCOUNT_USER: "CHANGE_ME"' >> /root/.apigee-secure/argolis-credentials.yml \
     && echo 'GCLOUD_ACCOUNT_DOMAIN: "CHANGE_ME"' >> /root/.apigee-secure/argolis-credentials.yml \
