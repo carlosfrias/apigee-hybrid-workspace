@@ -38,9 +38,9 @@ RUN cp molecule/shared/defaults.yml override.yml \
     && echo 'GCLOUD_ORG_ID: "CHANGE_ME"' >> /root/.apigee-secure/argolis-credentials.yml \
     && echo 'GCLOUD_PROJECT_ID: "x-l7xlb"' >> override.yml \
     && echo 'PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08302022-1221"' >> override.yml \
-    && echo 'TERRAFORM_PROJECT_NAME: x-l7xlb' >> override.yml \
-    && echo 'TERRAFORM_VAR_FILE: x-demo.tfvars' >> override.yml \
-    && echo 'TERRAFORM_LOG: "DEBUG"
+    && echo 'TERRAFORM_PROJECT_NAME: "x-l7xlb"' >> override.yml \
+    && echo 'TERRAFORM_VAR_FILE: "x-demo.tfvars"' >> override.yml \
+    && echo 'TERRAFORM_LOG: "DEBUG"'
 
 CMD /root/.pyenv/bin/pyenv activate apigee
 
