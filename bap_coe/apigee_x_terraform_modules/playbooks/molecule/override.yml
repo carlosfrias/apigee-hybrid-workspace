@@ -1,8 +1,6 @@
 ---
 # Attributes to be set in override.yml
-GCLOUD_PROJECT_ID: "x-l7xlb"
-PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08302022-1221"
 TERRAFORM_PROJECT_NAME: x-l7xlb
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-09012022-1519"
 TERRAFORM_VAR_FILE: x-demo.tfvars
 TERRAFORM_LOG: "DEBUG"
-FOLDER_DISPLAY_NAME: apigeex

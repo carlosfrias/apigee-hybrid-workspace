@@ -6,10 +6,12 @@
 #GCLOUD_ORG_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
 
 # Attributes to be set in override.yml
-TERRAFORM_PROJECT_NAME: x-l7xlb
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-08302022-1221"
-TERRAFORM_VAR_FILE: x-demo.tfvars
-TERRAFORM_LOG: "DEBUG"
+#TERRAFORM_PROJECT_NAME: x-l7xlb
+#PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-09012022-1221"
+#TERRAFORM_VAR_FILE: x-demo.tfvars
+#TERRAFORM_LOG: "DEBUG"
+
+FOLDER_DISPLAY_NAME: apigeex
 
 GCLOUD_ACCOUNT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
 GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
