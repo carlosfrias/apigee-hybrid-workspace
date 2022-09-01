@@ -8,6 +8,7 @@
   - ~/.apigee-secure/argolis-credentials.yml
   - "{{ playbook_dir | dirname }}/shared/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/override.yml"
+  - "{{ playbook_dir | dirname }}/shared/defaults-calculated.yml"
 
   vars:
     key_value_pairs:
