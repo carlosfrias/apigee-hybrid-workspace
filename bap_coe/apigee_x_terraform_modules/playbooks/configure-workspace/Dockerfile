@@ -36,7 +36,7 @@ RUN mkdir -p /root/.apigee-secure \
     && echo 'BILLING_ID: "CHANGE_ME"' >> /root/.apigee-secure/argolis-credentials.yml \
     && echo 'GCLOUD_ORG_ID: "CHANGE_ME"' >> /root/.apigee-secure/argolis-credentials.yml \
     && echo 'TERRAFORM_PROJECT_NAME: "x-l7xlb"' > override.yml \
-    && echo 'PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split(\\'-\\') | join(\\'\\') }}-09012022-1522"' >> override.yml \
-    && echo 'TERRAFORM_VAR_FILE: "x-demo.tfvars"' >> override.yml 
+    && echo 'PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split(\'-\') | join(\'\') }}-09012022-1522"' >> override.yml \
+    && echo 'TERRAFORM_VAR_FILE: "x-demo.tfvars"' >> override.yml
 CMD /root/.pyenv/bin/pyenv activate apigee
 
