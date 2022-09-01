@@ -35,6 +35,7 @@ INVENTORY_FILENAME: "ansible_inventory.yml"
 GITHUB_REPO_URL: https://github.com/apigee/terraform-modules.git
 GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-projects"
 
+TERRAFORM_LOG_LEVEL: "DEBUG"
 TERRAFORM_PATH_PROJECT: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
 TERRAFORM_VAR_FILE_PATH: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}"
 
