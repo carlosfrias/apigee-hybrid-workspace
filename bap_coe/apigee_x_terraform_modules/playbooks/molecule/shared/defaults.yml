@@ -1,9 +1,9 @@
 ---
 # Attributes to be set in a protected credentials file not stored with scripts
- GCLOUD_ACCOUNT_USER: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
- GCLOUD_ACCOUNT_DOMAIN: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
- BILLING_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
- GCLOUD_ORG_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
+GCLOUD_ACCOUNT_USER: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
+GCLOUD_ACCOUNT_DOMAIN: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
+BILLING_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
+GCLOUD_ORG_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
 
 # Attributes to be set in override.yml
 GCLOUD_PROJECT_ID: "x-l7xlb"
