@@ -29,12 +29,12 @@ RUN bash /root/.bashrc
 RUN $(which pip) install pip -U
 WORKDIR /usr/local/src/apigee-hybrid-workspace/bap_coe/apigee_x_terraform_modules/playbooks
 RUN $(which pip) install -r ./configure-workspace/requirements.txt
-RUN cp molecule/shared/attributes.yml.template attributes.yml \
+RUN cp molecule/shared/defaults.yml override.yml \
     && mkdir -p /root/.apigee-secure \
-    && touch /root/.apigee-secure/apigee-hybrid-sensitive-attributes.yml \
-    && echo 'GCLOUD_ACCOUNT_USER: "CHANGE_ME"' >> /root/.apigee-secure/apigee-hybrid-sensitive-attributes.yml \
-    && echo 'GCLOUD_ACCOUNT_DOMAIN: "CHANGE_ME"' >> /root/.apigee-secure/apigee-hybrid-sensitive-attributes.yml \
-    && echo 'BILLING_ID: "CHANGE_ME"' >> /root/.apigee-secure/apigee-hybrid-sensitive-attributes.yml \
-    && echo 'GCLOUD_ORG_ID: "CHANGE_ME"' >> /root/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
+    && touch /root/.apigee-secure/apigee-hybrid-sensitive-override.yml \
+    && echo 'GCLOUD_ACCOUNT_USER: "CHANGE_ME"' >> /root/.apigee-secure/apigee-hybrid-sensitive-override.yml \
+    && echo 'GCLOUD_ACCOUNT_DOMAIN: "CHANGE_ME"' >> /root/.apigee-secure/apigee-hybrid-sensitive-override.yml \
+    && echo 'BILLING_ID: "CHANGE_ME"' >> /root/.apigee-secure/apigee-hybrid-sensitive-override.yml \
+    && echo 'GCLOUD_ORG_ID: "CHANGE_ME"' >> /root/.apigee-secure/apigee-hybrid-sensitive-override.yml
 CMD /root/.pyenv/bin/pyenv activate apigee
 

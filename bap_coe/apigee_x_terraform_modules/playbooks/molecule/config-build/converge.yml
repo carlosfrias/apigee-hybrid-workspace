@@ -5,8 +5,9 @@
   become: true
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-  - "{{ playbook_dir | dirname | dirname }}/attributes.yml"
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname }}/shared/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/override.yml"
 
   vars:
     key_value_pairs:
