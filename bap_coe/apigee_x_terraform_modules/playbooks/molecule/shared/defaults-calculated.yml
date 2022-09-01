@@ -3,8 +3,8 @@ WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ GCLOUD_PROJECT_ID 
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
 INVENTORY_FILENAME: "ansible_inventory.yml"
-#GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
 
+#GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
 GITHUB_REPO_URL: https://github.com/apigee/terraform-modules.git
 GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-projects"
 
