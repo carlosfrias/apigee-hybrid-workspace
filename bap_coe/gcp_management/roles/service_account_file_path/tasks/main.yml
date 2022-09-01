@@ -1,7 +1,7 @@
 ---
 # tasks file for service_account_file_path
 
-- name: Assert work directory
+- name: create work directory
   file:
     path: "{{ WORK_DIR }}/credentials"
     state: directory

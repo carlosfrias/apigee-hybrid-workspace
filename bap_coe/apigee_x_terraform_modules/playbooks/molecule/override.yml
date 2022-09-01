@@ -5,3 +5,5 @@ PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08302022-122
 TERRAFORM_PROJECT_NAME: x-l7xlb
 TERRAFORM_VAR_FILE: x-demo.tfvars
 TERRAFORM_LOG: "DEBUG"
+FOLDER_DISPLAY_NAME: apigeex
+WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ GCLOUD_PROJECT_ID }}"

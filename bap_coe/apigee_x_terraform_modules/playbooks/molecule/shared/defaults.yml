@@ -6,11 +6,11 @@
 #GCLOUD_ORG_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
 
 # Attributes to be set in override.yml
-#GCLOUD_PROJECT_ID: "x-l7xlb"
-#PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08302022-1221"
-#TERRAFORM_PROJECT_NAME: x-l7xlb
-#TERRAFORM_VAR_FILE: x-demo.tfvars
-#TERRAFORM_LOG: "DEBUG"
+GCLOUD_PROJECT_ID: "x-l7xlb"
+PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08302022-1221"
+TERRAFORM_PROJECT_NAME: x-l7xlb
+TERRAFORM_VAR_FILE: x-demo.tfvars
+TERRAFORM_LOG: "DEBUG"
 
 GCLOUD_ACCOUNT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
 GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
@@ -24,8 +24,8 @@ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ 
 
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
-FOLDER_DISPLAY_NAME: apigeex
-WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
+#FOLDER_DISPLAY_NAME: apigeex
+#WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ GCLOUD_PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
 INVENTORY_FILENAME: "ansible_inventory.yml"
