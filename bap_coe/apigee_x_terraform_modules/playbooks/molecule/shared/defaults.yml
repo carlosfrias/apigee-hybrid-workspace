@@ -1,16 +1,16 @@
 ---
 # Attributes to be set in a protected credentials file not stored with scripts
-GCLOUD_ACCOUNT_USER: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
-GCLOUD_ACCOUNT_DOMAIN: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
-BILLING_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
-GCLOUD_ORG_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
+#GCLOUD_ACCOUNT_USER: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
+#GCLOUD_ACCOUNT_DOMAIN: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
+#BILLING_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
+#GCLOUD_ORG_ID: "CHANGE_ME_IN_apigee_x_hybrid_credentials"
 
 # Attributes to be set in override.yml
-GCLOUD_PROJECT_ID: "x-l7xlb"
-PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08302022-1221"
-TERRAFORM_PROJECT_NAME: x-l7xlb
-TERRAFORM_VAR_FILE: x-demo.tfvars
-TERRAFORM_LOG: "DEBUG"
+#GCLOUD_PROJECT_ID: "x-l7xlb"
+#PROJECT_ID: "friasc-{{ GCLOUD_PROJECT_ID | split('-') | join('') }}-08302022-1221"
+#TERRAFORM_PROJECT_NAME: x-l7xlb
+#TERRAFORM_VAR_FILE: x-demo.tfvars
+#TERRAFORM_LOG: "DEBUG"
 
 GCLOUD_ACCOUNT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
 GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
