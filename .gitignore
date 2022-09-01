@@ -17,4 +17,5 @@ transaction.yaml
 **/ansible.cfg
 **/attributes.yml
 **/.env.yml
+**/overrides.yml
 
