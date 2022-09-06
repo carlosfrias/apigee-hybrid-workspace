@@ -2,7 +2,6 @@
 - name: Update molecule variables
   hosts: localhost
   connection: local
-  become: true
 
   vars_files:
   - ~/.apigee-secure/argolis-credentials.yml
