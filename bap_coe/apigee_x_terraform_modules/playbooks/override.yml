@@ -1,5 +1,5 @@
 ---
 # Attributes to be set in override.yml
 TERRAFORM_PROJECT_NAME: "x-l7xlb"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-09012022-1409"
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-09012022-1933"
 TERRAFORM_VAR_FILE: "x-demo.tfvars"
