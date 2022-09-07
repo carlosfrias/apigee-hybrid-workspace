@@ -1,3 +1,8 @@
+#
+# Usage instructions
+# Building this Dockerfile
+# docker built -t apigee-build .&& docker run -ti apigee-build:latest bash
+#
 FROM python:3.10.2
 WORKDIR /usr/local/src
 RUN git clone https://github.com/carlosfrias/apigee-hybrid-workspace.git
