@@ -36,4 +36,3 @@ RUN mkdir -p /root/.apigee-secure \
     && echo 'BILLING_ID: "CHANGE_ME"' >> /root/.apigee-secure/argolis-credentials.yml \
     && echo 'GCLOUD_ORG_ID: "CHANGE_ME"' >> /root/.apigee-secure/argolis-credentials.yml
 CMD /root/.pyenv/bin/pyenv activate apigee
-
