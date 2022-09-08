@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: config-inventory
+  - name: config-gce-inventory
 provisioner:
   name: ansible
   playbooks:

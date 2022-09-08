@@ -16,17 +16,17 @@
     peering_range: "10.0.0.0/22"
     support_range: "10.1.0.0/28"
     key_value_pairs:
-    - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "euw1-instance", value: 'use1-instance', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: '"europe-west1"', value: '"{{ GCP_REGION }}"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "apigee_environments", value: '["test1", "test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "peering_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: "support_range", value: '"{{ support_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: '"backend-euw1"', value: '"backend-use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: '"psc-nat-euw1"', value: '"psc-nat-use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-    - { key: '"europe-west1"', value: '"us-east1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
-#    - { key: '"test.api.example.com"', value: '"test-{{ PROJECT_ID }}.api.example.com"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars" }
+    - { key: "project_id", value: '"{{ PROJECT_ID }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+    - { key: "euw1-instance", value: 'use1-instance', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+    - { key: '"europe-west1"', value: '"{{ GCP_REGION }}"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+    - { key: "ax_region", value: '"{{ GCP_REGION }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+    - { key: "apigee_environments", value: '["test1", "test2"]', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+    - { key: "peering_range", value: '"{{ peering_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+    - { key: "support_range", value: '"{{ support_range }}"', separator: "=", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+    - { key: '"backend-euw1"', value: '"backend-use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+    - { key: '"psc-nat-euw1"', value: '"psc-nat-use1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+    - { key: '"europe-west1"', value: '"us-east1"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
+#    - { key: '"test.api.example.com"', value: '"test-{{ PROJECT_ID }}.api.example.com"', separator: "", type: "arg", file_name: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}" }
 
   roles:
   - { role: terraform_installer }

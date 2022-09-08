@@ -10,7 +10,6 @@
 #PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-09012022-1221"
 #TERRAFORM_VAR_FILE: x-demo.tfvars
 #TERRAFORM_LOG: "DEBUG"
-
 #FOLDER_DISPLAY_NAME: apigeex
 
 GCLOUD_ACCOUNT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
@@ -25,7 +24,6 @@ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ 
 
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
-#FOLDER_DISPLAY_NAME: apigeex
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
 INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
@@ -130,21 +128,22 @@ GCLOUD_PROJECT_SERVICES:
 - "dns.googleapis.com"
 - "cloudkms.googleapis.com"
 - "sourcerepo.googleapis.com"
-#- "container.googleapis.com"
-#- "stackdriver.googleapis.com"
-#- "meshca.googleapis.com"
-#- "meshtelemetry.googleapis.com"
-#- "meshconfig.googleapis.com"
-#- "anthos.googleapis.com"
-#- "gkeconnect.googleapis.com"
-#- "gkehub.googleapis.com"
-#- "cloudbuild.googleapis.com"
-#- "secretmanager.googleapis.com"
-#- "pubsub.googleapis.com"
-#- "monitoring.googleapis.com"
-#- "logging.googleapis.com"
-#- "cloudtrace.googleapis.com"
-#- "privateca.googleapis.com"
+- "container.googleapis.com"
+- "containerregistry.googleapis.com"
+- "stackdriver.googleapis.com"
+- "meshca.googleapis.com"
+- "meshtelemetry.googleapis.com"
+- "meshconfig.googleapis.com"
+- "anthos.googleapis.com"
+- "gkeconnect.googleapis.com"
+- "gkehub.googleapis.com"
+- "cloudbuild.googleapis.com"
+- "secretmanager.googleapis.com"
+- "pubsub.googleapis.com"
+- "monitoring.googleapis.com"
+- "logging.googleapis.com"
+- "cloudtrace.googleapis.com"
+- "privateca.googleapis.com"
 
 firewall_ports:
 - { allow_ports: ['22'], port_name_suffix: 'control-server' }
