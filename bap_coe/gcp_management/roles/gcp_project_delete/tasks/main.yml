@@ -24,13 +24,13 @@
 
 - name: Delete WORK_DIR folder
   file:
-    path: "{{ work_dir_path.stat.path }}/{{ PROJECT_ID }}"
+    path: "{{ work_dir_path.stat.path }}/"
     state: absent
   when: work_dir_path.stat.exists
 
 - name: Assert that inventory exists in anticipation of folder removal
   stat:
-    path: "{{ playbook_dir }}/inventory/"
+    path: "{{ playbook_dir }}/inventory"
   register: status
 
 - name: Delete inventory folder removal
