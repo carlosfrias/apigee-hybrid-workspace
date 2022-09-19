@@ -1,0 +1,20 @@
+---
+- name: Configure permissions and service accounts
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/override.yml"
+  - "{{ playbook_dir | dirname }}/shared/defaults.yml"
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: service_account_file_path }
+  - { role: gcp_iam_service_account_keys }
+  - { role: service_account_file_processing }
+  - { role: gcp_auth_service_account_activate }
+
