@@ -9,9 +9,9 @@
 - name: Set active account
   shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
 
-- name: Delete Cloud Repository for GCP Project
-  ignore_errors: true
-  shell: gcloud source repos delete config-repo --project {{ PROJECT_ID }}
+#- name: Delete Cloud Repository for GCP Project
+#  ignore_errors: true
+#  shell: gcloud source repos delete config-repo --project {{ PROJECT_ID }}
 
 - name: Delete GCP project
   ignore_errors: true
