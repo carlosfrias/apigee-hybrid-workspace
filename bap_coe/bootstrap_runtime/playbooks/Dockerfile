@@ -42,7 +42,7 @@ CMD bash
 FROM basic_bootstrap
 WORKDIR /bootstrap-runtime
 RUN bash -l /root/.bashrc
-RUN pyenv activate apigee
+RUN /root/.pyenv/bin/pyenv activate apigee
 RUN pip install -r resources/requirements.txt
 
 
