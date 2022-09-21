@@ -39,6 +39,7 @@ COPY resources /bootstrap-runtime/resources
 COPY override.yml /bootstrap-runtime/override.yml
 
 RUN export PATH="$HOME/.pyenv/bin:$PATH" && echo $PATH
+RUN cat $HOME/.bashrc
 RUN eval "$(pyenv init -)"
 CMD eval "$(pyenv virtualenv-init -)"
 
