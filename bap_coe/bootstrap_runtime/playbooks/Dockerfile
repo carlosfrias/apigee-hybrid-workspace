@@ -39,10 +39,4 @@ COPY resources /bootstrap-runtime/resources
 COPY override.yml /bootstrap-runtime/override.yml
 CMD bash
 
-FROM basic_bootstrap
-WORKDIR /bootstrap-runtime
-RUN bash -l /root/.bashrc
-RUN /root/.pyenv/bin/pyenv activate apigee
-RUN pip install -r resources/requirements.txt
-
 
