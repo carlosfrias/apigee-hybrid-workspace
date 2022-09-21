@@ -45,7 +45,7 @@ CMD eval "$(pyenv virtualenv-init -)"
 FROM basic_bootstrap
 WORKDIR /bootstrap-runtime
 RUN bash -l
-RUN $(which pyenv) activate apigee
+RUN /root/.pyenv/bin/pyenv activate apigee
 RUN $(which pip) install pip -U
 CMD $(which pip) install -r resources/requirements.txt
 
