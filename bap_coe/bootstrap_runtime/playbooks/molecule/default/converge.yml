@@ -1,4 +1,6 @@
 ---
+- name: Configure build
+  import_playbook: "{{ playbook_dir | dirname }}/config-build/converge.yml"
 
 - name: Provision project
   import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"

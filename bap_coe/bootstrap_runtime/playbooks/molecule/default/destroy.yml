@@ -6,18 +6,6 @@
 - name: Update organization policies - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/destroy.yml"
 
-#- name: Update services api - destroy invocation
-#  import_playbook: "{{ playbook_dir | dirname }}/config-services/destroy.yml"
-#
-#- name: Create service accounts - destroy invocation
-#  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-create/destroy.yml"
-#
-#- name: Create service account keys - destroy invocation
-#  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-keys/destroy.yml"
-#
-#- name: Update service account permissions - destroy invocation
-#  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-permissions/destroy.yml"
-
 - name: Remove config build - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/config-build/destroy.yml"
 
