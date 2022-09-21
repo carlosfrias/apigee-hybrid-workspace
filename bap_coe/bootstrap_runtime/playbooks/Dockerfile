@@ -22,13 +22,9 @@ RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /root/.bashrc \
     && echo 'eval "$(pyenv virtualenv-init -)"' >> /root/.bashrc
 
 RUN bash /root/.bashrc
-
 RUN /root/.pyenv/bin/pyenv install 3.10.2
-
 RUN /root/.pyenv/bin/pyenv global 3.10.2
-
 RUN /root/.pyenv/bin/pyenv virtualenv 3.10.2 apigee
-
 RUN bash /root/.bashrc
 
 VOLUME /bootstrap-runtime
@@ -37,6 +33,4 @@ WORKDIR /bootstrap-runtime
 COPY molecule /bootstrap-runtime/molecule
 COPY resources /bootstrap-runtime/resources
 COPY override.yml /bootstrap-runtime/override.yml
-CMD bash
-
-
+CMD bash /bootstrap-runtime/resources/config-pyenv.sh
