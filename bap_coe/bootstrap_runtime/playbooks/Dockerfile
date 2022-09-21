@@ -38,9 +38,10 @@ COPY molecule /bootstrap-runtime/molecule
 COPY resources /bootstrap-runtime/resources
 COPY override.yml /bootstrap-runtime/override.yml
 
-RUN export PATH="$HOME/.pyenv/bin:$PATH"
-RUN eval "$(pyenv init -)"
-RUN eval "$(pyenv virtualenv-init -)"
+#RUN export PATH="$HOME/.pyenv/bin:$PATH"
+#RUN eval "$(pyenv init -)"
+#RUN eval "$(pyenv virtualenv-init -)"
+RUN $HOME/.bashrc
 RUN $HOME/.pyenv/bin/pyenv activate apigee
 RUN pip install pip -U \
 
