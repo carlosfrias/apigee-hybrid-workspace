@@ -38,11 +38,9 @@ COPY molecule /bootstrap-runtime/molecule
 COPY resources /bootstrap-runtime/resources
 COPY override.yml /bootstrap-runtime/override.yml
 
+RUN source /root/.bashrc
+RUN /root/.pyenv/bin/pyenv activate apigee
+RUN pip install pip -U \
 
-#FROM basic_bootstrap
-# RUN /root/.pyenv/bin/pyenv activate apigee
-# RUN source /root/.bashrc
-# RUN pip install pip -U \
-
-# CMD pip install -r resources/requirements.txt
+CMD pip install -r resources/requirements.txt
 
