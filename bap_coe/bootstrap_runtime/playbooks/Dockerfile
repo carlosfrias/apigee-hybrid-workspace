@@ -40,8 +40,8 @@ COPY override.yml /bootstrap-runtime/override.yml
 
 
 FROM basic_bootstrap
-RUN /root/.pyenv/bin/pyenv activate apigee
-RUN source /root/.bashrc
+# RUN /root/.pyenv/bin/pyenv activate apigee
+# RUN source /root/.bashrc
 RUN pip install pip -U \
 
 CMD pip install -r resources/requirements.txt
