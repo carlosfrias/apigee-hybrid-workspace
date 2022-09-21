@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 cd /bootstrap-runtime
 pyenv activate apigee
