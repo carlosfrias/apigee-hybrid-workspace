@@ -40,7 +40,6 @@ COPY override.yml /bootstrap-runtime/override.yml
 
 
 FROM basic_bootstrap
-RUN source /root/.bashrc
 RUN $(which pip) install pip -U \
 
 CMD $(which pip) install -r resources/requirements.txt
