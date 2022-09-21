@@ -38,8 +38,7 @@ COPY molecule /bootstrap-runtime/molecule
 COPY resources /bootstrap-runtime/resources
 COPY override.yml /bootstrap-runtime/override.yml
 
-RUN export PATH="$HOME/.pyenv/bin:$PATH"
-RUN echo $PATH
+RUN export PATH="$HOME/.pyenv/bin:$PATH" && echo $PATH
 RUN eval "$(pyenv init -)"
 CMD eval "$(pyenv virtualenv-init -)"
 
