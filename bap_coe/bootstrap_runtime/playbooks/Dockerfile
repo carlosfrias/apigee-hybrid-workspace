@@ -41,7 +41,7 @@ COPY override.yml /bootstrap-runtime/override.yml
 #RUN export PATH="$HOME/.pyenv/bin:$PATH"
 #RUN eval "$(pyenv init -)"
 #RUN eval "$(pyenv virtualenv-init -)"
-RUN su -l root
+RUN su -l root -s /bin/bash
 RUN $HOME/.pyenv/bin/pyenv activate apigee
 RUN pip install pip -U \
 
