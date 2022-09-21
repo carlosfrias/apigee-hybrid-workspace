@@ -34,3 +34,5 @@ COPY molecule /bootstrap-runtime/molecule
 COPY resources /bootstrap-runtime/resources
 COPY override.yml /bootstrap-runtime/override.yml
 RUN bash -l /bootstrap-runtime/resources/config-pyenv.sh
+
+CMD pyenv activate apigee
