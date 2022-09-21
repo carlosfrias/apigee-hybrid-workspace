@@ -3,7 +3,7 @@
 # Building this Dockerfile
 # docker built -t apigee-build .&& docker run -ti apigee-build:latest bash
 #
-FROM python:3.10.2
+FROM python:3.10.2 AS basic_bootstrap
 
 RUN apt-get update -y \
     && apt-get install software-properties-common curl git mc vim facter aptitude apt-utils apt-transport-https ca-certificates gnupg -y
@@ -38,6 +38,8 @@ COPY molecule /bootstrap-runtime/molecule
 COPY resources /bootstrap-runtime/resources
 COPY override.yml /bootstrap-runtime/override.yml
 
+
+FROM basic_bootstrap
 RUN /root/.pyenv/bin/pyenv activate apigee
 RUN source /root/.bashrc
 RUN $(which pip) install pip -U \
