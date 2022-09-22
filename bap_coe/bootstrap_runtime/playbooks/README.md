@@ -42,7 +42,7 @@ The features of this bootstrap project manager will allow you to set the followi
        BILLING_ID: "CHANGE_ME"
        GCLOUD_ACCOUNT_USER: "CHANGE_ME"
 
-7. It is required that you `resources/override.yml` with your project name. 
+7. It is required that you `resources/override.yml` with your project name. Attributes defined in `resources/override.yml'
    Please note that the `FOLDER_DISPLAY_NAME` enables you to use a GCP folder under which to contain your project. 
 
        ---
@@ -68,11 +68,13 @@ The features of this bootstrap project manager will allow you to set the followi
        -v $(pwd)/resources:/bootstrap-runtime/resources:rw \
        -ti bootstrap-project bash
 
-5. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
+4. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
 
        pyenv activate apigee
 
-6. You can then execute a full build: 
+5. You can then execute a full build: 
 
        molecule converge 
 
+6. You can examine and collect the output of the invocation within the container at the location: `/bootstrap-runtime/work_dir`.
+   You can also examine and collect the output outside the container at your workspace folder: `[WORKSPACE_FOLDER]/work_dir`.
