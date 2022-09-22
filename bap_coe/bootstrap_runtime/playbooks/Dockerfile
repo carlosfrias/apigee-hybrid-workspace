@@ -31,6 +31,6 @@ VOLUME /bootstrap-runtime
 WORKDIR /bootstrap-runtime
 
 COPY molecule /bootstrap-runtime/molecule
-COPY molecule /bootstrap-runtime/resources
+COPY resources /bootstrap-runtime/resources
 RUN bash -l /bootstrap-runtime/resources/docker-helper-config-pyenv.sh
 ENTRYPOINT bash
