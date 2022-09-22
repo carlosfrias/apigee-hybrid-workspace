@@ -33,36 +33,37 @@ INVENTORY_FILENAME: "ansible_inventory.yml"
 GITHUB_REPO_URL: https://github.com/apigee/terraform-modules.git
 GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-projects"
 
-TERRAFORM_LOG_LEVEL: "DEBUG"
-TERRAFORM_PATH_PROJECT: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
-TERRAFORM_VAR_FILE_PATH: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}"
+#TERRAFORM_LOG_LEVEL: "DEBUG"
+#TERRAFORM_PATH_PROJECT: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
+#TERRAFORM_VAR_FILE_PATH: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}"
 
-TERRAFORM_PATH_BIN_DEST: "{{ TERRAFORM_PATH_PROJECT }}"
-TERRAFORM_PATH_BIN: "{{ TERRAFORM_PATH_BIN_DEST }}/terraform"
+#TERRAFORM_PATH_BIN_DEST: "{{ TERRAFORM_PATH_PROJECT }}"
+#TERRAFORM_PATH_BIN: "{{ TERRAFORM_PATH_BIN_DEST }}/terraform"
 
-TERRAFORM_LOG_PATH: "{{ WORK_DIR }}/logs"
-TERRAFORM_LOG_FILE_NAME_INIT: "terraform-{{ PROJECT_ID }}-init.log"
-TERRAFORM_LOG_FILE_NAME_INIT_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_INIT }}"
-TERRAFORM_LOG_FILE_NAME_PLAN: "terraform-{{ PROJECT_ID }}-plan.log"
-TERRAFORM_LOG_FILE_NAME_PLAN_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_PLAN }}"
-TERRAFORM_LOG_FILE_NAME_APPLY: "terraform-{{ PROJECT_ID }}-apply.log"
-TERRAFORM_LOG_FILE_NAME_APPLY_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_APPLY }}"
-TERRAFORM_LOG_FILE_NAME_DESTROY: "terraform-{{ PROJECT_ID }}-destroy.log"
-TERRAFORM_LOG_FILE_NAME_DESTROY_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_DESTROY }}"
+#TERRAFORM_LOG_PATH: "{{ WORK_DIR }}/logs"
+#TERRAFORM_LOG_FILE_NAME_INIT: "terraform-{{ PROJECT_ID }}-init.log"
+#TERRAFORM_LOG_FILE_NAME_INIT_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_INIT }}"
+#TERRAFORM_LOG_FILE_NAME_PLAN: "terraform-{{ PROJECT_ID }}-plan.log"
+#TERRAFORM_LOG_FILE_NAME_PLAN_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_PLAN }}"
+#TERRAFORM_LOG_FILE_NAME_APPLY: "terraform-{{ PROJECT_ID }}-apply.log"
+#TERRAFORM_LOG_FILE_NAME_APPLY_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_APPLY }}"
+#TERRAFORM_LOG_FILE_NAME_DESTROY: "terraform-{{ PROJECT_ID }}-destroy.log"
+#TERRAFORM_LOG_FILE_NAME_DESTROY_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_DESTROY }}"
 
-NAME_INSTANCE_PREFIX: apigee-x
-GCP_ZONE: us-east1-b
-GCP_REGION: us-east1
-CONTROL_SERVER_IMAGE_NAME: ops-server
-CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
-ORG_BINDING_PROPAGATION_TIMEOUT: 100
-ACCESS_TYPE: int
-TIME_TO_PROPAGATE_BINDINGS: 2
+#NAME_INSTANCE_PREFIX: apigee-x
+#GCP_ZONE: us-east1-b
+#GCP_REGION: us-east1
+#CONTROL_SERVER_IMAGE_NAME: ops-server
+#CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
+#ORG_BINDING_PROPAGATION_TIMEOUT: 100
+#ACCESS_TYPE: int
+#TIME_TO_PROPAGATE_BINDINGS: 2
 
 AUTHORIZATION_KIND: serviceaccount
+
 RESOURCE_GCP_ZONE: "us-central1-c"
-MACHINE_TYPE: f1-micro
-#MACHINE_TYPE: n1-standard-1
+#MACHINE_TYPE: f1-micro
+MACHINE_TYPE: n1-standard-1
 #MACHINE_TYPE: n2-highcpu-2
 SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
 INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
@@ -72,7 +73,6 @@ INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
 DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1804-lts') }}"
 DISK_NAME: "{{ NAME_INSTANCE_PREFIX }}-disk"
 DISK_SIZE: 100
-
 STARTUP_SCRIPT: |
   sudo apt update -y
   sudo apt install -y build-essential libssl-dev git zlib1g-dev
@@ -114,7 +114,7 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/iam.serviceAccountUser"
 - "roles/iam.serviceAccountCreator"
 - "roles/iam.serviceAccountKeyAdmin"
-- "roles/compute.loadBalancerAdmin"
+#- "roles/compute.loadBalancerAdmin"
 
 GCLOUD_PROJECT_SERVICES:
 - "compute.googleapis.com"
@@ -125,28 +125,28 @@ GCLOUD_PROJECT_SERVICES:
 - "iam.googleapis.com"
 - "iamcredentials.googleapis.com"
 - "apigeeconnect.googleapis.com"
-- "dns.googleapis.com"
-- "cloudkms.googleapis.com"
-- "sourcerepo.googleapis.com"
-- "container.googleapis.com"
-- "containerregistry.googleapis.com"
-- "stackdriver.googleapis.com"
-- "meshca.googleapis.com"
-- "meshtelemetry.googleapis.com"
-- "meshconfig.googleapis.com"
-- "anthos.googleapis.com"
-- "gkeconnect.googleapis.com"
-- "gkehub.googleapis.com"
-- "cloudbuild.googleapis.com"
-- "secretmanager.googleapis.com"
-- "pubsub.googleapis.com"
-- "monitoring.googleapis.com"
-- "logging.googleapis.com"
-- "cloudtrace.googleapis.com"
-- "privateca.googleapis.com"
+#- "dns.googleapis.com"
+#- "cloudkms.googleapis.com"
+#- "sourcerepo.googleapis.com"
+#- "container.googleapis.com"
+#- "containerregistry.googleapis.com"
+#- "stackdriver.googleapis.com"
+#- "meshca.googleapis.com"
+#- "meshtelemetry.googleapis.com"
+#- "meshconfig.googleapis.com"
+#- "anthos.googleapis.com"
+#- "gkeconnect.googleapis.com"
+#- "gkehub.googleapis.com"
+#- "cloudbuild.googleapis.com"
+#- "secretmanager.googleapis.com"
+#- "pubsub.googleapis.com"
+#- "monitoring.googleapis.com"
+#- "logging.googleapis.com"
+#- "cloudtrace.googleapis.com"
+#- "privateca.googleapis.com"
 
-firewall_ports:
-- { allow_ports: ['22'], port_name_suffix: 'control-server' }
+#firewall_ports:
+#- { allow_ports: ['22'], port_name_suffix: 'control-server' }
 
 GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
 - constraints/iam.disableServiceAccountKeyCreation
