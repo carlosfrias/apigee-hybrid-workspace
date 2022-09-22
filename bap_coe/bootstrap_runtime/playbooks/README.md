@@ -52,7 +52,7 @@ The features of this bootstrap project manager will allow you to set the followi
 8. Please review the default attributes provided `resources/defaults.yml` to validate that they work for your project. 
 9. You can override `resources/defaults.yml` using `resources/overrides.yml` to indicate suitable org policies, service apis and service account permissions would be applied to the project.
 
-# Docker Build
+# Docker Usage
 1. Change into the directory containing the Dockerfile or pass in the path to the Dockerfile.
 2. Build the container:
 
