@@ -18,9 +18,15 @@
     - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
+- name: Assert that the BINDING_OP is available
+  assert:
+    that:
+    - BINDING_OP is defined
+    msg: "Please provide the BINDING_OP, accepted values are 'add' or 'remove'"
+
 - name: Update IAM roles to installation user
   shell: |
-    gcloud alpha organizations add-iam-policy-binding {{ GCLOUD_ORG_ID }} \
+    gcloud alpha organizations {{ BINDING_OP }}-iam-policy-binding {{ GCLOUD_ORG_ID }} \
      --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }} \
      --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
   with_items: "{{ ROLE_BINDINGS }}"

@@ -20,6 +20,7 @@
     - {
         role: gcp_iam_policy_bindings_org,
         GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+        BINDING_OP: "add",
         ROLE_BINDINGS: [
           "{{ GCLOUD_ORG_ROLE_BINDINGS }}",
           "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}",
