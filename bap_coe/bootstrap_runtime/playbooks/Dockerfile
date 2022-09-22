@@ -32,6 +32,6 @@ WORKDIR /bootstrap-runtime
 
 COPY molecule /bootstrap-runtime/molecule
 COPY resources /bootstrap-runtime/resources
-COPY override.yml /bootstrap-runtime/override.yml
-RUN bash -l /bootstrap-runtime/resources/config-pyenv.sh
+COPY resources/override.yml /bootstrap-runtime/override.yml
+RUN bash -l /bootstrap-runtime/resources/docker-helper-config-pyenv.sh
 ENTRYPOINT bash

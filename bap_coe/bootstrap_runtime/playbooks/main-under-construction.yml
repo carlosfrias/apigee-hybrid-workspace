@@ -1,5 +1,5 @@
 ---
-- name: Build project creation Dockerfile
+- name: Automate setup, build and configuration of setup to reduce required instructions.
   hosts: localhost
   connection: local
 

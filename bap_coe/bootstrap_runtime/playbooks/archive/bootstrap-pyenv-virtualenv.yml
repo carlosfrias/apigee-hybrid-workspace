@@ -59,7 +59,7 @@
         src: "{{ item }}"
         dest: "./{{ item }}"
       with_items:
-        - requirements.txt
+        - docker-helper-requirements.txt
         - collections.yml
 
     - name: Update SSH Config with ProxyCommand and Bastion Host Configuration

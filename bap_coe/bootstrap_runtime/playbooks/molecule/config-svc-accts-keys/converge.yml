@@ -4,9 +4,9 @@
   connection: local
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/override.yml"
-  - "{{ playbook_dir | dirname }}/shared/defaults.yml"
+  - "{{ CREDENTIALS_FILE_PATH }}"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
 
   collections:
     - bap_coe.gcp_management
