@@ -21,7 +21,7 @@ The features of this bootstrap project manager will allow you to set the followi
 2. Change into your repository workspace folder.
 3. Create a folder to stage project outputs:
 
-     mkdir ./work_dir
+      mkdir ./work_dir
 
 4. Create a folder for project credentials: 
 
