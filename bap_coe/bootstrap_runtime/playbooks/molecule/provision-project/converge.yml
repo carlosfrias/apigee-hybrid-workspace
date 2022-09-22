@@ -14,7 +14,7 @@
   pre_tasks:
   - name: Credentials file path
     ansible.builtin.include_vars:
-      file: "{{ CREDENTIALS_FILE_PATH }}"
+      file: "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
   roles:
     - { role: gcp_project_create }
