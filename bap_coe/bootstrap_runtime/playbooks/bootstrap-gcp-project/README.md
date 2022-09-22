@@ -31,9 +31,14 @@ and permissions in a project.
 ## Build Scenarios
 The 6 scenario have been defined as:
 
-| Invocation Sequence | Scenario name | Scenario Invocation |
-| --- | --- | --- |
-| 1 | provision-project | molecule converge -s provision-project |
+| Invocation Sequence | Scenario name                | Scenario Invocation                                 |
+|---------------------|------------------------------|-----------------------------------------------------|
+| 1.                  | provision-project            | `molecule converge -s provision-project`            |
+| 2.                  | config-org-policies          | `molecule converge -s onfig-org-policies`           |
+| 3.                  | config-services              | `molecule converge -s config-services `             |
+| 4.                  | config-svc-accts-create      | `molecule converge -s config-svc-accts-create`      |
+| 5.                  | config-svc-accts-keys        | `molecule converge -s config-svc-accts-keys`        |
+| 6.                  | config-svc-accts-permissions | `molecule converge -s config-svc-accts-permissions` |
 
 
 # Configurations and File System Setup
