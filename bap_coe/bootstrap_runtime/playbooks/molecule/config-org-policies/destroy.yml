@@ -4,16 +4,12 @@
   connection: local
 
   vars_files:
+  - "~/.apigee-secure/argolis-credentials.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
 
   collections:
     - bap_coe.gcp_management
-
-  pre_tasks:
-  - name: Credentials file path
-    ansible.builtin.include_vars:
-      file: "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
   roles:
     - { role: gcp_resource_manager_folders_get_folder_id }
