@@ -15,6 +15,8 @@ The features of this bootstrap project manager will allow you to set the followi
 - Service account keys to be downloaded
 - Service account permissions to be set
 - Create a project with the name provided, if it is available for your use.
+- Selectively invoke portions of the bootstrap instead of creating the project in one invocation.
+- De-provision the entire project or selectively de-provision steps. 
 
 # Configurations and File System Setup
 1. Clone this git repository to an accessible workspace folder.
@@ -63,7 +65,7 @@ The features of this bootstrap project manager will allow you to set the followi
        docker run \
        -v ~/.apigee-secure:/root/.apigee-secure \
        -v $(pwd)/work_dir:/bootstrap-runtime/work_dir:rw \
-       -v $(pwd)/resources:/bootstrap-runtime/resources \
+       -v $(pwd)/resources:/bootstrap-runtime/resources:rw \
        -ti bootstrap-project bash
 
 5. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
