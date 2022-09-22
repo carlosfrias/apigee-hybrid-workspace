@@ -1,5 +1,19 @@
 
-# Usage of bootstrap-project
+# Bootstrap Project Manager
+This Dockerfile will allow you to provision and de-provision a GCP project. You
+would provide the project name and credentials and execute the build. The steps
+provided below would allow you to capture the downloaded service account credential 
+files and any org policies that have been applied. Everything uses the `gcloud` cli.
+
+This bootstrap manager will allow you to set the following: 
+- Organization policies to apply
+- Organization constraints to disable
+- Service APIs to enable.
+- Service account to create
+- Service account keys to be downloaded
+- Service account permissions to be set
+- Create a project with the name provided, if it is available for your use.
+
 1. Change into the directory containing the Dockerfile or pass in the path to the Dockerfile.
 2. Build the container: `docker build -t bootstrap-project .`
 3. Create a folder to stage project outputs: `mkdir work_dir`
