@@ -78,3 +78,4 @@ The features of this bootstrap project manager will allow you to set the followi
 
 6. You can examine and collect the output of the invocation within the container at the location: `/bootstrap-runtime/work_dir`.
    You can also examine and collect the output outside the container at your workspace folder: `[WORKSPACE_FOLDER]/work_dir`.
+7. Invoking the container with the same parameters as above will allow you to continue from where you left off in the prior session.
