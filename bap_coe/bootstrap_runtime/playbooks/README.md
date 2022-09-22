@@ -60,13 +60,17 @@ The features of this bootstrap project manager will allow you to set the followi
 
 3. Run the container: 
 
-       docker run -v ~/.apigee-secure:/root/.apigee-secure -v $(pwd)/work_dir:/bootstrap-runtime/work_dir:rw -v $(pwd)/resources:/bootstrap-runtime/resources -ti bootstrap-project bash
+       docker run \
+       -v ~/.apigee-secure:/root/.apigee-secure \
+       -v $(pwd)/work_dir:/bootstrap-runtime/work_dir:rw \
+       -v $(pwd)/resources:/bootstrap-runtime/resources \
+       -ti bootstrap-project bash
 
-4. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
+5. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
 
        pyenv activate apigee
 
-5. You can then execute a full build: 
+6. You can then execute a full build: 
 
        molecule converge 
 
