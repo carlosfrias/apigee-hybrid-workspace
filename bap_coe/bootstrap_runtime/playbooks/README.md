@@ -16,7 +16,7 @@ The features of this bootstrap project manager will allow you to set the followi
 - Service account permissions to be set
 - Create a project with the name provided, if it is available for your use.
 
-# Configurations and file system setup
+# Configurations and File System Setup
 1. Clone this git repository to an accessible workspace folder.
 2. Change into your repository workspace folder.
 3. Create a folder to stage project outputs: `mkdir ./work_dir`
