@@ -1,0 +1,4 @@
+---
+PROJECT_ID: "friasc-runtime-[mmddyyy]-[hhmm]"
+CREDENTIALS_FILE_PATH: "{{ '~' | expanduser }}/.apigee-secure/CREDENTIALS_FILE_NAME.yml"
+#FOLDER_DISPLAY_NAME: abm
