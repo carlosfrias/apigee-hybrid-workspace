@@ -42,7 +42,15 @@ The features of this bootstrap project manager will allow you to set the followi
 
 7. It is required that you `resources/override.yml` with your project name. 
    Please note that the `FOLDER_DISPLAY_NAME` enables you to use a GCP folder under which to place your project. 
+
+       ---
+       PROJECT_ID: "friasc-runtime-[mmddyyy]-[hhmm]"
+       CREDENTIALS_FILE_PATH: "{{ '~' | expanduser }}/.apigee-secure/CREDENTIALS_FILE_NAME.yml"
+       #FOLDER_DISPLAY_NAME: abm
+
+
 8. Please review the default attributes provided: `resources/defaults.yml` 
+
 9. You can override `resources/defaults.yml` using `resources/overrides.yml` to indicate suitable org policies, service apis and service account permissions would be applied to the project.
 
 # Docker Build
