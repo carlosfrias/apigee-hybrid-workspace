@@ -1,10 +1,9 @@
-
 # Bootstrap Project Manager
 This Dockerfile will allow you to provision and de-provision a GCP project. You
 would provide the project name and credentials and execute the build. The steps
 provided below would allow you to capture the downloaded service account credential 
 files and any org policies that have been applied. This project manager uses 
-the `gcloud` cli.
+the `gcloud` cli. This has been implemented with Ansible and wrapped with the molecule framework. 
 
 # Bootstrap Project Manager Features
 The features of this bootstrap project manager will allow you to set the following: 
@@ -17,6 +16,25 @@ The features of this bootstrap project manager will allow you to set the followi
 - Create a project with the name provided, if it is available for your use.
 - Selectively invoke portions of the bootstrap instead of creating the project in one invocation.
 - De-provision the entire project or selectively de-provision steps. 
+
+# Bootstrap Project Manager Overview
+The Bootstrap Project Manager has categorized the creation of a GCP project into 6 steps. 
+These steps have been defined using molecule scenarios. The default molecule scenario executes 
+each of the six steps in sequence. It should be noted that each scenario can be invoked
+individually. So whether you invoke the default scenario or invoke each scenario individually 
+you will always be executing the same scripts for the corresponding step. 
+
+This is a project manager because it enables you to not only apply settings to a project but you can also 
+unapply those settings. This enables you to work to be very selective about the application of org policies
+and permissions in a project. 
+
+## Build Scenarios
+The 6 scenario have been defined as:
+
+| Invocation Sequence | Scenario name | Scenario Invocation |
+| --- | --- | --- |
+| 1 | provision-project | molecule converge -s provision-project |
+
 
 # Configurations and File System Setup
 1. Clone this git repository to an accessible workspace folder.
@@ -77,5 +95,7 @@ The features of this bootstrap project manager will allow you to set the followi
        molecule converge 
 
 6. You can examine and collect the output of the invocation within the container at the location: `/bootstrap-runtime/work_dir`.
-   You can also examine and collect the output outside the container at your workspace folder: `[WORKSPACE_FOLDER]/work_dir`.
+   You can also examine and collect the output outside the container at your workspace folder: `[WORKSPACE_FOLDER]/work_dir`. 
+   Not always but it may necessary to update the ownership or file system attributes of the folders and files created by the container.  
+
 7. Invoking the container with the same parameters as above will allow you to continue from where you left off in the prior session.
