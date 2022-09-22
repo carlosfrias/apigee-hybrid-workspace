@@ -30,8 +30,8 @@ RUN bash /root/.bashrc
 VOLUME /bootstrap-runtime
 WORKDIR /bootstrap-runtime
 
-ADD molecule /bootstrap-runtime/molecule
-ADD resources/docker-helper-config-pyenv.sh /bootstrap-runtime/resources/docker-helper-config-pyenv.sh
-ADD resources/docker-helper-requirements.txt /bootstrap-runtime/resources/docker-helper-requirements.txt
-RUN bash -l /bootstrap-runtime/resources/docker-helper-config-pyenv.sh
+COPY molecule /bootstrap-runtime/molecule
+COPY docker-helper/docker-helper-config-pyenv.sh /bootstrap-runtime/docker-helper/docker-helper-config-pyenv.sh
+COPY docker-helper/docker-helper-requirements.txt /bootstrap-runtime/docker-helper/docker-helper-requirements.txt
+RUN bash -l /bootstrap-runtime/docker-helper/docker-helper-config-pyenv.sh
 ENTRYPOINT bash
