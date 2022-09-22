@@ -29,8 +29,8 @@ The features of this bootstrap project manager will allow you to set the followi
 
        mkdir $HOME/.apigee-secure
 
-5. Use the following command with the template `resources/project-credentials.yml.template` to create your 
-   credentials file: 
+5. Use the following command with the template `resources/credentials.yml.template` to create your 
+   credentials file as in the following example: 
 
        cp resources/project-credentials.yml.template $HOME/.apigee-secure/argolis-credentials.yml
 
