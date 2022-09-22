@@ -49,17 +49,19 @@ The features of this bootstrap project manager will allow you to set the followi
        #FOLDER_DISPLAY_NAME: abm
 
 
-8. Please review the default attributes provided: `resources/defaults.yml` 
-
+8. Please review the default attributes provided `resources/defaults.yml` to validate that they work for your project. 
 9. You can override `resources/defaults.yml` using `resources/overrides.yml` to indicate suitable org policies, service apis and service account permissions would be applied to the project.
 
 # Docker Build
 1. Change into the directory containing the Dockerfile or pass in the path to the Dockerfile.
-2. Build the container: `docker build -t bootstrap-project .`
-3. Run the container: `docker run -v ~/.apigee-secure:/root/.apigee-secure -v $(pwd)/work_dir:/bootstrap-runtime/work_dir:rw -ti bootstrap-project bash`
-4. Use override.yml to indicate the desired project id.
-5. Copy resources/argolis-credentials.yml.template to ~/.apigee-secure/argolis-template.yml
-6. Update argolis-template.yml with your credentials, GCP billing id and GCP org id
+2. Build the container:
+
+       docker build -t bootstrap-project .
+
+3. Run the container: 
+
+       docker run -v ~/.apigee-secure:/root/.apigee-secure -v $(pwd)/work_dir:/bootstrap-runtime/work_dir:rw -v $(pwd)/resources:/bootstrap-runtime/resources -ti bootstrap-project bash
+
 7. Enable pyenv activate apigee
 8. molecule converge -s config-build
 9. molecule converge 
