@@ -41,7 +41,7 @@ The features of this bootstrap project manager will allow you to set the followi
        GCLOUD_ACCOUNT_USER: "CHANGE_ME"
 
 7. It is required that you `resources/override.yml` with your project name. 
-   Please note that the `FOLDER_DISPLAY_NAME` enables you to use a GCP folder under which to place your project. 
+   Please note that the `FOLDER_DISPLAY_NAME` enables you to use a GCP folder under which to contain your project. 
 
        ---
        PROJECT_ID: "friasc-runtime-[mmddyyy]-[hhmm]"
