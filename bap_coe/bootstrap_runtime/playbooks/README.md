@@ -25,12 +25,12 @@ The features of this bootstrap project manager will allow you to set the followi
 
 4. Create a folder for project credentials: 
 
-        mkdir $HOME/.apigee-secure
+       mkdir $HOME/.apigee-secure
 
 5. Use the following command with the template `resources/project-credentials.yml.template` to create your 
    credentials file: 
 
-        cp resources/project-credentials.yml.template $HOME/.apigee-secure/argolis-credentials.yml
+       cp resources/project-credentials.yml.template $HOME/.apigee-secure/argolis-credentials.yml
 
 6. Update your credentials file with your GCP Organization ID, GCP Billing ID, project domain and admin user name.
 7. It is required that you `resources/override.yml` with your project name. 
