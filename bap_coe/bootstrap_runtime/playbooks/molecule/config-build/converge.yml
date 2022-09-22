@@ -4,7 +4,6 @@
   connection: local
 
   vars_files:
-  - "{{ CREDENTIALS_FILE_PATH }}"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
 
@@ -20,6 +19,10 @@
   - bap_coe.bootstrap_runtime
 
   pre_tasks:
+    - name: Credentials file path
+      ansible.builtin.include_vars:
+        file: "{{ CREDENTIALS_FILE_PATH }}"
+
     - name: Load service account file paths
       include_role:
         name: bap_coe.gcp_management.service_account_file_path
