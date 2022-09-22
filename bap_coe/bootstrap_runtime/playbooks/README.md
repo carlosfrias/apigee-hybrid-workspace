@@ -33,6 +33,13 @@ The features of this bootstrap project manager will allow you to set the followi
        cp resources/project-credentials.yml.template $HOME/.apigee-secure/argolis-credentials.yml
 
 6. Update your credentials file with your GCP Organization ID, GCP Billing ID, project domain and admin user name.
+
+       ---
+       GCLOUD_ORG_ID: "CHANGE_ME"
+       GCLOUD_ACCOUNT_DOMAIN: "CHANGE_ME"
+       BILLING_ID: "CHANGE_ME"
+       GCLOUD_ACCOUNT_USER: "CHANGE_ME"
+
 7. It is required that you `resources/override.yml` with your project name. 
    Please note that the `FOLDER_DISPLAY_NAME` enables you to use a GCP folder under which to place your project. 
 8. Please review the default attributes provided: `resources/defaults.yml` 
