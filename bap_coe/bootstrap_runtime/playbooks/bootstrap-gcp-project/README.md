@@ -29,16 +29,18 @@ unapply those settings. This enables you to work to be very selective about the 
 and permissions in a project. 
 
 ## Build Scenarios
+A default scenario has been defined as a master scenario that invokes each of the scenario steps until a GCP project is built. 
+
 The 6 scenario have been defined as:
 
-| Invocation Sequence | Scenario name                | Scenario Invocation                                 |
-|---------------------|------------------------------|-----------------------------------------------------|
-| 1.                  | provision-project            | `molecule converge -s provision-project`            |
-| 2.                  | config-org-policies          | `molecule converge -s onfig-org-policies`           |
-| 3.                  | config-services              | `molecule converge -s config-services `             |
-| 4.                  | config-svc-accts-create      | `molecule converge -s config-svc-accts-create`      |
-| 5.                  | config-svc-accts-keys        | `molecule converge -s config-svc-accts-keys`        |
-| 6.                  | config-svc-accts-permissions | `molecule converge -s config-svc-accts-permissions` |
+| Invocation Sequence | Scenario name                | Scenario Invocation                                | Scenario Description                                                                  |
+|---------------------|------------------------------|----------------------------------------------------|---------------------------------------------------------------------------------------|
+| 1.                  | provision-project            | `molecule converge -s provision-project`           | Creates or destroys the actual GCP Project.                                           |
+| 2.                  | config-org-policies          | `molecule converge -s config-org-policies`         | Applys or removes the org polices and disable existing constraints that are indicate. |                         
+| 3.                  | config-services              | `molecule converge -s config-services`             | Enable or disable the service APIs that are indicated.                                |
+| 4.                  | config-svc-accts-create      | `molecule converge -s config-svc-accts-create`     | Create the service account to be used |
+| 5.                  | config-svc-accts-keys        | `molecule converge -s config-svc-accts-keys`       | Generate and download the service account keys. |
+| 6.                  | config-svc-accts-permissions | `molecule converge -s config-svc-accts-permissions` | Enable or disable permissions on the service account |
 
 
 # Configurations and File System Setup
