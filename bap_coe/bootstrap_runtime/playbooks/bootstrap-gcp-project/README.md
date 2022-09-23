@@ -7,7 +7,7 @@ the `gcloud` cli. This has been implemented with Ansible and wrapped with the mo
 
 # Bootstrap Project Manager Features
 The features of this bootstrap project manager will allow you to add or remove the following: 
-1. Create a project with the name provided, if it is available for your use.
+1. Create or destroy a project with the name provided, if it is available for your use.
 2. Apply organization policies or disable organization constraints. 
 3. Enable Service APIs.
 4. Create service account 
@@ -38,14 +38,14 @@ The default scenario is invoked as follows:
 
 The 6 scenario have been defined as:
 
-| Invocation Sequence | Scenario name                | Scenario Invocation                                | Scenario Description                                                                  |
-|---------------------|------------------------------|----------------------------------------------------|---------------------------------------------------------------------------------------|
-| 1.                  | provision-project            | `molecule converge -s provision-project`           | Creates or destroys the actual GCP Project.                                           |
-| 2.                  | config-org-policies          | `molecule converge -s config-org-policies`         | Applys or removes the org polices and disable existing constraints that are indicate. |                         
-| 3.                  | config-services              | `molecule converge -s config-services`             | Enable or disable the service APIs that are indicated.                                |
-| 4.                  | config-svc-accts-create      | `molecule converge -s config-svc-accts-create`     | Create the service account to be used |
-| 5.                  | config-svc-accts-keys        | `molecule converge -s config-svc-accts-keys`       | Generate and download the service account keys. |
-| 6.                  | config-svc-accts-permissions | `molecule converge -s config-svc-accts-permissions` | Enable or disable permissions on the service account |
+| Invocation Sequence | Scenario name                | Scenario Invocation                                | Scenario Description                                                                   |
+|---------------------|------------------------------|----------------------------------------------------|----------------------------------------------------------------------------------------|
+| 1.                  | provision-project            | `molecule converge -s provision-project`           | Create or destroy a project with the name provided, if it is available for your use.   |
+| 2.                  | config-org-policies          | `molecule converge -s config-org-policies`         | Apply organization policies or disable organization constraints  |                         
+| 3.                  | config-services              | `molecule converge -s config-services`             | Enable Service APIs.
+| 4.                  | config-svc-accts-create      | `molecule converge -s config-svc-accts-create`     | Create service account                                                   |
+| 5.                  | config-svc-accts-keys        | `molecule converge -s config-svc-accts-keys`       | Download service account keys                                        |
+| 6.                  | config-svc-accts-permissions | `molecule converge -s config-svc-accts-permissions` | Set service account permissions                                   |
 
 ### Molecule Invocations in Debug Mode
 All molecule scenarios can be invoked in debug mode with increased log verbosity. 
