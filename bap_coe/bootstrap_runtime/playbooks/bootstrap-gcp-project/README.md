@@ -30,6 +30,9 @@ and permissions in a project.
 
 ## Build Scenarios
 A default scenario has been defined as a master scenario that invokes each of the scenario steps until a GCP project is built. 
+The default scenario is invoked as follows: 
+
+       molecule converge
 
 The 6 scenario have been defined as:
 
@@ -42,6 +45,10 @@ The 6 scenario have been defined as:
 | 5.                  | config-svc-accts-keys        | `molecule converge -s config-svc-accts-keys`       | Generate and download the service account keys. |
 | 6.                  | config-svc-accts-permissions | `molecule converge -s config-svc-accts-permissions` | Enable or disable permissions on the service account |
 
+### Molecule Invocations in Debug Mode
+Molecule can be invoked in debug mode at the command line in the following way: 
+
+       molecule --debug -vvv converge
 
 # Configurations and File System Setup
 1. Clone this git repository to an accessible workspace folder.
