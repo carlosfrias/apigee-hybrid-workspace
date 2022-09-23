@@ -7,9 +7,9 @@ the `gcloud` cli. This has been implemented with Ansible and wrapped with the mo
 
 # Table of Contents
 1. [Bootstrap Project Manager Features](https://github.com/carlosfrias/apigee-hybrid-workspace/tree/master/bap_coe/bootstrap_runtime/playbooks/bootstrap-gcp-project#bootstrap-project-manager-overview)
-2. Bootstrap Project Manager Overview
-3. Build Scenarios Description
-4. Getting Started
+2. [Bootstrap Project Manager Overview](https://github.com/carlosfrias/apigee-hybrid-workspace/tree/master/bap_coe/bootstrap_runtime/playbooks/bootstrap-gcp-project#bootstrap-project-manager-overview)
+3. [Build Scenarios Description](https://github.com/carlosfrias/apigee-hybrid-workspace/tree/master/bap_coe/bootstrap_runtime/playbooks/bootstrap-gcp-project#build-scenarios-descriptions)
+4. [Getting Started](https://github.com/carlosfrias/apigee-hybrid-workspace/tree/master/bap_coe/bootstrap_runtime/playbooks/bootstrap-gcp-project#getting-started)
 
 # Bootstrap Project Manager Features
 The features of this bootstrap project manager will allow you to add or remove the following: 
