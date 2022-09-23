@@ -2,10 +2,3 @@
 
 - name: Provision project - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"
-
-- name: Update organization policies - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/destroy.yml"
-
-- name: Remove config build - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/config-build/destroy.yml"
-
