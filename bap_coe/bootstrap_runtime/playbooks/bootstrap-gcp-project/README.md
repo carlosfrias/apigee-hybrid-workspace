@@ -6,16 +6,18 @@ files and any org policies that have been applied. This project manager uses
 the `gcloud` cli. This has been implemented with Ansible and wrapped with the molecule framework. 
 
 # Bootstrap Project Manager Features
-The features of this bootstrap project manager will allow you to set the following: 
-- Organization policies to apply
-- Organization constraints to disable
-- Service APIs to enable.
-- Service account to create
-- Service account keys to be downloaded
-- Service account permissions to be set
-- Create a project with the name provided, if it is available for your use.
-- Selectively invoke portions of the bootstrap instead of creating the project in one invocation.
-- De-provision the entire project or selectively de-provision steps. 
+The features of this bootstrap project manager will allow you to add or remove the following: 
+1. Create a project with the name provided, if it is available for your use.
+2. Organization policies to apply and organization constraints to disable 
+3. Service APIs to enable.
+4. Service account to create
+5. Service account keys to be downloaded
+6. Service account permissions to be set
+
+The architecture used you gain the ability to selectively invoke portions 
+of strictly bootstrapping a project in one invocation. The architecture used also 
+provides the ability to discreetly add, create and configure each step independently 
+of the others and thus enable you to manage the 6 different steps of project creation.  
 
 # Bootstrap Project Manager Overview
 The Bootstrap Project Manager has categorized the creation of a GCP project into 6 steps. 
