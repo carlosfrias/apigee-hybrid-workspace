@@ -86,8 +86,7 @@ This can be applied to scenario invocations in the following way:
    Please note that the `FOLDER_DISPLAY_NAME` enables you to use a GCP folder under which to contain your project. 
 
        ---
-       PROJECT_ID: "friasc-runtime-[mmddyyy]-[hhmm]"
-       CREDENTIALS_FILE_PATH: "{{ '~' | expanduser }}/.apigee-secure/CREDENTIALS_FILE_NAME.yml"
+       PROJECT_ID: "friasc-runtime-MMDDYYYY_HHMM"
        #FOLDER_DISPLAY_NAME: abm
 
 
