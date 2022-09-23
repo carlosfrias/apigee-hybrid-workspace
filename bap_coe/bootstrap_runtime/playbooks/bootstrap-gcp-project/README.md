@@ -6,7 +6,7 @@ files and any org policies that have been applied. This project manager uses
 the `gcloud` cli. This has been implemented with Ansible and wrapped with the molecule framework. 
 
 # Table of Contents
-1. Bootstrap Project Manager Features
+1. [Bootstrap Project Manager Features](https://github.com/carlosfrias/apigee-hybrid-workspace/tree/master/bap_coe/bootstrap_runtime/playbooks/bootstrap-gcp-project#bootstrap-project-manager-overview)
 2. Bootstrap Project Manager Overview
 3. Build Scenarios Description
 4. Getting Started
