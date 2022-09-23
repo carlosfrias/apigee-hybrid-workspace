@@ -46,9 +46,15 @@ The 6 scenario have been defined as:
 | 6.                  | config-svc-accts-permissions | `molecule converge -s config-svc-accts-permissions` | Enable or disable permissions on the service account |
 
 ### Molecule Invocations in Debug Mode
-Molecule can be invoked in debug mode at the command line in the following way: 
+All molecule scenarios can be invoked in debug mode with increased log verbosity. 
+Each molecule scenarios can be invoked in debug mode at the command line by adding the 
+flags `--debug -vvv` to the molecule command in the following way: 
 
        molecule --debug -vvv converge
+
+This can be applied to scenario invocations in the following way: 
+
+       molecule --debug -vvv converge -s provision-project
 
 # Configurations and File System Setup
 1. Clone this git repository to an accessible workspace folder.
