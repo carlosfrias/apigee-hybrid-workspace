@@ -8,11 +8,11 @@ the `gcloud` cli. This has been implemented with Ansible and wrapped with the mo
 # Bootstrap Project Manager Features
 The features of this bootstrap project manager will allow you to add or remove the following: 
 1. Create a project with the name provided, if it is available for your use.
-2. Organization policies to apply and organization constraints to disable 
-3. Service APIs to enable.
-4. Service account to create
-5. Service account keys to be downloaded
-6. Service account permissions to be set
+2. Apply organization policies or disable organization constraints. 
+3. Enable Service APIs.
+4. Create service account 
+5. Download service account keys
+6. Set service account permissions
 
 The architecture used you gain the ability to selectively invoke portions 
 of strictly bootstrapping a project in one invocation. The architecture used also 
