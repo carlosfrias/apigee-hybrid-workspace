@@ -5,6 +5,12 @@ provided below would allow you to capture the downloaded service account credent
 files and any org policies that have been applied. This project manager uses 
 the `gcloud` cli. This has been implemented with Ansible and wrapped with the molecule framework. 
 
+# Table of Contents
+1. Bootstrap Project Manager Features
+2. Bootstrap Project Manager Overview
+3. Build Scenarios Description
+4. Getting Started
+
 # Bootstrap Project Manager Features
 The features of this bootstrap project manager will allow you to add or remove the following: 
 1. Create or destroy a project with the name provided, if it is available for your use.
@@ -30,7 +36,7 @@ This is a project manager because it enables you to not only apply settings to a
 unapply those settings. This enables you to work to be very selective about the application of org policies
 and permissions in a project. 
 
-## Build Scenarios
+## Build Scenarios Descriptions
 A default scenario has been defined as a master scenario that invokes each of the scenario steps until a GCP project is built. 
 The default scenario is invoked as follows: 
 
@@ -47,7 +53,7 @@ The 6 scenario have been defined as:
 | 5.                  | config-svc-accts-keys        | `molecule converge -s config-svc-accts-keys`       | Download service account keys                                        |
 | 6.                  | config-svc-accts-permissions | `molecule converge -s config-svc-accts-permissions` | Set service account permissions                                   |
 
-### Molecule Invocations in Debug Mode
+### Invocations using Debug Mode
 All molecule scenarios can be invoked in debug mode with increased log verbosity. 
 Each molecule scenarios can be invoked in debug mode at the command line by adding the 
 flags `--debug -vvv` to the molecule command in the following way: 
@@ -58,8 +64,16 @@ This can be applied to scenario invocations in the following way:
 
        molecule --debug -vvv converge -s provision-project
 
+## Getting Started
+The following instructions are to get started and quickly bring up a functional project
+1. Configuration and File System Setup
+2. Docker Build and Run
+
 # Configurations and File System Setup
 1. Clone this git repository to an accessible workspace folder.
+
+      git clone 
+
 2. Change into your repository workspace folder.
 3. Create a folder to stage project outputs:
 
