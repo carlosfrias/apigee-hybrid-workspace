@@ -74,9 +74,12 @@ The following instructions are to get started and quickly bring up a functional 
 # Configurations and File System Setup
 1. Clone this git repository to an accessible workspace folder.
 
-      git clone 
+      git clone https://github.com/carlosfrias/apigee-hybrid-workspace.git
 
 2. Change into your repository workspace folder.
+
+        cd [YOUR_REPOSITORY_WORKSPACE_FOLDER]/apigee-hybrid-workspace/bap_coe_bootstrap_runtime/playbooks/bootstrap-gcp-project
+
 3. Create a folder to stage project outputs:
 
        mkdir ./work_dir
@@ -133,6 +136,5 @@ The following instructions are to get started and quickly bring up a functional 
 
 6. You can examine and collect the output of the invocation within the container at the location: `/bootstrap-runtime/work_dir`.
    You can also examine and collect the output outside the container at your workspace folder: `[WORKSPACE_FOLDER]/work_dir`. 
-   Not always but it may necessary to update the ownership or file system attributes of the folders and files created by the container.  
 
 7. Invoking the container with the same parameters as above will allow you to continue from where you left off in the prior session.
