@@ -74,7 +74,7 @@ The following instructions are to get started and quickly bring up a functional 
 # Configurations and File System Setup
 1. Clone this git repository to an accessible workspace folder.
 
-      git clone https://github.com/carlosfrias/apigee-hybrid-workspace.git
+        git clone https://github.com/carlosfrias/apigee-hybrid-workspace.git
 
 2. Change into your repository workspace folder.
 
