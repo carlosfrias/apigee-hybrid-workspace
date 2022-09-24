@@ -76,7 +76,7 @@ The following instructions are to get started and quickly bring up a functional 
 
         git clone https://github.com/carlosfrias/apigee-hybrid-workspace.git
 
-2. [Change][] into your repository workspace folder.
+2. Change into your repository workspace folder.
 
         cd [YOUR_REPOSITORY_WORKSPACE_FOLDER]/apigee-hybrid-workspace/bap_coe_bootstrap_runtime/playbooks/bootstrap-gcp-project
 
