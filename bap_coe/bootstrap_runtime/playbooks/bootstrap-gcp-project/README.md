@@ -113,7 +113,7 @@ The following instructions are to get started and quickly bring up a functional 
 9. You can override `resources/defaults.yml` using `resources/overrides.yml` to indicate suitable org policies, service apis and service account permissions would be applied to the project.
 
 # Docker Usage
-1. Change into the directory containing the Dockerfile or pass in the path to the Dockerfile.
+1. Change into the directory containing the Dockerfile as previously indicated [here](https://github.com/carlosfrias/apigee-hybrid-workspace/tree/master/bap_coe/bootstrap_runtime/playbooks/bootstrap-gcp-project#configurations-and-file-system-setup).
 2. Build the container:
 
        docker build -t bootstrap-project .
