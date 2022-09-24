@@ -113,12 +113,16 @@ The following instructions are to get started and quickly bring up a functional 
 9. You can override `resources/defaults.yml` using `resources/overrides.yml` to indicate suitable org policies, service apis and service account permissions would be applied to the project.
 
 # Docker Usage
-1. Change into the directory containing the Dockerfile as previously indicated [here](https://github.com/carlosfrias/apigee-hybrid-workspace/tree/master/bap_coe/bootstrap_runtime/playbooks/bootstrap-gcp-project#configurations-and-file-system-setup).
-2. Build the container:
+1. Change into the directory containing the Dockerfile as previously indicated in [Step 2. here](https://github.com/carlosfrias/apigee-hybrid-workspace/tree/master/bap_coe/bootstrap_runtime/playbooks/bootstrap-gcp-project#configurations-and-file-system-setup).
+2. Log into gcp as follows: 
+
+       gcloud auth login
+
+3. Build the container as follows:
 
        docker build -t bootstrap-project .
 
-3. Run the container: 
+4. Run the container as follows: 
 
        docker run \
        -v ~/.apigee-secure:/root/.apigee-secure \
@@ -126,15 +130,15 @@ The following instructions are to get started and quickly bring up a functional 
        -v $(pwd)/resources:/bootstrap-runtime/resources:rw \
        -ti bootstrap-project bash
 
-4. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
+5. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
 
        pyenv activate apigee
 
-5. You can then execute a full build: 
+6. You can then execute a full build: 
 
        molecule converge 
 
-6. You can examine and collect the output of the invocation within the container at the location: `/bootstrap-runtime/work_dir`.
+7. You can examine and collect the output of the invocation within the container at the location: `/bootstrap-runtime/work_dir`.
    You can also examine and collect the output outside the container at your workspace folder: `[WORKSPACE_FOLDER]/work_dir`. 
 
-7. Invoking the container with the same parameters as above will allow you to continue from where you left off in the prior session.
+8. Invoking the container with the same parameters as above will allow you to continue from where you left off in the prior session.
