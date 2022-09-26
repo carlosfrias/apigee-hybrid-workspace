@@ -122,7 +122,7 @@ The following instructions are to get started and quickly bring up a functional 
 
        docker build -t bootstrap-project .
 
-4. Run the container with the local machine gcloud credentials as follows: 
+4. Run the container and share the local machine gcloud credentials as follows: 
 
        docker run \
        -v ~/.apigee-secure:/root/.apigee-secure \
@@ -131,17 +131,19 @@ The following instructions are to get started and quickly bring up a functional 
        -v ~/.config/gcloud:/root/.config/gcloud \
        -ti bootstrap-project bash
 
-   If you need to login to gcloud from the container then simply leave out `-v ~/.config/gcloud:/root/.config/gcloud` from the run time and you will need to login into gcp from the running container. 
+   If you need to disable sharing of the gcloud credentials with the container 
+   then simply leave out `-v ~/.config/gcloud:/root/.config/gcloud` from the 
+   `docker run...` You will then be required to `gcp auth login` from the running container. 
 
-6. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
+5. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
 
        pyenv activate apigee
 
-7. You can then execute a full build: 
+6. You can then execute a full build: 
 
        molecule converge 
 
-8. You can examine and collect the output of the invocation within the container at the location: `/bootstrap-runtime/work_dir`.
+7. You can examine and collect the output of the invocation within the container at the location: `/bootstrap-runtime/work_dir`.
    You can also examine and collect the output outside the container at your workspace folder: `[WORKSPACE_FOLDER]/work_dir`. 
 
-9. Invoking the container with the same parameters as above will allow you to continue from where you left off in the prior session.
+8. Invoking the container with the same parameters as above will allow you to continue from where you left off in the prior session.
