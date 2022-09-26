@@ -128,6 +128,7 @@ The following instructions are to get started and quickly bring up a functional 
        -v ~/.apigee-secure:/root/.apigee-secure \
        -v $(pwd)/work_dir:/bootstrap-runtime/work_dir:rw \
        -v $(pwd)/resources:/bootstrap-runtime/resources:rw \
+       -v ~/.config/gcloud:/root/.config/gcloud \
        -ti bootstrap-project bash
 
 5. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
