@@ -124,11 +124,11 @@ The following instructions are to get started and quickly bring up a functional 
 
 4. Run the container and share the local machine gcloud credentials as follows: 
 
+       gcloud auth login
        docker run \
        -v ~/.apigee-secure:/root/.apigee-secure \
        -v $(pwd)/work_dir:/bootstrap-runtime/work_dir:rw \
        -v $(pwd)/resources:/bootstrap-runtime/resources:rw \
-       -v ~/.config/gcloud:/root/.config/gcloud \
        -ti bootstrap-project bash
 
    If you need to disable sharing of the gcloud credentials with the container 
