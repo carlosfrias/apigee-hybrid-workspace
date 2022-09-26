@@ -131,10 +131,6 @@ The following instructions are to get started and quickly bring up a functional 
        -v $(pwd)/resources:/bootstrap-runtime/resources:rw \
        -ti bootstrap-project bash
 
-   If you need to disable sharing of the gcloud credentials with the container 
-   then simply leave out `-v ~/.config/gcloud:/root/.config/gcloud` from the 
-   `docker run...` You will then be required to `gcp auth login` from the running container. 
-
 5. The container terminal should be in the correct location and you can then enable the virtualenv manager as follows: 
 
        pyenv activate apigee
