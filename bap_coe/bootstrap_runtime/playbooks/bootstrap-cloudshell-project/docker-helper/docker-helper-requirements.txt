@@ -1,0 +1,8 @@
+setuptools
+ansible
+netaddr
+dnspython
+passlib
+bcrypt
+molecule
+docker

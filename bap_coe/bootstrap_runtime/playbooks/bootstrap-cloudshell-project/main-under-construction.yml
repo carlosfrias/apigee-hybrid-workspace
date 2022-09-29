@@ -1,0 +1,21 @@
+---
+- name: Automate setup, build and configuration of setup to reduce required instructions.
+  hosts: localhost
+  connection: local
+
+
+  tasks:
+#    - name: Log into registry
+#      docker_login:
+#        registry_url: gcr.io
+#        username: "admin@friasc.altostrat.com"
+#        password: "0p;>)>lo9"
+#
+
+    - name: Build docker file
+      docker_image:
+        name: projectcreator
+        build:
+          path: .
+        source: build
+        debug: yes
