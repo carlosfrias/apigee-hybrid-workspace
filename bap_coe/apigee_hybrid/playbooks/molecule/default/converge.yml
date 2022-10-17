@@ -1,0 +1,23 @@
+---
+
+- name: Provision project
+  import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
+
+- name: Update organization policies
+  import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/converge.yml"
+
+- name: Update services api
+  import_playbook: "{{ playbook_dir | dirname }}/config-services/converge.yml"
+
+- name: Create service accounts
+  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-create/converge.yml"
+
+- name: Create service account keys
+  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-keys/converge.yml"
+
+- name: Update service account permissions
+  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-permissions/converge.yml"
+
+- name: Configure terraform variables
+  import_playbook: "{{ playbook_dir | dirname }}/hybrid-single-region/converge.yml"
+

@@ -18,7 +18,7 @@
     gcloud compute addresses create {{ EXTERNAL_IP_NAME }} \
       --project="{{ PROJECT_ID }}" \
       --description="{{ EXTERNAL_IP_DESCRIPION }}" \
-      --region={{ REGION }}
+      --region={{GCP_REGION }}
   register: status  
   failed_when:  
     - status.rc == 1
@@ -26,7 +26,7 @@
 
 - name: Obtain external IP
   uri:
-    url: "https://www.googleapis.com/compute/v1/projects/{{ PROJECT_ID }}/regions/{{ REGION }}/addresses/{{ EXTERNAL_IP_NAME }}"
+    url: "https://www.googleapis.com/compute/v1/projects/{{ PROJECT_ID }}/regions/{{GCP_REGION }}/addresses/{{ EXTERNAL_IP_NAME }}"
     headers: 
       Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: external_IP

@@ -5,3 +5,4 @@ dnspython
 passlib
 bcrypt
 molecule
+docker

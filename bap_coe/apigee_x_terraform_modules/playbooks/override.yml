@@ -1,6 +1,0 @@
----
-# Attributes to be set in override.yml
-TERRAFORM_PROJECT_NAME: "x-l7xlb"
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-09152022-1824"
-TERRAFORM_VAR_FILE: "x-demo.tfvars"
-FOLDER_DISPLAY_NAME: apigeex

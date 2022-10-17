@@ -8,14 +8,14 @@
 gcp:
   projectID: "{{ PROJECT_ID }}"
   name: "{{ CLUSTER_NAME }}"
-  region: "{{ REGION }}"
+  region: "{{GCP_REGION }}"
 
 # Apigee org name.
 org: "{{ PROJECT_ID }}"
 # Kubernetes cluster name details
 k8sCluster:
   name: "{{ CLUSTER_NAME }}"
-  region: "{{ REGION }}"
+  region: "{{GCP_REGION }}"
 
 # unique identifier for this installation.
 instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"

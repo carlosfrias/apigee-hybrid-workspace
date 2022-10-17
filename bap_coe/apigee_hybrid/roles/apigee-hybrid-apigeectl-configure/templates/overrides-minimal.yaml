@@ -9,12 +9,12 @@ watcher:
 
 k8sCluster:
   name: "{{ CLUSTER_NAME }}"
-  region: "{{ REGION }}"
+  region: "{{GCP_REGION }}"
 
 gcp:
   projectID: "{{ PROJECT_ID }}"
   name: "{{ CLUSTER_NAME }}"
-  region: "{{ REGION }}"
+  region: "{{GCP_REGION }}"
 
 virtualhosts:
 - name: default

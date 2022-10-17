@@ -3,9 +3,9 @@
   connection: local
 
   vars_files:
-  - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-  - "{{ playbook_dir | dirname }}/shared/attributes.yml"
-  - region-single-asm-variables.yml
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
   collections:
     - bap_coe.apigee_hybrid
