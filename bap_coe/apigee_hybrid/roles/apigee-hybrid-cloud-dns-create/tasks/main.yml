@@ -18,7 +18,7 @@
     gcloud compute addresses create {{ EXTERNAL_IP_NAME }} \
       --project="{{ PROJECT_ID }}" \
       --description="{{ EXTERNAL_IP_DESCRIPION }}" \
-      --region={{GCP_REGION }}
+      --region={{ GCP_REGION }}
   register: status  
   failed_when:  
     - status.rc == 1
