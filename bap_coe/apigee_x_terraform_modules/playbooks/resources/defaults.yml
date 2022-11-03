@@ -1,0 +1,132 @@
+---
+# Attributes to be set in a protected credentials file not stored with scripts
+#GCLOUD_ACCOUNT_USER: "PROVIDED_IN_CREDENTIALS_YML"
+#GCLOUD_ACCOUNT_DOMAIN: "PROVIDED_IN_CREDENTIALS_YML"
+#BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
+#GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
+
+# Attributes to be set in override.yml
+#TERRAFORM_PROJECT_NAME: x-l7xlb
+#PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-09012022-1221"
+#TERRAFORM_VAR_FILE: x-demo.tfvars
+#TERRAFORM_LOG: "DEBUG"
+#FOLDER_DISPLAY_NAME: apigeex
+
+# Service Account
+GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_SERVICE_ACCOUNT_NAME: "{{ GCLOUD_ACCOUNT_USER }}-service-account"
+GCLOUD_SERVICE_ACCOUNT_EMAIL: "{{ GCLOUD_SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+GCLOUD_ACCOUNT_PROJECT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+
+SERVICE_ACCOUNT_FILE_SUFFIX: "service-account-key"
+
+WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
+TOOLS_DIR: "{{ WORK_DIR }}/bin"
+
+#GITHUB_REPO_URL: git@github.com:carlosfrias/terraform-modules.git
+GITHUB_REPO_URL: https://github.com/apigee/terraform-modules.git
+GITHUB_REPO_DEST: "{{ WORK_DIR }}/terraform-projects"
+
+AUTHORIZATION_KIND: serviceaccount
+
+TERRAFORM_LOG_LEVEL: "DEBUG"
+TERRAFORM_PATH_PROJECT: "{{ GITHUB_REPO_DEST }}/samples/{{ TERRAFORM_PROJECT_NAME }}"
+TERRAFORM_VAR_FILE_PATH: "{{ TERRAFORM_PATH_PROJECT }}/{{ TERRAFORM_VAR_FILE }}"
+
+TERRAFORM_PATH_BIN_DEST: "{{ TERRAFORM_PATH_PROJECT }}"
+TERRAFORM_PATH_BIN: "{{ TERRAFORM_PATH_BIN_DEST }}/terraform"
+
+TERRAFORM_LOG_PATH: "{{ WORK_DIR }}/logs"
+TERRAFORM_LOG_FILE_NAME_INIT: "terraform-{{ PROJECT_ID }}-init.log"
+TERRAFORM_LOG_FILE_NAME_INIT_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_INIT }}"
+TERRAFORM_LOG_FILE_NAME_PLAN: "terraform-{{ PROJECT_ID }}-plan.log"
+TERRAFORM_LOG_FILE_NAME_PLAN_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_PLAN }}"
+TERRAFORM_LOG_FILE_NAME_APPLY: "terraform-{{ PROJECT_ID }}-apply.log"
+TERRAFORM_LOG_FILE_NAME_APPLY_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_APPLY }}"
+TERRAFORM_LOG_FILE_NAME_DESTROY: "terraform-{{ PROJECT_ID }}-destroy.log"
+TERRAFORM_LOG_FILE_NAME_DESTROY_PATH: "{{ TERRAFORM_LOG_PATH }}/{{ TERRAFORM_LOG_FILE_NAME_DESTROY }}"
+
+GCLOUD_FOLDER_ROLE_BINDINGS:
+- roles/resourcemanager.folderAdmin
+
+GCLOUD_ORG_ROLE_BINDINGS:
+- "roles/owner"
+- "roles/billing.admin"
+- "roles/billing.projectManager"
+- "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountKeyAdmin"
+- "roles/resourcemanager.projectIamAdmin"
+- "roles/resourcemanager.organizationAdmin"
+- "roles/serviceusage.serviceUsageAdmin"
+- "roles/serviceusage.apiKeysAdmin"
+- "roles/iap.tunnelResourceAccessor"
+
+GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
+- constraints/iam.disableServiceAccountKeyCreation
+- constraints/iam.disableServiceAccountCreation
+- constraints/compute.requireShieldedVm
+- constraints/compute.requireOsLogin
+- constraints/compute.skipDefaultNetworkCreation
+
+GCLOUD_ORG_POLICIES_UPDATE:
+- constraints/compute.trustedImageProjects
+- constraints/compute.restrictSharedVpcSubnetworks
+- constraints/compute.restrictSharedVpcHostProjects
+- constraints/compute.restrictVpcPeering
+- constraints/compute.vmExternalIpAccess
+- constraints/compute.vmCanIpForward
+
+#  Configure project admin role bindings
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
+- "roles/resourcemanager.projectDeleter"
+- "roles/resourcemanager.projectCreator"
+
+GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
+- "roles/owner"
+- "roles/compute.admin"
+- "roles/compute.networkAdmin"
+- "roles/compute.instanceAdmin"
+- "roles/apigee.admin"
+- "roles/networkmanagement.admin"
+- "roles/cloudkms.admin"
+- "roles/networkmanagement.viewer"
+- "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountCreator"
+- "roles/iam.serviceAccountKeyAdmin"
+#- "roles/compute.loadBalancerAdmin"
+
+GCLOUD_PROJECT_SERVICES:
+- "compute.googleapis.com"
+- "apigee.googleapis.com"
+- "servicenetworking.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
+- "serviceusage.googleapis.com"
+- "iam.googleapis.com"
+- "iamcredentials.googleapis.com"
+- "apigeeconnect.googleapis.com"
+#- "dns.googleapis.com"
+#- "cloudkms.googleapis.com"
+#- "sourcerepo.googleapis.com"
+#- "container.googleapis.com"
+#- "containerregistry.googleapis.com"
+#- "stackdriver.googleapis.com"
+#- "meshca.googleapis.com"
+#- "meshtelemetry.googleapis.com"
+#- "meshconfig.googleapis.com"
+#- "anthos.googleapis.com"
+#- "gkeconnect.googleapis.com"
+#- "gkehub.googleapis.com"
+#- "cloudbuild.googleapis.com"
+#- "secretmanager.googleapis.com"
+#- "pubsub.googleapis.com"
+#- "monitoring.googleapis.com"
+#- "logging.googleapis.com"
+#- "cloudtrace.googleapis.com"
+#- "privateca.googleapis.com"
+
