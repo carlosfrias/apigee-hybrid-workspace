@@ -4,9 +4,9 @@
   connection: local
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
 
   vars:
     key_value_pairs:

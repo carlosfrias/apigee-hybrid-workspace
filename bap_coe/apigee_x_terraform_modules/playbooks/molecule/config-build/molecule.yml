@@ -14,5 +14,4 @@ provisioner:
   name: ansible
 verifier:
   name: ansible
-  log: True
 
