@@ -12,7 +12,6 @@ transaction.yaml
 **/ansible
 .idea/**
 **/git-repos/**
-**/resources/**
 *.swp
 **/ansible.cfg
 **/attributes.yml
