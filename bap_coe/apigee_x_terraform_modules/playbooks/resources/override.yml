@@ -1,7 +1,7 @@
 ---
 # Project management attribures
-TERRAFORM_PROJECT_NAME: x-basic
-PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-11042022-1212"
+TERRAFORM_PROJECT_NAME: x-l7xlb
+PROJECT_ID: "friasc-{{ TERRAFORM_PROJECT_NAME | split('-') | join('') }}-10312022-1524"
 TERRAFORM_VAR_FILE: x-demo.tfvars
 TERRAFORM_LOG: "DEBUG"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
