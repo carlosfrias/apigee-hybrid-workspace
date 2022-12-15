@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: config-svc-accts-keys
+  - name: create-service-account
 provisioner:
   name: ansible
 #  playbooks:
@@ -43,5 +43,4 @@ verifier:
 #
 #    inventory:
 #      enable_plugins: gcp_compute
-#
 #

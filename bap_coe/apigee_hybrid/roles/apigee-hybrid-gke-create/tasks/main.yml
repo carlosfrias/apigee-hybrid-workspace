@@ -38,7 +38,6 @@
       --num-nodes={{ NODE_COUNT | int }} \
       --min-nodes={{ (NODE_COUNT | int ) - 1 }} \
       --max-nodes={{ (NODE_COUNT | int ) * 2 }} \
-      --enable-stackdriver-kubernetes \
       --subnetwork=default \
       --enable-ip-alias \
       --no-enable-autoupgrade \
@@ -103,7 +102,7 @@
 
 - name: Enable Cloud Monitoring and Cloud Logging in GKE - this is now in the install_asm bash script
   tags: ['install_asm_skip']
-  shell: gcloud container clusters update {{ CLUSTER_NAME }} --enable-stackdriver-kubernetes
+  shell: gcloud container clusters update {{ CLUSTER_NAME }}
 
 - block:
   - name: Rename cluster
@@ -131,7 +130,7 @@
 
 - name: Ensure you have cluster-admin on the cluster
   ignore_errors: yes
-  shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ GCLOUD_ACCOUNT }}
+  shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ GCLOUD_ACCOUNT | default(GCLOUD_ACCOUNT_USER }}
   failed_when:  
     - status.rc == 1
     - "'already exists' not in status.stderr"

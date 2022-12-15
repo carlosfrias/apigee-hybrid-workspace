@@ -1,5 +1,5 @@
 ---
-- name: Configure permissions and service accounts
+- name: Create Service Account Keys
   hosts: localhost
   connection: local
 
@@ -14,5 +14,7 @@
 
   roles:
   - { role: service_account_file_path }
+  - { role: gcp_iam_service_account_keys }
   - { role: service_account_file_processing }
-  - { role: gcp_iam_service_account_create, SERVICE_OP: 'create' }
+  - { role: gcp_auth_service_account_activate }
+

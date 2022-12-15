@@ -1,5 +1,5 @@
 ---
-- name: Configure permissions and service accounts
+- name: Create Service Account Permissions
   hosts: localhost
   connection: local
 
@@ -14,7 +14,9 @@
 
   roles:
   - { role: service_account_file_path }
-  - { role: gcp_iam_service_account_keys }
-  - { role: service_account_file_processing }
-  - { role: gcp_auth_service_account_activate }
-
+  - {
+      role: gcp_iam_policy_bindings,
+      BINDING_OP: "add",
+      ACCOUNT_TYPE: "serviceAccount",
+      POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+    }

@@ -1,5 +1,5 @@
 ---
-- name: Configure permissions and service accounts
+- name: Enable APIs
   hosts: localhost
   connection: local
 

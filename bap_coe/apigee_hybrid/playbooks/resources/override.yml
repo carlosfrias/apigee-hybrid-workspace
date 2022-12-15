@@ -5,23 +5,26 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-PROJECT_ID: "friasc-hybrid-10172022-1624"
+PROJECT_ID: "friasc-hybrid-12-15-2022-1351"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 GCP_ZONE: "us-east1-b"
 GCP_REGION: "us-east1"
+REGION: "{{ GCP_REGION }}"
 REGION_SEED: "{{ GCP_REGION }}"
 ANALYTICS_REGION: "{{ GCP_REGION }}"
 RUNTIMETYPE: "HYBRID"
 ORG_CREATE_TIMEOUT: 90
 
 SERVICE_ACCOUNT_FILE_SUFFIX: "service-account-key"
-APIGEE_VERSION: 1.7
+APIGEE_VERSION: 1.8
 ISTIO_VERSION: 1.7.8
 ISTIO_VERSION_REVISION: "asm.8"
 ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split('.')[0] }}.{{ ISTIO_VERSION.split('.')[1] }}"
 ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split('.')[2] }}"
 ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
 CLUSTER_SEED: 1
+
+VPC_NETWORK_NAME: default
 
 #PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
 #PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
@@ -69,31 +72,31 @@ GCLOUD_FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
 GCLOUD_PROJECT_SERVICES:
-- "compute.googleapis.com"
-- "cloudresourcemanager.googleapis.com"
-- "servicenetworking.googleapis.com"
-- "serviceusage.googleapis.com"
-- "iam.googleapis.com"
-- "container.googleapis.com"
-- "stackdriver.googleapis.com"
-- "meshca.googleapis.com"
-- "meshtelemetry.googleapis.com"
-- "meshconfig.googleapis.com"
-- "iamcredentials.googleapis.com"
-- "anthos.googleapis.com"
-- "gkeconnect.googleapis.com"
-- "gkehub.googleapis.com"
-- "sourcerepo.googleapis.com"
-- "cloudbuild.googleapis.com"
-- "secretmanager.googleapis.com"
-- "dns.googleapis.com"
-- "pubsub.googleapis.com"
 - "apigee.googleapis.com"
 - "apigeeconnect.googleapis.com"
-- "monitoring.googleapis.com"
-- "logging.googleapis.com"
-- "cloudtrace.googleapis.com"
-- "privateca.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
+- "compute.googleapis.com"
+- "container.googleapis.com"
+- "pubsub.googleapis.com"
+#- "servicenetworking.googleapis.com"
+#- "serviceusage.googleapis.com"
+#- "iam.googleapis.com"
+#- "stackdriver.googleapis.com"
+#- "meshca.googleapis.com"
+#- "meshtelemetry.googleapis.com"
+#- "meshconfig.googleapis.com"
+#- "iamcredentials.googleapis.com"
+#- "anthos.googleapis.com"
+#- "gkeconnect.googleapis.com"
+#- "gkehub.googleapis.com"
+#- "sourcerepo.googleapis.com"
+#- "cloudbuild.googleapis.com"
+#- "secretmanager.googleapis.com"
+#- "dns.googleapis.com"
+#- "monitoring.googleapis.com"
+#- "logging.googleapis.com"
+#- "cloudtrace.googleapis.com"
+#- "privateca.googleapis.com"
 
 GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
