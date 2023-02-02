@@ -7,16 +7,16 @@
   import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/converge.yml"
 
 - name: Update services api
-  import_playbook: "{{ playbook_dir | dirname }}/config-services/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/enable-apis/converge.yml"
 
 - name: Create service accounts
-  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-create/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/create-service-account/converge.yml"
 
 - name: Create service account keys
-  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-keys/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/create-service-account-keys/converge.yml"
 
 - name: Update service account permissions
-  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-permissions/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/create-service-account-permissions/converge.yml"
 
 - name: Configure terraform variables
   import_playbook: "{{ playbook_dir | dirname }}/hybrid-single-region/converge.yml"
