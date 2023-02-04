@@ -40,7 +40,7 @@
       - INVENTORY_DIR is defined
     msg: "Please provide the INVENTORY_DIR"
 
-- name: Assert INVENTORY_DIR exists
+- name: Assert folders exists
   file:
     path: "{{ item }}"
     state: directory
