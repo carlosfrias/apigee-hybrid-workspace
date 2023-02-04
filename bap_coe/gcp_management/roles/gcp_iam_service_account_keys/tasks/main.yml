@@ -18,10 +18,10 @@
     -  GCLOUD_SERVICE_ACCOUNT_EMAIL is defined
     msg: "Please provide the  GCLOUD_SERVICE_ACCOUNT_EMAIL"
 
-- name: Wait for the policy bindings to propagate
-  pause:
-    seconds: "{{ GCLOUD_ORG_BINDING_PROPAGATION_TIMEOUT  | default(10) }}"
-    prompt: "Wait for the policy bindings to propagate"
+#- name: Wait for the policy bindings to propagate
+#  pause:
+#    seconds: "{{ GCLOUD_ORG_BINDING_PROPAGATION_TIMEOUT  | default(10) }}"
+#    prompt: "Wait for the policy bindings to propagate"
 
 - name: Assert that SERVICE_ACCOUNT_FILE_PATH availability
   stat:

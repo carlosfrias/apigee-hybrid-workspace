@@ -72,7 +72,7 @@
     dest: "{{ item.dest }}"
     force: yes
   with_items:
-    - { src: "gce-dynamic-inventory.gcp.yml.j2", dest: "{{ INVENTORY_DIR }}/{{ INVENTORY_FILE_NAME }}" }
+    - { src: "gce-dynamic-inventory.gcp.yml.j2", dest: "{{ INVENTORY_DIR }}" }
     - { src: "ansible.cfg.j2", dest: "{{ playbook_dir }}/ansible.cfg.template" }
 
 - name: Refresh the inventory
