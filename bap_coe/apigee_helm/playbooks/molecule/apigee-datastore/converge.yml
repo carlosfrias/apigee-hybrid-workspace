@@ -13,7 +13,7 @@
     - name: Configure Apigee Datastore
       kubernetes.core.helm:
         name: apigee-datastore
-        binary_path: "{{ helm_binary }}"
+        binary_path: "{{ HELM_BINARY }}"
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-datastore"
         state: present
         release_namespace: "{{ NAMESPACE }}"

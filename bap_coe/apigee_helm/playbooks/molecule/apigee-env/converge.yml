@@ -13,7 +13,7 @@
     - name: Configure Apigee Env
       kubernetes.core.helm:
         name: apigee-env
-        binary_path: "{{ helm_binary }}"
+        binary_path: "{{ HELM_BINARY }}"
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-env"
         state: present
         release_namespace: "{{ NAMESPACE }}"

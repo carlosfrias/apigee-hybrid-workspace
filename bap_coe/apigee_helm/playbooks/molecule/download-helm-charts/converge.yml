@@ -16,7 +16,6 @@
         state: directory
       with_items:
         - "{{ WORK_DIR }}"
-        - "{{ HELM_BINARY_DEST }}"
 
     - name: Download helm binaries
       get_url:
@@ -33,7 +32,7 @@
     - name: Move helm binaries to path
       copy:
         src: "{{ HELM_BINARY_DEST }}/{{ ansible_system | lower }}-{{ facter_os.architecture }}/helm"
-        dest: "{{ helm_binary }}"
+        dest: "{{ HELM_BINARY }}"
         mode: 0744
 
     - name: Retrieve Apigee hybrid helm charts repo
@@ -41,10 +40,10 @@
         repo: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
         dest: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
 
-    - name: 01-install-helm chart
+    - name: install-helm chart
       kubernetes.core.helm:
         name: apigee-datastore
-        binary_path: "{{ helm_binary }}"
+        binary_path: "{{ HELM_BINARY }}"
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-datastore"
         state: present
         release_namespace: "{{ NAMESPACE }}"

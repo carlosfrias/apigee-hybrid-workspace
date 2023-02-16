@@ -1,0 +1,21 @@
+---
+- name: Create Apigee hybrid GKE Cluster
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+  - bap_coe.apigee_hybrid
+  - bap_coe.gcp_management
+
+  roles:
+    - { role: service_account_file_path }
+    - { role: service_account_file_processing }
+    - { role: gce_network_create }
+    - { role: apigee-hybrid-gke-create }

@@ -1,0 +1,19 @@
+---
+- name: Create GCP infrastructure
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+  - bap_coe.gcp_management
+
+  roles:
+    - { role: gcp_project_create }
+
+

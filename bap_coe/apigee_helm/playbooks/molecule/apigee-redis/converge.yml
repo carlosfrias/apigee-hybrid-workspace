@@ -13,7 +13,7 @@
     - name: Config Apigee Redis
       kubernetes.core.helm:
         name: apigee-redis
-        binary_path: "{{ helm_binary }}"
+        binary_path: "{{ HELM_BINARY }}"
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-redis"
         state: present
         release_namespace: "{{ NAMESPACE }}"

@@ -1,0 +1,44 @@
+---
+- name: Configure org policies
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bootstrap_runtime
+
+  roles:
+    - {
+        role: gcp_iam_policy_bindings_org,
+        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+        BINDING_OP: "add",
+        ROLE_BINDINGS: [
+          "{{ GCLOUD_ORG_ROLE_BINDINGS }}"
+        ]
+      }
+    - {
+        role: gcp_iam_policy_bindings_org,
+        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+        BINDING_OP: "add",
+        ROLE_BINDINGS: [
+          "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}"
+        ]
+      }
+    - {
+        role: gcp_iam_policy_bindings_org,
+        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+        BINDING_OP: "add",
+        ROLE_BINDINGS: [
+          "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+        ]
+      }
+    - { role: gcp_resource_manager_constraints_disable_enforce }
+    - { role: gcp_resource_manager_update_org_policy }
+    - { role: gcp_resource_manager_folders_create }
+    - { role: gcp_resource_manager_folders_get_folder_id }
+    - { role: gcp_resource_manager_folders_permissions_user }
+

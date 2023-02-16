@@ -13,7 +13,7 @@
     - name: Config Apigee Virtualhost
       kubernetes.core.helm:
         name: apigee-virtualhost
-        binary_path: "{{ helm_binary }}"
+        binary_path: "{{ HELM_BINARY }}"
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-virtualhost"
         state: present
         release_namespace: "{{ NAMESPACE }}"
