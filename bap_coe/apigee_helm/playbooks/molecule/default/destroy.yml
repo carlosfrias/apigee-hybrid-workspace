@@ -12,6 +12,6 @@
   tasks:
     - name: Clean up work_dir
       file:
-        path: "{{ work_dir }}"
+        path: "{{ WORK_DIR }}"
         state: absent
 

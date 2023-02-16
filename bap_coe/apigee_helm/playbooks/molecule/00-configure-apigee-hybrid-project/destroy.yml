@@ -1,24 +1,16 @@
 ---
-- name: Destroy
+- name: Delete infrastructure for private cloud in GCP
   hosts: localhost
   connection: local
-  gather_facts: false
-  no_log: "{{ molecule_no_log }}"
-  tasks:
-    # Developer must implement.
 
-    # Mandatory configuration for Molecule to function.
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
-    - name: Populate instance config
-      ansible.builtin.set_fact:
-        instance_conf: {}
+  collections:
+  - bap_coe.gcp_management
 
-    - name: Dump instance config
-      ansible.builtin.copy:
-        content: |
-          # Molecule managed
-
-          {{ instance_conf | to_json | from_json | to_yaml }}
-        dest: "{{ molecule_instance_config }}"
-        mode: 0600
-      when: server.changed | default(false) | bool
+  roles:
+  - { role: gcp_project_delete }
+  - { role: gcp_resource_manager_folders_get_folder_id, when: FOLDER_DISPLAY_NAME is defined }
+  - { role: gcp_resource_manager_folders_delete, when: FOLDER_DISPLAY_NAME is defined }

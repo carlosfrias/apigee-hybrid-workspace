@@ -14,7 +14,7 @@
       kubernetes.core.helm:
         name: apigee-datastore
         binary_path: "{{ helm_binary }}"
-        chart_ref: "{{ apigee_hybrid_helm_chart_repo_dest }}/apigee-datastore"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-datastore"
         state: present
-        release_namespace: "{{ namespace }}"
+        release_namespace: "{{ NAMESPACE }}"
 

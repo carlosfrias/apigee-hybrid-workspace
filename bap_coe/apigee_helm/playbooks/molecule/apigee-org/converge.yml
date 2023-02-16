@@ -14,7 +14,7 @@
       kubernetes.core.helm:
         name: apigee-org
         binary_path: "{{ helm_binary }}"
-        chart_ref: "{{ apigee_hybrid_helm_chart_repo_dest }}/apigee-org"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-org"
         state: present
-        release_namespace: "{{ namespace }}"
+        release_namespace: "{{ NAMESPACE }}"
 

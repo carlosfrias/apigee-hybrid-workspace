@@ -12,19 +12,19 @@
   tasks:
     - name: Download helm binaries
       get_url:
-        url: "{{ helm_url }}"
-        dest: "{{ helm_download_dest }}"
+        url: "{{ HELM_URL }}"
+        dest: "{{ HELM_DOWNLOAD_DEST }}"
         force: true
-        checksum: sha256:{{ helm_url_checksum }}
+        checksum: sha256:{{ HELM_URL_CHECKSUM }}
 
     - name: Unarchive helm binaries
       unarchive:
-        src: "{{ helm_download_dest }}"
-        dest: "{{ helm_binary_dest }}"
+        src: "{{ HELM_DOWNLOAD_DEST }}"
+        dest: "{{ HELM_BINARY_DEST }}"
 
     - name: Move helm binaries to path
       copy:
-        src: "{{ helm_binary_dest }}/{{ ansible_system | lower }}-{{ facter_os.architecture }}/helm"
+        src: "{{ HELM_BINARY_DEST }}/{{ ansible_system | lower }}-{{ facter_os.architecture }}/helm"
         dest: "{{ helm_binary }}"
         mode: 0744
 
