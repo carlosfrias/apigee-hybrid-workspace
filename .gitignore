@@ -16,4 +16,6 @@ transaction.yaml
 **/ansible.cfg
 **/attributes.yml
 **/.env.yml
+**/.yamllint
+**/apigee-hybrid-helm-charts
 

@@ -12,32 +12,6 @@ platforms:
   - name: create-an-organization
 provisioner:
   name: ansible
-  ansible_args:
-    - -i=$MOLECULE_PROJECT_DIRECTORY/inventory
-    - -u=friasc
-    - --private-key=~/.ssh/google_compute_engine
-  playbooks:
-    converge: converge.yml
 verifier:
   name: ansible
-#  log: True
-#  config_options:
-#    defaults:
-#      interpreter_python: auto_silent
-#      callbacks_enabled: profile_tasks, timer, yaml
-#      local_tmp: ~/.ansible/tmp
-#      fact_caching_connection: ~/.ansible/cache/bap_coe_apigee_hybrid
-#      fact_caching: jsonfile
-#      gathering: smart
-#      merge_multiple_cli_tags: True
-#      display_args_to_stdout: True
-#      timeout: 60
-#      bin_ansible_callbacks: True
-#      stdout_callback: yaml
-#      stderr_callback: yaml
-#    ssh_connection:
-#      pipelining: false
-#      scp_if_ssh: True
-#    inventory:
-#      enable_plugins: gcp_compute
 
