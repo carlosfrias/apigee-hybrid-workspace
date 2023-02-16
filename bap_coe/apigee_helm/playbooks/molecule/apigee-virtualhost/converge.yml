@@ -1,0 +1,20 @@
+---
+- name: Config Apigee Virtualhost
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+    - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  tasks:
+    - name: install-helm chart
+      kubernetes.core.helm:
+        name: apigee-virtualhost
+        binary_path: "{{ helm_binary }}"
+        chart_ref: "{{ apigee_hybrid_helm_chart_repo_dest }}/apigee-virtualhost"
+        state: present
+        release_namespace: apigee-hybrid
+
