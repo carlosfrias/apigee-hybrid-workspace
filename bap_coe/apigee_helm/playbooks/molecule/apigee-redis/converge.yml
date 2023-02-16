@@ -1,5 +1,5 @@
 ---
-- name: Config Apigee Regis
+- name: Config Apigee Redis
   hosts: localhost
   connection: local
   gather_facts: true
@@ -10,11 +10,11 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: install-helm chart
+    - name: Config Apigee Redis
       kubernetes.core.helm:
-        name: apigee-regis
+        name: apigee-redis
         binary_path: "{{ helm_binary }}"
-        chart_ref: "{{ apigee_hybrid_helm_chart_repo_dest }}/apigee-regis"
+        chart_ref: "{{ apigee_hybrid_helm_chart_repo_dest }}/apigee-redis"
         state: present
-        release_namespace: apigee-hybrid
+        release_namespace: "{{ namespace }}"
 

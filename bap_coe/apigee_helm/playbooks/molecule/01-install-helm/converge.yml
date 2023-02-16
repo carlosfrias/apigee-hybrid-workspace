@@ -10,14 +10,6 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: Create binary dest folder
-      file:
-        path: "{{ item }}"
-        state: directory
-      with_items:
-        - "{{ work_dir }}"
-        - "{{ helm_binary_dest }}"
-
     - name: Download helm binaries
       get_url:
         url: "{{ helm_url }}"

@@ -10,11 +10,11 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: install-helm chart
+    - name: Config Apigee Telemetry
       kubernetes.core.helm:
         name: apigee-telemetry
         binary_path: "{{ helm_binary }}"
         chart_ref: "{{ apigee_hybrid_helm_chart_repo_dest }}/apigee-telemetry"
         state: present
-        release_namespace: apigee-hybrid
+        release_namespace: "{{ namespace }}"
 

@@ -10,11 +10,11 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: install-helm chart
+    - name: Configure Apigee Operator
       kubernetes.core.helm:
         name: apigee-operator
         binary_path: "{{ helm_binary }}"
         chart_ref: "{{ apigee_hybrid_helm_chart_repo_dest }}/apigee-operator"
         state: present
-        release_namespace: apigee-hybrid
+        release_namespace: "{{ namespace }}"
 

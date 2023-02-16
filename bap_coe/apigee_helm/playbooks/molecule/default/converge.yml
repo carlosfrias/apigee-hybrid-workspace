@@ -1,22 +1,30 @@
 ---
+- name: Configure Apigee Hybrid Project
+  import_playbook: "{{ playbook_dir | dirname }}/00-configure-apigee-hybrid-project/converge.yml"
+
+- name: Install helm
+  import_playbook: "{{ playbook_dir | dirname }}/01-install-helm/converge.yml"
+
+- name: Download Apigee Hybrid helm charts
+  import_playbook: "{{ playbook_dir | dirname }}/02-download-apigee-hybrid-helm-charts/converge.yml"
+
+- name: Configure Apigee Operator
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-operator/converge.yml"
 
 - name: Configure Apigee Datastore
   import_playbook: "{{ playbook_dir | dirname }}/apigee-datastore/converge.yml"
 
-- name: Configure Apigeee Env
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-env/converge.yml"
-
-- name: Configure Apigee Regis
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-regis/converge.yml"
-
 - name: Configure Apigee Telemetry
   import_playbook: "{{ playbook_dir | dirname }}/apigee-telemetry/converge.yml"
+
+- name: Configure Apigee Redis
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-redis/converge.yml"
 
 - name: Configure Apigee Org
   import_playbook: "{{ playbook_dir | dirname }}/apigee-org/converge.yml"
 
-- name: Configure Apigee Operator
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-operator/converge.yml"
+- name: Configure Apigee Env
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-env/converge.yml"
 
 - name: Configure Apigee Virtualhost
   import_playbook: "{{ playbook_dir | dirname }}/apigee-virtualhost/converge.yml"
