@@ -10,31 +10,6 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: Create binary dest folder
-      file:
-        path: "{{ item }}"
-        state: directory
-      with_items:
-        - "{{ WORK_DIR }}"
-
-    - name: Download helm binaries
-      get_url:
-        url: "{{ HELM_URL }}"
-        dest: "{{ HELM_DOWNLOAD_DEST }}"
-        force: true
-        checksum: sha256:{{ HELM_URL_CHECKSUM }}
-
-    - name: Unarchive helm binaries
-      unarchive:
-        src: "{{ HELM_DOWNLOAD_DEST }}"
-        dest: "{{ HELM_BINARY_DEST }}"
-
-    - name: Move helm binaries to path
-      copy:
-        src: "{{ HELM_BINARY_DEST }}/{{ ansible_system | lower }}-{{ facter_os.architecture }}/helm"
-        dest: "{{ HELM_BINARY }}"
-        mode: 0744
-
     - name: Retrieve Apigee hybrid helm charts repo
       git:
         repo: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"

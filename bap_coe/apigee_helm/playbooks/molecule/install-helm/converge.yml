@@ -30,6 +30,7 @@
       unarchive:
         src: "{{ HELM_DOWNLOAD_DEST }}/{{ HELM_ARCHIVE_NAME }}"
         dest: "{{ HELM_DOWNLOAD_DEST }}"
+        remote_src: true
 
     - name: Move helm binaries to path
       copy:
