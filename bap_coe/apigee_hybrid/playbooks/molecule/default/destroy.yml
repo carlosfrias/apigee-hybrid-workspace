@@ -1,10 +1,10 @@
 ---
 
 - name: Provision project - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/00-provision-project/destroy.yml"
 
 - name: Update organization policies - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/01-config-org-policies/destroy.yml"
 
 - name: Update services api - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/config-services/destroy.yml"

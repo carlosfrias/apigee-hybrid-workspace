@@ -9,8 +9,9 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: provision-project
+  - name: 06-create-an-organization
 provisioner:
   name: ansible
 verifier:
   name: ansible
+

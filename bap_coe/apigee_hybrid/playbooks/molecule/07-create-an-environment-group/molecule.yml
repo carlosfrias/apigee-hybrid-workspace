@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: create-service-account
+  - name: 07-create-an-environment-group
 provisioner:
   name: ansible
 verifier:

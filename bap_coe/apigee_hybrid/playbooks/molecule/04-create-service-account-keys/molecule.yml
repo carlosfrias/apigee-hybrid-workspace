@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: create-an-organization
+  - name: 04-create-service-account-keys
 provisioner:
   name: ansible
 verifier:

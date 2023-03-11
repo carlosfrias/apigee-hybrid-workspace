@@ -1,9 +1,9 @@
 ---
 - name: Provision project
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/00-provision-project/converge.yml"
 
 - name: Update organization policies
-  import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/01-config-org-policies/converge.yml"
 
 - name: Update services api
   import_playbook: "{{ playbook_dir | dirname }}/config-services/converge.yml"

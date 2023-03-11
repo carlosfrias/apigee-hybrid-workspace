@@ -10,7 +10,7 @@
     SERVICE_ACCOUNT_ADMIN: "{{ SERVICE_ACCOUNT_ADMIN | default(DEFAULT_SERVICE_ACCOUNT_ADMIN) }}"
 
 - name: Create Service Accounts
-  shell: echo 'y' | ./tools/create-service-account {{ item }} ./service-accounts
+  shell: echo 'y' | ./tools/create-service-account {{ item }} ./service-accounts -e {{ ENV_NAME }}
   args:
     chdir: "{{ HYBRID_FILES }}"
   with_items: "{{ SERVICE_ACCOUNTS }}"

@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: config-org-policies
+  - name: 01-config-org-policies
 provisioner:
   name: ansible
 verifier:
