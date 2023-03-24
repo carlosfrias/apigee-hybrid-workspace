@@ -1,26 +1,9 @@
 ---
+#- name: Configure terraform variables - destroy invocation
+#  import_playbook: "{{ playbook_dir | dirname }}/terraform-vars/destroy.yml"
+
+#- name: Execute terraform scripts - destroy invocation
+#  import_playbook: "{{ playbook_dir | dirname }}/terraform/destroy.yml"
 
 - name: Provision project - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/00-provision-project/destroy.yml"
-
-- name: Update organization policies - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/01-config-org-policies/destroy.yml"
-
-- name: Update services api - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/config-services/destroy.yml"
-
-- name: Create service accounts - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-create/destroy.yml"
-
-- name: Create service account keys - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-keys/destroy.yml"
-
-- name: Update service account permissions - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/config-svc-accts-permissions/destroy.yml"
-
-- name: Configure terraform variables - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/terraform-vars/destroy.yml"
-
-- name: Execute terraform scripts - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/terraform/destroy.yml"
-
