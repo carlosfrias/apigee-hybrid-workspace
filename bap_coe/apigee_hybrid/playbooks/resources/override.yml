@@ -67,7 +67,6 @@ SERVICE_ACCOUNTS:
 - apigee-logger
 - apigee-watcher
 
-
 GCLOUD_FOLDER_ROLE_BINDINGS:
 - roles/resourcemanager.folderAdmin
 
@@ -96,27 +95,25 @@ GCLOUD_PROJECT_SERVICES:
 #- "monitoring.googleapis.com"
 #- "logging.googleapis.com"
 #- "cloudtrace.googleapis.com"
-
 #- "privateca.googleapis.com"
+
 GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/billing.admin"
 - "roles/billing.projectManager"
 - "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountKeyAdmin"
 - "roles/resourcemanager.projectIamAdmin"
 - "roles/resourcemanager.organizationAdmin"
 - "roles/serviceusage.serviceUsageAdmin"
 - "roles/serviceusage.serviceUsageViewer"
 - "roles/serviceusage.apiKeysAdmin"
 - "roles/iap.tunnelResourceAccessor"
-- "roles/iam.serviceAccountCreator"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
 - "roles/compute.loadBalancerAdmin"
-- "roles/iam.serviceAccountUser"
 - "roles/networkmanagement.admin"
 - "roles/networkmanagement.viewer"
-- "roles/iam.serviceAccountKeyAdmin"
 - "roles/resourcemanager.projectIamAdmin"
 - "roles/resourcemanager.organizationAdmin"
 - "roles/serviceusage.serviceUsageAdmin"
@@ -128,7 +125,7 @@ GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 - "roles/iam.serviceAccountAdmin"
--
+
 GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/compute.admin"
@@ -139,10 +136,7 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/networkmanagement.admin"
 - "roles/cloudkms.admin"
 - "roles/networkmanagement.viewer"
-- "roles/iam.service-accounts.create"
 - "roles/iam.serviceAccountAdmin"
-- "roles/iam.serviceAccountUser"
-- "roles/iam.serviceAccountCreator"
 - "roles/iam.serviceAccountKeyAdmin"
 - "roles/compute.loadBalancerAdmin"
 
@@ -172,4 +166,3 @@ GCP_SYSTEM_TOOLS:
 - gnupg2
 - ca-certificates
 - apt-transport-https
-
