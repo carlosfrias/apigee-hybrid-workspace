@@ -9,11 +9,19 @@
     SERVICE_ACCOUNTS: "{{ SERVICE_ACCOUNTS | default(DEFAULT_SERVICE_ACCOUNTS) }}"
     SERVICE_ACCOUNT_ADMIN: "{{ SERVICE_ACCOUNT_ADMIN | default(DEFAULT_SERVICE_ACCOUNT_ADMIN) }}"
 
-- name: Create Service Accounts
+- name: Create Service Accounts for Apigee version less than 1.8.1
   shell: echo 'y' | ./tools/create-service-account {{ item }} ./service-accounts -e {{ ENV_NAME }}
   args:
     chdir: "{{ HYBRID_FILES }}"
   with_items: "{{ SERVICE_ACCOUNTS }}"
+  when: "{{ APIGEE_VERSION }} is version_compare('1.8.1', '<=') }"
+
+- name: Create Service Accounts for Apigee version greater than 1.8.1
+  shell: echo 'y' | ./tools/create-service-account -p {{ item }} -e {{ ENV_NAME }}
+  args:
+    chdir: "{{ HYBRID_FILES }}"
+  with_items: "{{ SERVICE_ACCOUNTS }}"
+  when: "{{ APIGEE_VERSION }} is version_compare('1.8.1', '>') }"
 
 - name: Create apigee-org-admin service account
   shell: |
