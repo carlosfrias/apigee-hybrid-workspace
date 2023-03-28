@@ -18,7 +18,7 @@
 
 - name: Create Service Accounts for Apigee version greater than 1.8.1
   shell: |
-      echo 'y' | ./tools/create-service-account -p {{ item }} -e prod 
+      echo 'y' | ./tools/create-service-account -p {{ item }} -e prod --dir ./service-accounts
   args:
     chdir: "{{ HYBRID_FILES }}"
   with_items: "{{ SERVICE_ACCOUNTS }}"
