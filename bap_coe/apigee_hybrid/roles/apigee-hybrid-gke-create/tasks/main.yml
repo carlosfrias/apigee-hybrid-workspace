@@ -130,7 +130,7 @@
 
 - name: Ensure you have cluster-admin on the cluster
   ignore_errors: yes
-  shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ GCLOUD_ACCOUNT | default(GCLOUD_ACCOUNT_USER }}
+  shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ GCLOUD_ACCOUNT | default(GCLOUD_ACCOUNT_USER) }}
   failed_when:  
     - status.rc == 1
     - "'already exists' not in status.stderr"
