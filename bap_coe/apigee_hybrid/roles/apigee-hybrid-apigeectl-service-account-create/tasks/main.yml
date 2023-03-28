@@ -14,14 +14,14 @@
   args:
     chdir: "{{ HYBRID_FILES }}"
   with_items: "{{ SERVICE_ACCOUNTS }}"
-  when: "{{ APIGEE_VERSION is version_compare('1.8.1', '<=') }}"
+  when: "{{ APIGEE_VERSION is version('1.8.1', '<=') }}"
 
 - name: Create Service Accounts for Apigee version greater than 1.8.1
   shell: echo 'y' | ./tools/create-service-account -p {{ item }} -e {{ ENV_NAME }}
   args:
     chdir: "{{ HYBRID_FILES }}"
   with_items: "{{ SERVICE_ACCOUNTS }}"
-  when: "{{ APIGEE_VERSION is version_compare('1.8.1', '>') }}"
+  when: "{{ APIGEE_VERSION is version('1.8.1', '>') }}"
 
 - name: Create apigee-org-admin service account
   shell: |
