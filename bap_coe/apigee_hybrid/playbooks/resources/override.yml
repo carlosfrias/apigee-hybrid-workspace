@@ -109,7 +109,6 @@ GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/serviceusage.serviceUsageViewer"
 - "roles/serviceusage.apiKeysAdmin"
 - "roles/iap.tunnelResourceAccessor"
-- "roles/iam.serviceaccounts.create"
 - "roles/iam.serviceAccountCreator"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"
@@ -122,13 +121,14 @@ GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/resourcemanager.organizationAdmin"
 - "roles/serviceusage.serviceUsageAdmin"
 - "roles/serviceusage.apiKeysAdmin"
-
 - "roles/iap.tunnelResourceAccessor"
+
 #  Configure project admin role bindings
 GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
-
 - "roles/resourcemanager.projectCreator"
+- "roles/iam.serviceAccountAdmin"
+-
 GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/compute.admin"
@@ -139,7 +139,7 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/networkmanagement.admin"
 - "roles/cloudkms.admin"
 - "roles/networkmanagement.viewer"
-- "roles/iam.serviceaccounts.create"
+- "roles/iam.service-accounts.create"
 - "roles/iam.serviceAccountAdmin"
 - "roles/iam.serviceAccountUser"
 - "roles/iam.serviceAccountCreator"
