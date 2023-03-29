@@ -3,7 +3,6 @@
 - name: Construct hybrid-files path name
   set_fact:
     cacheable: yes
-    HYBRID_FILES: "{{ APIGEECTL_DIR }}/hybrid-files"
 
 - name: Create hybrid-file support folders
   file: 

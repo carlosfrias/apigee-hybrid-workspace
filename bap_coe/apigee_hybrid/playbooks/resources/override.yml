@@ -27,6 +27,7 @@ CLUSTER_SEED: 1
 VPC_NETWORK_NAME: default
 
 APIGEECTL_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}"
+HYBRID_FILES: "{{ APIGEECTL_DIR }}/hybrid-files"
 
 #PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
 #PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
