@@ -18,25 +18,11 @@
         GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
         BINDING_OP: "add",
         ROLE_BINDINGS: [
-          "{{ GCLOUD_ORG_ROLE_BINDINGS }}"
-        ]
-      }
-    - {
-        role: gcp_iam_policy_bindings_org,
-        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
-        BINDING_OP: "add",
-        ROLE_BINDINGS: [
-          "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}"
-        ]
-      }
-    - {
-        role: gcp_iam_policy_bindings_org,
-        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
-        BINDING_OP: "add",
-        ROLE_BINDINGS: [
+          "{{ GCLOUD_ORG_ROLE_BINDINGS }}",
+          "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}",
           "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
         ]
-      }
+    }
     - { role: gcp_resource_manager_constraints_disable_enforce }
     - { role: gcp_resource_manager_update_org_policy }
     - { role: gcp_resource_manager_folders_create }
