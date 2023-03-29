@@ -17,7 +17,7 @@
   when: "{{ APIGEE_VERSION is version('1.8.1', '<=') }}"
 
 - name: Create Service Accounts for Apigee version greater than 1.8.1
-  shell: echo 'y' | ./tools/create-service-account --project-id {{ PROJECT_ID }} -e prod --dir {{ SERVICE_ACCOUNTS_DIR }}
+  shell: echo 'y' | ./tools/create-service-account -e prod --dir {{ SERVICE_ACCOUNTS_DIR }}
   args:
     chdir: "{{ HYBRID_FILES_DIR }}"
 #  with_items: "{{ SERVICE_ACCOUNTS }}"
