@@ -77,9 +77,9 @@ GCLOUD_PROJECT_SERVICES:
 - "compute.googleapis.com"
 - "container.googleapis.com"
 - "pubsub.googleapis.com"
+- "iam.googleapis.com"
 #- "servicenetworking.googleapis.com"
 #- "serviceusage.googleapis.com"
-#- "iam.googleapis.com"
 #- "stackdriver.googleapis.com"
 #- "meshca.googleapis.com"
 #- "meshtelemetry.googleapis.com"
@@ -103,6 +103,10 @@ GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/billing.projectManager"
 - "roles/iam.serviceAccountAdmin"
 - "roles/iam.serviceAccountKeyAdmin"
+- "roles/iam.serviceAccountCreator"
+- "roles/iam.serviceAccountDeleter"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountViewer"
 - "roles/resourcemanager.projectIamAdmin"
 - "roles/resourcemanager.organizationAdmin"
 - "roles/serviceusage.serviceUsageAdmin"
@@ -118,7 +122,6 @@ GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/resourcemanager.organizationAdmin"
 - "roles/serviceusage.serviceUsageAdmin"
 - "roles/serviceusage.apiKeysAdmin"
-- "roles/iap.tunnelResourceAccessor"
 
 #  Configure project admin role bindings
 GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
@@ -133,6 +136,7 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.networkAdmin"
 - "roles/compute.instanceAdmin"
 - "roles/compute.networkUser"
+- "roles/compute.loadBalancerAdmin"
 - "roles/apigee.admin"
 - "roles?apigee.runtimeAgent"
 - "roles/apigee.synchronizerManager"
@@ -144,7 +148,6 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/networkmanagement.viewer"
 - "roles/iam.serviceAccountAdmin"
 - "roles/iam.serviceAccountKeyAdmin"
-- "roles/compute.loadBalancerAdmin"
 
 GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
 - constraints/iam.disableServiceAccountKeyCreation
