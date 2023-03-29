@@ -5,7 +5,7 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-PROJECT_ID: "friasc-hybrid-20230329-1332"
+PROJECT_ID: "friasc-hybrid-20230329-1549"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 GCP_ZONE: "us-east1-b"
 GCP_REGION: "us-east1"
@@ -25,6 +25,8 @@ ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
 CLUSTER_SEED: 1
 
 VPC_NETWORK_NAME: default
+
+APIGEECTL_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}"
 
 #PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
 #PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
@@ -138,9 +140,15 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.networkUser"
 - "roles/compute.loadBalancerAdmin"
 - "roles/apigee.admin"
-- "roles?apigee.runtimeAgent"
+- "roles/apigee.runtimeAgent"
 - "roles/apigee.synchronizerManager"
 - "roles/apigeeconnect.Agent"
+- "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountKeyAdmin"
+- "roles/iam.serviceAccountCreator"
+- "roles/iam.serviceAccountDeleter"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountViewer"
 - "roles/logging.logWriter"
 - "roles/monitoring.metricWriter"
 - "roles/networkmanagement.admin"

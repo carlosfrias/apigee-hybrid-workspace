@@ -4,7 +4,6 @@
   set_fact:
     cacheable: yes
     APIGEE_HYBRID_FILE_NAME: "apigeectl_{{ ansible_system | lower }}_{{ ansible_userspace_bits }}"
-    APIGEECTL_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}"
 
 - name: Construct Apigee hybrid archive name
   set_fact:
