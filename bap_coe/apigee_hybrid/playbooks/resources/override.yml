@@ -5,7 +5,7 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-PROJECT_ID: "friasc-hybrid-20230324-1214"
+PROJECT_ID: "friasc-hybrid-20230329-1251"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 GCP_ZONE: "us-east1-b"
 GCP_REGION: "us-east1"
@@ -125,6 +125,7 @@ GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 - "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountKeyAdmin"
 
 GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/owner"
@@ -133,6 +134,11 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.instanceAdmin"
 - "roles/compute.networkUser"
 - "roles/apigee.admin"
+- "roles?apigee.runtimeAgent"
+- "roles/apigee.synchronizerManager"
+- "roles/apigeeconnect.Agent"
+- "roles/logging.logWriter"
+- "roles/monitoring.metricWriter"
 - "roles/networkmanagement.admin"
 - "roles/cloudkms.admin"
 - "roles/networkmanagement.viewer"

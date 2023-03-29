@@ -49,6 +49,7 @@
         --description={{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
         --display-name={{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
         --project {{ PROJECT_ID }}
+    register: status
     when: PROJECT_ACTIVE is truthy
     failed_when:
       - status.rc == 1

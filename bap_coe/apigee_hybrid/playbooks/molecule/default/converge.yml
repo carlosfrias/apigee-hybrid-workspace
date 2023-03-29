@@ -29,3 +29,19 @@
 
 - name: Configure terraform variables
   import_playbook: "{{ playbook_dir | dirname }}/09-hybrid-single-region/converge.yml"
+
+#  Apigee Organization Admin
+#  Cloud KMS Admin
+#  Compute Admin
+#  Compute Instance Admin (beta)
+#  Compute Load Balancer Admin
+#  Compute Network Admin
+#  Compute Network User
+#  Create Service Accounts
+#  Network Management Admin
+#  Network Management Viewer
+#  Owner
+#  Service Account Admin
+#  Service Account Key Admin
+#  Service Account User
+
