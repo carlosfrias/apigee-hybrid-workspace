@@ -12,14 +12,14 @@
 - name: Create Service Accounts for Apigee version less than 1.8.1
   shell: echo 'y' | ./tools/create-service-account {{ item }} ./service-accounts -e {{ ENV_NAME }}
   args:
-    chdir: "{{ HYBRID_FILES }}"
+    chdir: "{{ HYBRID_FILES_DIR }}"
   with_items: "{{ SERVICE_ACCOUNTS }}"
   when: "{{ APIGEE_VERSION is version('1.8.1', '<=') }}"
 
 - name: Create Service Accounts for Apigee version greater than 1.8.1
   shell: echo 'y' | ./tools/create-service-account -e prod --dir ../service-accounts
   args:
-    chdir: "{{ HYBRID_FILES }}"
+    chdir: "{{ HYBRID_FILES_DIR }}"
 #  with_items: "{{ SERVICE_ACCOUNTS }}"
   when: "{{ APIGEE_VERSION is version('1.8.1', '>') }}"
 

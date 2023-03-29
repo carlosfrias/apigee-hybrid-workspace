@@ -6,7 +6,7 @@
 
 - name: Create hybrid-file support folders
   file: 
-    path: "{{ HYBRID_FILES }}/{{ item }}"    
+    path: "{{ HYBRID_FILES_DIR }}/{{ item }}"    
     state: directory
   with_items: ['overrides', 'service-accounts', 'certs']
 
@@ -16,8 +16,8 @@
     src: "{{ item.src }}"
     state: link
   with_items:
-    - { src: "{{ APIGEECTL_DIR }}/tools" , path: "{{ HYBRID_FILES }}/tools" } 
-    - { src: "{{ APIGEECTL_DIR }}/config" , path: "{{ HYBRID_FILES }}/config" } 
-    - { src: "{{ APIGEECTL_DIR }}/templates" , path: "{{ HYBRID_FILES }}/templates" } 
-    - { src: "{{ APIGEECTL_DIR }}/plugins" , path: "{{ HYBRID_FILES }}/plugins" } 
+    - { src: "{{ APIGEECTL_DIR }}/tools" , path: "{{ HYBRID_FILES_DIR }}/tools" } 
+    - { src: "{{ APIGEECTL_DIR }}/config" , path: "{{ HYBRID_FILES_DIR }}/config" } 
+    - { src: "{{ APIGEECTL_DIR }}/templates" , path: "{{ HYBRID_FILES_DIR }}/templates" } 
+    - { src: "{{ APIGEECTL_DIR }}/plugins" , path: "{{ HYBRID_FILES_DIR }}/plugins" } 
 
