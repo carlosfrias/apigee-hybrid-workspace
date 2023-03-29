@@ -1,8 +1,5 @@
 ---
 # tasks file for roles/apigee-hybrid-apigeectl-dir-structure
-- name: Construct hybrid-files path name
-  set_fact:
-    cacheable: yes
 
 - name: Create hybrid-file support folders
   file: 
