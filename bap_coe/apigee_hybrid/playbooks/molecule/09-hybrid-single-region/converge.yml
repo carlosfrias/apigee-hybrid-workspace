@@ -30,7 +30,7 @@
     - { role: apigee-hybrid-synchronizer-enable, tags: ['synchronizer'] }
     - { role: apigee-hybrid-apigee-connect-enable, tags: ['connect'] }
     - { role: apigee-hybrid-cert-manager-install, tags: ['cert-mgr'] }
-#    - { role: apigee-hybrid-asm-install, tags: ['asm'] }
+    - { role: apigee-hybrid-asm-install, tags: ['asm'], when: "APIGEE_VERSION is version('1.8.1', '<=')" }
     - { role: apigee-hybrid-apigeectl-configure-multi-region-clear-settings, tags: ['clear-multi'] }
     - { role: apigee-hybrid-apigeectl-configure, tags: ['configure'] }
     - { role: apigee-hybrid-apigeectl-apply, tags: ['apply'] }
