@@ -1,6 +1,7 @@
 - name: Create Apigee hybrid single region runtime on GCP
   hosts: localhost
   connection: local
+  gather_facts: true
 
   vars_files:
   - ~/.apigee-secure/argolis-credentials.yml
