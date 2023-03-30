@@ -162,7 +162,7 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/networkmanagement.viewer"
 - "roles/iam.serviceAccountAdmin"
 - "roles/iam.serviceAccountKeyAdmin"
-- "roles/iam.workloadIdentityUser""
+- "roles/iam.workloadIdentityUser"
 
 GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
 - constraints/iam.disableServiceAccountKeyCreation

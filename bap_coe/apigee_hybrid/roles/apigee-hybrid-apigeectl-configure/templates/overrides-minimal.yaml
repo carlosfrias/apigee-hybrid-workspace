@@ -2,10 +2,10 @@ org: "{{ PROJECT_ID }}"
 instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
 
 connectAgent:
-  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
 
 watcher:
-  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-watcher.json"
+  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-watcher.json"
 
 k8sCluster:
   name: "{{ CLUSTER_NAME }}"
@@ -24,8 +24,8 @@ virtualhosts:
 envs:
 - name: test1
   serviceAccountPaths:
-    synchronizer: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-synchronizer.json"
-    udca: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-udca.json"
+    synchronizer: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-synchronizer.json"
+    udca: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-udca.json"
 
 mart:
   replicaCountMin: 1
@@ -34,7 +34,7 @@ mart:
     requests:
       cpu: 250m
       memory: 256Mi
-  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
 
 synchronizer:
   replicaCountMin: 1
@@ -69,4 +69,4 @@ udca:
 
 metrics:
   enabled: false
-  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-metrics.json"
+  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-metrics.json"

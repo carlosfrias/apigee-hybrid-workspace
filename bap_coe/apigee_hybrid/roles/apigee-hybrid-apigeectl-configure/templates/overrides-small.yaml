@@ -34,20 +34,20 @@ envs:
   - name: "{{ ENV_NAME }}"
     # Service accounts for sync and UDCA.
     serviceAccountPaths:
-      synchronizer: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-synchronizer.json"
-      udca: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-udca.json"
+      synchronizer: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-synchronizer.json"
+      udca: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-udca.json"
 
 mart:
-  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
 
 metrics:
-  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-metrics.json"
+  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-metrics.json"
 
 connectAgent:
-  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
 
 watcher:
-  serviceAccountPath: "{{ HYBRID_FILES }}/service-accounts/{{ PROJECT_ID }}-apigee-watcher.json"
+  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-watcher.json"
 
 {% if CASSANDRA_SEED_NODE_IP is defined and CASSANDRA_SEED_NODE_IP | length > 0 %}
 cassandra:
