@@ -19,7 +19,7 @@
     ASM_KPT_VERSION: "{{ ASM_KPT_VERSION | default(DEFAULT_ASM_KPT_VERSION) }}"
     ASM_DOWNLOAD_BASE_URL: "{{ ASM_DOWNLOAD_BASE_URL | default(DEFAULT_ASM_DOWNLOAD_BASE_URL) }}"
     ASM_DOWNLOAD_FILENAME: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_REVISION }}-{{ ansible_system | lower }}.tar.gz"
-    ASM_DOWNLOAD_FILENAME_ARCHITECTURE: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_REVISION }}-{{ ansible_system | lower }}-{{ facter_architecture }}.tar.gz"
+    ASM_DOWNLOAD_FILENAME_ARCHITECTURE: "istio-{{ ISTIO_VERSION }}-{{ ISTIO_VERSION_REVISION }}-{{ ansible_system | lower }}-{{ facter_os.architecture }}.tar.gz"
 
 - name: Set tools attribute cache
   set_fact:
