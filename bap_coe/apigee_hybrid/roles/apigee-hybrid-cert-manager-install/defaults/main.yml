@@ -2,3 +2,4 @@
 # defaults file for roles/apigee-hybrid-cert-manager-install
 DEFAULT_CERT_MANAGER_VERSION: "0.14.2"
 DEFAULT_KUBECTL_VERSION: 1.20
+DEFAULT_KUBECTL_DOWNLOAD_URL: https://github.com/cert-manager/cert-manager/releases/download

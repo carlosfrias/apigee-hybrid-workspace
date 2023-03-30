@@ -24,6 +24,10 @@ ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split('.')[2] }}"
 ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
 CLUSTER_SEED: 1
 
+CERT_MANAGER_VERSION: 1.11.0
+KUBECTL_VERSION: 1.20
+KUBECTL_DOWNLOAD_URL: https://github.com/cert-manager/cert-manager/releases/download
+
 VPC_NETWORK_NAME: default
 
 APIGEECTL_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}"
