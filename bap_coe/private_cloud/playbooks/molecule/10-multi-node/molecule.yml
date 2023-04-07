@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+- name: 10-multi-node
+provisioner:
+  name: ansible
+  ansible-args:
+    - --inventory=${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
+  inventory:
+    links:
+      hosts: ${MOLECULE_PROJECT_DIRECTORY}/work_dir/${PROJECT_ID}/inventory/
+verifier:
+  name: ansible

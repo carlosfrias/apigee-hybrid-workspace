@@ -1,9 +1,7 @@
 ---
-- name: Delete Project & Infrastructure
+- name: Delete infrastructure for private cloud in GCP
   hosts: localhost
   connection: local
-  gather_facts: false
-  no_log: "{{ molecule_no_log }}"
 
   vars_files:
   - ~/.apigee-secure/argolis-credentials.yml
@@ -13,7 +11,7 @@
   collections:
     - bap_coe.gcp_management
 
-  tasks:
-    - name: Remove projects in list
-      include_role:
-        name: gcp_project_delete
+  roles:
+    - { role: gcp_project_delete }
+    - { role: gcp_resource_manager_folders_get_folder_id }
+    - { role: gcp_resource_manager_folders_delete }

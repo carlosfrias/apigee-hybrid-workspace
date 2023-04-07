@@ -1,0 +1,183 @@
+---
+GCLOUD_ACCOUNT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_SERVICE_ACCOUNT_NAME: "{{ GCLOUD_ACCOUNT_USER }}-service-account"
+GCLOUD_ACCOUNT_PROJECT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_SERVICE_ACCOUNT_EMAIL: "{{ GCLOUD_SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+SERVICE_ACCOUNT_FILE_SUFFIX: "service-account-key"
+GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+
+PROJECT_ID: "friasc-abm-07182022-1621"
+ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
+WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
+TOOLS_DIR: "{{ WORK_DIR }}/bin"
+INVENTORY_DIR: "{{ WORK_DIR }}/inventory"
+INVENTORY_FILENAME: "ansible_inventory.yml"
+GCP_REGION: us-east1
+GCP_ZONE: us-east1-b
+GCP_ROUTER_NAME: opdk-router
+GCP_ROUTER_NAT_NAME: opdk-nat
+CONTROL_SERVER_IMAGE_NAME: ops-server
+CONTROL_SERVER_IMAGE_REPO_PATH: gcr.io/friasc-lab/{{ CONTROL_SERVER_IMAGE_NAME }}
+GCLOUD_ORG_BINDING_PROPAGATION_TIMEOUT: 10
+ACCESS_TYPE: int
+VPC_NETWORK_NAME: 'default'
+#TIME_TO_PROPAGATE_BINDINGS: 20
+GCLOUD_FOLDER_ROLE_BINDINGS:
+- roles/resourcemanager.folderAdmin
+
+FOLDER_DISPLAY_NAME: apigee-opdk
+AUTHORIZATION_KIND: serviceaccount
+RESOURCE_GCP_ZONE: "us-central1-c"
+#MACHINE_TYPE: f1-micro
+MACHINE_TYPE: n1-standard-1
+#MACHINE_TYPE: n2-highcpu-2
+SCOPE_COMPUTE: "https://www.googleapis.com/auth/compute"
+INSTANCE_NETWORK_TAG: "{{ NAME_INSTANCE_PREFIX }}-network-tag"
+ip_scope: 'private'
+
+# Additional values for IMAGE_PROJECT: 'centos-cloud'
+# Additional values for IMAGE_FAMILY: 'centos-7'
+DISK_SOURCE_IMAGE: "projects/{{ IMAGE_PROJECT | default('ubuntu-os-cloud') }}/global/images/family/{{ IMAGE_FAMILY | default('ubuntu-1804-lts') }}"
+DISK_SIZE: 100
+STARTUP_SCRIPT: |
+  sudo apt update -y
+  sudo apt install -y build-essential libssl-dev git zlib1g-dev
+  sudo git clone https://github.com/giltene/wrk2.git /usr/local/src/wrk
+  cd /usr/local/src/wrk
+  make
+  sudo cp /usr/local/src/wrk /usr/local/bin/
+#  curl -s https://raw.githubusercontent.com/carlosfrias/apigee-hybrid-workspace/bap_coe_collections/setup-apigee-workspace.sh | bash
+
+# Update the .env.yml file for molecule to recognize the gcp dynamic inventory file.
+key_value_pairs:
+- { key: 'MOLECULE_DEBUG', value: '"True"', separator: ':', file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml" , type: "arg" }
+- { key: 'MOLECULE_VERBOSITY', value: '"10"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
+- { key: 'PROJECT_ID', value: '"{{ PROJECT_ID }}"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
+- { key: 'MOLECULE_INVENTORY_FILE', value: '"$MOLECULE_PROJECT_DIRECTORY/inventory/$PROJECT_ID-gce-dynamic-inventory.gcp.yml"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
+
+
+GCLOUD_ORG_ROLE_BINDINGS:
+- "roles/owner"
+- "roles/billing.admin"
+- "roles/billing.projectManager"
+- "roles/iam.serviceAccountAdmin"
+- "roles/resourcemanager.projectIamAdmin"
+- "roles/resourcemanager.organizationAdmin"
+- "roles/serviceusage.serviceUsageAdmin"
+- "roles/serviceusage.serviceUsageViewer"
+- "roles/serviceusage.apiKeysAdmin"
+- "roles/iap.tunnelResourceAccessor"
+- "roles/iam.serviceAccountCreator"
+#- "roles/compute.networkUser"
+#- "roles/compute.instanceAdmin"
+#- "roles/compute.loadBalancerAdmin"
+#- "roles/iam.serviceAccountUser"
+#- "roles/iam.serviceAccountKeyAdmin"
+#- "roles/networkmanagement.admin"
+#- "roles/networkmanagement.viewer"
+
+#  Configure project admin role bindings
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
+- "roles/resourcemanager.projectDeleter"
+- "roles/resourcemanager.projectCreator"
+- "roles/resourcemanager.projects.createBillingAssignment"
+
+GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
+- "roles/compute.admin"
+- "roles/compute.networkUser"
+- "roles/compute.instanceAdmin"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountCreator"
+#- "roles/networkmanagement.admin"
+#- "roles/networkmanagement.viewer"
+#- "roles/iam.serviceAccountAdmin"
+#- "roles/iam.serviceAccountKeyAdmin"
+#- "roles/compute.loadBalancerAdmin"
+
+GCLOUD_PROJECT_SERVICES:
+- "compute.googleapis.com"
+- "apigee.googleapis.com"
+- "servicenetworking.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
+- "serviceusage.googleapis.com"
+- "iam.googleapis.com"
+#- "apigeeconnect.googleapis.com"
+#- "container.googleapis.com"
+#- "stackdriver.googleapis.com"
+#- "meshca.googleapis.com"
+#- "meshtelemetry.googleapis.com"
+#- "meshconfig.googleapis.com"
+#- "iamcredentials.googleapis.com"
+#- "anthos.googleapis.com"
+#- "gkeconnect.googleapis.com"
+#- "gkehub.googleapis.com"
+#- "sourcerepo.googleapis.com"
+#- "cloudbuild.googleapis.com"
+#- "secretmanager.googleapis.com"
+#- "dns.googleapis.com"
+#- "pubsub.googleapis.com"
+#- "monitoring.googleapis.com"
+#- "logging.googleapis.com"
+#- "cloudtrace.googleapis.com"
+#- "privateca.googleapis.com"
+
+GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
+- constraints/iam.disableServiceAccountKeyCreation
+- constraints/iam.disableServiceAccountCreation
+- constraints/compute.requireShieldedVm
+- constraints/compute.requireOsLogin
+- constraints/compute.skipDefaultNetworkCreation
+
+GCLOUD_ORG_POLICIES_UPDATE:
+- constraints/compute.trustedImageProjects
+- constraints/compute.restrictSharedVpcSubnetworks
+- constraints/compute.restrictSharedVpcHostProjects
+- constraints/compute.restrictVpcPeering
+- constraints/compute.vmExternalIpAccess
+- constraints/compute.vmCanIpForward
+
+#firewall_ports:
+#- { allow_ports: [ '22' ], port_name_suffix: '{{ NAME_INSTANCE_PREFIX }}' }
+
+cassandra_ports: ["7199","9160","9042","7000","8080"]
+zk_ports: ["2181","2888","3888","8080"]
+mp_ports: ["4528","8082","1101","8998","8080"]
+ms_ports: ["8080","9000"]
+ms_jmx_ports: ["1099","8080"]
+router_ports: ["1100","8081","4527","9001","8080","4528"]
+qpid_ports: ["1102","4529","5672","8083","8080"]
+pg_ports: ["1103","4530","5432","8084","8080"]
+ui_ports: ["9000","8080"]
+ldap_ports: ["10389","8080"]
+aio_ports: ["8080","9000","9001","5432"]
+
+#firewall_ports:
+#- { allow_ports: "{{ ms_ports }}", target_tags: 'ms' }
+#- { allow_ports: "{{ router_ports }}", target_tags: 'router' }
+#- { allow_ports: "{{ mp_ports }}", target_tags: 'mp' }
+#- { allow_ports: "{{ zk_ports }}", target_tags: 'zk' }
+#- { allow_ports: "{{ cassandra_ports }}", target_tags: 'ds' }
+#- { allow_ports: "{{ qpid_ports }}", target_tags: 'qs' }
+#- { allow_ports: "{{ pg_ports }}", target_tags: 'pg' }
+#- { allow_ports: "{{ ui_ports }}", target_tags: 'ui' }
+#- { allow_ports: "{{ ldap_ports }}", target_tags: 'ldap' }
+##- { allow_ports: "{{ aio_ports }}", target_tags: 'aio' }
+
+#  firewall_ports:
+#    - { ports: "{{ ms_ports }}", target_tags: 'ms' }
+#    - { ports: "{{ router_ports }}", target_tags: 'router' }
+#    - { ports: "{{ mp_ports }}", target_tags: 'mp' }
+#    - { ports: "{{ zk_ports }}", target_tags: 'zk' }
+#    - { ports: "{{ cassandra_ports }}", target_tags: 'ds' }
+#    - { ports: "{{ qpid_ports }}", target_tags: 'qs' }
+#    - { ports: "{{ pg_ports }}", target_tags: 'pg' }
+#    - { ports: "{{ ui_ports }}", target_tags: 'ui' }
+#    - { ports: "{{ ldap_ports }}", target_tags: 'ldap' }
+  
+address_types:
+- 'ms'
+- 'router'

@@ -1,0 +1,75 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+  - name: 00-bastion-host
+provisioner:
+  name: ansible
+#  ansible_args:
+#    - -i=../../work_dir/${PROJECT_ID}/inventory
+#    - -u=friasc
+#    - --private-key=~/.ssh/google_compute_engine
+#  playbooks:
+#    destroy: destroy.yml
+#    create: create.yml
+#    converge: converge.yml
+#  config_options:
+#    defaults:
+#      inventory: ../../work_dir/${PROJECT_ID}/inventory
+#      interpreter_python: auto_silent
+#      callbacks_whitelist: profile_tasks, timer, yaml
+#      local_tmp: ../../work_dir/${PROJECT_ID}/tmp
+#      fact_caching_connection: ../../work_dir/${PROJECT_ID}/bap_coe_apigee_hybrid
+#      fact_caching: jsonfile
+#      gathering: smart
+#      merge_multiple_cli_tags: True
+#      display_args_to_stdout: True
+#      timeout: 60
+#      bin_ansible_callbacks: True
+#      stdout_callback: yaml
+#      stderr_callback: yaml
+#      private_key_file: ~/.ssh/google_compute_engine
+#      ansible_shell_type: sh
+#      forks: 25
+#      host_key_checking: false
+#    ssh_connection:
+#      pipelining: false
+#      scp_if_ssh: True
+#    inventory:
+#      enable_plugins: google.cloud.gcp_compute
+
+verifier:
+  name: ansible
+#  log: True
+#  config_options:
+#    defaults:
+#      inventory: ../../work_dir/${PROJECT_ID}/inventory
+#      interpreter_python: auto_silent
+#      callbacks_whitelist: profile_tasks, timer, yaml
+#      local_tmp: ../../work_dir/${PROJECT_ID}/tmp
+#      fact_caching_connection: ../../work_dir/${PROJECT_ID}/bap_coe_apigee_hybrid
+#      fact_caching: jsonfile
+#      gathering: smart
+#      merge_multiple_cli_tags: True
+#      display_args_to_stdout: True
+#      timeout: 60
+#      bin_ansible_callbacks: True
+#      stdout_callback: yaml
+#      stderr_callback: yaml
+#      private_key_file: ~/.ssh/google_compute_engine
+#      ansible_shell_type: sh
+#      forks: 25
+#      host_key_checking: false
+#    ssh_connection:
+#      pipelining: false
+#      scp_if_ssh: True
+#    inventory:
+#      enable_plugins: gcp_compute
+

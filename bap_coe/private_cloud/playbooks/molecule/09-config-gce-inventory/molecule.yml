@@ -9,17 +9,16 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: opdk-monetization-aio
+  - name: 09-config-gce-inventory
 provisioner:
   name: ansible
 #  playbooks:
-#    create: ../../infrastructure-create.yml
-#    destroy: ../../infrastructure-delete.yml
-#    prepare: ../../prepare.yml
-#    converge: ../../install-monetization-aio.yml
+#    create: create.yml
+#    converge: converge.yml
+#    destroy: delete.yml
 #  config_options:
 #    defaults:
-#      inventory: $MOLECULE_PROJECT_DIRECTORY/work_dir/${PROJECT_ID}
+#      inventory: ../../work_dir/${PROJECT_ID}/inventory
 verifier:
   name: ansible
 #  log: True

@@ -1,36 +1,76 @@
 ---
-- name: Create infrastructure for private cloud in GCP
-  hosts: localhost
-  connection: local
 
-  vars_files:
-    - ~/.apigee-secure/apigee-hybrid-sensitive-attributes.yml
-    - "{{ playbook_dir | dirname }}/shared/attributes.yml"
+- name: Provision project
+  import_playbook: "{{ playbook_dir | dirname }}/02-provision-project/converge.yml"
 
-  collections:
-    - bap_coe.gcp_management
-    - bap_coe.bootstrap_runtime
+- name: Update organization policies
+  import_playbook: "{{ playbook_dir | dirname }}/03-config-org-policies/converge.yml"
 
-  roles:
-  - { role: gcp_resource_manager_folders_get_folder_id }
-  - {
-      role: gcp_project_services_enable,
-      tags: ['services'],
-      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
-    }
-  - { role: gcp_resource_manager_constraints_disable_enforce }
-  - { role: gcp_resource_manager_update_org_policy }
-  - { role: service_account_file_path }
-  - { role: gcp_iam_service_account_create }
-  - {
-      role: gcp_iam_policy_bindings,
-      BINDING_OP: "add",
-      ACCOUNT_TYPE: "serviceAccount",
-      GCLOUD_BINDING_ACCOUNT: "{{ GCLOUD_SERVICE_ACCOUNT}}",
-      POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
-      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
-    }
-  - { role: gcp_iam_service_account_keys }
-  - { role: service_account_file_processing }
-  - { role: gcp_auth_service_account_activate }
-  - { role: gce_dynamic_inventory_configure }
+- name: Update services api
+  import_playbook: "{{ playbook_dir | dirname }}/04-enable-apis/converge.yml"
+
+- name: Create service accounts
+  import_playbook: "{{ playbook_dir | dirname }}/05-create-service-account/converge.yml"
+
+- name: Create service account keys
+  import_playbook: "{{ playbook_dir | dirname }}/06-create-service-account-keys/converge.yml"
+
+- name: Update service account permissions
+  import_playbook: "{{ playbook_dir | dirname }}/07-create-service-account-permissions/converge.yml"
+
+- name: Create multi-node
+  import_playbook: "{{ playbook_dir | dirname }}/10-multi-node"
+
+- name: Configure inventory file
+  import_playbook: "{{ playbook_dir | dirname }}/09-config-gce-inventory"
+
+#- name: Create an organization
+#  import_playbook: "{{ playbook_dir | dirname }}/06-create-an-organization/converge.yml"
+#
+#- name: Create an environment group
+#  import_playbook: "{{ playbook_dir | dirname }}/07-create-an-environment-group/converge.yml"
+#
+#- name: Create a cluster
+#  import_playbook: "{{ playbook_dir | dirname }}/08-create-a-cluster/converge.yml"
+#
+#- name: Configure terraform variables
+#  import_playbook: "{{ playbook_dir | dirname }}/09-hybrid-single-region/converge.yml"
+
+
+
+#- name: Create infrastructure for private cloud in GCP
+#  hosts: localhost
+#  connection: local
+#
+#  vars_files:
+#  - ~/.apigee-secure/argolis-credentials.yml
+#  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+#  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+#
+#  collections:
+#    - bap_coe.gcp_management
+#    - bap_coe.bootstrap_runtime
+#
+#  roles:
+#  - { role: gcp_resource_manager_folders_get_folder_id }
+#  - {
+#      role: gcp_project_services_enable,
+#      tags: ['services'],
+#      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+#    }
+#  - { role: gcp_resource_manager_constraints_disable_enforce }
+#  - { role: gcp_resource_manager_update_org_policy }
+#  - { role: service_account_file_path }
+#  - { role: gcp_iam_service_account_create }
+#  - {
+#      role: gcp_iam_policy_bindings,
+#      BINDING_OP: "add",
+#      ACCOUNT_TYPE: "serviceAccount",
+#      GCLOUD_BINDING_ACCOUNT: "{{ GCLOUD_SERVICE_ACCOUNT}}",
+#      POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
+#      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+#    }
+#  - { role: gcp_iam_service_account_keys }
+#  - { role: service_account_file_processing }
+#  - { role: gcp_auth_service_account_activate }
+#  - { role: gce_dynamic_inventory_configure }

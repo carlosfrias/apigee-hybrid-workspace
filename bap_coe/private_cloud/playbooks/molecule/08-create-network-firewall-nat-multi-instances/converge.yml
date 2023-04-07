@@ -1,0 +1,68 @@
+---
+- name: Update with python
+  hosts: edge
+  gather_facts: yes
+  tags: ['python']
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+
+  collections:
+  - bap_coe.gcp_management
+  - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: python_install_minimal }
+  - { role: python_pip_install_config }
+
+
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+
+  collections:
+  - bap_coe.gcp_management
+  - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: service_account_file_path }
+  - { role: service_account_file_processing }
+  - { role: gce_network_create }
+  - { role: gce_firewall_create }
+  - { role: gce_router_create }
+  - { role: gce_router_nat_create }
+
+  vars:
+    PRIVATE_CLOUD_INSTANCES:
+    - { node_type: ms, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: ds, count: 3, dc: 1, machine_type: 'n2-standard-4' }
+    - { node_type: rmp, count: 2, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: qpid, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+    - { node_type: pg, count: 1, dc: 1, machine_type: 'n2-standard-4' }
+
+    firewall_ports:
+    - { allow_ports: "{{ ms_ports }}", target_tags: 'ms' }
+    - { allow_ports: "{{ router_ports }}", target_tags: 'router' }
+    - { allow_ports: "{{ mp_ports }}", target_tags: 'mp' }
+    - { allow_ports: "{{ zk_ports }}", target_tags: 'zk' }
+    - { allow_ports: "{{ cassandra_ports }}", target_tags: 'ds' }
+    - { allow_ports: "{{ qpid_ports }}", target_tags: 'qs' }
+    - { allow_ports: "{{ pg_ports }}", target_tags: 'pg' }
+    - { allow_ports: "{{ ui_ports }}", target_tags: 'ui' }
+    - { allow_ports: "{{ ldap_ports }}", target_tags: 'ldap' }
+      #- { allow_ports: "{{ aio_ports }}", target_tags: 'aio' }
+
+  tasks:
+  - name: Create planet instances
+    include_tasks: "create-instance.yml"
+    with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+    loop_control:
+      loop_var: instance
+

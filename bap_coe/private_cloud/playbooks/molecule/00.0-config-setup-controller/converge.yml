@@ -1,0 +1,29 @@
+---
+- name: Setup the Ansible controller
+  hosts: {{ target_hosts | default('localhost') }}
+  become: true
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+
+  vars:
+    property_folders:
+    - "~/.apigee-secure"
+    - "~/.apigee"
+    #     This is the location in which Ansible files can be installed.
+    ansible_workspace: "~/.ansible"
+
+    #     This is the location where credentials, license material, GCP service account files, AWS key and secret, etc are stored"
+    apigee_secure_folder: "~/.apigee-secure"
+
+    #     This is the location of custom property files.
+    apigee_custom_properties_folder: "~/.apigee"
+
+  collections:
+  - bap_coe.private_cloud
+
+  roles:
+  - { role: apigee-opdk-setup-ansible-controller }
+
