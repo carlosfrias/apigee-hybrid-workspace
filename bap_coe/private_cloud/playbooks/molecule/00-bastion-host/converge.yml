@@ -17,17 +17,27 @@
     bastion_host_name: bastion-1
     FIREWALL_NAME_SUFFIX: "bastion"
 
+    PRIVATE_CLOUD_INSTANCES:
+    - { node_type: bastion, count: 1, dc: 1, machine_type: 'n2-standard-2' }
+
     firewall_ports:
     - { allow_ports: [ '22' ], target_tags: "bastion-host" }
 
   collections:
-    - bap_coe.gcp_management
     - bap_coe.bastion_host
+    - bap_coe.gcp_management
 
   roles:
-    - { role: service_account_file_path }
-    - { role: service_account_file_processing }
-    - { role: gce_network_create }
-    - { role: gce_firewall_create }
     - { role: gce_bastion_host_create }
+    - { role: gce_firewall_create }
+    - { role: gce_network_create }
+    - { role: service_account_file_processing }
+    - { role: service_account_file_path }
+
+  tasks:
+  - name: Create planet instances
+    include_tasks: "create-instance.yml"
+    with_items: "{{ PRIVATE_CLOUD_INSTANCES }}"
+    loop_control:
+      loop_var: instance
 
