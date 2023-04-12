@@ -1,5 +1,4 @@
 ---
-
 - name: Provision project
   import_playbook: "{{ playbook_dir | dirname }}/02-provision-project/converge.yml"
 

@@ -1,0 +1,7 @@
+---
+- name: bastion host
+  import_playbook: "{{ playbook_dir | dirname }}/00-bastion-host"
+
+- name: Provision project
+  import_playbook: "{{ playbook_dir | dirname }}/02-provision-project/destroy.yml"
+
