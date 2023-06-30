@@ -46,7 +46,7 @@
     APIGEECTL_ARCHIVE_FOLDER_NAME: "{{ archive_folder.files[0].path }}"
 
 - name: Move archive folder contents
-  synchronize: 
+  ansible.posix.synchronize:
     src: "{{ APIGEECTL_ARCHIVE_FOLDER_NAME }}/"
     dest: "{{ APIGEECTL_DIR }}"
 
