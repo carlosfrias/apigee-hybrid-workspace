@@ -10,7 +10,7 @@ GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
 
-PROJECT_ID: "friasc-private-04122023-1251"
+PROJECT_ID: "friasc-private-04122023-1334"
 ANSIBLE_PYTHON_INTERPRETER: /usr/local/google/home/friasc/.pyenv/shims/python3
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 TOOLS_DIR: "{{ WORK_DIR }}/bin"
@@ -65,7 +65,6 @@ key_value_pairs:
 - { key: 'PROJECT_ID', value: '"{{ PROJECT_ID }}"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 - { key: 'MOLECULE_INVENTORY_FILE', value: '"$MOLECULE_PROJECT_DIRECTORY/inventory/$PROJECT_ID-gce-dynamic-inventory.gcp.yml"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 
-
 GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/owner"
 - "roles/billing.admin"
@@ -78,12 +77,12 @@ GCLOUD_ORG_ROLE_BINDINGS:
 - "roles/serviceusage.apiKeysAdmin"
 - "roles/iap.tunnelResourceAccessor"
 - "roles/iam.serviceAccountCreator"
+- "roles/networkmanagement.admin"
 #- "roles/compute.networkUser"
 #- "roles/compute.instanceAdmin"
 #- "roles/compute.loadBalancerAdmin"
 #- "roles/iam.serviceAccountUser"
 #- "roles/iam.serviceAccountKeyAdmin"
-#- "roles/networkmanagement.admin"
 #- "roles/networkmanagement.viewer"
 
 #  Configure project admin role bindings
@@ -98,7 +97,7 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.instanceAdmin"
 - "roles/iam.serviceAccountUser"
 - "roles/iam.serviceAccountCreator"
-#- "roles/networkmanagement.admin"
+- "roles/networkmanagement.admin"
 #- "roles/networkmanagement.viewer"
 #- "roles/iam.serviceAccountAdmin"
 #- "roles/iam.serviceAccountKeyAdmin"
@@ -111,6 +110,7 @@ GCLOUD_PROJECT_SERVICES:
 - "cloudresourcemanager.googleapis.com"
 - "serviceusage.googleapis.com"
 - "iam.googleapis.com"
+- "networkmanagement.googleapis.com"
 #- "apigeeconnect.googleapis.com"
 #- "container.googleapis.com"
 #- "stackdriver.googleapis.com"

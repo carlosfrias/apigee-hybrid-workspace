@@ -1,7 +1,7 @@
 [defaults]
 inventory = inventory
-fact_caching_connection = ~/.ansible/cache/friasc-private-04022023-1456
-log_path = ~/.ansible/logs/friasc-private-04022023-1456.log
+fact_caching_connection = ~/.ansible/cache/friasc-private-04122023-1334
+log_path = ~/.ansible/logs/friasc-private-04122023-1334.log
 private_key_file = ~/.ssh/google_compute_engine
 roles_path = ./roles:../../roles:~/.ansible/roles
 local_tmp = ~/.ansible/tmp
