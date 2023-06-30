@@ -25,7 +25,7 @@ galaxy_info:
   # Provide a list of supported platforms, and for each platform a list of versions.
   # If you don't wish to enumerate all versions for a particular platform, use 'all'.
   # To view available platforms and versions (or releases), visit:
-  # https://galaxy.ansible.com/api/v1/platforms/
+  # https://galaxy.ansible.com/api/v1/platforms/w
   #
   platforms:
     - name: Ubuntu
@@ -41,6 +41,6 @@ galaxy_info:
     #       Maximum 20 tags per role.
 
 dependencies:
-  - { role: apigee-hybrid-setup-environment-kubernetes }
+#  - { role: apigee-hybrid-setup-environment-kubernetes }
   # List your role dependencies here, one per line. Be sure to remove the '[]' above,
   # if you add dependencies to this list.
