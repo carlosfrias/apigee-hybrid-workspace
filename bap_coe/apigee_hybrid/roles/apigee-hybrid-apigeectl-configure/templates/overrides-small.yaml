@@ -6,8 +6,6 @@
 # GCP project name where the org is provisioned.
 gcp:
   projectID: "{{ PROJECT_ID }}"
-  name: "{{ CLUSTER_NAME }}"
-  region: "{{GCP_REGION }}"
 # Apigee org name.
 org: "{{ PROJECT_ID }}"
 # Kubernetes cluster name details
@@ -17,6 +15,18 @@ k8sCluster:
 
 # unique identifier for this installation.
 instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
+
+# This configuration is introduced in hybrid v1.8
+ingressGateways:
+- name: ingress-1 # maximum 17 characters. See Known issue 243167389.
+  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
+  replicaCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
+
+  # You do not need to set Annotations or LoadBalancerIP if you are creating your own Kubernetes
+  # service for ingress deployment.
+#  svcAnnotations:  # optional. See Known issue 243599452.
+#    "<annotation key>": "<annotation value>"
+#  svcLoadBalancerIP: <static IP>  # optional
 
 virtualhosts:
   - name: "{{ ENV_GROUP }}"
@@ -36,6 +46,10 @@ envs:
     serviceAccountPaths:
       synchronizer: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-synchronizer.json"
       udca: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-udca.json"
+      runtime: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-runtime.json"
+
+cassandra:
+  hostNetwork: "{{ CASSANDRA_HOST_NETWORK }}"
 
 mart:
   serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
@@ -44,10 +58,11 @@ metrics:
   serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-metrics.json"
 
 connectAgent:
-  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-connect-agent.json"
 
 watcher:
   serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-watcher.json"
+
 
 {% if CASSANDRA_SEED_NODE_IP is defined and CASSANDRA_SEED_NODE_IP | length > 0 %}
 cassandra:

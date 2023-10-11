@@ -1,5 +1,8 @@
 ---
 
+- name: Configure project
+  import_playbook: "{{ playbook_dir | dirname }}/config-build/converge.yml"
+
 - name: Provision project
   import_playbook: "{{ playbook_dir | dirname }}/00-provision-project/converge.yml"
 
@@ -29,5 +32,3 @@
 
 - name: Configure terraform variables
   import_playbook: "{{ playbook_dir | dirname }}/09-hybrid-single-region/converge.yml"
-
-

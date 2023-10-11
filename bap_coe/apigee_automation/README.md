@@ -1,4 +1,4 @@
-# Ansible Collection - bap_coe.apigee_automation
+# Apigee Automation 
 
 # Overview
 

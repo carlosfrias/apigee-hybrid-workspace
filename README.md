@@ -20,6 +20,13 @@ This toolkit is an Ansible collection. All roles, configurations and playbooks
 are contained within the collection.
  
 ## Toolkit Collections
+
 | Collection Name | Description | 
 | --- | --- |
 | [bap_coe.apigee_hybrid](bap_coe/apigee_hybrid/README.md) | This collection performs installation of Apigee hybrid |
+
+
+## Contributions
+
+Please note that we accept [[CONTRIBUTING|contributions]].
+
