@@ -119,8 +119,8 @@
         kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
         kubectx {{ CLUSTER_NAME }}
 
-- name: Generate kubeconfig file    
-  shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }} 
+- name: Generate kubeconfig file content
+  shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}
   register: kubeconfig_content  
 
 - name: Create kubeconfig file
