@@ -61,7 +61,7 @@
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
       --metadata disable-legacy-endpoints=true \
-      --service-account {{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
+      --service-account {{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
       --num-nodes {{ NODE_COUNT | int }} \
       --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
       --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
@@ -95,7 +95,7 @@
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
       --metadata disable-legacy-endpoints=true \
-      --service-account {{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
+      --service-account {{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
       --enable-autoscaling \
       --num-nodes {{ NODE_COUNT | int }} \
       --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
