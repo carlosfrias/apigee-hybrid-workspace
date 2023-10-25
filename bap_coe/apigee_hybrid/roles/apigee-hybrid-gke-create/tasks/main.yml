@@ -127,11 +127,11 @@
 #      --no-enable-autorepair \
 #      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
 #      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }}
-  register: status
-  failed_when:
-  - status.rc == 1
-  - "'Already exists' not in status.stderr"
-  when: "{{ APIGEE_VERSION | version('1.10.0', '>=')}}"
+#  register: status
+#  failed_when:
+#  - status.rc == 1
+#  - "'Already exists' not in status.stderr"
+#  when: "{{ APIGEE_VERSION | version('1.10.0', '>=')}}"
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
