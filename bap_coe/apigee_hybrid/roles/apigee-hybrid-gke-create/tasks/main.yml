@@ -59,7 +59,7 @@
       --cluster-version {{ CLUSTER_VERSION }} \
       --release-channel {{ RELEASE_CHANNEL }} \
       --machine-type {{ NODE_SIZE }} \
-      --image-type {{ IMAGE_TYPE }} \
+#      --image-type {{ IMAGE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
       --metadata disable-legacy-endpoints=true \
