@@ -86,27 +86,27 @@
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
       --binauthz-evaluation-mode=DISABLED \
       --enable-managed-prometheus \
-      --enable-shielded-nodes
-#      && \
-#    gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
-#      --project "friasc-hybrid-20231025-1017" \
-#      --cluster {{ CLUSTER_NAME }} \
-#      --region {{ REGION }} \
-#      --machine-type {{ NODE_SIZE }} \
-#      --image-type {{ IMAGE_TYPE }} \
-#      --disk-type {{ DISK_TYPE }} \
-#      --disk-size {{ DISK_SIZE }} \
-#      --metadata disable-legacy-endpoints=true \
-#      --service-account {{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
-#      --enable-autoscaling \
-#      --num-nodes {{ NODE_COUNT | int }} \
-#      --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
-#      --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
-#      --location-policy "BALANCED" \
-#      --no-enable-autoupgrade \
-#      --no-enable-autorepair \
-#      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
-#      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --enable-shielded-nodes \
+      && \
+    gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
+      --project "friasc-hybrid-20231025-1017" \
+      --cluster {{ CLUSTER_NAME }} \
+      --region {{ REGION }} \
+      --machine-type {{ NODE_SIZE }} \
+      --image-type {{ IMAGE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --metadata disable-legacy-endpoints=true \
+      --service-account {{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
+      --enable-autoscaling \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
+      --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
+      --location-policy "BALANCED" \
+      --no-enable-autoupgrade \
+      --no-enable-autorepair \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }}
 #    && \
 #    gcloud beta container  node-pools create {{ NODE_POOL_NAME_RUNTIME \
 #      --project {{ PROJECT_ID }} \
