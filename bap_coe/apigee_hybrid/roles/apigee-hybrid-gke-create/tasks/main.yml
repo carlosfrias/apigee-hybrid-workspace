@@ -59,7 +59,6 @@
       --cluster-version {{ CLUSTER_VERSION }} \
       --release-channel {{ RELEASE_CHANNEL }} \
       --machine-type {{ NODE_SIZE }} \
-#      --image-type {{ IMAGE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
       --metadata disable-legacy-endpoints=true \
@@ -132,6 +131,9 @@
   - status.rc == 1
   - "'Already exists' not in status.stderr"
   when: "{{ APIGEE_VERSION is version('1.10.0', '>=') }}"
+
+#      --image-type {{ IMAGE_TYPE }} \
+
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
