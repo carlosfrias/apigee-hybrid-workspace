@@ -1,0 +1,16 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+  - name: 00-provision-project
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

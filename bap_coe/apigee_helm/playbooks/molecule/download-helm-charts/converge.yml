@@ -10,16 +10,33 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: Retrieve Apigee hybrid helm charts repo
-      git:
-        repo: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
-        dest: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
+#    - name: Retrieve Apigee hybrid helm charts repo
+#      git:
+#        repo: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
+#        dest: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
 
-    - name: install-helm chart
-      kubernetes.core.helm:
-        name: apigee-datastore
+#    - name: Add chart repo
+#      kubernetes.core.helm_repository:
+#        binary_path: "{{ HELM_BINARY }}"
+#        name: "apigee"
+#        repo_url: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
+##      with_items: "{{ APIGEE_HYBRID_CHART_LIST }}"
+
+    - name: helm pull
+      kubernetes.core.helm_pull:
         binary_path: "{{ HELM_BINARY }}"
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-datastore"
-        state: present
-        release_namespace: "{{ NAMESPACE }}"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/{{ item }}"
+        destination: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
+        chart_version: "{{ APIGEE_HYBRID_HELM_CHART_VERSION }}"
+        untar_chart: true
+      with_items: "{{ APIGEE_HYBRID_CHART_LIST }}"
+      register: output
+      changed_when:
+      - '"already exists" in output.stderr_lines[-1]'
 
+    - name: Create namespace
+      kubernetes.core.k8s:
+        name: apigee
+        api_version: v1
+        kind: Namespace
+        state: present

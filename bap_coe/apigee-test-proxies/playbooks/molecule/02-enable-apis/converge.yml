@@ -1,0 +1,21 @@
+---
+- name: Enable APIs
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bootstrap_runtime
+
+  roles:
+  - {
+      role: gcp_project_services_enable,
+      tags: ['services'],
+      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+      SERVICE_OP: "enable"
+    }

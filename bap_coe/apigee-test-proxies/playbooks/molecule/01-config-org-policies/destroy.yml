@@ -1,0 +1,17 @@
+---
+- name: Delete infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+
+  collections:
+    - bap_coe.gcp_management
+
+  roles:
+    - { role: gcp_project_delete }
+    - { role: gcp_resource_manager_folders_get_folder_id }
+    - { role: gcp_resource_manager_folders_delete }

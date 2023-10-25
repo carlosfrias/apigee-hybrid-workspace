@@ -14,5 +14,5 @@
       state: absent
     with_items:
     - "{{ HELM_BINARY }}"
-    - "{{ HELM_DOWNLOAD_DEST }}"
+    - "{{ WORKDIR_DOWNLOAD_DEST }}"
 

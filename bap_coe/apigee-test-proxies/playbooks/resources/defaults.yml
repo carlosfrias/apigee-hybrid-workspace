@@ -1,0 +1,172 @@
+---
+# Attributes to be set in a protected credentials file not stored with scripts
+#GCLOUD_ACCOUNT_USER: "PROVIDED_IN_CREDENTIALS_YML"
+#GCLOUD_ACCOUNT_DOMAIN: "PROVIDED_IN_CREDENTIALS_YML"
+#BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
+#GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
+
+WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
+TOOLS_DIR: "{{ WORK_DIR }}/bin"
+GCP_ZONE: "us-east1-b"
+GCP_REGION: "us-east1"
+REGION_SEED: "{{ GCP_REGION }}"
+ANALYTICS_REGION: "{{ GCP_REGION }}"
+RUNTIMETYPE: "HYBRID"
+ORG_CREATE_TIMEOUT: 90
+
+SERVICE_ACCOUNT_FILE_SUFFIX: "service-account-key"
+APIGEE_VERSION: 1.7
+ISTIO_VERSION: 1.7.8
+ISTIO_VERSION_REVISION: "asm.8"
+ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split('.')[0] }}.{{ ISTIO_VERSION.split('.')[1] }}"
+ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split('.')[2] }}"
+ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
+CLUSTER_SEED: 1
+
+#PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
+#PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
+#FOLDER_DISPLAY_NAME: apigee-hybrid
+
+APIGEECTL_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}"
+HYBRID_FILES_DIR: "{{ APIGEECTL_DIR }}/hybrid-files"
+
+# Service Account
+GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_ACCOUNT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_BILLING_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+GCLOUD_SERVICE_ACCOUNT_NAME: "{{ GCLOUD_ACCOUNT_USER }}-service-account"
+GCLOUD_SERVICE_ACCOUNT_EMAIL: "{{ GCLOUD_SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+GCLOUD_ACCOUNT_PROJECT_ADMIN_USER: "{{ GCLOUD_ACCOUNT_USER }}"
+GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_USER }}@{{ GCLOUD_ACCOUNT_DOMAIN }}"
+
+AUTHORIZATION_KIND: serviceaccount
+
+ENV_NAME: "test"
+APIGEE_RUNTIME_SIZE: "medium"
+CLUSTER_COUNT: "{{ CLUSTER_SEED }}"
+CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
+CLUSTER_ZONE: "{{ REGION }}-b"
+NODE_SIZE: "e2-standard-8"
+NODE_COUNT: 3
+CASSANDRA_DATA_CENTER_NAME: "dc-{{ CLUSTER_COUNT }}"
+CASSANDRA_RACK_NAME: "ra-1"
+
+VALIDATE_PROJECT_ID: "{{ PROJECT_ID }}"
+VALIDATE_PROXY_URI_ENDPOINT: /notarget
+VALIDATE_PROXY_IP: "{{ INGRESS_IP }}"
+VALIDATE_PROXY_PORT: 443
+
+SERVICE_ACCOUNTS:
+- apigee-metrics
+- apigee-synchronizer
+- apigee-udca
+- apigee-mart
+- apigee-cassandra
+- apigee-logger
+- apigee-watcher
+
+GCLOUD_FOLDER_ROLE_BINDINGS:
+- roles/resourcemanager.folderAdmin
+
+GCLOUD_PROJECT_SERVICES:
+- "compute.googleapis.com"
+- "cloudresourcemanager.googleapis.com"
+- "servicenetworking.googleapis.com"
+- "serviceusage.googleapis.com"
+- "iam.googleapis.com"
+- "container.googleapis.com"
+- "stackdriver.googleapis.com"
+- "meshca.googleapis.com"
+- "meshtelemetry.googleapis.com"
+- "meshconfig.googleapis.com"
+- "iamcredentials.googleapis.com"
+- "anthos.googleapis.com"
+- "gkeconnect.googleapis.com"
+- "gkehub.googleapis.com"
+- "sourcerepo.googleapis.com"
+- "cloudbuild.googleapis.com"
+- "secretmanager.googleapis.com"
+- "dns.googleapis.com"
+- "pubsub.googleapis.com"
+- "apigee.googleapis.com"
+- "apigeeconnect.googleapis.com"
+- "monitoring.googleapis.com"
+- "logging.googleapis.com"
+- "cloudtrace.googleapis.com"
+- "privateca.googleapis.com"
+
+GCLOUD_ORG_ROLE_BINDINGS:
+- "roles/owner"
+- "roles/billing.admin"
+- "roles/billing.projectManager"
+- "roles/iam.serviceAccountAdmin"
+- "roles/resourcemanager.projectIamAdmin"
+- "roles/resourcemanager.organizationAdmin"
+- "roles/serviceusage.serviceUsageAdmin"
+- "roles/serviceusage.serviceUsageViewer"
+- "roles/serviceusage.apiKeysAdmin"
+- "roles/iap.tunnelResourceAccessor"
+- "roles/iam.serviceAccountCreator"
+- "roles/compute.networkUser"
+- "roles/compute.instanceAdmin"
+- "roles/compute.loadBalancerAdmin"
+- "roles/iam.serviceAccountUser"
+- "roles/networkmanagement.admin"
+- "roles/networkmanagement.viewer"
+- "roles/iam.serviceAccountKeyAdmin"
+- "roles/resourcemanager.projectIamAdmin"
+- "roles/resourcemanager.organizationAdmin"
+- "roles/serviceusage.serviceUsageAdmin"
+- "roles/serviceusage.apiKeysAdmin"
+- "roles/iap.tunnelResourceAccessor"
+
+#  Configure project admin role bindings
+GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
+- "roles/resourcemanager.projectDeleter"
+- "roles/resourcemanager.projectCreator"
+
+GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
+- "roles/owner"
+- "roles/compute.admin"
+- "roles/compute.networkAdmin"
+- "roles/compute.instanceAdmin"
+- "roles/compute.networkUser"
+- "roles/apigee.admin"
+- "roles/networkmanagement.admin"
+- "roles/cloudkms.admin"
+- "roles/networkmanagement.viewer"
+- "roles/iam.serviceAccountAdmin"
+- "roles/iam.serviceAccountUser"
+- "roles/iam.serviceAccountCreator"
+- "roles/iam.serviceAccountKeyAdmin"
+- "roles/compute.loadBalancerAdmin"
+
+GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
+- constraints/iam.disableServiceAccountKeyCreation
+- constraints/iam.disableServiceAccountCreation
+- constraints/compute.requireShieldedVm
+- constraints/compute.requireOsLogin
+- constraints/compute.skipDefaultNetworkCreation
+
+GCLOUD_ORG_POLICIES_UPDATE:
+- constraints/compute.trustedImageProjects
+- constraints/compute.restrictSharedVpcSubnetworks
+- constraints/compute.restrictSharedVpcHostProjects
+- constraints/compute.restrictVpcPeering
+- constraints/compute.vmExternalIpAccess
+- constraints/compute.vmCanIpForward
+
+SYSTEM_TOOLS:
+- 'rsync'
+- 'tree'
+- 'netcat'
+- 'kubectl'
+- 'docker-ce'
+
+GCP_SYSTEM_TOOLS:
+- gnupg2
+- ca-certificates
+- apt-transport-https
+

@@ -1,0 +1,9 @@
+---
+#- name: Configure terraform variables - destroy invocation
+#  import_playbook: "{{ playbook_dir | dirname }}/terraform-vars/destroy.yml"
+
+#- name: Execute terraform scripts - destroy invocation
+#  import_playbook: "{{ playbook_dir | dirname }}/terraform/destroy.yml"
+
+- name: Provision project - destroy invocation
+  import_playbook: "{{ playbook_dir | dirname }}/00-provision-project/destroy.yml"

@@ -1,0 +1,16 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+  - name: 05-create-service-account-permissions/
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

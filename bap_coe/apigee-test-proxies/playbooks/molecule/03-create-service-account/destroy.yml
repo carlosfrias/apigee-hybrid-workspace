@@ -1,0 +1,19 @@
+---
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+
+  collections:
+  - bap_coe.gcp_management
+  - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: service_account_file_path }
+  - { role: service_account_file_processing }
+#  - { role: gcp_auth_service_account_activate }
+  - { role: gcp_iam_service_account_create, SERVICE_OP: 'delete'  }

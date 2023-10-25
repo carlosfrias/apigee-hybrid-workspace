@@ -1,0 +1,66 @@
+---
+
+
+- name: Apigee Test Proxy Installation
+  hosts: localhost
+  connection: type
+
+  collections:
+    - bap_coe.bootstrap_runtime
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  roles:
+#    - gcp_token_retrieval
+    - apigee-hybrid-setup-environment-gcp
+    - {
+      role: gcp_iam_policy_bindings_org,
+      GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+      BINDING_OP: "add",
+      ROLE_BINDINGS: [
+        "{{ GCLOUD_ORG_ROLE_BINDINGS }}",
+        "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}",
+        "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+      ]
+    }
+    - { role: gcp_resource_manager_constraints_disable_enforce }
+    - { role: gcp_resource_manager_update_org_policy }
+    - { role: gcp_resource_manager_folders_create }
+    - { role: gcp_resource_manager_folders_get_folder_id }
+    - { role: gcp_resource_manager_folders_permissions_user }
+
+  tasks:
+    - name: Validate that Sackmesser is available
+      command: "{{ WORK_DIR_SACKMESSER_BIN }} help"
+
+    - name: Deploy the required shared flows
+      command: "{{ WORK_DIR_COMMON_SHARED_FLOWS_BIN }}/deploy.sh all --googleapi"
+      environment:
+        APIGEE_X_ORG: "{{ APIGEE_ORG }}"
+        APIGEE_X_ENV: "{{ APIGEE_ENV }}"
+        APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
+        APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
+
+    - name: Generate the test proxy from the proxy template
+      expect:
+        command: "{{ WORK_DIR_PROXY_TEMPLATE_BIN }}/generate_proxy.sh --googleapi"
+        responses:
+          Proxy Name: derel-proxy-gen
+          Proxy Version: 1
+          Virtual Host (Edge only): (No entry needed, press enter to skip)
+          Target Server URL: "{{ TARGET_SERVER_URL }}"
+      environment:
+        APIGEE_X_ORG: "{{ APIGEE_ORG }}"
+        APIGEE_X_ENV: "{{ APIGEE_ENV }}"
+        APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
+        APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
+
+    - name: Deploy the generated proxy
+      command: |
+        "{{ WORK_DIR_SACKMESSER_BIN }}" deploy --googleapi \
+        -o APIGEE_ORG \
+        -e APIGEE_ENV \
+        -t APIGEE_TOKEN \
+        -h APIGEE_HOSTNAME \
+        -d ./devel-proxy-gen
+          

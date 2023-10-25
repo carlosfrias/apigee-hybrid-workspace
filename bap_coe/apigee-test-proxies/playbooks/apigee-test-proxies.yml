@@ -1,0 +1,85 @@
+---
+- name: Apigee Test Proxy Installation
+  hosts: localhost
+  connection: type
+
+  vars_files:
+    - ~/.apigee-secure/argolis-credentials.yml
+    - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+    - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+
+  vars:
+    PROJECT_ID: "test_dir"
+    DEVREL_GIT_URL: "https://github.com/apigee/devrel.git"
+    TARGET_SERVER_URL: "https://mocktarget.apigee.net/echo"
+    WORK_DIR: "{{ playbook_dir | dirname }}/work_dir/{{ PROJECT_ID }}"
+    WORK_DIR_SACKMESSER: "{{ WORK_DIR }}/tools/apigee-sackmesser"
+    WORK_DIR_SACKMESSER_BIN: "{{ WORK_DIR_SACKMESSER }}/bin/sackmesser"
+    WORK_DIR_COMMON_SHARED_FLOWS: "references/common-shared_flows"
+    WORK_DIR_COMMON_SHARED_FLOWS_BIN: "{{ WORK_DIR_COMMON_SHARED_FLOWS }}/deploy.sh"
+    WORK_DIR_PROXY_TEMPLATE: "references/proxy_template"
+    WORK_DIR_PROXY_TEMPLATE_BIN: "{{ WORK_DIR_PROXY_TEMPLATE }}/generate-proxy.sh"
+    APIGEE_ORG: "{{ PROJECT_ID }}"
+    APIGEE_ENV: "TEST"
+    APIGEE_HOSTNAME: ""
+    system_packages:
+      - curl
+      - npm
+      - git
+    GCP_SYSTEM_TOOLS:
+      - gnupg2
+      - ca-certificates
+      - apt-transport-https
+      - google-cloud-sdk-gke-gcloud-auth-plugin
+    SYSTEM_TOOLS:
+      - 'rsync'
+      - 'tree'
+      - 'netcat'
+      - 'kubectl'
+      - 'docker-ce'
+
+  collections:
+  - bap_coe.bootstrap_runtime
+  - bap_coe.apigee_hybrid
+  - bap_coe.gcp_management
+
+  roles:
+    - gcp_token_retrieval
+    - apigee-hybrid-setup-environment-gcp
+
+
+  tasks:
+    - name: Validate that Sackmesser is available
+      command: "{{ WORK_DIR_SACKMESSER_BIN }} help"
+
+    - name: Deploy the required shared flows
+      command: "{{ WORK_DIR_COMMON_SHARED_FLOWS_BIN }}/deploy.sh all --googleapi"
+      env:
+        APIGEE_X_ORG: "{{ APIGEE_ORG }}"
+        APIGEE_X_ENV: "{{ APIGEE_ENV }}"
+        APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
+        APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
+
+    - name: Generate the test proxy from the proxy template
+      expect:
+        command: "{{ WORK_DIR_PROXY_TEMPLATE_BIN }}/generate_proxy.sh --googleapi"
+        responses:
+          Proxy Name: derel-proxy-gen
+          Proxy Version: 1
+          Virtual Host (Edge only): (No entry needed, press enter to skip)
+          Target Server URL: "{{ TARGET_SERVER_URL }}"
+      environment:
+        APIGEE_X_ORG: "{{ APIGEE_ORG }}"
+        APIGEE_X_ENV: "{{ APIGEE_ENV }}"
+        APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
+        APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
+
+    - name: Deploy the generated proxy
+      command: |
+        "{{ WORK_DIR_SACKMESSER_BIN }}" deploy --googleapi \
+        -o APIGEE_ORG \
+        -e APIGEE_ENV \
+        -t APIGEE_TOKEN \
+        -h APIGEE_HOSTNAME \
+        -d ./devel-proxy-gen
+        

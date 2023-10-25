@@ -4,8 +4,19 @@
 #GCLOUD_ACCOUNT_DOMAIN: "PROVIDED_IN_CREDENTIALS_YML"
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
-PROJECT_ID: "friasc-hybrid-20231025-1017"
+
+PROJECT_ID: friasc-hybrid-202231019-1145 # ["friasc-hybrid-20231012-1823"]
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
+WORK_DIR_SACKMESSER: "{{ WORK_DIR }}/tools/apigee-sackmesser"
+WORK_DIR_SACKMESSER_BIN: "{{ WORK_DIR_SACKMESSER }}/bin/sackmesser"
+WORK_DIR_COMMON_SHARED_FLOWS: "references/common-shared_flows"
+WORK_DIR_COMMON_SHARED_FLOWS_BIN: "{{ WORK_DIR_COMMON_SHARED_FLOWS }}/deploy.sh"
+WORK_DIR_PROXY_TEMPLATE: "references/proxy_template"
+WORK_DIR_PROXY_TEMPLATE_BIN: "{{ WORK_DIR_PROXY_TEMPLATE }}/generate-proxy.sh"
+APIGEE_ORG: "{{ PROJECT_ID }}"
+APIGEE_ENV: "TEST"
+APIGEE_HOSTNAME: ""
+
 GCP_ZONE: "us-east1-b"
 GCP_REGION: "us-east1"
 REGION: "{{ GCP_REGION }}"
@@ -13,6 +24,9 @@ REGION_SEED: "{{ GCP_REGION }}"
 ANALYTICS_REGION: "{{ GCP_REGION }}"
 RUNTIMETYPE: "HYBRID"
 ORG_CREATE_TIMEOUT: 90
+
+DEVREL_GIT_URL: "https://github.com/apigee/devrel.git"
+TARGET_SERVER_URL: "https://mocktarget.apigee.net/echo"
 
 INGRESS_GATEWAYS_REPLICA_COUNT_MIN:  1
 INGRESS_GATEWAYS_REPLICA_COUNT_MAX: 2
@@ -25,15 +39,12 @@ ISTIO_VERSION_MAJOR: "{{ ISTIO_VERSION.split('.')[0] }}.{{ ISTIO_VERSION.split('
 ISTIO_VERSION_MINOR: "{{ ISTIO_VERSION.split('.')[2] }}"
 ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
 CLUSTER_SEED: 1
-CLUSTER_VERSION: 1.27.3-gke.100
 
 CERT_MANAGER_VERSION: 1.13.0
 KUBECTL_VERSION: 1.26
 KUBECTL_DOWNLOAD_URL: https://github.com/cert-manager/cert-manager/releases/download
-#KUBECTL_DOWNLOAD_URL: https://github.com/jetstack/cert-manager/releases/download
 
 VPC_NETWORK_NAME: default
-VPC_SUBNETWORK_NAME: default
 
 APIGEECTL_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}"
 HYBRID_FILES_DIR: "{{ APIGEECTL_DIR }}/hybrid-files"
@@ -63,20 +74,9 @@ CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
 CLUSTER_ZONE: "{{ REGION }}-b"
 NODE_SIZE: "e2-standard-8"
 NODE_COUNT: 3
-DISK_SIZE: 100
-DISK_TYPE: pd-balanced
-IMAGE_TYPE: COS_CONTAINED
-RELEASE_CHANNEL: "regular"
 CASSANDRA_DATA_CENTER_NAME: "dc-{{ CLUSTER_COUNT }}"
 CASSANDRA_RACK_NAME: "ra-1"
 CASSANDRA_HOST_NETWORK: false
-LOGGING: "SYSTEM,WORKLOAD"
-MONITORING: "SYSTEM"
-CLUSTER_ADDONS: "HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver"
-NODE_POOL_NAME_DATA: "apigee-data"
-NODE_POOL_NAME_RUNTIME: "apigee-runtime"
-MAX_SURGE_UPGRADE: 1
-MAX_UNAVAILABLE_UPGRADE: 0
 
 VALIDATE_PROJECT_ID: "{{ PROJECT_ID }}"
 VALIDATE_PROXY_URI_ENDPOINT: /notarget
@@ -94,7 +94,7 @@ SERVICE_ACCOUNTS:
   - apigee-connect-agent
 
 GCLOUD_FOLDER_ROLE_BINDINGS:
-  - roles/resourcemanager.folderAdmin
+- roles/resourcemanager.folderAdmin
 
 GCLOUD_PROJECT_SERVICES:
   - "apigee.googleapis.com"
@@ -198,6 +198,9 @@ GCP_SYSTEM_TOOLS:
   - ca-certificates
   - apt-transport-https
   - google-cloud-sdk-gke-gcloud-auth-plugin
+  - curl
+  - npm
+  - git
 
 SYSTEM_TOOLS:
   - 'rsync'
@@ -205,18 +208,3 @@ SYSTEM_TOOLS:
   - 'netcat'
   - 'kubectl'
   - 'docker-ce'
-  - curl
-  - npm
-  - git
-
-
-
-WORK_DIR_SACKMESSER: "{{ WORK_DIR }}/tools/apigee-sackmesser"
-WORK_DIR_SACKMESSER_BIN: "{{ WORK_DIR_SACKMESSER }}/bin/sackmesser"
-WORK_DIR_COMMON_SHARED_FLOWS: "references/common-shared_flows"
-WORK_DIR_COMMON_SHARED_FLOWS_BIN: "{{ WORK_DIR_COMMON_SHARED_FLOWS }}/deploy.sh"
-WORK_DIR_PROXY_TEMPLATE: "references/proxy_template"
-WORK_DIR_PROXY_TEMPLATE_BIN: "{{ WORK_DIR_PROXY_TEMPLATE }}/generate-proxy.sh"
-APIGEE_ORG: "{{ PROJECT_ID }}"
-APIGEE_ENV: "TEST"
-APIGEE_HOSTNAME: ""
