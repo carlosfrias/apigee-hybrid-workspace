@@ -57,7 +57,6 @@
       --region {{ REGION }} \
       --no-enable-basic-auth \
       --cluster-version {{ CLUSTER_VERSION }} \
-      --release-channel {{ RELEASE_CHANNEL }} \
       --machine-type {{ NODE_SIZE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
@@ -132,6 +131,7 @@
   - "'Already exists' not in status.stderr"
   when: "{{ APIGEE_VERSION is version('1.10.0', '>=') }}"
 
+#      --release-channel {{ RELEASE_CHANNEL }} \
 #      --image-type {{ IMAGE_TYPE }} \
 
 
