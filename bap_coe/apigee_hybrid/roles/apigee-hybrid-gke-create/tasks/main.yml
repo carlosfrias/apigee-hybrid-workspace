@@ -237,5 +237,5 @@
   command: kubectl apply -f {{ HYBRID_FILES_DIR }}/storageclass.yml
 
 - name: Apply storageclass patch 1 of 2
-  command: kubectl patch storageclass standard-rwo -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+  command: kubectl patch storageclass standard-rwo -p '{"metadata"\: {"annotations"\:{"storageclass.kubernetes.io/is-default-class"\:"false"}}}'
 
