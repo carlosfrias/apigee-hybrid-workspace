@@ -106,7 +106,7 @@
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
     && \
-    gcloud beta container  node-pools create {{ NODE_POOL_NAME_RUNTIME \
+    gcloud beta container  node-pools create {{ NODE_POOL_NAME_RUNTIME  }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
       --region {{ REGION }} \
