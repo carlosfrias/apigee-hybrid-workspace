@@ -89,7 +89,7 @@
       --enable-shielded-nodes \
       && \
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
-      --project "friasc-hybrid-20231025-1017" \
+      --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
       --region {{ REGION }} \
       --machine-type {{ NODE_SIZE }} \
