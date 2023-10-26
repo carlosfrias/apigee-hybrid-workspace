@@ -4,7 +4,7 @@
 #GCLOUD_ACCOUNT_DOMAIN: "PROVIDED_IN_CREDENTIALS_YML"
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
-PROJECT_ID: "friasc-hybrid-20231025-1637"
+PROJECT_ID: "friasc-hybrid-20231026-0901"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 GCP_ZONE: "us-east1-b"
 GCP_REGION: "us-east1"
@@ -61,7 +61,7 @@ APIGEE_RUNTIME_SIZE: "medium"
 CLUSTER_COUNT: "{{ CLUSTER_SEED }}"
 CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
 CLUSTER_ZONE: "{{ REGION }}-b"
-NODE_SIZE: "e2-standard-8"
+NODE_SIZE: "e2-standard-4"
 NODE_COUNT: 3
 DISK_SIZE: 100
 DISK_TYPE: pd-balanced
