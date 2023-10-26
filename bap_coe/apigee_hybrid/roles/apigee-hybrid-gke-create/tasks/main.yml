@@ -55,39 +55,6 @@
 
 - name: Create gcp cluster APIGEE_VERSION >= 1.10
   shell: |
-    gcloud beta container clusters create {{ CLUSTER_NAME }} \
-      --project {{ PROJECT_ID }} \
-      --zone {{ CLUSTER_ZONE }} \
-      --no-enable-basic-auth \
-      --cluster-version {{ CLUSTER_VERSION }} \
-      --machine-type {{ NODE_SIZE }} \
-      --disk-type {{ DISK_TYPE }} \
-      --disk-size {{ DISK_SIZE }} \
-      --metadata disable-legacy-endpoints=true \
-      --service-account {{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
-      --num-nodes {{ NODE_COUNT | int }} \
-      --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
-      --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
-      --logging={{ LOGGING }} \
-      --monitoring={{ MONITORING }} \
-      --enable-ip-alias \
-      --network "{{ VPC_NETWORK_NAME }}" \
-      --subnetwork "{{ VPC_SUBNETWORK_NAME }}" \
-      --no-enable-intra-node-visibility \
-      --default-max-pods-per-node "110" \
-      --enable-autoscaling \
-      --location-policy "BALANCED" \
-      --security-posture=standard \
-      --workload-vulnerability-scanning=disabled \
-      --no-enable-master-authorized-networks \
-      --addons {{ CLUSTER_ADDONS }} \
-      --no-enable-autoupgrade \
-      --no-enable-autorepair \
-      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
-      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-      --enable-managed-prometheus \
-      --enable-shielded-nodes \
-      && \
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
@@ -126,16 +93,52 @@
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
     && \
-    gcloud beta container node-pools delete default \
+    gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --project {{ PROJECT_ID }} \
-      --zone {{ CLUSTER_ZONE }}
+      --zone {{ CLUSTER_ZONE }} \
+      --no-enable-basic-auth \
+      --cluster-version {{ CLUSTER_VERSION }} \
+      --machine-type {{ NODE_SIZE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --metadata disable-legacy-endpoints=true \
+      --service-account {{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
+      --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
+      --logging={{ LOGGING }} \
+      --monitoring={{ MONITORING }} \
+      --enable-ip-alias \
+      --network "{{ VPC_NETWORK_NAME }}" \
+      --subnetwork "{{ VPC_SUBNETWORK_NAME }}" \
+      --no-enable-intra-node-visibility \
+      --default-max-pods-per-node "110" \
+      --enable-autoscaling \
+      --location-policy "BALANCED" \
+      --security-posture=standard \
+      --workload-vulnerability-scanning=disabled \
+      --no-enable-master-authorized-networks \
+      --addons {{ CLUSTER_ADDONS }} \
+      --no-enable-autoupgrade \
+      --no-enable-autorepair \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --enable-managed-prometheus \
+      --enable-shielded-nodes 
   register: status
   failed_when:
   - status.rc == 1
   - "'Already exists' not in status.stderr"
   when: "{{ APIGEE_VERSION is version('1.10.0', '>=') }}"
-
 #      --release-channel {{ RELEASE_CHANNEL }} \
+
+#    && \
+#    gcloud beta container node-pools delete \
+#      --cluster default \
+#      --project {{ PROJECT_ID }} \
+#
+#
+#      --zone {{ CLUSTER_ZONE }}
 #      --image-type {{ IMAGE_TYPE }} \
 #      --image-type {{ IMAGE_TYPE }} \
 #      --image-type {{ IMAGE_TYPE }} \
