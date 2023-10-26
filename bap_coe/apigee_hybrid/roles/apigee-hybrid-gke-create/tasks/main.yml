@@ -86,7 +86,6 @@
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
       --release-channel {{ RELEASE_CHANNEL }} \
-      --image-type {{ IMAGE_TYPE }} \
       --binauthz-evaluation-mode=DISABLED \    
     && \
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
@@ -137,6 +136,7 @@
 #          --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }}
 
 
+          --image-type {{ IMAGE_TYPE }} \
 
 
 
