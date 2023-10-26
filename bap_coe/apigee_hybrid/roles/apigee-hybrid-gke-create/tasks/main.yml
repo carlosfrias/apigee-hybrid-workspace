@@ -124,7 +124,11 @@
       --no-enable-autoupgrade \
       --no-enable-autorepair \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
-      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }}
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+    && \
+    gcloud beta container node-pools delete default \
+      --project {{ PROJECT_ID }} \
+      --zone {{ CLUSTER_ZONE }}
   register: status
   failed_when:
   - status.rc == 1
