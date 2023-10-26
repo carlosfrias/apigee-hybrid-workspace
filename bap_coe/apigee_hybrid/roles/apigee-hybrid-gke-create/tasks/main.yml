@@ -77,7 +77,6 @@
       --addons {{ CLUSTER_ADDONS }} \
       --enable-managed-prometheus \
       --enable-shielded-nodes \
-      --node-pool={{ NODE_POOL_NAME_RUNTIME }} \
       && \
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --project {{ PROJECT_ID }} \
