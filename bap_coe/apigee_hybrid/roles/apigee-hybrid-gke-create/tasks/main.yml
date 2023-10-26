@@ -86,7 +86,6 @@
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
       --release-channel {{ RELEASE_CHANNEL }} \
-      --binauthz-evaluation-mode=DISABLED \    
     && \
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --project {{ PROJECT_ID }} \
@@ -106,9 +105,7 @@
       --no-enable-autorepair \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-      --release-channel {{ RELEASE_CHANNEL }} \
-      --image-type {{ IMAGE_TYPE }} \
-      --binauthz-evaluation-mode=DISABLED
+      --release-channel {{ RELEASE_CHANNEL }}
   register: status
   failed_when:
   - status.rc == 1
@@ -136,7 +133,10 @@
 #          --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }}
 
 
-          --image-type {{ IMAGE_TYPE }} \
+#          --image-type {{ IMAGE_TYPE }} \
+#          --binauthz-evaluation-mode=DISABLED
+#          --image-type {{ IMAGE_TYPE }} \
+
 
 
 
