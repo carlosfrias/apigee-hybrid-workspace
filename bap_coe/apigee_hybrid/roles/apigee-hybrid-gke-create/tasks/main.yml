@@ -124,7 +124,7 @@
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
       --enable-managed-prometheus \
-      --enable-shielded-nodes 
+      --enable-shielded-nodes
   register: status
   failed_when:
   - status.rc == 1
