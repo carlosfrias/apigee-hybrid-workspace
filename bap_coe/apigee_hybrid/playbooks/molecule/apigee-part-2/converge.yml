@@ -1,0 +1,6 @@
+---
+- name: Create GKE cluster
+  import_playbook: "{{ playbook_dir | dirname }}/08-create-a-cluster/converge.yml"
+
+- name: Install Apigee runtime
+  import_playbook: "{{ playbook_dir | dirname }}/09-hybrid-single-region/converge.yml"
