@@ -12,6 +12,6 @@
 - name: Delete gcp cluster APIGEE_VERSION < 1.10
   shell: |
     gcloud container clusters delete {{ CLUSTER_NAME }} \
-      --zone {{ CLUSTER_ZONE }} \
+      --region {{ REGION }} \
       --project {{ PROJECT_ID }} \
       --quiet

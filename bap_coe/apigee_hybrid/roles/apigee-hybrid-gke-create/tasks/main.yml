@@ -57,7 +57,7 @@
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --project {{ PROJECT_ID }} \
-      --zone {{ CLUSTER_ZONE }} \
+      --region {{ REGION }} \
       --no-enable-basic-auth \
       --cluster-version {{ CLUSTER_VERSION }} \
       --metadata disable-legacy-endpoints=true \
@@ -81,15 +81,15 @@
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
       --num-nodes {{ NODE_COUNT | int }} \
-      --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
-      --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
     && \
     gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
-      --zone {{ CLUSTER_ZONE }} \
+      --region {{ REGION }} \
       --machine-type {{ NODE_SIZE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
@@ -97,8 +97,8 @@
       --service-account {{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
       --enable-autoscaling \
       --num-nodes {{ NODE_COUNT | int }} \
-      --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
-      --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
       --location-policy "BALANCED" \
       --no-enable-autorepair \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
@@ -107,7 +107,7 @@
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
-      --zone {{ CLUSTER_ZONE }} \
+      --region {{ REGION }} \
       --machine-type {{ NODE_SIZE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
@@ -115,8 +115,8 @@
       --service-account {{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
       --enable-autoscaling \
       --num-nodes {{ NODE_COUNT | int }} \
-      --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
-      --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
       --location-policy "BALANCED" \
       --no-enable-autorepair \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
