@@ -166,15 +166,15 @@
   args:
     creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
 
-- name: Register the cluster - this is now in the install_asm bash script
-  shell: |
-    gcloud container hub memberships register {{ CLUSTER_NAME }} \
-    --gke-cluster={{ CLUSTER_ZONE }}/{{ CLUSTER_NAME }} \
-    --service-account-key-file={{ SERVICE_ACCOUNT_KEY_PATH }}
-  register: status
-  failed_when:
-    - status.rc == 1
-    - "'already exists' not in status.stderr"
+#- name: Register the cluster - this is now in the install_asm bash script
+#  shell: |
+#    gcloud container hub memberships register {{ CLUSTER_NAME }} \
+#    --gke-cluster={{ CLUSTER_ZONE }}/{{ CLUSTER_NAME }} \
+#    --service-account-key-file={{ SERVICE_ACCOUNT_KEY_PATH }}
+#  register: status
+#  failed_when:
+#    - status.rc == 1
+#    - "'already exists' not in status.stderr"
 
 - name: Set workload pool values
   set_fact:
