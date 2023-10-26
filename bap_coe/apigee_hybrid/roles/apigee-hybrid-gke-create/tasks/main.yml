@@ -126,7 +126,7 @@
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
     && \
-    gcloud beta container node-pools delete \
+    gcloud beta container node-pools delete default \
       --cluster default \
       --project {{ PROJECT_ID }} \
       --zone {{ CLUSTER_ZONE }}
