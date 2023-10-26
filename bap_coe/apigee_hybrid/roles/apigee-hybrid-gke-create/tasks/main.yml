@@ -86,7 +86,7 @@
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
     && \
-    gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME  }} \
+    gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \
@@ -100,7 +100,6 @@
       --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
       --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
       --location-policy "BALANCED" \
-      --no-enable-autoupgrade \
       --no-enable-autorepair \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
@@ -119,11 +118,9 @@
       --max-nodes {{ (NODE_COUNT | int ) * 2 }} \
       --min-nodes {{ (NODE_COUNT | int ) - 1 }} \
       --location-policy "BALANCED" \
-      --no-enable-autoupgrade \
       --no-enable-autorepair \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
-      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-      --release-channel {{ RELEASE_CHANNEL }}
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }}
   register: status
   failed_when:
   - status.rc == 1
