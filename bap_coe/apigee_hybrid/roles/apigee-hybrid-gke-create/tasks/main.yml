@@ -129,7 +129,8 @@
     gcloud beta container node-pools delete default \
       --cluster default \
       --project {{ PROJECT_ID }} \
-      --zone {{ CLUSTER_ZONE }}
+      --zone {{ CLUSTER_ZONE }}\
+      --quiet
   register: status
   failed_when:
   - status.rc == 1
