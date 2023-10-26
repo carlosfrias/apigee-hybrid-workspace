@@ -37,4 +37,5 @@
   shell: |
     gcloud container clusters delete {{ CLUSTER_NAME }} \
       --region {{ REGION }} \
-      --project {{ PROJECT_ID }}
+      --project {{ PROJECT_ID }} \
+      --quiet
