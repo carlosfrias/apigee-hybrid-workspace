@@ -51,7 +51,7 @@
   failed_when:  
     - status.rc == 1
     - "'Already exists' not in status.stderr"
-  when: "{{ APIGEE_VERSION is version('1.10.0', '<') }}"
+  when: "APIGEE_VERSION is version('1.10.0', '<')"
 
 - name: Create gcp cluster APIGEE_VERSION >= 1.10
   shell: |
@@ -125,14 +125,7 @@
   failed_when:
   - status.rc == 1
   - "'Already exists' not in status.stderr"
-  when: "{{ APIGEE_VERSION is version('1.10.0', '>=') }}"
-
-#          --image-type {{ IMAGE_TYPE }} \
-#          --binauthz-evaluation-mode=DISABLED
-#          --image-type {{ IMAGE_TYPE }} \
-
-
-
+  when: "APIGEE_VERSION is version('1.10.0', '>=')"
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
