@@ -109,7 +109,7 @@
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
       --release-channel {{ RELEASE_CHANNEL }} \
       --image-type {{ IMAGE_TYPE }} \
-      --binauthz-evaluation-mode=DISABLED 
+      --binauthz-evaluation-mode=DISABLED
   register: status
   failed_when:
   - status.rc == 1
