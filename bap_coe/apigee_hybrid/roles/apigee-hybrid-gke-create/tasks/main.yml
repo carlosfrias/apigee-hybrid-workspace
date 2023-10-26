@@ -183,17 +183,17 @@
     PROJECT_NUMBER: "{{ project_number.stdout }}"
     MESH_ID: "proj-{{ PROJECT_NUMBER | default(project_number.stdout) }}"
 
-- name: Set MESH_ID label - this is now in the install_asm bash script
-  tags: ['install_asm_skip']
-  shell: gcloud container clusters update {{ CLUSTER_NAME }} --update-labels=mesh_id={{ MESH_ID }}
+#- name: Set MESH_ID label - this is now in the install_asm bash script
+#  tags: ['install_asm_skip']
+#  shell: gcloud container clusters update {{ CLUSTER_NAME }} --update-labels=mesh_id={{ MESH_ID }}
 
-- name: Enable workload identity - this is now in the install_asm bash script
-  tags: ['install_asm_skip']
-  shell: gcloud container clusters update {{ CLUSTER_NAME }} --workload-pool={{ WORKLOAD_POOL }}
+#- name: Enable workload identity - this is now in the install_asm bash script
+#  tags: ['install_asm_skip']
+#  shell: gcloud container clusters update {{ CLUSTER_NAME }} --workload-pool={{ WORKLOAD_POOL }}
 
-- name: Enable Cloud Monitoring and Cloud Logging in GKE - this is now in the install_asm bash script
-  tags: ['install_asm_skip']
-  shell: gcloud container clusters update {{ CLUSTER_NAME }}
+#- name: Enable Cloud Monitoring and Cloud Logging in GKE - this is now in the install_asm bash script
+#  tags: ['install_asm_skip']
+#  shell: gcloud container clusters update {{ CLUSTER_NAME }}
 
 - block:
   - name: Rename cluster
