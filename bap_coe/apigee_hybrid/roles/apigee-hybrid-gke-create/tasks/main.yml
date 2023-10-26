@@ -166,15 +166,15 @@
   args:
     creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
 
-#- name: Register the cluster - this is now in the install_asm bash script
-#  shell: |
-#    gcloud container hub memberships register {{ CLUSTER_NAME }} \
-#    --gke-cluster={{ CLUSTER_ZONE }}/{{ CLUSTER_NAME }} \
-#    --service-account-key-file={{ SERVICE_ACCOUNT_KEY_PATH }}
-#  register: status
-#  failed_when:
-#    - status.rc == 1
-#    - "'already exists' not in status.stderr"
+- name: Register the cluster - this is now in the install_asm bash script
+  shell: |
+    gcloud container hub memberships register {{ CLUSTER_NAME }} \
+    --gke-cluster={{ CLUSTER_ZONE }}/{{ CLUSTER_NAME }} \
+    --service-account-key-file={{ SERVICE_ACCOUNT_KEY_PATH }}
+  register: status
+  failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stderr"
 
 - name: Set workload pool values
   set_fact:
@@ -183,49 +183,49 @@
     PROJECT_NUMBER: "{{ project_number.stdout }}"
     MESH_ID: "proj-{{ PROJECT_NUMBER | default(project_number.stdout) }}"
 
-#- name: Set MESH_ID label - this is now in the install_asm bash script
-#  tags: ['install_asm_skip']
-#  shell: gcloud container clusters update {{ CLUSTER_NAME }} --update-labels=mesh_id={{ MESH_ID }}
-#
-#- name: Enable workload identity - this is now in the install_asm bash script
-#  tags: ['install_asm_skip']
-#  shell: gcloud container clusters update {{ CLUSTER_NAME }} --workload-pool={{ WORKLOAD_POOL }}
-#
-#- name: Enable Cloud Monitoring and Cloud Logging in GKE - this is now in the install_asm bash script
-#  tags: ['install_asm_skip']
-#  shell: gcloud container clusters update {{ CLUSTER_NAME }}
+- name: Set MESH_ID label - this is now in the install_asm bash script
+  tags: ['install_asm_skip']
+  shell: gcloud container clusters update {{ CLUSTER_NAME }} --update-labels=mesh_id={{ MESH_ID }}
 
-#- block:
-#  - name: Rename cluster
-#    shell: |
-#      kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
-#      kubectx {{ CLUSTER_NAME }}
-#  rescue:
-#    - name: RESCUE - Wait for the cluster...
-#      pause:
-#        seconds: 15
-#
-#    - name: RESCUE - Rename cluster
-#      shell: |
-#        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
-#        kubectx {{ CLUSTER_NAME }}
-#
-#- name: Generate kubeconfig file content
-#  shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}
-#  register: kubeconfig_content
-#
-#- name: Create kubeconfig file
-#  copy:
-#    content: "{{ kubeconfig_content.stdout }}"
-#    dest: "{{ CLUSTER_KUBECONFIG }}"
-#
-#- name: Ensure you have cluster-admin on the cluster
-#  ignore_errors: yes
-#  shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ GCLOUD_ACCOUNT | default(GCLOUD_ACCOUNT_USER) }}
-#  failed_when:
-#    - status.rc == 1
-#    - "'already exists' not in status.stderr"
-    
+- name: Enable workload identity - this is now in the install_asm bash script
+  tags: ['install_asm_skip']
+  shell: gcloud container clusters update {{ CLUSTER_NAME }} --workload-pool={{ WORKLOAD_POOL }}
+
+- name: Enable Cloud Monitoring and Cloud Logging in GKE - this is now in the install_asm bash script
+  tags: ['install_asm_skip']
+  shell: gcloud container clusters update {{ CLUSTER_NAME }}
+
+- block:
+  - name: Rename cluster
+    shell: |
+      kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+      kubectx {{ CLUSTER_NAME }}
+  rescue:
+    - name: RESCUE - Wait for the cluster...
+      pause:
+        seconds: 15
+
+    - name: RESCUE - Rename cluster
+      shell: |
+        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+        kubectx {{ CLUSTER_NAME }}
+
+- name: Generate kubeconfig file content
+  shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}
+  register: kubeconfig_content
+
+- name: Create kubeconfig file
+  copy:
+    content: "{{ kubeconfig_content.stdout }}"
+    dest: "{{ CLUSTER_KUBECONFIG }}"
+
+- name: Ensure you have cluster-admin on the cluster
+  ignore_errors: yes
+  shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ GCLOUD_ACCOUNT | default(GCLOUD_ACCOUNT_USER) }}
+  failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stderr"
+
 - name: Update authentication credentials
   command: gcloud container clusters get-credentials {{ CLUSTER_NAME }} --zone {{ CLUSTER_ZONE }}
 
