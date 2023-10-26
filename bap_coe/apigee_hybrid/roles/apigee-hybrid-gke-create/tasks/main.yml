@@ -27,6 +27,9 @@
 - name: Set default project
   shell: gcloud config set project "{{ PROJECT_ID }}"
 
+- name: Set compute/region
+  shell: gcloud config set compute/region {{ REGION }}
+
 - name: Set compute/zone
   shell: gcloud config set compute/zone {{ CLUSTER_ZONE }}
 
@@ -104,7 +107,7 @@
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
     && \
-    gcloud beta container  node-pools create {{ NODE_POOL_NAME_RUNTIME  }} \
+    gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME  }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \
