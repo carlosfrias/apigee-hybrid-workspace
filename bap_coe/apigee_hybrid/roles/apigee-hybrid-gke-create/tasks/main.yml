@@ -54,7 +54,7 @@
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --project {{ PROJECT_ID }} \
-      --region {{ REGION }} \
+      --zone {{ CLUSTER_ZONE }} \
       --no-enable-basic-auth \
       --cluster-version {{ CLUSTER_VERSION }} \
       --machine-type {{ NODE_SIZE }} \
@@ -82,16 +82,14 @@
       --no-enable-autorepair \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-      --binauthz-evaluation-mode=DISABLED \
       --enable-managed-prometheus \
       --enable-shielded-nodes \
       && \
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
-      --region {{ REGION }} \
+      --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ NODE_SIZE }} \
-      --image-type {{ IMAGE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
       --metadata disable-legacy-endpoints=true \
@@ -109,9 +107,8 @@
     gcloud beta container  node-pools create {{ NODE_POOL_NAME_RUNTIME  }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
-      --region {{ REGION }} \
+      --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ NODE_SIZE }} \
-      --image-type {{ IMAGE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
       --metadata disable-legacy-endpoints=true \
@@ -133,6 +130,9 @@
 
 #      --release-channel {{ RELEASE_CHANNEL }} \
 #      --image-type {{ IMAGE_TYPE }} \
+#      --image-type {{ IMAGE_TYPE }} \
+#      --image-type {{ IMAGE_TYPE }} \
+#      --binauthz-evaluation-mode=DISABLED \
 
 
 - name: Obtain PROJECT_NUMBER
@@ -222,7 +222,7 @@
     - "'already exists' not in status.stderr"
     
 - name: Update authentication credentials
-  command: gcloud container clusters get-credentials {{ CLUSTER_NAME }} --region {{ REGION }}
+  command: gcloud container clusters get-credentials {{ CLUSTER_NAME }} --zone {{ CLUSTER_ZONE }}
 
 - name: Prepare storageclass system path
   file:
