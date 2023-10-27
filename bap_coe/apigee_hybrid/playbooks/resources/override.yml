@@ -212,8 +212,6 @@ SYSTEM_TOOLS:
   - npm
   - git
 
-
-
 WORK_DIR_SACKMESSER: "{{ WORK_DIR }}/tools/apigee-sackmesser"
 WORK_DIR_SACKMESSER_BIN: "{{ WORK_DIR_SACKMESSER }}/bin/sackmesser"
 WORK_DIR_COMMON_SHARED_FLOWS: "references/common-shared_flows"
