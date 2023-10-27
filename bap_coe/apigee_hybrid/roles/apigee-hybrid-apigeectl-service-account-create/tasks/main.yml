@@ -16,7 +16,6 @@
       --display-name={{ APIGEE_NON_PROD_USER }} \
       --project {{ PROJECT_ID }}
   register: status
-  when: PROJECT_ACTIVE is truthy
   failed_when:
   - status.rc == 1
   - "'already exists' not in status.stderr"
