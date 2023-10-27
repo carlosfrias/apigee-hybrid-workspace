@@ -57,7 +57,7 @@
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --project {{ PROJECT_ID }} \
-      --region {{ REGION }} \
+      --zone {{ CLUSTER_ZONE }} \
       --no-enable-basic-auth \
       --cluster-version {{ CLUSTER_VERSION }} \
       --metadata disable-legacy-endpoints=true \
@@ -89,7 +89,7 @@
     gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
-      --region {{ REGION }} \
+      --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ NODE_SIZE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
@@ -107,7 +107,7 @@
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
-      --region {{ REGION }} \
+      --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ NODE_SIZE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
