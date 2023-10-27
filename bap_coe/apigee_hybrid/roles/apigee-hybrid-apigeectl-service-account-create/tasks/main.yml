@@ -37,9 +37,10 @@
 - name: Assert target folder is available
   file:
     path: "{{ HYBRID_FILES_DIR }}/service-accounts"
+    mode: 0755
     state: directory
 
-- name: Create initial service account key file
+- name: Create apigee-non-prod service account key file
   shell: |
     gcloud iam service-accounts keys create {{ HYBRID_FILES_DIR }}/service-accounts  \
       --iam-account={{  APIGEE_NON_PROD_EMAIL }} \
