@@ -6,11 +6,11 @@
       - GCLOUD_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
 
-- name: Assert that the GCLOUD_ACCOUNT_USER is available
+- name: Assert that the GCLOUD_SERVICE_ACCOUNT_NAME is available
   assert:
     that:
-      - GCLOUD_ACCOUNT_USER is defined
-    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+      - GCLOUD_SERVICE_ACCOUNT_NAME is defined
+    msg: "Please provide the GCLOUD_SERVICE_ACCOUNT_NAME"
 
 - name: Assert that the PROJECT_ID is available
   assert:
@@ -75,13 +75,11 @@
       when: status.err is defined and status.err is search("SERVICE DISABLED")
   when: SERVICE_OP == "create"
 
-- name: Create an initial service account
+- name: Delete a service account
   shell: |
     gcloud iam service-accounts {{ SERVICE_OP }} {{ GCLOUD_SERVICE_ACCOUNT_NAME }} \
       --project {{ PROJECT_ID }}
   when: SERVICE_OP == "delete"
-
-
 
 - name: Wait for the policy bindings to propagate
   pause:
