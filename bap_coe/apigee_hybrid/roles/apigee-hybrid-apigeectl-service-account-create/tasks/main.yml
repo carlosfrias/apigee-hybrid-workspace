@@ -24,7 +24,7 @@
   ignore_errors: "{{ IGNORE_ERRORS | default(False) }}"
   shell: |
     gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-      --member serviceAccount:{{ APIGEE_NON_PROD_USER }} \
+      --member serviceAccount:{{ APIGEE_NON_PROD_EMAIL }} \
       --role={{ item }} \
       --account={{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}
   with_items: "{{ APIGEE_NON_PROD_ROLES }}"
