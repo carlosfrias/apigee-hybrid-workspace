@@ -182,7 +182,7 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/iam.workloadIdentityUser"
 
 APIGEE_NON_PROD_USER: "apigee-non-prod"
-APIGEE_NON_PROD_EMAIL: "{{ APIGEE_NON_PROD }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+APIGEE_NON_PROD_EMAIL: "{{ APIGEE_NON_PROD_USER }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
 APIGEE_NON_PROD_ROLES:
   - "roles/apigee.admin"
   - "roles/apigeeconnect.Agent"
