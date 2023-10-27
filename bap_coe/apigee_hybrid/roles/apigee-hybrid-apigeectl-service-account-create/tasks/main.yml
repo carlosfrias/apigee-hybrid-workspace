@@ -36,9 +36,9 @@
 
 - name: Assert target folder is available
   file:
-    path: {{ HYBRID_FILES_DIR }}/service-accounts
+    path: "{{ HYBRID_FILES_DIR }}/service-accounts"
     state: directory
-    
+
 - name: Create initial service account key file
   shell: |
     gcloud iam service-accounts keys create {{ HYBRID_FILES_DIR }}/service-accounts  \
