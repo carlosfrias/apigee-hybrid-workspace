@@ -181,6 +181,17 @@ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/iam.serviceAccountKeyAdmin"
   - "roles/iam.workloadIdentityUser"
 
+APIGEE_NON_PROD_USER: "apigee-non-prod"
+APIGEE_NON_PROD_EMAIL: "{{ APIGEE_NON_PROD }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+APIGEE_NON_PROD_ROLES:
+  - "roles/apigee.admin"
+  - "roles/apigeeconnect.Agent"
+  - "roles/apigee.runtimeAgent"
+  - "roles/apigee.synchronizerManager"
+  - "roles/logging.logWriter"
+  - "roles/monitoring.metricWriter"
+  - "roles/storage.objectAdmin"
+
 GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
   - constraints/iam.disableServiceAccountKeyCreation
   - constraints/iam.disableServiceAccountCreation
