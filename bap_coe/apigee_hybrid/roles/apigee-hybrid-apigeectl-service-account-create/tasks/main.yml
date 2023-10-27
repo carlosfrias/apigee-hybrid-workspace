@@ -34,15 +34,12 @@
     seconds: "{{ TIME_TO_PROPAGATE_BINDINGS  | default(10) }}"
     prompt: "Wait for the policy bindings to propagate"
 
-
 - name: Create initial service account key file
   shell: |
     gcloud iam service-accounts keys create {{ HYBRID_FILES_DIR }}/service-accounts  \
       --iam-account={{  APIGEE_NON_PROD_EMAIL }} \
       --project {{ PROJECT_ID }} \
       --account {{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}
-  when: file_exists.stat.exists is falsy
-
 
 - name: Create Service Accounts
   shell: echo 'y' | ./tools/create-service-account {{ item }} --dir {{ SERVICE_ACCOUNTS_DIR }} --env {{ SERVICE_ACCOUNT_SCOPE }}
