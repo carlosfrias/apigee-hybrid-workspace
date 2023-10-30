@@ -4,7 +4,7 @@
 #GCLOUD_ACCOUNT_DOMAIN: "PROVIDED_IN_CREDENTIALS_YML"
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
-PROJECT_ID: "friasc-hybrid-20231030-1406"
+PROJECT_ID: "friasc-hybrid-20231030-1537"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 GCP_ZONE: "us-east1-b"
 GCP_REGION: "us-east1"
@@ -38,6 +38,11 @@ VPC_SUBNETWORK_NAME: default
 APIGEECTL_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}"
 HYBRID_FILES_DIR: "{{ APIGEECTL_DIR }}/hybrid-files"
 SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
+
+DNS_MANAGED_ZONE: "friasc.demo.altostrat.com"
+DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENV_NAME }}.{{ DNS_MANAGED_ZONE }}"
+
+
 
 #PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
 #PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"

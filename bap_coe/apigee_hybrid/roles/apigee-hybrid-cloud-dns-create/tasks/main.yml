@@ -5,9 +5,7 @@
     cacheable: yes
     EXTERNAL_IP_DESCRIPION: "{{ EXTERNAL_IP_DESCRIPION | default(DEFAULT_EXTERNAL_IP_DESCRIPION) }}"
     EXTERNAL_IP_NAME: "apigee-ingress-loadbalancer-{{ CLUSTER_NAME }}"
-    DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENV_NAME }}.hybrid-apigee.net"
     GCP_CLOUD_DNS_DESCRIPTION: "{{ GCP_CLOUD_DNS_DESCRIPTION | default(DEFAULT_GCP_CLOUD_DNS_DESCRIPTION) }}"
-    DNS_MANAGED_ZONE: "apigee-dns-zone"
 
 - name: Setup GCP Attributes from service account file
   include_role:
