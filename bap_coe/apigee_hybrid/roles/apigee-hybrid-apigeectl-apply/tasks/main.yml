@@ -2,7 +2,6 @@
 # tasks file for roles/apigee-hybrid-apigeectl-apply
 - name: Set container context
   shell: kubectl config current-context
-#  shell: kubectx {{ CLUSTER_NAME }}
 
 - name: Invoke init command
   shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
@@ -14,60 +13,53 @@
     prompt: "apigeectl init needs a few seconds to complete"
     seconds: 5
 
-- name: Invoke apply command
-  shell: ./apigeectl apply -f {{ OVERRIDE_FILE }}
-  args:
-    chdir: "{{ APIGEECTL_DIR }}"
-  register: apply_status
+- block:
+  - name: Invoke apply command
+    shell: ./apigeectl apply -f {{ OVERRIDE_FILE }}
+    args:
+      chdir: "{{ APIGEECTL_DIR }}"
+    register: apply_status
 
+  rescue:
+    - block:
+      - name: Check for correct permission on the apigee-mart service account
+        shell: |
+          gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
+            --member serviceAccount:apigee-mart@{{ PROJECT_ID }}.iam.gserviceaccount.com \
+            --role roles/apigeeconnect.Agent
+        when: apply_status.stderr | regex_search('.*invalid ConnectAgent service account. service account "apigee-mart@.*')
+      - block:
+        - name: Invoke apply command
+          shell: ./apigeectl apply -f {{ OVERRIDE_FILE }}
+          args:
+            chdir: "{{ APIGEECTL_DIR }}"
+          register: apply_status
+        rescue:
+          - block:
+#           [
+#  apigee.canaryevaluations.create
+#  apigee.canaryevaluations.get
+#  apigee.ingressconfigs.get
+#  apigee.instances.reportStatus
+#  apigee.operations.get
+#  apigee.operations.list
+#]
+            - name: Check for correct permission on the apigee-watcher service account
+              shell: |
+                gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
+                --member serviceAccount:apigee-watcher@{{ PROJECT_ID }}.iam.gserviceaccount.com \
+                --role roles/apigee.runtimeAgent
+              when: apply_status.stderr | regex_search('.*invalid ConnectAgent service account. service account "apigee-watcher@.*')
+            rescue:
+              - name: Rescue, invoke init command
+                shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
+                args:
+                  chdir: "{{ APIGEECTL_DIR }}"
 
-#- block:
-#  - name: Invoke apply command
-#    shell: ./apigeectl apply -f {{ OVERRIDE_FILE }}
-#    args:
-#      chdir: "{{ APIGEECTL_DIR }}"
-#    register: apply_status
-#
-#  rescue:
-#    - block:
-#      - name: Check for correct permission on the apigee-mart service account
-#        shell: |
-#          gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-#            --member serviceAccount:apigee-mart@{{ PROJECT_ID }}.iam.gserviceaccount.com \
-#            --role roles/apigeeconnect.Agent
-#        when: apply_status.stderr | regex_search('.*invalid ConnectAgent service account. service account "apigee-mart@.*')
-#      - block:
-#        - name: Invoke apply command
-#          shell: ./apigeectl apply -f {{ OVERRIDE_FILE }}
-#          args:
-#            chdir: "{{ APIGEECTL_DIR }}"
-#          register: apply_status
-#        rescue:
-#          - block:
-###           [
-###  apigee.canaryevaluations.create
-###  apigee.canaryevaluations.get
-###  apigee.ingressconfigs.get
-###  apigee.instances.reportStatus
-###  apigee.operations.get
-###  apigee.operations.list
-###]
-#            - name: Check for correct permission on the apigee-watcher service account
-#              shell: |
-#                gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-#                --member serviceAccount:apigee-watcher@{{ PROJECT_ID }}.iam.gserviceaccount.com \
-#                --role roles/apigee.runtimeAgent
-#              when: apply_status.stderr | regex_search('.*invalid ConnectAgent service account. service account "apigee-watcher@.*')
-#            rescue:
-#              - name: Rescue, invoke init command
-#                shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
-#                args:
-#                  chdir: "{{ APIGEECTL_DIR }}"
-#
-#              - name: Rescue, invoke apply command
-#                shell: ./apigeectl apply -f {{ OVERRIDE_FILE }}
-#                args:
-#                  chdir: "{{ APIGEECTL_DIR }}"
+              - name: Rescue, invoke apply command
+                shell: ./apigeectl apply -f {{ OVERRIDE_FILE }}
+                args:
+                  chdir: "{{ APIGEECTL_DIR }}"
 
 - name: Invoke check-ready command
   shell: ./apigeectl check-ready -f {{ OVERRIDE_FILE }}
