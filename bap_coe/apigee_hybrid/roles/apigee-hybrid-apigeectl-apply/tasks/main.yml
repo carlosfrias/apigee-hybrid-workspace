@@ -43,14 +43,14 @@
 #          register: apply_status
 #        rescue:
 #          - block:
-#           [
-#  apigee.canaryevaluations.create
-#  apigee.canaryevaluations.get
-#  apigee.ingressconfigs.get
-#  apigee.instances.reportStatus
-#  apigee.operations.get
-#  apigee.operations.list
-#]
+###           [
+###  apigee.canaryevaluations.create
+###  apigee.canaryevaluations.get
+###  apigee.ingressconfigs.get
+###  apigee.instances.reportStatus
+###  apigee.operations.get
+###  apigee.operations.list
+###]
 #            - name: Check for correct permission on the apigee-watcher service account
 #              shell: |
 #                gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
