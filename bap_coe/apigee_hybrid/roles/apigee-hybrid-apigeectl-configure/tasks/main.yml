@@ -50,10 +50,10 @@
 - name: Create overrides.yml file name
   set_fact:
     cacheable: yes
-    OVERRIDE_FILE: "{{ HYBRID_FILES_DIR }}/overrides/overrides-{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.yaml"
+    OVERRIDE_FILE: "{{ HYBRID_FILES_DIR }}/overrides/overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml"
 
 - name: Generate overrides.yml
   template: 
-    src: overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('small') }}.yaml
+    src: overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml
     dest: "{{ OVERRIDE_FILE }}"
 
