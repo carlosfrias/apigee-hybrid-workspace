@@ -1,7 +1,7 @@
 ---
 REGION: "us-central1"
 ENV_NAME: "test"
-APIGEE_RUNTIME_SIZE: "medium"
+APIGEE_OVERRIDE_TEMPLATE: "medium"
 CLUSTER_NAME: "apigee-hybrid-2"
 CLUSTER_ZONE: "{{ REGION }}-b"
 NODE_SIZE: "e2-standard-8"

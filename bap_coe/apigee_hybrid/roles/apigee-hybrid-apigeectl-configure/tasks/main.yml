@@ -54,6 +54,6 @@
 
 - name: Generate overrides.yml
   template: 
-    src: overrides-{{ APIGEE_RUNTIME_SIZE | default('small') }}.yaml
+    src: overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('small') }}.yaml
     dest: "{{ OVERRIDE_FILE }}"
 

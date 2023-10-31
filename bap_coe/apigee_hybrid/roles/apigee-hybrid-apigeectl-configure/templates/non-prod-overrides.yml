@@ -1,0 +1,53 @@
+
+gcp:
+  region: "{{ REGION }}"
+  projectID: "{{ PROJECT_ID }}"
+
+k8sCluster:
+  name: "{{ CLUSTER_NAME }}"
+  region: "{{ REGION }}"
+org: "{{ PROJECT_ID }}"
+
+instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
+
+cassandra:
+  replicaCount: "{{ CASSANDRA_REPLICA_COUNT }}"
+  hostNetwork: "{{ CASSANDRA_HOST_NETWORK }}"
+
+virtualhosts:
+- name: "{{ APIGEE_ENV_GROUP }}"
+  selector:
+    app: apigee-ingressgateway
+    ingress_name: apigee-ingressgateway-manager
+  sslCertPath: "{{ SSL_CERT_PATH }}"
+  sslKeyPath: "{{ SSL_KEY_PATH }}"
+
+ao:
+  args:
+    disableIstioConfigInAPIservier: true
+
+ingressGateways:
+- name: apigee-ingressgateway-manager
+  replicaCountMin: "{{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}"
+  replicateCountMax: "{{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}"
+
+envs:
+# Apigee environment name.
+- name: "test"
+  # Service accounts for sync and UDCA.
+  serviceAccountPaths:
+    synchronizer: "{{ SERVICE_ACCOUNT_PATH_SYNCHRONIZER }}"
+    udca: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"
+    runtime: "{{ SERVICE_ACCOUNT_PATH_RUNTIME }}"
+
+mart:
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_MART }}"
+
+metrics:
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_METRICS }}"
+
+connectAgent:
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_CONNECT_AGENT }}"
+
+watcher:
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_WATCHER }}"

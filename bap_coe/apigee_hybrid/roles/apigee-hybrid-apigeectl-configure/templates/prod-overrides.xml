@@ -1,0 +1,89 @@
+gcp:
+  region: ANALYTICS_REGION
+  projectID: GCP_PROJECT_ID
+
+k8sCluster:
+  name: CLUSTER_NAME
+  region: CLUSTER_LOCATION # Must be the closest Google Cloud region to your cluster.
+org: ORG_NAME
+
+instanceID: "UNIQUE_INSTANCE_IDENTIFIER"
+
+cassandra:
+  hostNetwork: false
+    # Set to false for single region installations and multi-region installations
+    # with connectivity between pods in different clusters, for example GKE installations.
+    # Set to true  for multi-region installations with no communication between
+    # pods in different clusters, for example GKE On-prem, GKE on AWS, Anthos on bare metal,
+    # AKS, EKS, and OpenShift installations.
+    # See Multi-region deployment: Prerequisites
+  replicaCount: 3
+    # Use multiples of 3 for production.
+    # See Configure Cassandra for production for guidelines.
+  storage:
+    capacity: 500Gi
+  resources:
+    requests:
+      cpu: 7
+      memory: 15Gi
+  maxHeapSize: 8192M
+  heapNewSize: 1200M
+    # Minimum storage requirements for a production environment.
+    # See Configure Cassandra for production.
+
+virtualhosts:
+- name: ENVIRONMENT_GROUP_NAME
+  selector:
+    app: apigee-ingressgateway
+    ingress_name: INGRESS_NAME
+  sslCertPath: ./certs/CERT_NAME.pem
+  sslKeyPath: ./certs/KEY_NAME.key
+
+ao:
+  args:
+    disableIstioConfigInAPIServer: true
+
+ingressGateways:
+  - name: INGRESS_NAME # maximum 17 characters. See Known issue 243167389.
+    replicaCountMin: 2
+    replicaCountMax: 10
+    svcAnnotations:  # optional. If you are on AKS, see Known issue #260772383
+      SVC_ANNOTATIONS_KEY: SVC_ANNOTATIONS_VALUE
+
+envs:
+- name: ENVIRONMENT_NAME
+  serviceAccountPaths:
+    synchronizer: SYNCHRONIZER_SERVICE_ACCOUNT_FILEPATH
+      # For example: "./service-accounts/GCP_PROJECT_ID-apigee-synchronizer.json"
+    udca: UDCA_SERVICE_ACCOUNT_FILEPATH
+      # For example: "./service-accounts/GCP_PROJECT_ID-apigee-udca.json"
+    runtime: RUNTIME_SERVICE_ACCOUNT_FILEPATH
+      # For example: "./service-accounts/GCP_PROJECT_ID-apigee-runtime.json"
+
+mart:
+  serviceAccountPath: MART_SERVICE_ACCOUNT_FILEPATH
+    # For example: "./service-accounts/GCP_PROJECT_ID-apigee-mart.json"
+
+connectAgent:
+  serviceAccountPath: MART_SERVICE_ACCOUNT_FILEPATH
+    # Use the same service account for mart and connectAgent
+
+metrics:
+  serviceAccountPath: METRICS_SERVICE_ACCOUNT_FILEPATH
+    # For example: "./service-accounts/GCP_PROJECT_ID-apigee-metrics.json"
+
+udca:
+  serviceAccountPath: UDCA_SERVICE_ACCOUNT_FILEPATH
+    # For example: "./service-accounts/GCP_PROJECT_ID-apigee-udca.json"
+
+watcher:
+  serviceAccountPath: WATCHER_SERVICE_ACCOUNT_FILEPATH
+    # For example: "./service-accounts/GCP_PROJECT_ID-apigee-watcher.json"
+
+logger:
+  enabled: false
+    # Set to false to disable logger for GKE installations.
+    # Set to true for all platforms other than GKE.
+    # See apigee-logger in Service accounts and roles used by hybrid components.
+  serviceAccountPath: LOGGER_SERVICE_ACCOUNT_FILEPATH
+    # For example: "./service-accounts/GCP_PROJECT_ID-apigee-logger.json"

@@ -44,8 +44,6 @@ DNS_MANAGED_ZONE: "friasc-demo"
 DOMAIN_SUFFIX: "friasc.demo.altostrat.com"
 DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENV_NAME }}.{{ DOMAIN_SUFFIX }}"
 
-
-
 #PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
 #PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
 #FOLDER_DISPLAY_NAME: apigee-hybrid
@@ -65,7 +63,7 @@ AUTHORIZATION_KIND: serviceaccount
 SERVICE_ACCOUNT_SCOPE: "non-prod"
 
 ENV_NAME: "test"
-APIGEE_RUNTIME_SIZE: "medium"
+APIGEE_OVERRIDE_TEMPLATE: "non-prod"
 CLUSTER_COUNT: "{{ CLUSTER_SEED }}"
 CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
 CLUSTER_ZONE: "{{ REGION }}-b"
@@ -80,6 +78,7 @@ RELEASE_CHANNEL: "regular"
 CASSANDRA_DATA_CENTER_NAME: "dc-{{ CLUSTER_COUNT }}"
 CASSANDRA_RACK_NAME: "ra-1"
 CASSANDRA_HOST_NETWORK: false
+CASSANDRA_REPLICA_COUNT: 1
 LOGGING: "SYSTEM,WORKLOAD"
 MONITORING: "SYSTEM"
 CLUSTER_ADDONS: "HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver"
@@ -207,7 +206,6 @@ SERVICE_ACCOUNT_PATH_METRICS: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJEC
 SERVICE_ACCOUNT_PATH_CONNECT_AGENT: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
 SERVICE_ACCOUNT_PATH_WATCHER: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
 
-
 GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
   - constraints/iam.disableServiceAccountKeyCreation
   - constraints/iam.disableServiceAccountCreation
@@ -247,4 +245,5 @@ WORK_DIR_PROXY_TEMPLATE: "references/proxy_template"
 WORK_DIR_PROXY_TEMPLATE_BIN: "{{ WORK_DIR_PROXY_TEMPLATE }}/generate-proxy.sh"
 APIGEE_ORG: "{{ PROJECT_ID }}"
 APIGEE_ENV: "TEST"
+APIGEE_ENV_GROUP: "{{ APIGEE_ENV }}-group"
 APIGEE_HOSTNAME: ""
