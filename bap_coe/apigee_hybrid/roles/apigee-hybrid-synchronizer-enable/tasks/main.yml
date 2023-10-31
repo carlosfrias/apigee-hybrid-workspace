@@ -15,5 +15,5 @@
     status_code: ['200', '409']
     body:
       identities:
-        - "serviceAccount:apigee-synchronizer@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+        - "serviceAccount:{{ APIGEE_NON_PROD_USER }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
 

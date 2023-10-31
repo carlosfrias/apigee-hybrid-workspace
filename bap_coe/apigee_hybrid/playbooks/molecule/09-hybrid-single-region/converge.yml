@@ -16,21 +16,21 @@
 ###    - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup', 'gcp'] }
 ###    - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup','k*s'] }
 ###    - { role: apigee-hybrid-setup-environment-docker, tags: ['setup','docker'] }
-    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
-    - { role: apigee-hybrid-org-create, tags: ['org'] }
-#    - { role: apigee-hybrid-cloud-dns-create, tags: ['dns'] }
-    - { role: apigee-hybrid-env-create, tags: ['env'] }
-    - { role: apigee-hybrid-group-create, tags: ['create-group','group'] }
-    - { role: apigee-hybrid-group-attach, tags: ['attach-group','group'] }
-    - { role: apigee-hybrid-apigeectl-download, tags: ['download'] }
-    - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
-    - { role: apigee-hybrid-apigeectl-service-account-create, tags: ['svc-acct'] }
-    - { role: apigee-hybrid-tls-certs, tags: ['tls'] }
-    - { role: apigee-hybrid-gke-create, tags: ['gke'] }
-    - { role: apigee-hybrid-cert-manager-install, tags: ['cert-mgr'] }
-#    - { role: apigee-hybrid-synchronizer-enable, tags: ['synchronizer'] }
-#    - { role: apigee-hybrid-apigee-connect-enable, tags: ['connect'] }
-#    - { role: apigee-hybrid-asm-install, tags: ['asm'], when: "APIGEE_VERSION is version('1.8.1', '<=')" }
+#    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
+#    - { role: apigee-hybrid-org-create, tags: ['org'] }
+###    - { role: apigee-hybrid-cloud-dns-create, tags: ['dns'] }
+#    - { role: apigee-hybrid-env-create, tags: ['env'] }
+#    - { role: apigee-hybrid-group-create, tags: ['create-group','group'] }
+#    - { role: apigee-hybrid-group-attach, tags: ['attach-group','group'] }
+#    - { role: apigee-hybrid-apigeectl-download, tags: ['download'] }
+#    - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
+#    - { role: apigee-hybrid-apigeectl-service-account-create, tags: ['svc-acct'] }
+#    - { role: apigee-hybrid-tls-certs, tags: ['tls'] }
+#    - { role: apigee-hybrid-gke-create, tags: ['gke'] }
+#    - { role: apigee-hybrid-cert-manager-install, tags: ['cert-mgr'] }
+    - { role: apigee-hybrid-synchronizer-enable, tags: ['synchronizer'] }
+    - { role: apigee-hybrid-apigee-connect-enable, tags: ['connect'] }
+    - { role: apigee-hybrid-asm-install, tags: ['asm'], when: "APIGEE_VERSION is version('1.8.1', '<=')" }
 ###    - { role: apigee-hybrid-apigeectl-configure-multi-region-clear-settings, tags: ['clear-multi'] }
-#    - { role: apigee-hybrid-apigeectl-configure, tags: ['configure'] }
-#    - { role: apigee-hybrid-apigeectl-apply, tags: ['apply'] }
+    - { role: apigee-hybrid-apigeectl-configure, tags: ['configure'] }
+    - { role: apigee-hybrid-apigeectl-apply, tags: ['apply'] }
