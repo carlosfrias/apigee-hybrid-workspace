@@ -37,7 +37,7 @@
 - name: Create Cloud DNS Public Managed Zone
   shell: |
     gcloud dns managed-zones create {{ DNS_MANAGED_ZONE }} \
-      --project="{{ PROJECT_ID }}" \
+      --project="{{ DNS_PROJECT_ID }}" \
       --description="{{ GCP_CLOUD_DNS_DESCRIPTION }}" \
       --dns-name="{{ DOMAIN_NAME }}" \
       --dnssec-state="off"

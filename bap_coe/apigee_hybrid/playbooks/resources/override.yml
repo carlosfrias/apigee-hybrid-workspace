@@ -39,8 +39,8 @@ APIGEECTL_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}"
 HYBRID_FILES_DIR: "{{ APIGEECTL_DIR }}/hybrid-files"
 SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
 
-
-DNS_MANAGED_ZONE: "friasc-demo-altostrat-com"
+DNS_PROJECT_ID: "friasc-apigee-lab"
+DNS_MANAGED_ZONE: "friasc-demo"
 DOMAIN_SUFFIX: "friasc.demo.altostrat.com"
 DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENV_NAME }}.{{ DOMAIN_SUFFIX }}"
 
