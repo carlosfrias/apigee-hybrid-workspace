@@ -48,8 +48,8 @@ envs:
   - name: "{{ ENV_NAME }}"
     # Service accounts for sync and UDCA.
     serviceAccountPaths:
-      synchronizer: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-synchronizer.json"
-      udca: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-udca.json"
+      synchronizer: "{{ SERVICE_ACCOUNT_PATH_SYNCHRONIZER }}"
+      udca: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"
     # Set custom encryption keys for KMS.
     kmsEncryptionKey: "{{ KMS_ENCRYPTION_KEY }}"
     # Set custom encryption keys for KVM.
@@ -105,18 +105,18 @@ udca:
 mart:
   replicaCountMin: {{ MART_REPLICA_COUNT_MIN }}
   replicaCountMax: {{ MART_REPLICA_COUNT_MAX }}
-  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_MART }}"
   resources:
     requests:
       cpu: {{ DEFAULT_MART_RESOURCES_REQUESTS_CPU }}
       memory: {{ DEFAULT_MART_RESOURCES_REQUESTS_MEMORY }}
 
 metrics:
-  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-metrics.json"
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_METRICS }}"
 
 connectAgent:
   replicaCountMin: {{ CONNECT_AGENT_REPLICA_COUNT_MIN }}
-  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-mart.json"
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_CONNECT_AGENT }}"
 
 watcher:
-  serviceAccountPath: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-watcher.json"
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_WATCHER }}"
