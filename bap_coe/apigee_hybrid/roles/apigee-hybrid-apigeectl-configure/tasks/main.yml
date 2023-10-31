@@ -5,6 +5,10 @@
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
   register: project_number
 
+- name: Load ENV Group
+  import:
+    name: apigee-hybrid-group-create
+
 - name: Set attributes in cache
   set_fact: 
     cacheable: yes
