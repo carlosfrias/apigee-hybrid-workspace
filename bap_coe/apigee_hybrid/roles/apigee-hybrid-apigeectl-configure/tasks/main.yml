@@ -6,7 +6,7 @@
   register: project_number
 
 - name: Load ENV Group
-  import:
+  import_role:
     name: apigee-hybrid-group-create
 
 - name: Set attributes in cache
