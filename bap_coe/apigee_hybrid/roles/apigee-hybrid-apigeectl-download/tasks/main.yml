@@ -1,5 +1,10 @@
 ---
 # tasks file for roles/apigee-hybrid-apigeectl-download
+- name: Load Apigee Version
+  import_role:
+    name: apigee-hybrid-apigee-version
+
+
 - name: Construct Apigee hybrid file name
   set_fact:
     cacheable: yes
