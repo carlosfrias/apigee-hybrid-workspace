@@ -1,7 +1,8 @@
 ---
 # tasks file for roles/apigee-hybrid-apigeectl-apply
 - name: Set container context
-  shell: kubectx {{ CLUSTER_NAME }}
+  shell: kubectl config current-context
+#  shell: kubectx {{ CLUSTER_NAME }}
 
 - name: Invoke init command
   shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
