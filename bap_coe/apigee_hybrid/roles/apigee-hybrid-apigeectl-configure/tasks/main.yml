@@ -9,6 +9,10 @@
   import_role:
     name: apigee-hybrid-group-create
 
+- name: Load TLS certs
+  import_role:
+    name: apigee-hybrid-tls-certs
+    
 - name: Set attributes in cache
   set_fact: 
     cacheable: yes
