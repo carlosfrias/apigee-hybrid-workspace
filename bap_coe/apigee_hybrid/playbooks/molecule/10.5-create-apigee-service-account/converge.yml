@@ -13,7 +13,4 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
-    - { role: apigee-hybrid-apigeectl-download, tags: ['download'] }
-    - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
     - { role: apigee-hybrid-apigeectl-service-account-create, tags: ['svc-acct'] }

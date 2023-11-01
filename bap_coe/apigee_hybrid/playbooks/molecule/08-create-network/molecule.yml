@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 14-create-apigee-gke-cluster
+  - name: 15-create-apigee-gke-cluster
 provisioner:
   name: ansible
 verifier:
