@@ -1,0 +1,7 @@
+---
+# defaults file for gce_network_create
+#SCOPE_COMPUTE:
+#  - 'https://www.googleapis.com/auth/cloud-platform'
+#  - 'https://www.googleapis.com/auth/compute'
+DEFAULT_EXTERNAL_IP_DESCRIPION: "Apigee hybrid ingress gateway loadbalancer IP"
+DEFAULT_GCP_CLOUD_DNS_DESCRIPTION: "Apigee hybrid ingress gateway public DNS record"

@@ -1,0 +1,19 @@
+- name: Create Apigee hybrid single region runtime on GCP
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/argolis-credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  roles:
+    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
+    - { role: apigee-hybrid-apigeectl-download, tags: ['download'] }
+    - { role: apigee-hybrid-apigeectl-dir-structure, tags: ['dir'] }
+    - { role: apigee-hybrid-apigeectl-service-account-create, tags: ['svc-acct'] }
