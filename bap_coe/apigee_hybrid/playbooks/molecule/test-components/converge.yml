@@ -13,19 +13,19 @@
 
 #- name: Create service account keys
 #  import_playbook: "{{ playbook_dir | dirname }}/05-create-service-account-keys/converge.yml"
-
-- name: Update service account permissions
-  import_playbook: "{{ playbook_dir | dirname }}/06-create-service-account-permissions/converge.yml"
+#
+#- name: Update service account permissions
+#  import_playbook: "{{ playbook_dir | dirname }}/06-create-service-account-permissions/converge.yml"
 
 #- name: Create network
-#  import_playbook: "{{ playbook_dir | dirname }}/08-create-network/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/07-create-network/converge.yml"
 #
 #- name: Create external ip address
-#  import_playbook: "{{ playbook_dir | dirname }}/07-create-external-ip-address/converge.yml"
-#
-#- name: Create DNS record
-#  import_playbook: "{{ playbook_dir | dirname }}/09-create-dns-record/converge.yml"
-#
+#  import_playbook: "{{ playbook_dir | dirname }}/08-create-external-ip-address/converge.yml"
+
+- name: Create DNS record
+  import_playbook: "{{ playbook_dir | dirname }}/09-create-dns-record/converge.yml"
+
 #- name: Install apigeectl
 #  import_playbook: "{{ playbook_dir | dirname }}/10-install-apigeectl/converge.yml"
 #
