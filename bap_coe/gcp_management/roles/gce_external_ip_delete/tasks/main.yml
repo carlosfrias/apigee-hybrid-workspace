@@ -19,7 +19,7 @@
     EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"
     GCP_CLOUD_DNS_DESCRIPTION: "{{ GCP_CLOUD_DNS_DESCRIPTION | default(DEFAULT_GCP_CLOUD_DNS_DESCRIPTION) }}"
 
-- name: Create External IP
+- name: Delete External IP
   shell: |
     gcloud compute addresses delete {{ EXTERNAL_IP_NAME }} \
       --project="{{ PROJECT_ID }}" \
@@ -33,17 +33,18 @@
   include_role:
     name: bap_coe.gcp_management.gcp_token_retrieval
 
-- name: Obtain external IP
+- name: Confirm external IP address is deleted
   uri:
     url: "https://www.googleapis.com/compute/v1/projects/{{ PROJECT_ID }}/regions/{{GCP_REGION }}/addresses/{{ EXTERNAL_IP_NAME }}"
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: external_IP
+  status_code: ["400", "404"]
 
 - name: Set apigee ingress ip
   set_fact:
     cacheable: yes
-    EXTERNAL_IP: "{{ external_IP.json.address }}"
+    EXTERNAL_IP: ""
 
 
 
