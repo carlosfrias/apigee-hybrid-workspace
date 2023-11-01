@@ -37,15 +37,27 @@
 - name: Create Cloud DNS Public Managed Zone
   shell: |
     gcloud dns managed-zones create {{ DNS_MANAGED_ZONE }} \
-      --project="{{ DNS_PROJECT_ID }}" \
+      --project="{{ PROJECT_ID }}" \
       --description="{{ GCP_CLOUD_DNS_DESCRIPTION }}" \
       --dns-name="{{ DOMAIN_NAME }}" \
-      --member user:{{ ALTOSTRAT_DOMAIN_ADMIN }} \
       --dnssec-state="off"
   register: status  
   failed_when:  
     - status.rc == 1
     - "'already exists' not in status.stderr"
+
+#- name: Create Cloud DNS Public Managed Zone
+#  shell: |
+#    gcloud dns managed-zones create {{ DNS_MANAGED_ZONE }} \
+#      --project="{{ DNS_PROJECT_ID }}" \
+#      --description="{{ GCP_CLOUD_DNS_DESCRIPTION }}" \
+#      --dns-name="{{ DOMAIN_NAME }}" \
+#      --member user:{{ ALTOSTRAT_DOMAIN_ADMIN }} \
+#      --dnssec-state="off"
+#  register: status
+#  failed_when:
+#    - status.rc == 1
+#    - "'already exists' not in status.stderr"
 
 - block:
 
