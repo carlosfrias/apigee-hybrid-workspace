@@ -15,5 +15,5 @@
     status_code: ['200', '409']
     body:
       identities:
-        - "serviceAccount:{{ APIGEE_NON_PROD_USER }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+        - "serviceAccount:{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
 
