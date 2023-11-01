@@ -15,5 +15,5 @@
     status_code: ['200', '409']
     body:
       identities:
-        - "serviceAccount:{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}"
+        - "serviceAccount:{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}"
 
