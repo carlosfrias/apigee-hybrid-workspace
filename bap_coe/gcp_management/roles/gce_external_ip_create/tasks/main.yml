@@ -30,6 +30,10 @@
   - status.rc == 1
   - "'already exists' not in status.stderr"
 
+- name: Obtain GCP Token
+  include_role:
+    name: bap_coe.gcp_management.gcp_token_retrieval
+
 - name: Obtain external IP
   uri:
     url: "https://www.googleapis.com/compute/v1/projects/{{ PROJECT_ID }}/regions/{{GCP_REGION }}/addresses/{{ EXTERNAL_IP_NAME }}"
