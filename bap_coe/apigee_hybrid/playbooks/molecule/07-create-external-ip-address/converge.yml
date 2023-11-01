@@ -1,4 +1,4 @@
-- name: Create an Environment Group
+- name: Create External IP Address
   hosts: localhost
   connection: local
 

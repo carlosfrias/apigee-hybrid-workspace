@@ -1,4 +1,4 @@
-- name: Create a Cluster
+- name: Create a default network
   hosts: localhost
   connection: local
 

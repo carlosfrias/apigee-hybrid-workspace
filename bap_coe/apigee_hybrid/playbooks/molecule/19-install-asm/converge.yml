@@ -1,4 +1,4 @@
-- name: Create Apigee hybrid single region runtime on GCP
+- name: Install ASM
   hosts: localhost
   connection: local
   gather_facts: true

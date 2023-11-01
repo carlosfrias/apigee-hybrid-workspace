@@ -27,10 +27,10 @@
   import_playbook: "{{ playbook_dir | dirname }}/09-create-dns-record/converge.yml"
 
 - name: Install apigeectl
-  import_playbook: "{{ playbook_dir | dirname }}/10.1-install-apigeectl/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/10-install-apigeectl/converge.yml"
 
 - name: Create apigee service accounts
-  import_playbook: "{{ playbook_dir | dirname }}/10.5-create-apigee-service-account/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/11-create-apigee-service-account/converge.yml"
 
 - name: Create TLS certs
   import_playbook: "{{ playbook_dir | dirname }}/12-create-tls-certs/converge.yml"

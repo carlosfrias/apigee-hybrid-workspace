@@ -1,4 +1,4 @@
-- name: Create a Cluster
+- name: Create an Apigee Cluster
   hosts: localhost
   connection: local
 

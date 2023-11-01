@@ -1,4 +1,4 @@
-- name: Create an Environment Group
+- name: Create DNS record
   hosts: localhost
   connection: local
 

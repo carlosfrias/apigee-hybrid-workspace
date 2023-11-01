@@ -1,4 +1,4 @@
-- name: Create an Organization
+- name: Create an Apigee Organization
   hosts: localhost
   connection: local
 

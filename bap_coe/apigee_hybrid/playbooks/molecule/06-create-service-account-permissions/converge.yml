@@ -1,5 +1,5 @@
 ---
-- name: Create Service Account Permissions
+- name: Update Service Account Permissions
   hosts: localhost
   connection: local
 
