@@ -4,7 +4,7 @@
 #GCLOUD_ACCOUNT_DOMAIN: "PROVIDED_IN_CREDENTIALS_YML"
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
-PROJECT_ID: "friasc-hybrid-20231101-1141"
+PROJECT_ID: "friasc-hybrid-20231101-1328"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 GCP_ZONE: "us-east1-b"
 GCP_REGION: "us-east1"
@@ -91,17 +91,6 @@ VALIDATE_PROJECT_ID: "{{ PROJECT_ID }}"
 VALIDATE_PROXY_URI_ENDPOINT: /notarget
 VALIDATE_PROXY_IP: "{{ INGRESS_IP }}"
 VALIDATE_PROXY_PORT: 443
-
-SERVICE_ACCOUNTS:
-- apigee-non-prod
-#  - apigee-metrics
-#  - apigee-synchronizer
-#  - apigee-udca
-#  - apigee-mart
-#  - apigee-cassandra
-#  - apigee-logger
-#  - apigee-watcher
-#  - apigee-connect-agent
 
 GCLOUD_FOLDER_ROLE_BINDINGS:
   - roles/resourcemanager.folderAdmin
@@ -198,6 +187,16 @@ APIGEE_NON_PROD_ROLES:
   - "roles/logging.logWriter"
   - "roles/monitoring.metricWriter"
   - "roles/storage.objectAdmin"
+SERVICE_ACCOUNTS:
+- "{{ APIGEE_NON_PROD_USER }}"
+#  - apigee-metrics
+#  - apigee-synchronizer
+#  - apigee-udca
+#  - apigee-mart
+#  - apigee-cassandra
+#  - apigee-logger
+#  - apigee-watcher
+#  - apigee-connect-agent
 
 SERVICE_ACCOUNT_PATH_SYNCHRONIZER: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
 SERVICE_ACCOUNT_PATH_UDCA: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
@@ -244,6 +243,7 @@ WORK_DIR_COMMON_SHARED_FLOWS: "references/common-shared_flows"
 WORK_DIR_COMMON_SHARED_FLOWS_BIN: "{{ WORK_DIR_COMMON_SHARED_FLOWS }}/deploy.sh"
 WORK_DIR_PROXY_TEMPLATE: "references/proxy_template"
 WORK_DIR_PROXY_TEMPLATE_BIN: "{{ WORK_DIR_PROXY_TEMPLATE }}/generate-proxy.sh"
+
 APIGEE_ORG: "{{ PROJECT_ID }}"
 APIGEE_ENV: "TEST"
 APIGEE_ENV_GROUP: "{{ APIGEE_ENV }}-group"

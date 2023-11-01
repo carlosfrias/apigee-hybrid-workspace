@@ -21,6 +21,11 @@
     name: curl
     state: present
 
+- name: Assert filesystem location
+  file:
+    path: "{{ APIGEECTL_DIR }}"
+    state: directory
+        
 - name: Download latest version file
   get_url:
     url: "{{ APIGEE_HYBRID_VERSION_URL }}"
