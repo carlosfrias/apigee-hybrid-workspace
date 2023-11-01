@@ -1,9 +1,9 @@
 ---
 - name: Create external ip address
-  import_playbook: "{{ playbook_dir | dirname }}/07.5-create-external-ip-address/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/07-create-external-ip-address/converge.yml"
 
 - name: Create network
-  import_playbook: "{{ playbook_dir | dirname }}/07-create-network/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/08-create-network/converge.yml"
 
 - name: Create dns record
-  import_playbook: "{{ playbook_dir | dirname }}/08-create-dns-record/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/09-create-dns-record/converge.yml"

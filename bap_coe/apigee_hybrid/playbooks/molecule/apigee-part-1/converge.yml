@@ -18,22 +18,22 @@
   import_playbook: "{{ playbook_dir | dirname }}/06-create-service-account-permissions/converge.yml"
 
 - name: Create network
-  import_playbook: "{{ playbook_dir | dirname }}/07-create-service-account-permissions/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/08-create-network/converge.yml"
 
 - name: Create external ip address
-  import_playbook: "{{ playbook_dir | dirname }}/07.5-create-external-ip-address/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/07-create-external-ip-address/converge.yml"
 
 - name: Create DNS record
-  import_playbook: "{{ playbook_dir | dirname }}/08-create-dns-record/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/09-create-dns-record/converge.yml"
 
 - name: Install apigeectl
-  import_playbook: "{{ playbook_dir | dirname }}/09-install-apigeectl/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/10-install-apigeectl/converge.yml"
 
 - name: Create TLS certs
-  import_playbook: "{{ playbook_dir | dirname }}/10-create-tls-certs/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/11-create-tls-certs/converge.yml"
 
 - name: Create an Apigee organization
-  import_playbook: "{{ playbook_dir | dirname }}/11-create-apigee-organization/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/12-create-apigee-organization/converge.yml"
 
 - name: Create an Apigee environment group
-  import_playbook: "{{ playbook_dir | dirname }}/12-create-apigee-environment-group/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/13-create-apigee-environment-group/converge.yml"

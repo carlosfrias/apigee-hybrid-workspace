@@ -1,21 +1,21 @@
 ---
 - name: Create GKE cluster
-  import_playbook: "{{ playbook_dir | dirname }}/13-create-apigee-gke-cluster/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/14-create-apigee-gke-cluster/converge.yml"
 
 - name: Install Cert Manager
-  import_playbook: "{{ playbook_dir | dirname }}/14-install-cert-manager/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/15-install-cert-manager/converge.yml"
 
 - name: Enable Synchronizer
-  import_playbook: "{{ playbook_dir | dirname }}/15-enable-synchronizer/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/16-enable-synchronizer/converge.yml"
 
 - name: Enable Apigee Connect
-  import_playbook: "{{ playbook_dir | dirname }}/16-enable-apigee-connect/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/17-enable-apigee-connect/converge.yml"
 
 - name: Install ASM
-  import_playbook: "{{ playbook_dir | dirname }}/17-install-asm/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/18-install-asm/converge.yml"
 
 - name: Configure apigeectl
-  import_playbook: "{{ playbook_dir | dirname }}/18-configure-apigee-runtime/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/19-configure-apigee-runtime/converge.yml"
 
 - name: Install Apigee runtime
-  import_playbook: "{{ playbook_dir | dirname }}/19-install-apigee-runtime/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/20-install-apigee-runtime/converge.yml"
