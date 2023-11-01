@@ -12,12 +12,16 @@
     - CLUSTER_NAME is defined
     msg: "Please provide CLUSTER_NAME"
 
+- name: Assert GCP_REGION provided
+  assert:
+    that:
+    - GCP_REGION is defined
+    msg: "Please provide GCP_REGION"
+
 - name: Set cloud dns cache
   set_fact:
     cacheable: yes
-    EXTERNAL_IP_DESCRIPION: "{{ EXTERNAL_IP_DESCRIPION | default(DEFAULT_EXTERNAL_IP_DESCRIPION) }}"
     EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"
-    GCP_CLOUD_DNS_DESCRIPTION: "{{ GCP_CLOUD_DNS_DESCRIPTION | default(DEFAULT_GCP_CLOUD_DNS_DESCRIPTION) }}"
 
 - name: Delete External IP
   shell: |
