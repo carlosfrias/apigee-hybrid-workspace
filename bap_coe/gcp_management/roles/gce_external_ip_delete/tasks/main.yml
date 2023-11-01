@@ -30,9 +30,7 @@
       --region={{ GCP_REGION }} \
       --quiet
   register: status
-  failed_when:
-  - status.rc == 1
-  - "'already exists' not in status.stderr"
+  ignore_errors: true
 
 - name: Obtain GCP Token
   include_role:
