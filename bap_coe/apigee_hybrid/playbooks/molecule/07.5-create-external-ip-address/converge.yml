@@ -12,6 +12,5 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
     - { role: gce_external_ip_create, tags: ['dns'] }
 

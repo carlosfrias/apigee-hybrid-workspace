@@ -39,7 +39,8 @@
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: external_IP
-  status_code: ["400", "404"]
+  body_format: json
+  status_code: ['200','400', '404']
 
 - name: Set apigee ingress ip
   set_fact:
