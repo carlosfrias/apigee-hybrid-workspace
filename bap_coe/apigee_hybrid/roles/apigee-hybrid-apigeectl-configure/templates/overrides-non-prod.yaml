@@ -11,8 +11,8 @@ org: "{{ PROJECT_ID }}"
 instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
 
 cassandra:
-  replicaCount: "{{ CASSANDRA_REPLICA_COUNT }}"
-  hostNetwork: "{{ CASSANDRA_HOST_NETWORK }}"
+  replicaCount: {{ CASSANDRA_REPLICA_COUNT }}
+  hostNetwork: {{ CASSANDRA_HOST_NETWORK }}
 
 virtualhosts:
 - name: "{{ APIGEE_ENV_GROUP }}"
