@@ -23,7 +23,8 @@
   shell: |
     gcloud compute addresses delete {{ EXTERNAL_IP_NAME }} \
       --project="{{ PROJECT_ID }}" \
-      --region={{ GCP_REGION }}
+      --region={{ GCP_REGION }} \
+      --quiet
   register: status
   failed_when:
   - status.rc == 1
