@@ -12,12 +12,6 @@
     - CLUSTER_NAME is defined
     msg: "Please provide CLUSTER_NAME"
 
-- name: Assert GCP_CLOUD_DNS_DESCRIPTION provided
-  assert:
-    that:
-    - GCP_CLOUD_DNS_DESCRIPTION is defined
-    msg: "Please provide GCP_CLOUD_DNS_DESCRIPTION"
-
 - name: Set cloud dns cache
   set_fact:
     cacheable: yes
