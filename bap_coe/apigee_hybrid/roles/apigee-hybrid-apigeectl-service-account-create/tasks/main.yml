@@ -26,7 +26,7 @@
     gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
       --member serviceAccount:{{ APIGEE_NON_PROD_EMAIL }} \
       --role={{ item }} \
-      --account={{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}
+      --account={{ ADMIN_SERVICE_ACCOUNT_EMAIL }}
   with_items: "{{ APIGEE_NON_PROD_ROLES }}"
 
 - name: Wait for the policy bindings to propagate
@@ -45,7 +45,7 @@
     gcloud iam service-accounts keys create {{ HYBRID_FILES_DIR }}/service-accounts/{{ APIGEE_NON_PROD_EMAIL }} \
       --iam-account={{ APIGEE_NON_PROD_EMAIL }} \
       --project {{ PROJECT_ID }} \
-      --account {{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}
+      --account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }}
 
 - name: Create Service Accounts
   shell: echo 'y' | ./tools/create-service-account {{ item }} --dir {{ SERVICE_ACCOUNTS_DIR }} --env {{ SERVICE_ACCOUNT_SCOPE }}

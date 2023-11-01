@@ -39,7 +39,7 @@ GCLOUD_PROJECT_SERVICES:
   - "cloudtrace.googleapis.com"
   - "privateca.googleapis.com"
 
-GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
+ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/editor"
   - "roles/compute.admin"
   - "roles/compute.networkUser"

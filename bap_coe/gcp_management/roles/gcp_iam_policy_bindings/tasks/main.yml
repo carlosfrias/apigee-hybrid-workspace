@@ -18,11 +18,11 @@
     - GCLOUD_SERVICE_ACCOUNT_EMAIL is defined
     msg: "Please provide the GCLOUD_SERVICE_ACCOUNT_EMAIL"
 
-- name: Assert that the GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL is available
+- name: Assert that the ADMIN_SERVICE_ACCOUNT_EMAIL is available
   assert:
     that:
-    - GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL is defined
-    msg: "Please provide the GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL (fully qualified domain name)"
+    - ADMIN_SERVICE_ACCOUNT_EMAIL is defined
+    msg: "Please provide the ADMIN_SERVICE_ACCOUNT_EMAIL (fully qualified domain name)"
 
 - name: Assert that the ACCOUNT_TYPE is available
   assert:
@@ -46,7 +46,7 @@
     gcloud projects {{ BINDING_OP }}-iam-policy-binding {{ PROJECT_ID }} \
       --member {{ ACCOUNT_TYPE }}:{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
       --role={{ item }} \
-      --account={{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}
+      --account={{ ADMIN_SERVICE_ACCOUNT_EMAIL }}
   with_items: "{{ POLICY_BINDINGS }}"
 
 - name: Wait for the policy bindings to propagate

@@ -15,11 +15,11 @@
     - {
         role: gcp_iam_policy_bindings_org,
         tags: ['user-roles'],
-        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}",
+        GCLOUD_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}",
         ROLE_BINDINGS: [
             "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}",
             "{{ GCLOUD_ORG_ROLE_BINDINGS }}",
-            "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+            "{{ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
             ]
       }
     - { role: gcp_resource_manager_folders_create }

@@ -62,7 +62,7 @@ GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
 - "roles/resourcemanager.projectDeleter"
 - "roles/resourcemanager.projectCreator"
 
-GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS:
+ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.admin"
 - "roles/compute.networkUser"
 - "roles/compute.instanceAdmin"

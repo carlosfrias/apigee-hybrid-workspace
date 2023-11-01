@@ -10,6 +10,6 @@
   - bap_coe.gcp_management
 
   roles:
-    - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ GCLOUD_ORG_ROLE_BINDINGS }}","{{ GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}" }
+    - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ GCLOUD_ORG_ROLE_BINDINGS }}","{{ GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" }
     - { role: gcp_resource_manager_folders_get_folder_id }
     - { role: gcp_project_create }
