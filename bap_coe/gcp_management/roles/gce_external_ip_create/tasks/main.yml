@@ -30,4 +30,17 @@
   - status.rc == 1
   - "'already exists' not in status.stderr"
 
+- name: Obtain external IP
+  uri:
+    url: "https://www.googleapis.com/compute/v1/projects/{{ PROJECT_ID }}/regions/{{GCP_REGION }}/addresses/{{ EXTERNAL_IP_NAME }}"
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+  register: external_IP
+
+- name: Set apigee ingress ip
+  set_fact:
+    cacheable: yes
+    EXTERNAL_IP: "{{ external_IP.json.address }}"
+
+
 
