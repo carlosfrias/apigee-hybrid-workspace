@@ -38,9 +38,8 @@
     url: "https://www.googleapis.com/compute/v1/projects/{{ PROJECT_ID }}/regions/{{GCP_REGION }}/addresses/{{ EXTERNAL_IP_NAME }}"
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
+    status_code: ['400', '404']
   register: external_IP
-  body_format: json
-  status_code: ['200','400', '404']
 
 - name: Set apigee ingress ip
   set_fact:
