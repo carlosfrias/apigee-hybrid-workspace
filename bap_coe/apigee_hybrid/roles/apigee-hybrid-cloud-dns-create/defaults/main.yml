@@ -1,4 +1,4 @@
 ---
 # defaults file for roles/apigee-hybrid-cloud-dns-create
-#DEFAULT_EXTERNAL_IP_DESCRIPION: "Apigee hybrid ingress gateway loadbalancer IP"
-#DEFAULT_GCP_CLOUD_DNS_DESCRIPTION: "Apigee hybrid ingress gateway public DNS record"
+DEFAULT_EXTERNAL_IP_DESCRIPION: "Apigee hybrid ingress gateway loadbalancer IP"
+DEFAULT_GCP_CLOUD_DNS_DESCRIPTION: "Apigee hybrid ingress gateway public DNS record"
