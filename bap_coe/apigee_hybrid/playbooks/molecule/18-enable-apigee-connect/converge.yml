@@ -13,5 +13,4 @@
     - bap_coe.gcp_management
 
   roles:
-#    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
     - { role: apigee-hybrid-apigee-connect-enable, tags: ['connect'] }
