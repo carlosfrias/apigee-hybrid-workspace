@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: terraform-deployment
+  - name: Default is to install apigee
 provisioner:
   name: ansible
 verifier:

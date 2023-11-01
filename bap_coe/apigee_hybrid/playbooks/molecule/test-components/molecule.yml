@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 19-install-apigee-runtime
+  - name: test individual components
 provisioner:
   name: ansible
   ansible_args:
