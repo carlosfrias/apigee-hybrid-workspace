@@ -28,8 +28,8 @@ ao:
 
 ingressGateways:
 - name: apigee-ingressgateway-manager
-  replicaCountMin: "{{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}"
-  replicateCountMax: "{{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}"
+  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
+  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 envs:
 # Apigee environment name.
