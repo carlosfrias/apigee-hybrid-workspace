@@ -47,17 +47,17 @@
 #- name: Install Cert Manager
 #  import_playbook: "{{ playbook_dir | dirname }}/16-install-cert-manager/converge.yml"
 #
-- name: Enable Synchronizer
-  import_playbook: "{{ playbook_dir | dirname }}/17-enable-synchronizer/converge.yml"
+#- name: Enable Synchronizer
+#  import_playbook: "{{ playbook_dir | dirname }}/17-enable-synchronizer/converge.yml"
 #
 #- name: Enable Apigee Connect
 #  import_playbook: "{{ playbook_dir | dirname }}/18-enable-apigee-connect/converge.yml"
-#
+
 #- name: Install ASM
 #  import_playbook: "{{ playbook_dir | dirname }}/19-install-asm/converge.yml"
-#
-#- name: Configure apigeectl
-#  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
-#
+
+- name: Configure apigeectl
+  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
+
 #- name: Install Apigee runtime
 #  import_playbook: "{{ playbook_dir | dirname }}/21-install-apigee-runtime/converge.yml"
