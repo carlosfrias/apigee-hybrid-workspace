@@ -16,5 +16,5 @@
 
 - name: Login with service account
   shell: |
-    gcloud auth activate-service-account {{  ADMIN_SERVICE_ACCOUNT_EMAIL }} --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
+    gcloud auth activate-service-account {{  ADMIN_ACCOUNT_EMAIL }} --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
 
