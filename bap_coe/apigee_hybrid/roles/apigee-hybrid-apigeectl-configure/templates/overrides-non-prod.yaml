@@ -12,7 +12,7 @@ instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
 
 cassandra:
   replicaCount: {{ CASSANDRA_REPLICA_COUNT | int }}
-  hostNetwork: {{ CASSANDRA_HOST_NETWORK | bool }}
+  hostNetwork: {{ CASSANDRA_HOST_NETWORK  }}
 
 virtualhosts:
 - name: "{{ APIGEE_ENV_GROUP }}"
@@ -24,7 +24,7 @@ virtualhosts:
 
 ao:
   args:
-    disableIstioConfigInAPIserver: {{ DISABLE_ISTIO_CONFIG_IN_API_SERVER | bool }}
+    disableIstioConfigInAPIserver: {{ DISABLE_ISTIO_CONFIG_IN_API_SERVER }}
 
 ingressGateways:
 - name: "{{ INGRESS_GATEWAY_NAME }}"
@@ -51,5 +51,5 @@ watcher:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_WATCHER }}"
 
 logger:
-  enabled: {{ APIGEE_HYBRID_LOGGER_ENABLED | bool }}
+  enabled: {{ APIGEE_HYBRID_LOGGER_ENABLED }}
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_LOGGER }}"
