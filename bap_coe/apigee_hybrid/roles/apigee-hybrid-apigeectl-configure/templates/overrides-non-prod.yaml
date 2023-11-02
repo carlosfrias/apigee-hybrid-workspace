@@ -1,4 +1,4 @@
-
+---
 gcp:
   region: "{{ REGION }}"
   projectID: "{{ PROJECT_ID }}"
@@ -32,9 +32,7 @@ ingressGateways:
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 envs:
-# Apigee environment name.
 - name: "{{ APIGEE_ENV }}"
-  # Service accounts for sync and UDCA.
   serviceAccountPaths:
     synchronizer: "{{ SERVICE_ACCOUNT_PATH_SYNCHRONIZER }}"
     udca: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"

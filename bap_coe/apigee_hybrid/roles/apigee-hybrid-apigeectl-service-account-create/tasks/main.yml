@@ -42,7 +42,7 @@
 
 - name: Create apigee-non-prod service account key file
   shell: |
-    gcloud iam service-accounts keys create {{ HYBRID_FILES_DIR }}/service-accounts/{{ APIGEE_NON_PROD_EMAIL }} \
+    gcloud iam service-accounts keys create {{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json \
       --iam-account={{ APIGEE_NON_PROD_EMAIL }} \
       --project {{ PROJECT_ID }} \
       --account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }}
