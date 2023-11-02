@@ -32,7 +32,7 @@ ingressGateways:
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 envs:
-- name: "{{ APIGEE_ENV }}"
+- name: "{{ ENVIRONMENT_NAME }}"
   serviceAccountPaths:
     synchronizer: "{{ SERVICE_ACCOUNT_PATH_SYNCHRONIZER }}"
     udca: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"

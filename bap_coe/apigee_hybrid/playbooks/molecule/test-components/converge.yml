@@ -32,18 +32,18 @@
 #- name: Create apigee service accounts
 #  import_playbook: "{{ playbook_dir | dirname }}/11-create-apigee-service-account/converge.yml"
 #
-- name: Create TLS certs
-  import_playbook: "{{ playbook_dir | dirname }}/12-create-tls-certs/converge.yml"
-
-- name: Create an Apigee organization
-  import_playbook: "{{ playbook_dir | dirname }}/13-create-apigee-organization/converge.yml"
-
-- name: Create an Apigee environment group
-  import_playbook: "{{ playbook_dir | dirname }}/14-create-apigee-environment-group/converge.yml"
-
-- name: Create GKE cluster
-  import_playbook: "{{ playbook_dir | dirname }}/15-create-apigee-gke-cluster/converge.yml"
-
+#- name: Create TLS certs
+#  import_playbook: "{{ playbook_dir | dirname }}/12-create-tls-certs/converge.yml"
+#
+#- name: Create an Apigee organization
+#  import_playbook: "{{ playbook_dir | dirname }}/13-create-apigee-organization/converge.yml"
+#
+#- name: Create an Apigee environment group
+#  import_playbook: "{{ playbook_dir | dirname }}/14-create-apigee-environment-group/converge.yml"
+#
+#- name: Create GKE cluster
+#  import_playbook: "{{ playbook_dir | dirname }}/15-create-apigee-gke-cluster/converge.yml"
+#
 #- name: Install Cert Manager
 #  import_playbook: "{{ playbook_dir | dirname }}/16-install-cert-manager/converge.yml"
 #
@@ -53,11 +53,11 @@
 #- name: Enable Apigee Connect
 #  import_playbook: "{{ playbook_dir | dirname }}/18-enable-apigee-connect/converge.yml"
 #
-#- name: Install ASM
-#  import_playbook: "{{ playbook_dir | dirname }}/19-install-asm/converge.yml"
-#
-#- name: Apigee runtime config
-#  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
+- name: Install ASM
+  import_playbook: "{{ playbook_dir | dirname }}/19-install-asm/converge.yml"
+
+- name: Apigee runtime config
+  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
 #
 #- name: Apigee runtime init
 #  import_playbook: "{{ playbook_dir | dirname }}/21-apigee-runtime-init/converge.yml"
