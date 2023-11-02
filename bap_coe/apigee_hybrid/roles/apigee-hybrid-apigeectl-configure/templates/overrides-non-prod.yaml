@@ -56,3 +56,12 @@ watcher:
 logger:
   enabled: {{ APIGEE_HYBRID_LOGGER_ENABLED }}
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_LOGGER }}"
+
+nodeSelector:
+  requiredForScheduling: false
+  apigeeRuntime:
+    key: "cloud.google.com/gke-nodepool"
+    value: "apigee-runtime"
+  apigeeData:
+    key: "cloud.google.com/gke-nodepool"
+    value: "apigee-data"
