@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 06-create-service-account-permissions/
+  - name: 06-create-service-account-permissions
 provisioner:
   name: ansible
 verifier:

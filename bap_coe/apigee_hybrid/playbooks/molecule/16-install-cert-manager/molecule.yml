@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 21-apigee-runtime-init
+  - name: 16-install-cert-manager
 provisioner:
   name: ansible
   ansible_args:

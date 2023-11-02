@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 21-apigee-runtime-init
+  - name: 23-apigee-runtime-checkready
 provisioner:
   name: ansible
   ansible_args:

@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 14-create-apigee-environment-group
+  - name: 08-create-external-ip-address
 provisioner:
   name: ansible
 verifier:
