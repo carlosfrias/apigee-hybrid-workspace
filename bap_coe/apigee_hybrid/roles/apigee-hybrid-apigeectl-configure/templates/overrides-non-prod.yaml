@@ -41,11 +41,14 @@ envs:
 mart:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_MART }}"
 
+connectAgent:
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_CONNECT_AGENT }}"
+
 metrics:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_METRICS }}"
 
-connectAgent:
-  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_CONNECT_AGENT }}"
+udca:
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"
 
 watcher:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_WATCHER }}"
