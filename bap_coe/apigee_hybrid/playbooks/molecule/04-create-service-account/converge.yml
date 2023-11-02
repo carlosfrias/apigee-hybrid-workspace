@@ -1,5 +1,5 @@
 ---
-- name: Create service accounts
+- name: Create service account
   hosts: localhost
   connection: local
 

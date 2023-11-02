@@ -28,7 +28,7 @@
   shell: |
     gcloud alpha organizations {{ BINDING_OP }}-iam-policy-binding {{ GCLOUD_ORG_ID }} \
      --member user:{{ ADMIN_ACCOUNT_EMAIL }} --role={{ item }} \
-     --account {{ BILLING_USER_EMAIL }}
+     --account {{ ADMIN_ACCOUNT_EMAIL }}
   with_items: "{{ ROLE_BINDINGS }}"
 
 - name: Wait for the policy bindings to propagate
