@@ -4,7 +4,7 @@
   connection: local
 
   vars_files:
-  - ~/.apigee-secure-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
 

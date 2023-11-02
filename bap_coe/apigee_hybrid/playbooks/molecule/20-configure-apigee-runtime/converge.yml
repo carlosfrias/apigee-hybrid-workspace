@@ -4,7 +4,7 @@
   gather_facts: true
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 

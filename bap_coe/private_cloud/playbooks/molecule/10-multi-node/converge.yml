@@ -5,7 +5,7 @@
   tags: [ 'cache','response-file','copy' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -32,7 +32,7 @@
   tags: [ 'response-file','copy' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -61,7 +61,7 @@
   tags: [ 'copy' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -112,7 +112,7 @@
   tags: [ 'os' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -156,7 +156,7 @@
   #      - google-compute-engine
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -204,7 +204,7 @@
   tags: [ 'ds' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -227,7 +227,7 @@
   tags: [ 'ms' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -251,7 +251,7 @@
   tags: [ 'edge','rmp' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -276,7 +276,7 @@
   tags: [ 'router','edge' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -300,7 +300,7 @@
   tags: [ 'mp','edge' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -324,7 +324,7 @@
   tags: [ 'qpid','edge','analytics' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -349,7 +349,7 @@
   tags: [ 'pg','edge', 'analytics' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -374,7 +374,7 @@
   tags: [ 'pgmaster','edge', 'analytics' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -426,7 +426,7 @@
   tags: [ 'org' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -449,7 +449,7 @@
   tags: [ 'expansion' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
@@ -473,7 +473,7 @@
   tags: [ 'validate' ]
 
   vars_files:
-  - ~/.apigee-secure/argolis-credentials.yml
+  - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
