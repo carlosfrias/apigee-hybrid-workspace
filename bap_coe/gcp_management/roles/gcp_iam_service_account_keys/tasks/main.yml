@@ -33,7 +33,7 @@
     gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_FILE_PATH }}  \
       --iam-account={{  ADMIN_SERVICE_ACCOUNT_EMAIL }} \
       --project {{ PROJECT_ID }} \
-      --account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }}
+      --account {{ ADMIN_ACCOUNT_EMAIL }}
   when: file_exists.stat.exists is falsy
 
 - name: Assert that SERVICE_ACCOUNT_FILE_PATH is a valid path
