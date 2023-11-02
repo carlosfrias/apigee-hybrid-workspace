@@ -24,7 +24,7 @@ virtualhosts:
 
 ao:
   args:
-    disableIstioConfigInAPIservier: true
+    disableIstioConfigInAPIserver: {{ DISABLE_ISTIO_CONFIG_IN_API_SERVER | bool}
 
 ingressGateways:
 - name: {{ INGRESS_GATEWAY_NAME }}
