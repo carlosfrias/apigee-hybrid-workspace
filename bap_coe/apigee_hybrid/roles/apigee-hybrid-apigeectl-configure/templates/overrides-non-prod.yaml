@@ -18,7 +18,7 @@ virtualhosts:
 - name: "{{ APIGEE_ENV_GROUP }}"
   selector:
     app: apigee-ingressgateway
-    ingress_name: {{ INGRESS_GATEWAY_NAME }}
+    ingress_name: "{{ INGRESS_GATEWAY_NAME }}"
   sslCertPath: "{{ SSL_CERT_PATH }}"
   sslKeyPath: "{{ SSL_KEY_PATH }}"
 
@@ -27,7 +27,7 @@ ao:
     disableIstioConfigInAPIserver: {{ DISABLE_ISTIO_CONFIG_IN_API_SERVER | bool }}
 
 ingressGateways:
-- name: {{ INGRESS_GATEWAY_NAME }}
+- name: "{{ INGRESS_GATEWAY_NAME }}"
   replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
@@ -51,3 +51,7 @@ connectAgent:
 
 watcher:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_WATCHER }}"
+
+logger:
+  enabled: {{ APIGEE_HYBRID_LOGGER_ENABLED | bool }}
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_LOGGER }}"

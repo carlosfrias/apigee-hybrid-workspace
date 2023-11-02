@@ -211,6 +211,7 @@ SERVICE_ACCOUNT_PATH_MART: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_I
 SERVICE_ACCOUNT_PATH_METRICS: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
 SERVICE_ACCOUNT_PATH_CONNECT_AGENT: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
 SERVICE_ACCOUNT_PATH_WATCHER: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
+SERVICE_ACCOUNT_PATH_LOGGER: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
 
 GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
   - constraints/iam.disableServiceAccountKeyCreation
