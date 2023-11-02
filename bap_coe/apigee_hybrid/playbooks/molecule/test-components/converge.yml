@@ -59,11 +59,11 @@
 #- name: Apigee runtime config
 #  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
 
-- name: Apigee runtime init
-  import_playbook: "{{ playbook_dir | dirname }}/21-apigee-runtime-init/converge.yml"
-
-#- name: Apigee runtime apply
-#  import_playbook: "{{ playbook_dir | dirname }}/22-apigee-runtime-apply/converge.yml"
+#- name: Apigee runtime init
+#  import_playbook: "{{ playbook_dir | dirname }}/21-apigee-runtime-init/converge.yml"
 #
+- name: Apigee runtime apply
+  import_playbook: "{{ playbook_dir | dirname }}/22-apigee-runtime-apply/converge.yml"
+
 #- name: Apigee runtime checkready
 #  import_playbook: "{{ playbook_dir | dirname }}/23-apigee-runtime-checkready/converge.yml"
