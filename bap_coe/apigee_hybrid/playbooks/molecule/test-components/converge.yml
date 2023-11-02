@@ -14,9 +14,9 @@
 #- name: Create service account keys
 #  import_playbook: "{{ playbook_dir | dirname }}/05-create-service-account-keys/converge.yml"
 #
-#- name: Update service account permissions
-#  import_playbook: "{{ playbook_dir | dirname }}/06-create-service-account-permissions/converge.yml"
-#
+- name: Update service account permissions
+  import_playbook: "{{ playbook_dir | dirname }}/06-create-service-account-permissions/converge.yml"
+
 #- name: Create network
 #  import_playbook: "{{ playbook_dir | dirname }}/07-create-network/converge.yml"
 #
@@ -29,8 +29,8 @@
 #- name: Install apigeectl
 #  import_playbook: "{{ playbook_dir | dirname }}/10-install-apigeectl-binary/converge.yml"
 #
-#- name: Create apigee service accounts
-#  import_playbook: "{{ playbook_dir | dirname }}/11-create-apigee-service-account/converge.yml"
+- name: Create apigee service accounts
+  import_playbook: "{{ playbook_dir | dirname }}/11-create-apigee-service-account/converge.yml"
 #
 #- name: Create TLS certs
 #  import_playbook: "{{ playbook_dir | dirname }}/12-create-tls-certs/converge.yml"
@@ -65,5 +65,5 @@
 #- name: Apigee runtime apply
 #  import_playbook: "{{ playbook_dir | dirname }}/22-apigee-runtime-apply/converge.yml"
 #
-- name: Apigee runtime checkready
-  import_playbook: "{{ playbook_dir | dirname }}/23-apigee-runtime-checkready/converge.yml"
+#- name: Apigee runtime checkready
+#  import_playbook: "{{ playbook_dir | dirname }}/23-apigee-runtime-checkready/converge.yml"

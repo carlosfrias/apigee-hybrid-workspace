@@ -190,6 +190,7 @@ APIGEE_NON_PROD_ROLES:
   - "roles/apigee.synchronizerManager"
   - "roles/apigee.analyticsAgent"
   - "roles/apigeeconnect.Agent"
+  - "roles/iam.serviceAccountAdmin"
   - "roles/logging.logWriter"
   - "roles/monitoring.metricWriter"
   - "roles/storage.objectAdmin"
