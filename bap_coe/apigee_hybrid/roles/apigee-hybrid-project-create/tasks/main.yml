@@ -1,7 +1,7 @@
 ---
 # tasks file for roles/apigee-hybrid-project-create
 - name: Set active account
-  shell: gcloud config set account {{ GCLOUD_ACCOUNT_EMAIL }}
+  shell: gcloud config set account {{ ADMIN_ACCOUNT_EMAIL }}
   
 - name: Create GCP Project with provided FOLDER_ID
   ignore_errors: yes

@@ -14,7 +14,7 @@
     body_format: json
     status_code: ['200', '409']
     body: 
-      environment: "{{ APIGEE_ENV }}"
+      environment: "{{ ENVIRONMENT_NAME }}"
 
 
 

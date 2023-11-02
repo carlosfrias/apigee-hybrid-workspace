@@ -3,7 +3,7 @@
 - name: Set aks cache
   set_fact:
     cacheable: yes
-    GCLOUD_SERVICE_ACCOUNT_NAME: "{{ SERVICE_ACCOUNT_NAME | default(DEFAULT_SERVICE_ACCOUNT_NAME) }}"
+    ADMIN_SERVICE_ACCOUNT_NAME: "{{ SERVICE_ACCOUNT_NAME | default(DEFAULT_SERVICE_ACCOUNT_NAME) }}"
 
 - name: Set aks cache
   set_fact:
@@ -14,7 +14,7 @@
     KUBERNETES_VERSION: "{{ KUBERNETES_VERSION | default(DEFAULT_KUBERNETES_VERSION) }}"
     AZ_KUBECONFIG: "{{ WORK_DIR }}/kubeconfig-azure.yaml"
     DEFAULT_SERVICE_ACCOUNT_NAME: "apigee-hybrid-asm"
-    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ GCLOUD_SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
+    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ ADMIN_SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
 
 #- name: Retrieve service principal
 #  shell: az ad sp list --show-mine
@@ -64,7 +64,7 @@
 
 - name: Create ASM service account
   ignore_errors: yes
-  shell: gcloud iam service-accounts create {{ GCLOUD_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
+  shell: gcloud iam service-accounts create {{ ADMIN_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
   register: status
   failed_when:
   - status.rc == 1
@@ -73,7 +73,7 @@
 - name: Download service account credential file
   shell: |
     gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_KEY_PATH }} \
-      --iam-account="{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}"
+      --iam-account="{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}"
   args:
     creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
 

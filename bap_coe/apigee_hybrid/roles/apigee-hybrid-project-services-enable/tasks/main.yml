@@ -8,7 +8,7 @@
 - name: Enabling GCP APIs
 #  this is now also done in the install_asm bash script.
 #  This is required here before the install_asm requires it.
-  shell: gcloud services enable {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  shell: gcloud services enable {{ item }} --project {{ PROJECT_ID }} --account {{ ADMIN_ACCOUNT_EMAIL }}
   with_items: "{{ GCP_SERVICES }}"
   poll: 2
   retries: 50
@@ -17,12 +17,12 @@
 - name: Set IAM roles to installation user
   shell: |
     gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-     --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }} \
-     --account {{ GCLOUD_ACCOUNT_EMAIL }}
+     --member user:{{ ADMIN_ACCOUNT_EMAIL }} --role={{ item }} \
+     --account {{ ADMIN_ACCOUNT_EMAIL }}
   with_items: "{{ ROLE_BINDING }}"
 
 - name: Obtain PROJECT_NUMBER
-  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"  --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"  --account {{ ADMIN_ACCOUNT_EMAIL }}
   register: project_number
 
 - name: Cache PROJECT_NUMBER

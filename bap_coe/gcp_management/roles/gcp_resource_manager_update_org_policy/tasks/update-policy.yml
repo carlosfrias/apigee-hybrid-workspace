@@ -28,4 +28,4 @@
     gcloud resource-manager \
     org-policies set-policy {{ UPDATE_POLICY_FILE_PATH }}/{{ UPDATE_POLICY_FILE_NAME }} \
     --project {{ PROJECT_ID }} \
-    --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+    --account {{ BILLING_USER_EMAIL }}

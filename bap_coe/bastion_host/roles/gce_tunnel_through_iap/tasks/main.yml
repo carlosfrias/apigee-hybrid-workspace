@@ -10,11 +10,11 @@
   set_fact:
     ip_scope: "{{ ip_scope | default('public') }}"
 
-- name: Assert that the GCLOUD_ACCOUNT_USER is provided
+- name: Assert that the ADMIN_ACCOUNT_USER is provided
   assert:
     that:
-      - GCLOUD_ACCOUNT_USER is defined
-    msg: "Please provide the GCLOUD_ACCOUNT_USER"
+      - ADMIN_ACCOUNT_USER is defined
+    msg: "Please provide the ADMIN_ACCOUNT_USER"
 
 #- name: Assert SERVICE_ACCOUNT_FILE_PATH is provided
 #  assert:

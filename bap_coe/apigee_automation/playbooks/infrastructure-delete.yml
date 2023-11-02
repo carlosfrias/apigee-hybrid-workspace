@@ -11,5 +11,5 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: gcp_project_delete, GCLOUD_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" }
+    - { role: gcp_project_delete, ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" }
 

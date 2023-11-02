@@ -6,14 +6,14 @@
     - GCLOUD_ORG_ID is defined
     msg: "Please provide GCLOUD_ORG_ID collection with list of constraints to no longer enforce."
 
-- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+- name: Assert that the ADMIN_ACCOUNT_EMAIL is available
   assert:
     that:
-    - GCLOUD_ACCOUNT_EMAIL is defined
-    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+    - ADMIN_ACCOUNT_EMAIL is defined
+    msg: "Please provide the ADMIN_ACCOUNT_EMAIL"
 
 - name: List organization folders
-  shell: gcloud resource-manager folders list --organization {{ GCLOUD_ORG_ID }} --format json --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  shell: gcloud resource-manager folders list --organization {{ GCLOUD_ORG_ID }} --format json --account {{ ADMIN_ACCOUNT_EMAIL }}
   register: ORG_FOLDERS_LIST
 
 - name: Format folder list into JSON object

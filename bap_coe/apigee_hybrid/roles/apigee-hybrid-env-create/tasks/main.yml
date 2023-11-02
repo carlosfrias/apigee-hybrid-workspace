@@ -3,7 +3,7 @@
 - name: Set env create cache
   set_fact:
     cacheable: yes
-    APIGEE_ENV: "{{ APIGEE_ENV | default('test') }}"
+    ENVIRONMENT_NAME: "{{ ENVIRONMENT_NAME | default('test') }}"
     ENV_DISPLAY_NAME: "{{ ENV_DISPLAY_NAME | default('test') }}"
     ENV_DESCRIPTION: "{{ ENV_DESCRIPTION | default('test environment') }}"
     ENV_CREATION_TIMEOUT: "{{ ENV_CREATION_TIMEOUT | default(60) }}"
@@ -21,7 +21,7 @@
       Authorization: Bearer {{ GCLOUD_TOKEN }}
     body_format: json
     body:
-      name: "{{ APIGEE_ENV }}"
+      name: "{{ ENVIRONMENT_NAME }}"
       displayName: "{{ ENV_DISPLAY_NAME }}"
       description: "{{ ENV_DESCRIPTION }}"
   register: env_creation

@@ -12,11 +12,11 @@
     - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
-- name: Assert that the GCLOUD_SERVICE_ACCOUNT_EMAIL is available
+- name: Assert that the ADMIN_SERVICE_ACCOUNT_EMAIL is available
   assert:
     that:
-    - GCLOUD_SERVICE_ACCOUNT_EMAIL is defined
-    msg: "Please provide the GCLOUD_SERVICE_ACCOUNT_EMAIL"
+    - ADMIN_SERVICE_ACCOUNT_EMAIL is defined
+    msg: "Please provide the ADMIN_SERVICE_ACCOUNT_EMAIL"
 
 - name: Assert that the ADMIN_SERVICE_ACCOUNT_EMAIL is available
   assert:
@@ -44,7 +44,7 @@
   ignore_errors: "{{ IGNORE_ERRORS | default(False) }}"
   shell: |
     gcloud projects {{ BINDING_OP }}-iam-policy-binding {{ PROJECT_ID }} \
-      --member {{ ACCOUNT_TYPE }}:{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
+      --member {{ ACCOUNT_TYPE }}:{{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
       --role={{ item }} \
       --account={{ ADMIN_SERVICE_ACCOUNT_EMAIL }}
   with_items: "{{ POLICY_BINDINGS }}"

@@ -22,7 +22,7 @@
         dest: "{{ tempfile.path }}"
 
     - name: Activate service account
-      command: gcloud auth activate-service-account {{  GCLOUD_SERVICE_ACCOUNT_EMAIL }} --key-file {{ tempfile.path }}
+      command: gcloud auth activate-service-account {{  ADMIN_SERVICE_ACCOUNT_EMAIL }} --key-file {{ tempfile.path }}
 
     - name: Remove credentials tempfile
       file:

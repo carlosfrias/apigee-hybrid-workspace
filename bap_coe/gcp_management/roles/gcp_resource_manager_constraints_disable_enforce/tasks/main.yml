@@ -12,18 +12,18 @@
     - PROJECT_ID is defined
     msg: "Please provide the PROJECT_ID"
 
-- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+- name: Assert that the ADMIN_ACCOUNT_EMAIL is available
   assert:
     that:
-    - GCLOUD_ACCOUNT_EMAIL is defined
-    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+    - ADMIN_ACCOUNT_EMAIL is defined
+    msg: "Please provide the ADMIN_ACCOUNT_EMAIL"
 
 - name: Disable enforcement of constraints
   shell: |
     gcloud resource-manager \
     org-policies disable-enforce {{ item }} \
     --project {{ PROJECT_ID }} \
-    --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+    --account {{ BILLING_USER_EMAIL }}
   with_items: "{{ GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE }}"
 
 - name: Wait for the policy bindings to propagate

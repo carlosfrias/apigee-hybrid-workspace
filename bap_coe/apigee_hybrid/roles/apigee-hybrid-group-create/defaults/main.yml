@@ -1,3 +1,3 @@
 ---
 # defaults file for roles/apigee-hybrid-group-create
-DEFAULT_ENV_GROUP: "{{ APIGEE_ENV }}-group"
+DEFAULT_ENV_GROUP: "{{ ENVIRONMENT_NAME }}-group"

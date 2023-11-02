@@ -6,12 +6,12 @@
     ATTACHED_CLUSTER: False
     NODE_COUNT: "{{ NODE_COUNT | default(DEFAULT_NODE_COUNT) }}"
     NODE_SIZE: "{{ NODE_SIZE | default(DEFAULT_NODE_SIZE) }}"
-    GCLOUD_SERVICE_ACCOUNT_NAME: "{{ GCLOUD_SERVICE_ACCOUNT_NAME | default(DEFAULT_SERVICE_ACCOUNT_NAME) }}"
+    ADMIN_SERVICE_ACCOUNT_NAME: "{{ ADMIN_SERVICE_ACCOUNT_NAME | default(DEFAULT_SERVICE_ACCOUNT_NAME) }}"
 
 - name: Set gke cache
   set_fact:
     cacheable: yes
-    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ GCLOUD_SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
+    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ ADMIN_SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
 
 - name: Set KUBECONFIG cache
   set_fact:
@@ -61,7 +61,7 @@
       --no-enable-basic-auth \
       --cluster-version {{ CLUSTER_VERSION }} \
       --metadata disable-legacy-endpoints=true \
-      --service-account {{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
       --logging={{ LOGGING }} \
       --monitoring={{ MONITORING }} \
       --enable-ip-alias \
@@ -94,7 +94,7 @@
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
       --metadata disable-legacy-endpoints=true \
-      --service-account {{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
       --enable-autoscaling \
       --num-nodes {{ NODE_COUNT | int }} \
       --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
@@ -112,7 +112,7 @@
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
       --metadata disable-legacy-endpoints=true \
-      --service-account {{ GCLOUD_SERVICE_ACCOUNT_EMAIL }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
       --enable-autoscaling \
       --num-nodes {{ NODE_COUNT | int }} \
       --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
@@ -133,7 +133,7 @@
 
 - name: Create ASM service account
   ignore_errors: yes
-  shell: gcloud iam service-accounts create {{ GCLOUD_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
+  shell: gcloud iam service-accounts create {{ ADMIN_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
   register: status
   failed_when:
     - status.rc == 1
@@ -143,13 +143,13 @@
   tags: ['install_asm_skip']
   shell: |
     gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-     --member="serviceAccount:{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}" \
+     --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" \
      --role="roles/gkehub.connect"
 
 - name: Download service account credential file
   shell: |
     gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_KEY_PATH }} \
-      --iam-account="{{ GCLOUD_SERVICE_ACCOUNT_EMAIL }}"
+      --iam-account="{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}"
   args:
     creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
 
@@ -208,7 +208,7 @@
 
 - name: Ensure you have cluster-admin on the cluster
   ignore_errors: yes
-  shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ GCLOUD_ACCOUNT | default(GCLOUD_ACCOUNT_USER) }}
+  shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ ADMIN_ACCOUNT_USER | default(ADMIN_ACCOUNT_USER) }}
   failed_when:
     - status.rc == 1
     - "'already exists' not in status.stderr"

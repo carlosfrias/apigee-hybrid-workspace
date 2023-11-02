@@ -1,11 +1,11 @@
 ---
 # tasks file for gcp_auth_service_account_activate
 
-- name: Assert  GCLOUD_SERVICE_ACCOUNT_EMAIL is provided
+- name: Assert  ADMIN_SERVICE_ACCOUNT_EMAIL is provided
   assert:
     that:
-    -  GCLOUD_SERVICE_ACCOUNT_EMAIL is defined
-    fail_msg: " GCLOUD_SERVICE_ACCOUNT_EMAIL must be provided"
+    -  ADMIN_SERVICE_ACCOUNT_EMAIL is defined
+    fail_msg: " ADMIN_SERVICE_ACCOUNT_EMAIL must be provided"
 
 - name: Assert SERVICE_ACCOUNT_FILE_PATH is provided
   assert:
@@ -16,5 +16,5 @@
 
 - name: Login with service account
   shell: |
-    gcloud auth activate-service-account {{  GCLOUD_SERVICE_ACCOUNT_EMAIL }} --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
+    gcloud auth activate-service-account {{  ADMIN_SERVICE_ACCOUNT_EMAIL }} --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
 

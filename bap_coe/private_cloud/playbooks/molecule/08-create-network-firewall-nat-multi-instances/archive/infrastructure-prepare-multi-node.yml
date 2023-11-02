@@ -19,7 +19,7 @@
         ACCOUNT_TYPE: "serviceAccount",
         GCLOUD_BINDING_ACCOUNT: "{{ GCLOUD_SERVICE_ACCOUNT}}",
         POLICY_BINDINGS: "{{ GCLOUD_PROJECT_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
-        GCLOUD_ACCOUNT_EMAIL: "{{ GCLOUD_ACCOUNT_PROJECT_ADMIN_EMAIL }}"
+        ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_ACCOUNT_EMAIL }}"
       }
     - { role: gce_network_create, tags: ['network','firewall'] }
     - { role: gce_firewall_create, tags: ['firewall'] }

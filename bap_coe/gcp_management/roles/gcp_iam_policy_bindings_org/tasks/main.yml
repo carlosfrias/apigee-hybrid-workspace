@@ -12,11 +12,11 @@
     - GCLOUD_ORG_ID is defined
     msg: "Please provide the GCLOUD_ORG_ID"
 
-- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+- name: Assert that the ADMIN_ACCOUNT_EMAIL is available
   assert:
     that:
-    - GCLOUD_ACCOUNT_EMAIL is defined
-    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+    - ADMIN_ACCOUNT_EMAIL is defined
+    msg: "Please provide the ADMIN_ACCOUNT_EMAIL"
 
 - name: Assert that the BINDING_OP is available
   assert:
@@ -27,8 +27,8 @@
 - name: Update IAM roles to installation user
   shell: |
     gcloud alpha organizations {{ BINDING_OP }}-iam-policy-binding {{ GCLOUD_ORG_ID }} \
-     --member user:{{ GCLOUD_ACCOUNT_EMAIL }} --role={{ item }} \
-     --account {{ GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL }}
+     --member user:{{ ADMIN_ACCOUNT_EMAIL }} --role={{ item }} \
+     --account {{ BILLING_USER_EMAIL }}
   with_items: "{{ ROLE_BINDINGS }}"
 
 - name: Wait for the policy bindings to propagate

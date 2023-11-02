@@ -6,17 +6,17 @@
     - GCLOUD_ORG_ID is defined
     msg: "Please provide GCLOUD_ORG_ID collection with list of constraints to no longer enforce."
 
-- name: Assert that the GCLOUD_ACCOUNT_EMAIL is available
+- name: Assert that the ADMIN_ACCOUNT_EMAIL is available
   assert:
     that:
-    - GCLOUD_ACCOUNT_EMAIL is defined
-    msg: "Please provide the GCLOUD_ACCOUNT_EMAIL"
+    - ADMIN_ACCOUNT_EMAIL is defined
+    msg: "Please provide the ADMIN_ACCOUNT_EMAIL"
 
 - name: Query for permission to work with resource-manager folders
   command: |
     gcloud beta resource-manager folders list \
       --organization {{ GCLOUD_ORG_ID }} \
-      --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+      --account {{ ADMIN_ACCOUNT_EMAIL }}
   register: permission
 
 - name: Extract permission to work with resource-manager folders
@@ -35,7 +35,7 @@
       folders create \
       --display-name {{ FOLDER_DISPLAY_NAME }} \
       --organization {{ GCLOUD_ORG_ID }} \
-      --account {{ GCLOUD_ACCOUNT_ADMIN_EMAIL }}
+      --account {{ ADMIN_ACCOUNT_EMAIL }}
     register: FOLDER_CREATE_STATUS
 
   rescue:

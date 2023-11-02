@@ -21,7 +21,7 @@
   shell: |
     kubectl create clusterrolebinding cluster-admin-binding \
       --clusterrole=cluster-admin \
-      --user="{{ GCLOUD_ACCOUNT }}" \
+      --user="{{ ADMIN_ACCOUNT_USER }}" \
       --kubeconfig={{ CLUSTER_KUBECONFIG }}
   register: status
   failed_when:

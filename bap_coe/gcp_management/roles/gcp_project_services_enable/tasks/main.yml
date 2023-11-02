@@ -6,11 +6,11 @@
       - GCLOUD_PROJECT_SERVICES is defined
     msg: "Please provide GCLOUD_PROJECT_SERVICES collection with list of services to enable."
 
-- name: Assert that GCLOUD_ACCOUNT_EMAIL list is available
+- name: Assert that ADMIN_ACCOUNT_EMAIL list is available
   assert:
     that:
-      - GCLOUD_ACCOUNT_EMAIL is defined
-    msg: "Please provide GCLOUD_ACCOUNT_EMAIL collection with list of services to enable."
+      - ADMIN_ACCOUNT_EMAIL is defined
+    msg: "Please provide ADMIN_ACCOUNT_EMAIL collection with list of services to enable."
 
 - name: Assert that the PROJECT_ID is available
   assert:
@@ -32,7 +32,7 @@
 - name: Enable GCP APIs
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
-  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }}
+  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ ADMIN_ACCOUNT_EMAIL }}
   with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
   when: SERVICE_OP == 'enable'
 #  poll: 2
@@ -42,7 +42,7 @@
 - name: Disable GCP APIs
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
-  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ GCLOUD_ACCOUNT_EMAIL }} --force
+  shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ ADMIN_ACCOUNT_EMAIL }} --force
   with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
   when: SERVICE_OP == 'disable'
 #  poll: 2
@@ -52,7 +52,7 @@
 #- name: Set IAM roles to installation user
 #  shell: |
 #    gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-#     --member usear:{{ GCLOUD_ACCOUNT_USER }} --role={{ item }}
+#     --member usear:{{ ADMIN_ACCOUNT_USER }} --role={{ item }}
 #  with_items: "{{ ROLE_BINDING }}"
 
 #- name: Obtain PROJECT_NUMBER

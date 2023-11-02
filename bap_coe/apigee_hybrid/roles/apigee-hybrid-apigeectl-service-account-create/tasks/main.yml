@@ -58,7 +58,7 @@
     gcloud iam service-accounts create apigee-org-admin \
     --project={{ PROJECT_ID }} \
     --display-name=apigee-org-admin \
-    --account {{ GCLOUD_ACCOUNT_EMAIL }}
+    --account {{ ADMIN_ACCOUNT_EMAIL }}
   register: status
   failed_when:
     - status.rc == 1
@@ -69,4 +69,4 @@
   shell: gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
           --member serviceAccount:apigee-org-admin@{{ PROJECT_ID }}.iam.gserviceaccount.com \
           --role roles/apigee.admin \
-          --account {{ GCLOUD_ACCOUNT_EMAIL }}
+          --account {{ ADMIN_ACCOUNT_EMAIL }}

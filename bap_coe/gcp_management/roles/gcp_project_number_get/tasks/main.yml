@@ -1,10 +1,10 @@
 ---
 # tasks file for gcp_project_create
-- name: Assert GCLOUD_ACCOUNT_ADMIN_EMAIL
+- name: Assert ADMIN_ACCOUNT_EMAIL
   assert:
     that:
-      - GCLOUD_ACCOUNT_ADMIN_EMAIL is defined
-    msg: "GCLOUD_ACCOUNT_ADMIN_EMAIL must contain the GCP account email"
+      - ADMIN_ACCOUNT_EMAIL is defined
+    msg: "ADMIN_ACCOUNT_EMAIL must contain the GCP account email"
 
 - name: Assert PROJECT_ID
   assert:
@@ -18,11 +18,11 @@
     seconds: 2
   when: BILLING_ID is undefined
 
-- name: Advise status GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL
+- name: Advise status BILLING_USER_EMAIL
   pause:
     echo: "Please note that CLOUD_ACCOUNT_BILLING_ADMIN_EMAIL has not been provided"
     seconds: 2
-  when: GCLOUD_ACCOUNT_BILLING_ADMIN_EMAIL is undefined
+  when: BILLING_USER_EMAIL is undefined
 
 - name: Set Project Default
   shell: gcloud config set project {{ PROJECT_ID }}

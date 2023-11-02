@@ -15,7 +15,7 @@
     - apigee-hybrid-setup-environment-gcp
     - {
       role: gcp_iam_policy_bindings_org,
-      GCLOUD_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}",
+      ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}",
       BINDING_OP: "add",
       ROLE_BINDINGS: [
         "{{ GCLOUD_ORG_ROLE_BINDINGS }}",
@@ -37,7 +37,7 @@
       command: "{{ WORK_DIR_COMMON_SHARED_FLOWS_BIN }}/deploy.sh all --googleapi"
       environment:
         APIGEE_X_ORG: "{{ APIGEE_ORG }}"
-        APIGEE_X_ENV: "{{ APIGEE_ENV }}"
+        APIGEE_X_ENV: "{{ ENVIRONMENT_NAME }}"
         APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
         APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
 
@@ -51,7 +51,7 @@
           Target Server URL: "{{ TARGET_SERVER_URL }}"
       environment:
         APIGEE_X_ORG: "{{ APIGEE_ORG }}"
-        APIGEE_X_ENV: "{{ APIGEE_ENV }}"
+        APIGEE_X_ENV: "{{ ENVIRONMENT_NAME }}"
         APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
         APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
 
@@ -59,7 +59,7 @@
       command: |
         "{{ WORK_DIR_SACKMESSER_BIN }}" deploy --googleapi \
         -o APIGEE_ORG \
-        -e APIGEE_ENV \
+        -e ENVIRONMENT_NAME \
         -t APIGEE_TOKEN \
         -h APIGEE_HOSTNAME \
         -d ./devel-proxy-gen

@@ -12,7 +12,7 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-    - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ GCLOUD_ORG_ROLE_BINDINGS }}"], GCLOUD_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" }
+    - { role: gcp_iam_policy_bindings_org, tags: ['user-roles'], ROLE_BINDINGS: ["{{ GCLOUD_ORG_ROLE_BINDINGS }}"], ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" }
     - { role: gcp_project_create, tags: [ 'project' ] }
 #      { role: gcp_iam_policy_bindings_org, ROLE_BINDINGS: ["{{  }}"] }
     - { role: gcp_iam_service_account_create, tags: [ 'service-account','roles','firewall'] }
