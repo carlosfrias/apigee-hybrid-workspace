@@ -16,6 +16,5 @@
   - {
       role: gcp_project_services_enable,
       tags: ['services'],
-      ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}",
       SERVICE_OP: "enable"
     }
