@@ -18,7 +18,7 @@ virtualhosts:
 - name: "{{ APIGEE_ENV_GROUP }}"
   selector:
     app: apigee-ingressgateway
-    ingress_name: apigee-ingressgateway-manager
+    ingress_name: apigee-ingressgateway
   sslCertPath: "{{ SSL_CERT_PATH }}"
   sslKeyPath: "{{ SSL_KEY_PATH }}"
 
@@ -27,13 +27,13 @@ ao:
     disableIstioConfigInAPIservier: true
 
 ingressGateways:
-- name: apigee-ingressgateway-manager
+- name: apigee-ingressgateway
   replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 envs:
 # Apigee environment name.
-- name: "test"
+- name: "{{ APIGEE_ENV }}"
   # Service accounts for sync and UDCA.
   serviceAccountPaths:
     synchronizer: "{{ SERVICE_ACCOUNT_PATH_SYNCHRONIZER }}"

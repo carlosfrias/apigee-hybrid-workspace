@@ -1,6 +1,6 @@
 ---
 REGION: "us-east1"
-ENV_NAME: "test"
+APIGEE_ENV: "test"
 APIGEE_OVERRIDE_TEMPLATE: "medium"
 CLUSTER_NAME: "apigee-hybrid-1"
 CLUSTER_ZONE: "{{ REGION }}-b"

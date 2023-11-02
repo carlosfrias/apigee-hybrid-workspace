@@ -1,4 +1,4 @@
-- name: Install Apigee runtime
+- name: Apigee runtime init
   hosts: localhost
   connection: local
   gather_facts: true
