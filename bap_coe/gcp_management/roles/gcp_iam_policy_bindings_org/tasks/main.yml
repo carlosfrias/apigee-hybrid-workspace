@@ -27,7 +27,7 @@
 - name: Update IAM roles to installation user
   shell: |
     gcloud alpha organizations {{ BINDING_OP }}-iam-policy-binding {{ GCLOUD_ORG_ID }} \
-     --member user:{{ ADMIN_ACCOUNT_EMAIL }} --role={{ item }} \
+     --member user:{{ ADMIN_ACCOUNT_USER }} --role={{ item }} \
      --account {{ BILLING_USER_EMAIL }}
   with_items: "{{ ROLE_BINDINGS }}"
 
