@@ -21,7 +21,6 @@
 - name: Set GCP Services List
   set_fact:
     GCLOUD_PROJECT_SERVICES: "{{ GCLOUD_PROJECT_SERVICES }}"
-#    ROLE_BINDING: "{{ ROLE_BINDING  }}"
 
 - name: Assert SERVICE_OP
   assert:
@@ -35,9 +34,6 @@
   shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ ADMIN_ACCOUNT_EMAIL }}
   with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
   when: SERVICE_OP == 'enable'
-#  poll: 2
-#  retries: 50
-#  async: 180
 
 - name: Disable GCP APIs
   #  this is now also done in the install_asm bash script.
@@ -45,23 +41,4 @@
   shell: gcloud services {{ SERVICE_OP }} {{ item }} --project {{ PROJECT_ID }} --account {{ ADMIN_ACCOUNT_EMAIL }} --force
   with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
   when: SERVICE_OP == 'disable'
-#  poll: 2
-#  retries: 50
-#  async: 180
 
-#- name: Set IAM roles to installation user
-#  shell: |
-#    gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-#     --member usear:{{ ADMIN_ACCOUNT_USER }} --role={{ item }}
-#  with_items: "{{ ROLE_BINDING }}"
-
-#- name: Obtain PROJECT_NUMBER
-#  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
-#  register: project_number
-
-#- name: Cache PROJECT_NUMBER
-#  set_fact:
-#    cacheable: yes
-#    PROJECT_NUMBER: "{{ project_number.stdout }}"
-#    FOLDER_ID: "{{ FOLDER_ID }}"
-#    BILLING_ID: "{{ BILLING_ID }}"

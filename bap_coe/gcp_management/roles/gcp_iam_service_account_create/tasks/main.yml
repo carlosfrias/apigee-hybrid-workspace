@@ -58,7 +58,7 @@
   rescue:
     - name: RESCUE - Create an initial service account, rescue for idempotency
       shell: |
-        gcloud iam service-accounts {{ SERVICE_OP }} {{ ADMIN_SERVICE_ACCOUNT_NAME }} \
+        gcloud iam service-accounts {{ SERVICE_OP }} {{ ADMIN_ACCOUNT_NAME }} \
           --description={{ ADMIN_SERVICE_ACCOUNT_NAME }} \
           --display-name={{ ADMIN_SERVICE_ACCOUNT_NAME }} \
           --project {{ PROJECT_ID }} \
