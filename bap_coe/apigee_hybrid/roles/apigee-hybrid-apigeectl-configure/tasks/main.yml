@@ -47,11 +47,6 @@
     CONNECT_AGENT_REPLICA_COUNT_MIN: "{{ CONNECT_AGENT_REPLICA_COUNT_MIN | default(DEFAULT_CONNECT_AGENT_REPLICA_COUNT_MIN) }}"
 
 
-- name: Create overrides.yml file name
-  set_fact:
-    cacheable: yes
-    OVERRIDE_FILE: "{{ HYBRID_FILES_DIR }}/overrides/overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml"
-
 - name: Generate overrides.yml
   template: 
     src: overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml

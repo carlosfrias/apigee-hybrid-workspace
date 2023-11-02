@@ -39,6 +39,7 @@ VPC_SUBNETWORK_NAME: default
 
 APIGEECTL_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}"
 HYBRID_FILES_DIR: "{{ APIGEECTL_DIR }}/hybrid-files"
+OVERRIDE_FILE: "{{ HYBRID_FILES_DIR }}/overrides/overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml"
 SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
 
 DNS_PROJECT_ID: "friasc-apigee-lab"
