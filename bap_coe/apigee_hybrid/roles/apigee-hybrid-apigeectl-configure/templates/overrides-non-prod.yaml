@@ -11,14 +11,14 @@ org: "{{ PROJECT_ID }}"
 instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
 
 cassandra:
-  replicaCount: {{ CASSANDRA_REPLICA_COUNT }}
-  hostNetwork: {{ CASSANDRA_HOST_NETWORK }}
+  replicaCount: {{ CASSANDRA_REPLICA_COUNT | int }}
+  hostNetwork: {{ CASSANDRA_HOST_NETWORK | bool }}
 
 virtualhosts:
 - name: "{{ APIGEE_ENV_GROUP }}"
   selector:
     app: apigee-ingressgateway
-    ingress_name: apigee-ingressgateway
+    ingress_name: {{ INGRESS_GATEWAY_NAME }}
   sslCertPath: "{{ SSL_CERT_PATH }}"
   sslKeyPath: "{{ SSL_KEY_PATH }}"
 
@@ -27,7 +27,7 @@ ao:
     disableIstioConfigInAPIservier: true
 
 ingressGateways:
-- name: apigee-ingressgateway
+- name: {{ INGRESS_GATEWAY_NAME }}
   replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
