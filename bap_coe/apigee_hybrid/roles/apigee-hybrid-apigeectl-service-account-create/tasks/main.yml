@@ -26,7 +26,7 @@
     gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
       --member serviceAccount:{{ APIGEE_NON_PROD_EMAIL }} \
       --role={{ item }} \
-      --account={{ ADMIN_SERVICE_ACCOUNT_EMAIL }}
+      --account={{ ADMIN_ACCOUNT_EMAIL }}
   with_items: "{{ APIGEE_NON_PROD_ROLES }}"
 
 - name: Wait for the policy bindings to propagate
