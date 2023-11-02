@@ -16,7 +16,7 @@
 ###    - { role: apigee-hybrid-setup-environment-gcp, tags: ['setup', 'gcp'] }
 ###    - { role: apigee-hybrid-setup-environment-kubernetes, tags: ['setup','k*s'] }
 ###    - { role: apigee-hybrid-setup-environment-docker, tags: ['setup','docker'] }
-    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
+#    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
 ###    - { role: apigee-hybrid-org-create, tags: ['org'] }
 ###    - { role: apigee-hybrid-cloud-dns-create, tags: ['dns'] }
 ###    - { role: apigee-hybrid-env-create, tags: ['env'] }
@@ -33,4 +33,4 @@
 ###    - { role: apigee-hybrid-asm-install, tags: ['asm'], when: "APIGEE_VERSION is version('1.8.1', '<=')" }
 ###    - { role: apigee-hybrid-apigeectl-configure-multi-region-clear-settings, tags: ['clear-multi'] }
 ###    - { role: apigee-hybrid-apigeectl-configure, tags: ['configure'] }
-    - { role: apigee-hybrid-apigeectl-apply, tags: ['apply'] }
+    - { role: apigee-hybrid-apigeectl-init }

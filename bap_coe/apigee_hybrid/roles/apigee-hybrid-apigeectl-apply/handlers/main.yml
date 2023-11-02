@@ -1,7 +1,2 @@
 ---
 # handlers file for roles/apigee-hybrid-apigeectl-apply
-
-- name: Rebuild Cassandra Node
-  shell: kubectl -n apigee exec apigee-cassandra-default-0 -- nodetool rebuild -- dc-1
-  when: CASSANDRA_SEED_NODE_IP is defined and CASSANDRA_SEED_NODE_IP | length > 0
-
