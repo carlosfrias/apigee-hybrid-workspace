@@ -48,10 +48,10 @@
       --account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }}
 
 - name: Create Service Accounts
-  shell: echo 'y' | ./tools/create-service-account {{ item }} --dir {{ SERVICE_ACCOUNTS_DIR }} --env {{ SERVICE_ACCOUNT_SCOPE }}
+  shell: echo 'y' | ./tools/create-service-account --dir {{ SERVICE_ACCOUNTS_DIR }} --env {{ SERVICE_ACCOUNT_SCOPE }}
   args:
     chdir: "{{ HYBRID_FILES_DIR }}"
-  with_items: "{{ SERVICE_ACCOUNTS }}"
+#  with_items: "{{ SERVICE_ACCOUNTS }}"
 
 - name: Create apigee-org-admin service account
   shell: |
