@@ -10,7 +10,7 @@
     cacheable: yes
     ATTACHED_CLUSTER: True
     AKS_NODE_COUNT: "{{ AKS_NODE_COUNT | default(DEFAULT_AKS_NODE_COUNT) }}"
-    AKS_NODE_SIZE: "{{ AKS_NODE_SIZE | default(DEFAULT_AKS_NODE_SIZE) }}"
+    AKS_MACHINE_TYPE: "{{ AKS_MACHINE_TYPE | default(DEFAULT_AKS_MACHINE_TYPE) }}"
     KUBERNETES_VERSION: "{{ KUBERNETES_VERSION | default(DEFAULT_KUBERNETES_VERSION) }}"
     AZ_KUBECONFIG: "{{ WORK_DIR }}/kubeconfig-azure.yaml"
     DEFAULT_SERVICE_ACCOUNT_NAME: "apigee-hybrid-asm"
@@ -42,11 +42,11 @@
       --dns-service-ip 10.0.0.10 \
       --pod-cidr 10.240.0.0/16 \
       --network-plugin kubenet
-#      --node-vm-size {{ AKS_NODE_SIZE }} \
+#      --node-vm-size {{ AKS_MACHINE_TYPE }} \
 ##      --ssh-key-value {{ SSL_CERT_PATH }} \
 ##      --nodepool-name agentpool \
 ##      --node-osdisk-type linux \
-##      --node-osdisk-size {{ NODE_SIZE }} \
+##      --node-osdisk-size {{ MACHINE_TYPE }} \
   when: aks_list[0].name is not defined or aks_list[0].name != CLUSTER_NAME
 
 - name: Get aks credentials
