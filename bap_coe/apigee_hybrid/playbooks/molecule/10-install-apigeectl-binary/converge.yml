@@ -1,4 +1,4 @@
-- name: Install apigeectl
+- name: Install apigeectl binary
   hosts: localhost
   connection: local
   gather_facts: true
