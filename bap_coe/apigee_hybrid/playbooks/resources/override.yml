@@ -5,7 +5,7 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-PROJECT_ID: "friasc-hybrid-20231103-1237"
+PROJECT_ID: "friasc-hybrid-20231103-1310"
 
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 
