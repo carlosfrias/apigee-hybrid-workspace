@@ -55,10 +55,10 @@
 #
 #- name: Install ASM
 #  import_playbook: "{{ playbook_dir | dirname }}/19-install-asm/converge.yml"
-#
-#- name: Apigee runtime config
-#  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
-#
+
+- name: Apigee runtime config
+  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
+
 - name: Apigee runtime init
   import_playbook: "{{ playbook_dir | dirname }}/21-apigee-runtime-init/converge.yml"
 
