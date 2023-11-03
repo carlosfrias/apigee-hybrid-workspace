@@ -56,16 +56,15 @@
 - name: Create gcp cluster APIGEE_VERSION >= 1.10
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
       --project {{ PROJECT_ID }} \
       --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ MACHINE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
       --num-nodes {{ NODE_COUNT | int }} \
       --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
       --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
-      --location-policy "BALANCED" \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
       --cluster-version {{ CLUSTER_VERSION }} \
@@ -74,24 +73,25 @@
       --network "{{ VPC_NETWORK_NAME }}" \
       --subnetwork "{{ VPC_SUBNETWORK_NAME }}" \
       --addons {{ CLUSTER_ADDONS }} \
+      --location-policy "BALANCED" \
       --enable-autoscaling \
       --metadata disable-legacy-endpoints=true \
       --node-labels cloud.google.com/gke-nodepool=apigee-runtime \
     && \
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ MACHINE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
       --num-nodes {{ NODE_COUNT | int }} \
       --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
       --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
-      --location-policy "BALANCED" \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --location-policy "BALANCED" \
       --enable-autoscaling \
       --metadata disable-legacy-endpoints=true \
       --node-labels cloud.google.com/gke-nodepool=apigee-data \
@@ -102,17 +102,43 @@
       --workload-vulnerability-scanning=disabled \
       --no-enable-master-authorized-networks \
       --enable-managed-prometheus \
-      --enable-shielded-nodes
+      --enable-shielded-nodes \
+    && \
+    gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
+      --project {{ PROJECT_ID }} \
+      --cluster {{ CLUSTER_NAME }} \
+      --zone {{ CLUSTER_ZONE }} \
+      --machine-type {{ MACHINE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --location-policy "BALANCED" \
+      --enable-autoscaling \
+      --metadata disable-legacy-endpoints=true \
+      --node-labels cloud.google.com/gke-nodepool=apigee-data \
+      --no-enable-ip-alias \
+      --no-enable-intra-node-visibility \
+      --default-max-pods-per-node "110" \
+      --security-posture=standard \
+      --workload-vulnerability-scanning=disabled \
+      --no-enable-master-authorized-networks \
+      --enable-managed-prometheus \
+      --enable-shielded-nodes \
+    && \
+    gcloud container node-pools delete default-pool \
+      --cluster {{ CLUSTER_NAME }} \
+      --zone {{ CLUSTER_ZONE }} \
+      --quiet
   register: status
   failed_when:
   - status.rc == 1
   - "'Already exists' not in status.stderr"
   when: "APIGEE_VERSION is version('1.10.0', '>=')"
-#    && \
-#    gcloud container node-pools delete default-pool \
-#      --cluster {{ CLUSTER_NAME }} \
-#      --zone {{ CLUSTER_ZONE }} \
-#      --quiet
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"

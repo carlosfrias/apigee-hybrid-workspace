@@ -41,8 +41,8 @@
 #- name: Create an Apigee environment group
 #  import_playbook: "{{ playbook_dir | dirname }}/14-create-apigee-environment-group/converge.yml"
 #
-- name: Create GKE cluster
-  import_playbook: "{{ playbook_dir | dirname }}/15-create-apigee-gke-cluster/converge.yml"
+#- name: Create GKE cluster
+#  import_playbook: "{{ playbook_dir | dirname }}/15-create-apigee-gke-cluster/converge.yml"
 #
 #- name: Install Cert Manager
 #  import_playbook: "{{ playbook_dir | dirname }}/16-install-cert-manager/converge.yml"
@@ -65,5 +65,5 @@
 #- name: Apigee runtime apply
 #  import_playbook: "{{ playbook_dir | dirname }}/22-apigee-runtime-apply/converge.yml"
 #
-#- name: Apigee runtime checkready
-#  import_playbook: "{{ playbook_dir | dirname }}/23-apigee-runtime-checkready/converge.yml"
+- name: Apigee runtime checkready
+  import_playbook: "{{ playbook_dir | dirname }}/23-apigee-runtime-checkready/converge.yml"
