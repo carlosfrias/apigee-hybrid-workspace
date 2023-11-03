@@ -6,6 +6,7 @@
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
 PROJECT_ID: "friasc-hybrid-20231103-0824"
+#PROJECT_ID: "friasc-hybrid-20231103-1105"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 
 GCP_ZONE: "us-east1-b"
@@ -74,9 +75,9 @@ CLUSTER_ZONE: "{{ REGION }}-b"
 CLUSTER_REGION: "{{ REGION }}"
 NODE_SIZE: "e2-standard-8"
 NODE_COUNT: 3
-NODE_COUNT_MAX: 3
+NODE_COUNT_MAX: 6
 NODE_COUNT_MIN: 1
-DISK_SIZE: 100
+DISK_SIZE: 500
 DISK_TYPE: pd-balanced
 IMAGE_TYPE: COS_CONTAINED
 RELEASE_CHANNEL: "regular"
