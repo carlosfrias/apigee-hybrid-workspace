@@ -95,7 +95,7 @@
       --enable-autoscaling \
       --metadata disable-legacy-endpoints=true \
       --node-labels cloud.google.com/gke-nodepool=apigee-data \
-      --enable-ip-alias \
+      --no-enable-ip-alias \
       --no-enable-intra-node-visibility \
       --default-max-pods-per-node "110" \
       --security-posture=standard \
