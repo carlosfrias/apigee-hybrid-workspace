@@ -7,7 +7,6 @@
 
 #PROJECT_ID: "friasc-hybrid-20231103-1453"
 PROJECT_ID: "friasc-hybrid-20231103-1529"
-#PROJECT_ID: "friasc-hybrid-20231103-1456"
 
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 
