@@ -31,15 +31,15 @@
 #
 #- name: Create apigee service accounts
 #  import_playbook: "{{ playbook_dir | dirname }}/11-create-apigee-service-account/converge.yml"
-#
-#- name: Create TLS certs
-#  import_playbook: "{{ playbook_dir | dirname }}/12-create-tls-certs/converge.yml"
-#
-#- name: Create an Apigee organization
-#  import_playbook: "{{ playbook_dir | dirname }}/13-create-apigee-organization/converge.yml"
-#
-#- name: Create an Apigee environment group
-#  import_playbook: "{{ playbook_dir | dirname }}/14-create-apigee-environment-group/converge.yml"
+
+- name: Create TLS certs
+  import_playbook: "{{ playbook_dir | dirname }}/12-create-tls-certs/converge.yml"
+
+- name: Create an Apigee organization
+  import_playbook: "{{ playbook_dir | dirname }}/13-create-apigee-organization/converge.yml"
+
+- name: Create an Apigee environment group
+  import_playbook: "{{ playbook_dir | dirname }}/14-create-apigee-environment-group/converge.yml"
 
 - name: Create GKE cluster
   import_playbook: "{{ playbook_dir | dirname }}/15-create-apigee-gke-cluster/converge.yml"
