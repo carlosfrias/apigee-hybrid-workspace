@@ -114,7 +114,6 @@
 #      --zone {{ CLUSTER_ZONE }} \
 #      --quiet
 
-
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
   register: project_number
