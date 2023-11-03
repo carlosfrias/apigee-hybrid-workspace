@@ -48,7 +48,7 @@
       gcloud iam service-accounts {{ SERVICE_OP }} {{ ADMIN_SERVICE_ACCOUNT_NAME }} \
         --description={{ ADMIN_SERVICE_ACCOUNT_NAME }} \
         --display-name={{ ADMIN_SERVICE_ACCOUNT_NAME }} \
-        --project {{ PROJECT_ID }} 
+        --project {{ PROJECT_ID }}
     register: status
     when: PROJECT_ACTIVE is truthy
     failed_when:
