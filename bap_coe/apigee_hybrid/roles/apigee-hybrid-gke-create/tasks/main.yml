@@ -103,6 +103,7 @@
       --no-enable-autorepair \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --node-labels cloud.google.com/gke-nodepool=apigee-runtime \
     && \
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --project {{ PROJECT_ID }} \
@@ -120,7 +121,11 @@
       --location-policy "BALANCED" \
       --no-enable-autorepair \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
-      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }}
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --node-labels cloud.google.com/gke-nodepool=apigee-data \
+    && \
+    gcloud container node-pools delete default \
+      --cluster {{ CLUSTER_NAME }}
   register: status
   failed_when:
   - status.rc == 1
