@@ -104,8 +104,7 @@
       --workload-vulnerability-scanning=disabled \
       --no-enable-master-authorized-networks \
       --enable-managed-prometheus \
-      --enable-shielded-nodes \
-
+      --enable-shielded-nodes
   failed_when:
     - status.rc == 1
     - "'Already exists' not in status.stderr"
