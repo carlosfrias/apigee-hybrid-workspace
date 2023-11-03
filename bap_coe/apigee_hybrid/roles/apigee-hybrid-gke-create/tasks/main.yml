@@ -125,7 +125,8 @@
       --node-labels cloud.google.com/gke-nodepool=apigee-data \
     && \
     gcloud container node-pools delete default \
-      --cluster {{ CLUSTER_NAME }}
+      --cluster {{ CLUSTER_NAME }} \
+      --quiet 
   register: status
   failed_when:
   - status.rc == 1
