@@ -48,6 +48,12 @@
       --enable-autoscaling \
       --project {{ PROJECT_ID }}
   register: status
+  failed_when:
+  - status.rc == 1
+  - "'Already exists' not in status.stderr"
+  when: "APIGEE_VERSION is version('1.10.0', '<')"
+
+- name: Create gcp cluster APIGEE_VERSION >= 1.10
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --project {{ PROJECT_ID }} \
@@ -105,11 +111,6 @@
       --no-enable-master-authorized-networks \
       --enable-managed-prometheus \
       --enable-shielded-nodes
-  failed_when:
-    - status.rc == 1
-    - "'Already exists' not in status.stderr"
-  when: "APIGEE_VERSION is version('1.10.0', '<')"
-- name: Create gcp cluster APIGEE_VERSION >= 1.10
   register: status
   failed_when:
   - status.rc == 1
