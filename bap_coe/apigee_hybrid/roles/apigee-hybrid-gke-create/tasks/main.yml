@@ -101,11 +101,7 @@
         --location-policy "BALANCED" \
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
-        --node-labels cloud.google.com/gke-nodepool=apigee-data \
-        --security-posture=standard \
-        --workload-vulnerability-scanning=disabled \
-        --no-enable-master-authorized-networks \
-        --enable-managed-prometheus
+        --node-labels cloud.google.com/gke-nodepool=apigee-data
     register: status
     failed_when:
     - status.rc == 1
@@ -129,11 +125,7 @@
         --location-policy "BALANCED" \
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
-        --node-labels cloud.google.com/gke-nodepool=apigee-data \
-        --security-posture=standard \
-        --workload-vulnerability-scanning=disabled \
-        --no-enable-master-authorized-networks \
-        --enable-managed-prometheus
+        --node-labels cloud.google.com/gke-nodepool=apigee-data
     register: status
     failed_when:
     - status.rc == 1
