@@ -5,7 +5,7 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-PROJECT_ID: "friasc-hybrid-20231108-1249"
+PROJECT_ID: "friasc-hybrid-20231108-1421"
 
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 
@@ -88,8 +88,9 @@ CASSANDRA_REPLICA_COUNT: 1
 LOGGING: "SYSTEM,WORKLOAD"
 MONITORING: "SYSTEM"
 CLUSTER_ADDONS: "HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver"
-NODE_POOL_NAME_DATA: "apigee-data"
-NODE_POOL_NAME_RUNTIME: "apigee-runtime"
+NODE_POOL_NAME_LABEL_ATTRIBUTE: "cloud.google.com/gke-nodepool"
+NODE_POOL_DATA_LABEL: "apigee-data"
+NODE_POOL_RUNTIME_LABEL: "apigee-runtime"
 MAX_SURGE_UPGRADE: 1
 MAX_UNAVAILABLE_UPGRADE: 0
 

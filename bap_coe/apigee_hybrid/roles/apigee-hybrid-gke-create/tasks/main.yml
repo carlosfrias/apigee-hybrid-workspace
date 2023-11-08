@@ -77,7 +77,6 @@
         --location-policy "BALANCED" \
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
-        --node-labels cloud.google.com/gke-nodepool=apigee-runtime
     register: status
     failed_when:
     - status.rc == 1
@@ -101,7 +100,7 @@
         --location-policy "BALANCED" \
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
-        --node-labels cloud.google.com/gke-nodepool=apigee-data
+        --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_DATA_LABEL }}
     register: status
     failed_when:
     - status.rc == 1
@@ -125,7 +124,7 @@
         --location-policy "BALANCED" \
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
-        --node-labels cloud.google.com/gke-nodepool=apigee-runtime
+        --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}=NODE_POOL_RUNTIME_LABEL
     register: status
     failed_when:
     - status.rc == 1
@@ -143,6 +142,7 @@
     - "'Already exists' not in status.stderr"
 
   when: "APIGEE_VERSION is version('1.10.0', '>=')"
+
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
