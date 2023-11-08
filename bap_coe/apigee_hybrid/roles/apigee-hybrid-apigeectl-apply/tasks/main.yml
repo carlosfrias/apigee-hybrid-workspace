@@ -11,7 +11,12 @@
     register: apply_status
 
   rescue:
-    - block:
+  - name: Wait 1 minute before doing apply again
+    pause:
+      prompt: "Wait 1 minute before doing apply again"
+      minutes: 1
+
+  - block:
       - name: Check for correct permission on the apigee-mart service account
         shell: |
           gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \

@@ -10,10 +10,10 @@
       chdir: "{{ APIGEECTL_DIR }}"
 
   rescue:
-  - name: Wait 5 minutes before doing init again
+  - name: Wait 1 minute before doing init again
     pause:
-      prompt: "Wait 5 minutes before doing init again"
-      minutes: 5
+      prompt: "Wait 1 minute before doing init again"
+      minutes: 1
 
   - name: Invoke init command
     shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
