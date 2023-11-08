@@ -11,8 +11,8 @@
 
   rescue:
   - name: Wait 5 minutes before doing init again
-    wait:
-      minutes: 5
+    wait_for:
+      timeout: 300
 
   - name: Invoke init command
     shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
