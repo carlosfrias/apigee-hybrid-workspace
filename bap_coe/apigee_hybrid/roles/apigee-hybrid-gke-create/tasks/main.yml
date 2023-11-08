@@ -84,7 +84,7 @@
 
   - name: Create node-pool apigee-data
     shell: |
-      gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
+      gcloud beta container node-pools create {{ NODE_POOL_DATA_LABEL }} \
         --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
         --project {{ PROJECT_ID }} \
         --cluster {{ CLUSTER_NAME }} \
@@ -108,7 +108,7 @@
 
   - name: Create node-pool apigee-runtime
     shell: |
-      gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
+      gcloud beta container node-pools create {{ NODE_POOL_RUNTIME_LABEL }} \
         --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
         --project {{ PROJECT_ID }} \
         --cluster {{ CLUSTER_NAME }} \
@@ -124,7 +124,7 @@
         --location-policy "BALANCED" \
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
-        --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}=NODE_POOL_RUNTIME_LABEL
+        --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_RUNTIME_LABEL }}
     register: status
     failed_when:
     - status.rc == 1
