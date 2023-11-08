@@ -125,22 +125,22 @@
         --location-policy "BALANCED" \
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
-        --node-labels cloud.google.com/gke-nodepool=apigee-data
+        --node-labels cloud.google.com/gke-nodepool=apigee-runtime
     register: status
     failed_when:
     - status.rc == 1
     - "'Already exists' not in status.stderr"
 
-#  - name: Delete default node-pool that is created
-#    shell: |
-#      gcloud container node-pools delete default-pool \
-#        --cluster {{ CLUSTER_NAME }} \
-#        --zone {{ CLUSTER_ZONE }} \
-#        --quiet
-#    register: status
-#    failed_when:
-#    - status.rc == 1
-#    - "'Already exists' not in status.stderr"
+  - name: Delete default node-pool that is created
+    shell: |
+      gcloud container node-pools delete default-pool \
+        --cluster {{ CLUSTER_NAME }} \
+        --zone {{ CLUSTER_ZONE }} \
+        --quiet
+    register: status
+    failed_when:
+    - status.rc == 1
+    - "'Already exists' not in status.stderr"
 
   when: "APIGEE_VERSION is version('1.10.0', '>=')"
 
@@ -233,20 +233,20 @@
 - name: Update authentication credentials
   command: gcloud container clusters get-credentials {{ CLUSTER_NAME }} --zone {{ CLUSTER_ZONE }}
 
-- name: Prepare storageclass system path
-  file:
-    path: "{{ HYBRID_FILES_DIR }}"
-    state: directory
-    mode: 0755
-
-- name: Copy storageclass file to system path
-  copy:
-    src: storageclass.yml
-    dest: "{{ HYBRID_FILES_DIR }}/"
-
-- name: Apply storageclass to cluster
-  command: kubectl apply -f {{ HYBRID_FILES_DIR }}/storageclass.yml
-
-- name: Apply storageclass patch 1 of 2
-  command: "kubectl patch storageclass standard-rwo -p '{\"metadata\": {\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"false\"}}}'"
+#- name: Prepare storageclass system path
+#  file:
+#    path: "{{ HYBRID_FILES_DIR }}"
+#    state: directory
+#    mode: 0755
+#
+#- name: Copy storageclass file to system path
+#  copy:
+#    src: storageclass.yml
+#    dest: "{{ HYBRID_FILES_DIR }}/"
+#
+#- name: Apply storageclass to cluster
+#  command: kubectl apply -f {{ HYBRID_FILES_DIR }}/storageclass.yml
+#
+#- name: Apply storageclass patch 1 of 2
+#  command: "kubectl patch storageclass standard-rwo -p '{\"metadata\": {\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"false\"}}}'"
 
