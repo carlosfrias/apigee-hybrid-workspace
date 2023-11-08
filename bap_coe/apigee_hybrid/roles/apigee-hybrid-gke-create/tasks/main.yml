@@ -54,7 +54,7 @@
   when: "APIGEE_VERSION is version('1.10.0', '<')"
 
 - block:
-  - name: Create gcp cluster APIGEE_VERSION >= 1.10
+  - name: Create Apigee hybrid cluster APIGEE_VERSION >= 1.10
     shell: |
       gcloud beta container clusters create {{ CLUSTER_NAME }} \
         --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
@@ -107,7 +107,7 @@
     - status.rc == 1
     - "'Already exists' not in status.stderr"
 
-  - name: Create node-pol apigee-runtime
+  - name: Create node-pool apigee-runtime
     shell: |
       gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
         --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
