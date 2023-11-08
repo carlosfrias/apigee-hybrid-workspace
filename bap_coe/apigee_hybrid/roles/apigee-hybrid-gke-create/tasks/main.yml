@@ -77,7 +77,7 @@
         --location-policy "BALANCED" \
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
-    register: status`
+    register: status
     failed_when:
     - status.rc == 1
     - "'Already exists' not in status.stderr"
