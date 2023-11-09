@@ -13,8 +13,8 @@
   rescue:
   - name: Wait 1 minute before doing apply again
     pause:
-      prompt: "Wait 1 minute before doing apply again"
-      minutes: 1
+      prompt: "Wait {{ APIGEECTL_CMD_TIMEOUT | default(60) }} seconds before doing apply again"
+      seconds: "{{ APIGEECTL_CMD_TIMEOUT | default(60) }}"
 
   - block:
       - name: Check for correct permission on the apigee-mart service account

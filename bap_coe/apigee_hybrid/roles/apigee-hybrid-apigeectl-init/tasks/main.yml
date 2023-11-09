@@ -12,8 +12,8 @@
   rescue:
   - name: Wait 1 minute before doing init again
     pause:
-      prompt: "Wait 1 minute before doing init again"
-      minutes: 1
+      prompt: "Wait {{ APIGEECTL_CMD_TIMEOUT | default(60) }} seconds before doing init again"
+      seconds: "{{ APIGEECTL_CMD_TIMEOUT | default(60) }}"
 
   - name: Invoke init command
     shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
@@ -23,4 +23,4 @@
 - name: apigeectl init needs a few seconds to complete
   pause:
     prompt: "apigeectl init needs a few seconds to complete"
-    seconds: 60
+    seconds: "{{ APIGEECTL_CMD_TIMEOUT | default(60) }}"
