@@ -1,10 +1,10 @@
 ---
-- name: Install ASM system dependencies
-  become: true
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ ASM_SYSTEM_DEPENDENCIES }}"
+#- name: Install ASM system dependencies
+#  become: true
+#  package:
+#    name: "{{ item }}"
+#    state: present
+#  with_items: "{{ ASM_SYSTEM_DEPENDENCIES }}"
 
 - name: Build download file name for install_asm
   set_fact:
