@@ -18,7 +18,7 @@
     dest: "{{ HYBRID_FILES_DIR }}/cluster-check/apigee-k8s-cluster-ready-check.yaml"
 
 - name: Apply cluster-ready-check manifest
-  command: kubectl apply -f {{ HYBRID_FILES }}/cluster-check/apigee-k8s-cluster-ready-check.yaml
+  command: kubectl apply -f {{ HYBRID_FILES_DIR }}/cluster-check/apigee-k8s-cluster-ready-check.yaml
 
 - name: Check status of cluster-ready-check job
   command: kubectl get jobs apigee-k8s-cluster-ready-check
