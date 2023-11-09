@@ -1,4 +1,4 @@
-- name: Install ASM
+- name: Apigee runtime checkready
   hosts: localhost
   connection: local
   gather_facts: true
@@ -13,5 +13,4 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-asm-install, tags: ['asm'], when: "APIGEE_VERSION is version('1.8.1', '<=')" }
-
+    - { role: apigee-hybrid-apigee-cluster-ready-check }

@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 22-apigee-runtime-init
+  - name: install-asm-apigee-hybrid-less-than-1.8.1
 provisioner:
   name: ansible
   ansible_args:
