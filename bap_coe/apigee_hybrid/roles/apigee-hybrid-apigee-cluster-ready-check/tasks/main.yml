@@ -1,0 +1,31 @@
+---
+# tasks file for roles/apigee-hybrid-apigee-connect-enable
+- name: Obtain cluster credentials
+  shell: |
+    kubectl config current-context
+    gcloud container clusters get-credentials {{ CLUSTER_NAME }} \
+      --zone {{ GCP_ZONE }} \
+      --project {{ PROJECT_ID }}
+
+- name: Assert folder
+  file:
+    path: "{{ HYBRID_FILES_DIR }}/cluster-check"
+    state: directory
+
+- name: Copy cluster-ready-check manifest
+  copy:
+    src: apigee-k8s-cluster-ready-check.yaml
+    dest: "{{ HYBRID_FILES_DIR }}/cluster-check/apigee-k8s-cluster-ready-check.yaml"
+
+- name: Apply cluster-ready-check manifest
+  command: kubectl apply -f {{ HYBRID_FILES }}/cluster-check/apigee-k8s-cluster-ready-check.yaml
+
+- name: Check status of cluster-ready-check job
+  command: kubectl get jobs apigee-k8s-cluster-ready-check
+  register: output
+  fail_when:
+  - "'0/1' in output.stderr"
+
+
+
+
