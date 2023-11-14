@@ -185,6 +185,8 @@ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/iam.serviceAccountAdmin"
   - "roles/iam.serviceAccountKeyAdmin"
   - "roles/iam.workloadIdentityUser"
+  - "roles/storage.objectAdmin"
+  - "roles/pubsub.editor"
 
 APIGEE_NON_PROD_USER: "apigee-non-prod"
 APIGEE_NON_PROD_EMAIL: "{{ APIGEE_NON_PROD_USER }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
