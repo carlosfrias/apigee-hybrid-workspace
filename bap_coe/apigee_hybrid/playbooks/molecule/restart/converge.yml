@@ -29,6 +29,9 @@
 #- name: Install apigeectl binary
 #  import_playbook: "{{ playbook_dir | dirname }}/10-install-apigeectl-binary/converge.yml"
 #
+#- name: Service Account Activate
+#  import_playbook: "{{ playbook_dir | dirname }}/service-account-activate/converge.yml"
+#
 #- name: Create apigee service accounts
 #  import_playbook: "{{ playbook_dir | dirname }}/11-create-apigee-service-account/converge.yml"
 #
