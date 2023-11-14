@@ -6,7 +6,6 @@
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
 PROJECT_ID: "friasc-hybrid-20231113-0909"
-#PROJECT_ID: "friasc-mmwalkthru-20231114-1135"
 
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 
@@ -112,6 +111,7 @@ GCLOUD_PROJECT_SERVICES:
   - "container.googleapis.com"
   - "pubsub.googleapis.com"
   - "iam.googleapis.com"
+  - "storage.googleapis.com"
   #- "servicenetworking.googleapis.com"
   #- "serviceusage.googleapis.com"
   #- "stackdriver.googleapis.com"
