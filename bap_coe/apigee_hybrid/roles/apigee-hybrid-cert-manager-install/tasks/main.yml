@@ -9,9 +9,10 @@
     CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.context.json"
 
 - name: Select Cluster
-  shell: kubectx {{ CLUSTER_NAME }}
+  command: |
+    kubectl config current-context
 
 - name: Download and install cert-manager, assuming Kubernetes is 1.15 or newer
-  shell: kubectl apply --validate=false -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
-#  when: ( KUBECTL_VERSION | int ) is version('1.15', '>=')
+  command: |
+    kubectl apply --validate=false -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
 
