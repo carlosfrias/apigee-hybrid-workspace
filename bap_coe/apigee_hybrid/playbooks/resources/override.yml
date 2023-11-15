@@ -149,9 +149,6 @@ GCLOUD_ORG_ROLE_BINDINGS:
   - "roles/compute.loadBalancerAdmin"
   - "roles/networkmanagement.admin"
   - "roles/networkmanagement.viewer"
-  - "roles/resourcemanager.projectIamAdmin"
-  - "roles/resourcemanager.organizationAdmin"
-  - "roles/serviceusage.apiKeysAdmin"
 
 #  Configure project admin role bindings
 GCLOUD_PROJECT_ADMIN_ROLE_BINDINGS:
@@ -188,6 +185,7 @@ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/pubsub.editor"
 
 APIGEE_NON_PROD_USER: "apigee-non-prod"
+APIGEE_ADMIN: "{{ APIGEE_NON_PROD_USER }}"
 APIGEE_NON_PROD_EMAIL: "{{ APIGEE_NON_PROD_USER }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
 APIGEE_NON_PROD_ROLES:
   - "roles/apigee.admin"
