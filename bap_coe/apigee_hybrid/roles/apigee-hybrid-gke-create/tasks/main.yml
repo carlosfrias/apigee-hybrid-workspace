@@ -171,31 +171,31 @@
   args:
     creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
 
-- name: Register the cluster - this is now in the install_asm bash script
-  shell: |
-    gcloud container hub memberships register {{ CLUSTER_NAME }} \
-    --gke-cluster={{ CLUSTER_ZONE }}/{{ CLUSTER_NAME }} \
-    --service-account-key-file={{ SERVICE_ACCOUNT_KEY_PATH }}
-  register: status
-  failed_when:
-    - status.rc == 1
-    - "'already exists' not in status.stderr"
-
-- name: Set workload pool values
-  set_fact:
-    cacheable: yes
-    WORKLOAD_POOL: "{{ PROJECT_ID }}.svc.id.goog"
-    PROJECT_NUMBER: "{{ project_number.stdout }}"
-    MESH_ID: "proj-{{ PROJECT_NUMBER | default(project_number.stdout) }}"
-
+#- name: Register the cluster - this is now in the install_asm bash script
+#  shell: |
+#    gcloud container hub memberships register {{ CLUSTER_NAME }} \
+#    --gke-cluster={{ CLUSTER_ZONE }}/{{ CLUSTER_NAME }} \
+#    --service-account-key-file={{ SERVICE_ACCOUNT_KEY_PATH }}
+#  register: status
+#  failed_when:
+#    - status.rc == 1
+#    - "'already exists' not in status.stderr"
+#
+#- name: Set workload pool values
+#  set_fact:
+#    cacheable: yes
+#    WORKLOAD_POOL: "{{ PROJECT_ID }}.svc.id.goog"
+#    PROJECT_NUMBER: "{{ project_number.stdout }}"
+#    MESH_ID: "proj-{{ PROJECT_NUMBER | default(project_number.stdout) }}"
+#
 #- name: Set MESH_ID label - this is now in the install_asm bash script
 #  tags: ['install_asm_skip']
 #  shell: gcloud container clusters update {{ CLUSTER_NAME }} --update-labels=mesh_id={{ MESH_ID }}
-
+#
 #- name: Enable workload identity - this is now in the install_asm bash script
 #  tags: ['install_asm_skip']
 #  shell: gcloud container clusters update {{ CLUSTER_NAME }} --workload-pool={{ WORKLOAD_POOL }}
-
+#
 #- name: Enable Cloud Monitoring and Cloud Logging in GKE - this is now in the install_asm bash script
 #  tags: ['install_asm_skip']
 #  shell: gcloud container clusters update {{ CLUSTER_NAME }}
