@@ -39,7 +39,7 @@
     shell: |
       gcloud dns record-sets transaction start \
         --zone={{ DNS_MANAGED_ZONE }} \
-        --project="{{ PROJECT_ID }}"
+        --project="{{ DNS_PROJECT_ID }}"
   
   - name: Add record set transaction
     shell: |
@@ -48,13 +48,13 @@
         --name={{ DOMAIN_NAME }}. \
         --ttl=300 \
         --type=A \
-        --project="{{ PROJECT_ID }}"
+        --project="{{ DNS_PROJECT_ID }}"
  
   - name: Execute record set transaction
     shell: |
       gcloud dns record-sets transaction execute \
         --zone={{ DNS_MANAGED_ZONE }} \
-        --project="{{ PROJECT_ID }}"
+        --project="{{ DNS_PROJECT_ID }}"
     register: status  
     failed_when:  
       - status.rc == 1
@@ -66,13 +66,13 @@
       - name: Rescue, abort any prior transactions in progress
         shell: gcloud dns record-sets transaction abort \
           --zone={{ DNS_MANAGED_ZONE }} \
-          --project="{{ PROJECT_ID }}"
+          --project="{{ DNS_PROJECT_ID }}"
 
       - name: Rescue, start record set transaction
         shell: |
           gcloud dns record-sets transaction start \
             --zone={{ DNS_MANAGED_ZONE }} \
-            --project="{{ PROJECT_ID }}"
+            --project="{{ DNS_PROJECT_ID }}"
   
       - name: Rescue, record set transaction
         shell: |
@@ -81,13 +81,13 @@
             --name={{ DOMAIN_NAME }}. \
             --ttl=300 \
             --type=A \
-            --project="{{ PROJECT_ID }}"
+            --project="{{ DNS_PROJECT_ID }}"
  
       - name: Rescue, record set transaction
         shell: |
           gcloud dns record-sets transaction execute \
             --zone={{ DNS_MANAGED_ZONE }} \
-            --project="{{ PROJECT_ID }}"
+            --project="{{ DNS_PROJECT_ID }}"
         register: status
         failed_when:
           - status.rc == 1
@@ -98,4 +98,4 @@
       - name: Rescue, abort any prior transactions in progress
         shell: gcloud dns record-sets transaction abort \
           --zone={{ DNS_MANAGED_ZONE }} \
-          --project="{{ PROJECT_ID }}"
+          --project="{{ DNS_PROJECT_ID }}"
