@@ -1,11 +1,11 @@
 ---
 # tasks file for roles/apigee-hybrid-apigee-connect-enable
-- name: Obtain cluster credentials
-  shell: |
-    kubectl config current-context
-    gcloud container clusters get-credentials {{ CLUSTER_NAME }} \
-      --zone {{ GCP_ZONE }} \
-      --project {{ PROJECT_ID }}
+#- name: Obtain cluster credentials
+#  shell: |
+#    kubectl config current-context
+#    gcloud container clusters get-credentials {{ CLUSTER_NAME }} \
+#      --zone {{ GCP_ZONE }} \
+#      --project {{ PROJECT_ID }}
 
 - name: Assert folder
   file:

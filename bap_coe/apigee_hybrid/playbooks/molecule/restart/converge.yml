@@ -59,12 +59,12 @@
 #- name: Enable Apigee Connect
 #  import_playbook: "{{ playbook_dir | dirname }}/18-enable-apigee-connect/converge.yml"
 
-- name: Assert Cluster Ready Check
-  import_playbook: "{{ playbook_dir | dirname }}/19-apigee-cluster-ready-check/converge.yml"
-
-- name: Apigee Runtime Config
-  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
-
+#- name: Assert Cluster Ready Check
+#  import_playbook: "{{ playbook_dir | dirname }}/19-apigee-cluster-ready-check/converge.yml"
+#
+#- name: Apigee Runtime Config
+#  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
+#
 - name: Apigee Runtime Init
   import_playbook: "{{ playbook_dir | dirname }}/21-apigee-runtime-init/converge.yml"
 
