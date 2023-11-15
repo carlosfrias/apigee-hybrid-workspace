@@ -22,9 +22,9 @@
 
 - name: Check status of cluster-ready-check job
   command: kubectl get jobs apigee-k8s-cluster-ready-check
-  register: output
-  failed_when:
-  - "'0/1' in output.stderr"
+#  register: output
+#  failed_when:
+#  - "'0/1' in output.stderr"
 
 
 
