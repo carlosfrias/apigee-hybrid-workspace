@@ -34,7 +34,7 @@ ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
 CLUSTER_SEED: 1
 CLUSTER_VERSION: 1.27.3-gke.100
 
-CERT_MANAGER_VERSION: 1.13.0
+CERT_MANAGER_VERSION: 1.13.1
 KUBECTL_VERSION: 1.26
 KUBECTL_DOWNLOAD_URL: https://github.com/cert-manager/cert-manager/releases/download
 #KUBECTL_DOWNLOAD_URL: https://github.com/jetstack/cert-manager/releases/download
