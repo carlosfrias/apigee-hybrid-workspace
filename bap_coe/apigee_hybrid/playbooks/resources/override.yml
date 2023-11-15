@@ -5,7 +5,7 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-PROJECT_ID: "friasc-hybrid-2023115-1221"
+PROJECT_ID: "friasc-hybrid-2023115-1425"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 
 GCP_ZONE: "us-east1-b"
@@ -48,8 +48,7 @@ OVERRIDE_FILE: "{{ HYBRID_FILES_DIR }}/overrides/overrides-{{ APIGEE_OVERRIDE_TE
 SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
 
 DNS_PROJECT_ID: "friasc-apigee-lab"
-DNS_MANAGED_ZONE: "project-dns"
-#DOMAIN_SUFFIX: "friasc.demo.altostrat.com" # Working domain that only needs an A record
+DNS_MANAGED_ZONE: "friasc.demo.altostrat.com"
 DOMAIN_SUFFIX: "{{ PROJECT_ID }}"
 DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DOMAIN_SUFFIX }}"
 EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"

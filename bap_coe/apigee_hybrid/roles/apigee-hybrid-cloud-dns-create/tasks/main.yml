@@ -6,57 +6,32 @@
     EXTERNAL_IP_DESCRIPION: "{{ EXTERNAL_IP_DESCRIPION | default(DEFAULT_EXTERNAL_IP_DESCRIPION) }}"
     GCP_CLOUD_DNS_DESCRIPTION: "{{ GCP_CLOUD_DNS_DESCRIPTION | default(DEFAULT_GCP_CLOUD_DNS_DESCRIPTION) }}"
 
-#- name: Create External IP
-#  shell: |
-#    gcloud compute addresses create {{ EXTERNAL_IP_NAME }} \
-#      --project="{{ PROJECT_ID }}" \
-#      --description="{{ EXTERNAL_IP_DESCRIPION }}" \
-#      --region={{ GCP_REGION }}
-#  register: status
-#  failed_when:
-#    - status.rc == 1
-#    - "'already exists' not in status.stderr"
-
-- name: Setup GCP Attributes from service account file
-  include_role:
-    name: bap_coe.gcp_management.gcp_token_retrieval
-
-- name: Obtain external IP
-  uri:
-    url: "https://www.googleapis.com/compute/v1/projects/{{ PROJECT_ID }}/regions/{{GCP_REGION }}/addresses/{{ EXTERNAL_IP_NAME }}"
-    headers: 
-      Authorization: Bearer {{ GCLOUD_TOKEN }}
-  register: external_IP
-
-- name: Set apigee ingress ip
-  set_fact:
-    cacheable: yes  
-    INGRESS_IP: "{{ external_IP.json.address }}"
-
-- name: Create Cloud DNS Public Managed Zone
-  shell: |
-    gcloud dns managed-zones create {{ DNS_MANAGED_ZONE }} \
-      --project="{{ PROJECT_ID }}" \
-      --description="{{ GCP_CLOUD_DNS_DESCRIPTION }}" \
-      --dns-name="{{ DOMAIN_NAME }}" \
-      --dnssec-state="off"
-  register: status  
-  failed_when:  
-    - status.rc == 1
-    - "'already exists' not in status.stderr"
-
 #- name: Create Cloud DNS Public Managed Zone
 #  shell: |
 #    gcloud dns managed-zones create {{ DNS_MANAGED_ZONE }} \
 #      --project="{{ DNS_PROJECT_ID }}" \
 #      --description="{{ GCP_CLOUD_DNS_DESCRIPTION }}" \
 #      --dns-name="{{ DOMAIN_NAME }}" \
-#      --member user:{{ ALTOSTRAT_DOMAIN_ADMIN }} \
 #      --dnssec-state="off"
 #  register: status
 #  failed_when:
 #    - status.rc == 1
 #    - "'already exists' not in status.stderr"
+
+# Do I need to use the --member for creating an entry in the friasc.apigee.lab?
+
+- name: Create Cloud DNS Public Managed Zone
+  shell: |
+    gcloud dns managed-zones create {{ DNS_MANAGED_ZONE }} \
+      --project="{{ DNS_PROJECT_ID }}" \
+      --description="{{ GCP_CLOUD_DNS_DESCRIPTION }}" \
+      --dns-name="{{ DOMAIN_NAME }}" \
+      --member user:{{ ALTOSTRAT_DOMAIN_ADMIN }} \
+      --dnssec-state="off"
+  register: status
+  failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stderr"
 
 - block:
 
@@ -68,7 +43,7 @@
   
   - name: Add record set transaction
     shell: |
-      gcloud dns record-sets transaction add {{ INGRESS_IP }} \
+      gcloud dns record-sets transaction add {{ EXTERNAL_IP }} \
         --zone={{ DNS_MANAGED_ZONE }} \
         --name={{ DOMAIN_NAME }}. \
         --ttl=300 \
@@ -101,7 +76,7 @@
   
       - name: Rescue, record set transaction
         shell: |
-          gcloud dns record-sets transaction add {{ INGRESS_IP }} \
+          gcloud dns record-sets transaction add {{ EXTERNAL_IP }} \
             --zone={{ DNS_MANAGED_ZONE }} \
             --name={{ DOMAIN_NAME }}. \
             --ttl=300 \
