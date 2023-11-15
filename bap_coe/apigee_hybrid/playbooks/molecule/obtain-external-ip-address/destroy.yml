@@ -1,4 +1,4 @@
-- name: Create DNS record
+- name: Delete the external IP address
   hosts: localhost
   connection: local
 
@@ -12,6 +12,4 @@
     - bap_coe.gcp_management
 
   roles:
-  - { role: gce_external_ip_get }
-  - { role: apigee-hybrid-cloud-dns-create }
-
+  - { role: gce_external_ip_delete, tags: ['dns'] }

@@ -42,7 +42,7 @@ ingressGateways:
 - name: "{{ INGRESS_GATEWAY_NAME }}"
   replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
-#  svcLoadBalancerIP: {{ EXTERNAL_IP }}
+  svcLoadBalancerIP: {{ EXTERNAL_IP }}
 #  svcAnnotations:  # optional. If you are on AKS, see Known issue #260772383
 #    SVC_ANNOTATIONS_KEY: SVC_ANNOTATIONS_VALUE
 
