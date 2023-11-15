@@ -34,7 +34,7 @@ ASM_KPT_VERSION: "{{ ISTIO_VERSION_MAJOR }}-asm"
 CLUSTER_SEED: 1
 CLUSTER_VERSION: 1.27.3-gke.100
 
-CERT_MANAGER_VERSION: 1.13.1
+CERT_MANAGER_VERSION: 1.13.2
 KUBECTL_VERSION: 1.26
 KUBECTL_DOWNLOAD_URL: https://github.com/cert-manager/cert-manager/releases/download
 #KUBECTL_DOWNLOAD_URL: https://github.com/jetstack/cert-manager/releases/download
@@ -249,7 +249,9 @@ SYSTEM_TOOLS:
   - 'npm'
   - 'git'
 
-WORK_DIR_SACKMESSER: "{{ WORK_DIR }}/tools/apigee-sackmesser"
+GITHUB_DEVREL_URL: "https://github.com/apigee/devrel.git"
+WORK_DIR_DEVREL: "{{ WORK_DIR }}/devrel"
+WORK_DIR_SACKMESSER: "{{ WORK_DIR_DEVREL }}/tools/apigee-sackmesser"
 WORK_DIR_SACKMESSER_BIN: "{{ WORK_DIR_SACKMESSER }}/bin/sackmesser"
 WORK_DIR_COMMON_SHARED_FLOWS: "references/common-shared_flows"
 WORK_DIR_COMMON_SHARED_FLOWS_BIN: "{{ WORK_DIR_COMMON_SHARED_FLOWS }}/deploy.sh"

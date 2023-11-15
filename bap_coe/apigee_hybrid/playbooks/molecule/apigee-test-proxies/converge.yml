@@ -1,33 +1,42 @@
 ---
 - name: Apigee Test Proxy Installation
   hosts: localhost
-  connection: type
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
   collections:
     - bap_coe.bootstrap_runtime
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
-  roles:
+#  roles:
 #    - gcp_token_retrieval
-    - apigee-hybrid-setup-environment-gcp
-    - {
-      role: gcp_iam_policy_bindings_org,
-      ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}",
-      BINDING_OP: "add",
-      ROLE_BINDINGS: [
-        "{{ GCLOUD_ORG_ROLE_BINDINGS }}",
-        "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}",
-        "{{ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
-      ]
-    }
-    - { role: gcp_resource_manager_constraints_disable_enforce }
-    - { role: gcp_resource_manager_update_org_policy }
-    - { role: gcp_resource_manager_folders_create }
-    - { role: gcp_resource_manager_folders_get_folder_id }
-    - { role: gcp_resource_manager_folders_permissions_user }
+#    - {
+#        role: gcp_iam_policy_bindings_org,
+#        ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}",
+#        BINDING_OP: "add",
+#        ROLE_BINDINGS: [
+#          "{{ GCLOUD_ORG_ROLE_BINDINGS }}",
+#          "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}",
+#          "{{ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
+#        ]
+#    }
+#    - { role: gcp_resource_manager_constraints_disable_enforce }
+#    - { role: gcp_resource_manager_update_org_policy }
+#    - { role: gcp_resource_manager_folders_create }
+#    - { role: gcp_resource_manager_folders_get_folder_id }
+#    - { role: gcp_resource_manager_folders_permissions_user }
 
   tasks:
+    - name: Download devrel
+      git:
+        url: "{{ GITHUB_DEVREL_URL }}"
+        dest: "{{ WORK_DIR_DEVREL }}"
+
     - name: Validate that Sackmesser is available
       command: "{{ WORK_DIR_SACKMESSER_BIN }} help"
 
