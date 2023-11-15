@@ -5,8 +5,8 @@
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
   vars:
     key_value_pairs:

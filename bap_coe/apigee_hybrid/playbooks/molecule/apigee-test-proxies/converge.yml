@@ -1,6 +1,4 @@
 ---
-
-
 - name: Apigee Test Proxy Installation
   hosts: localhost
   connection: type

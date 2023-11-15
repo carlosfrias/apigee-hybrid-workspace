@@ -1,22 +1,25 @@
 ---
-#- name: Provision project
-#  import_playbook: "{{ playbook_dir | dirname }}/01-provision-project/converge.yml"
-#
-#- name: Update organization policies
-#  import_playbook: "{{ playbook_dir | dirname }}/02-config-org-policies/converge.yml"
-#
-#- name: Update services api
-#  import_playbook: "{{ playbook_dir | dirname }}/03-enable-apis/converge.yml"
-#
-#- name: Create service accounts
-#  import_playbook: "{{ playbook_dir | dirname }}/04-create-service-account/converge.yml"
-#
-#- name: Create service account keys
-#  import_playbook: "{{ playbook_dir | dirname }}/05-create-service-account-keys/converge.yml"
-#
-#- name: Update service account permissions
-#  import_playbook: "{{ playbook_dir | dirname }}/06-create-service-account-permissions/converge.yml"
-#
+- name: Provision project
+  import_playbook: "{{ playbook_dir | dirname }}/01-provision-project/converge.yml"
+
+- name: Update organization policies
+  import_playbook: "{{ playbook_dir | dirname }}/02-config-org-policies/converge.yml"
+
+- name: Update services api
+  import_playbook: "{{ playbook_dir | dirname }}/03-enable-apis/converge.yml"
+
+- name: Service Account Activate
+  import_playbook: "{{ playbook_dir | dirname }}/service-account-activate/converge.yml"
+
+- name: Create service accounts
+  import_playbook: "{{ playbook_dir | dirname }}/04-create-service-account/converge.yml"
+
+- name: Create service account keys
+  import_playbook: "{{ playbook_dir | dirname }}/05-create-service-account-keys/converge.yml"
+
+- name: Update service account permissions
+  import_playbook: "{{ playbook_dir | dirname }}/06-create-service-account-permissions/converge.yml"
+
 #- name: Create network
 #  import_playbook: "{{ playbook_dir | dirname }}/07-create-network/converge.yml"
 #
@@ -64,12 +67,12 @@
 #
 #- name: Apigee runtime config
 #  import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
-
-- name: Apigee runtime init
-  import_playbook: "{{ playbook_dir | dirname }}/21-apigee-runtime-init/converge.yml"
-
-- name: Apigee runtime apply
-  import_playbook: "{{ playbook_dir | dirname }}/22-apigee-runtime-apply/converge.yml"
-
-- name: Apigee runtime checkready
-  import_playbook: "{{ playbook_dir | dirname }}/23-apigee-runtime-checkready/converge.yml"
+#
+#- name: Apigee runtime init
+#  import_playbook: "{{ playbook_dir | dirname }}/21-apigee-runtime-init/converge.yml"
+#
+#- name: Apigee runtime apply
+#  import_playbook: "{{ playbook_dir | dirname }}/22-apigee-runtime-apply/converge.yml"
+#
+#- name: Apigee runtime checkready
+#  import_playbook: "{{ playbook_dir | dirname }}/23-apigee-runtime-checkready/converge.yml"
