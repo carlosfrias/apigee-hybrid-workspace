@@ -13,8 +13,8 @@
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
-#  roles:
-#    - gcp_token_retrieval
+  roles:
+    - gcp_token_retrieval
 #    - {
 #        role: gcp_iam_policy_bindings_org,
 #        ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}",
@@ -34,7 +34,7 @@
   tasks:
     - name: Download devrel
       git:
-        url: "{{ GITHUB_DEVREL_URL }}"
+        repo: "{{ GITHUB_DEVREL_URL }}"
         dest: "{{ WORK_DIR_DEVREL }}"
 
     - name: Validate that Sackmesser is available
