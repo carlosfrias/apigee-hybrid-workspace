@@ -39,7 +39,8 @@
     shell: |
       gcloud dns record-sets transaction start \
         --zone={{ DNS_MANAGED_ZONE }} \
-        --project="{{ DNS_PROJECT_ID }}"
+        --project="{{ DNS_PROJECT_ID }}" \
+        --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
   
   - name: Add record set transaction
     shell: |
@@ -48,13 +49,16 @@
         --name={{ DOMAIN_NAME }}. \
         --ttl=300 \
         --type=A \
-        --project="{{ DNS_PROJECT_ID }}"
- 
+        --project="{{ DNS_PROJECT_ID }}" \
+        --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
+  
+
   - name: Execute record set transaction
     shell: |
       gcloud dns record-sets transaction execute \
         --zone={{ DNS_MANAGED_ZONE }} \
-        --project="{{ DNS_PROJECT_ID }}"
+        --project="{{ DNS_PROJECT_ID }}" \
+        --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
     register: status  
     failed_when:  
       - status.rc == 1
@@ -62,18 +66,19 @@
 
   rescue:
     - block:
-
       - name: Rescue, abort any prior transactions in progress
         shell: gcloud dns record-sets transaction abort \
           --zone={{ DNS_MANAGED_ZONE }} \
-          --project="{{ DNS_PROJECT_ID }}"
+          --project="{{ DNS_PROJECT_ID }}" \
+          --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
 
       - name: Rescue, start record set transaction
         shell: |
           gcloud dns record-sets transaction start \
             --zone={{ DNS_MANAGED_ZONE }} \
-            --project="{{ DNS_PROJECT_ID }}"
-  
+            --project="{{ DNS_PROJECT_ID }}" \
+            --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
+
       - name: Rescue, record set transaction
         shell: |
           gcloud dns record-sets transaction add {{ EXTERNAL_IP }} \
@@ -81,13 +86,15 @@
             --name={{ DOMAIN_NAME }}. \
             --ttl=300 \
             --type=A \
-            --project="{{ DNS_PROJECT_ID }}"
- 
+            --project="{{ DNS_PROJECT_ID }}" \
+            --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
+
       - name: Rescue, record set transaction
         shell: |
           gcloud dns record-sets transaction execute \
             --zone={{ DNS_MANAGED_ZONE }} \
-            --project="{{ DNS_PROJECT_ID }}"
+            --project="{{ DNS_PROJECT_ID }}" \
+            --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
         register: status
         failed_when:
           - status.rc == 1
@@ -98,4 +105,5 @@
       - name: Rescue, abort any prior transactions in progress
         shell: gcloud dns record-sets transaction abort \
           --zone={{ DNS_MANAGED_ZONE }} \
-          --project="{{ DNS_PROJECT_ID }}"
+          --project="{{ DNS_PROJECT_ID }}" \
+          --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
