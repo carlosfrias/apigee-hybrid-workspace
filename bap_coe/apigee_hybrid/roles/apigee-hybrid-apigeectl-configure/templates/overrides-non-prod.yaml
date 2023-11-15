@@ -30,6 +30,8 @@ ingressGateways:
 - name: "{{ INGRESS_GATEWAY_NAME }}"
   replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
+#  svcLoadBalancerIP: {{ EXTERNAL_IP }}
+
 
 envs:
 - name: "{{ ENVIRONMENT_NAME }}"

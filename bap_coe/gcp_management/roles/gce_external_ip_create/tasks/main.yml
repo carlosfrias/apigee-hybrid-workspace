@@ -6,17 +6,22 @@
     - PROJECT_ID is defined
     msg: "Please provide PROJECT_ID"
 
-- name: Assert CLUSTER_NAME provided
+- name: Assert GCP_REGION provided
   assert:
     that:
-    - CLUSTER_NAME is defined
-    msg: "Please provide CLUSTER_NAME"
+    - GCP_REGION is defined
+    msg: "Please provide GCP_REGION"
+
+- name: Assert EXTERNAL_IP_NAME provided
+  assert:
+    that:
+    - EXTERNAL_IP_NAME is defined
+    msg: "Please provide EXTERNAL_IP_NAME"
 
 - name: Set cloud dns cache
   set_fact:
     cacheable: yes
     EXTERNAL_IP_DESCRIPION: "{{ EXTERNAL_IP_DESCRIPION | default(DEFAULT_EXTERNAL_IP_DESCRIPION) }}"
-    EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"
     GCP_CLOUD_DNS_DESCRIPTION: "{{ GCP_CLOUD_DNS_DESCRIPTION | default(DEFAULT_GCP_CLOUD_DNS_DESCRIPTION) }}"
 
 - name: Create External IP
@@ -30,21 +35,6 @@
   - status.rc == 1
   - "'already exists' not in status.stderr"
 
-- name: Obtain GCP Token
-  include_role:
-    name: bap_coe.gcp_management.gcp_token_retrieval
-
-- name: Obtain external IP
-  uri:
-    url: "https://www.googleapis.com/compute/v1/projects/{{ PROJECT_ID }}/regions/{{GCP_REGION }}/addresses/{{ EXTERNAL_IP_NAME }}"
-    headers:
-      Authorization: Bearer {{ GCLOUD_TOKEN }}
-  register: external_IP
-
-- name: Set apigee ingress ip
-  set_fact:
-    cacheable: yes
-    EXTERNAL_IP: "{{ external_IP.json.address }}"
 
 
 
