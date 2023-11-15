@@ -50,6 +50,9 @@
 #- name: Create GKE cluster
 #  import_playbook: "{{ playbook_dir | dirname }}/15-create-apigee-gke-cluster/converge.yml"
 #
+#- name: Load Apigee Cluster Credentials
+#  import_playbook: "{{ playbook_dir | dirname }}/gke-cluster-credentials/converge.yml"
+#
 #- name: Install Cert Manager
 #  import_playbook: "{{ playbook_dir | dirname }}/16-install-cert-manager/converge.yml"
 #
