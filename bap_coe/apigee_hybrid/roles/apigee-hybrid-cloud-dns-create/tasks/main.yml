@@ -26,7 +26,6 @@
       --project="{{ DNS_PROJECT_ID }}" \
       --description="{{ GCP_CLOUD_DNS_DESCRIPTION }}" \
       --dns-name="{{ DOMAIN_NAME }}" \
-      --member user:{{ ALTOSTRAT_DOMAIN_ADMIN }} \
       --dnssec-state="off"
   register: status
   failed_when:
@@ -40,7 +39,6 @@
       gcloud dns record-sets transaction start \
         --zone={{ DNS_MANAGED_ZONE }} \
         --project="{{ DNS_PROJECT_ID }}" \ 
-        --member user:{{ ALTOSTRAT_DOMAIN_ADMIN }} \
         --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
   
   - name: Add record set transaction
