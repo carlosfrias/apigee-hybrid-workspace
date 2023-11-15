@@ -6,20 +6,6 @@
     EXTERNAL_IP_DESCRIPION: "{{ EXTERNAL_IP_DESCRIPION | default(DEFAULT_EXTERNAL_IP_DESCRIPION) }}"
     GCP_CLOUD_DNS_DESCRIPTION: "{{ GCP_CLOUD_DNS_DESCRIPTION | default(DEFAULT_GCP_CLOUD_DNS_DESCRIPTION) }}"
 
-#- name: Create Cloud DNS Public Managed Zone
-#  shell: |
-#    gcloud dns managed-zones create {{ DNS_MANAGED_ZONE }} \
-#      --project="{{ PROJECT_ID }}" \
-#      --description="{{ GCP_CLOUD_DNS_DESCRIPTION }}" \
-#      --dns-name="{{ DOMAIN_NAME }}" \
-#      --dnssec-state="off"
-#  register: status
-#  failed_when:
-#    - status.rc == 1
-#    - "'already exists' not in status.stderr"
-
-# Do I need to use the --member for creating an entry in the friasc.apigee.lab?
-
 - name: Create Cloud DNS Public Managed Zone
   shell: |
     gcloud dns managed-zones create {{ DNS_ZONE_NAME }} \
