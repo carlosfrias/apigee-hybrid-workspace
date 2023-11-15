@@ -141,9 +141,7 @@
     failed_when:
     - status.rc == 1
     - "'Already exists' not in status.stderr"
-
   when: "APIGEE_VERSION is version('1.10.0', '>=')"
-
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
@@ -170,25 +168,6 @@
       --iam-account="{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}"
   args:
     creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
-
-#- name: Set workload pool values
-#  set_fact:
-#    cacheable: yes
-#    WORKLOAD_POOL: "{{ PROJECT_ID }}.svc.id.goog"
-#    PROJECT_NUMBER: "{{ project_number.stdout }}"
-#    MESH_ID: "proj-{{ PROJECT_NUMBER | default(project_number.stdout) }}"
-#
-#- name: Set MESH_ID label - this is now in the install_asm bash script
-#  tags: ['install_asm_skip']
-#  shell: gcloud container clusters update {{ CLUSTER_NAME }} --update-labels=mesh_id={{ MESH_ID }}
-#
-#- name: Enable workload identity - this is now in the install_asm bash script
-#  tags: ['install_asm_skip']
-#  shell: gcloud container clusters update {{ CLUSTER_NAME }} --workload-pool={{ WORKLOAD_POOL }}
-#
-#- name: Enable Cloud Monitoring and Cloud Logging in GKE - this is now in the install_asm bash script
-#  tags: ['install_asm_skip']
-#  shell: gcloud container clusters update {{ CLUSTER_NAME }}
 
 - block:
   - name: Rename cluster
@@ -221,9 +200,6 @@
     - status.rc == 1
     - "'already exists' not in status.stderr"
 
-#- name: Update authentication credentials
-#  command: gcloud container clusters get-credentials {{ CLUSTER_NAME }} --zone {{ CLUSTER_ZONE }} --project {{ PROJECT_ID }}
-#
 #- name: Prepare storageclass system path
 #  file:
 #    path: "{{ HYBRID_FILES_DIR }}"
