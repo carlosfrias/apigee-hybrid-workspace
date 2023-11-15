@@ -16,8 +16,8 @@
       --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
   register: status
   failed_when:
-    - status.rc == 1
-    - "'already exists' not in status.stderr"
+  - status.rc == 1
+  - "'already exists' not in status.stderr"
 
 - block:
 
@@ -27,7 +27,7 @@
         --zone={{ DNS_ZONE_NAME }} \
         --project={{ DNS_PROJECT_ID }} \ 
         --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
-  
+
   - name: Add record set transaction
     shell: |
       gcloud dns record-sets transaction add {{ EXTERNAL_IP }} \
@@ -37,7 +37,7 @@
         --type=A \
         --project={{ DNS_PROJECT_ID }} \ 
         --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
-  
+
 
   - name: Execute record set transaction
     shell: |
@@ -45,51 +45,51 @@
         --zone={{ DNS_ZONE_NAME }} \
         --project={{ DNS_PROJECT_ID }} \ 
         --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
-    register: status  
-    failed_when:  
+    register: status
+    failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stderr"
+
+  rescue:
+  - block:
+    - name: Rescue, abort any prior transactions in progress
+      shell: gcloud dns record-sets transaction abort \
+        --zone={{ DNS_ZONE_NAME }} \
+        --project={{ DNS_PROJECT_ID }} \
+        --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
+
+    - name: Rescue, start record set transaction
+      shell: |
+        gcloud dns record-sets transaction start \
+          --zone={{ DNS_ZONE_NAME }} \
+          --project={{ DNS_PROJECT_ID }} \ 
+          --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
+
+    - name: Rescue, record set transaction
+      shell: |
+        gcloud dns record-sets transaction add {{ EXTERNAL_IP }} \
+          --zone={{ DNS_ZONE_NAME }} \
+          --name={{ DOMAIN_NAME }}. \
+          --ttl=300 \
+          --type=A \
+          --project={{ DNS_PROJECT_ID }} \ 
+          --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
+
+    - name: Rescue, record set transaction
+      shell: |
+        gcloud dns record-sets transaction execute \
+          --zone={{ DNS_ZONE_NAME }} \
+          --project={{ DNS_PROJECT_ID }} \ 
+          --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
+      register: status
+      failed_when:
       - status.rc == 1
       - "'already exists' not in status.stderr"
 
-  rescue:
-    - block:
-      - name: Rescue, abort any prior transactions in progress
-        shell: gcloud dns record-sets transaction abort \
-          --zone={{ DNS_ZONE_NAME }} \
-          --project={{ DNS_PROJECT_ID }} \
-          --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
+    rescue:
 
-      - name: Rescue, start record set transaction
-        shell: |
-          gcloud dns record-sets transaction start \
-            --zone={{ DNS_ZONE_NAME }} \
-            --project={{ DNS_PROJECT_ID }} \ 
-            --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
-
-      - name: Rescue, record set transaction
-        shell: |
-          gcloud dns record-sets transaction add {{ EXTERNAL_IP }} \
-            --zone={{ DNS_ZONE_NAME }} \
-            --name={{ DOMAIN_NAME }}. \
-            --ttl=300 \
-            --type=A \
-            --project={{ DNS_PROJECT_ID }} \ 
-            --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
-
-      - name: Rescue, record set transaction
-        shell: |
-          gcloud dns record-sets transaction execute \
-            --zone={{ DNS_ZONE_NAME }} \
-            --project={{ DNS_PROJECT_ID }} \ 
-            --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
-        register: status
-        failed_when:
-          - status.rc == 1
-          - "'already exists' not in status.stderr"
-
-      rescue:
-
-      - name: Rescue, abort any prior transactions in progress
-        shell: gcloud dns record-sets transaction abort \
-          --zone={{ DNS_ZONE_NAME }} \
-          --project={{ DNS_PROJECT_ID }} \
-          --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
+    - name: Rescue, abort any prior transactions in progress
+      shell: gcloud dns record-sets transaction abort \
+        --zone={{ DNS_ZONE_NAME }} \
+        --project={{ DNS_PROJECT_ID }} \
+        --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
