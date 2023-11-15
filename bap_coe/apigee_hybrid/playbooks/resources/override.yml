@@ -49,6 +49,7 @@ SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
 
 DNS_PROJECT_ID: "friasc-apigee-lab"
 DNS_MANAGED_ZONE: "friasc.demo.altostrat.com"
+DNS_ZONE_NAME: "friasc-demo""
 DOMAIN_SUFFIX: "{{ PROJECT_ID }}"
 DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DOMAIN_SUFFIX }}"
 EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"
