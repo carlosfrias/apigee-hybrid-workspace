@@ -12,6 +12,5 @@
     - bap_coe.gcp_management
 
   roles:
-  - { role: gce_external_ip_get }
   - { role: apigee-hybrid-cloud-dns-delete }
 
