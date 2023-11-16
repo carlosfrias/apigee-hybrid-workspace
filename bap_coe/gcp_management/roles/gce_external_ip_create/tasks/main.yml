@@ -27,9 +27,10 @@
 - name: Create External IP
   shell: |
     gcloud compute addresses create {{ EXTERNAL_IP_NAME }} \
-      --project="{{ PROJECT_ID }}" \
       --description="{{ EXTERNAL_IP_DESCRIPION }}" \
-      --region={{ GCP_REGION }}
+      --region={{ GCP_REGION }} \
+      --project="{{ PROJECT_ID }}" \
+      --account {{ ADMIN_ACCOUNT_USER }}
   register: status
   failed_when:
   - status.rc == 1
