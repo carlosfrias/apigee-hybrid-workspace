@@ -30,7 +30,7 @@
       --description="{{ EXTERNAL_IP_DESCRIPION }}" \
       --region={{ GCP_REGION }} \
       --project="{{ PROJECT_ID }}" \
-      --account {{ ADMIN_ACCOUNT_USER }}
+      --account {{ ADMIN_ACCOUNT_EMAIL }}
   register: status
   failed_when:
   - status.rc == 1

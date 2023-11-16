@@ -28,6 +28,7 @@
     gcloud compute addresses delete {{ EXTERNAL_IP_NAME }} \
       --project="{{ PROJECT_ID }}" \
       --region={{ GCP_REGION }} \
+      --account={{ ADMIN_ACCOUNT_EMAIL }} \
       --quiet
   register: status
   ignore_errors: true
