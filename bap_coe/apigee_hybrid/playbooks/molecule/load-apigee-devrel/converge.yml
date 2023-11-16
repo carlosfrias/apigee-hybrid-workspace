@@ -32,43 +32,43 @@
 #    - { role: gcp_resource_manager_folders_permissions_user }
 
   tasks:
-    - name: Download devrel
-      git:
-        repo: "{{ GITHUB_DEVREL_URL }}"
-        dest: "{{ WORK_DIR_DEVREL }}"
+#    - name: Download devrel
+#      git:
+#        repo: "{{ GITHUB_DEVREL_URL }}"
+#        dest: "{{ WORK_DIR_DEVREL }}"
+#
+#    - name: Validate that Sackmesser is available
+#      command: "{{ WORK_DIR_SACKMESSER_BIN }} help"
+#
+#    - name: Deploy the required shared flows
+#      command: "{{ WORK_DIR_COMMON_SHARED_FLOWS }}/deploy.sh all --googleapi"
+#      environment:
+#        APIGEE_X_ORG: "{{ APIGEE_ORG }}"
+#        APIGEE_X_ENV: "{{ ENVIRONMENT_NAME }}"
+#        APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
+#        APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
 
-    - name: Validate that Sackmesser is available
-      command: "{{ WORK_DIR_SACKMESSER_BIN }} help"
-
-    - name: Deploy the required shared flows
-      command: "{{ WORK_DIR_COMMON_SHARED_FLOWS }}/deploy.sh all --googleapi"
-      environment:
-        APIGEE_X_ORG: "{{ APIGEE_ORG }}"
-        APIGEE_X_ENV: "{{ ENVIRONMENT_NAME }}"
-        APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
-        APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
-
-    - name: Generate the test proxy from the proxy template
-      expect:
-        command: "{{ WORK_DIR_PROXY_TEMPLATE }}/generate-proxy.sh --googleapi"
-        responses:
-          Proxy Name: derel-proxy-gen
-          Proxy Version: 1
-          Virtual Host (Edge only): (No entry needed, press enter to skip)
-          Target Server URL: "https://mock.apigee.net/echo"
-      environment:
-        APIGEE_X_ORG: "{{ APIGEE_ORG }}"
-        APIGEE_X_ENV: "{{ ENVIRONMENT_NAME }}"
-        APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
-        APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
+#    - name: Generate the test proxy from the proxy template
+#      command: "./generate-proxy.sh --googleapi"
+#      environment:
+#        APIGEE_X_ORG: "{{ APIGEE_ORG }}"
+#        APIGEE_X_ENV: "{{ ENVIRONMENT_NAME }}"
+#        APIGEE_X_HOSTNAME: "{{ APIGEE_HOSTNAME }}"
+#        APIGEE_TOKEN: "{{ GCLOUD_TOKEN }}"
+#        PROXY: 'devrel-proxy-gen'
+#        VERSION: '1'
+#        VHOST: ' '
+#        TARGET_URL: 'https://mock.apigee.net/echo'
+#      args:
+#        chdir: "{{ WORK_DIR_PROXY_TEMPLATE }}"
 
     - name: Deploy the generated proxies
       command: |
         {{ WORK_DIR_SACKMESSER_BIN }} deploy --googleapi \
         -o {{ APIGEE_ORG }} \
         -e {{ ENVIRONMENT_NAME }} \
-        -t {{ APIGEE_TOKEN }} \
+        -t {{ GCLOUD_TOKEN }} \
         -h {{ APIGEE_HOSTNAME }} \
-        -d ./devel-proxy-gen
+        -d ./devel-proxy-gen-1
       args:
         chdir: "{{ WORK_DIR_PROXY_TEMPLATE }}"

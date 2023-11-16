@@ -5,7 +5,8 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-PROJECT_ID: "friasc-hybrid-2023116-0625"
+PROJECT_ID: "friasc-hybrid-2023116-1147"
+#PROJECT_ID: "friasc-hybrid-2023116-0625"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 
 GCP_ZONE: "us-east1-b"
@@ -256,11 +257,14 @@ WORK_DIR_SACKMESSER: "{{ WORK_DIR_DEVREL }}/tools/apigee-sackmesser"
 WORK_DIR_SACKMESSER_BIN: "{{ WORK_DIR_SACKMESSER }}/bin/sackmesser"
 WORK_DIR_COMMON_SHARED_FLOWS: "{{ WORK_DIR_DEVREL }}/references/common-shared-flows"
 #WORK_DIR_COMMON_SHARED_FLOWS_BIN: "{{ WORK_DIR_COMMON_SHARED_FLOWS }}/deploy.sh"
-WORK_DIR_PROXY_TEMPLATE: "{{ WORK_DIR_DEVREL }}/references/proxy_template"
+WORK_DIR_PROXY_TEMPLATE: "{{ WORK_DIR_DEVREL }}/references/proxy-template"
 #WORK_DIR_PROXY_TEMPLATE_BIN: "{{ WORK_DIR_PROXY_TEMPLATE }}/generate-proxy.sh"
 
 APIGEE_ORG: "{{ PROJECT_ID }}"
 ENVIRONMENT_NAME: "test"
 ENVIRONMENT_GROUP_NAME: "{{ ENVIRONMENT_NAME }}-group"
 APIGEE_HOSTNAME: ""
-#https://friasc-hybrid-2023115-0827-test.friasc-hybrid-2023115-0827/notarget
+
+
+# /usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-workspace/bap_coe/apigee_hybrid/playbooks/work_dir/friasc-hybrid-2023116-0625/devrel/references/proxy_template/generate-proxy.sh
+# /usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-workspace/bap_coe/apigee_hybrid/playbooks/work_dir/friasc-hybrid-2023116-0625/devrel/references/proxy_template/generate-proxy.sh
