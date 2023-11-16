@@ -7,4 +7,10 @@
       --zone={{ DNS_ZONE_NAME }} \
       --type=A \
       --account={{ ALTOSTRAT_DOMAIN_ADMIN }} \
-      --project={{ DNS_PROJECT_ID }} 
+      --project={{ DNS_PROJECT_ID }}
+  register: status
+  failed_when:
+    - status.rc == 1
+    - "'does not exist' not in status.stderr"
+
+      
