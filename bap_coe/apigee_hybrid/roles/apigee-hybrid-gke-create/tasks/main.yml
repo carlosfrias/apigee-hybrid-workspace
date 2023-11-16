@@ -143,10 +143,10 @@
     - "'Already exists' not in status.stderr"
   when: "APIGEE_VERSION is version('1.10.0', '>=')"
 
-#- name: Wait for the cluster to complete initial steps....
-#  pause:
-#    prompt: "Wait {{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }} seconds before continuing..."
-#    seconds: "{{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }}"
+- name: Wait for the cluster to complete initial steps....
+  pause:
+    prompt: "Wait {{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }} seconds before continuing..."
+    seconds: "{{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }}"
 
 - name: Obtain PROJECT_NUMBER
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"

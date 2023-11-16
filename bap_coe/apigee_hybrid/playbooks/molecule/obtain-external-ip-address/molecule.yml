@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 08-create-external-ip-address
+  - name: Obtain External IP Address
 provisioner:
   name: ansible
 verifier:
