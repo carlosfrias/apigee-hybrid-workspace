@@ -55,7 +55,7 @@
           Proxy Name: derel-proxy-gen
           Proxy Version: 1
           Virtual Host (Edge only): (No entry needed, press enter to skip)
-          Target Server URL: "{{ TARGET_SERVER_URL }}"
+          Target Server URL: "https://mock.apigee.net/echo"
       environment:
         APIGEE_X_ORG: "{{ APIGEE_ORG }}"
         APIGEE_X_ENV: "{{ ENVIRONMENT_NAME }}"
