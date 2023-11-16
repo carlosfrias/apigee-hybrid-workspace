@@ -5,8 +5,8 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-#PROJECT_ID: "friasc-hybrid-2023116-1147"
-PROJECT_ID: "friasc-hybrid-2023116-0625"
+PROJECT_ID: "friasc-hybrid-2023116-1147"
+#PROJECT_ID: "friasc-hybrid-2023116-0625"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 
 GCP_ZONE: "us-east1-b"
