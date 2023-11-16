@@ -24,14 +24,14 @@
     path: "{{ WORK_DIR }}"
     state: directory  
 
-#- name: Set default project
-#  shell: gcloud config set project "{{ PROJECT_ID }}"
-#
-#- name: Set compute/region
-#  shell: gcloud config set compute/region {{ REGION }}
-#
-#- name: Set compute/zone
-#  shell: gcloud config set compute/zone {{ CLUSTER_ZONE }}
+- name: Set default project
+  shell: gcloud config set project "{{ PROJECT_ID }}"
+
+- name: Set compute/region
+  shell: gcloud config set compute/region {{ REGION }}
+
+- name: Set compute/zone
+  shell: gcloud config set compute/zone {{ CLUSTER_ZONE }}
 
 - name: Create gcp cluster APIGEE_VERSION < 1.10
   shell: |
