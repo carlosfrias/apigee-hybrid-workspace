@@ -12,5 +12,8 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: gce_external_ip_create, tags: ['dns'] }
+    - { role: service_account_file_path }
+    - { role: service_account_file_processing }
+    - { role: gcp_auth_service_account_activate }
+    - { role: gce_external_ip_create }
 
