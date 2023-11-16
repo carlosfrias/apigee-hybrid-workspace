@@ -178,7 +178,6 @@ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/apigee.runtimeAgent"
   - "roles/apigee.synchronizerManager"
   - "roles/apigeeconnect.Agent"
-  - "roles/compute.address.get"
   - "roles/compute.admin"
   - "roles/compute.instanceAdmin"
   - "roles/compute.loadBalancerAdmin"
