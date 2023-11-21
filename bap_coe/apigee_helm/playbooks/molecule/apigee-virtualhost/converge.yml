@@ -14,7 +14,7 @@
       kubernetes.core.helm:
         name: apigee-virtualhost
         binary_path: "{{ HELM_BINARY }}"
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-virtualhost"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/apigee-virtualhost"
         state: present
         release_namespace: "{{ NAMESPACE }}"
 

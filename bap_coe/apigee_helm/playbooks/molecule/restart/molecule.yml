@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: create-apigee-organization
+- name: apigee-helm
 provisioner:
   name: ansible
 verifier:

@@ -22,6 +22,11 @@
 #        repo_url: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
 ##      with_items: "{{ APIGEE_HYBRID_CHART_LIST }}"
 
+#    - name: Assert if helm chart dir exists
+#      stat:
+#        path: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
+#      register: found
+
     - name: helm pull
       kubernetes.core.helm_pull:
         binary_path: "{{ HELM_BINARY }}"
@@ -33,10 +38,11 @@
       register: output
       changed_when:
       - '"already exists" in output.stderr_lines[-1]'
+#      when: "{{ not found.stat.exists }}"
 
     - name: Create namespace
       kubernetes.core.k8s:
+        state: present
         name: apigee
         api_version: v1
         kind: Namespace
-        state: present

@@ -1,0 +1,18 @@
+---
+- name: Login with Apigee service account
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+  - bap_coe.apigee_hybrid
+  - bap_coe.gcp_management
+
+  roles:
+  - { role: service_account_file_path }
+  - { role: service_account_file_processing }
+  - { role: gcp_auth_service_account_activate }

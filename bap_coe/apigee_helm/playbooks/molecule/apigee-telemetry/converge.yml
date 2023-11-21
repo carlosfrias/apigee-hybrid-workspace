@@ -14,7 +14,7 @@
       kubernetes.core.helm:
         name: apigee-telemetry
         binary_path: "{{ HELM_BINARY }}"
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-telemetry"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/apigee-telemetry"
         state: present
         release_namespace: "{{ NAMESPACE }}"
 

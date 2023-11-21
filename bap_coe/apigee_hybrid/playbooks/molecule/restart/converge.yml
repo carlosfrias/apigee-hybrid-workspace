@@ -22,52 +22,52 @@
 #
 #- name: Create network
 #  import_playbook: "{{ playbook_dir | dirname }}/07-create-network/converge.yml"
-
-- name: Create external ip address
-  import_playbook: "{{ playbook_dir | dirname }}/08-create-external-ip-address/converge.yml"
-
+#
+#- name: Create external ip address
+#  import_playbook: "{{ playbook_dir | dirname }}/08-create-external-ip-address/converge.yml"
+#
 - name: Obtain External IP Address
   import_playbook: "{{ playbook_dir | dirname }}/obtain-external-ip-address/converge.yml"
-
-- name: Create DNS record
-  import_playbook: "{{ playbook_dir | dirname }}/09-create-dns-record/converge.yml"
-
-- name: Install apigeectl binary
-  import_playbook: "{{ playbook_dir | dirname }}/10-install-apigeectl-binary/converge.yml"
-
-- name: Service Account Activate
-  import_playbook: "{{ playbook_dir | dirname }}/service-account-activate/converge.yml"
-
-- name: Create apigee service accounts
-  import_playbook: "{{ playbook_dir | dirname }}/11-create-apigee-service-account/converge.yml"
-
-- name: Create TLS certs
-  import_playbook: "{{ playbook_dir | dirname }}/12-create-tls-certs/converge.yml"
-
-- name: Create an Apigee Organization
-  import_playbook: "{{ playbook_dir | dirname }}/13-create-apigee-organization/converge.yml"
-
-- name: Create an Apigee Environment Group
-  import_playbook: "{{ playbook_dir | dirname }}/14-create-apigee-environment-group/converge.yml"
-
-- name: Create GKE cluster
-  import_playbook: "{{ playbook_dir | dirname }}/15-create-apigee-gke-cluster/converge.yml"
-
-- name: Load Apigee Cluster Credentials
-  import_playbook: "{{ playbook_dir | dirname }}/gke-cluster-credentials/converge.yml"
-
-- name: Install Cert Manager
-  import_playbook: "{{ playbook_dir | dirname }}/16-install-cert-manager/converge.yml"
-
-- name: Enable Synchronizer
-  import_playbook: "{{ playbook_dir | dirname }}/17-enable-synchronizer/converge.yml"
-
-- name: Enable Apigee Connect
-  import_playbook: "{{ playbook_dir | dirname }}/18-enable-apigee-connect/converge.yml"
-
-- name: Assert Cluster Ready Check
-  import_playbook: "{{ playbook_dir | dirname }}/19-apigee-cluster-ready-check/converge.yml"
-
+#
+#- name: Create DNS record
+#  import_playbook: "{{ playbook_dir | dirname }}/09-create-dns-record/converge.yml"
+#
+#- name: Install apigeectl binary
+#  import_playbook: "{{ playbook_dir | dirname }}/10-install-apigeectl-binary/converge.yml"
+#
+#- name: Service Account Activate
+#  import_playbook: "{{ playbook_dir | dirname }}/service-account-activate/converge.yml"
+#
+#- name: Create apigee service accounts
+#  import_playbook: "{{ playbook_dir | dirname }}/11-create-apigee-service-account/converge.yml"
+#
+#- name: Create TLS certs
+#  import_playbook: "{{ playbook_dir | dirname }}/12-create-tls-certs/converge.yml"
+#
+#- name: Create an Apigee Organization
+#  import_playbook: "{{ playbook_dir | dirname }}/create-apigee-organization/converge.yml"
+#
+#- name: Create an Apigee Environment Group
+#  import_playbook: "{{ playbook_dir | dirname }}/14-create-apigee-environment-group/converge.yml"
+#
+#- name: Create GKE cluster
+#  import_playbook: "{{ playbook_dir | dirname }}/15-create-apigee-gke-cluster/converge.yml"
+#
+#- name: Load Apigee Cluster Credentials
+#  import_playbook: "{{ playbook_dir | dirname }}/gke-cluster-credentials/converge.yml"
+#
+#- name: Install Cert Manager
+#  import_playbook: "{{ playbook_dir | dirname }}/16-install-cert-manager/converge.yml"
+#
+#- name: Enable Synchronizer
+#  import_playbook: "{{ playbook_dir | dirname }}/17-enable-synchronizer/converge.yml"
+#
+#- name: Enable Apigee Connect
+#  import_playbook: "{{ playbook_dir | dirname }}/18-enable-apigee-connect/converge.yml"
+#
+#- name: Assert Cluster Ready Check
+#  import_playbook: "{{ playbook_dir | dirname }}/19-apigee-cluster-ready-check/converge.yml"
+#
 - name: Apigee Runtime Config
   import_playbook: "{{ playbook_dir | dirname }}/20-configure-apigee-runtime/converge.yml"
 

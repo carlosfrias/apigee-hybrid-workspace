@@ -14,7 +14,7 @@
       kubernetes.core.helm:
         name: apigee-operator
         binary_path: "{{ HELM_BINARY }}"
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-operator"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/apigee-operator"
         state: present
         release_namespace: "{{ NAMESPACE }}"
 

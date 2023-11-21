@@ -1,0 +1,17 @@
+---
+- name: Clean up Apigee hybrid
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+    - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  tasks:
+    - name: Clean up work_dir
+      file:
+        path: "{{ WORK_DIR }}"
+        state: absent
+

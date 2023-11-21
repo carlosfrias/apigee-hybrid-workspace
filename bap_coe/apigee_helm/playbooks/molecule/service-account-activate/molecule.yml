@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: create-apigee-organization
+  - name: Service Account Activate
 provisioner:
   name: ansible
 verifier:
