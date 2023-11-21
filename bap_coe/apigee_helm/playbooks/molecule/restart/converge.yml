@@ -37,13 +37,13 @@
 #
 #- name: Create an Apigee organization
 #  import_playbook: "{{ playbook_dir | dirname }}/create-apigee-organization/converge.yml"
-
-- name: Create an Apigee environment group
-  import_playbook: "{{ playbook_dir | dirname }}/create-apigee-environment-group/converge.yml"
-
-#- name: Configure Apigee GKE Cluster
-#  import_playbook: "{{ playbook_dir | dirname }}/create-gke-cluster/converge.yml"
 #
+#- name: Create an Apigee environment group
+#  import_playbook: "{{ playbook_dir | dirname }}/create-apigee-environment-group/converge.yml"
+#
+- name: Configure Apigee GKE Cluster
+  import_playbook: "{{ playbook_dir | dirname }}/create-gke-cluster/converge.yml"
+
 #- name: Create an Apigee organization
 #  import_playbook: "{{ playbook_dir | dirname }}/create-apigee-organization/converge.yml"
 #
