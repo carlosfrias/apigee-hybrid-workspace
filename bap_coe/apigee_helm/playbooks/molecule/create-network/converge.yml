@@ -1,5 +1,4 @@
----
-- name: Delete infrastructure for private cloud in GCP
+- name: Create a default network
   hosts: localhost
   connection: local
 
@@ -8,9 +7,10 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   collections:
+    - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
   roles:
-    - { role: gcp_project_delete }
-    - { role: gcp_resource_manager_folders_get_folder_id }
-    - { role: gcp_resource_manager_folders_delete }
+    - { role: service_account_file_path }
+    - { role: service_account_file_processing }
+    - { role: gce_network_create }

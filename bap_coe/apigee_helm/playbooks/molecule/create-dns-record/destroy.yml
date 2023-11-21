@@ -1,5 +1,4 @@
----
-- name: Delete infrastructure for private cloud in GCP
+- name: Create DNS record
   hosts: localhost
   connection: local
 
@@ -8,9 +7,9 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   collections:
+    - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
   roles:
-    - { role: gcp_project_delete }
-    - { role: gcp_resource_manager_folders_get_folder_id }
-    - { role: gcp_resource_manager_folders_delete }
+  - { role: apigee-hybrid-cloud-dns-delete }
+

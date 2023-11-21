@@ -36,6 +36,7 @@
         untar_chart: true
       with_items: "{{ APIGEE_HYBRID_CHART_LIST }}"
       register: output
-      changed_when:
-      - '"already exists" in output.stderr_lines[-1]'
+      failed_when:
+        - output.rc == 1
+        - '"already exists" not in output.stderr'
 #      when: "{{ not found.stat.exists }}"

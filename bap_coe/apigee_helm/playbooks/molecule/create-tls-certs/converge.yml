@@ -1,16 +1,15 @@
----
-- name: Delete infrastructure for private cloud in GCP
+- name: Create TLS certs
   hosts: localhost
   connection: local
+  gather_facts: true
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   collections:
+    - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
   roles:
-    - { role: gcp_project_delete }
-    - { role: gcp_resource_manager_folders_get_folder_id }
-    - { role: gcp_resource_manager_folders_delete }
+    - { role: apigee-hybrid-tls-certs, tags: ['tls'] }

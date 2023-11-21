@@ -1,6 +1,6 @@
 ---
 #- name: Configure Apigee Hybrid Project
-#  import_playbook: "{{ playbook_dir | dirname }}/create-project/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
 #
 #- name: Configure GCP Org Policies
 #  import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/converge.yml"
@@ -31,6 +31,9 @@
 #
 #- name: Install helm
 #  import_playbook: "{{ playbook_dir | dirname }}/install-helm/converge.yml"
+#
+- name: Create TLS certs
+  import_playbook: "{{ playbook_dir | dirname }}/12-create-tls-certs/converge.yml"
 #
 #- name: Download Apigee Hybrid helm charts
 #  import_playbook: "{{ playbook_dir | dirname }}/download-helm-charts/converge.yml"
