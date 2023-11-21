@@ -13,8 +13,8 @@
     src: "{{ item.src }}"
     state: link
   with_items:
-    - { src: "{{ APIGEECTL_DIR }}/tools" , path: "{{ HYBRID_FILES_DIR }}/tools" } 
-    - { src: "{{ APIGEECTL_DIR }}/config" , path: "{{ HYBRID_FILES_DIR }}/config" } 
-    - { src: "{{ APIGEECTL_DIR }}/templates" , path: "{{ HYBRID_FILES_DIR }}/templates" } 
-    - { src: "{{ APIGEECTL_DIR }}/plugins" , path: "{{ HYBRID_FILES_DIR }}/plugins" } 
+    - { src: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}/tools" , path: "{{ HYBRID_FILES_DIR }}/tools" }
+    - { src: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}/config" , path: "{{ HYBRID_FILES_DIR }}/config" }
+    - { src: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}/templates" , path: "{{ HYBRID_FILES_DIR }}/templates" }
+    - { src: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}plugins" , path: "{{ HYBRID_FILES_DIR }}/plugins" }
 
