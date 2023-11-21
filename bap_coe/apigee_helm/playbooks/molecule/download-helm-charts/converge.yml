@@ -39,10 +39,3 @@
       changed_when:
       - '"already exists" in output.stderr_lines[-1]'
 #      when: "{{ not found.stat.exists }}"
-
-    - name: Create namespace
-      kubernetes.core.k8s:
-        state: present
-        name: apigee
-        api_version: v1
-        kind: Namespace

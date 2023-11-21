@@ -10,11 +10,31 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
+
+    - name: Create namespace
+      kubernetes.core.k8s:
+        state: present
+        name: apigee
+        api_version: v1
+        kind: Namespace
+
+#    - name: Add chart repo
+#      kubernetes.core.helm_repository:
+#        name: apigee
+#        repo_url: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
+
+    - name: Apply CRD
+      kubernetes.core.k8s:
+        state: present
+        src: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-operator/etc/crds/default"
+#        apply: true
+#        server_side_apply: true
+#        force: true
+
     - name: Configure Apigee Operator
       kubernetes.core.helm:
         name: apigee-operator
         binary_path: "{{ HELM_BINARY }}"
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/apigee-operator"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-operator"
         state: present
         release_namespace: "{{ NAMESPACE }}"
-
