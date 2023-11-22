@@ -4,9 +4,9 @@
   set_fact: 
     cacheable: yes
     CSR_COMMON_NAME: "{{ CSR_COMMON_NAME | default('*.hybrid-apigee.net') }}"
-    SSL_CERT_PATH: "{{  HYBRID_FILES_DIR + '/certs/keystore.pem' }}"
-    SSL_KEY_PATH: "{{ HYBRID_FILES_DIR + '/certs/keystore.key' }}"
-    CERT_SIGNING_REQUEST: "{{ HYBRID_FILES_DIR + '/certs/keystore.csr' }}"
+    SSL_CERT_PATH: "{{ CERT_FILE_DIR }}/keystore.pem"
+    SSL_KEY_PATH: "{{ CERT_FILE_DIR }}/keystore.key"
+    CERT_SIGNING_REQUEST: "{{ CERT_FILE_DIR }}/keystore.csr"
 
 - name: Assert whether private key was provided
   stat:
