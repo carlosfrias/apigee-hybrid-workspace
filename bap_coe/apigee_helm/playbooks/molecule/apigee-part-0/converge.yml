@@ -1,0 +1,27 @@
+---
+- name: Provision project
+  import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
+
+- name: Update organization policies
+  import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/converge.yml"
+
+- name: Create service accounts
+  import_playbook: "{{ playbook_dir | dirname }}/create-service-account/converge.yml"
+
+- name: Create service account keys
+  import_playbook: "{{ playbook_dir | dirname }}/create-service-account-keys/converge.yml"
+
+- name: Update service account permissions
+  import_playbook: "{{ playbook_dir | dirname }}/create-service-account-permissions/converge.yml"
+
+- name: Create network
+  import_playbook: "{{ playbook_dir | dirname }}/create-network/converge.yml"
+
+- name: Create external ip address
+  import_playbook: "{{ playbook_dir | dirname }}/create-external-ip-address/converge.yml"
+
+- name: Obtain External IP Address
+  import_playbook: "{{ playbook_dir | dirname }}/obtain-external-ip-address/converge.yml"
+
+- name: Create DNS record
+  import_playbook: "{{ playbook_dir | dirname }}/create-dns-record/converge.yml"
