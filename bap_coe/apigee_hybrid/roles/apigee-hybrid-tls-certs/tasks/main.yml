@@ -40,7 +40,7 @@
 - block: 
   - name: Create Directory Structure
     file:
-      path: "{{ HYBRID_FILES_DIR }}/certs"
+      path: "{{ CERT_FILE_DIR }}"
       state: directory
       mode: "0755"
 
