@@ -23,7 +23,7 @@
 - name: Download Apigee hybrid archive
   get_url:
     url: "{{ APIGEE_HYBRID_PACKAGE_DOWNLOAD_LINK }}"
-    dest: "{{ WORK_DIR }}"
+    dest: "{{ WORKDIR_DOWNLOAD_DEST }}"
 
 - name: Create target unarchive folder
   file: 
@@ -32,7 +32,7 @@
 
 - name: Expand Apigee hybrid archive
   unarchive:
-    src: "{{ WORK_DIR }}/{{ APIGEE_HYBRID_ARCHIVE_NAME }}"
+    src: "{{ WORKDIR_DOWNLOAD_DEST }}/{{ APIGEE_HYBRID_ARCHIVE_NAME }}"
     dest: "{{ WORK_DIR }}/tmp/"
     remote_src: yes
 
