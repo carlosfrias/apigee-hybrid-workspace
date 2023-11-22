@@ -14,7 +14,7 @@
     KUBERNETES_VERSION: "{{ KUBERNETES_VERSION | default(DEFAULT_KUBERNETES_VERSION) }}"
     AZ_KUBECONFIG: "{{ WORK_DIR }}/kubeconfig-azure.yaml"
     DEFAULT_SERVICE_ACCOUNT_NAME: "apigee-hybrid-asm"
-    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ ADMIN_SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
+    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/credentials/{{ ADMIN_SERVICE_ACCOUNT_NAME }}-service-account-key.json"
 
 #- name: Retrieve service principal
 #  shell: az ad sp list --show-mine

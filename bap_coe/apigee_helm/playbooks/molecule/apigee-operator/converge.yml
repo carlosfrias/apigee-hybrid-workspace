@@ -45,4 +45,4 @@
 #        state: present
 #        release_namespace: "{{ NAMESPACE }}"
 
-    - name: Configure Apigee Operator
+#    - name: Configure Apigee Operator

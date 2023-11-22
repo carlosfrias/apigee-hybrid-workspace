@@ -31,7 +31,7 @@
     ISTIO_ASM_REVISION: "asm-{{ ISTIO_VERSION | regex_replace('\\.', '') }}-{{ ISTIO_VERSION_REVISION.split('.')[1] }}"
     AUTO_INJECTION_NAMESPACE: "{{ AUTO_INJECTION_NAMESPACE | default(DEFAULT_AUTO_INJECTION_NAMESPACE) }}"
     ASM_PROFILE_NAME: "{{ ASM_PROFILE_NAME | default(DEFAULT_ASM_PROFILE_NAME) }}"
-    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ ADMIN_SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
+    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/credentials/{{ ADMIN_SERVICE_ACCOUNT_NAME }}-service-account-key.json"
     CSM_DOWNLOAD_BASE_URL: "{{ CSM_DOWNLOAD_BASE_URL | default(DEFAULT_CSM_DOWNLOAD_BASE_URL) }}"
 
 - name: Install Istio GKE

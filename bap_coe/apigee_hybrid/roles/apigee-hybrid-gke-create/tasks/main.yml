@@ -11,7 +11,7 @@
 - name: Set gke cache
   set_fact:
     cacheable: yes
-    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/{{ ADMIN_SERVICE_ACCOUNT_NAME }}-service-account-credentials.json"
+    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/credentials/{{ ADMIN_SERVICE_ACCOUNT_NAME }}-service-account-key.json"
 
 - name: Set KUBECONFIG cache
   set_fact:
