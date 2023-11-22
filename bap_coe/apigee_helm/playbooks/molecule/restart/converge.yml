@@ -3,46 +3,46 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
 #
 #- name: Update organization policies
-#  import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-config-org-policies/converge.yml"
 #
 #- name: Create service accounts
-#  import_playbook: "{{ playbook_dir | dirname }}/create-service-account/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
 #
 #- name: Create service account keys
-#  import_playbook: "{{ playbook_dir | dirname }}/create-service-account-keys/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create-keys/converge.yml"
 #
 #- name: Update service account permissions
-#  import_playbook: "{{ playbook_dir | dirname }}/create-service-account-permissions/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create-permissions/converge.yml"
 #
 #- name: Update services api
-#  import_playbook: "{{ playbook_dir | dirname }}/enable-apis/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
 #
 #- name: Create an Apigee organization
-#  import_playbook: "{{ playbook_dir | dirname }}/create-apigee-organization/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-organization-create/converge.yml"
 #
 - name: Enable Synchronizer
   import_playbook: "{{ playbook_dir | dirname }}/enable-synchronizer/converge.yml"
 
 #- name: Create an Apigee environment group
-#  import_playbook: "{{ playbook_dir | dirname }}/create-apigee-environment-group/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-environment-group-create/converge.yml"
 #
 #- name: Install apigeectl
-#  import_playbook: "{{ playbook_dir | dirname }}/install-apigeectl-binary/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-install-binary/converge.yml"
 #
 #- name: Create TLS certs
 #  import_playbook: "{{ playbook_dir | dirname }}/create-tls-certs/converge.yml"
 #
 #- name: Create network
-#  import_playbook: "{{ playbook_dir | dirname }}/create-network/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-network-create/converge.yml"
 #
 #- name: Create external ip address
-#  import_playbook: "{{ playbook_dir | dirname }}/create-external-ip-address/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
 #
 #- name: Obtain External IP Address
-#  import_playbook: "{{ playbook_dir | dirname }}/obtain-external-ip-address/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
 #
 #- name: Create DNS record
-#  import_playbook: "{{ playbook_dir | dirname }}/create-dns-record/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/converge.yml"
 #
 #- name: Configure Apigee GKE Cluster
 #  import_playbook: "{{ playbook_dir | dirname }}/create-gke-cluster/converge.yml"
@@ -66,7 +66,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-redis/converge.yml"
 #
 #- name: Configure Apigee Org
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-org/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
 #
 #- name: Configure Apigee Env
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-env/converge.yml"

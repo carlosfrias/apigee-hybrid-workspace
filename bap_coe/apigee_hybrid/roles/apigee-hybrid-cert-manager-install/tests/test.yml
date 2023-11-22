@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - roles/apigee-hybrid-cert-manager-install
+    - roles/apigee-hybrid-apigee-cert-manager-install

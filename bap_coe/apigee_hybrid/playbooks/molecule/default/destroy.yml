@@ -6,7 +6,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/terraform/destroy.yml"
 
 - name: Destroy DNS records for the environment and project
-  import_playbook: "{{ playbook_dir | dirname }}/09-create-dns-record/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/destroy.yml"
 
 - name: Provision project - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/01-provision-project/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"

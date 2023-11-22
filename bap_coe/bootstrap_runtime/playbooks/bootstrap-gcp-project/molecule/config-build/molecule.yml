@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 00-config-build
+  - name: molecule-config-build
 provisioner:
   name: ansible
 verifier:

@@ -73,7 +73,7 @@
     AZ_REGION: "{{ AZ_REGION }}"
 
 - name: Login to AZ
-  shell: "az service-account-activate -u {{ AZ_ACCOUNT_EMAIL }} -p {{ AZ_ACCOUNT_EMAIL_PASSWORD }}"
+  shell: "az gcp-service-account-activate -u {{ AZ_ACCOUNT_EMAIL }} -p {{ AZ_ACCOUNT_EMAIL_PASSWORD }}"
 
 - name: Create a resource group if it does not exist
   shell: az group create --name {{ AZ_RESOURCE_GROUP }} --location {{ AZ_REGION }}

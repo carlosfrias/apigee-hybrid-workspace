@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 03-05-create-service-account-keys
+  - name: 03-gcp-service-account-create-keys
 provisioner:
   name: ansible
 verifier:

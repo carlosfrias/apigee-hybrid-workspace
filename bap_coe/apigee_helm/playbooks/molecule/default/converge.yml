@@ -3,19 +3,19 @@
   import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
 
 - name: Configure GCP Org Policies
-  import_playbook: "{{ playbook_dir | dirname }}/config-org-policies/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-config-org-policies/converge.yml"
 
 - name: Create Apigee Hybrid Project Service Account
-  import_playbook: "{{ playbook_dir | dirname }}/create-service-account/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
 
 - name: Configure Apigee Hybrid Project Service Account Permissions
-  import_playbook: "{{ playbook_dir | dirname }}/create-service-account-permissions/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create-permissions/converge.yml"
 
 - name: Download Apigee Hybrid Project Service Account Keys
-  import_playbook: "{{ playbook_dir | dirname }}/create-service-account-keys/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create-keys/converge.yml"
 
 - name: Download Apigee Hybrid Project Service Account Keys
-  import_playbook: "{{ playbook_dir | dirname }}/enable-apis/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
 
 - name: Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/create-gke-cluster/converge.yml"
@@ -39,7 +39,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-redis/converge.yml"
 #
 #- name: Configure Apigee Org
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-org/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
 #
 #- name: Configure Apigee Env
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-env/converge.yml"

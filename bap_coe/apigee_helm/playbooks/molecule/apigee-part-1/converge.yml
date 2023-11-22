@@ -1,22 +1,9 @@
 ---
 - name: Update services api
-  import_playbook: "{{ playbook_dir | dirname }}/enable-apis/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
 
 - name: Create an Apigee organization
-  import_playbook: "{{ playbook_dir | dirname }}/create-apigee-organization/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-organization-create/converge.yml"
 
 - name: Create an Apigee environment group
-  import_playbook: "{{ playbook_dir | dirname }}/create-apigee-environment-group/converge.yml"
-
-#- name: Install apigeectl
-#  import_playbook: "{{ playbook_dir | dirname }}/install-apigeectl-binary/converge.yml"
-#
-#- name: Service Account Activate
-#  import_playbook: "{{ playbook_dir | dirname }}/service-account-activate/converge.yml"
-#
-#- name: Create apigee service accounts
-#  import_playbook: "{{ playbook_dir | dirname }}/create-service-account/converge.yml"
-#
-#- name: Create TLS certs
-#  import_playbook: "{{ playbook_dir | dirname }}/create-tls-certs/converge.yml"
-#
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-environment-group-create/converge.yml"

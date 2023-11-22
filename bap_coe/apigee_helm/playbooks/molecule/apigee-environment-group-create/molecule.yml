@@ -1,0 +1,16 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+  - name: apigee-environment-group-create
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

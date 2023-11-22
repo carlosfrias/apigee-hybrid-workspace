@@ -1,0 +1,14 @@
+---
+# defaults file for roles/apigee-hybrid-service-account-create
+DEFAULT_SERVICE_ACCOUNTS:
+  - apigee-non-prod
+#  - apigee-metrics
+#  - apigee-synchronizer
+#  - apigee-udca
+#  - apigee-mart
+#  - apigee-cassandra
+#  - apigee-logger
+#  - apigee-watcher
+#  - apigee-distributed-trace
+
+DEFAULT_SERVICE_ACCOUNT_ADMIN: helm-apigee-org-admin
