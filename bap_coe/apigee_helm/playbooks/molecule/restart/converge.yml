@@ -50,12 +50,12 @@
 #- name: Install helm
 #  import_playbook: "{{ playbook_dir | dirname }}/install-helm/converge.yml"
 #
-- name: Download Apigee Hybrid helm charts
-  import_playbook: "{{ playbook_dir | dirname }}/download-helm-charts/converge.yml"
-
-#- name: Configure Apigee Operator
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-operator/converge.yml"
+#- name: Download Apigee Hybrid helm charts
+#  import_playbook: "{{ playbook_dir | dirname }}/download-helm-charts/converge.yml"
 #
+- name: Configure Apigee Operator
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-operator/converge.yml"
+
 #- name: Configure Apigee Datastore
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-datastore/converge.yml"
 #

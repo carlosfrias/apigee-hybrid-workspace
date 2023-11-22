@@ -4,8 +4,8 @@
   set_fact: 
     cacheable: yes
     CSR_COMMON_NAME: "{{ CSR_COMMON_NAME | default('*.hybrid-apigee.net') }}"
-    SSL_CERT_PATH: "{{ CERT_FILE_DIR }}/keystore.pem"
-    SSL_KEY_PATH: "{{ CERT_FILE_DIR }}/keystore.key"
+    SSL_CERT_PATH: "{{ CERT_FILE_DIR }}/keystore_{{ ENVIRONMENT_GROUP_NAME }}.pem"
+    SSL_KEY_PATH: "{{ CERT_FILE_DIR }}/keystore_{{ ENVIRONMENT_GROUP_NAME }}.key"
     CERT_SIGNING_REQUEST: "{{ CERT_FILE_DIR }}/keystore.csr"
 
 - name: Assert whether private key was provided
@@ -53,7 +53,7 @@
     openssl_csr:
       path: "{{ CERT_SIGNING_REQUEST }}"
       privatekey_path: "{{ SSL_KEY_PATH }}"
-      common_name: "{{ CSR_COMMON_NAME }}"
+      common_name: "{{ DOMAIN_NAME }}"
 
   - name: Generate a Self Signed OpenSSL certificate for TLS credentials
     openssl_certificate:
