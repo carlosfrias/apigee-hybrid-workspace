@@ -9,8 +9,9 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: 10-install-apigeectl-binary
+  - name: apigee part 1 of the installation
 provisioner:
   name: ansible
 verifier:
   name: ansible
+

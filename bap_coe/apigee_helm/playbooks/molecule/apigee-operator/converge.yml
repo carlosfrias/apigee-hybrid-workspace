@@ -37,11 +37,12 @@
       args:
         chdir: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
 
+#    - name: Configure Apigee Operator
+#      kubernetes.core.helm:
+#        name: apigee-operator
+#        binary_path: "{{ HELM_BINARY }}"
+#        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-operator"
+#        state: present
+#        release_namespace: "{{ NAMESPACE }}"
 
     - name: Configure Apigee Operator
-      kubernetes.core.helm:
-        name: apigee-operator
-        binary_path: "{{ HELM_BINARY }}"
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/apigee-operator"
-        state: present
-        release_namespace: "{{ NAMESPACE }}"
