@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: create-tls-certs
+  - name: tls-certs-create
 provisioner:
   name: ansible
   ansible_args:

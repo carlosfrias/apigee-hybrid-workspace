@@ -12,4 +12,4 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-tls-certs, tags: ['tls'] }
+    - { role: apigee-hybrid-tls-certs-create, tags: ['tls'] }

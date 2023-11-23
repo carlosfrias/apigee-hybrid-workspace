@@ -20,6 +20,6 @@
       shell: kubectl -n apigee delete service apigee-mart-istio-ingressgateway 
 
   roles: 
-    - { role: apigee-hybrid-tls-certs, tags: ['tls'] }
+    - { role: apigee-hybrid-tls-certs-create, tags: ['tls'] }
     - { role: apigee-hybrid-apigeectl-configure, tags: ['configure'] }
     - { role: apigee-hybrid-apigeectl-apply, tags: ['apply'] }

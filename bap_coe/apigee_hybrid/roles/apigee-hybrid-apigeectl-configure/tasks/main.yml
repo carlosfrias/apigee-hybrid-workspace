@@ -11,7 +11,7 @@
 
 - name: Load TLS certs
   import_role:
-    name: apigee-hybrid-tls-certs
+    name: apigee-hybrid-tls-certs-create
 
 - name: Set attributes in cache
   set_fact: 
