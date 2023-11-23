@@ -21,7 +21,7 @@
 
 - name: Assert download folder
   file:
-    path: "{{ WORKDIR_DONWLOAD_DEST }}"
+    path: "{{ WORKDIR_DOWNLOAD_DEST }}"
     state: directory
 
 - name: Download Apigee hybrid archive
