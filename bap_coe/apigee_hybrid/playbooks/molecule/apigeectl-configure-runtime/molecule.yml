@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigeeclt-configure-runtime
+  - name: apigeectl-configure-runtime
 provisioner:
   name: ansible
   ansible_args:

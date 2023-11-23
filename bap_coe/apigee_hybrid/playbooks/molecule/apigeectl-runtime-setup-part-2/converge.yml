@@ -14,14 +14,14 @@
 - name: Enable Apigee Connect
   import_playbook: "{{ playbook_dir | dirname }}/apigeectl-connect-enable/converge.yml"
 
-- name: Install ASM
-  import_playbook: "{{ playbook_dir | dirname }}/install-asm-apigee-hybrid-less-than-1.8.1/converge.yml"
-
 - name: Assert Cluster Ready Check
   import_playbook: "{{ playbook_dir | dirname }}/apigeectl-cluster-ready-check/converge.yml"
 
+- name: Obtain External IP Address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+
 - name: Apigee runtime config
-  import_playbook: "{{ playbook_dir | dirname }}/apigeeclt-configure-runtime/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-configure-runtime/converge.yml"
 
 - name: Apigee runtime init
   import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-init/converge.yml"

@@ -69,7 +69,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/19-apigeectl-cluster-ready-check/converge.yml"
 #
 - name: Apigee Runtime Config
-  import_playbook: "{{ playbook_dir | dirname }}/apigeeclt-configure-runtime/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-configure-runtime/converge.yml"
 
 - name: Apigee Runtime Init
   import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-init/converge.yml"
