@@ -19,6 +19,11 @@
     cacheable: yes
     APIGEE_HYBRID_PACKAGE_DOWNLOAD_LINK: "{{ APIGEE_HYBRID_SETUP_BASE_URI }}/{{ APIGEE_VERSION }}/{{ APIGEE_HYBRID_ARCHIVE_NAME }}"
 
+- name: Assert download folder
+  file:
+    path: "{{ WORKDIR_DONWLOAD_DEST }}"
+    state: directory
+
 - name: Download Apigee hybrid archive
   get_url:
     url: "{{ APIGEE_HYBRID_PACKAGE_DOWNLOAD_LINK }}"
