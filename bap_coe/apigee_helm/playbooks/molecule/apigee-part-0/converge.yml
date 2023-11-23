@@ -9,10 +9,13 @@
   import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
 
 - name: Create service account keys
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create-keys/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-keys-create/converge.yml"
 
 - name: Update service account permissions
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create-permissions/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-permissions-create/converge.yml"
+
+- name: Update services api
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
 
 - name: Create network
   import_playbook: "{{ playbook_dir | dirname }}/gcp-network-create/converge.yml"

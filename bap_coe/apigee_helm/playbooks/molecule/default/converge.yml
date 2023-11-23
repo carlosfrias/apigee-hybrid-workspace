@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
 
 - name: Configure GCP Org Policies
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-config-org-policies/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-apigee-config-org-policies/converge.yml"
 
 - name: Create Apigee Hybrid Project Service Account
   import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
@@ -18,7 +18,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
 
 - name: Configure Apigee GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/create-gke-cluster/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
 
 - name: Install helm
   import_playbook: "{{ playbook_dir | dirname }}/install-helm/converge.yml"

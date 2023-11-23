@@ -4,7 +4,6 @@
   import_role:
     name: apigee-hybrid-apigee-version
 
-
 - name: Construct Apigee hybrid file name
   set_fact:
     cacheable: yes
@@ -27,18 +26,18 @@
 
 - name: Create target unarchive folder
   file: 
-    path: "{{ WORK_DIR }}/tmp"
+    path: "{{ WORKDIR_DOWNLOAD_DEST }}/tmp"
     state: directory
 
 - name: Expand Apigee hybrid archive
   unarchive:
     src: "{{ WORKDIR_DOWNLOAD_DEST }}/{{ APIGEE_HYBRID_ARCHIVE_NAME }}"
-    dest: "{{ WORK_DIR }}/tmp/"
+    dest: "{{ WORKDIR_DOWNLOAD_DEST }}/tmp/"
     remote_src: yes
 
 - name: Find archive folder
   find: 
-    paths: "{{ WORK_DIR }}/tmp"
+    paths: "{{ WORKDIR_DOWNLOAD_DEST }}/tmp"
     patterns: "apigeectl_{{ APIGEE_VERSION }}.*_{{ ansible_system | lower }}_{{ ansible_userspace_bits }}"
     use_regex: yes
     recurse: yes

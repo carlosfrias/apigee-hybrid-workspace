@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee-config-org-policies
+  - name: apigee-apigee-config-org-policies
 provisioner:
   name: ansible
 verifier:

@@ -3,7 +3,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
 #
 #- name: Update organization policies
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-config-org-policies/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-apigee-config-org-policies/converge.yml"
 #
 #- name: Create service accounts
 #  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
@@ -39,13 +39,13 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
 #
 #- name: Obtain External IP Address
-#  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-gcp-obtain-external-ip-address/converge.yml"
 #
 #- name: Create DNS record
 #  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/converge.yml"
 #
 #- name: Configure Apigee GKE Cluster
-#  import_playbook: "{{ playbook_dir | dirname }}/create-gke-cluster/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
 #
 #- name: Install helm
 #  import_playbook: "{{ playbook_dir | dirname }}/install-helm/converge.yml"
