@@ -8,7 +8,7 @@
 PROJECT_ID: "friasc-hybrid-2023122-1839"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 WORKDIR_DOWNLOAD_DEST: "{{ WORK_DIR }}/downloads"
-
+CERT_FILE_DIR: "{{ HYBRID_FILES_DIR  }}/certs"
 
 GCP_ZONE: "us-east1-b"
 GCP_REGION: "us-east1"
