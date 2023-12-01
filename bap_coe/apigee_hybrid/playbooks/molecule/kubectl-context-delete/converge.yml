@@ -1,4 +1,4 @@
-- name: Delete a Cluster
+- name: Create an Apigee Cluster
   hosts: localhost
   connection: local
 
@@ -14,4 +14,4 @@
   roles:
     - { role: service_account_file_path }
     - { role: service_account_file_processing }
-    - { role: apigee-hybrid-gke-delete, tags: ['gke'] }
+    - { role: apigee-hybrid-gke-create, tags: ['gke'] }

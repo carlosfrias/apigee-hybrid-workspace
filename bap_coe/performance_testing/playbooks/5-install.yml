@@ -13,5 +13,5 @@
 
   roles:
     - service_account_file_processing
-    - apigee_internal_load_balancer
+    - apigee-ip-address
     - wrk2-install-configure

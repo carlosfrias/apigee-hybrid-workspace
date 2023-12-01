@@ -1,0 +1,40 @@
+---
+- name: Install helm
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+    - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  tasks:
+    - name: Create WORK_DIR dest folder
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+      - "{{ WORK_DIR }}"
+      - "{{ WORKDIR_DOWNLOAD_DEST }}"
+      - "{{ WORKDIR_BINARY_DEST }}"
+
+    - name: Download helm installation binaries
+      get_url:
+        url: "{{ HELM_URL }}"
+        dest: "{{ WORKDIR_DOWNLOAD_DEST }}"
+        force: true
+        checksum: sha256:{{ HELM_URL_CHECKSUM }}
+
+    - name: Unarchive helm installation binaries
+      unarchive:
+        src: "{{ WORKDIR_DOWNLOAD_DEST }}/{{ HELM_INSTALLATION_ARCHIVE_NAME }}"
+        dest: "{{ WORKDIR_DOWNLOAD_DEST }}"
+        remote_src: true
+
+    - name: Move helm installation binaries to path
+      copy:
+        src: "{{ WORKDIR_DOWNLOAD_DEST }}/{{ ansible_system | lower }}-{{ facter_os.architecture }}/helm"
+        dest: "{{ HELM_BINARY }}"
+        mode: 0744
+

@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - apigee_internal_load_balancer
+    - roles/apigee-hybrid-gke-create

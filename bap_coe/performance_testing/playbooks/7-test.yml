@@ -12,7 +12,7 @@
     - bap_coe.performance_testing
 
   roles:
-    - apigee_internal_load_balancer
+    - apigee-ip-address
 
   tasks:
     - name: Construct URL using ILB
