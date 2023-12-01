@@ -7,7 +7,6 @@
 - name: Set KUBECONFIG cache
   set_fact:
     cacheable: yes
-    FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
     CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.context.json"
   when: CLUSTER_KUBECONFIG is not defined or FQ_CLUSTER_NAME is not defined
 

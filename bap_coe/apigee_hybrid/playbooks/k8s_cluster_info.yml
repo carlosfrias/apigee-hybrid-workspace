@@ -1,0 +1,9 @@
+---
+- name: Test K8s Cluster info
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Get Cluster information
+      kubernetes.core.k8s_cluster_info:
+      register: api_status

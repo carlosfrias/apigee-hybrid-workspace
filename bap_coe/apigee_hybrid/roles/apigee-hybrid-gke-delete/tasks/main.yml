@@ -9,7 +9,6 @@
 - name: Set KUBECONFIG cache
   set_fact:
     cacheable: yes
-    FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
     CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.context.json"
 
 - name: Clean up kubectl config

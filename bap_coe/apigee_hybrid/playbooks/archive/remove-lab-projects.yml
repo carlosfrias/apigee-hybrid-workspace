@@ -28,5 +28,4 @@
       vars:
         PROJECT_ID: "{{ item }}"
         WORK_DIR: "{{ tmp_work_dir }}/{{ item }}"
-        FQ_CLUSTER_NAME: "gke_{{ item }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
       with_items: "{{ PROJECTS }}"
