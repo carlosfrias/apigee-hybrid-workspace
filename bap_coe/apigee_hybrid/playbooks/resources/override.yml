@@ -8,7 +8,33 @@
 PROJECT_ID: "friasc-aws-20231128-1516"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 WORKDIR_DOWNLOAD_DEST: "{{ WORK_DIR }}/downloads"
+WORKDIR_BINARY_DEST: "{{ WORK_DIR }}/bin"
 CERT_FILE_DIR: "{{ HYBRID_FILES_DIR  }}/certs"
+HYBRID_FILES_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}/hybrid-files"
+OVERRIDE_FILE: "{{ HYBRID_FILES_DIR }}/overrides/overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml"
+SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
+APIGEE_HYBRID_HELM_CHARTS_DIR: "{{ HYBRID_FILES_DIR }}/apigee-hybrid-helm-charts"
+
+HELM_VERSION: 3.11.1
+HELM_BASE_URL: https://get.helm.sh
+HELM_INSTALLATION_ARCHIVE_NAME: helm-v{{ HELM_VERSION }}-{{ ansible_system | lower }}-{{ facter_os.architecture }}.tar.gz
+HELM_URL: "{{ HELM_BASE_URL }}/{{ HELM_INSTALLATION_ARCHIVE_NAME }}"
+HELM_URL_CHECKSUM: "{{ HELM_URL }}.sha256sum"
+HELM_BINARY: "{{ WORKDIR_BINARY_DEST }}/helm"
+#APIGEE_HYBRID_HELM_CHART_REPO:  sso://edge-internal/apigee-hybrid-helm-charts
+APIGEE_HYBRID_HELM_CHART_REPO:  oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
+APIGEE_HYBRID_HELM_CHART_REPO_DEST: "{{ WORK_DIR }}/{{ APIGEE_HYBRID_HELM_CHART_REPO | basename }}"
+APIGEE_HYBRID_HELM_CHART_VERSION: 1.10.3
+NAMESPACE: apigee
+APIGEE_HYBRID_CHART_LIST:
+- apigee-operator
+- apigee-datastore
+- apigee-env
+- apigee-ingress-manager
+- apigee-org
+- apigee-redis
+- apigee-telemetry
+- apigee-virtualhost
 
 GCP_ZONE: "us-east1-b"
 GCP_REGION: "us-east1"
@@ -44,10 +70,6 @@ KUBECTL_DOWNLOAD_URL: https://github.com/cert-manager/cert-manager/releases/down
 
 VPC_NETWORK_NAME: default
 VPC_SUBNETWORK_NAME: default
-
-HYBRID_FILES_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}/hybrid-files"
-OVERRIDE_FILE: "{{ HYBRID_FILES_DIR }}/overrides/overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml"
-SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
 
 DNS_PROJECT_ID: "friasc-apigee-lab"
 DNS_MANAGED_ZONE: "friasc.demo.altostrat.com"

@@ -1,0 +1,20 @@
+---
+- name: Configure Apigee Env
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+    - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  tasks:
+    - name: Configure Apigee Env
+      kubernetes.core.helm:
+        name: helm-apigee-env
+        binary_path: "{{ HELM_BINARY }}"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/helm-apigee-env"
+        state: present
+        release_namespace: "{{ NAMESPACE }}"
+

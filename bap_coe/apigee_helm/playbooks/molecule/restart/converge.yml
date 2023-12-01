@@ -48,29 +48,29 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
 #
 #- name: Install helm
-#  import_playbook: "{{ playbook_dir | dirname }}/install-helm/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
 #
 #- name: Download Apigee Hybrid helm charts
-#  import_playbook: "{{ playbook_dir | dirname }}/download-helm-charts/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
 #
 #- name: Configure Apigee Operator
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-operator/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
 #
 #- name: Configure Apigee Datastore
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-datastore/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"
 #
 #- name: Configure Apigee Telemetry
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-telemetry/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
 #
 #- name: Configure Apigee Redis
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-redis/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
 #
 #- name: Configure Apigee Org
 #  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
 #
 #- name: Configure Apigee Env
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-env/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/converge.yml"
 #
 #- name: Configure Apigee Virtualhost
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-virtualhost/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"
 
