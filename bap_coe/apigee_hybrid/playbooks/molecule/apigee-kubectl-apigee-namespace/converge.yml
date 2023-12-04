@@ -20,5 +20,5 @@
     register: namespace_status
 
   - name: Create apigee namespace
-    command: kubectl create namespace apigee
+    command: kubectl config current-context && kubectl create namespace apigee
     when: namespace_status.rc == 1
