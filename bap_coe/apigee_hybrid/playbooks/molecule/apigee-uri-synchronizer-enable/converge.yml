@@ -14,4 +14,4 @@
 
   roles:
     - { role: bap_coe.gcp_management.gcp_token_retrieval }
-    - { role: apigee-hybrid-synchronizer-enable }
+    - { role: apigee-hybrid-uri-synchronizer-enable }

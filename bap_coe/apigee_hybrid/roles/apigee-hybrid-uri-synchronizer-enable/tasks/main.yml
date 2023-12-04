@@ -1,5 +1,5 @@
 ---
-# tasks file for roles/apigee-hybrid-synchronizer-enable
+# tasks file for roles/apigee-hybrid-uri-synchronizer-enable
 # todo Token retrieval cannot be referenced as
 #  GCLOUD_TOKEN when it can be sourced from any cloud.
 

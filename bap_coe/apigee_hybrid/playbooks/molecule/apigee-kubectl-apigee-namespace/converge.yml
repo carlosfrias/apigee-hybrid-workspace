@@ -1,0 +1,19 @@
+- name: Install Cert Manager
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  tasks:
+
+  - name: Check if namespace already exists
+    command: kubectl get namespace apigee
+    register: namespace_status

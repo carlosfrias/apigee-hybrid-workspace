@@ -12,4 +12,4 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-synchronizer-enable, tags: ['synchronizer'] }
+    - { role: apigee-hybrid-uri-synchronizer-enable, tags: ['synchronizer'] }
