@@ -5,7 +5,7 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-PROJECT_ID: "friasc-aws-20231201-1535"
+PROJECT_ID: "friasc-aws-20231204-1508"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 WORKDIR_DOWNLOAD_DEST: "{{ WORK_DIR }}/downloads"
 WORKDIR_BINARY_DEST: "{{ WORK_DIR }}/bin"

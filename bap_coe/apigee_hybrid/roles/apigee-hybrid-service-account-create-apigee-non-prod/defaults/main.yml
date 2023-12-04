@@ -1,5 +1,5 @@
 ---
-# defaults file for roles/apigee-hybrid-service-account-create
+# defaults file for roles/apigee-non-prod
 DEFAULT_SERVICE_ACCOUNTS:
   - apigee-non-prod
 #  - apigee-metrics

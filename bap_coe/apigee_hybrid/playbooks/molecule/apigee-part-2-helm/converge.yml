@@ -14,6 +14,9 @@
 - name: Assert apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/apigee-kubectl-apigee-namespace/converge.yml"
 
+- name: Create apigee-non-prod service account
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-service-account-create-apigee-non-prod/converge.yml"
+
 #- name: Enable Apigee Connect
 #  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-connect-enable/converge.yml"
 #

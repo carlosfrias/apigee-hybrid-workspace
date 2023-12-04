@@ -1,5 +1,5 @@
 ---
-# tasks file for roles/apigee-hybrid-service-account-create
+# tasks file for roles/apigee-non-prod
 - name: Set default project
   shell: gcloud config set project {{ PROJECT_ID }}
 
