@@ -1,9 +1,9 @@
 ---
 - name: Setup and configure GCP Project
-  import_playbook: "{{ playbook_dir | dirname }}/part-0-gcp-config-project/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-0/converge.yml"
 
 - name: Complete Apigee Part 1
-  import_playbook: "{{ playbook_dir | dirname }}/part-1-apigee-project-org-setup/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-1/converge.yml"
 
 - name: Complete Apigee Part 2
   import_playbook: "{{ playbook_dir | dirname }}/part-2-apigeectl-runtime-setup/converge.yml"

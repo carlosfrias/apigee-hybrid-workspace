@@ -54,7 +54,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-credentials/converge.yml"
 
 - name: Install Cert Manager
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-cert-manager-install/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-kubectl-cert-manager-install/converge.yml"
 
 - name: Enable Synchronizer
   import_playbook: "{{ playbook_dir | dirname }}/apigeectl-synchronizer-enable/converge.yml"

@@ -1,0 +1,33 @@
+---
+- name: Create GKE cluster
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-gke-cluster-create/converge.yml"
+
+- name: Load Apigee Cluster Credentials
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-credentials/converge.yml"
+
+- name: Install Cert Manager
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-kubectl-cert-manager-install/converge.yml"
+
+#- name: Enable Synchronizer
+#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-synchronizer-enable/converge.yml"
+#
+#- name: Enable Apigee Connect
+#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-connect-enable/converge.yml"
+#
+#- name: Assert Cluster Ready Check
+#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-cluster-ready-check/converge.yml"
+#
+#- name: Obtain External IP Address
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+#
+#- name: Apigee runtime config
+#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-configure-runtime/converge.yml"
+#
+#- name: Apigee runtime init
+#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-init/converge.yml"
+#
+#- name: Apigee runtime apply
+#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-apply/converge.yml"
+#
+#- name: Apigee runtime checkready
+#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-checkready/converge.yml"

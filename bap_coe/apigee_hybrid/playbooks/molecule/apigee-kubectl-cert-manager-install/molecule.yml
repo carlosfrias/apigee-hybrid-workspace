@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee-cert-manager-install
+  - name: apigee-kubectl-cert-manager-install
 provisioner:
   name: ansible
   ansible_args:
