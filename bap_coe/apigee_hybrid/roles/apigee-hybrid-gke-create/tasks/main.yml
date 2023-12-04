@@ -97,10 +97,25 @@
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
         --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_DATA_LABEL }}
-    register: status
+    register: data_pool_status
     failed_when:
     - status.rc == 1
     - "'Already exists' not in status.stderr"
+    async: 1000
+    poll: 0
+
+  - name: Wait for data_pool asynchronous job to end
+    ansible.builtin.async_status:
+      jid: '{{ data_pool_status.ansible_job_id }}'
+    register: job_result
+    until: job_result.finished
+    retries: 100
+    delay: 10
+
+  - name: Clean up data_pool async file
+    ansible.builtin.async_status:
+      jid: '{{ data_pool_status.ansible_job_id }}'
+      mode: cleanup
 
   - name: Create node-pool apigee-runtime
     shell: |
@@ -121,10 +136,25 @@
         --enable-autoscaling \
         --metadata disable-legacy-endpoints=true \
         --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_RUNTIME_LABEL }}
-    register: status
+    register: runtime_pool_status
     failed_when:
     - status.rc == 1
     - "'Already exists' not in status.stderr"
+    async: 1000
+    poll: 0
+
+  - name: Wait for runtime_pool asynchronous job to end
+    ansible.builtin.async_status:
+      jid: '{{ runtime_pool_status.ansible_job_id }}'
+    register: job_result
+    until: job_result.finished
+    retries: 100
+    delay: 10
+
+  - name: Clean up runtime_pool async file
+    ansible.builtin.async_status:
+      jid: '{{ runtime_pool_status.ansible_job_id }}'
+      mode: cleanup
 
   - name: Delete default node-pool that is created
     ignore_errors: true
@@ -137,6 +167,9 @@
     failed_when:
     - status.rc == 1
     - "'Already exists' not in status.stderr"
+    async: 1000
+    poll: 0
+
   when: "APIGEE_VERSION is version('1.10.0', '>=')"
 
 - name: Wait for the cluster to complete initial steps....
