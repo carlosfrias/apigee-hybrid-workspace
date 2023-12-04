@@ -34,7 +34,7 @@
     LONG_RUNNING_OPERATION_ID: "{{ create_org_status.json.name | urlsplit('path') | basename }}"
   when: create_org_status.json.name is defined
 
-- name: Allow Org creation to complete
+- name: Will take a few minutes to complete org creation...
   uri:
     url: "https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/operations/{{ LONG_RUNNING_OPERATION_ID }}"
     headers: 

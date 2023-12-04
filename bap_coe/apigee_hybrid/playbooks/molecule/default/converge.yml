@@ -6,4 +6,4 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-part-1/converge.yml"
 
 - name: Complete Apigee Part 2
-  import_playbook: "{{ playbook_dir | dirname }}/part-2-apigeectl-runtime-setup/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-2-apigeectl/converge.yml"
