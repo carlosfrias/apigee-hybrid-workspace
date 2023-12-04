@@ -1,19 +1,5 @@
 ---
 # tasks file for roles/apigee-hybrid-gke-create
-- name: Set default project
-  shell: gcloud config set project "{{ PROJECT_ID }}"
-
-- name: Set compute/zone
-  shell: gcloud config set compute/zone {{ CLUSTER_ZONE }}
-
-- name: Set KUBECONFIG cache
-  set_fact:
-    cacheable: yes
-    CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.context.json"
-
-- name: Clean up kubectl config
-  shell: kubectl config delete-context {{ FQ_CLUSTER_NAME }}
-
 - name: Delete gcp cluster APIGEE_VERSION < 1.10
   shell: |
     gcloud container clusters delete {{ CLUSTER_NAME }} \
