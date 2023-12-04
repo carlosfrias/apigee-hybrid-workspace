@@ -1,4 +1,4 @@
-- name: Install Cert Manager
+- name: Kubectl assert apigee namespace
   hosts: localhost
   connection: local
   gather_facts: true
@@ -15,5 +15,10 @@
   tasks:
 
   - name: Check if namespace already exists
+    ignore_errors: true
     command: kubectl get namespace apigee
     register: namespace_status
+
+  - name: Create apigee namespace
+    command: kubectl create namespace apigee
+    when: namespace_status.rc == 1
