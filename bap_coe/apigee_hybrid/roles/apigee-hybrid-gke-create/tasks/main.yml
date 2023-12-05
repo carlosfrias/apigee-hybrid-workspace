@@ -23,12 +23,6 @@
     path: "{{ WORK_DIR }}"
     state: directory  
 
-- name: Set default project
-  shell: gcloud config set project "{{ PROJECT_ID }}"
-
-- name: Set compute/zone
-  shell: gcloud config set compute/zone {{ CLUSTER_ZONE }}
-
 - name: Create gcp cluster APIGEE_VERSION < 1.10
   shell: |
     gcloud container clusters create {{ CLUSTER_NAME }} \
@@ -144,9 +138,9 @@
     prompt: "Wait {{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }} seconds before continuing..."
     seconds: "{{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }}"
 
-- name: Obtain PROJECT_NUMBER
-  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
-  register: project_number
+#- name: Obtain PROJECT_NUMBER
+#  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
+#  register: project_number
 
 - name: Create ASM service account
   ignore_errors: yes
@@ -184,6 +178,13 @@
 #      shell: |
 #        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
 #        kubectx {{ CLUSTER_NAME }}
+
+- name: Obtain cluster credentials
+  shell: |
+    kubectl config current-context
+    gcloud container clusters get-credentials {{ CLUSTER_NAME }} \
+      --zone {{ GCP_ZONE }} \
+      --project {{ PROJECT_ID }}
 
 - name: Generate kubeconfig file content
   shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}
