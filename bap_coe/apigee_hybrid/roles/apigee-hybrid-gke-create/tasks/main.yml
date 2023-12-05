@@ -101,21 +101,6 @@
     failed_when:
     - data_pool_status.rc == 1
     - "'Already exists' not in data_pool_status.stderr"
-#    async: 1000
-#    poll: 0
-#
-#  - name: Wait for data_pool asynchronous job to end
-#    ansible.builtin.async_status:
-#      jid: '{{ data_pool_status.ansible_job_id }}'
-#    register: job_result
-#    until: job_result.finished
-#    retries: 100
-#    delay: 10
-#
-#  - name: Clean up data_pool async file
-#    ansible.builtin.async_status:
-#      jid: '{{ data_pool_status.ansible_job_id }}'
-#      mode: cleanup
 
   - name: Create node-pool apigee-runtime
     shell: |
@@ -140,21 +125,6 @@
     failed_when:
     - runtime_pool_status.rc == 1
     - "'Already exists' not in runtime_pool_status.stderr"
-#    async: 1000
-#    poll: 0
-
-#  - name: Wait for runtime_pool asynchronous job to end
-#    ansible.builtin.async_status:
-#      jid: '{{ runtime_pool_status.ansible_job_id }}'
-#    register: job_result
-#    until: job_result.finished
-#    retries: 100
-#    delay: 10
-#
-#  - name: Clean up runtime_pool async file
-#    ansible.builtin.async_status:
-#      jid: '{{ runtime_pool_status.ansible_job_id }}'
-#      mode: cleanup
 
   - name: Delete default node-pool that is created
     shell: |
@@ -166,8 +136,6 @@
     failed_when:
     - status.rc == 1
     - "'Not found' not in status.stderr"
-#    async: 1000
-#    poll: 0
 
   when: "APIGEE_VERSION is version('1.10.0', '>=')"
 
@@ -202,20 +170,20 @@
   args:
     creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
 
-- block:
-  - name: Rename cluster
-    shell: |
-      kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
-      kubectx {{ CLUSTER_NAME }}
-  rescue:
-    - name: RESCUE - Wait for the cluster...
-      pause:
-        seconds: 15
-
-    - name: RESCUE - Rename cluster
-      shell: |
-        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
-        kubectx {{ CLUSTER_NAME }}
+#- block:
+#  - name: Rename cluster
+#    shell: |
+#      kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+#      kubectx {{ CLUSTER_NAME }}
+#  rescue:
+#    - name: RESCUE - Wait for the cluster...
+#      pause:
+#        seconds: 15
+#
+#    - name: RESCUE - Rename cluster
+#      shell: |
+#        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+#        kubectx {{ CLUSTER_NAME }}
 
 - name: Generate kubeconfig file content
   shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}
