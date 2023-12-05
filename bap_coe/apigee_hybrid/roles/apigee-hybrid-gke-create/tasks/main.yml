@@ -165,7 +165,7 @@
     register: status
     failed_when:
     - status.rc == 1
-    - "'Already exists' not in status.stderr"
+    - "'Not found' not in status.stderr"
 #    async: 1000
 #    poll: 0
 
