@@ -29,4 +29,4 @@
       {{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/tools/create-service-account \
         --env non-prod \
         --dir {{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore \
-        --project-id {{ PROJECT_ID }} 
+        --project-id {{ PROJECT_ID }}

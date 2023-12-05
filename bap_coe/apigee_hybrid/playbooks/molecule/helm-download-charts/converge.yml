@@ -30,6 +30,11 @@
 #        path: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
 #      register: found
 
+    - name: Assert helm chart directory
+      file:
+        path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR}}"
+        state: directory
+
     - name: helm pull
       kubernetes.core.helm_pull:
         binary_path: "{{ HELM_BINARY }}"
