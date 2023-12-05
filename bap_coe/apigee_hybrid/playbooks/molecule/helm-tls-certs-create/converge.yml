@@ -25,7 +25,7 @@
 
     - name: Copy certs to helm cert folder
       synchronize:
-        src: "{{ HELM_CERT_FILE_DIR }}"
+        src: "{{ CERT_FILE_DIR }}/"
         dest: "{{ item }}"
       loop:
       - "{{ HELM_CERT_FILE_DIR }}"

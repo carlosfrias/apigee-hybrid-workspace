@@ -26,6 +26,9 @@
 - name: Update TlS cert locations
   import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
 
+- name: Apigee runtime config
+  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-configure-runtime/converge.yml"
+
 #- name: Enable Apigee Connect
 #  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-connect-enable/converge.yml"
 #
