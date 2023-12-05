@@ -13,12 +13,12 @@
     - bap_coe.gcp_management
 
   tasks:
+  - block:
+    - name: Check if namespace already exists
+      command: kubectl get namespace apigee
+      register: namespace_status
 
-  - name: Check if namespace already exists
-    ignore_errors: true
-    command: kubectl get namespace apigee
-    register: namespace_status
-
-  - name: Create apigee namespace
-    command: kubectl config current-context && kubectl create namespace apigee
-    when: namespace_status.rc == 1
+    rescue:
+    - name: Create apigee namespace
+      command: kubectl config current-context && kubectl create namespace apigee
+      when: namespace_status.rc == 1

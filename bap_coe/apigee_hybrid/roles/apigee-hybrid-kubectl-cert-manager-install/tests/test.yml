@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - roles/apigee-hybrid-apigee-kubectl-cert-manager-install
+    - roles/apigee-hybrid-kubectl-cert-manager-install
