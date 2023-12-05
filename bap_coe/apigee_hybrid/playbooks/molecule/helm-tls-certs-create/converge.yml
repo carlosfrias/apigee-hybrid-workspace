@@ -28,5 +28,5 @@
         src: "{{ CERT_FILE_DIR}}"
         dest: "{{ item }}"
       loop:
-      - "{{ HELM_CERT_FILE_DIR }}"
+      - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/certs"
       - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/certs"
