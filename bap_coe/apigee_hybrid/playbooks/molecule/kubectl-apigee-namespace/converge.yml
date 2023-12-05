@@ -13,24 +13,34 @@
     - bap_coe.gcp_management
 
   tasks:
-  - block:
-    - name: Check if namespace apigee already exists
-      command: kubectl get namespace apigee
-      register: namespace_status
+  - name: Create namespace
+    kubernetes.core.k8s:
+      state: present
+      name: apigee
+      api_version: v1
+      kind: Namespace
 
-    rescue:
-    - name: Create apigee namespace that doesn't exist
-      command: kubectl config current-context && kubectl create namespace apigee
-      when: namespace_status.rc == 1
+  - name: Create namespace
+    kubernetes.core.k8s:
+      state: present
+      name: apigee-system
+      api_version: v1
+      kind: Namespace
 
-  - block:
-    - name: Check if namespace apigee-system already exists
-      command: kubectl get namespace apigee-system
-      register: namespace_status
-
-    rescue:
-    - name: Create apigee-system namespace that doesn't exist
-      command: kubectl config current-context && kubectl create namespace apigee-system
-      when: namespace_status.rc == 1
-
+#  - block:
+#    - name: Check if namespace apigee already exists
+#      command: kubectl get namespace apigee
+#
+#    rescue:
+#    - name: Create apigee namespace that doesn't exist
+#      command: kubectl config current-context && kubectl create namespace apigee
+#
+#  - block:
+#    - name: Check if namespace apigee-system already exists
+#      command: kubectl get namespace apigee-system
+#
+#    rescue:
+#    - name: Create apigee-system namespace that doesn't exist
+#      command: kubectl config current-context && kubectl create namespace apigee-system
+#
 
