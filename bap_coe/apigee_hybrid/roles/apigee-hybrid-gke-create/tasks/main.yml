@@ -40,6 +40,14 @@
   - status.rc == 1
   - "'Already exists' not in status.stderr"
 
+- name: Will take a few minutes to complete cluster creation...
+  shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format
+  register: operation_status
+  until: operation_status.yaml.status == "RUNNING"
+  poll: 5
+  retries: 50
+  async: 90
+
 - name: Create node-pool apigee-data
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_DATA_LABEL }} \
@@ -64,6 +72,14 @@
   - data_pool_status.rc == 1
   - "'Already exists' not in data_pool_status.stderr"
 
+- name: Will take a few minutes to complete apigee-data nodepool creation...
+  shell: gcloud beta container node-pools describe apigee-data --cluster {{ CLUSTER_NAME }} --format yaml
+  register: operation_status
+  until: operation_status.yaml.status == "RUNNING"
+  poll: 5
+  retries: 50
+  async: 90
+
 - name: Create node-pool apigee-runtime
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_RUNTIME_LABEL }} \
@@ -87,6 +103,14 @@
   failed_when:
   - runtime_pool_status.rc == 1
   - "'Already exists' not in runtime_pool_status.stderr"
+
+- name: Will take a few minutes to complete apigee-runtime nodepool creation...
+  shell: gcloud beta container node-pools describe apigee-runtime --cluster {{ CLUSTER_NAME }} --format yaml
+  register: operation_status
+  until: operation_status.yaml.status == "RUNNING"
+  poll: 5
+  retries: 50
+  async: 90
 
 - name: Delete default node-pool that is created
   shell: |
