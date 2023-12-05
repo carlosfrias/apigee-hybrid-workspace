@@ -23,10 +23,10 @@
         path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/certs"
         state: directory
 
-    - name: Copy certs to helm cert folder
-      synchronize:
-        src: "{{ HYBRID_FILES_DIR  }}/certs"
-        dest: "{{ item }}"
-      loop:
-      - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/certs"
-      - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/certs"
+#    - name: Copy certs to helm cert folder
+#      synchronize:
+#        src: "{{ HYBRID_FILES_DIR }}/certs"
+#        dest: "{{ item }}"
+#      loop:
+#      - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/certs"
+#      - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/certs"
