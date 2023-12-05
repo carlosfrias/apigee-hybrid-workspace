@@ -23,6 +23,9 @@
 - name: Create apigee-non-prod service account
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-service-account-create-apigee-non-prod/converge.yml"
 
+- name: Update TlS cert locations
+  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
+
 #- name: Enable Apigee Connect
 #  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-connect-enable/converge.yml"
 #

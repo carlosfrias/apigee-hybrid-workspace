@@ -14,6 +14,7 @@ CERT_FILE_DIR: "{{ HYBRID_FILES_DIR  }}/certs"
 OVERRIDE_FILE: "{{ HYBRID_FILES_DIR }}/overrides/overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml"
 SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
 APIGEE_HYBRID_HELM_CHARTS_DIR: "{{ HYBRID_FILES_DIR }}/apigee-hybrid-helm-charts"
+HELM_CERT_FILE_DIR: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/certs"
 
 HELM_VERSION: 3.11.1
 HELM_BASE_URL: https://get.helm.sh
