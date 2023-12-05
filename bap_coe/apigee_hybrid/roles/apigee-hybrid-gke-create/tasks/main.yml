@@ -48,6 +48,13 @@
   retries: 50
   async: 90
 
+
+- debug:
+    msg: "{{ operation_status }}"
+
+- pause:
+
+
 - name: Create node-pool apigee-data
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_DATA_LABEL }} \
