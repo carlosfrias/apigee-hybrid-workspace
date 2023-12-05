@@ -14,7 +14,7 @@
 
   tasks:
   - block:
-    - name: Check if namespace already exists
+    - name: Check if namespace apigee already exists
       command: kubectl get namespace apigee
       register: namespace_status
 
@@ -22,3 +22,15 @@
     - name: Create apigee namespace that doesn't exist
       command: kubectl config current-context && kubectl create namespace apigee
       when: namespace_status.rc == 1
+
+  - block:
+    - name: Check if namespace apigee-system already exists
+      command: kubectl get namespace apigee-system
+      register: namespace_status
+
+    rescue:
+    - name: Create apigee-system namespace that doesn't exist
+      command: kubectl config current-context && kubectl create namespace apigee-system
+      when: namespace_status.rc == 1
+
+
