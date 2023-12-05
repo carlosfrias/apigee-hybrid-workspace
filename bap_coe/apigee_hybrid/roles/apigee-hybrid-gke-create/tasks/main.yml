@@ -98,9 +98,6 @@
         --metadata disable-legacy-endpoints=true \
         --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_DATA_LABEL }}
     register: data_pool_status
-    failed_when:
-    - status.rc == 1
-    - "'Already exists' not in status.stderr"
     async: 1000
     poll: 0
 
@@ -111,6 +108,9 @@
     until: job_result.finished
     retries: 100
     delay: 10
+#    failed_when:
+#    - job_result.rc == 1
+#    - "'Already exists' not in status.stderr"
 
   - name: Clean up data_pool async file
     ansible.builtin.async_status:
@@ -137,11 +137,11 @@
         --metadata disable-legacy-endpoints=true \
         --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_RUNTIME_LABEL }}
     register: runtime_pool_status
-    failed_when:
-    - status.rc == 1
-    - "'Already exists' not in status.stderr"
     async: 1000
     poll: 0
+#    failed_when:
+#    - runtime_pool_status.rc == 1
+#    - "'Already exists' not in status.stderr"
 
   - name: Wait for runtime_pool asynchronous job to end
     ansible.builtin.async_status:
