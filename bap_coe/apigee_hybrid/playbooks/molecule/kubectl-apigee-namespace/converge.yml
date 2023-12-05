@@ -19,6 +19,6 @@
       register: namespace_status
 
     rescue:
-    - name: Create apigee namespace
+    - name: Create apigee namespace that doesn't exist
       command: kubectl config current-context && kubectl create namespace apigee
       when: namespace_status.rc == 1
