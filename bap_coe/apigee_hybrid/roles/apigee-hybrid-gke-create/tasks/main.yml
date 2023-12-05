@@ -98,24 +98,24 @@
         --metadata disable-legacy-endpoints=true \
         --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_DATA_LABEL }}
     register: data_pool_status
-    async: 1000
-    poll: 0
     failed_when:
     - data_pool_status.rc == 1
     - "'Already exists' not in data_pool_status.stderr"
-
-  - name: Wait for data_pool asynchronous job to end
-    ansible.builtin.async_status:
-      jid: '{{ data_pool_status.ansible_job_id }}'
-    register: job_result
-    until: job_result.finished
-    retries: 100
-    delay: 10
-
-  - name: Clean up data_pool async file
-    ansible.builtin.async_status:
-      jid: '{{ data_pool_status.ansible_job_id }}'
-      mode: cleanup
+#    async: 1000
+#    poll: 0
+#
+#  - name: Wait for data_pool asynchronous job to end
+#    ansible.builtin.async_status:
+#      jid: '{{ data_pool_status.ansible_job_id }}'
+#    register: job_result
+#    until: job_result.finished
+#    retries: 100
+#    delay: 10
+#
+#  - name: Clean up data_pool async file
+#    ansible.builtin.async_status:
+#      jid: '{{ data_pool_status.ansible_job_id }}'
+#      mode: cleanup
 
   - name: Create node-pool apigee-runtime
     shell: |
@@ -137,27 +137,26 @@
         --metadata disable-legacy-endpoints=true \
         --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_RUNTIME_LABEL }}
     register: runtime_pool_status
-    async: 1000
-    poll: 0
     failed_when:
     - runtime_pool_status.rc == 1
     - "'Already exists' not in runtime_pool_status.stderr"
+#    async: 1000
+#    poll: 0
 
-  - name: Wait for runtime_pool asynchronous job to end
-    ansible.builtin.async_status:
-      jid: '{{ runtime_pool_status.ansible_job_id }}'
-    register: job_result
-    until: job_result.finished
-    retries: 100
-    delay: 10
-
-  - name: Clean up runtime_pool async file
-    ansible.builtin.async_status:
-      jid: '{{ runtime_pool_status.ansible_job_id }}'
-      mode: cleanup
+#  - name: Wait for runtime_pool asynchronous job to end
+#    ansible.builtin.async_status:
+#      jid: '{{ runtime_pool_status.ansible_job_id }}'
+#    register: job_result
+#    until: job_result.finished
+#    retries: 100
+#    delay: 10
+#
+#  - name: Clean up runtime_pool async file
+#    ansible.builtin.async_status:
+#      jid: '{{ runtime_pool_status.ansible_job_id }}'
+#      mode: cleanup
 
   - name: Delete default node-pool that is created
-    ignore_errors: true
     shell: |
       gcloud container node-pools delete default-pool \
         --cluster {{ CLUSTER_NAME }} \
