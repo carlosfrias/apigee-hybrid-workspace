@@ -1,0 +1,49 @@
+- name: Create an Apigee Cluster
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+
+  collections:
+  - bap_coe.apigee_hybrid
+  - bap_coe.gcp_management
+
+  roles:
+  - { role: service_account_file_path }
+  - { role: service_account_file_processing }
+  - { role: apigee-hybrid-cluster-credentials, tags: ['gke'] }
+
+  tasks:
+  - block:
+    - name: Rename cluster
+      shell: |
+        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+        kubectx {{ CLUSTER_NAME }}
+    rescue:
+    - name: RESCUE - Wait for the cluster...
+      pause:
+        seconds: 15
+
+    - name: RESCUE - Rename cluster
+      shell: |
+        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+        kubectx {{ CLUSTER_NAME }}
+
+  - name: Generate kubeconfig file content
+    shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}
+    register: kubeconfig_content
+
+  - name: Create kubeconfig file
+    copy:
+      content: "{{ kubeconfig_content.stdout }}"
+      dest: "{{ CLUSTER_KUBECONFIG }}"
+
+  - name: Ensure you have cluster-admin on the cluster
+    ignore_errors: yes
+    shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ ADMIN_ACCOUNT_USER | default(ADMIN_ACCOUNT_USER) }}
+    failed_when:
+    - status.rc == 1
+    - "'already exists' not in status.stderr"

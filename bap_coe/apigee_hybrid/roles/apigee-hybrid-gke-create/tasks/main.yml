@@ -142,65 +142,28 @@
 #  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
 #  register: project_number
 
-- name: Create ASM service account
-  ignore_errors: yes
-  shell: gcloud iam service-accounts create {{ ADMIN_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
-  register: status
-  failed_when:
-    - status.rc == 1
-    - "'already exists' not in status.stderr"
-
-- name: Bind gkehub.connect IAM role to service account - this is now in the install_asm bash script
-  tags: ['install_asm_skip']
-  shell: |
-    gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-     --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" \
-     --role="roles/gkehub.connect"
-
-- name: Download service account credential file
-  shell: |
-    gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_KEY_PATH }} \
-      --iam-account="{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}"
-  args:
-    creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
-
-#- block:
-#  - name: Rename cluster
-#    shell: |
-#      kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
-#      kubectx {{ CLUSTER_NAME }}
-#  rescue:
-#    - name: RESCUE - Wait for the cluster...
-#      pause:
-#        seconds: 15
+#- name: Create ASM service account
+#  ignore_errors: yes
+#  shell: gcloud iam service-accounts create {{ ADMIN_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
+#  register: status
+#  failed_when:
+#    - status.rc == 1
+#    - "'already exists' not in status.stderr"
 #
-#    - name: RESCUE - Rename cluster
-#      shell: |
-#        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
-#        kubectx {{ CLUSTER_NAME }}
+#- name: Bind gkehub.connect IAM role to service account - this is now in the install_asm bash script
+#  tags: ['install_asm_skip']
+#  shell: |
+#    gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
+#     --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" \
+#     --role="roles/gkehub.connect"
+#
+#- name: Download service account credential file
+#  shell: |
+#    gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_KEY_PATH }} \
+#      --iam-account="{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}"
+#  args:
+#    creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
 
-- name: Obtain cluster credentials
-  shell: |
-    kubectl config current-context
-    gcloud container clusters get-credentials {{ CLUSTER_NAME }} \
-      --zone {{ GCP_ZONE }} \
-      --project {{ PROJECT_ID }}
-
-- name: Generate kubeconfig file content
-  shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}
-  register: kubeconfig_content
-
-- name: Create kubeconfig file
-  copy:
-    content: "{{ kubeconfig_content.stdout }}"
-    dest: "{{ CLUSTER_KUBECONFIG }}"
-
-- name: Ensure you have cluster-admin on the cluster
-  ignore_errors: yes
-  shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ ADMIN_ACCOUNT_USER | default(ADMIN_ACCOUNT_USER) }}
-  failed_when:
-    - status.rc == 1
-    - "'already exists' not in status.stderr"
 
 #- name: Prepare storageclass system path
 #  file:
