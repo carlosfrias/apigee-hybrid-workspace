@@ -1,0 +1,21 @@
+---
+- name: Configure Apigee Operator
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+    - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  tasks:
+    - name: Apply apigee-operator CRDs
+      shell: |
+        kubectl apply -k  apigee-operator/etc/crds/default/ \
+          --server-side \
+          --force-conflicts \
+          --validate=false
+      args:
+        chdir: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
+

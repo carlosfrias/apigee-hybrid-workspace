@@ -1,0 +1,25 @@
+- name: Kubectl assert apigee namespace
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  tasks:
+    - name: Apply CRDs
+      shell: |
+        kubectl apply -k  {{ APIGEE_HYBRID_HELM_CHARTS_DIR}}/apigee-operator/etc/crds/default/ \
+          --server-side \
+          --force-conflicts \
+          --validate=false 
+        
+    - name: Validate CRDs with a get
+      command: kubectl get crds | grep apigee
+

@@ -27,7 +27,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
 
 #- name: Configure Apigee Operator
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
 #
 #- name: Configure Apigee Datastore
 #  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"

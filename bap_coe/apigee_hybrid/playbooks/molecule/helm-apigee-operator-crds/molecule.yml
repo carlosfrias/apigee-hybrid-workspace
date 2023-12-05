@@ -9,10 +9,9 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: Restart
+- name: apigee-helm
 provisioner:
   name: ansible
-#  playbooks:
-#    converge: converge.yml
 verifier:
   name: ansible
+

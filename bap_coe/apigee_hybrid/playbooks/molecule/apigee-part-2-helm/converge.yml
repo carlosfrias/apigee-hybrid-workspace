@@ -32,23 +32,38 @@
 - name: Apigee runtime config
   import_playbook: "{{ playbook_dir | dirname }}/apigeectl-configure-runtime/converge.yml"
 
-#- name: Enable Apigee Connect
-#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-connect-enable/converge.yml"
-#
-#- name: Assert Cluster Ready Check
-#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-cluster-ready-check/converge.yml"
-#
-#- name: Obtain External IP Address
-#  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
-#
-#- name: Apigee runtime config
-#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-configure-runtime/converge.yml"
-#
-#- name: Apigee runtime init
-#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-init/converge.yml"
-#
-#- name: Apigee runtime apply
-#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-apply/converge.yml"
-#
-#- name: Apigee runtime checkready
-#  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-checkready/converge.yml"
+- name: Enable Synchronizer
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"
+
+- name: Install Cert Manager
+  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cert-manager-install/converge.yml"
+
+- name: Assert Cluster Ready Check
+  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-cluster-ready-check/converge.yml"
+
+- name: Helm apigee-operator apply CRDs
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
+
+- name: Helm apigee-operator installation
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
+
+- name: Apply apigee-datastore installation
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"
+
+- name: Apply apigee-telemetry installation
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
+
+- name: Apply apigee-redis installation
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
+
+- name: Apply apigee-ingress-manager installation
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-ingress-manager/converge.yml"
+
+- name: Apply apigee-org installation
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
+
+- name: Apply apigee-env installation
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/converge.yml"
+
+- name: Apply apigee-virtualhost installation
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"

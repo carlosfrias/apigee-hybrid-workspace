@@ -26,7 +26,7 @@
 #    - name: Apply CRD
 #      kubernetes.core.k8s:
 #        state: present
-#        src: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/helm-apigee-operator/etc/crds/default/kustomization.yaml"
+#        src: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/helm-apigee-operator-crds/etc/crds/default/kustomization.yaml"
 #        apply: true
 #        server_side_apply: true
 #        force: true
@@ -39,9 +39,9 @@
 
 #    - name: Configure Apigee Operator
 #      kubernetes.core.helm:
-#        name: helm-apigee-operator
+#        name: helm-apigee-operator-crds
 #        binary_path: "{{ HELM_BINARY }}"
-#        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/helm-apigee-operator"
+#        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/helm-apigee-operator-crds"
 #        state: present
 #        release_namespace: "{{ NAMESPACE }}"
 

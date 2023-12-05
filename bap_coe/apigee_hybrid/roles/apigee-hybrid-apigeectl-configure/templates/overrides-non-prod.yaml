@@ -1,14 +1,15 @@
 ---
+instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
+namepace: "apigee"
+
 gcp:
   region: "{{ ANALYTICS_REGION }}"
   projectID: "{{ PROJECT_ID }}"
-
 k8sCluster:
   name: "{{ CLUSTER_NAME }}"
   region: "{{ CLUSTER_REGION }}"
-org: "{{ PROJECT_ID }}"
 
-instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
+org: "{{ PROJECT_ID }}"
 
 cassandra:
   hostNetwork: {{ CASSANDRA_HOST_NETWORK }}

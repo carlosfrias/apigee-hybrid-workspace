@@ -7,42 +7,21 @@
     ENABLE_TURBO_MODE: 1
 
   vars_files:
-    - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
   tasks:
+  - name: Helm apigee-ingress-manager install
+    shell: |
+      helm upgrade operator apigee-ingress-manager/ \
+      --install \
+      --namespace apigee \
+      --atomic \
+      -f {{ OVERRIDE_FILE }} 
 
-    - name: Create namespace
-      kubernetes.core.k8s:
-        state: present
-        name: apigee
-        api_version: v1
-        kind: Namespace
-
-#    - name: Add chart repo
-#      kubernetes.core.helm_repository:
-#        name: apigee
-#        repo_url: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
-
-#    - name: Apply CRD
-#      kubernetes.core.k8s:
-#        state: present
-#        src: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/helm-apigee-operator/etc/crds/default/kustomization.yaml"
-#        apply: true
-#        server_side_apply: true
-#        force: true
-
-    - name: Apply CRD
-      shell: |
-        kubectl apply -k  apigee-operator/etc/crds/default/ --server-side --force-conflicts --validate=false
-      args:
-        chdir: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
-
-#    - name: Configure Apigee Operator
-#      kubernetes.core.helm:
-#        name: helm-apigee-operator
-#        binary_path: "{{ HELM_BINARY }}"
-#        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}/helm-apigee-operator"
-#        state: present
-#        release_namespace: "{{ NAMESPACE }}"
-
-#    - name: Configure Apigee Operator
+  - name: Verify installation
+    shell: |
+      kubectl -n apigee get deployment apigee-ingressgateway-manager
+      
+      

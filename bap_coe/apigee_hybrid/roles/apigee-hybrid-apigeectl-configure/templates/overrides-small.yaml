@@ -3,18 +3,21 @@
 # As much as possible, the overrides uses default settings and values. All the minimum replicas are set 1
 #
 
+# unique identifier for this installation.
+instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
+
+namepace: "apigee"
+
 # GCP project name where the org is provisioned.
 gcp:
   projectID: "{{ PROJECT_ID }}"
 # Apigee org name.
 org: "{{ PROJECT_ID }}"
 # Kubernetes cluster name details
+
 k8sCluster:
   name: "{{ CLUSTER_NAME }}"
   region: "{{GCP_REGION }}"
-
-# unique identifier for this installation.
-instanceID: "{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}"
 
 # This configuration is introduced in hybrid v1.8
 ingressGateways:
