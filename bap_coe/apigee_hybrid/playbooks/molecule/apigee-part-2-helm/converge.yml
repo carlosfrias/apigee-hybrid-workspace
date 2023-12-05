@@ -5,6 +5,12 @@
 - name: Load Apigee Cluster Credentials
   import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
 
+- name: Install Helm
+  import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
+
+- name: Download Helm Charts
+  import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
+
 - name: Install Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/kubectl-cert-manager-install/converge.yml"
 
