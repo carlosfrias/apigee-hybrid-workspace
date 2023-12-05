@@ -100,6 +100,9 @@
     register: data_pool_status
     async: 1000
     poll: 0
+    failed_when:
+    - data_pool_status.rc == 1
+    - "'Already exists' not in data_pool_status.stderr"
 
   - name: Wait for data_pool asynchronous job to end
     ansible.builtin.async_status:
@@ -108,9 +111,6 @@
     until: job_result.finished
     retries: 100
     delay: 10
-#    failed_when:
-#    - job_result.rc == 1
-#    - "'Already exists' not in status.stderr"
 
   - name: Clean up data_pool async file
     ansible.builtin.async_status:
@@ -139,9 +139,9 @@
     register: runtime_pool_status
     async: 1000
     poll: 0
-#    failed_when:
-#    - runtime_pool_status.rc == 1
-#    - "'Already exists' not in status.stderr"
+    failed_when:
+    - runtime_pool_status.rc == 1
+    - "'Already exists' not in runtime_pool_status.stderr"
 
   - name: Wait for runtime_pool asynchronous job to end
     ansible.builtin.async_status:
