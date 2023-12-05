@@ -30,10 +30,10 @@ APIGEE_HYBRID_CHART_LIST:
 - apigee-operator
 - apigee-datastore
 - apigee-env
-- apigee-ingress-manager
-- apigee-org
-- apigee-redis
 - apigee-telemetry
+- apigee-org
+- apigee-ingress-manager
+- apigee-redis
 - apigee-virtualhost
 
 GCP_ZONE: "us-east1-b"

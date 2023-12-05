@@ -17,16 +17,19 @@
   - { role: service_account_file_processing }
 
   tasks:
-  - name: Assert create-service-account is executable
+  - name: Distribute service account
+    copy:
+      src: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
+      dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/"
+    loop:
+    - apigee-datastore
+    - apigee-telemetry
+    - apigee-env
+    - apigee-org
+
+
     file:
       path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/tools/create-service-account"
       mode: 0777
       modification_time: preserve
       access_time: preserve
-
-  - name: Create apigee-non-prod service account
-    expect:
-      command: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/tools/create-service-account --env non-prod --dir {{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
-      responses:
-        Enter(*): 'y'
-        Enter(*): 'y'
