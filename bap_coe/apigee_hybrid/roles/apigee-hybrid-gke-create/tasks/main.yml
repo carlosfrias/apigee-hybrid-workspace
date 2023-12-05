@@ -41,7 +41,7 @@
   - "'Already exists' not in status.stderr"
 
 - name: Will take a few minutes to complete cluster creation...
-  shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format
+  shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format yaml
   register: operation_status
 #  until: operation_status.yaml.status == "RUNNING"
 #  poll: 5
