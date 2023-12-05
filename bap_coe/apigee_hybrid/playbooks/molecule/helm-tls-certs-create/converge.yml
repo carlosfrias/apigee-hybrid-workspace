@@ -1,7 +1,7 @@
 ---
 
 - name: Update TlS cert locations
-  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/converge.yml"
 
 - name: Copy TLS certs into helm folders
   hosts: localhost
