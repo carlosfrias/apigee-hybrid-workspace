@@ -18,7 +18,11 @@
       --install \
       --namespace apigee \
       --atomic \
-      -f {{ OVERRIDE_FILE }} 
+      -f {{ OVERRIDE_FILE }}
+    args:
+      chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
+
+
 
   - name: Verify installation
     shell: |

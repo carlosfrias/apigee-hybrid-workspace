@@ -11,25 +11,7 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
-
   tasks:
-#    - name: Retrieve Apigee hybrid helm charts repo
-#      git:
-#        repo: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
-#        dest: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
-
-#    - name: Add chart repo
-#      kubernetes.core.helm_repository:
-#        binary_path: "{{ HELM_BINARY }}"
-#        name: "apigee"
-#        repo_url: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
-##      with_items: "{{ APIGEE_HYBRID_CHART_LIST }}"
-
-#    - name: Assert if helm chart dir exists
-#      stat:
-#        path: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
-#      register: found
-
     - name: Assert helm chart directory
       file:
         path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR}}"
@@ -47,4 +29,3 @@
       failed_when:
         - output.rc == 1
         - '"already exists" not in output.stderr'
-#      when: "{{ not found.stat.exists }}"

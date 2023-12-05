@@ -20,8 +20,11 @@
         --namespace apigee-system \
         --atomic \
         -f {{ OVERRIDE_FILE }} \
+      args:
+        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
 
 
-    - name: Verify installation
+
+      - name: Verify installation
       shell: |
         kubectl -n apigee-system get deploy apigee-controller-manager
