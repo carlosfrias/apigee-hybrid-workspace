@@ -20,12 +20,12 @@
   tasks:
     - name: Assert helm cert folder
       file:
-        path: "{{ HELM_CERT_FILE_DIR }}"
+        path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/certs"
         state: directory
 
     - name: Copy certs to helm cert folder
       synchronize:
-        src: "{{ CERT_FILE_DIR}}"
+        src: "{{ HYBRID_FILES_DIR  }}/certs"
         dest: "{{ item }}"
       loop:
       - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/certs"
