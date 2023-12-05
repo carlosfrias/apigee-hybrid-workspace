@@ -17,6 +17,11 @@
   - { role: apigee-hybrid-cluster-credentials, tags: ['gke'] }
 
   tasks:
+  - name: Set KUBECONFIG cache
+    set_fact:
+      cacheable: yes
+      CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.context.json"
+
   - block:
     - name: Rename cluster
       shell: |
@@ -41,9 +46,23 @@
       content: "{{ kubeconfig_content.stdout }}"
       dest: "{{ CLUSTER_KUBECONFIG }}"
 
-  - name: Ensure you have cluster-admin on the cluster
-    ignore_errors: yes
-    shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ ADMIN_ACCOUNT_USER | default(ADMIN_ACCOUNT_USER) }}
-    failed_when:
-    - status.rc == 1
-    - "'already exists' not in status.stderr"
+#  - name: Create ASM service account
+#    ignore_errors: yes
+#    shell: gcloud iam service-accounts create {{ ADMIN_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
+#    register: status
+#    failed_when:
+#      - status.rc == 1
+#      - "'already exists' not in status.stderr"
+#
+#  - name: Bind gkehub.connect IAM role to service account - this is now in the install_asm bash script
+#    shell: |
+#      gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
+#       --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" \
+#       --role="roles/gkehub.connect"
+#
+#    - name: Ensure you have cluster-admin on the cluster
+#      ignore_errors: yes
+#      shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ ADMIN_ACCOUNT_USER | default(ADMIN_ACCOUNT_USER) }}
+#      failed_when:
+#      - status.rc == 1
+#      - "'already exists' not in status.stderr"

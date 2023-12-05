@@ -6,164 +6,103 @@
     ATTACHED_CLUSTER: False
     NODE_COUNT: "{{ NODE_COUNT | default(DEFAULT_NODE_COUNT) }}"
     MACHINE_TYPE: "{{ MACHINE_TYPE | default(DEFAULT_MACHINE_TYPE) }}"
-    ADMIN_SERVICE_ACCOUNT_NAME: "{{ ADMIN_SERVICE_ACCOUNT_NAME | default(DEFAULT_SERVICE_ACCOUNT_NAME) }}"
-
-- name: Set gke cache
-  set_fact:
-    cacheable: yes
-    SERVICE_ACCOUNT_KEY_PATH: "{{ WORK_DIR }}/credentials/{{ ADMIN_SERVICE_ACCOUNT_NAME }}-service-account-key.json"
-
-- name: Set KUBECONFIG cache
-  set_fact:
-    cacheable: yes
-    CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.context.json"
 
 - name: Confirm WORK_DIR
   file: 
     path: "{{ WORK_DIR }}"
     state: directory  
 
-- name: Create gcp cluster APIGEE_VERSION < 1.10
+- name: Create Apigee hybrid cluster
   shell: |
-    gcloud container clusters create {{ CLUSTER_NAME }} \
+    gcloud beta container clusters create {{ CLUSTER_NAME }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
+      --project {{ PROJECT_ID }} \
       --zone {{ CLUSTER_ZONE }} \
-      --machine-type={{ MACHINE_TYPE }} \
+      --machine-type {{ MACHINE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
       --num-nodes {{ NODE_COUNT | int }} \
-      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
       --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
-      --subnetwork={{ VPC_NETWORK_NAME }} \
-      --enable-ip-alias \
-      --no-enable-autoupgrade \
-      --no-enable-autorepair \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --cluster-version {{ CLUSTER_VERSION }} \
+      --logging={{ LOGGING }} \
+      --monitoring={{ MONITORING }} \
+      --network "{{ VPC_NETWORK_NAME }}" \
+      --subnetwork "{{ VPC_SUBNETWORK_NAME }}" \
+      --addons {{ CLUSTER_ADDONS }} \
+      --location-policy "BALANCED" \
       --enable-autoscaling \
-      --project {{ PROJECT_ID }}
+      --metadata disable-legacy-endpoints=true \
   register: status
   failed_when:
   - status.rc == 1
   - "'Already exists' not in status.stderr"
-  when: "APIGEE_VERSION is version('1.10.0', '<')"
 
-- block:
-  - name: Create Apigee hybrid cluster APIGEE_VERSION >= 1.10
-    shell: |
-      gcloud beta container clusters create {{ CLUSTER_NAME }} \
-        --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
-        --project {{ PROJECT_ID }} \
-        --zone {{ CLUSTER_ZONE }} \
-        --machine-type {{ MACHINE_TYPE }} \
-        --disk-type {{ DISK_TYPE }} \
-        --disk-size {{ DISK_SIZE }} \
-        --num-nodes {{ NODE_COUNT | int }} \
-        --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
-        --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
-        --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
-        --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-        --cluster-version {{ CLUSTER_VERSION }} \
-        --logging={{ LOGGING }} \
-        --monitoring={{ MONITORING }} \
-        --network "{{ VPC_NETWORK_NAME }}" \
-        --subnetwork "{{ VPC_SUBNETWORK_NAME }}" \
-        --addons {{ CLUSTER_ADDONS }} \
-        --location-policy "BALANCED" \
-        --enable-autoscaling \
-        --metadata disable-legacy-endpoints=true \
-    register: status
-    failed_when:
-    - status.rc == 1
-    - "'Already exists' not in status.stderr"
+- name: Create node-pool apigee-data
+  shell: |
+    gcloud beta container node-pools create {{ NODE_POOL_DATA_LABEL }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
+      --project {{ PROJECT_ID }} \
+      --cluster {{ CLUSTER_NAME }} \
+      --zone {{ CLUSTER_ZONE }} \
+      --machine-type {{ MACHINE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --location-policy "BALANCED" \
+      --enable-autoscaling \
+      --metadata disable-legacy-endpoints=true \
+      --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_DATA_LABEL }}
+  register: data_pool_status
+  failed_when:
+  - data_pool_status.rc == 1
+  - "'Already exists' not in data_pool_status.stderr"
 
-  - name: Create node-pool apigee-data
-    shell: |
-      gcloud beta container node-pools create {{ NODE_POOL_DATA_LABEL }} \
-        --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
-        --project {{ PROJECT_ID }} \
-        --cluster {{ CLUSTER_NAME }} \
-        --zone {{ CLUSTER_ZONE }} \
-        --machine-type {{ MACHINE_TYPE }} \
-        --disk-type {{ DISK_TYPE }} \
-        --disk-size {{ DISK_SIZE }} \
-        --num-nodes {{ NODE_COUNT | int }} \
-        --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
-        --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
-        --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
-        --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-        --location-policy "BALANCED" \
-        --enable-autoscaling \
-        --metadata disable-legacy-endpoints=true \
-        --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_DATA_LABEL }}
-    register: data_pool_status
-    failed_when:
-    - data_pool_status.rc == 1
-    - "'Already exists' not in data_pool_status.stderr"
+- name: Create node-pool apigee-runtime
+  shell: |
+    gcloud beta container node-pools create {{ NODE_POOL_RUNTIME_LABEL }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
+      --project {{ PROJECT_ID }} \
+      --cluster {{ CLUSTER_NAME }} \
+      --zone {{ CLUSTER_ZONE }} \
+      --machine-type {{ MACHINE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --location-policy "BALANCED" \
+      --enable-autoscaling \
+      --metadata disable-legacy-endpoints=true \
+      --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_RUNTIME_LABEL }}
+  register: runtime_pool_status
+  failed_when:
+  - runtime_pool_status.rc == 1
+  - "'Already exists' not in runtime_pool_status.stderr"
 
-  - name: Create node-pool apigee-runtime
-    shell: |
-      gcloud beta container node-pools create {{ NODE_POOL_RUNTIME_LABEL }} \
-        --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
-        --project {{ PROJECT_ID }} \
-        --cluster {{ CLUSTER_NAME }} \
-        --zone {{ CLUSTER_ZONE }} \
-        --machine-type {{ MACHINE_TYPE }} \
-        --disk-type {{ DISK_TYPE }} \
-        --disk-size {{ DISK_SIZE }} \
-        --num-nodes {{ NODE_COUNT | int }} \
-        --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
-        --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
-        --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
-        --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-        --location-policy "BALANCED" \
-        --enable-autoscaling \
-        --metadata disable-legacy-endpoints=true \
-        --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_RUNTIME_LABEL }}
-    register: runtime_pool_status
-    failed_when:
-    - runtime_pool_status.rc == 1
-    - "'Already exists' not in runtime_pool_status.stderr"
+- name: Delete default node-pool that is created
+  shell: |
+    gcloud container node-pools delete default-pool \
+      --cluster {{ CLUSTER_NAME }} \
+      --zone {{ CLUSTER_ZONE }} \
+      --quiet
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'Not found' not in status.stderr"
 
-  - name: Delete default node-pool that is created
-    shell: |
-      gcloud container node-pools delete default-pool \
-        --cluster {{ CLUSTER_NAME }} \
-        --zone {{ CLUSTER_ZONE }} \
-        --quiet
-    register: status
-    failed_when:
-    - status.rc == 1
-    - "'Not found' not in status.stderr"
-
-  when: "APIGEE_VERSION is version('1.10.0', '>=')"
-
-- name: Wait for the cluster to complete initial steps....
-  pause:
-    prompt: "Wait {{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }} seconds before continuing..."
-    seconds: "{{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }}"
-
-#- name: Obtain PROJECT_NUMBER
-#  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
-#  register: project_number
-
-#- name: Create ASM service account
-#  ignore_errors: yes
-#  shell: gcloud iam service-accounts create {{ ADMIN_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
-#  register: status
-#  failed_when:
-#    - status.rc == 1
-#    - "'already exists' not in status.stderr"
-#
-#- name: Bind gkehub.connect IAM role to service account - this is now in the install_asm bash script
-#  tags: ['install_asm_skip']
-#  shell: |
-#    gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-#     --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" \
-#     --role="roles/gkehub.connect"
-#
-#- name: Download service account credential file
-#  shell: |
-#    gcloud iam service-accounts keys create {{ SERVICE_ACCOUNT_KEY_PATH }} \
-#      --iam-account="{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}"
-#  args:
-#    creates: "{{ SERVICE_ACCOUNT_KEY_PATH }}"
-
+#- name: Wait for the cluster to complete initial steps....
+#  pause:
+#    prompt: "Wait {{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }} seconds before continuing..."
+#    seconds: "{{ GKE_CLUSTER_CREATE_TIMEOUT | default(60) }}"
 
 #- name: Prepare storageclass system path
 #  file:
