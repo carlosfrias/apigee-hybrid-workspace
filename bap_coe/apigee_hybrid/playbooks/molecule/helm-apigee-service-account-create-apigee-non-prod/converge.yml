@@ -25,7 +25,4 @@
       access_time: preserve
 
   - name: Create apigee-non-prod service account
-    expect:
-      command: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/tools/create-service-account --env non-prod --dir {{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
-      responses:
-        Enter(*): 'y'
+    shell: " echo >> 'y' | {{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/tools/create-service-account --env non-prod --dir {{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
