@@ -224,6 +224,7 @@ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/pubsub.editor"
   - "roles/serviceusage.serviceUsageAdmin"
   - "roles/storage.objectAdmin"
+  - "roles/gkehub.connect"
 
 SERVICE_ACCOUNTS:
 - "{{ APIGEE_NON_PROD_USER }}"

@@ -12,10 +12,10 @@ platforms:
   - name: apigeectl-runtime-init
 provisioner:
   name: ansible
-  ansible_args:
-    - -i=$MOLECULE_PROJECT_DIRECTORY/inventory
-    - -u=friasc
-    - --private-key=~/.ssh/google_compute_engine
+#  ansible_args:
+#    - -i=$MOLECULE_PROJECT_DIRECTORY/inventory
+#    - -u=friasc
+#    - --private-key=~/.ssh/google_compute_engine
   playbooks:
     converge: converge.yml
 verifier:

@@ -1,4 +1,7 @@
 ---
+- name: Update Apigeee and apigee-system namespaces
+  import_playbook: "{{ playbook_dir | dirname }}/kubectl-apigee-namespace/converge.yml"
+
 - name: Configure Apigee Operator
   hosts: localhost
   connection: local
@@ -11,7 +14,13 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
+
   tasks:
+    - name: Copy the override.yml
+      copy:
+        src: "{{ OVERRIDE_FILE }}"
+        dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ OVERRIDE_FILE | basename }}"
+
     - name: Helm apigee-operator install
       shell: |
         helm upgrade operator apigee-operator/ \
@@ -19,10 +28,11 @@
         --create-namespace \
         --namespace apigee-system \
         --atomic \
-        -f {{ OVERRIDE_FILE }} \
+        -f {{ OVERRIDE_FILE | basename }} \
       args:
         chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
 
     - name: Verify installation
       shell: |
         kubectl -n apigee-system get deploy apigee-controller-manager
+        
