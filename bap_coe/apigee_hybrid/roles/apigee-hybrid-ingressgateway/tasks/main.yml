@@ -1,0 +1,9 @@
+---
+# tasks file for roles/apigee-hybrid-gke-create
+- name: Prepare ingress gateway service manifest
+  template:
+    src: apigee-ingressgateway-service.yml.j2
+    dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-ingressgateway-service.yml
+
+- name: Create ingressgateway service
+  command: kubectl apply -f apigee-ingressgateway-service.yml

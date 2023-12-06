@@ -1,0 +1,3 @@
+---
+- name: Apply apigee-org installation
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"

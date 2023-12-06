@@ -16,29 +16,5 @@
   - bap_coe.apigee_hybrid
   - bap_coe.gcp_management
 
-  tasks:
-  - name: Create kubernetes service
-    kubernetes.core.k8s:
-      state: present
-      definition:
-        apiVersion: v1
-        kind: Service
-        metadata:
-          name: {{ INGRESS_GATEWAY_NAME }}-service
-          namespace: apigee
-        spec:
-          ports:
-          - name: status-port
-            port: 15021
-            protocol: TCP
-            targetPort: 15021
-          - name: https
-            port: 443
-            protocol: TCP
-            targetPort: 8443
-          selector:
-            app: apigee-ingressgateway #required
-            ingress_name: {{ INGRESS_GATEWAY_NAME }}
-            org: {{ APIGEE_ORG }}
-          type: LoadBalancer
-          loadBalancerIP: {{ EXTERNAL_IP }}
+  roles:
+  - { role: apigee-hybrid-ingressgateway }
