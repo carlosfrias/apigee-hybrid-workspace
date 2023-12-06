@@ -43,7 +43,7 @@
 - name: Will take a few minutes to complete cluster creation...
   shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format yaml
   register: operation_status
-  until: "{{ operation_status.stdout | regex_search('^.*status.*RUNNING.*$') }}"
+  until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
   retries: 50
   async: 90
@@ -75,7 +75,7 @@
 - name: Will take a few minutes to complete apigee-data nodepool creation...
   shell: gcloud beta container node-pools describe apigee-data --cluster {{ CLUSTER_NAME }} --format yaml
   register: operation_status
-  until: "{{ operation_status.stdout | regex_search('^.*status.*RUNNING.*$') }}"
+  until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
   retries: 50
   async: 90
@@ -107,7 +107,7 @@
 - name: Will take a few minutes to complete apigee-runtime nodepool creation...
   shell: gcloud beta container node-pools describe apigee-runtime --cluster {{ CLUSTER_NAME }} --format yaml
   register: operation_status
-  until: "{{ operation_status.stdout | regex_search('^.*status.*RUNNING.*$') }}"
+  until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
   retries: 50
   async: 90
@@ -119,7 +119,7 @@
       --zone {{ CLUSTER_ZONE }} \
       --quiet
   register: status
-  until: "{{ operation_status.stdout contains 'status: RUNNING' }}"
+  until: "'status: RUNNING' not in operation_status.stdout"
   failed_when:
   - status.rc == 1
   - "'Not found' not in status.stderr"
