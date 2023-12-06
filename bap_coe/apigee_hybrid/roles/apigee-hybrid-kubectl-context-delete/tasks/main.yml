@@ -12,6 +12,6 @@
     shell: kubectl config delete-context {{ CLUSTER_NAME }}
 
   rescue:
-    - name: RESCUE: Clean up kubectl config
+    - name: RESCUE - Clean up kubectl config
       ignore_errors: true
       shell: kubectl config delete-context {{ FQ_CLUSTER_NAME }}
