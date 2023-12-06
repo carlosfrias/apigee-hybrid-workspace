@@ -1,9 +1,6 @@
 ---
 - name: Provision project
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
-
-- name: Update organization policies
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-config-org-policies/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/argolis-provision-project/converge.yml"
 
 - name: Create service accounts
   import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
