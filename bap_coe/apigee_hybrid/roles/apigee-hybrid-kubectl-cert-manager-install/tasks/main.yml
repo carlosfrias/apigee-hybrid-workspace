@@ -6,7 +6,7 @@
     CERT_MANAGER_VERSION: "{{ CERT_MANAGER_VERSION | default(DEFAULT_CERT_MANAGER_VERSION) }}"
     KUBECTL_VERSION: "{{ KUBECTL_VERSION | default(DEFAULT_KUBECTL_VERSION) }}"
     KUBECTL_DOWNLOAD_URL: "{{ KUBECTL_DOWNLOAD_URL | default(DEFAULT_KUBECTL_DOWNLOAD_URL) }}"
-    CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.context.json"
+    CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.kubeconfig-context.json"
 
 - name: Select Cluster
   command: |
@@ -14,5 +14,5 @@
 
 - name: Download and install cert-manager, assuming Kubernetes is 1.15 or newer
   command: |
-    kubectl apply --validate=false -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml 
+    kubectl apply --validate=false -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml # --kubeconfig={{ CLUSTER_KUBECONFIG }}
 
