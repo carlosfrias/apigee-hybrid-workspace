@@ -26,7 +26,7 @@
     - name: Copy the override.yml
       copy:
         src: "{{ OVERRIDE_FILE }}"
-        dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ OVERRIDE_FILE | basename }}"
+        dest: "{{ HELM_OVERRIDE_FILE }}"
 
     - name: Helm apigee-operator install
       shell: |
@@ -35,7 +35,7 @@
         --create-namespace \
         --namespace apigee-system \
         --atomic \
-        -f {{ OVERRIDE_FILE | basename }} \
+        -f {{ HELM_OVERRIDE_FILE | basename }} \
       args:
         chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
 

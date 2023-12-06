@@ -1,5 +1,5 @@
 ---
-- name: Obtain External IP Address
+- name: Configure ingressgateway
   import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
 
 - name: Create Apigee ingress gateway service

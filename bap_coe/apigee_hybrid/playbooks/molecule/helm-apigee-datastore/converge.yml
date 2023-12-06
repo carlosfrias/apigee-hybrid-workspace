@@ -22,8 +22,6 @@
     args:
       chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
 
-
-
   - name: Verify installation
     shell: |
       kubectl -n apigee get apigeedatastore default
