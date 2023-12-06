@@ -1,3 +1,4 @@
+---
 - name: Create an Apigee Cluster
   hosts: localhost
   connection: local
@@ -14,7 +15,7 @@
   roles:
   - { role: service_account_file_path }
   - { role: service_account_file_processing }
-  - { role: apigee-hybrid-cluster-credentials, tags: ['gke'] }
+  - { role: apigee-hybrid-cluster-credentials }
 
   tasks:
   - name: Set KUBECONFIG cache

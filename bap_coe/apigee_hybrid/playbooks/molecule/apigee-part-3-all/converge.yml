@@ -17,4 +17,4 @@
   - bap_coe.gcp_management
 
   roles:
-  - { role: apigee-hybrid-ingressgateway }
+    - { role: apigee-hybrid-kubectl-ingressgateway }
