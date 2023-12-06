@@ -48,8 +48,6 @@
   retries: 50
   async: 90
 
-- pause:
-
 - name: Create node-pool apigee-data
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_DATA_LABEL }} \
@@ -77,7 +75,7 @@
 - name: Will take a few minutes to complete apigee-data nodepool creation...
   shell: gcloud beta container node-pools describe apigee-data --cluster {{ CLUSTER_NAME }} --format yaml
   register: operation_status
-  until: "{{ operation_status.stdout contains 'status: RUNNING' }}"
+  until: "{{ operation_status.stdout | regex_search('^.*status.*RUNNING.*$') }}"
   poll: 5
   retries: 50
   async: 90
@@ -109,7 +107,7 @@
 - name: Will take a few minutes to complete apigee-runtime nodepool creation...
   shell: gcloud beta container node-pools describe apigee-runtime --cluster {{ CLUSTER_NAME }} --format yaml
   register: operation_status
-  until: "{{ operation_status.stdout contains 'status: RUNNING' }}"
+  until: "{{ operation_status.stdout | regex_search('^.*status.*RUNNING.*$') }}"
   poll: 5
   retries: 50
   async: 90
