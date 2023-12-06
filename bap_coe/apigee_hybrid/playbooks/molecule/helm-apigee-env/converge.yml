@@ -12,6 +12,18 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
 
   tasks:
+  - name: Create namespace
+    kubernetes.core.k8s:
+      state: present
+      name: apigee
+      api_version: v1
+      kind: Namespace
+
+  - name: Copy the override.yml
+    copy:
+      src: "{{ OVERRIDE_FILE }}"
+      dest: "{{ HELM_OVERRIDE_FILE }}"
+
   - name: Helm apigee-env install
     shell: |
       helm upgrade {{ ENVIRONMENT_NAME }} apigee-env/ \
@@ -19,7 +31,7 @@
       --namespace apigee \
       --atomic \
       --set env={{ ENVIRONMENT_NAME }} \
-      -f {{ OVERRIDE_FILE }} 
+      -f {{ HELM_OVERRIDE_FILE }}
     args:
       chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
 
