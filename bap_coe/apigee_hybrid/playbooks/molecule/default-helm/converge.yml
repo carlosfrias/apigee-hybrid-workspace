@@ -2,14 +2,17 @@
 - name: Setup and configure GCP Project
   import_playbook: "{{ playbook_dir | dirname }}/apigee-part-0-gcp/converge.yml"
 
-- name: Complete Apigee Part 1
+- name: Complete Apigee Part 1 - all
   import_playbook: "{{ playbook_dir | dirname }}/apigee-part-1-all/converge.yml"
 
 - name: Complete Apigee Part 2
   import_playbook: "{{ playbook_dir | dirname }}/apigee-part-2-helm/converge.yml"
 
-- name: Complete Apigee Part 3
+- name: Complete Apigee Part 3 - all
   import_playbook: "{{ playbook_dir | dirname }}/apigee-part-3-all/converge.yml"
 
 - name: Complete Apigee Part 3 - helm
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-3-all-helm/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-3-helm/converge.yml"
+
+- name: Complete Apigee Part 4 - all
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-4-all/converge.yml"
