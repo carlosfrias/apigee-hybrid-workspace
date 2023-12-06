@@ -1,6 +1,7 @@
 ---
 # tasks file for roles/apigee-hybrid-org-create
 - name: Apigee hybrid ingressgateway healthcheck
-  shell: |
-    curl -H 'User-Agent: GoogleHC/' https://{{ DOMAIN_NAME }}/healthz/ingress -k \
-      --resolve "{{ DOMAIN_NAME }}:443:{{ EXTERNAL_IP }}"
+  uri: |
+    url: https://{{ DOMAIN_NAME }}/healthz/ingress
+    headers: 
+     'User-Agent': 'GoogleHC' 
