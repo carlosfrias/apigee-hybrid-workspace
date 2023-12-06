@@ -21,7 +21,7 @@
   - name: Set KUBECONFIG cache
     set_fact:
       cacheable: yes
-      CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.context.json"
+      CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/credentials/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.kubeconfig-context.json"
 
   - block:
     - name: Rename cluster
