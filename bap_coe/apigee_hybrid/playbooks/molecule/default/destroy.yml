@@ -1,10 +1,4 @@
 ---
-#- name: Configure terraform variables - destroy invocation
-#  import_playbook: "{{ playbook_dir | dirname }}/terraform-vars/destroy.yml"
-
-#- name: Execute terraform scripts - destroy invocation
-#  import_playbook: "{{ playbook_dir | dirname }}/terraform/destroy.yml"
-
 - name: Destroy DNS records for the environment and project
   import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/destroy.yml"
 

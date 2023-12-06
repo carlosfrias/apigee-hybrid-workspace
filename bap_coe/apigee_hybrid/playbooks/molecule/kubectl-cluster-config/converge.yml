@@ -62,6 +62,7 @@
 #
   - name: Ensure you have cluster-admin on the cluster
     shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ ADMIN_ACCOUNT_USER | default(ADMIN_ACCOUNT_USER) }}
+    register: status
     failed_when:
     - status.rc == 1
     - "'already exists' not in status.stderr"
