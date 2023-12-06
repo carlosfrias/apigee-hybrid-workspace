@@ -14,7 +14,7 @@
   tasks:
   - name: Helm apigee-env install
     shell: |
-      helm upgrade operator {{ ENVIRONMENT_NAME }} apigee-env/ \
+      helm upgrade {{ ENVIRONMENT_NAME }} apigee-env/ \
       --install \
       --namespace apigee \
       --atomic \
