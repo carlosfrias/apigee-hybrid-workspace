@@ -1,5 +1,5 @@
 ---
-- name: Configure Apigee Operator
+- name: Helm apigee-ingress-manager
   hosts: localhost
   connection: local
   gather_facts: true

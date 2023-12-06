@@ -14,7 +14,7 @@
   tasks:
   - name: Helm apigee-virtualhost install
     shell: |
-      helm upgrade operator {{ ENVIRONMENT_GROUP_NAME }} apigee-virtualhost/ \
+      helm upgrade {{ ENVIRONMENT_GROUP_NAME }} apigee-virtualhost/ \
       --install \
       --namespace apigee \
       --atomic \
