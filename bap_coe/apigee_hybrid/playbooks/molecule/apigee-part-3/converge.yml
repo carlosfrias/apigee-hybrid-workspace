@@ -1,0 +1,44 @@
+---
+- name: Obtain External IP Address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+
+- name: Create Apigee ingress gateway service
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+
+  collections:
+  - bap_coe.apigee_hybrid
+  - bap_coe.gcp_management
+
+  tasks:
+  - name: Create kubernetes service
+    kubernetes.core.k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: {{ INGRESS_GATEWAY_NAME }}-service
+          namespace: apigee
+        spec:
+          ports:
+          - name: status-port
+            port: 15021
+            protocol: TCP
+            targetPort: 15021
+          - name: https
+            port: 443
+            protocol: TCP
+            targetPort: 8443
+          selector:
+            app: apigee-ingressgateway #required
+            ingress_name: {{ INGRESS_GATEWAY_NAME }}
+            org: {{ APIGEE_ORG }}
+          type: LoadBalancer
+          loadBalancerIP: {{ EXTERNAL_IP }}
