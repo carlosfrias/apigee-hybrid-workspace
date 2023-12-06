@@ -12,11 +12,12 @@
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
-  roles:
-    - { role: apigee-hybrid-apigeectl-apply }
-
-  tasks:
+  pre_tasks:
   - name: Invoke apply command
     shell: ./apigeectl apply -f {{ OVERRIDE_FILE }} --org
     args:
       chdir: "{{ APIGEECTL_DIR }}"
+
+  roles:
+  - { role: apigee-hybrid-ingressgateway-healthcheck }
+    
