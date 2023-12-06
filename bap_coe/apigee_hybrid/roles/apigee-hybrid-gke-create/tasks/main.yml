@@ -42,7 +42,7 @@
 
 - name: Will take a few minutes to complete cluster creation...
   shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format yaml
-  register: operation_status | from_yaml
+  register: operation_status 
   until: "{{ operation_status.stdout | regex_search('status: RUNNING') }}"
   poll: 5
   retries: 50
