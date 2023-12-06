@@ -13,4 +13,4 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-kubectl-cert-manager-install, tags: ['cert-mgr'] }
+    - { role: apigee-hybrid-kubectl-cert-manager-install }

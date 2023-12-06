@@ -5,7 +5,7 @@
 #BILLING_ID: "PROVIDED_IN_CREDENTIALS_YML"
 #GCLOUD_ORG_ID: "PROVIDED_IN_CREDENTIALS_YML"
 
-PROJECT_ID: "friasc-aws-20231206-0922"
+PROJECT_ID: "friasc-hybrid-20231206-1245"
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 WORKDIR_DOWNLOAD_DEST: "{{ WORK_DIR }}/downloads"
 WORKDIR_BINARY_DEST: "{{ WORK_DIR }}/bin"
@@ -110,8 +110,8 @@ SERVICE_ACCOUNT_SCOPE: "non-prod"
 
 APIGEE_OVERRIDE_TEMPLATE: "non-prod"
 CLUSTER_COUNT: "{{ CLUSTER_SEED }}"
-CLUSTER_NAME: "frias-apigee-hybrid-demo"
-#CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
+#CLUSTER_NAME: "frias-apigee-hybrid-demo"
+CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
 FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
 CLUSTER_ZONE: "{{ REGION }}-b"
 CLUSTER_REGION: "{{ REGION }}"
@@ -291,7 +291,3 @@ APIGEE_ORG: "{{ PROJECT_ID }}"
 ENVIRONMENT_NAME: "test"
 ENVIRONMENT_GROUP_NAME: "{{ ENVIRONMENT_NAME }}-group"
 APIGEE_HOSTNAME: ""
-
-
-# /usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-workspace/bap_coe/apigee_hybrid/playbooks/work_dir/friasc-hybrid-2023116-0625/devrel/references/proxy_template/generate-proxy.sh
-# /usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-workspace/bap_coe/apigee_hybrid/playbooks/work_dir/friasc-hybrid-2023116-0625/devrel/references/proxy_template/generate-proxy.sh
