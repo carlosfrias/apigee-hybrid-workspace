@@ -16,7 +16,7 @@
   - { role: service_account_file_path }
   - {
       role: gcp_iam_service_account_key_generation,
-      SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}",
+      SERVICE_ACCOUNTS: ["{{ ADMIN_ACCOUNT_EMAIL }}"],
       KEY_FILE_PATH: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
     }
   - { role: service_account_file_processing }
