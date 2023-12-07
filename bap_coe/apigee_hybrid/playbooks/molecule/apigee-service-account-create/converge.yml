@@ -17,4 +17,27 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-service-account-create-apigee-non-prod }
+    - { role: service_account_file_path }
+    - { role: gcp_iam_service_account_mgmt,
+        SERVICE_OP: 'create',
+        SERVICE_ACCOUNTS: ["{{ APIGEE_ADMIN }}"]
+      }
+    - {
+        role: gcp_iam_policy_bindings,
+        BINDING_OP: "add",
+        ACCOUNT_TYPE: "serviceAccount",
+        POLICY_BINDINGS: "{{ APIGEE_NON_PROD_ROLE_BINDINGS }}",
+        SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+      }
+    - {
+        role: gcp_iam_service_account_key_generation,
+        SERVICE_ACCOUNTS: ["{{ APIGEE_ADMIN }}"],
+        KEY_FILE_PATH: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
+      }
+
+  tasks:
+  - name: Create Service Accounts
+    shell: echo 'y' | ./tools/create-service-account --dir {{ APIGEE_SERVICE_ACCOUNTS_DIR }} --env {{ SERVICE_ACCOUNT_SCOPE }}
+    args:
+      chdir: "{{ HYBRID_FILES_DIR }}"
+
