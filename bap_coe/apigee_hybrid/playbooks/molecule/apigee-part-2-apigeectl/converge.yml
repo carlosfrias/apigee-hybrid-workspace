@@ -5,6 +5,9 @@
 - name: Load Apigee Cluster Credentials
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-credentials/converge.yml"
 
+- name: Kubectl Cluster Config
+  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
+
 - name: Install Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/kubectl-cert-manager-install/converge.yml"
 
