@@ -15,4 +15,4 @@
   roles:
   - { role: service_account_file_path }
   - { role: service_account_file_processing }
-  - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'create', SERVICE_ACCOUNTS: ["{{ ADMIN_USER }}"] }
+  - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'create', SERVICE_ACCOUNTS: ["{{ ADMIN_ACCOUNT_USER }}"] }
