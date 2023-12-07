@@ -1,0 +1,64 @@
+---
+# tasks file for roles/gcp_iam_service_account_key_generation
+- name: Assert that the PROJECT_ID is available
+  assert:
+    that:
+    - PROJECT_ID is defined
+    msg: "Please provide the PROJECT_ID"
+
+- name: Assert that the KEY_FILE_PATH is available
+  assert:
+    that:
+    - KEY_FILE_PATH is defined
+    msg: "Please provide the KEY_FILE_PATH"
+
+- name: Assert that the  ADMIN_SERVICE_ACCOUNT_EMAIL is available
+  assert:
+    that:
+    -  ADMIN_SERVICE_ACCOUNT_EMAIL is defined
+    msg: "Please provide the  ADMIN_SERVICE_ACCOUNT_EMAIL"
+
+- name: Assert that KEY_FILE_PATH availability
+  stat:
+    path: "{{ KEY_FILE_PATH }}"
+  register: file_exists
+
+- name: Create initial service account key file, if not there
+  shell: |
+    gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}  \
+      --iam-account={{ item }} \
+      --project {{ PROJECT_ID }} \
+      --account {{ ADMIN_ACCOUNT_EMAIL }}
+  loop: "{{ SERVICE_ACCOUNTS }}"
+  when: file_exists.stat.exists is falsy
+
+- name: Assert that KEY_FILE_PATH is a valid, if not trigger creation later
+  stat:
+    path: "{{ KEY_FILE_PATH }}"
+  register: svc_acct_file
+
+- name: Regenerate the file, seems to be empty
+  block:
+  - name: Remove an empty file {{ KEY_FILE_PATH }}
+    file:
+      path: "{{ KEY_FILE_PATH }}"
+      state: absent
+
+  - name: Create initial service account key file
+    shell: |
+      gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}  \
+      --iam-account={{ item }} \
+      --project {{ PROJECT_ID }} \
+      --account {{ ADMIN_ACCOUNT_EMAIL }}
+    loop: "{{ SERVICE_ACCOUNTS }}"
+  when: svc_acct_file.stat.exists is truthy and svc_acct_file.stat.size == 0
+
+- name: Assert that KEY_FILE_PATH is a valid path
+  stat:
+    path: "{{ KEY_FILE_PATH }}"
+  register: svc_acct_file
+
+- name: Unable to create the service account file {{ KEY_FILE_PATH }} so fail out
+  fail:
+    msg: "Unable to create the service account file, please check your org policies and permissions. "
+  when: svc_acct_file.stat.exists is truthy and svc_acct_file.stat.size == 0

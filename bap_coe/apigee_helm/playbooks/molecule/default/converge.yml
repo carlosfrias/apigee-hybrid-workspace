@@ -6,13 +6,13 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-apigee-config-org-policies/converge.yml"
 
 - name: Create Apigee Hybrid Project Service Account
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-mgmt/converge.yml"
 
 - name: Configure Apigee Hybrid Project Service Account Permissions
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create-permissions/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-mgmt-permissions/converge.yml"
 
 - name: Download Apigee Hybrid Project Service Account Keys
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create-keys/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-mgmt-keys/converge.yml"
 
 - name: Download Apigee Hybrid Project Service Account Keys
   import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"

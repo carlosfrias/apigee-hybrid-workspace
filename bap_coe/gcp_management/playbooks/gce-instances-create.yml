@@ -14,8 +14,8 @@
   roles:
     - { role: gcp_project_services_enable, tags: ['services'] }
     - { role: service_account_file_path, tags: [ 'service-account'] }
-    - { role: gcp_iam_service_account_create, tags: [ 'service-account'] }
-    - { role: gcp_iam_service_account_keys, tags: [ 'service-account'] }
+    - { role: gcp_iam_service_account_mgmt, tags: [ 'service-account'] }
+    - { role: gcp_iam_service_account_key_generation, tags: [ 'service-account'] }
     - { role: gcp_iam_policy_bindings_service_account, tags: [ 'service-account'] }
     - { role: service_account_file_processing, tags: [ 'service-account'] }
     - { role: gce_network_create }

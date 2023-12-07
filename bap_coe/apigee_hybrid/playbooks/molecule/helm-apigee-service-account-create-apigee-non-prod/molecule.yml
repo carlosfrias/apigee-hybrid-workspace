@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: gcp-service-account-create
+  - name: gcp-service-account-mgmt
 provisioner:
   name: ansible
 verifier:

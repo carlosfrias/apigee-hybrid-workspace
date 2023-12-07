@@ -54,7 +54,7 @@ VALIDATE_PROXY_URI_ENDPOINT: /notarget
 VALIDATE_PROXY_IP: "{{ INGRESS_IP }}"
 VALIDATE_PROXY_PORT: 443
 
-#SERVICE_ACCOUNTS:
+#APIGEE_SERVICE_ACCOUNTS:
 #- apigee-metrics
 #- apigee-synchronizer
 #- apigee-udca

@@ -11,11 +11,15 @@ PROJECT_ID: "friasc-hybrid-20231207-1130"
 ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_ACCOUNT_USER }}@{{ GCLOUD_ORG_DOMAIN }}"
 BILLING_USER_NAME: "{{ ADMIN_ACCOUNT_USER }}"
 BILLING_USER_EMAIL: "{{ BILLING_USER_NAME }}@{{ GCLOUD_ORG_DOMAIN }}"
+APIGEE_NON_PROD_USER: "apigee-non-prod"
+APIGEE_ADMIN: "{{ APIGEE_NON_PROD_USER }}"
+APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_NON_PROD_USER }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
 ADMIN_SERVICE_ACCOUNT_NAME: "{{ APIGEE_NON_PROD_USER }}"
-ADMIN_SERVICE_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_NAME }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
-AUTHORIZATION_KIND: serviceaccount
+ADMIN_SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_NON_PROD_USER }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
 SERVICE_ACCOUNT_SCOPE: "non-prod"
+AUTHORIZATION_KIND: serviceaccount
 
+# Setting Working Directories and Paths
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 WORKDIR_DOWNLOAD_DEST: "{{ WORK_DIR }}/downloads"
 WORKDIR_BINARY_DEST: "{{ WORK_DIR }}/bin"
@@ -23,9 +27,12 @@ HYBRID_FILES_DIR: "{{ WORK_DIR }}/apigeectl-{{ APIGEE_VERSION }}/hybrid-files"
 CERT_FILE_DIR: "{{ HYBRID_FILES_DIR  }}/certs"
 OVERRIDE_FILE: "{{ HYBRID_FILES_DIR }}/overrides/overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml"
 HELM_OVERRIDE_FILE: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ OVERRIDE_FILE | basename }}"
-SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
+APIGEE_SERVICE_ACCOUNTS_DIR: "{{ HYBRID_FILES_DIR }}/service-accounts"
 APIGEE_HYBRID_HELM_CHARTS_DIR: "{{ HYBRID_FILES_DIR }}/apigee-hybrid-helm-charts"
 HELM_CERT_FILE_DIR: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/certs"
+SERVICE_ACCOUNT_FILE_SUFFIX: "service-account-key"
+SERVICE_ACCOUNT_FILE: "{{ ADMIN_SERVICE_ACCOUNT_NAME }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
+SERVICE_ACCOUNT_FILE_PATH: "{{ WORK_DIR }}/credentials/{{ SERVICE_ACCOUNT_FILE }}"
 
 HELM_VERSION: 3.11.1
 HELM_BASE_URL: https://get.helm.sh
@@ -64,8 +71,6 @@ INGRESS_GATEWAY_NAME: apigee-ingress # 17 char limit
 DISABLE_ISTIO_CONFIG_IN_API_SERVER: true
 APIGEE_HYBRID_LOGGER_ENABLED: false
 
-SERVICE_ACCOUNT_FILE_SUFFIX: "service-account-key"
-
 APIGEE_VERSION: 1.11.0
 ISTIO_VERSION: 1.18
 ISTIO_VERSION_REVISION: "asm.8"
@@ -94,11 +99,7 @@ EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"
 #PROVIDED_PUBLIC_CERT: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.pem"
 #PROVIDED_PRIVATE_KEY: "{{ '~' | expanduser }}/.ssh/hybrid-apigee.net/demo-cert.key"
 #FOLDER_DISPLAY_NAME: apigee-hybrid
-
-APIGEE_NON_PROD_USER: "apigee-non-prod"
-APIGEE_ADMIN: "{{ APIGEE_NON_PROD_USER }}"
-APIGEE_NON_PROD_EMAIL: "{{ APIGEE_NON_PROD_USER }}@{{ PROJECT_ID }}.iam.gserviceaccount.com"
-APIGEE_NON_PROD_ROLES:
+APIGEE_NON_PROD_ROLE_BINDINGS:
 - "roles/apigee.admin"
 - "roles/apigee.runtimeAgent"
 - "roles/apigee.synchronizerManager"
@@ -228,7 +229,7 @@ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS:
   - "roles/storage.objectAdmin"
   - "roles/gkehub.connect"
 
-SERVICE_ACCOUNTS:
+APIGEE_SERVICE_ACCOUNTS:
 - "{{ APIGEE_NON_PROD_USER }}"
 #  - apigee-metrics
 #  - apigee-synchronizer
@@ -238,6 +239,7 @@ SERVICE_ACCOUNTS:
 #  - apigee-logger
 #  - apigee-watcher
 #  - apigee-connect-agent
+
 
 SERVICE_ACCOUNT_PATH_SYNCHRONIZER: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"
 SERVICE_ACCOUNT_PATH_UDCA: "{{ HYBRID_FILES_DIR }}/service-accounts/{{ PROJECT_ID }}-apigee-non-prod.json"

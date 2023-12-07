@@ -14,7 +14,7 @@
 
   roles:
   - { role: service_account_file_path }
-  - { role: gcp_iam_service_account_keys }
+  - { role: gcp_iam_service_account_key_generation }
   - { role: service_account_file_processing }
   - { role: gcp_auth_service_account_activate }
 
