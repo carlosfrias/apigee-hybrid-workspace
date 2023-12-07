@@ -18,11 +18,11 @@
     - ADMIN_ACCOUNT_EMAIL is defined
     msg: "Please provide the ADMIN_ACCOUNT_USER"
 
-- name: Assert that the ADMIN_SERVICE_ACCOUNT_EMAIL is available
+- name: Assert that the ADMIN_SERVICE_ACCOUNT is available
   assert:
     that:
-    - ADMIN_SERVICE_ACCOUNT_EMAIL is defined
-    msg: "Please provide the ADMIN_SERVICE_ACCOUNT_EMAIL(fully qualified domain name)"
+    - ADMIN_SERVICE_ACCOUNT is defined
+    msg: "Please provide the ADMIN_SERVICE_ACCOUNT(fully qualified domain name)"
 
 - name: Set IAM roles for service account
   shell: |

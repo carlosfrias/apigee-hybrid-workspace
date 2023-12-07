@@ -46,8 +46,8 @@
   - name: Create the service account
     shell: |
       gcloud iam service-accounts {{ SERVICE_OP }} {{ item }} \
-        --description={{ ADMIN_SERVICE_ACCOUNT_NAME }} \
-        --display-name={{ ADMIN_SERVICE_ACCOUNT_NAME }} \
+        --description={{ item }} \
+        --display-name={{ item }} \
         --project {{ PROJECT_ID }}
     loop: "{{ SERVICE_ACCOUNTS }}"
 
@@ -61,8 +61,8 @@
     - name: RESCUE - Create an initial service account, rescue for idempotency
       shell: |
         gcloud iam service-accounts {{ SERVICE_OP }} {{ item }} \
-          --description={{ ADMIN_SERVICE_ACCOUNT_NAME }} \
-          --display-name={{ ADMIN_SERVICE_ACCOUNT_NAME }} \
+          --description={{ item }} \
+          --display-name={{ item }} \
           --project {{ PROJECT_ID }} \
           --account {{ ADMIN_ACCOUNT_EMAIL }}
       loop: "{{ SERVICE_ACCOUNTS }}"

@@ -15,7 +15,7 @@
 - name: Create Apigee hybrid cluster
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ MACHINE_TYPE }} \
@@ -51,7 +51,7 @@
 - name: Create node-pool apigee-data
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_DATA_LABEL }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \
@@ -83,7 +83,7 @@
 - name: Create node-pool apigee-runtime
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_RUNTIME_LABEL }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT_EMAIL }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \

@@ -22,7 +22,7 @@
     ACCOUNT_TYPE: "serviceAccount",
     GCLOUD_BINDING_ACCOUNT: "{{ GCLOUD_SERVICE_ACCOUNT}}",
     POLICY_BINDINGS: "{{ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
-    ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}"
+    ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT }}"
   }
   - { role: service_account_file_processing, tags: [ 'service-account'] }
   - { role: gce_network_create }

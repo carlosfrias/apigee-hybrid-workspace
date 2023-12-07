@@ -14,7 +14,7 @@
   roles:
     - {
         role: gcp_iam_policy_bindings_org,
-        ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}",
+        ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_SERVICE_ACCOUNT }}",
         ROLE_BINDINGS: [
           "{{ GCLOUD_FOLDER_ROLE_BINDINGS }}",
           "{{ GCLOUD_ORG_ROLE_BINDINGS }}",

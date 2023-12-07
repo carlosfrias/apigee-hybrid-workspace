@@ -58,7 +58,7 @@
 #  - name: Bind gkehub.connect IAM role to service account - this is now in the install_asm bash script
 #    shell: |
 #      gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-#       --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT_EMAIL }}" \
+#       --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT }}" \
 #       --role="roles/gkehub.connect"
 #
 #  - name: Ensure you have cluster-admin on the cluster

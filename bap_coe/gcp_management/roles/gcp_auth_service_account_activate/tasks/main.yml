@@ -1,11 +1,11 @@
 ---
 # tasks file for gcp_auth_service_account_activate
 
-- name: Assert  ADMIN_SERVICE_ACCOUNT_EMAIL is provided
+- name: Assert  ADMIN_SERVICE_ACCOUNT is provided
   assert:
     that:
-    -  ADMIN_SERVICE_ACCOUNT_EMAIL is defined
-    fail_msg: " ADMIN_SERVICE_ACCOUNT_EMAIL must be provided"
+    -  ADMIN_SERVICE_ACCOUNT is defined
+    fail_msg: " ADMIN_SERVICE_ACCOUNT must be provided"
 
 - name: Assert SERVICE_ACCOUNT_FILE_PATH is provided
   assert:

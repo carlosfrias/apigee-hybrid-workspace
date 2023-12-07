@@ -15,4 +15,4 @@
   roles:
   - { role: service_account_file_path }
   - { role: service_account_file_processing }
-  - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'create', SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}" }
+  - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'create', SERVICE_ACCOUNTS: ["{{ ADMIN_USER }}"] }
