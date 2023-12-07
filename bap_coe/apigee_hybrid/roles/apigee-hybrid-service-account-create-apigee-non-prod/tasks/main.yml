@@ -7,7 +7,6 @@
   set_fact:
     cacheable: yes
     SERVICE_ACCOUNTS: "{{ SERVICE_ACCOUNTS | default(DEFAULT_SERVICE_ACCOUNTS) }}"
-    SERVICE_ACCOUNT_ADMIN: "{{ SERVICE_ACCOUNT_ADMIN | default(DEFAULT_SERVICE_ACCOUNT_ADMIN) }}"
 
 - name: Create an initial service account
   shell: |
