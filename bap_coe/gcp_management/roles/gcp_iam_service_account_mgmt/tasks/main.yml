@@ -43,7 +43,7 @@
     PROJECT_ACTIVE: "{{ (ACTIVE_PROJECTS.lifecycleState is defined and ACTIVE_PROJECTS.lifecycleState == 'ACTIVE') | default(False) }}"
 
 - block:
-  - name: Create an initial service account
+  - name: Create the service account
     shell: |
       gcloud iam service-accounts {{ SERVICE_OP }} {{ item }} \
         --description={{ ADMIN_SERVICE_ACCOUNT_NAME }} \
