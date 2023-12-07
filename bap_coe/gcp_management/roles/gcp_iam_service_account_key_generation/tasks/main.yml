@@ -26,7 +26,7 @@
 - name: Create initial service account key file, if not there
   shell: |
     gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}  \
-      --iam-account={{ item }} \
+      --iam-account={{ item }}{{ PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }} \
       --project {{ PROJECT_ID }} \
       --account {{ ADMIN_ACCOUNT_EMAIL }}
   loop: "{{ SERVICE_ACCOUNTS }}"
