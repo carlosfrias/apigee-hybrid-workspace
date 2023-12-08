@@ -20,6 +20,8 @@ ADMIN_SERVICE_ACCOUNT: "{{ ADMIN_SERVICE_ACCOUNT_NAME }}{{ PROJECT_SERVICE_ACCOU
 SERVICE_ACCOUNT_SCOPE: "non-prod"
 AUTHORIZATION_KIND: serviceaccount
 
+#  gcp_auth_service_account_activate
+
 # Setting Working Directories and Paths
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
 WORKDIR_DOWNLOAD_DEST: "{{ WORK_DIR }}/downloads"
