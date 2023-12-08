@@ -8,7 +8,7 @@
 - name: Create service account keys
   import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-key-generation/converge.yml"
 
-- name: Update service account permissions
+- name: Service account policy binding mgmt
   import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-policy-binding-mgmt/converge.yml"
 
 - name: Update services api

@@ -16,7 +16,7 @@
   assert:
     that:
     -  ADMIN_SERVICE_ACCOUNT is defined
-    msg: "Please provide the  ADMIN_SERVICE_ACCOUNT"
+    msg: "Please provide the ADMIN_SERVICE_ACCOUNT"
 
 - name: Assert that KEY_FILE_PATH availability
   stat:
@@ -25,8 +25,8 @@
 
 - name: Create initial service account key file, if not there
   shell: |
-    gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}  \
-      --iam-account={{ item }}{{ PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }} \
+    gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json \
+      --iam-account={{ item }} \
       --project {{ PROJECT_ID }} \
       --account {{ ADMIN_ACCOUNT_EMAIL }}
   loop: "{{ SERVICE_ACCOUNTS }}"
@@ -46,7 +46,7 @@
 
   - name: Create initial service account key file
     shell: |
-      gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}  \
+      gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json \
       --iam-account={{ item }} \
       --project {{ PROJECT_ID }} \
       --account {{ ADMIN_ACCOUNT_EMAIL }}
