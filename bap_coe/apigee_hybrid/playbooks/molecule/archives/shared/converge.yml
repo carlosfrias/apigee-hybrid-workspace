@@ -37,7 +37,7 @@
     }
   - {
       role: gcp_auth_service_account_activate,
-      SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+      SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
     }
   - { role: gce_dynamic_inventory_configure }
 
