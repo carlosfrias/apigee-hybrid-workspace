@@ -17,7 +17,7 @@
   - {
       role: gcp_iam_service_account_key_generation,
       SERVICE_ACCOUNTS: ["{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"],
-      KEY_FILE_PATH: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
     }
   - { role: service_account_file_processing }
   - { role: gcp_auth_service_account_activate }
