@@ -4,7 +4,7 @@
 
 - name: Create service accounts
   import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-mgmt/converge.yml"
-#
+
 - name: Create service account keys
   import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-key-generation/converge.yml"
 
