@@ -20,7 +20,15 @@ ADMIN_SERVICE_ACCOUNT: "{{ ADMIN_SERVICE_ACCOUNT_NAME }}{{ PROJECT_SERVICE_ACCOU
 SERVICE_ACCOUNT_SCOPE: "non-prod"
 AUTHORIZATION_KIND: serviceaccount
 
-#  gcp_auth_service_account_activate
+- {
+  role: service_account_file_processing,
+  SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+}
+
+- {
+    role: gcp_auth_service_account_activate,
+    SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+  }
 
 # Setting Working Directories and Paths
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
