@@ -24,7 +24,7 @@
       --project {{ PROJECT_ID }} \
       --account {{ ADMIN_ACCOUNT_EMAIL }}
   loop: "{{ SERVICE_ACCOUNTS }}"
-  when: file_exists.stat.exists is falsy
+  when: file_exists.stat.exists is truthy
 
 - name: Assert that KEY_FILE_PATH is a valid, if not trigger creation later
   stat:
