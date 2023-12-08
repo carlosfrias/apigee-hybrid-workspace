@@ -12,12 +12,6 @@
     - KEY_FILE_PATH is defined
     msg: "Please provide the KEY_FILE_PATH"
 
-- name: Assert that the  ADMIN_SERVICE_ACCOUNT is available
-  assert:
-    that:
-    -  ADMIN_SERVICE_ACCOUNT is defined
-    msg: "Please provide the ADMIN_SERVICE_ACCOUNT"
-
 - name: Assert that KEY_FILE_PATH availability
   stat:
     path: "{{ KEY_FILE_PATH }}"
