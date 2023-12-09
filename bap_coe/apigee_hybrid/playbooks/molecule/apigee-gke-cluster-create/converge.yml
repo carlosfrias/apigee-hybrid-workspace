@@ -19,5 +19,5 @@
       }
     - {
         role: apigee-hybrid-gke-create,
-        GCP_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_ACCOUNT }}"
+        GCP_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
       }
