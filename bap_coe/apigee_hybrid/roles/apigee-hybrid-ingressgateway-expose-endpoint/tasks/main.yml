@@ -13,4 +13,3 @@
 - name: Create the service
   command: kubectl apply -f {{ SERVICE_MANIFEST_FILE }}
 
-  
