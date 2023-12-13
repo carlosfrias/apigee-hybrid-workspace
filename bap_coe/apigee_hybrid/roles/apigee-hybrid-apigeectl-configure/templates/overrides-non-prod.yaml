@@ -43,28 +43,40 @@ envs:
 
 mart:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_MART }}"
+  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
+  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 connectAgent:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_CONNECT_AGENT }}"
+  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
+  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 metrics:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_METRICS }}"
+  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
+  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 udca:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"
+  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
+  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 watcher:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_WATCHER }}"
+  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
+  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 logger:
   enabled: {{ APIGEE_HYBRID_LOGGER_ENABLED }}
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_LOGGER }}"
+  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
+  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 nodeSelector:
   requiredForScheduling: false
   apigeeRuntime:
-    key: "cloud.google.com/gke-nodepool"
-    value: "apigee-runtime"
+    key: "{{ NODE_POOL_RUNTIME_LABEL_NAME }}"
+    value: "{{ NODE_POOL_RUNTIME_LABEL_VALUE }}"
   apigeeData:
-    key: "cloud.google.com/gke-nodepool"
-    value: "apigee-data"
+    key: "{{ NODE_POOL_DATA_LABEL_NAME }}"
+    value: "{{ NODE_POOL_DATA_LABEL_VALUE }}"
