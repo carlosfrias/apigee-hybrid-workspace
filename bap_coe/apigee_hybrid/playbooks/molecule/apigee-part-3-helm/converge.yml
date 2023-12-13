@@ -2,6 +2,7 @@
 - name: Configure ingressgateway
   import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
 
+
 - name: Create Apigee ingress gateway service
   hosts: localhost
   connection: local
@@ -18,6 +19,7 @@
 
   roles:
   - { role: apigee-hybrid-kubectl-ingressgateway }
+
 
 - name: Apply apigee-org installation
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
