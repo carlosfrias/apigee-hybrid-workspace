@@ -1,7 +1,16 @@
 ---
 # tasks file for roles/apigee-hybrid-org-create
-- name: Apigee hybrid ingressgateway healthcheck
-  uri:
-    url: https://{{ DOMAIN_NAME }}/healthz/ingress
-    headers: 
-     'User-Agent': 'GoogleHC' 
+- name: Set name of service file
+  set_facts:
+    cache: true
+    SERVICE_MANIFEST_FILE: "{{ HYBRID_FILES_DIR }}/apigee-ingressgateway-expose-endpoint.yaml"
+
+- name: Configure Apigee hybrid ingressgateway manifest file
+  template:
+    src: apigee-ingressgateway-expose-endpoint.yaml.j2
+    dest: "{{ SERVICE_MANIFEST_FILE }}"
+
+- name: Create the service
+  command: kubectl apply -f {{ SERVICE_MANIFEST_FILE }}
+
+  
