@@ -13,4 +13,7 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-tls-certs-create }
+    - {
+        role: apigee-hybrid-tls-certs-create,
+        CSR_COMMON_NAME: "{{ DNS_MANAGED_ZONE }}"
+      }

@@ -1,6 +1,6 @@
 ---
-#- name: Obtain External IP Address
-#  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+- name: Obtain External IP Address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
 
 - name: Apigee runtime checkready
   hosts: localhost
@@ -23,5 +23,4 @@
       chdir: "{{ APIGEECTL_DIR }}"
 
   roles:
-    - { role: gcp-obtain-external-ip-address }
     - { role: apigee-hybrid-ingressgateway-healthcheck }
