@@ -113,6 +113,7 @@ APIGEE_NON_PROD_ROLE_BINDINGS:
 - "roles/storage.objectAdmin"
 - "roles/iam.serviceAccountAdmin"
 
+CLUSTER_CHECK_DIR: "{{ HYBRID_FILES_DIR }}/cluster-check"
 CLUSTER_COUNT: "{{ CLUSTER_SEED }}"
 #CLUSTER_NAME: "frias-apigee-hybrid-demo"
 CLUSTER_NAME: "apigee-hybrid-{{ CLUSTER_COUNT }}"
