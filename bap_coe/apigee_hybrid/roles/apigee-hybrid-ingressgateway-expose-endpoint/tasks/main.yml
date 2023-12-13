@@ -1,7 +1,7 @@
 ---
 # tasks file for roles/apigee-hybrid-org-create
 - name: Set name of service file
-  set_facts:
+  set_fact:
     cache: true
     SERVICE_MANIFEST_FILE: "{{ HYBRID_FILES_DIR }}/apigee-ingressgateway-expose-endpoint.yaml"
 
