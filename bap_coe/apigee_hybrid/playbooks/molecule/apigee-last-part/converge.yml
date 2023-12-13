@@ -1,0 +1,7 @@
+---
+- name: Apigee ingressgateway expose endpoint
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-ingressgateway-expose-endpoint/converge.yml"
+
+- name: Apigee ingressgateway healthcheck
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-ingressgateway-healthcheck/converge.yml"
+

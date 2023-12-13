@@ -9,7 +9,4 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-part-2-apigeectl/converge.yml"
 
 - name: Complete Apigee Part 3
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-4-all/converge.yml"
-
-- name: Apigee ingressgateway healthcheck
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-ingressgateway-healthcheck/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-last-part/converge.yml"
