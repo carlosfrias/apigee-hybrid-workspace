@@ -20,4 +20,4 @@
     - {
         role: gce_network_create,
         SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
-    }
+      }
