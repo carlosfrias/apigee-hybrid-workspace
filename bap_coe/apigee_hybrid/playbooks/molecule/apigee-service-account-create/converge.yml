@@ -34,7 +34,7 @@
       }
     - {
         role: gcp_iam_service_account_key_generation,
-        SERVICE_ACCOUNTS: ["{{ APIGEE_ADMIN }}"],
+        SERVICE_ACCOUNTS: ["{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"],
         KEY_FILE_PATH: "{{ HYBRID_FILES_DIR }}/service-accounts"
       }
 
