@@ -140,12 +140,10 @@ LOGGING: "SYSTEM,WORKLOAD"
 MONITORING: "SYSTEM"
 CLUSTER_ADDONS: "HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver"
 NODE_POOL_NAME_LABEL_ATTRIBUTE: "cloud.google.com/gke-nodepool"
-NODE_POOL_DATA_LABEL: "apigee-data"
-NODE_POOL_RUNTIME_LABEL: "apigee-runtime"
-NODE_POOL_DATA_LABEL_NAME: "apigee-data"
-NODE_POOL_DATA_LABEL_VALUE: "True"
-NODE_POOL_RUNTIME_LABEL_NAME: "apigee-data"
-NODE_POOL_RUNTIME_LABEL_VALUE: "True"
+NODE_POOL_DATA_LABEL_NAME: "cloud.google.com/gke-nodepool"
+NODE_POOL_DATA_LABEL_VALUE: "apigee-data"
+NODE_POOL_RUNTIME_LABEL_NAME: "cloud.google.com/gke-nodepool"
+NODE_POOL_RUNTIME_LABEL_VALUE: "apigee-runtime"
 MAX_SURGE_UPGRADE: 1
 MAX_UNAVAILABLE_UPGRADE: 0
 

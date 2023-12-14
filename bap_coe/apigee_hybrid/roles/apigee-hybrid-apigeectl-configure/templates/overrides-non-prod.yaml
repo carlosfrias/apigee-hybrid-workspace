@@ -11,13 +11,18 @@ k8sCluster:
 
 org: "{{ PROJECT_ID }}"
 
+nodeSelector:
+  requiredForScheduling: false
+  apigeeRuntime:
+    key: "{{ NODE_POOL_RUNTIME_LABEL_NAME }}"
+    value: "{{ NODE_POOL_RUNTIME_LABEL_VALUE }}"
+  apigeeData:
+    key: "{{ NODE_POOL_DATA_LABEL_NAME }}"
+    value: "{{ NODE_POOL_DATA_LABEL_VALUE }}"
+
 cassandra:
   hostNetwork: {{ CASSANDRA_HOST_NETWORK }}
   replicaCount: {{ CASSANDRA_REPLICA_COUNT | int }}
-  nodeSelector:
-    requiredForScheduling: false
-    key: "{{ NODE_POOL_DATA_LABEL_NAME }}"
-    value: "{{ NODE_POOL_DATA_LABEL_VALUE }}"
 
 virtualhosts:
 - name: "{{ ENVIRONMENT_GROUP_NAME }}"
@@ -75,9 +80,3 @@ logger:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_LOGGER }}"
   replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
-
-runtime:
-  nodeSelector:
-    requiredForScheduling: false
-    key: "{{ NODE_POOL_RUNTIME_LABEL_NAME }}"
-    value: "{{ NODE_POOL_RUNTIME_LABEL_VALUE }}"
