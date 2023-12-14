@@ -34,4 +34,4 @@
           args:
             chdir: "{{ APIGEECTL_DIR }}"
           register: init_status
-      when: "{{ init_status.stderr contains 'TLS handshake timeout' }}"
+      when: 'TLS handshake timeout' in init_status.stderr
