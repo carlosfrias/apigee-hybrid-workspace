@@ -86,11 +86,11 @@ logger:
   replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
-nodeSelector:
-  requiredForScheduling: false
-  apigeeRuntime:
-    key: "{{ NODE_POOL_RUNTIME_LABEL_NAME }}"
-    value: "{{ NODE_POOL_RUNTIME_LABEL_VALUE }}"
-  apigeeData:
-    key: "{{ NODE_POOL_DATA_LABEL_NAME }}"
-    value: "{{ NODE_POOL_DATA_LABEL_VALUE }}"
+#nodeSelector:
+#  requiredForScheduling: false
+#  apigeeRuntime:
+#    key: "{{ NODE_POOL_RUNTIME_LABEL_NAME }}"
+#    value: "{{ NODE_POOL_RUNTIME_LABEL_VALUE }}"
+#  apigeeData:
+#    key: "{{ NODE_POOL_DATA_LABEL_NAME }}"
+#    value: "{{ NODE_POOL_DATA_LABEL_VALUE }}"

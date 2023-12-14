@@ -1,15 +1,10 @@
 ---
 # tasks file for roles/apigee-hybrid-org-create
-- name: Set name of service file
-  set_fact:
-    cache: true
-    SERVICE_MANIFEST_FILE: "{{ HYBRID_FILES_DIR }}/apigee-ingressgateway-expose-endpoint.yaml"
-
 - name: Configure Apigee hybrid ingressgateway manifest file
   template:
     src: apigee-ingressgateway-expose-endpoint.yaml.j2
-    dest: "{{ SERVICE_MANIFEST_FILE }}"
+    dest: "{{ SERVICE_MANIFEST_FILE_DEST }}"
 
 - name: Create the service
-  command: kubectl apply -f {{ SERVICE_MANIFEST_FILE }}
+  command: kubectl apply -f {{ SERVICE_MANIFEST_FILE_DEST }}
 

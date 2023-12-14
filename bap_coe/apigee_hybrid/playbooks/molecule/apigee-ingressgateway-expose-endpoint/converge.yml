@@ -17,4 +17,8 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-ingressgateway-expose-endpoint }
+    - {
+        role: apigee-hybrid-ingressgateway-expose-endpoint,
+        SERVICE_MANIFEST_FILE_DEST: "{{ HYBRID_FILES_DIR }}/overrides/apigee-ingressgateway-expose-endpoint.yaml"
+    }
+
