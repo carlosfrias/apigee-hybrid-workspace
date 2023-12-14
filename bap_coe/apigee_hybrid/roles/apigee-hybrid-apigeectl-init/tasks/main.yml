@@ -28,9 +28,10 @@
               prompt: "apigeectl init requires time to complete configuration..."
               seconds: "{{ APIGEECTL_CMD_TIMEOUT | default(60) }}"
 #            when: "{{'TLS handshake timeout' in init_status.stderr }}"
-    
+
           - name: RESCUE - Re-invoke init command
             shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
             args:
               chdir: "{{ APIGEECTL_DIR }}"
-    when: "{{'TLS handshake timeout' in init_status.stderr }}"
+
+      when: "{{'TLS handshake timeout' in init_status.stderr }}"
