@@ -10,7 +10,6 @@
 
   collections:
     - bap_coe.apigee_hybrid
-    - bap_coe.gcp_management
 
   roles:
     - { role: apigee-hybrid-tls-certs-destroy }
