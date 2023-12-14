@@ -1,0 +1,7 @@
+---
+# defaults file for roles/apigee-hybrid-tls-certs-create
+DEFAULT_CSR_COMMON_NAME: "*.hybrid-apigee.net"
+# DEFAULT_SSL_CERT_PATH: "{{ HYBRID_FILES_DIR }}/certs/keystore.pem"
+# DEFAULT_SSL_KEY_PATH: "{{ HYBRID_FILES_DIR }}/certs/keystore.key"
+# DEFAULT_CERT_SIGNING_REQUEST: "{{ HYBRID_FILES_DIR }}/certs/keystore.csr"
+
