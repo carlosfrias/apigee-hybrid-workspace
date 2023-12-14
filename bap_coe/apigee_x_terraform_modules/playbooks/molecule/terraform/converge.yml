@@ -14,7 +14,10 @@
 
   roles:
     - { role: terraform_installer }
-    - { role: service_account_file_path }
+    - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+
     - { role: service_account_file_processing }
     - { role: gcp_auth_service_account_activate }
     - { role: terraform_init }

@@ -13,7 +13,10 @@ vars_files:
   - bap_coe.bootstrap_runtime
 
   roles:
-  - { role: service_account_file_path }
+  - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+
   - { role: gcp_iam_service_account_keys }
 #  - { role: gcp_iam_service_account_keys }
 #  - { role: gcp_resource_manager_folders_get_folder_id, GCLOUD_ORG_ID: "{{ PROJECT_ID }}" } Add logic to skip if no permissions

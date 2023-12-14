@@ -17,7 +17,10 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: service_account_file_path }
+    - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+
     - { role: gcp_iam_service_account_mgmt,
         SERVICE_OP: 'create',
         SERVICE_ACCOUNTS: ["{{ APIGEE_ADMIN }}"]

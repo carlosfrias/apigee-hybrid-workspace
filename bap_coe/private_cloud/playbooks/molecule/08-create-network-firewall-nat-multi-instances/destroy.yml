@@ -12,7 +12,10 @@
      - bap_coe.gcp_management
 
   roles:
-    - { role: service_account_file_path }
+    - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+
     - { role: service_account_file_processing }
     - { role: gce_router_nat_remove }
     - { role: gce_router_remove }

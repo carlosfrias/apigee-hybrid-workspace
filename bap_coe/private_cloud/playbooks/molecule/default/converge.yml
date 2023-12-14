@@ -50,7 +50,10 @@
 #    }
 #  - { role: gcp_resource_manager_constraints_disable_enforce }
 #  - { role: gcp_resource_manager_update_org_policy }
-#  - { role: service_account_file_path }
+#  - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+
 #  - { role: gcp_iam_service_account_create }
 #  - {
 #      role: gcp_iam_policy_bindings,

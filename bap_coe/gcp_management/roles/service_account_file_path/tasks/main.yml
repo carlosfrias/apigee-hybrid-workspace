@@ -1,7 +1,6 @@
 ---
 # tasks file for service_account_file_path
-
 - name: create work directory
   file:
-    path: "{{ WORK_DIR }}/credentials"
+    path: "{{ KEY_FILE_PATH }}"
     state: directory

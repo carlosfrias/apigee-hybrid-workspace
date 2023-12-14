@@ -13,7 +13,10 @@
 
   roles:
   - { role: terraform_installer }
-  - { role: service_account_file_path }
+  - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+
   - { role: terraform_credentials }
   - { role: key_value_updates }
 
