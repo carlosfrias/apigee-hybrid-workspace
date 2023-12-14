@@ -23,6 +23,8 @@
       --iam-account={{ item }} \
       --project {{ PROJECT_ID }} \
       --account {{ ADMIN_ACCOUNT_EMAIL }}
+  args:
+    creates: "{{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
   loop: "{{ SERVICE_ACCOUNTS }}"
   when: file_exists.stat.exists is truthy
 
@@ -45,6 +47,8 @@
       --project {{ PROJECT_ID }} \
       --account {{ ADMIN_ACCOUNT_EMAIL }}
     loop: "{{ SERVICE_ACCOUNTS }}"
+    args:
+      creates: "{{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
   when: svc_acct_file.stat.exists is truthy and svc_acct_file.stat.size == 0
 
 - name: Assert that KEY_FILE_PATH is a valid path
