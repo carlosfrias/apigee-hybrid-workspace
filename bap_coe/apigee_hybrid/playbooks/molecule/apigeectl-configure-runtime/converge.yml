@@ -1,3 +1,7 @@
+---
+- name: Obtain External IP Address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+
 - name: Configure Apigee runtime
   hosts: localhost
   connection: local
