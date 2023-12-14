@@ -57,7 +57,7 @@
       common_name: "{{ DOMAIN_NAME }}"
 
   - name: Generate a Self Signed x509 Certificate
-    x509_certificate:
+    community.crypto.x509_certificate:
       path: "{{ SSL_CERT_PATH }}"
       privatekey_path: "{{ SSL_KEY_PATH }}"
       csr_path: "{{ CERT_SIGNING_REQUEST_PATH }}"
