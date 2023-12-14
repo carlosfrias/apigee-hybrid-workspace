@@ -50,7 +50,7 @@
 
 - name: Create node-pool apigee-data
   shell: |
-    gcloud beta container node-pools create {{ NODE_POOL_DATA_LABEL_NAME }} \
+    gcloud beta container node-pools create {{ NODE_POOL_DATA_LABEL }} \
       --service-account {{ AUTHORIZED_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
@@ -66,7 +66,7 @@
       --location-policy "BALANCED" \
       --enable-autoscaling \
       --metadata disable-legacy-endpoints=true \
-      --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_DATA_LABEL_NAME }}
+      --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_DATA_LABEL }}
   register: data_pool_status
   failed_when:
   - data_pool_status.rc == 1
@@ -82,7 +82,7 @@
 
 - name: Create node-pool apigee-runtime
   shell: |
-    gcloud beta container node-pools create {{ NODE_POOL_RUNTIME_LABEL_NAME }} \
+    gcloud beta container node-pools create {{ NODE_POOL_RUNTIME_LABEL }} \
       --service-account {{ AUTHORIZED_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
@@ -98,7 +98,7 @@
       --location-policy "BALANCED" \
       --enable-autoscaling \
       --metadata disable-legacy-endpoints=true \
-      --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_RUNTIME_LABEL_NAME }}
+      --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_RUNTIME_LABEL }}
   register: runtime_pool_status
   failed_when:
   - runtime_pool_status.rc == 1
