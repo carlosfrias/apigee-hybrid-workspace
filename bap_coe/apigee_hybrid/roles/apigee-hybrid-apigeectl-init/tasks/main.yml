@@ -16,7 +16,7 @@
         seconds: "{{ APIGEECTL_CMD_TIMEOUT | default(60) }}"
 
     - block:
-      - name: Invoke init command
+      - name: RESCUE - Invoke init command
         shell: ./apigeectl init -f {{ OVERRIDE_FILE }}
         args:
           chdir: "{{ APIGEECTL_DIR }}"

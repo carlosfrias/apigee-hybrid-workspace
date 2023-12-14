@@ -19,7 +19,7 @@
 
 - name: Create initial service account key file, if not there
   shell: |
-    gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json \
+    gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}/ \
       --iam-account={{ item }} \
       --project {{ PROJECT_ID }} \
       --account {{ ADMIN_ACCOUNT_EMAIL }}
