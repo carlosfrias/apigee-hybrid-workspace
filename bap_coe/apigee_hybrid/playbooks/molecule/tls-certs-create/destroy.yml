@@ -13,4 +13,4 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-tls-certs-delete }
+    - { role: apigee-hybrid-tls-certs-destroy }
