@@ -25,7 +25,6 @@
   - name: Set TLS path names to cache
     set_fact:
       cacheable: yes
-      CSR_COMMON_NAME: "{{ CSR_COMMON_NAME | default('*.hybrid-apigee.net') }}"
       SSL_CERT_PATH: "{{ CERT_FILE_DIR }}/keystore-{{ ENVIRONMENT_GROUP_NAME }}.pem"
       SSL_KEY_PATH: "{{ CERT_FILE_DIR }}/keystore-{{ ENVIRONMENT_GROUP_NAME }}.key"
       CERT_SIGNING_REQUEST_PATH: "{{ CERT_FILE_DIR }}/keystore-{{ ENVIRONMENT_GROUP_NAME }}.csr"
