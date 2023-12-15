@@ -32,7 +32,7 @@ ingressGateways:
   replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
   replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
   svcLoadBalancerIP: {{ EXTERNAL_IP }}
-  svcType: ClusterIP
+#  svcType: ClusterIP
 
 envs:
 - name: "{{ ENVIRONMENT_NAME }}"
