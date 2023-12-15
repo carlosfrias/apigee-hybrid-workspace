@@ -1,4 +1,11 @@
 ---
+
+- name: Create TLS certs
+  import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/converge.yml"
+
+- name: Create an Apigee environment group
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-environment-group-create/converge.yml"
+
 - name: Obtain External IP Address
   import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
 
@@ -17,6 +24,7 @@
     - bap_coe.gcp_management
 
   roles:
+    - { role: apigee-hybrid-group-create }
     - {
         role: apigee-hybrid-apigeectl-configure,
         includeNodeSelector: false

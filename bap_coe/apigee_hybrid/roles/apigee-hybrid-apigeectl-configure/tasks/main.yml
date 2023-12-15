@@ -5,14 +5,6 @@
   shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
   register: project_number
 
-- name: Load ENV Group
-  import_role:
-    name: apigee-hybrid-group-create
-
-- name: Load TLS certs
-  import_role:
-    name: apigee-hybrid-tls-certs-create
-
 - name: Set attributes in cache
   set_fact: 
     cacheable: yes
