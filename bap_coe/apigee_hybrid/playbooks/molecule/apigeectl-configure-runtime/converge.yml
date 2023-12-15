@@ -17,4 +17,4 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-apigeectl-configure, tags: ['configure'] }
+    - { role: apigee-hybrid-apigeectl-configure }
