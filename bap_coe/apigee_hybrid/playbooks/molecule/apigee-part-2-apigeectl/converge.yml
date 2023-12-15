@@ -24,7 +24,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
 
 - name: Apigee runtime config
-  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-configure-runtime/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-config/converge.yml"
 
 - name: Apigee runtime init
   import_playbook: "{{ playbook_dir | dirname }}/apigeectl-runtime-init/converge.yml"
