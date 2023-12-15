@@ -14,4 +14,4 @@
     status_code: ['200', '409']
     body: 
       name: "{{ ENVIRONMENT_GROUP_NAME }}"
-      hostnames: ["{{ DOMAIN_NAME }}"]
+      hostnames: ["{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}" ]
