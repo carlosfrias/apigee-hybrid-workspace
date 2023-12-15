@@ -2,7 +2,7 @@
 # tasks file for roles/apigee-hybrid-cloud-dns-create
 - name: Delete record set transaction
   shell: |
-    gcloud dns record-sets delete {{ DOMAIN_NAME }} \
+    gcloud dns record-sets delete {{ FQ_DOMAIN_NAME }} \
       --zone={{ DNS_ZONE_NAME }} \
       --type=A \
       --account={{ ALTOSTRAT_DOMAIN_ADMIN }} \

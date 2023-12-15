@@ -11,7 +11,7 @@
     gcloud dns managed-zones create {{ DNS_ZONE_NAME }} \
       --project={{ DNS_PROJECT_ID }} \
       --description="{{ GCP_CLOUD_DNS_DESCRIPTION }}" \
-      --dns-name="{{ DNS_MANAGED_ZONE }}" \
+      --dns-name="{{ FQ_DOMAIN_NAME }}" \
       --dnssec-state="off" \
       --account={{ ALTOSTRAT_DOMAIN_ADMIN }}
   register: status
@@ -32,7 +32,7 @@
     shell: |
       gcloud dns record-sets transaction add {{ EXTERNAL_IP }} \
         --zone={{ DNS_ZONE_NAME }} \
-        --name={{ DOMAIN_NAME }}. \
+        --name={{ FQ_DOMAIN_NAME }}. \
         --ttl=300 \
         --type=A \
         --project={{ DNS_PROJECT_ID }} \ 
@@ -69,7 +69,7 @@
       shell: |
         gcloud dns record-sets transaction add {{ EXTERNAL_IP }} \
           --zone={{ DNS_ZONE_NAME }} \
-          --name={{ DOMAIN_NAME }}. \
+          --name={{ FQ_DOMAIN_NAME }}. \
           --ttl=300 \
           --type=A \
           --project={{ DNS_PROJECT_ID }} \ 

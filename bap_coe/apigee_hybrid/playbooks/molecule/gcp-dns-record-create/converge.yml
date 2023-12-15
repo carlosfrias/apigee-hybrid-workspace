@@ -1,3 +1,7 @@
+---
+- name: Obtain External IP Address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+
 - name: Create DNS record
   hosts: localhost
   connection: local
@@ -12,6 +16,8 @@
     - bap_coe.gcp_management
 
   roles:
-  - { role: gce_external_ip_get }
-  - { role: apigee-hybrid-cloud-dns-create }
+  - {
+      role: apigee-hybrid-cloud-dns-create,
+      FQ_DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}"
+    }
 

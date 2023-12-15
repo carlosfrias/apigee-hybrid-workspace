@@ -2,6 +2,6 @@
 # tasks file for roles/apigee-hybrid-org-create
 - name: Apigee hybrid ingressgateway healthcheck
   uri:
-    url: https://{{ DOMAIN_NAME }}/healthz/ingress
+    url: https://{{ FQ_DOMAIN_NAME }}/healthz/ingress
     headers: 
      'User-Agent': 'GoogleHC' 
