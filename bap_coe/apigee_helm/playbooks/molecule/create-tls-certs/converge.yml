@@ -1,3 +1,4 @@
+---
 - name: Create TLS certs
   hosts: localhost
   connection: local
