@@ -8,15 +8,18 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   collections:
-    - bap_coe.gcp_management
-    - bap_coe.bootstrap_runtime
+  - bap_coe.gcp_management
+  - bap_coe.bootstrap_runtime
 
   roles:
   - { role: service_account_file_path,
       KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
-    }
+  }
 
-  - { role: gcp_iam_service_account_key_generation }
+  - { role: gcp_iam_service_account_key_generation,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
+      SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}"
+    }
   - { role: service_account_file_processing }
   - { role: gcp_auth_service_account_activate }
 
