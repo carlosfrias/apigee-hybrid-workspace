@@ -42,7 +42,7 @@
   file:
     path: "{{ OVERRIDE_FILE | dirname }}"
     state: directory
-    
+
 - name: Generate overrides.yml
   template: 
     src: overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml.j2
