@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: create-the-overrides
+  - name: tls-certs-create
 provisioner:
   name: ansible
 #  ansible_args:
@@ -18,5 +18,6 @@ provisioner:
 #    - --private-key=~/.ssh/google_compute_engine
   playbooks:
     converge: converge.yml
+    destroy: destroy.yml
 verifier:
   name: ansible

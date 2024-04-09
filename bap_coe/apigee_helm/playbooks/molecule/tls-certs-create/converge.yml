@@ -1,0 +1,20 @@
+---
+- name: Install helm
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - community.crypto
+
+  roles:
+    - {
+        role: apigee-hybrid-tls-certs-create,
+        CSR_COMMON_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}"
+      }

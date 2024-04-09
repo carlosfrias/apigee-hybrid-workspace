@@ -1,0 +1,32 @@
+---
+
+- name: Update TlS cert locations
+  import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/converge.yml"
+
+- name: Configure certs
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  tasks:
+    - name: Assert helm cert folder
+      file:
+        path: "{{ HELM_CERT_FILE_DIR }}"
+        state: directory
+
+    - name: Copy certs to helm cert folder
+      synchronize:
+        src: "{{ CERT_FILE_DIR }}/"
+        dest: "{{ item }}"
+      loop:
+      - "{{ HELM_CERT_FILE_DIR }}"
+      - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/certs"

@@ -1,0 +1,15 @@
+- name: Remove TLS certs
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+
+  roles:
+    - { role: apigee-hybrid-tls-certs-destroy }
