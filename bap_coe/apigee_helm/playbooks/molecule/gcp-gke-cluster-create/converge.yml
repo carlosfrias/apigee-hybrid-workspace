@@ -16,9 +16,11 @@
 
   roles:
     - { role: service_account_file_path,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
-    }
+        KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+      }
 
     - { role: service_account_file_processing }
     - { role: gce_network_create }
-    - { role: apigee-hybrid-gke-create }
+    - { role: apigee-hybrid-gke-create,
+        ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+      }
