@@ -8,28 +8,9 @@
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
-  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
-
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-#    - name: Retrieve Apigee hybrid helm charts repo
-#      git:
-#        repo: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
-#        dest: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
-
-#    - name: Add chart repo
-#      kubernetes.core.helm_repository:
-#        binary_path: "{{ HELM_BINARY }}"
-#        name: "apigee"
-#        repo_url: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}"
-##      with_items: "{{ APIGEE_HYBRID_CHART_LIST }}"
-
-#    - name: Assert if helm chart dir exists
-#      stat:
-#        path: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
-#      register: found
-
     - name: helm pull
       kubernetes.core.helm_pull:
         binary_path: "{{ HELM_BINARY }}"
@@ -42,4 +23,3 @@
       failed_when:
         - output.rc == 1
         - '"already exists" not in output.stderr'
-#      when: "{{ not found.stat.exists }}"
