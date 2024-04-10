@@ -1,0 +1,32 @@
+---
+- name: Configure Apigee Operator CRDs
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  tasks:
+#    - name: Apply apigee-operator CRDs
+#      shell: |
+#        kubectl apply -k  apigee-operator/etc/crds/default/ \
+#          --server-side \
+#          --force-conflicts \
+#          --validate=false
+#      args:
+#        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
+
+    - name: Apply CRDs
+      kubernetes.core.k8s:
+        state: present
+        name: ApigeeDeployment
+        namespace: apigee
+        src: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/crds/default/kustomization.yaml"
+        validate:
+          fail_on_error: false
+        server_side_apply:
+          field_manager: kubectl
+          force_conflicts: true
+        continue_on_error: true

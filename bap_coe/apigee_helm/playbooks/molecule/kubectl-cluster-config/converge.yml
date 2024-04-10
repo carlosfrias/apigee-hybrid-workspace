@@ -1,0 +1,76 @@
+---
+- name: Obtain kubectl config
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+  - bap_coe.apigee_hybrid
+  - bap_coe.gcp_management
+
+  roles:
+  - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+
+  - {
+      role: service_account_file_processing,
+      SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+    }
+  - { role: apigee-hybrid-cluster-credentials }
+
+  tasks:
+  - name: Set KUBECONFIG cache
+    set_fact:
+      cacheable: yes
+      CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/credentials/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.kubeconfig-context.json"
+
+  - block:
+    - name: Rename cluster
+      shell: |
+        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+        kubectx {{ CLUSTER_NAME }}
+    rescue:
+    - name: RESCUE - Wait for the cluster...
+      pause:
+        seconds: 15
+
+    - name: RESCUE - Rename cluster
+      shell: |
+        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+        kubectx {{ CLUSTER_NAME }}
+
+  - name: Generate kubeconfig file content
+    shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}
+    register: kubeconfig_content
+
+  - name: Create kubeconfig file
+    copy:
+      content: "{{ kubeconfig_content.stdout }}"
+      dest: "{{ CLUSTER_KUBECONFIG }}"
+
+#  - name: Create ASM service account
+#    ignore_errors: yes
+#    shell: gcloud iam service-accounts create {{ ADMIN_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
+#    register: status
+#    failed_when:
+#      - status.rc == 1
+#      - "'already exists' not in status.stderr"
+#
+#  - name: Bind gkehub.connect IAM role to service account - this is now in the install_asm bash script
+#    shell: |
+#      gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
+#       --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT }}" \
+#       --role="roles/gkehub.connect"
+#
+#  - name: Ensure you have cluster-admin on the cluster
+#    shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ ADMIN_ACCOUNT_USER | default(ADMIN_ACCOUNT_USER) }}
+#    register: status
+#    failed_when:
+#    - status.rc == 1
+#    - "'already exists' not in status.stderr"

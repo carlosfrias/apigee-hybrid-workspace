@@ -11,15 +11,20 @@
 
   tasks:
 
-    - name: Create namespace
-      kubernetes.core.k8s:
+    - name: Install helm chart
+      kubernetes.core.helm:
         state: present
-        name: apigee
-        api_version: v1
-        kind: Namespace
-
-    - name: Apply CRD
-      shell: |
-        kubectl apply -k  apigee-operator/etc/crds/default/ --server-side --force-conflicts --validate=false
-      args:
-        chdir: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/apigee-operator"
+        namespace: apigee-system
+        release_name: apigee-operator
+        create_namespace: true
+        atomic: true
+        values_files:
+        - "{{ OVERRIDE_FILE }}"
+#
+#
+#    - name: Apply CRD
+#      shell: |
+#        kubectl apply -k  apigee-operator/etc/crds/default/ --server-side --force-conflicts --validate=false
+#      args:
+#        chdir: "{{ APIGEE_HYBRID_HELM_CHART_REPO_DEST }}"

@@ -1,5 +1,8 @@
 ---
 - name: Configure Apigee Hybrid Project
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
+
+- name: Configure Apigee Hybrid Project
   import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"
 
 

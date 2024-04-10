@@ -44,7 +44,6 @@ HELM_INSTALLATION_ARCHIVE_NAME: helm-v{{ HELM_VERSION }}-{{ ansible_system | low
 HELM_URL: "{{ HELM_BASE_URL }}/{{ HELM_INSTALLATION_ARCHIVE_NAME }}"
 HELM_URL_CHECKSUM: "{{ HELM_URL }}.sha256sum"
 HELM_BINARY: "{{ WORKDIR_BINARY_DEST }}/helm"
-#APIGEE_HYBRID_HELM_CHART_REPO:  sso://edge-internal/apigee-hybrid-helm-charts
 APIGEE_HYBRID_HELM_CHART_REPO:  oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
 APIGEE_HYBRID_HELM_CHART_REPO_DEST: "{{ WORK_DIR }}/{{ APIGEE_HYBRID_HELM_CHART_REPO | basename }}"
 APIGEE_HYBRID_HELM_CHART_VERSION: 1.10.3

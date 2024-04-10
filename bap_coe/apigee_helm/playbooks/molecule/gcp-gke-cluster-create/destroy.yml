@@ -22,3 +22,28 @@
         state: absent
       with_items:
       - "{{ WORK_DIR }}"
+
+
+- name: Delete a Cluster
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+  - bap_coe.apigee_hybrid
+  - bap_coe.gcp_management
+
+  roles:
+  - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+  }
+
+  - {
+    role: service_account_file_processing,
+    SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+  }
+  - { role: apigee-hybrid-gke-delete, tags: ['gke'] }
+  - { role: apigee-hybrid-kubectl-context-delete }

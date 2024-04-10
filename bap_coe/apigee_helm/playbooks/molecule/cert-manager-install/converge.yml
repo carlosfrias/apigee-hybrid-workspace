@@ -1,0 +1,20 @@
+---
+- name: Obtain Kubectl Cluster Config
+  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
+
+- name: Install Cert Manager
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  roles:
+    - { role: apigee-hybrid-kubectl-cert-manager-install }

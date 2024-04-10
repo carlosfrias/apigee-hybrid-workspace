@@ -1,0 +1,58 @@
+---
+- name: Helm checkready
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  tasks:
+    - name: Create Service Account
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ NAMESPACE }}"
+        definition:
+          kind: ServiceAccount
+          metadata:
+            name: apigee-k8s-cluster-ready-check
+
+    - name: Create check ready job
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ NAMESPACE }}"
+        definition:
+          apiVersion: batch/v1
+          kind: Job
+          metadata:
+            name: apigee-k8s-cluster-ready-check
+          spec:
+            template:
+              spec:
+                hostNetwork: true
+                serviceAccountName: apigee-k8s-cluster-ready-check
+                containers:
+                - name: manager
+                  image: gcr.io/apigee-release/hybrid/apigee-operators:{{ APIGEE_VERSION }}
+                  command:
+                  - /manager
+                  args:
+                  - --k8s-cluster-ready-check
+                  env:
+                  - name: POD_IP
+                    valueFrom:
+                      fieldRef:
+                        fieldPath: status.podIP
+                  securityContext:
+                    runAsGroup: 998
+                    runAsNonRoot: true
+                    runAsUser: 999
+                restartPolicy: Never
+            backoffLimit: 1
+

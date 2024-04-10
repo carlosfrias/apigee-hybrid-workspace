@@ -41,6 +41,15 @@
 - name: Create overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/create-the-overrides/converge.yml"
 
+- name: Enable Synchronizer
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"
+
+- name: Create overrides config file
+  import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
+
+- name: Install kubectl CRDs
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
+
 #- name: Configure Apigee Operator
 #  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
 #
