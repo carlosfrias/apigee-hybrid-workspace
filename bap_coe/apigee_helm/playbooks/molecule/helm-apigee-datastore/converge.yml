@@ -12,9 +12,15 @@
   tasks:
     - name: Configure Apigee Datastore
       kubernetes.core.helm:
-        name: helm-apigee-datastore
-        binary_path: "{{ HELM_BINARY }}"
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/helm-apigee-datastore"
         state: present
-        release_namespace: "{{ NAMESPACE }}"
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
+        namespace: apigee
+        name: datastore
+        replace: true
+        create_namespace: true
+        atomic: false
+        purge: true
+        wait: false
+        values_files:
+        - "{{ OVERRIDE_FILE }}"
 

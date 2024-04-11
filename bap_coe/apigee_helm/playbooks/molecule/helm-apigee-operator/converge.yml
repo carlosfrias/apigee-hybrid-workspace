@@ -14,7 +14,7 @@
       kubernetes.core.helm:
         state: present
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
-        namespace: apigee
+        namespace: apigee-system
         name: apigeedeployment
         replace: true
         create_namespace: true
@@ -23,9 +23,3 @@
         wait: false
         values_files:
         - "{{ OVERRIDE_FILE }}"
-
-#    - name: Apply CRD
-#      shell: |
-#        kubectl apply -k  apigee-operator/etc/crds/default/ --server-side --force-conflicts --validate=false
-#      args:
-#        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"

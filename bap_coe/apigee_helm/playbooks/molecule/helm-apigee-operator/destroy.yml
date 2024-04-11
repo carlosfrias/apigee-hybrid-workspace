@@ -13,7 +13,7 @@
   - name: Install helm chart
     kubernetes.core.helm:
       state: absent
-      namespace: apigee
+      namespace: apigee-system
       name: apigeedeployment
 
 #    - name: Apply CRD

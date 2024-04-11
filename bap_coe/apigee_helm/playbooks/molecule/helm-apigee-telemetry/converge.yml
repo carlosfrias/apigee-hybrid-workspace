@@ -12,9 +12,14 @@
   tasks:
     - name: Config Apigee Telemetry
       kubernetes.core.helm:
-        name: helm-apigee-telemetry
-        binary_path: "{{ HELM_BINARY }}"
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/helm-apigee-telemetry"
         state: present
-        release_namespace: "{{ NAMESPACE }}"
-
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-telemetry"
+        namespace: apigee
+        name: telemetry
+        replace: true
+        create_namespace: true
+        atomic: false
+        purge: true
+        wait: false
+        values_files:
+        - "{{ OVERRIDE_FILE }}"
