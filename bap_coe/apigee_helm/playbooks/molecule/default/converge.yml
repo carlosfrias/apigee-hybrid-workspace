@@ -39,7 +39,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
 
 - name: Create overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/create-the-overrides/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
 
 - name: Enable Synchronizer
   import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"
