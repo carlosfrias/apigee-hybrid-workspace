@@ -113,6 +113,7 @@
   async: 90
 
 - name: Delete default node-pool that is created
+  ignore_errors: true
   shell: |
     gcloud container node-pools delete default-pool \
       --cluster {{ CLUSTER_NAME }} \
