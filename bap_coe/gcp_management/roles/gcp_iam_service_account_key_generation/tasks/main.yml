@@ -12,10 +12,10 @@
     - KEY_FILE_PATH is defined
     msg: "Please provide the KEY_FILE_PATH"
 
-- name: Assert that KEY_FILE_PATH availability
-  stat:
+- name: Assert KEY_FILE_PATH directory
+  file:
     path: "{{ KEY_FILE_PATH }}"
-  register: file_exists
+    state: directory
 
 - name: Echo KEY_FILE_PATH
   debug:
@@ -30,37 +30,4 @@
   args:
     creates: "{{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
   loop: "{{ SERVICE_ACCOUNTS }}"
-  when: file_exists.stat.exists is truthy
 
-- name: Assert that KEY_FILE_PATH is a valid, if not trigger creation later
-  stat:
-    path: "{{ KEY_FILE_PATH }}"
-  register: svc_acct_file
-
-- name: Regenerate the file, seems to be empty
-  block:
-  - name: Remove an empty file {{ KEY_FILE_PATH }}
-    file:
-      path: "{{ KEY_FILE_PATH }}"
-      state: absent
-
-  - name: Create initial service account key file
-    shell: |
-      gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json \
-      --iam-account={{ item }}{{ PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }} \
-      --project {{ PROJECT_ID }} \
-      --account {{ ADMIN_ACCOUNT_EMAIL }}
-    loop: "{{ SERVICE_ACCOUNTS }}"
-    args:
-      creates: "{{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
-  when: svc_acct_file.stat.exists is truthy and svc_acct_file.stat.size == 0
-
-- name: Assert that KEY_FILE_PATH is a valid path
-  stat:
-    path: "{{ KEY_FILE_PATH }}"
-  register: svc_acct_file
-
-- name: Unable to create the service account file {{ KEY_FILE_PATH }} so fail out
-  fail:
-    msg: "Unable to create the service account file, please check your org policies and permissions. "
-  when: svc_acct_file.stat.exists is truthy and svc_acct_file.stat.size == 0
