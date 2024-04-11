@@ -1,29 +1,4 @@
 ---
-- name: Delete infrastructure for private cloud in GCP
-  hosts: localhost
-  connection: local
-
-  vars_files:
-  - ~/.apigee-secure/credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
-
-  collections:
-  - bap_coe.gcp_management
-
-  roles:
-  - { role: gcp_project_delete }
-  - { role: gcp_resource_manager_folders_get_folder_id, when: FOLDER_DISPLAY_NAME is defined }
-  - { role: gcp_resource_manager_folders_delete, when: FOLDER_DISPLAY_NAME is defined }
-
-  tasks:
-    - name: Remove working folders
-      file:
-        path: "{{ item }}"
-        state: absent
-      with_items:
-      - "{{ WORK_DIR }}"
-
-
 - name: Delete a Cluster
   hosts: localhost
   connection: local
@@ -39,11 +14,10 @@
   roles:
   - { role: service_account_file_path,
       KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
-  }
-
+    }
   - {
     role: service_account_file_processing,
     SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
-  }
+    }
   - { role: apigee-hybrid-gke-delete, tags: ['gke'] }
   - { role: apigee-hybrid-kubectl-context-delete }

@@ -5,7 +5,6 @@
 - name: Configure Apigee Hybrid Project
   import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"
 
-
 - name: Clean up Apigee hybrid
   hosts: localhost
   connection: local

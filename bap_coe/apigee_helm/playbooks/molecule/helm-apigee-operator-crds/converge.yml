@@ -21,7 +21,7 @@
     - name: Apply CRDs
       kubernetes.core.k8s:
         state: present
-        name: ApigeeDeployment
+        name: apigeedeployment
         namespace: apigee
         src: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/crds/default/kustomization.yaml"
         validate:
