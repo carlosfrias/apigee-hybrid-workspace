@@ -47,7 +47,7 @@
 - name: Create overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
 
-- name: Install kubectl CRDs
+- name: Install CRDs
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
 
 - name: Install apigee-operator chart
@@ -56,18 +56,18 @@
 - name: Install apigee-datastore chart
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"
 
-#- name: Configure Apigee Telemetry
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
-#
-#- name: Configure Apigee Redis
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
-#
-#- name: Configure Apigee Org
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
-#
-#- name: Configure Apigee Env
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/converge.yml"
-#
-#- name: Configure Apigee Virtualhost
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"
+- name: Install Apigee Telemetry
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
+
+- name: Install Apigee Redis
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
+
+- name: Install Apigee Org
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
+
+- name: Install Apigee Env
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/converge.yml"
+
+- name: Configure Apigee Virtualhost
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"
 
