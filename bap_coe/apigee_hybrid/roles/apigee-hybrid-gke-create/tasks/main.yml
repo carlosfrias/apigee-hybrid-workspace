@@ -118,10 +118,6 @@
       --cluster {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \
       --quiet
-  register: status
   poll: 5
   retries: 50
   async: 90
-  failed_when:
-  - status.rc == 1
-  - "'Not found' not in status.stderr"
