@@ -47,11 +47,17 @@
 - name: Create overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
 
-#- name: Install kubectl CRDs
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
+- name: Install kubectl CRDs
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
 
 - name: Install apigee-operator chart
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
+#
+#- name: Install apigee-operator chart
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
+
+- name: Install charts
+  import_playbook: "{{ playbook_dir | dirname }}/helm-charts-install/converge.yml"
 
 #- name: Configure Apigee Operator
 #  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
