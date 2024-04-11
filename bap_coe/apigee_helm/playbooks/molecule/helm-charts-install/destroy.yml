@@ -1,0 +1,23 @@
+---
+- name: Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  tasks:
+  - name: Install helm chart
+    kubernetes.core.helm:
+      state: absent
+      namespace: apigee
+      name: apigeedeployment
+
+#    - name: Apply CRD
+#      shell: |
+#        kubectl apply -k  apigee-operator/etc/crds/default/ --server-side --force-conflicts --validate=false
+#      args:
+#        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
