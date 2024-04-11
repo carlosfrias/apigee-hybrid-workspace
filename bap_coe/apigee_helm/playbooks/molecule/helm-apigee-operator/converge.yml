@@ -14,9 +14,8 @@
       kubernetes.core.helm:
         state: present
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
-        namespace: apigee-system
-        release_name: apigeedeployment
-        release_state: present
+        namespace: apigee
+        name: apigeedeployment
         replace: true
         create_namespace: true
         atomic: false

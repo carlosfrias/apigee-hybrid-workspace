@@ -2,23 +2,22 @@
 - name: Destroy
   hosts: localhost
   connection: local
-  gather_facts: false
-  no_log: "{{ molecule_no_log }}"
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
   tasks:
-    # Developer must implement.
+  - name: Install helm chart
+    kubernetes.core.helm:
+      state: absent
+      namespace: apigee
+      name: apigeedeployment
 
-    # Mandatory configuration for Molecule to function.
-
-    - name: Populate instance config
-      ansible.builtin.set_fact:
-        instance_conf: {}
-
-    - name: Dump instance config
-      ansible.builtin.copy:
-        content: |
-          # Molecule managed
-
-          {{ instance_conf | to_json | from_json | to_yaml }}
-        dest: "{{ molecule_instance_config }}"
-        mode: 0600
-      when: server.changed | default(false) | bool
+#    - name: Apply CRD
+#      shell: |
+#        kubectl apply -k  apigee-operator/etc/crds/default/ --server-side --force-conflicts --validate=false
+#      args:
+#        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
