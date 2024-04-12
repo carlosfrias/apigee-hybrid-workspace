@@ -34,6 +34,6 @@
 - name: Assert file is visible
   file:
     path: "{{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
-    mode: 655
+    mode: "u=rw,g=r,o=r"
     state: file
   loop: "{{ SERVICE_ACCOUNTS }}"
