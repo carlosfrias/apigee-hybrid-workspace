@@ -47,5 +47,5 @@
   template: 
     src: overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml.j2
     dest: "{{ OVERRIDE_FILE }}"
-    mode: 655
+    mode: "0755"
 
