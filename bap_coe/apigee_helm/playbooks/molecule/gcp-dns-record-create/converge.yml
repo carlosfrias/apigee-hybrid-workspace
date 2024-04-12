@@ -12,5 +12,7 @@
 
   roles:
   - { role: gce_external_ip_get }
-  - { role: apigee-hybrid-cloud-dns-create }
-
+  - {
+      role: apigee-hybrid-cloud-dns-create,
+      FQ_DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}"
+    }

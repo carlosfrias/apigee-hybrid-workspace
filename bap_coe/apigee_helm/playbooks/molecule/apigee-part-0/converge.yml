@@ -6,25 +6,10 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-config-org-policies/converge.yml"
 
 - name: Create service accounts
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
 
-- name: Create service account keys
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-key-generation/converge.yml"
+- name: Configure Apigee Hybrid Project Service Account Permissions
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-permissions-create/converge.yml"
 
-- name: Update service account permissions
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-policy-binding-mgmt/converge.yml"
-
-- name: Update services api
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
-
-- name: Create network
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-network-create/converge.yml"
-
-- name: Create external ip address
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
-
-- name: Obtain External IP Address
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
-
-- name: Create DNS record
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/converge.yml"
+- name: Generate service account keys
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-keys-create/converge.yml"
