@@ -1,75 +1,88 @@
 ---
-- name: Configure Apigee Hybrid Project
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
+- name: Apigee hybrid Deployment Part 0
+  import_playbook: "{{ playbook_dir | dirname}}/apigeep-part-0/converge.yml"
 
-- name: Configure GCP Org Policies
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-config-org-policies/converge.yml"
+#- name: Configure Apigee Hybrid Project
+#  import_playbook: "{{ playbook_dir | dirname }}/provision-project/converge.yml"
+#
+#- name: Configure GCP Org Policies
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-config-org-policies/converge.yml"
+#
+#- name: Create Apigee Hybrid Project Service Account
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
+#
+#- name: Configure Apigee Hybrid Project Service Account Permissions
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-permissions-create/converge.yml"
+#
+#- name: Download Apigee Hybrid Project Service Account Keys
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-keys-create/converge.yml"
+#===
 
-- name: Create Apigee Hybrid Project Service Account
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
+- name: Apigee hybrid Deployment Part 1
+  import_playbook: "{{ playbook_dir | dirname}}/apigeep-part-1/converge.yml"
 
-- name: Configure Apigee Hybrid Project Service Account Permissions
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-permissions-create/converge.yml"
+#- name: Enable GCP APIs
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
+#
+#- name: Create Apigee Organization
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-organization-create/converge.yml"
+#
+#- name: Create an Apigee environment group
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-environment-group-create/converge.yml"
+#======
+- name: Apigee hybrid Deployment Part 2
+  import_playbook: "{{ playbook_dir | dirname}}/apigeep-part-2/converge.yml"
 
-- name: Download Apigee Hybrid Project Service Account Keys
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-keys-create/converge.yml"
-
-- name: Enable GCP APIs
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
-
-- name: Create Apigee Organization
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-organization-create/converge.yml"
-
-- name: Configure Apigee GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
-
-- name: Install helm
-  import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
-
-- name: Download Apigee Hybrid helm charts
-  import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
-
-- name: Create External IP Address for Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
-
-- name: Create apigee namespace
-  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
-
-- name: Create TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
-
-- name: Create overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
-
-- name: Enable Synchronizer
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"
-
-- name: Create overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
-
-- name: Install CRDs
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
-
-- name: Install apigee-operator chart
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
-
-- name: Install apigee-datastore chart
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"
-
-- name: Install Apigee Telemetry
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
-
-- name: Install Apigee Redis
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
-
-- name: Install Apigee Redis
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-ingress-manager/converge.yml"
-
-- name: Install Apigee Org
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
-
-- name: Install Apigee Env
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/converge.yml"
-
-- name: Configure Apigee Virtualhost
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"
+#- name: Configure Apigee GKE Cluster
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
+#
+#- name: Install helm
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
+#
+#- name: Download Apigee Hybrid helm charts
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
+#
+#- name: Create External IP Address for Cluster
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
+#
+#- name: Create apigee namespace
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
+#
+#- name: Create TLS certificates
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
+#
+#- name: Create overrides config file
+#  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
+#
+#- name: Enable Synchronizer
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"
+#
+#- name: Create overrides config file
+#  import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
+#
+#- name: Install CRDs
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
+#
+#- name: Install apigee-operator chart
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
+#
+#- name: Install apigee-datastore chart
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"
+#
+#- name: Install Apigee Telemetry
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
+#
+#- name: Install Apigee Redis
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
+#
+#- name: Install Apigee Redis
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-ingress-manager/converge.yml"
+#
+#- name: Install Apigee Org
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
+#
+#- name: Install Apigee Env
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/converge.yml"
+#
+#- name: Configure Apigee Virtualhost
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"

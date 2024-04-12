@@ -1,5 +1,5 @@
 ---
-- name: Update services api
+- name: Enable GCP APIs
   import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
 
 - name: Create an Apigee organization
