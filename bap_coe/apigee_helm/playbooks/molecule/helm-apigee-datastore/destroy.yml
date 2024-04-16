@@ -17,3 +17,10 @@
       namespace: apigee
       name: datastore
 
+  - name: Remove Apigee Datastore secrets
+    kubernetes.core.k8s:
+      state: absent
+      namespace: apigee
+      name: apigee-datastore-default-creds
+      kind: Secret
+
