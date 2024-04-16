@@ -15,7 +15,7 @@
         state: present
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
         namespace: apigee-system
-        name: apigeedeployment
+        name: operator
         replace: true
         create_namespace: true
         atomic: false

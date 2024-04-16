@@ -1,4 +1,7 @@
 ---
+- name: Create external ip address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+
 - name: Download Apigee hybrid helm charts
   hosts: localhost
   connection: local
@@ -9,6 +12,9 @@
   vars_files:
   - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+  - bap_coe.apigee_hybrid
 
   tasks:
     - name: helm pull
@@ -22,3 +28,9 @@
       failed_when:
         - output.rc == 1
         - '"already exists" not in output.stderr'
+
+    - name: Distribute Overrides.yml by chart
+      include_tasks: apigeectl-configure-by-chart.yml
+      loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
+      loop_control:
+        loop_var: chart
