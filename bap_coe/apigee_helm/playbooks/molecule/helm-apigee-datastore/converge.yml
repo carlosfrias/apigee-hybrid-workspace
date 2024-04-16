@@ -1,5 +1,5 @@
 ---
-- name: Configure Apigee Datastore
+- name: Install Apigee Datastore
   hosts: localhost
   connection: local
   gather_facts: true
@@ -10,7 +10,7 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: Configure Apigee Datastore
+    - name: Install Apigee Datastore
       kubernetes.core.helm:
         state: present
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"

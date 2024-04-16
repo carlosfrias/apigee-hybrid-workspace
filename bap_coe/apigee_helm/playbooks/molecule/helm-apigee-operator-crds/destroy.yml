@@ -9,21 +9,18 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: delete apigee-operator CRDs
-      shell: |
-        kubectl delete -k  apigee-operator/etc/crds/default/
-      args:
-        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
+  - name: Uninstall apigee-operator CRDs
+    shell: |
+      kubectl delete -k  apigee-operator/etc/crds/default/ \
+        --server-side \
+        --force-conflicts \
+        --validate=false
+    args:
+      chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
 
 #    - name: Apply CRDs
 #      kubernetes.core.k8s:
 #        state: absent
-#        name: ApigeeDeployment
+#        src: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/crds/default/kustomization.yaml"
+#        name: apigeedeployment
 #        namespace: apigee
-#        api_version: kustomize.config.k8s.io/v1beta1
-#        kind: Kustomization
-#        server_side_apply:
-#          field_manager: ansible
-#        validate:
-#          fail_on_error: false
-

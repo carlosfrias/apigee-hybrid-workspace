@@ -1,5 +1,5 @@
 ---
-- name: Destroy
+- name: Configure Apigee Operator
   hosts: localhost
   connection: local
   gather_facts: true
@@ -10,14 +10,9 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-  - name: Install helm chart
+  - name: Uninstall helm chart
     kubernetes.core.helm:
-      state: absent
+      state: present
+      chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
       namespace: apigee-system
       name: apigeedeployment
-
-#    - name: Apply CRD
-#      shell: |
-#        kubectl apply -k  apigee-operator/etc/crds/default/ --server-side --force-conflicts --validate=false
-#      args:
-#        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"

@@ -1,5 +1,5 @@
 ---
-- name: Download Apigee hybrid helm charts
+- name: Configure apigee namespace
   hosts: localhost
   connection: local
   gather_facts: true

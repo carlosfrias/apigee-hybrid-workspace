@@ -10,26 +10,26 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-#    - name: Config Apigee Telemetry
-#      kubernetes.core.helm:
-#        state: present
-#        chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-telemetry"
-#        namespace: apigee
-#        name: telemetry
-#        replace: true
-#        create_namespace: true
-#        atomic: false
-#        purge: true
-#        wait: false
-#        values_files:
-#        - "{{ OVERRIDE_FILE }}"
+    - name: Install Apigee Telemetry
+      kubernetes.core.helm:
+        state: present
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-telemetry"
+        namespace: apigee
+        name: telemetry
+        replace: true
+        create_namespace: true
+        atomic: false
+        purge: true
+        wait: false
+        values_files:
+        - "{{ OVERRIDE_FILE }}"
 
-    - name: Config Apigee Telemetry
-      shell: |
-        helm upgrade telemetry apigee-telemetry/ \
-          --install \
-          --namespace apigee \
-          --atomic \
-          -f {{ OVERRIDE_FILE }}
-      args:
-        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
+#    - name: Install Apigee Telemetry
+#      shell: |
+#        helm upgrade telemetry apigee-telemetry/ \
+#          --install \
+#          --namespace apigee \
+#          --atomic \
+#          -f {{ OVERRIDE_FILE }}
+#      args:
+#        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"

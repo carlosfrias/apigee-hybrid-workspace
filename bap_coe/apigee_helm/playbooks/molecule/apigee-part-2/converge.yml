@@ -44,7 +44,7 @@
 - name: Install Ingress Manager
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-ingress-manager/converge.yml"
 
-- name: Install Organiztion
+- name: Install Organization
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
 
 - name: Install Environment
