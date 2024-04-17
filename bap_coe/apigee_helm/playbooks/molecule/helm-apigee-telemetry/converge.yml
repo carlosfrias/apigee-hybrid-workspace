@@ -22,7 +22,7 @@
         purge: true
         wait: false
         values_files:
-        - "{{ OVERRIDE_FILE }}"
+        - "./{{ OVERRIDE_FILE | basename }}"
 
 #    - name: Install Apigee Telemetry
 #      shell: |

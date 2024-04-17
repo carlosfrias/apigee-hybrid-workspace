@@ -34,3 +34,7 @@
       loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
       loop_control:
         loop_var: chart
+
+    - name: Distribute service account authorization file to charts
+      copy:
+        src: "{{ S"
