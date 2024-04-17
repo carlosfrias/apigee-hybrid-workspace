@@ -20,7 +20,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/destroy.yml"
 
 - name: Obtain External IP Address
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/destroy.yml"
 
 - name: Create DNS record
   import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/destroy.yml"

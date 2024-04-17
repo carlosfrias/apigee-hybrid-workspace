@@ -7,7 +7,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-environment-group-create/converge.yml"
 
 - name: Obtain External IP Address
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
 
 - name: Create the overrides
   hosts: localhost
