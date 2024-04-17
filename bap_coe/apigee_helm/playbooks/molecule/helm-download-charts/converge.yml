@@ -29,7 +29,7 @@
         - output.rc == 1
         - '"already exists" not in output.stderr'
 
-    - name: Distribute Overrides.yml by chart
+    - name: Distribute overrides.yml to charts
       include_tasks: apigeectl-configure-by-chart.yml
       loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
       loop_control:
@@ -39,4 +39,10 @@
       copy:
         src: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
         dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/{{ SERVICE_ACCOUNT_FILE_PATH | basename }}"
+      loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
+
+    - name: Distribute tls keys to charts
+      synchronize:
+        src: "{{ CERT_FILE_DIR }}"
+        dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/"
       loop: "{{ APIGEE_HYBRID_CHART_LIST }}"

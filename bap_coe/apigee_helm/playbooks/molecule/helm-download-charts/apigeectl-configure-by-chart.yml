@@ -13,3 +13,6 @@
     SERVICE_ACCOUNT_PATH_CONNECT_AGENT: "{{ APIGEE_ADMIN }}-service-account-key.json"
     SERVICE_ACCOUNT_PATH_WATCHER: "{{ APIGEE_ADMIN }}-service-account-key.json"
     SERVICE_ACCOUNT_PATH_LOGGER: "{{ APIGEE_ADMIN }}-service-account-key.json"
+    SSL_CERT_PATH: "certs/{{ SSL_CERT_FILE | basename }}"
+    SSL_KEY_PATH: "certs/{{ SSL_KEY_FILE | basename }}"
+

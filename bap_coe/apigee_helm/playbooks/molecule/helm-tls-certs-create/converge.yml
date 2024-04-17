@@ -29,4 +29,3 @@
         dest: "{{ item }}"
       loop:
       - "{{ HELM_CERT_FILE_DIR }}"
-      - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/certs"

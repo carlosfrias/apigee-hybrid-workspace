@@ -22,5 +22,5 @@
 #      kubernetes.core.k8s:
 #        state: absent
 #        src: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/crds/default/kustomization.yaml"
-#        name: apigeedeployment
+#        name: operator
 #        namespace: apigee

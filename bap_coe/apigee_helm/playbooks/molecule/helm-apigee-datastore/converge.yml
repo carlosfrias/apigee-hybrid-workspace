@@ -19,6 +19,7 @@
         replace: true
         create_namespace: true
         atomic: false
+        force: true
         purge: true
         wait: false
         values_files:
