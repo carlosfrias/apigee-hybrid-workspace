@@ -37,4 +37,6 @@
 
     - name: Distribute service account authorization file to charts
       copy:
-        src: "{{ S"
+        src: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+        dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/{{ SERVICE_ACCOUNT_FILE_PATH | basename }}"
+      loop: "{{ APIGEE_HYBRID_CHART_LIST }}"

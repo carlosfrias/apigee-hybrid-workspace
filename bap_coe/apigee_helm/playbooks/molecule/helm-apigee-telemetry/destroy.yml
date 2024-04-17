@@ -15,10 +15,10 @@
       state: absent
       chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-telemetry"
       namespace: apigee
-      name: telemetry
+      name: operator
 
 #    - name: Uninstall Apigee Telemetry
 #      shell: |
-#        helm delete telemetry
+#        helm uninstall telemetry
 #      args:
 #        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
