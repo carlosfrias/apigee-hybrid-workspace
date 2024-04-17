@@ -15,14 +15,14 @@
         state: present
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-telemetry"
         namespace: apigee
-        name: operator
+        name: telemetry
         replace: true
         create_namespace: true
         atomic: false
         purge: true
         wait: false
         values_files:
-        - "apigee-telemetry/{{ OVERRIDE_FILE | basename }}"
+        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-telemetry/{{ OVERRIDE_FILE | basename }}"
 
 #    - name: Install Apigee Telemetry
 #      shell: |

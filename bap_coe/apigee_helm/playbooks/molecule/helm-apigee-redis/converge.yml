@@ -23,3 +23,4 @@
         wait: false
         values_files:
         - "{{ OVERRIDE_FILE }}"
+        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-redis/{{ OVERRIDE_FILE | basename }}"
