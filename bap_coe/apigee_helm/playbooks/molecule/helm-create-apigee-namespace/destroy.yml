@@ -13,7 +13,10 @@
   tasks:
   - name: Remove Apigee Namespace
     kubernetes.core.k8s:
-      name: "{{ NAMESPACE }}"
+      name: "{{ item }}"
       api_version: v1
       kind: Namespace
       state: absent
+    loop:
+    - apigee
+    - apigee-system

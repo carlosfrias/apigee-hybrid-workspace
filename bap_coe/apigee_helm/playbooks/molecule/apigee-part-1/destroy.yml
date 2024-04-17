@@ -1,9 +1,27 @@
+
+
 ---
-#- name: Configure terraform variables - destroy invocation
-#  import_playbook: "{{ playbook_dir | dirname }}/terraform-vars/destroy.yml"
+- name: Enable GCP APIs
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/destroy.yml"
 
-#- name: Execute terraform scripts - destroy invocation
-#  import_playbook: "{{ playbook_dir | dirname }}/terraform/destroy.yml"
+#- name: Create an Apigee organization
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-organization-create/destroy.yml"
 
-- name: Provision project - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"
+#- name: Create an Apigee environment group
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-environment-group-create/destroy.yml"
+
+- name: Update services api
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/destroy.yml"
+
+- name: Create network
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-network-create/destroy.yml"
+
+- name: Create external ip address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/destroy.yml"
+
+- name: Obtain External IP Address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/destroy.yml"
+
+- name: Create DNS record
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/destroy.yml"
+
