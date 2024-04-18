@@ -11,5 +11,8 @@
     - bap_coe.gcp_management
 
   roles:
-  - { role: apigee-hybrid-cloud-dns-delete }
+  - {
+      role: apigee-hybrid-cloud-dns-delete,
+      FQ_DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}"
+    }
 
