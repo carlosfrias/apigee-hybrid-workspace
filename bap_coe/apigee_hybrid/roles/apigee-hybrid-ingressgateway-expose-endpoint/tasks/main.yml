@@ -5,9 +5,6 @@
     src: ingressgateway-expose-endpoint.yaml.j2
     dest: "{{ SERVICE_MANIFEST_FILE_DEST }}"
 
-#- name: Create the Ingressgateway Endpoint Service
-#  command: kubectl apply -f {{ SERVICE_MANIFEST_FILE_DEST }}
-
 - name: Create the Ingressgateway Endpoint Service
   kubernetes.core.k8s:
     state: present

@@ -3,5 +3,6 @@
 - name: Apigee hybrid ingressgateway healthcheck
   uri:
     url: https://{{ FQ_DOMAIN_NAME }}/healthz/ingress
+    validate_certs: false
     headers: 
      'User-Agent': 'GoogleHC' 
