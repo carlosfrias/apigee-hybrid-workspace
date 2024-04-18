@@ -1,0 +1,18 @@
+---
+- name: Distribute Overrides.yml
+  import_role:
+    name: apigee-hybrid-apigeectl-configure
+  vars:
+    includeNodeSelector: false
+    OVERRIDE_FILE: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ chart }}/overrides-{{ APIGEE_OVERRIDE_TEMPLATE }}.yaml"
+    SERVICE_ACCOUNT_PATH_SYNCHRONIZER: "{{ APIGEE_ADMIN }}-service-account-key.json"
+    SERVICE_ACCOUNT_PATH_UDCA: "{{ APIGEE_ADMIN }}-service-account-key.json"
+    SERVICE_ACCOUNT_PATH_RUNTIME: "{{ APIGEE_ADMIN }}-service-account-key.json"
+    SERVICE_ACCOUNT_PATH_MART: "{{ APIGEE_ADMIN }}-service-account-key.json"
+    SERVICE_ACCOUNT_PATH_METRICS: "{{ APIGEE_ADMIN }}-service-account-key.json"
+    SERVICE_ACCOUNT_PATH_CONNECT_AGENT: "{{ APIGEE_ADMIN }}-service-account-key.json"
+    SERVICE_ACCOUNT_PATH_WATCHER: "{{ APIGEE_ADMIN }}-service-account-key.json"
+    SERVICE_ACCOUNT_PATH_LOGGER: "{{ APIGEE_ADMIN }}-service-account-key.json"
+    SSL_CERT_PATH: "certs/{{ SSL_CERT_FILE | basename }}"
+    SSL_KEY_PATH: "certs/{{ SSL_KEY_FILE | basename }}"
+
