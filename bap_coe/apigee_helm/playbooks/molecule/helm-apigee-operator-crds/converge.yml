@@ -9,7 +9,7 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: Apply apigee-operator CRDs
+    - name: Apply Apigee Operator CRDs
       shell: |
         kubectl apply -k  apigee-operator/etc/crds/default/ \
           --server-side \
@@ -18,12 +18,12 @@
       args:
         chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
 
-#    - name: Apply CRDs
+#    - name: DOES NOT WORK - Apply CRDs
 #      kubernetes.core.k8s:
 #        state: present
+#        src: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/crds/default/kustomization.yaml"
 #        name: apigeedeployment
 #        namespace: apigee
-#        src: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/crds/default/kustomization.yaml"
 #        validate:
 #          fail_on_error: false
 #        server_side_apply:

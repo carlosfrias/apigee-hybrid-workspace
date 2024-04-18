@@ -16,6 +16,7 @@
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
         namespace: apigee-system
         name: operator
+        skip_crds: false
         replace: true
         create_namespace: true
         atomic: false

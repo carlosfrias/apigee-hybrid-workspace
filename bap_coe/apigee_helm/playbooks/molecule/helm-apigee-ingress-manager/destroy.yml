@@ -12,7 +12,7 @@
   tasks:
   - name: Uninstall Apigee Ingress Manager
     kubernetes.core.helm:
-      state: present
+      state: absent
       chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-ingress-manager"
       namespace: apigee
       name: ingress-manager

@@ -22,6 +22,7 @@
         force: true
         purge: true
         wait: false
+        wait_timeout: 120
         values_files:
         - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"
 
