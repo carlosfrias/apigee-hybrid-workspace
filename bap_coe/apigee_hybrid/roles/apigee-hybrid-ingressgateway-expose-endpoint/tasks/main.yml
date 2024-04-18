@@ -2,7 +2,7 @@
 # tasks file for roles/apigee-hybrid-org-create
 - name: Configure Apigee hybrid ingressgateway manifest file
   template:
-    src: ingressgateway-endpoint-expose.yaml.j2
+    src: ingressgateway-expose-endpoint.yaml.j2
     dest: "{{ SERVICE_MANIFEST_FILE_DEST }}"
 
 - name: Create the service
