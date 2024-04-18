@@ -1,0 +1,28 @@
+---
+- name: Obtain External IP Address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
+
+- name: Apigee runtime checkready
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+#  pre_tasks:
+#  - name: Invoke apply command
+#    shell: ./apigeectl apply -f {{ OVERRIDE_FILE }} --org
+#    args:
+#      chdir: "{{ APIGEECTL_DIR }}"
+
+  roles:
+    - {
+        role: apigee-hybrid-ingressgateway-healthcheck,
+        FQ_DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}"
+      }

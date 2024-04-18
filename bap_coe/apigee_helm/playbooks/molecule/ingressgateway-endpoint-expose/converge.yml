@@ -1,6 +1,6 @@
 ---
 - name: Obtain External IP Address
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-obtain-external-ip-address/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
 
 - name: Apigee runtime checkready
   hosts: localhost
@@ -9,8 +9,7 @@
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/defaults.yml"
-  - "{{ playbook_dir | dirname | dirname }}/resources/override.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   collections:
     - bap_coe.apigee_hybrid

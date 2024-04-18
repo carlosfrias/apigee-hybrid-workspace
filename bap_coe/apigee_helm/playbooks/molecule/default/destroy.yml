@@ -1,11 +1,14 @@
 ---
-- name: Configure Apigee Hybrid Project
+- name: Remove DNS
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/destroy.yml"
+
+- name: Remove GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
 
-- name: Configure Apigee Hybrid Project
+- name: Remove Apigee Hybrid Project
   import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"
 
-- name: Clean up Apigee hybrid
+- name: Clean up Apigee hybrid filesystem
   hosts: localhost
   connection: local
   gather_facts: true
