@@ -10,32 +10,16 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - block:
-      - name: Install helm chart
-        kubernetes.core.helm:
-          state: present
-          chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
-          namespace: apigee-system
-          name: operator
-          replace: true
-          create_namespace: true
-          atomic: false
-          purge: true
-          wait: false
-          values_files:
-          - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/{{ OVERRIDE_FILE | basename }}"
-      rescue:
-        - name: Install helm chart
-          kubernetes.core.helm:
-            state: present
-            chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
-            namespace: apigee-system
-            name: operator
-            replace: true
-            dep_up: true
-            create_namespace: true
-            atomic: false
-            purge: true
-            wait: false
-            values_files:
-            - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/{{ OVERRIDE_FILE | basename }}"
+    - name: Install helm chart
+      kubernetes.core.helm:
+        state: present
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
+        namespace: apigee-system
+        name: operator
+        replace: true
+        create_namespace: true
+        atomic: false
+        purge: true
+        wait: false
+        values_files:
+        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/{{ OVERRIDE_FILE | basename }}"
