@@ -2,7 +2,7 @@
 - name: Obtain External IP Address
   import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
 
-- name: Apigee runtime checkready
+- name: Health check the Ingress Gateway Endpoint
   hosts: localhost
   connection: local
   gather_facts: true
