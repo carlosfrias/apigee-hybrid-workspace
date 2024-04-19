@@ -1,4 +1,7 @@
 ---
+- name: Update overrides paths and move into helm chart folders
+  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-updates/converge.yml"
+
 - name: Config Apigee Virtualhost
   hosts: localhost
   connection: local
