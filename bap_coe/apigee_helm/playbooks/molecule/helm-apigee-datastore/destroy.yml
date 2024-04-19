@@ -13,9 +13,9 @@
   - name: Uninstall Apigee Datastore
     kubernetes.core.helm:
       state: absent
-      chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
-      namespace: apigee
       name: datastore
+#      chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
+#      namespace: apigee
 
   - name: Remove Apigee Datastore secrets
     kubernetes.core.k8s:
