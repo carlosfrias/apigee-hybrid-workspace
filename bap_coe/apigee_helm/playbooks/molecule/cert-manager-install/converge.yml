@@ -1,7 +1,4 @@
 ---
-- name: Obtain Kubectl Cluster Config
-  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
-
 - name: Install Cert Manager
   hosts: localhost
   connection: local

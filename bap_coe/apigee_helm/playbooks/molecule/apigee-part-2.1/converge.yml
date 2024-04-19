@@ -5,6 +5,9 @@
 - name: Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
 
+- name: Obtain Kubectl Cluster Config
+  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
+
 - name: Install helm
   import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
 
@@ -16,9 +19,6 @@
 
 - name: Create apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
-
-- name: Create overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
 
 - name: Enable Synchronizer
   import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"

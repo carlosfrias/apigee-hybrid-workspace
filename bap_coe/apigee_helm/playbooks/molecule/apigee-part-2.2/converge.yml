@@ -1,4 +1,7 @@
 ---
+- name: Create overrides config file
+  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
+
 - name: Update Apigee hybrid resources for helm chart folders
   import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-updates/converge.yml"
 
