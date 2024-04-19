@@ -17,31 +17,19 @@
   - bap_coe.apigee_hybrid
 
   tasks:
-#    - name: helm pull
-#      kubernetes.core.helm_pull:
-#        chart_ref: "{{ APIGEE_HYBRID_HELM_CHART_REPO }}/{{ item }}"
-#        destination: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
-#        chart_version: "{{ APIGEE_HYBRID_HELM_CHART_VERSION }}"
-#        untar_chart: true
-#      loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
-#      register: output
-#      failed_when:
-#        - output.rc == 1
-#        - '"already exists" not in output.stderr'
-
-    - name: Distribute overrides.yml to charts
+    - name: Distribute overrides.yml to helm chart folders
       include_tasks: apigeectl-configure-by-chart.yml
       loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
       loop_control:
         loop_var: chart
 
-    - name: Distribute service account authorization file to charts
+    - name: Distribute service account authorization file to helm chart folders
       copy:
         src: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
         dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/{{ SERVICE_ACCOUNT_FILE_PATH | basename }}"
       loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
 
-    - name: Distribute tls keys to charts
+    - name: Distribute tls keys to helm chart foldess
       synchronize:
         src: "{{ CERT_FILE_DIR }}"
         dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/"
