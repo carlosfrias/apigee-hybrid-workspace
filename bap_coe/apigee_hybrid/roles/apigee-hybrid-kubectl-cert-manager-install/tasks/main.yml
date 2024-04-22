@@ -13,7 +13,7 @@
   command: |
     kubectl config current-context
 
-- name: Download and install cert-manager, assuming Kubernetes is 1.15 or newer
+- name: Download and install cert-manager
   command: |
     kubectl apply --validate=false -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
 

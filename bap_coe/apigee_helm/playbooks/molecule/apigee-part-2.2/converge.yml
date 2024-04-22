@@ -1,10 +1,4 @@
 ---
-- name: Create overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
-
-- name: Update overrides paths and move into helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-updates/converge.yml"
-
 - name: Install Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
 

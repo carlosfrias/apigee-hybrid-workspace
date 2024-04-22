@@ -29,8 +29,9 @@
         dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/{{ SERVICE_ACCOUNT_FILE_PATH | basename }}"
       loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
 
-    - name: Distribute tls keys to helm chart foldess
+    - name: Distribute tls keys to helm chart folders
       synchronize:
         src: "{{ CERT_FILE_DIR }}"
         dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/"
       loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
+

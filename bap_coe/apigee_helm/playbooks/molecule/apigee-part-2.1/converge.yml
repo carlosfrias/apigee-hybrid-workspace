@@ -1,6 +1,6 @@
 ---
-- name: Create TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
+- name: Create External IP Address for Cluster
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
 
 - name: Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
@@ -8,14 +8,20 @@
 - name: Configure kubectl Cluster credentials
   import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
 
+- name: Create TLS certificates
+  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
+
 - name: Install helm
   import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
 
 - name: Download Apigee Hybrid helm charts
   import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
 
-- name: Create External IP Address for Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
+- name: Create overrides config file
+  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
+
+- name: Update overrides paths and move into helm chart folders
+  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-updates/converge.yml"
 
 - name: Create apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
