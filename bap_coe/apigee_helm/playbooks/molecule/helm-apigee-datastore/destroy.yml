@@ -14,13 +14,13 @@
     kubernetes.core.helm:
       state: absent
       name: datastore
+      namespace: default
 #      chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
-#      namespace: apigee
 
   - name: Remove Apigee Datastore secrets
     kubernetes.core.k8s:
       state: absent
-      namespace: apigee
+      namespace: default
       name: apigee-datastore-default-creds
       kind: Secret
 
