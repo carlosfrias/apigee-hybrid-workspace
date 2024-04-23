@@ -4,6 +4,3 @@
 
 - name: Healthcheck on service
   import_playbook: "{{ playbook_dir | dirname }}/ingressgateway-endpoint-healthcheck/converge.yml"
-
-#- name: Configure Virtualhost
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"

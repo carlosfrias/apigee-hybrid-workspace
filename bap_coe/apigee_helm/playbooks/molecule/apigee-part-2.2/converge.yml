@@ -5,9 +5,6 @@
 - name: Install CRDs
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
 
-- name: Update overrides paths and move into helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-updates/converge.yml"
-
 - name: Install Operator chart
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
 
