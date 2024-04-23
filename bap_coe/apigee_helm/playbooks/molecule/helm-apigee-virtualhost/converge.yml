@@ -1,4 +1,7 @@
 ---
+- name: Update overrides paths and move into helm chart folders
+  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-updates/converge.yml"
+
 - name: Config Apigee Virtualhost
   hosts: localhost
   connection: local
@@ -10,19 +13,42 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - name: Install Apigee Virtualhost
-      kubernetes.core.helm:
-        state: present
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost"
-        namespace: apigee
-        name: "{{ ENVIRONMENT_GROUP_NAME }}"
-        replace: true
-        create_namespace: true
-        atomic: false
-        purge: true
-        wait: false
-        set_values:
-          - value: envgroup={{ ENVIRONMENT_GROUP_NAME }}
-            value_type: string
-        values_files:
-        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/{{ OVERRIDE_FILE | basename }}"
+    - block:
+      - name: Install Apigee Virtualhost
+        kubernetes.core.helm:
+          state: present
+          chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost"
+          namespace: apigee
+          name: "{{ ENVIRONMENT_GROUP_NAME }}"
+          replace: true
+          create_namespace: true
+          atomic: false
+          purge: true
+          wait: false
+          set_values:
+            - value: envgroup={{ ENVIRONMENT_GROUP_NAME }}
+              value_type: string
+          values_files:
+          - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/{{ OVERRIDE_FILE | basename }}"
+      rescue:
+        - name: Wait for certs...
+          pause:
+            seconds: 10
+            prompt: "Waiting 10 seconds for certs..."
+
+        - name: RESCUE - Install Apigee Virtualhost
+          kubernetes.core.helm:
+            state: present
+            chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost"
+            namespace: apigee
+            name: "{{ ENVIRONMENT_GROUP_NAME }}"
+            replace: true
+            create_namespace: true
+            atomic: false
+            purge: true
+            wait: false
+            set_values:
+            - value: envgroup={{ ENVIRONMENT_GROUP_NAME }}
+              value_type: string
+            values_files:
+            - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/{{ OVERRIDE_FILE | basename }}"
