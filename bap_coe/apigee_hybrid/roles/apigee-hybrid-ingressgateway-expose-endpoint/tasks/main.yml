@@ -15,12 +15,12 @@
       state: present
       src: "{{ SERVICE_MANIFEST_FILE_DEST }}"
 
-  when: "{{ not REMOVE }}"
+  when: not REMOVE
 
 
 - name: Uninstall Ingressgateway Endpoint Service
   kubernetes.core.k8s:
     state: absent
     src: "{{ SERVICE_MANIFEST_FILE_DEST }}"
-  when: "{{ REMOVE }}"
+  when: REMOVE
 
