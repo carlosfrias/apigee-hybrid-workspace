@@ -21,8 +21,6 @@
 - name: Uninstall Ingressgateway Endpoint Service
   kubernetes.core.k8s:
     state: absent
-    name: "{{ INGRESS_GATEWAY_NAME }}"
-    namespace: apigee
-    kind: Service
+    src: "{{ SERVICE_MANIFEST_FILE_DEST }}"
   when: "{{ REMOVE }}"
 
