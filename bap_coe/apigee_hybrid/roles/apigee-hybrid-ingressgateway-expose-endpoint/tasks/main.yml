@@ -1,12 +1,26 @@
 ---
-# tasks file for roles/apigee-hybrid-org-create
-- name: Configure Apigee hybrid ingressgateway manifest file
-  template:
-    src: ingressgateway-expose-endpoint.yaml.j2
-    dest: "{{ SERVICE_MANIFEST_FILE_DEST }}"
+- name: Set operation
+  set_fact:
+    cacheable: true
+    REMOVE: "{{ UNINSTALL | default(false) }}"
 
-- name: Create the Ingressgateway Endpoint Service
+- block:
+  - name: Configure Apigee hybrid ingressgateway manifest file
+    template:
+      src: ingressgateway-expose-endpoint.yaml.j2
+      dest: "{{ SERVICE_MANIFEST_FILE_DEST }}"
+
+  - name: Create the Ingressgateway Endpoint Service
+    kubernetes.core.k8s:
+      state: present
+      src: "{{ SERVICE_MANIFEST_FILE_DEST }}"
+
+  when: "{{ not REMOVE }}"
+
+
+- name: Uninstall Ingressgateway Endpoint Service
   kubernetes.core.k8s:
-    state: present
-    src: "{{ SERVICE_MANIFEST_FILE_DEST }}"
+    state: absent
+    name: "{{ INGRESS_GATEWAY_NAME }}"
+  when: "{{ REMOVE }}"
 

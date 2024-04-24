@@ -1,0 +1,20 @@
+---
+- name: Uninstall Apigee hybrid Ingressgateway Endpoint
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  roles:
+    - {
+        role: apigee-hybrid-ingressgateway-expose-endpoint,
+        UNINSTALL: true
+    }
+
