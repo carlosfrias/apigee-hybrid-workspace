@@ -74,7 +74,7 @@ logger:
 
 {% if includeNodeSelector == true %}
 nodeSelector:
-  requiredForScheduling: false
+  requiredForScheduling: {{ APIGEE_CONFIG_REQUIRED_FOR_SCHEDULING | default(false) }}
   apigeeRuntime:
     key: "{{ NODE_POOL_RUNTIME_LABEL_NAME }}"
     value: "{{ NODE_POOL_RUNTIME_LABEL_VALUE }}"

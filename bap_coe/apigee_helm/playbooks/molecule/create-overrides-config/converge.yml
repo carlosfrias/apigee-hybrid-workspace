@@ -27,7 +27,7 @@
     - { role: apigee-hybrid-group-create }
     - {
         role: apigee-hybrid-apigeectl-configure,
-        includeNodeSelector: false
+        includeNodeSelector: true
       }
 
 - name: Update overrides paths and move into helm chart folders
