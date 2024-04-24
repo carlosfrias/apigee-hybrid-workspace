@@ -5,9 +5,6 @@
 - name: Create an Apigee organization
   import_playbook: "{{ playbook_dir | dirname }}/apigee-organization-create/converge.yml"
 
-- name: Create an Apigee environment group
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-environment-group-create/converge.yml"
-
 - name: Update services api
   import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
 

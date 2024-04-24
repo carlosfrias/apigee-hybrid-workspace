@@ -17,7 +17,7 @@
 - name: Download Apigee Hybrid helm charts
   import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
 
-- name: Create overrides config file
+- name: Update overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
 
 - name: Update overrides paths and move into helm chart folders
