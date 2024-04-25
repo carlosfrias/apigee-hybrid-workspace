@@ -4,5 +4,6 @@
   uri:
     url: https://{{ FQ_DOMAIN_NAME }}/healthz/ingress
     validate_certs: false
+    timeout: 60
     headers: 
      'User-Agent': 'GoogleHC' 
