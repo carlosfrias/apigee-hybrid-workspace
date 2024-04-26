@@ -23,6 +23,9 @@
 - name: Update overrides paths and move into helm chart folders
   import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-updates/converge.yml"
 
+- name: Distribute configs and credentials to helm chart folders
+  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/converge.yml"
+
 - name: Create apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
 

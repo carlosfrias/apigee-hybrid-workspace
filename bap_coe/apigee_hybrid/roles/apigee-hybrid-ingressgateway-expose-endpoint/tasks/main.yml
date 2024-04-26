@@ -15,7 +15,7 @@
       state: present
       src: "{{ SERVICE_MANIFEST_FILE_DEST }}"
       wait: true
-      wait_timeout: 45
+      wait_timeout: 60
 
   when: not REMOVE
 

@@ -17,21 +17,29 @@
   - bap_coe.apigee_hybrid
 
   tasks:
-    - name: Distribute overrides.yml to helm chart folders
-      include_tasks: apigeectl-configure-by-chart.yml
-      loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
-      loop_control:
-        loop_var: chart
+#    - name: Distribute overrides.yml to helm chart folders
+#      include_tasks: apigeectl-configure-by-chart.yml
+#      loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
+#      loop_control:
+#        loop_var: chart
 
-    - name: Distribute service account authorization file to helm chart folders
-      copy:
-        src: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
-        dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/{{ SERVICE_ACCOUNT_FILE_PATH | basename }}"
-      loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
+    - name: Set configuration template variables
+      set_fact:
+        cacheable: true
+        SERVICE_ACCOUNT_PATH_SYNCHRONIZER: credentials/{{ APIGEE_ADMIN }}-service-account-key.json
+        SERVICE_ACCOUNT_PATH_UDCA: credentials/{{ APIGEE_ADMIN }}-service-account-key.json
+        SERVICE_ACCOUNT_PATH_RUNTIME: credentials/{{ APIGEE_ADMIN }}-service-account-key.json
+        SERVICE_ACCOUNT_PATH_MART: credentials/{{ APIGEE_ADMIN }}-service-account-key.json
+        SERVICE_ACCOUNT_PATH_METRICS: credentials/{{ APIGEE_ADMIN }}-service-account-key.json
+        SERVICE_ACCOUNT_PATH_CONNECT_AGENT: credentials/{{ APIGEE_ADMIN }}-service-account-key.json
+        SERVICE_ACCOUNT_PATH_WATCHER: credentials/{{ APIGEE_ADMIN }}-service-account-key.json
+        SERVICE_ACCOUNT_PATH_LOGGER: credentials/{{ APIGEE_ADMIN }}-service-account-key.json
+        SSL_CERT_PATH: certs/{{ SSL_CERT_FILE | basename }}
+        SSL_KEY_PATH: certs/{{ SSL_KEY_FILE | basename }}
 
-    - name: Distribute tls keys to helm chart folders
-      synchronize:
-        src: "{{ CERT_FILE_DIR }}"
-        dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}/"
-      loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
+    - name: Distribute Overrides.yml
+      import_role:
+        name: apigee-hybrid-apigeectl-configure
+      vars:
+        includeNodeSelector: false
 
