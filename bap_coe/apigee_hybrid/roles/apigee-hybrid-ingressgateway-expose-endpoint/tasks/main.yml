@@ -18,7 +18,7 @@
   - name: Wait for service creation to complete
     pause:
       seconds: 180
-      message: Wait for service creation to complete
+      prompt: Wait for service creation to complete
 
   when: not REMOVE
 
