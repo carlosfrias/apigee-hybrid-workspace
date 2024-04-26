@@ -16,11 +16,7 @@
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-redis"
         namespace: apigee
         name: redis
-        replace: true
         create_namespace: true
-        atomic: false
-        purge: true
-        wait: false
+        wait_timeout: 180
         values_files:
-        - "{{ OVERRIDE_FILE }}"
-        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-redis/{{ OVERRIDE_FILE | basename }}"
+        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"

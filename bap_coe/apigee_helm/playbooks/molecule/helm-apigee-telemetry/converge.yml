@@ -16,20 +16,7 @@
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-telemetry"
         namespace: apigee
         name: telemetry
-        replace: true
         create_namespace: true
-        atomic: false
-        purge: true
-        wait: false
+        wait_timeout: 180
         values_files:
-        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-telemetry/{{ OVERRIDE_FILE | basename }}"
-
-#    - name: Install Apigee Telemetry
-#      shell: |
-#        helm upgrade telemetry apigee-telemetry/ \
-#          --install \
-#          --namespace apigee \
-#          --atomic \
-#          -f {{ OVERRIDE_FILE }}
-#      args:
-#        chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
+        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"

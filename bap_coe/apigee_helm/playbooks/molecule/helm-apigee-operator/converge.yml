@@ -16,9 +16,7 @@
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
         namespace: apigee-system
         name: operator
-        skip_crds: false
         create_namespace: true
-        atomic: false
-        wait: true
+        wait_timeout: 180
         values_files:
-        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/{{ OVERRIDE_FILE | basename }}"
+        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"
