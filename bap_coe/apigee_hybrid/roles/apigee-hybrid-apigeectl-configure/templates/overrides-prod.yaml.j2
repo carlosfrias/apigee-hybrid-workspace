@@ -5,27 +5,42 @@ namepace: "apigee"
 gcp:
   region: "{{ ANALYTICS_REGION }}"
   projectID: "{{ PROJECT_ID }}"
+
 k8sCluster:
   name: "{{ CLUSTER_NAME }}"
   region: "{{ CLUSTER_REGION }}"
 
 org: "{{ PROJECT_ID }}"
 
+envs:
+- name: "{{ ENVIRONMENT_NAME }}"
+  serviceAccountPaths:
+    synchronizer: "{{ SERVICE_ACCOUNT_PATH_SYNCHRONIZER }}"
+    udca: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"
+    runtime: "{{ SERVICE_ACCOUNT_PATH_RUNTIME }}"
+
 cassandra:
   hostNetwork: {{ CASSANDRA_HOST_NETWORK }}
   replicaCount: {{ CASSANDRA_REPLICA_COUNT | int }}
     # Use multiples of 3 for production.
     # See Configure Cassandra for production for guidelines.
-  storage:
-    capacity: 500Gi
-  resources:
-    requests:
-      cpu: 7
-      memory: 15Gi
-  maxHeapSize: 8192M
-  heapNewSize: 1200M
+ # storage:
+ #   capacity: 500Gi
+ # resources:
+ #   requests:
+ #     cpu: 7
+ #     memory: 15Gi
+ # maxHeapSize: 8192M
+ # heapNewSize: 1200M
     # Minimum storage requirements for a production environment.
     # See Configure Cassandra for production.
+
+ingressGateways:
+- name: "{{ INGRESS_GATEWAY_NAME }}"
+  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
+  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
+#  svcAnnotations:  # optional. If you are on AKS, see Known issue #260772383
+#    SVC_ANNOTATIONS_KEY: SVC_ANNOTATIONS_VALUE
 
 virtualhosts:
 - name: "{{ ENVIRONMENT_GROUP_NAME }}"
@@ -35,56 +50,28 @@ virtualhosts:
   sslCertPath: "{{ SSL_CERT_PATH }}"
   sslKeyPath: "{{ SSL_KEY_PATH }}"
 
-ao:
-  args:
-    disableIstioConfigInAPIserver: {{ DISABLE_ISTIO_CONFIG_IN_API_SERVER }}
-
-ingressGateways:
-- name: "{{ INGRESS_GATEWAY_NAME }}"
-  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
-  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
-  svcLoadBalancerIP: {{ EXTERNAL_IP }}
-  svcType: ClusterIP
-#  svcAnnotations:  # optional. If you are on AKS, see Known issue #260772383
-#    SVC_ANNOTATIONS_KEY: SVC_ANNOTATIONS_VALUE
-
-envs:
-- name: "{{ ENVIRONMENT_NAME }}"
-  serviceAccountPaths:
-    synchronizer: "{{ SERVICE_ACCOUNT_PATH_SYNCHRONIZER }}"
-    udca: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"
-    runtime: "{{ SERVICE_ACCOUNT_PATH_RUNTIME }}"
-
 mart:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_MART }}"
-  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
-  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 connectAgent:
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_CONNECT_AGENT }}"
-  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
-  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
-
-metrics:
-  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_METRICS }}"
-  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
-  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
-
-udca:
-  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"
-  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
-  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
-
-watcher:
-  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_WATCHER }}"
-  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
-  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
 
 logger:
   enabled: {{ APIGEE_HYBRID_LOGGER_ENABLED }}
   serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_LOGGER }}"
-  replicaCountMin: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MIN }}
-  replicateCountMax: {{ INGRESS_GATEWAYS_REPLICA_COUNT_MAX }}
+
+metrics:
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_METRICS }}"
+
+udca:
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_UDCA }}"
+
+watcher:
+  serviceAccountPath: "{{ SERVICE_ACCOUNT_PATH_WATCHER }}"
+
+ao:
+  args:
+    disableIstioConfigInAPIserver: {{ DISABLE_ISTIO_CONFIG_IN_API_SERVER }}
 
 {% if includeNodeSelector == true %}
 nodeSelector:
