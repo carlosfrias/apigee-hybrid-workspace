@@ -14,8 +14,11 @@
     kubernetes.core.k8s:
       state: present
       src: "{{ SERVICE_MANIFEST_FILE_DEST }}"
-      wait: true
-      wait_timeout: 180
+
+  - name: Wait for service creation to complete
+    pause:
+      seconds: 180
+      message: Wait for service creation to complete
 
   when: not REMOVE
 
