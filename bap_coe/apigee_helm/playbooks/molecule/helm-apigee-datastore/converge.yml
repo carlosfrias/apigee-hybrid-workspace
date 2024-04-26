@@ -10,35 +10,15 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   tasks:
-    - block:
-      - name: Install Apigee Datastore
-        kubernetes.core.helm:
-          state: present
-          chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
-          namespace: apigee
-          name: datastore
-          replace: true
-          create_namespace: true
-          atomic: false
-          force: true
-          purge: true
-          wait_timeout: 180
-          values_files:
-          - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"
-      rescue:
-        - name: RESCUE - Install Apigee Datastore
-          kubernetes.core.helm:
-            state: present
-            chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
-            namespace: apigee
-            name: datastore
-            replace: true
-            create_namespace: true
-            atomic: false
-            force: true
-            purge: true
-            wait_timeout: 180
-            values_files:
-            - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"
+    - name: Install Apigee Datastore
+      kubernetes.core.helm:
+        state: present
+        chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore"
+        namespace: apigee
+        name: datastore
+        create_namespace: true
+        wait_timeout: 180
+        values_files:
+        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"
 
 
