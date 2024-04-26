@@ -17,12 +17,6 @@
   - bap_coe.apigee_hybrid
 
   tasks:
-#    - name: Distribute overrides.yml to helm chart folders
-#      include_tasks: apigeectl-configure-by-chart.yml
-#      loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
-#      loop_control:
-#        loop_var: chart
-
     - name: Set configuration template variables
       set_fact:
         cacheable: true
