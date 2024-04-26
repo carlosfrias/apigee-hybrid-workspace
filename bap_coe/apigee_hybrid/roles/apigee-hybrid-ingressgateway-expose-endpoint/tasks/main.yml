@@ -14,6 +14,8 @@
     kubernetes.core.k8s:
       state: present
       src: "{{ SERVICE_MANIFEST_FILE_DEST }}"
+      wait: true
+      wait_timeout: 45
 
   when: not REMOVE
 
