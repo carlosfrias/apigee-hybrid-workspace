@@ -1,4 +1,7 @@
 ---
+- name: Create an Apigee environment group
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-environment-group-create/converge.yml"
+
 - name: Configure Apigee Env
   hosts: localhost
   connection: local
@@ -18,5 +21,9 @@
         name: "{{ ENVIRONMENT_NAME }}"
         create_namespace: true
         wait_timeout: 180
+        atomic: true
+        set_values:
+        - value: env={{ ENVIRONMENT_NAME }}
+          value_type: string
         values_files:
         - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"

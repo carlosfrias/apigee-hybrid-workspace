@@ -31,7 +31,7 @@
     LONG_RUNNING_OPERATION_ID: "{{ env_creation.json.name | urlsplit('path') | basename }}"
   when: env_creation.json.name is defined
 
-- name: Allow environment to be created
+- name: Wait for environment to be created
   uri:
     url: "https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/operations/{{ LONG_RUNNING_OPERATION_ID }}"
     headers: 
