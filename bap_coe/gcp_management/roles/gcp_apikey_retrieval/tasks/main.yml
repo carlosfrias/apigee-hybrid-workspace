@@ -11,8 +11,9 @@
   register: apikeys
 
 - name: Store cache
-  cachable: true
-  API_KEY: "{{ apikeys.stdout }}"
+  set_fact:
+    cachable: true
+    API_KEY: "{{ apikeys.stdout }}"
 
 - name: Store APIKeys
   copy:
