@@ -7,7 +7,8 @@
     ENABLE_TURBO_MODE: 1
 
   vars_files:
-  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+    - ~/.apigee-secure/credentials.yml
+    - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
 
   collections:
     - bap_coe.apigee_hybrid
