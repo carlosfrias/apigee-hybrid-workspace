@@ -16,7 +16,7 @@
 
   roles:
   - { role: gcp_token_retrieval }
-  - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ ADMIN_USER }}"  }
+  - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"  }
 
   tasks:
   - name: Attache environment to instance
