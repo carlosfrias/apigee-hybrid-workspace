@@ -23,6 +23,7 @@
     uri:
       url:  https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/instances/{{ CLUSTER_NAME }}/attachments?
       method: POST
+      headers:
+        Authorization: Bearer {{ GCLOUD_TOKEN }}
       body:
-        access_token: "{{ GCP_TOKEN }}"
         key: "{{ API_KEY }}"
