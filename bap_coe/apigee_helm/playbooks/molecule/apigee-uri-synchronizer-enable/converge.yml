@@ -14,7 +14,7 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: bap_coe.gcp_management.gcp_token_retrieval }
+    - { role: gcp_token_retrieval }
     - {
         role: apigee-hybrid-uri-synchronizer-enable,
         ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"

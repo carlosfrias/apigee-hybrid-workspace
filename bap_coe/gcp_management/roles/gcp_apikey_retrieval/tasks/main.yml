@@ -1,0 +1,20 @@
+---
+- name: Enable apikeys service
+  shell: gcloud services enable apikeys.googleapis.com --project {{ PROJECT_ID }}
+
+- name: Grant role roles/serviceusage.apiKeysAdmin to Admin Service Account
+  shell: gcloud projects add-iam-policy-binding {{ PROJECT_ID }} --member="user:{{ ADMIN_SERVICE_ACCOUNT }}" --role=roles/serviceusage.apiKeysAdmin
+
+- name: Download API Keys
+  uri:
+    url: gcurl https://apikeys.googleapis.com/v2/projects/{{ PROJECT_ID }}/locations/global/keys
+  register: apikeys
+
+- name: Store cache
+  cachable: true
+  API_KEY: "{{ apikeys.stdout }}"
+
+- name: Store APIKeys
+  copy:
+    content: "{{ API_KEY }}"
+    dest: "{{ GCP_APIKEY_FILE_PATH }}"

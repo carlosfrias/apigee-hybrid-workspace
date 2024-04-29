@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include gcp_token_retrieval"
+      include_role:
+        name: "gcp_token_retrieval"

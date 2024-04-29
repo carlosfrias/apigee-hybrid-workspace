@@ -1,0 +1,22 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+  - name: apigee-uri-synchronizer-enable
+provisioner:
+  name: ansible
+#  ansible_args:
+#    - -i=$MOLECULE_PROJECT_DIRECTORY/inventory
+#    - -u=friasc
+#    - --private-key=~/.ssh/google_compute_engine
+#  playbooks:
+#    converge: converge.yml
+verifier:
+  name: ansible

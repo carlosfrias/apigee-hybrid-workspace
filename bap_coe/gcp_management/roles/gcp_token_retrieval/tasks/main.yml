@@ -38,3 +38,8 @@
   set_fact:
     cacheable: yes
     GCLOUD_TOKEN: "{{ gcloud_token.stdout }}"
+
+- name: Store token to file
+  copy:
+    content: "{{ GCLOUD_TOKEN }}"
+    dest: "{{ GCP_TOKEN_FILE_PATH }}"
