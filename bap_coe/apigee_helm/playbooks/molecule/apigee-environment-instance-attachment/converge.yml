@@ -19,7 +19,7 @@
   - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"  }
 
   tasks:
-  - name: Attache environment to instance
+  - name: Attach environment to instance
     uri:
       url:  https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/instances/{{ CLUSTER_NAME }}/attachments?
       method: POST
