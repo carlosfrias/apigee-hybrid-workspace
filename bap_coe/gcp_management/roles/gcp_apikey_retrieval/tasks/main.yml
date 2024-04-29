@@ -3,13 +3,27 @@
   shell: gcloud services enable apikeys.googleapis.com --project {{ PROJECT_ID }}
 
 - name: Grant role roles/serviceusage.apiKeysAdmin to Admin Service Account
-  shell: gcloud projects add-iam-policy-binding {{ PROJECT_ID }} --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT }}" --role=roles/serviceusage.apiKeysAdmin
+  shell: |
+    gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
+    --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT }}" \
+    --role=roles/serviceusage.apiKeysAdmin
+
+- name: Create an API key
+  uri:
+    url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_ID }}/locations/global/keys
+    method: POST
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
+    body:
+      display_name: "apigee-apikey"
+    body_format: json
 
 - name: Download API Keys
   uri:
     url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_ID }}/locations/global/keys
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
+    body_format: json
   register: apikeys
 
 - name: Store cache
