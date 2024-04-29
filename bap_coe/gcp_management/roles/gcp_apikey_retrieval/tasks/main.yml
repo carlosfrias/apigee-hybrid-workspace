@@ -15,7 +15,7 @@
 - name: Store cache
   set_fact:
     cachable: true
-    API_KEY: "{{ apikeys.stdout }}"
+    API_KEY: "{{ apikeys.json }}"
 
 - name: Store APIKeys
   copy:
