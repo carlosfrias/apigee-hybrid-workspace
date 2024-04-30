@@ -22,15 +22,15 @@
   tasks:
     - name: set apikeys to json type
       set_fact:
-        apiKey1: "{{ API_KEY | type_debug }}"
+        apiKey1: "{{ API_KEY | community.general.json_query('length(keys)') }}"
 
     - name: Report variable type
       debug:
         msg: "{{ apiKey1 | type_debug }}"
 
-    - name: Access JSON attributes in apikey1
-      set_fact:
-        apiKey2: "{{ API_KEY | community.general.json_query('keys[*]') }}"
+#    - name: Access JSON attributes in apikey1
+#      set_fact:
+#        apiKey2: "{{ API_KEY | community.general.json_query('keys[*]') }}"
 
 #    - name: Show API_KEY structure
 #      debug:
