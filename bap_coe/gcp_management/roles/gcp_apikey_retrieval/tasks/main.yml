@@ -15,7 +15,7 @@
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: apikey_status
-  until: apikey_status.status is 200
+  until: apikey_status.json.name is defined
   poll: 5
   retries: 5
   async: 10
