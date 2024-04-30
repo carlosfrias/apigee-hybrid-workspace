@@ -62,6 +62,11 @@
     - "'Project IDs must be between 6 and 30 characters' in status.stderror"
   when: PROJECT_FOUND is falsy
 
+- name: Fail the invocation to create a project that has been deleted
+  debug:
+    msg: "The project already exists and will not be recreated"
+  when: PROJECT_FOUND is truthy
+
 - name: Connect GCP Project to Billing Account, if provided
   ignore_errors: true
   shell: gcloud alpha billing projects link {{ PROJECT_ID }} --billing-account {{ BILLING_ID }} --account {{ BILLING_USER_EMAIL }}
@@ -102,7 +107,6 @@
 #    content: "{{ PROJECT_NUMBER }}"
 #    dest: "{{ WORK_DIR }}/project_number.txt"
 
-- name: Fail this invocation to create a project that has been deleted
-  debug:
-    msg: "The project already exists and will not be recreated"
-  when: PROJECT_FOUND is truthy
+- name: capture Project number
+  import_role:
+    name: gcp_project_number_get
