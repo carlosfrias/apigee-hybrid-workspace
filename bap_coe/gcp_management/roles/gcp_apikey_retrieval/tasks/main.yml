@@ -26,7 +26,7 @@
 
 - name: Poll for the API key
   uri:
-    url: https://apikeys.googleapis/v2/?name={{ apikey_status.json.name }}
+    url: https://apikeys.googleapis/v2/{{ apikey_status.json.name }}
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: operation_status
