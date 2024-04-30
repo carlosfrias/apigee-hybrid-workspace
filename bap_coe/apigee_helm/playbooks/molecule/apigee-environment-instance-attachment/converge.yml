@@ -26,3 +26,8 @@
         method: POST
         headers:
           Authorization: Bearer {{ GCLOUD_TOKEN }}
+        body_format: POST
+        body:
+          environment: "{{ ENVIRONMENT_NAME }}"
+
+
