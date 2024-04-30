@@ -75,38 +75,6 @@
 - name: Set Project Default
   shell: gcloud config set project {{ PROJECT_ID }}
 
-#- block:
-#
-#  - name: Obtain PROJECT_NUMBER
-#    shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)" --account {{ BILLING_USER_EMAIL }}
-#    register: project_number
-#
-#  rescue:
-#    - name: RESCUE - Obtain PROJECT_NUMBER
-#      block:
-#
-#        - name: RESCUE - Enable cloud resourcemanager if not enabled
-#          include_role:
-#            name: gcp_project_services_enable
-#          vars:
-#            GCLOUD_PROJECT_SERVICES: ['cloudresourcemanager.googleapis.com']
-#
-#        - name: RESCUE - Obtain PROJECT_NUMBER
-#          shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)" --account {{ BILLING_USER_EMAIL }}
-#          register: project_number
-#
-#      when: project_number.stderr is search('cloudresourcemanager.googleapis.com') and project_number.stderr is search('not enabled on project')
-#
-#- name: Cache PROJECT_NUMBER
-#  set_fact:
-#    cacheable: yes
-#    PROJECT_NUMBER: "{{ project_number.stdout }}"
-#
-#- name: Store PROJECT_NUMBER
-#  copy:
-#    content: "{{ PROJECT_NUMBER }}"
-#    dest: "{{ WORK_DIR }}/project_number.txt"
-
 #- name: capture Project number
 #  import_role:
 #    name: gcp_project_number_get

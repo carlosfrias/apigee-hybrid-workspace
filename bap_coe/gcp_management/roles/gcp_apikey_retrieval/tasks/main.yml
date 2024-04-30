@@ -15,6 +15,10 @@
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: apikey_status
+  until: apikey_status.status == "200"
+  poll: 5
+  retries: 5
+  async: 10
 #    body:
 #      display_name: "apigee-apikey"
 #    body_format: json
