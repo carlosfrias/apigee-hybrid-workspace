@@ -107,6 +107,6 @@
 #    content: "{{ PROJECT_NUMBER }}"
 #    dest: "{{ WORK_DIR }}/project_number.txt"
 
-- name: capture Project number
-  import_role:
-    name: gcp_project_number_get
+#- name: capture Project number
+#  import_role:
+#    name: gcp_project_number_get
