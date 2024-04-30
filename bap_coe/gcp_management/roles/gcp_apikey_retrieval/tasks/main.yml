@@ -19,14 +19,16 @@
     body_format: json
   register: apikey_status
 
-- name: Record operation id
-  set_fact:
-    LONG_RUNNING_OPERATION_ID: "{{ apikey_status.json.name | urlsplit('path') | basename }}"
-  when: apikey_status.json.name is defined
+#- name: Record operation id
+#  set_fact:
+#    LONG_RUNNING_OPERATION_ID: "{{ apikey_status.json.name | urlsplit('path') | basename }}"
+#  when: apikey_status.json.name is defined
 
 - name: Poll for the API key
   uri:
-    url: https://apikeys.googleapis/v2/?name={{ LONG_RUNNING_OPERATION_ID }}
+    url: https://apikeys.googleapis/v2/?name={{ apikey_status.json.name }}
+    headers:
+      Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: operation_status
 #  until: operation_status.json.metadata.state == "FINISHED"
 #  poll: 5
