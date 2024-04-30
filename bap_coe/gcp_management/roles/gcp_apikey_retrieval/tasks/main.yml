@@ -28,10 +28,10 @@
   uri:
     url: https://apikeys.googleapis/v2/?name={{ apikey_status.json.name }}
   register: operation_status
-  until: operation_status.json.metadata.state == "FINISHED"
-  poll: 5
-  retries: 50
-  async: 90
+#  until: operation_status.json.metadata.state == "FINISHED"
+#  poll: 5
+#  retries: 50
+#  async: 90
 #  when: apikey_status.json.name is defined
 
 - name: Download API Keys
