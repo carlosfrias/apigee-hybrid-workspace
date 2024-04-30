@@ -20,17 +20,18 @@
     - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"  }
 
   tasks:
+    - name: Access attributes in apikey1
+      set_fact:
+        apiKey1: API_KEY | from_json
+
     - name: set apikey to json type
       set_fact:
-        apiKey1: "{{ API_KEY | community.general.json_query('keys[*].name') }}"
+        apiKey2: "{{ apiKey1 | community.general.json_query('*') }}"
 
 #    - name: Show API_KEY structure
 #      debug:
-#        var: apiKey1
 
-#    - name: Access attributes in apikey1
-#      debug:
-#        var: apiKey1.keys[0] | from_json
+#        var: apiKey1
 
 #    - name: Attach environment to instance
 #      uri:
