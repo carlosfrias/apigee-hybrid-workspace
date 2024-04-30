@@ -36,6 +36,11 @@
     cacheable: yes
     PROJECT_NUMBER: "{{ project_number.stdout }}"
 
+- name: Assert folder exists
+  file:
+    path: "{{ WORK_DIR }}"
+    state: directory
+
 - name: Store PROJECT_NUMBER
   copy:
     content: "{{ PROJECT_NUMBER }}"
