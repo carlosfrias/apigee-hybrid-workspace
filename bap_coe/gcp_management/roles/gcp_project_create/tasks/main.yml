@@ -70,8 +70,7 @@
 - name: Set Project Default
   shell: gcloud config set project {{ PROJECT_ID }}
 
-- name: Obtain PROJECT_NUMBER
-  block:
+- block:
 
   - name: Obtain PROJECT_NUMBER
     shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)" --account {{ BILLING_USER_EMAIL }}
