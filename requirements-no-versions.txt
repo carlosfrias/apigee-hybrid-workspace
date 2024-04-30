@@ -16,3 +16,4 @@ molecule-gce
 PyYAMl
 jsonpatch
 kubernetes
+jmespath

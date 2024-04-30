@@ -22,7 +22,7 @@
   tasks:
     - name: set apikeys to json type
       set_fact:
-        apiKey1: "{{ API_KEY | from_json }}"
+        apiKey1: "{{ API_KEY | type_debug }}"
 
     - name: Report variable type
       debug:
@@ -30,7 +30,7 @@
 
     - name: Access JSON attributes in apikey1
       set_fact:
-        apiKey2: "{{ lookup('ansible.builtin.dict'), apiKey1.keys }}"
+        apiKey2: "{{ API_KEY | community.general.json_query('keys[*]') }}"
 
 #    - name: Show API_KEY structure
 #      debug:
