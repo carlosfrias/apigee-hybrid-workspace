@@ -20,9 +20,21 @@
     - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"  }
 
   tasks:
-    - name: Attach environment to instance
-      uri:
-        url:  https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/instances/{{ CLUSTER_NAME }}/attachments?key={{ API_KEY.keys[0].etag }}
-        method: POST
-        headers:
-          Authorization: Bearer {{ GCLOUD_TOKEN }}
+    - name: set apikey to json type
+      set_fact:
+        apiKey1: "{{ API_KEY | community.general.json_query('keys[*].name') }}"
+
+#    - name: Show API_KEY structure
+#      debug:
+#        var: apiKey1
+
+#    - name: Access attributes in apikey1
+#      debug:
+#        var: apiKey1.keys[0] | from_json
+
+#    - name: Attach environment to instance
+#      uri:
+#        url:  https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/instances/{{ CLUSTER_NAME }}/attachments?key={{ API_KEY.keys[0].etag }}
+#        method: POST
+#        headers:
+#          Authorization: Bearer {{ GCLOUD_TOKEN }}
