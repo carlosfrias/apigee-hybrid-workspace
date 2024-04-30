@@ -31,26 +31,26 @@
           Authorization: Bearer {{ GCLOUD_TOKEN }}
       register: apikey_status
 
+- block:
+  - name: Poll for the API key
+    uri:
+      url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_NUMBER }}/locations/global/keys
+      headers:
+        Authorization: Bearer {{ GCLOUD_TOKEN }}
+    register: apikeys
 
-- name: Poll for the API key
-  uri:
-    url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_NUMBER }}/locations/global/keys
-    headers:
-      Authorization: Bearer {{ GCLOUD_TOKEN }}
-  register: apikeys
-#  until: operation_status.json.metadata.state == "FINISHED"
-#  poll: 5
-#  retries: 50
-#  async: 90
-#  when: apikey_status.json.name is defined
+  rescue:
+    - name: RESCUE - Needs more time
+      pause:
+        seconds: 10
+        prompt: "Allow more time for API key creation..."
 
-#- name: Download API Keys
-#  uri:
-#    url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_ID }}/locations/global/keys
-#    headers:
-#      Authorization: Bearer {{ GCLOUD_TOKEN }}
-#    body_format: json
-#  register: apikeys
+    - name: RESCUE - Poll for the API key
+      uri:
+        url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_NUMBER }}/locations/global/keys
+        headers:
+          Authorization: Bearer {{ GCLOUD_TOKEN }}
+      register: apikeys
 
 - name: Store cache
   set_fact:
@@ -61,3 +61,4 @@
   copy:
     content: "{{ API_KEY }}"
     dest: "{{ GCP_APIKEY_FILE_PATH }}"
+
