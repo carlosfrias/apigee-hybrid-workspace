@@ -14,9 +14,9 @@
     method: POST
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
-    body:
-      display_name: "apigee-apikey"
-    body_format: json
+#    body:
+#      display_name: "apigee-apikey"
+#    body_format: json
   register: apikey_status
 
 #- name: Record operation id
@@ -26,7 +26,7 @@
 
 - name: Poll for the API key
   uri:
-    url: https://apikeys.googleapis/v2/{{ apikey_status.json.name }}?name=apigee-apikey
+    url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_ID }}/locations/global/keys?name={{ apikey_status.name }}
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: operation_status

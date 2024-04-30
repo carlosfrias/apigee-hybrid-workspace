@@ -98,6 +98,11 @@
     cacheable: yes
     PROJECT_NUMBER: "{{ project_number.stdout }}"
 
+- name: Store PROJECT_NUMBER
+  copy:
+    content: "{{ PROJECT_NUMBER }}"
+    dest: "{{ WORK_DIR }}/project_number.txt"
+
 - name: Fail this invocation to create a project that has been deleted
   debug:
     msg: "The project already exists and will not be recreated"
