@@ -20,38 +20,9 @@
     - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"  }
 
   tasks:
-    - name: Read apikey file
-      set_fact:
-        read: "{{ lookup('file', GCP_APIKEY_FILE_PATH)}}"
-
-    - name: content from apikey file
-      debug:
-        msg: "{{ read }}"
-
-    - name: set apikeys to json type
-      set_fact:
-        apiKey1: "{{ read | community.general.json_query('[*]') }}"
-
-    - name: show apiKey1 data
-      debug:
-        msg: "{{ apiKey1 | default('No Data') }}"
-
-    - name: apikey1 variable type
-      debug:
-        msg: "{{ apiKey1 | type_debug }}"
-
-#    - name: Access JSON attributes in apikey1
-#      set_fact:
-#        apiKey2: "{{ API_KEY | community.general.json_query('keys[*]') }}"
-
-#    - name: Show API_KEY structure
-#      debug:
-
-#        var: apiKey1
-
-#    - name: Attach environment to instance
-#      uri:
-#        url:  https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/instances/{{ CLUSTER_NAME }}/attachments?key={{ API_KEY.keys[0].etag }}
-#        method: POST
-#        headers:
-#          Authorization: Bearer {{ GCLOUD_TOKEN }}
+    - name: Attach environment to instance
+      uri:
+        url:  https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/instances/{{ CLUSTER_NAME }}/attachments?key={{ API_KEY }}
+        method: POST
+        headers:
+          Authorization: Bearer {{ GCLOUD_TOKEN }}

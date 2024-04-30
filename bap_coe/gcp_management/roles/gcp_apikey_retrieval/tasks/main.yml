@@ -55,9 +55,9 @@
 - name: Store cache
   set_fact:
     cachable: true
-    API_KEY: "{{ apikeys.json | to_json }}"
+    API_KEY: "{{ apikeys.json | to_json | from_json | community.general.json_query('keys[0].etag') }}"
 
 - name: Store APIKeys
   copy:
-    content: "{{ apikeys.json }}"
+    content: "{{ API_KEY }}"
     dest: "{{ GCP_APIKEY_FILE_PATH }}"
