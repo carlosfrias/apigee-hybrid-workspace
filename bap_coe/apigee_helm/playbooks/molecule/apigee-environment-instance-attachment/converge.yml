@@ -20,13 +20,13 @@
     - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"  }
 
   tasks:
-    - name: Access attributes in apikey1
+    - name: set apikeys to json type
       set_fact:
-        apiKey1: API_KEY | from_json
+        apiKey1: "{{ API_KEY | from_json }}"
 
-    - name: set apikey to json type
+    - name: Access JSON attributes in apikey1
       set_fact:
-        apiKey2: "{{ apiKey1 | community.general.json_query('*') }}"
+        apiKey2: "{{ apiKey1 | community.general.json_query('keys[0].name') }}"
 
 #    - name: Show API_KEY structure
 #      debug:
