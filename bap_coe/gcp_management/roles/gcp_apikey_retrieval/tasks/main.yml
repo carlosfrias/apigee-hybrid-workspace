@@ -14,19 +14,14 @@
     method: POST
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
+  register: apikey_status
 #    body:
 #      display_name: "apigee-apikey"
 #    body_format: json
-  register: apikey_status
-
-#- name: Record operation id
-#  set_fact:
-#    LONG_RUNNING_OPERATION_ID: "{{ apikey_status.json.name | urlsplit('path') | basename }}"
-#  when: apikey_status.json.name is defined
 
 - name: Poll for the API key
   uri:
-    url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_NUMBER }}/locations/global/keys?name={{ apikey_status.name }}
+    url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_NUMBER }}/locations/global/keys?name={{ apikey_status.json.name }}
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
   register: apikeys
