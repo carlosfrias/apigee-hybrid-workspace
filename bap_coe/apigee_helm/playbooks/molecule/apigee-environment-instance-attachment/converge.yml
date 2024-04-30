@@ -20,11 +20,23 @@
     - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"  }
 
   tasks:
+    - name: Read apikey file
+      set_fact:
+        read: "{{ lookup('file', GCP_APIKEY_FILE_PATH)}}"
+
+    - name: content from apikey file
+      debug:
+        msg: "{{ read }}"
+
     - name: set apikeys to json type
       set_fact:
-        apiKey1: "{{ API_KEY | community.general.json_query('length(keys)') }}"
+        apiKey1: "{{ read | community.general.json_query('[*]') }}"
 
-    - name: Report variable type
+    - name: show apiKey1 data
+      debug:
+        msg: "{{ apiKey1 | default('No Data') }}"
+
+    - name: apikey1 variable type
       debug:
         msg: "{{ apiKey1 | type_debug }}"
 
