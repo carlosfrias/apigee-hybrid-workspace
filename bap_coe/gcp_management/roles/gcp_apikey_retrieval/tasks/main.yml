@@ -60,7 +60,7 @@
 - name: Split into list
   set_fact:
     cachable: true
-    API_KEY_LIST: "{{ API_KEY_CACHE | split('/')  }}"
+    API_KEY_LIST: "{{ API_KEY_CACHE | split('"')  }}"
 
 - name: Cache api_key into list
   set_fact:
