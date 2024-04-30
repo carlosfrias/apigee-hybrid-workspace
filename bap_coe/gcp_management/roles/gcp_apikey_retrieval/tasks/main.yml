@@ -57,10 +57,15 @@
     cachable: true
     API_KEY_CACHE: "{{ apikeys.json | to_json | from_json | community.general.json_query('keys[0].etag') }}"
 
-- name: Split cache
+- name: Split into list
   set_fact:
     cachable: true
-    API_KEY: "{{ API_KEY_CACHE | split('/')[1]  }}"
+    API_KEY_LIST: "{{ API_KEY_CACHE | split('/')  }}"
+
+- name: Cache api_key into list
+  set_fact:
+    cachable: true
+    API_KEY: "{{ API_KEY_LIST[1] }}"
 
 - name: Store APIKeys
   copy:
