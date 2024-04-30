@@ -24,9 +24,13 @@
       set_fact:
         apiKey1: "{{ API_KEY | from_json }}"
 
+    - name: Report variable type
+      debug:
+        msg: "{{ apiKey1 | type_debug }}"
+
     - name: Access JSON attributes in apikey1
       set_fact:
-        apiKey2: "{{ apiKey1 | community.general.json_query('keys[0].name') }}"
+        apiKey2: "{{ lookup('ansible.builtin.dict'), apiKey1.keys }}"
 
 #    - name: Show API_KEY structure
 #      debug:
