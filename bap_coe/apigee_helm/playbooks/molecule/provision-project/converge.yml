@@ -15,5 +15,6 @@
 
   roles:
     - { role: gcp_project_create }
+    - { role: gcp_project_number_get }
 
 
