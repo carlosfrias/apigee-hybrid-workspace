@@ -8,20 +8,29 @@
     --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT }}" \
     --role=roles/serviceusage.apiKeysAdmin
 
-- name: Create an API key
-  uri:
-    url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_NUMBER }}/locations/global/keys
-    method: POST
-    headers:
-      Authorization: Bearer {{ GCLOUD_TOKEN }}
-  register: apikey_status
-  until: apikey_status.json.name is defined
-  poll: 5
-  retries: 5
-  async: 10
-#    body:
-#      display_name: "apigee-apikey"
-#    body_format: json
+- block:
+  - name: Create an API key
+    uri:
+      url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_NUMBER }}/locations/global/keys
+      method: POST
+      headers:
+        Authorization: Bearer {{ GCLOUD_TOKEN }}
+    register: apikey_status
+
+  rescue:
+    - name: RESCUE - Needs more time
+      pause:
+        seconds: 10
+        prompt: "Allow more time for API key creation..."
+
+    - name: RESCUE - Create an API key
+      uri:
+        url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_NUMBER }}/locations/global/keys
+        method: POST
+        headers:
+          Authorization: Bearer {{ GCLOUD_TOKEN }}
+      register: apikey_status
+
 
 - name: Poll for the API key
   uri:
