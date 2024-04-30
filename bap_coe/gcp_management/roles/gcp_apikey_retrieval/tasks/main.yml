@@ -34,8 +34,6 @@
   async: 90
 #  when: apikey_status.json.name is defined
 
-
-
 - name: Download API Keys
   uri:
     url: https://apikeys.googleapis.com/v2/projects/{{ PROJECT_ID }}/locations/global/keys
