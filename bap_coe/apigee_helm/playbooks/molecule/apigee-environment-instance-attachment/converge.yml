@@ -17,12 +17,12 @@
   roles:
     - { role: gcp_project_number_get }
     - { role: gcp_token_retrieval }
-    - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"  }
+#    - { role: gcp_apikey_retrieval, ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"  }
 
   tasks:
     - name: Attach environment to instance
       uri:
-        url:  https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/instances/{{ PROJECT_ID }}-{{ PROJECT_NUMBER }}/attachments
+        url:  https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/instances/apigee-{{ CLUSTER_ZONE }}-{{ PROJECT_NUMBER }}/attachments
         method: POST
         headers:
           Authorization: Bearer {{ GCLOUD_TOKEN }}
