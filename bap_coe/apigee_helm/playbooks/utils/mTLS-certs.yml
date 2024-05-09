@@ -1,0 +1,20 @@
+---
+- name: Download and Save Certificate Material
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  tasks:
+  - name: List kubernetes.io/tls Certificate Secrets
+    shell: |
+      kubectl get secret -n apigee --field-selector type=kubernetes.io/tls
+    register: secret_list_output
+
+  - name: Process Certificate Secrets List
+    ansible.builtin.include_tasks: mTLS-certs-download.yml
+    with_items:
+    - "{{ secret_list_output.stdout_lines }}"
+    when: item is not search('NAME')
+
