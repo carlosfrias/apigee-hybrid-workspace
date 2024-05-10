@@ -1,4 +1,3 @@
 ---
-
 - name: Update TlS cert locations
   import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/converge.yml"

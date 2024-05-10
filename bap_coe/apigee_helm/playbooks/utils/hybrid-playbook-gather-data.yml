@@ -1,0 +1,214 @@
+---
+- name: Main Playbook for gathering data on Hybrid/NGSaaS for troubleshooting
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  #    - name: Collect basic Data
+  #        - Apigee Hybrid platform (GKE, GKE on-prem, AKS, EKS, etc.)
+  #        - Apigee hybrid version
+  #        - Google Cloud project ID
+  #        - Apigee Hybrid organization
+  #        - Apigee Hybrid environment
+  #        - Is this a single or multi region deployment?
+  #        - The overrides.yaml file (one for each cluster)
+  #        - How many Apigee hybrid organizations are installed on one cluster?
+  #        - Has there been any recent changes?
+
+  vars:
+    data_dump_folder: "hybrid-data-dump"
+    CASE_NUMBER: "339195991"
+
+  tasks:
+    - name: Documentation Source
+      debug:
+        msg: "Playbook pursuant to: https://goto.google.com/apigee-must-gather"
+
+    - name: Create hybrid data folder
+      file:
+        path: "{{ data_dump_folder }}"
+        state: directory
+
+    - name: Gather Logs and Pod Configuration
+      shell: |
+        # Get kubernetes cluster info dump
+        kubectl cluster-info dump -A --output-directory=/tmp/k_cluster_info_dump_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get all kubernetes cluster events
+        kubectl get events -A 2>&1 | tee /tmp/k_events_all_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get all resources for all namespaces
+        kubectl get all --all-namespaces -o wide 2>&1 | tee /tmp/k_get_all_namespaces{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get status of all nodes
+        kubectl get no -o wide --show-labels 2>&1 | tee /tmp/k_get_nodes_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Describe nodes to get details on nodes
+        kubectl describe node 2>&1 | tee /tmp/k_describe_nodes_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get resources usage for all nodes
+        kubectl top nodes 2>&1 | tee /tmp/k_top_nodes_containers_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # List all services in the namespace
+        kubectl get services -A 2>&1 | tee /tmp/k_get_services_all_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # List all Replica Set in the namespace
+        kubectl get rs -n apigee 2>&1 | tee /tmp/k_get_rs_n_apigee{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get all details of persistent volumes and persistent volumes claims
+        kubectl get pv -A 2>&1 | tee /tmp/k_get_pv_all_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        kubectl get pv -A -o yaml 2>&1 | tee /tmp/k_get_pv_yml_all_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yaml
+        kubectl get pvc -A 2>&1 | tee /tmp/k_get_pvc_all_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        kubectl get pvc -A -o yaml 2>&1 | tee /tmp/k_get_pvc_yml_all_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yaml
+        
+        # Get resources usage for all containers
+        kubectl top pod -A --containers 2>&1 | tee /tmp/k_top_pod_all_containers_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # List resources that are subject to admission webhooks
+        kubectl get validatingwebhookconfigurations -A  2>&1  | tee /tmp/k_validatingwebhookconfigurations_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        kubectl get validatingwebhookconfigurations apigee-validating-webhook-configuration -o yaml  2>&1  | tee /tmp/k_apigee-validating-webhook-configuration_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yaml
+        
+        kubectl get mutatingwebhookconfigurations  2>&1 | tee /tmp/k_mutatingwebhookconfigurations_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get all apigee.cloud.google.com resources
+        for r in $(kubectl api-resources --api-group='apigee.cloud.google.com' --no-headers -o name --verbs=get); do kubectl get ${r} -A -o yaml 2>&1 | tee /tmp/k_get_${r}_yml_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yaml ; done
+        
+        # Get all resources for apigee namespace
+        kubectl get all -n apigee -o wide 2>&1 | tee /tmp/k_get_all_n_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get apigee environment for apigee namespace
+        kubectl get apigeeenv -n apigee  2>&1 | tee /tmp/k_get_apigeeenv_n_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get apigee datastore for apigee namespace
+        kubectl get apigeeds -n apigee  2>&1 | tee /tmp/k_get_apigeeds_n_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get apigee deployment for apigee namespace
+        kubectl get ad -n apigee  2>&1 | tee /tmp/k_get_ad_n_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get virtualservice for apigee namespace
+        kubectl get vs -n apigee 2>&1 | tee /tmp/k_get_vs_n_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get gateway for apigee namespace
+        kubectl get gateway -n apigee 2>&1 | tee /tmp/k_get_gateway_n_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get destination rules for apigee namespace
+        kubectl get destinationrules -n apigee 2>&1 | tee /tmp/k_get_destinationrules_n_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get all stateful sets for Apigee namespace
+        kubectl get sts -n apigee 2>&1 | tee /tmp/k_get_sts_n_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        kubectl get sts -n apigee -o yaml 2>&1 | tee /tmp/k_get_stateful_sets_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yml
+        
+        # Get Apigee Routes for Apigee namespace
+        kubectl get ApigeeRoutes -n apigee -o=yaml 2>&1 | tee /tmp/k_get_ApigeeRoutes_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yml
+        
+        # Get Scheduled jobs for Apigee namespace
+        kubectl get cronjob -n apigee 2>&1 | tee /tmp/k_get_cronjob_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yml
+        
+        # Get Secrets of Apigee namespace
+        kubectl get secrets -n apigee 2>&1 | tee /tmp/k_get_secrets_n_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get ARC details for Apigee Namespace for AKS
+        kubectl get arc -n apigee 2>&1 | tee /tmp/k_get_arc_apigee_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        kubectl get arc -n apigee -o yaml 2>&1 | tee /tmp/k_get_arc_yaml_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yml
+        
+        # Find the external IP of the default Apigee ingress service
+        kubectl get svc -A 2>&1 | tee /tmp/k_get_svc_all_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get Cassandra nodetool command output
+        for p in $(kubectl -n apigee get pods -l app=apigee-cassandra --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee exec ${p} -- bash -c 'nodetool -u $APIGEE_JMX_USER -pw $APIGEE_JMX_PASSWORD status 2>&1 ; nodetool -u $APIGEE_JMX_USER -pw $APIGEE_JMX_PASSWORD describecluster 2>&1' | tee /tmp/k_cassandra_nodetool_status_describecluster_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt ; done
+        
+        # Get apigee-ingressgateway-manager logs from each container separately
+        for p in $(kubectl -n apigee get po --no-headers -o custom-columns=":metadata.name" -l app=apigee-ingressgateway-manager) ; do kubectl -n apigee logs ${p} -c discovery 2>&1 | tee /tmp/k_logs_apigee_ingress_gateway_manager_discovery${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.log ; done
+        for p in $(kubectl -n apigee get po --no-headers -o custom-columns=":metadata.name" -l app=apigee-ingressgateway-manager) ; do kubectl -n apigee logs ${p} -c manager 2>&1 | tee /tmp/k_logs_apigee_ingress_gateway_manager_manager${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.log ; done
+        for p in $(kubectl -n apigee get po --no-headers -o custom-columns=":metadata.name" -l app=apigee-ingressgateway-manager) ; do kubectl -n apigee logs ${p} -c kube-rbac-proxy 2>&1 | tee /tmp/k_logs_apigee_ingress_gateway_manager_kube-rbac-proxy${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.log ; done
+        
+        # Get all apigee namespace pods data in YAML format
+        for p in $(kubectl -n apigee get po --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee get po ${p} -o yaml 2>&1 | tee /tmp/k_n_apigee_get_yml_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yaml ; done
+        
+        # Get pod describe for all apigee namespace pods
+        for p in $(kubectl -n apigee get po --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee describe po ${p} 2>&1 | tee /tmp/k_n_apigee_desc_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt ; done
+        
+        # Get all apigee pods logs
+        for p in $(kubectl -n apigee get po --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee logs ${p} --all-containers 2>&1 | tee /tmp/k_logs_n_apigee_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.log ; done
+        
+        # Get classification trees from all runtime pods
+        for p in $(kubectl -n apigee get po -l app=apigee-runtime --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee exec ${p} -- curl -s -$(echo k) https://0:8843/v1/classification/tree 2>&1 | tee /tmp/k_runtime_classification_tree_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        # Get /v1/status responses from runtime pods
+        for p in $(kubectl -n apigee get po -l app=apigee-runtime --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee exec ${p} -- curl -s -$(echo k) https://0:8843/v1/status 2>&1 | tee /tmp/k_runtime_status_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        # Get only apigee-cassandra pods logs
+        for p in $(kubectl -n apigee get po --no-headers -o custom-columns=":metadata.name" -l app=apigee-cassandra) ; do kubectl -n apigee logs ${p} --all-containers 2>&1 | tee /tmp/k_logs_cass_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.log ; done
+        
+        # Get daemonset describe for all apigee namespace daemonset
+        for p in $(kubectl -n apigee get daemonset --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee describe daemonset ${p} 2>&1 | tee /tmp/k_desc_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt ; done
+        
+        # Get Deployment details for Apigee namespace
+        for p in $(kubectl -n apigee get deployments --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee describe deployments ${p} 2>&1 | tee /tmp/k_desc_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt ; done
+        
+        # Get Persistent Volume details for Apigee namespace
+        for p in $(kubectl -n apigee get pvc --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee describe pvc ${p} 2>&1 | tee /tmp/k_desc_pvc_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        # Get Storage class
+        for p in $(kubectl get sc --no-headers -o custom-columns=":metadata.name") ; do kubectl describe sc ${p} 2>&1 | tee /tmp/k_sc_describe_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        # Get all resources for istio-system namespace
+        kubectl get all -n istio-system -o wide 2>&1 | tee /tmp/k_get_all_n_istio_system_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get endpoints for istio-system namespace
+        kubectl get endpoints -n istio-system  2>&1 | tee /tmp/k_get_endpoints_n_istio_system_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        kubectl get secrets -n istio-system 2>&1 | tee /tmp/k_get_secrets_n_istio_system_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get pod describe for all pods in istio-system namespace
+        for p in $(kubectl -n istio-system get po --no-headers -o custom-columns=":metadata.name") ; do kubectl -n istio-system describe po ${p} 2>&1 | tee /tmp/k_istio_describe_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        # Get describe for all svc in istio-system namespace
+        for p in $(kubectl -n istio-system get svc --no-headers -o custom-columns=":metadata.name") ; do kubectl -n istio-system describe svc ${p} 2>&1 | tee /tmp/k_desc_istio_svc_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        # Get netstat from istio-ingressgateway pods
+        for p in $(kubectl -n istio-system get po -l app=istio-ingressgateway --no-headers -o custom-columns=":metadata.name") ; do kubectl -n istio-system exec ${p} -- netstat -ntpl 2>&1 | tee /tmp/k_istio_ingress_nestat_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        # Get configuration dump for all apigee-ingressgateway pods
+        for p in $(kubectl -n apigee get po -l app=apigee-ingressgateway --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee exec ${p} -- /usr/local/bin/pilot-agent request GET config_dump 2>&1 | tee /tmp/k_apigee_ingress_config_dump_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        for p in $(kubectl -n apigee get po -l app=apigee-ingressgateway-manager --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee exec -it ${p} -c discovery -- pilot-discovery request GET debug/configz 2>&1 | tee /tmp/k_apigee_ingress_gateway_manager_configz_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        # Get configuration dump for all istio-ingressgateway pods
+        for p in $(kubectl -n istio-system get po -l app=istio-ingressgateway --no-headers -o custom-columns=":metadata.name") ; do kubectl -n istio-system exec ${p} -- curl -s 127.0.0.1:15000/config_dump 2>&1 | tee /tmp/k_istio_ingress_config_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt; done
+        
+        # Get logs from all pods of istio-system namespace
+        for p in $(kubectl -n istio-system get po --no-headers -o custom-columns=":metadata.name") ; do kubectl -n istio-system logs ${p} --all-containers 2>&1 | tee /tmp/k_logs_n_istio_system_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.log ; done
+        
+        # Get all for apigee-system namespace
+        kubectl get all -n apigee-system -o wide 2>&1 | tee /tmp/k_get_all_n_apigee_system_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # Get pod describe for all apigee-system namespace pods
+        for p in $(kubectl -n apigee-system get po --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee-system describe po ${p} 2>&1 | tee /tmp/k_desc_apigee_system${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt ; done
+        
+        # Get logs from all pods of apigee-system namespace
+        for p in $(kubectl -n apigee-system get po --no-headers -o custom-columns=":metadata.name") ; do kubectl -n apigee-system logs ${p} --all-containers 2>&1 | tee /tmp/k_logs_n_apigee_system_${p}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.log ; done
+        
+        # Get all for cert-manager namespace
+        kubectl get all -n cert-manager -o wide 2>&1 | tee /tmp/k_get_all_n_cert_manager_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        
+        # get deployment details of cert-manager namespace
+        kubectl get deployment -n cert-manager -o yaml  2>&1 | tee /tmp/k_get_cert_manager_deployment_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.yml
+        
+        # Get certificate details
+        kubectl get certificate -A 2>&1 | tee /tmp/k_get_certificate_all_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        kubectl get certificaterequest -A 2>&1 | tee /tmp/k_get_certificaterequest_all_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        kubectl get issuers -A 2>&1 | tee /tmp/k_get_issuers_all_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+        kubectl get clusterissuers -A 2>&1 | tee /tmp/k_get_clusterissuers_all_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+      
+
+
+    - name: Compress all collected data
+      shell: |
+        tar -cvzf data_{{ CASE_NUMBER }}_{{ '%Y.%m.%d_%H.%M.%S' | strftime }}.tar.gz /tmp/k_*
+      args:
+        chdir: "{{ data_dump_folder }}"
+

@@ -1,0 +1,40 @@
+---
+- name: Main Playbook for gathering data on Hybrid/NGSaaS for troubleshooting
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  tasks:
+    - name: Get all kubernetes Pod details
+      k8s_info:
+        kind: Pod
+        namespace: apigee-system
+      register: pod_details
+
+    - name: Get all kubernetes Node details
+      k8s_info:
+        kind: Node
+        namespace: apigee-system
+      register: node_details
+
+#    - name: Save pod_list
+#      debug:
+#        var: pod_list
+
+    - name: Store Pod details
+      copy:
+        content: "{{ pod_details }}"
+        dest: 'pod_details.json'
+
+    - name: Store Node details
+      copy:
+        content: "{{ node_details }}"
+        dest: 'node_details.json'
+
+#    - name: Cluster details
+#      k8s_info:
+#      register: cluster_info
+#      kubectl get events -A 2>&1 | tee /tmp/k_events_all_{{ '+%Y.%m.%d_%H.%M.%S' | strftime }}.txt
+

@@ -13,5 +13,5 @@
   - name: Uninstall Apigee Env
     kubernetes.core.helm:
       state: absent
-      namespace: apigee-system
+      namespace: apigee
       name: "{{ ENVIRONMENT_NAME }}"

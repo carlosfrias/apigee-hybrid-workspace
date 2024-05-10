@@ -17,7 +17,7 @@
       kubernetes.core.helm:
         state: present
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-env"
-        namespace: apigee-system
+        namespace: apigee
         name: "{{ ENVIRONMENT_NAME }}"
         create_namespace: true
         wait_timeout: 180
@@ -26,4 +26,4 @@
         - value: env={{ ENVIRONMENT_NAME }}
           value_type: string
         values_files:
-        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"
+        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-env/{{ OVERRIDE_FILE | basename }}"
