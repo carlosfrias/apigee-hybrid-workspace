@@ -1,0 +1,40 @@
+---
+- name: Extract content string into array
+  set_fact:
+    cert_data_list: "{{ item | split }}"
+
+
+- name: Assert missing variables
+  assert:
+    that:
+    - data_folder is defined
+    - file_suffix is defined
+    - attribute_name is defined
+    msg: "Please make sure the missing variable is provided. "
+
+- name: Construct Entity Names
+  set_fact:
+    cacheable: true
+    secret_name: "{{ cert_data_list[0] }}"
+    cert_file_name: "{{ data_folder }}/{{ cert_data_list[0] }}.{{ file_suffix }}"
+
+- name: Download Cert Material
+  shell: |
+    kubectl get secret -n apigee {{ secret_name }} -o json | jq -r '.data."{{ attribute_name }}"' | base64 -d
+  register: secret_material_output
+
+- name: Capture Certificate Material
+  set_fact:
+    cacheable: true
+    cert_ca: "{{ secret_material_output.stdout }}"
+
+- name: Assert data folder
+  file:
+    path: "{{ data_folder }}"
+    state: directory
+
+- name: Save Certificate Material to file
+  copy:
+    content: "{{ cert_ca }}"
+    dest: "{{ cert_file_name }}"
+

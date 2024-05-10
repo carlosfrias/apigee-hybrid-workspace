@@ -12,8 +12,41 @@
       kubectl get secret -n apigee --field-selector type=kubernetes.io/tls
     register: secret_list_output
 
+  - name: Set Data to process
+    set_fact:
+      cacheable: true
+      data_folder: "data-ca"
+      file_suffix: "ca"
+      attribute_name: "ca.crt"
+
   - name: Process Certificate Secrets List
-    ansible.builtin.include_tasks: mTLS-certs-download.yml
+    include_tasks: mTLS-certs-process-cert-attribute-material.yml
+    with_items:
+    - "{{ secret_list_output.stdout_lines }}"
+    when: item is not search('NAME')
+
+  - name: Set Data to process
+    set_fact:
+      cacheable: true
+      data_folder: "data-crt"
+      file_suffix: "crt"
+      attribute_name: "tls.crt"
+
+  - name: Process Certificate Secrets List
+    include_tasks: mTLS-certs-process-cert-attribute-material.yml
+    with_items:
+    - "{{ secret_list_output.stdout_lines }}"
+    when: item is not search('NAME')
+
+  - name: Set Data to process
+    set_fact:
+      cacheable: true
+      data_folder: "data-key"
+      file_suffix: "key"
+      attribute_name: "tls.key"
+
+  - name: Process Certificate Secrets List
+    include_tasks: mTLS-certs-process-cert-attribute-material.yml
     with_items:
     - "{{ secret_list_output.stdout_lines }}"
     when: item is not search('NAME')
