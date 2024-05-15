@@ -73,7 +73,7 @@
   - "'Already exists' not in data_pool_status.stderr"
 
 - name: Will take a few minutes to complete apigee-data nodepool creation...
-  shell: gcloud beta container node-pools describe apigee-data --cluster {{ CLUSTER_NAME }} --format yaml
+  shell: gcloud beta container node-pools describe apigee-data --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
@@ -105,7 +105,7 @@
   - "'Already exists' not in runtime_pool_status.stderr"
 
 - name: Will take a few minutes to complete apigee-runtime nodepool creation...
-  shell: gcloud beta container node-pools describe apigee-runtime --cluster {{ CLUSTER_NAME }} --format yaml
+  shell: gcloud beta container node-pools describe apigee-runtime --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
