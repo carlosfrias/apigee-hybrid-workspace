@@ -20,7 +20,7 @@
 
 - name: Download Cert Material
   shell: |
-    kubectl get secret -n apigee {{ secret_name }} -o json | jq -r '.data."{{ attribute_name }}"' | base64 -d
+    kubectl get secret -n "{{ APIGEE_NAMESPACE }}" {{ secret_name }} -o json | jq -r '.data."{{ attribute_name }}"' | base64 -d
   register: secret_material_output
 
 - name: Capture Certificate Material

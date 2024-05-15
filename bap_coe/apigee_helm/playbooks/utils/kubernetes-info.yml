@@ -10,13 +10,13 @@
     - name: Get all kubernetes Pod details
       k8s_info:
         kind: Pod
-        namespace: apigee-system
+        namespace: "{{ APIGEE_SYSTEM_NAMESPACE }}"
       register: pod_details
 
     - name: Get all kubernetes Node details
       k8s_info:
         kind: Node
-        namespace: apigee-system
+        namespace: "{{ APIGEE_SYSTEM_NAMESPACE }}"
       register: node_details
 
 #    - name: Save pod_list

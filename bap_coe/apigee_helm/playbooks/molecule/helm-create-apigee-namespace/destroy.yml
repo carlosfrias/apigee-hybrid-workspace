@@ -8,7 +8,7 @@
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-dc-1.yml"
 
   tasks:
   - name: Remove Apigee Namespace
@@ -19,4 +19,4 @@
       state: absent
     loop:
     - apigee
-    - apigee-system
+    - "{{ APIGEE_SYSTEM_NAMESPACE }}"

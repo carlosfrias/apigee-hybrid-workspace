@@ -9,7 +9,7 @@
   tasks:
   - name: List kubernetes.io/tls Certificate Secrets
     shell: |
-      kubectl get secret -n apigee --field-selector type=kubernetes.io/tls
+      kubectl get secret -n "{{ APIGEE_NAMESPACE }}" --field-selector type=kubernetes.io/tls
     register: secret_list_output
 
   - name: Set Data to process

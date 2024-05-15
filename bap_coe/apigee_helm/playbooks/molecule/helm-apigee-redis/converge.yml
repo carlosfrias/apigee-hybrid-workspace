@@ -7,14 +7,14 @@
     ENABLE_TURBO_MODE: 1
 
   vars_files:
-    - "{{ playbook_dir | dirname | dirname }}/resources/attributes.yml"
+    - "{{ playbook_dir | dirname | dirname }}/resources/attributes-dc-1.yml"
 
   tasks:
     - name: Install Apigee Redis
       kubernetes.core.helm:
         state: present
         chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-redis"
-        namespace: apigee
+        namespace: "{{ APIGEE_NAMESPACE }}"
         name: redis
         create_namespace: true
         wait_timeout: 180
