@@ -12,9 +12,8 @@
 
   roles:
     - { role: service_account_file_path,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
-    }
-
+        KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+      }
     - { role: service_account_file_processing }
     - { role: gcp_auth_service_account_activate }
     - { role: gce_external_ip_create }

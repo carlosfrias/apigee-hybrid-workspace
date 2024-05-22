@@ -1,6 +1,6 @@
 ---
 # tasks file for roles/apigee-hybrid-gke-create
-- name: Delete gcp cluster APIGEE_VERSION < 1.10
+- name: Delete gcp cluster
   shell: |
     gcloud container clusters delete {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \
