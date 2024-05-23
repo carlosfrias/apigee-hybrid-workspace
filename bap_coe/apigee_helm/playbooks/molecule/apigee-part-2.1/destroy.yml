@@ -1,20 +1,20 @@
 ---
-- name: Configure Apigee GKE Cluster
+- name: Destroy Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
 
-- name: Install helm
+- name: Uninstall helm
   import_playbook: "{{ playbook_dir | dirname }}/helm-install/destroy.yml"
 
 - name: Download Apigee Hybrid helm charts
   import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/destroy.yml"
 
-- name: Create External IP Address for Cluster
+- name: Destroy External IP Address for Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/destroy.yml"
 
-- name: Create apigee namespace
+- name: Destroy apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/destroy.yml"
 
-- name: Create TLS certificates
+- name: Destroy TLS certificates
   import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/destroy.yml"
 
 #- name: Create overrides config file

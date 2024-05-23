@@ -48,7 +48,7 @@
   retries: 100
   async: 90
 
-- name: Create node-pool apigee-data
+- name: Create node-pool {{ NODE_POOL_NAME_DATA }}
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
@@ -72,15 +72,15 @@
   - data_pool_status.rc == 1
   - "'Already exists' not in data_pool_status.stderr"
 
-- name: Will take a few minutes to complete apigee-data nodepool creation...
-  shell: gcloud beta container node-pools describe apigee-data --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
+- name: Will take a few minutes to complete {{ NODE_POOL_NAME_DATA }} nodepool creation...
+  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_DATA }} --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
   retries: 100
   async: 90
 
-- name: Create node-pool apigee-runtime
+- name: Create node-pool {{ NODE_POOL_NAME_RUNTIME }}
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
       --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
@@ -104,8 +104,8 @@
   - runtime_pool_status.rc == 1
   - "'Already exists' not in runtime_pool_status.stderr"
 
-- name: Will take a few minutes to complete apigee-runtime nodepool creation...
-  shell: gcloud beta container node-pools describe apigee-runtime --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
+- name: Will take a few minutes to complete {{ NODE_POOL_NAME_RUNTIME }} nodepool creation...
+  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_RUNTIME }}--cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
