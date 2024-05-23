@@ -9,48 +9,68 @@
   environment:
     ENABLE_TURBO_MODE: 1
 
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-dc-1.yml"
+
   tasks:
-  - name: Update facts for multi-region
+  - name: Update facts for multi-region zone, cluster, part 1
     set_fact:
       cacheable: true
-      CASSANDRA_HOST_NETWORK: True
+#      CASSANDRA_HOST_NETWORK: True
       CLUSTER_COUNT: 2
       GCP_REGION: "us-central1"
       GCP_ZONE_LOCATION: "f"
+
+  - name: Update facts for multi-region part 2
+    set_fact:
+      cacheable: true
+      GCP_ZONE: "{{ GCP_REGION }}-{{ GCP_ZONE_LOCATION }}"
+      CLUSTER_NAME: "{{ CLUSTER_NAME_PREFIX }}-{{ CLUSTER_COUNT }}"
+      NODE_POOL_NAME_DATA: "apigee-data-{{ CLUSTER_COUNT }}"
+      NODE_POOL_NAME_RUNTIME: "apigee-runtime-{{ CLUSTER_COUNT }}"
+
+  - name: Update facts for multi-region part 3
+    set_fact:
+      cacheable: true
       GCP_ZONE: "{{ GCP_REGION }}-{{ GCP_ZONE_LOCATION }}"
       REGION: "{{ GCP_REGION }}"
       ZONE: "{{ GCP_ZONE }}"
       REGION_SEED: "{{ GCP_REGION }}"
       EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"
       CASSANDRA_DATA_CENTER_NAME: "dc-{{ CLUSTER_COUNT }}"
+      CLUSTER_ZONE: "{{ REGION }}-{{ GCP_ZONE_LOCATION }}"
+      FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
+      CLUSTER_REGION: "{{ GCP_REGION }}"
+
 
 - name: Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
-
-- name: Configure kubectl Cluster credentials
-  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
-
-- name: Create TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
-
-- name: Install helm
-  import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
-
-- name: Download Apigee Hybrid helm charts
-  import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
-
-- name: Update overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
-
-- name: Update overrides paths and move into helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-generate/converge.yml"
-
-- name: Distribute configs and credentials to helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/converge.yml"
-
-- name: Create apigee namespace
-  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
-
-- name: Enable Synchronizer
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"
+#
+#- name: Configure kubectl Cluster credentials
+#  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
+#
+#- name: Create TLS certificates
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"
+#
+#- name: Install helm
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
+#
+#- name: Download Apigee Hybrid helm charts
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
+#
+#- name: Update overrides config file
+#  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
+#
+#- name: Update overrides paths and move into helm chart folders
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-generate/converge.yml"
+#
+#- name: Distribute configs and credentials to helm chart folders
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/converge.yml"
+#
+#- name: Create apigee namespace
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
+#
+#- name: Enable Synchronizer
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"
 

@@ -45,7 +45,7 @@
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
-  retries: 50
+  retries: 100
   async: 90
 
 - name: Create node-pool apigee-data
@@ -77,7 +77,7 @@
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
-  retries: 50
+  retries: 100
   async: 90
 
 - name: Create node-pool apigee-runtime
@@ -109,7 +109,7 @@
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
-  retries: 50
+  retries: 100
   async: 90
 
 - name: Delete default node-pool that is created
@@ -120,5 +120,5 @@
       --zone {{ CLUSTER_ZONE }} \
       --quiet
   poll: 5
-  retries: 50
+  retries: 100
   async: 90
