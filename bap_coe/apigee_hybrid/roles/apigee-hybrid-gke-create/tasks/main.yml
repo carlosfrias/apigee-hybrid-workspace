@@ -105,7 +105,7 @@
   - "'Already exists' not in runtime_pool_status.stderr"
 
 - name: Will take a few minutes to complete {{ NODE_POOL_NAME_RUNTIME }} nodepool creation...
-  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_RUNTIME }}--cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
+  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_RUNTIME }} --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
