@@ -17,6 +17,6 @@
         namespace: "{{ APIGEE_SYSTEM_NAMESPACE }}"
         name: operator
         create_namespace: true
-        wait_timeout: 180
+        wait_timeout: "{{ HELM_BINARY_TIMEOUT }}"
         values_files:
         - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/{{ OVERRIDE_FILE | basename }}"

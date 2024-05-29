@@ -1,5 +1,5 @@
 ---
-- name: Install Apigee Redis
+- name: Install Apigee Ingress Manager
   hosts: localhost
   connection: local
   gather_facts: true
@@ -17,6 +17,6 @@
         namespace: "{{ APIGEE_NAMESPACE }}"
         name: ingress-manager
         create_namespace: true
-        wait_timeout: 180
+        wait_timeout: "{{ HELM_BINARY_TIMEOUT }}"
         values_files:
         - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-ingress-manager/{{ OVERRIDE_FILE | basename }}"

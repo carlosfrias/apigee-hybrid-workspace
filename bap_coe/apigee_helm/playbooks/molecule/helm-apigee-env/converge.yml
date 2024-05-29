@@ -20,7 +20,7 @@
         namespace: "{{ APIGEE_NAMESPACE }}"
         name: "{{ ENVIRONMENT_NAME }}"
         create_namespace: true
-        wait_timeout: 180
+        wait_timeout: "{{ HELM_BINARY_TIMEOUT }}"
         atomic: true
         set_values:
         - value: env={{ ENVIRONMENT_NAME }}

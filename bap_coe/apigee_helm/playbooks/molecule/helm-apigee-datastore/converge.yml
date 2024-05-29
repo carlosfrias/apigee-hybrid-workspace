@@ -17,7 +17,7 @@
         namespace: "{{ APIGEE_NAMESPACE }}"
         name: datastore
         create_namespace: true
-        wait_timeout: 180
+        wait_timeout: "{{ HELM_BINARY_TIMEOUT }}"
         values_files:
         - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"
 

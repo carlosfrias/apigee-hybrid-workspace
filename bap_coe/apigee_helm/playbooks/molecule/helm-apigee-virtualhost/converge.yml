@@ -17,7 +17,7 @@
         namespace: "{{ APIGEE_NAMESPACE }}"
         name: "{{ ENVIRONMENT_GROUP_NAME }}"
         create_namespace: true
-        wait_timeout: 180
+        wait_timeout: "{{ HELM_BINARY_TIMEOUT }}"
         set_values:
           - value: envgroup={{ ENVIRONMENT_GROUP_NAME }}
             value_type: string
