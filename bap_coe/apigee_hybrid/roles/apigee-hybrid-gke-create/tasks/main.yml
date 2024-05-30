@@ -26,7 +26,7 @@
       --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-      --release-channel: {{ CLUSTER_CHANNEL }} \ 
+      --release-channel {{ CLUSTER_CHANNEL }} \ 
       --cluster-version {{ CLUSTER_VERSION }} \
       --logging={{ LOGGING }} \
       --monitoring={{ MONITORING }} \
