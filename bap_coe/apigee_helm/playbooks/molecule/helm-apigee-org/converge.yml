@@ -10,14 +10,29 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/attributes-dc-1.yml"
 
   tasks:
-    - name: Install Apigee Org
-      kubernetes.core.helm:
-        state: present
-        chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-org"
-        namespace: "{{ APIGEE_NAMESPACE }}"
-        name: "{{ PROJECT_ID }}"
-        create_namespace: true
-        wait: false
-        values_files:
-        - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-org/{{ OVERRIDE_FILE | basename }}"
+    - block:
+      - name: Install Apigee Org
+        kubernetes.core.helm:
+          state: present
+          chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-org"
+          namespace: "{{ APIGEE_NAMESPACE }}"
+          name: "{{ PROJECT_ID }}"
+          create_namespace: true
+          wait: false
+          values_files:
+          - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-org/{{ OVERRIDE_FILE | basename }}"
+
+      rescue:
+
+      - name: RESCUE - Install Apigee Org - debug
+        kubernetes.core.helm:
+          binary_path: "{{ WORK_DIR }}/bin/helm --debug "
+          state: present
+          chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-org"
+          namespace: "{{ APIGEE_NAMESPACE }}"
+          name: "{{ PROJECT_ID }}"
+          create_namespace: true
+          wait: false
+          values_files:
+          - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-org/{{ OVERRIDE_FILE | basename }}"
 
