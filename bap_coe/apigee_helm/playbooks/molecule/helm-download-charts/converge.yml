@@ -1,5 +1,5 @@
 ---
-- name: Create external ip address
+- name: Obtain external ip address
   import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
 
 - name: Download Apigee hybrid helm charts

@@ -17,7 +17,6 @@
   - { role: service_account_file_path,
       KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
     }
-
   - {
       role: service_account_file_processing,
       SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
@@ -53,24 +52,3 @@
     copy:
       content: "{{ kubeconfig_content.stdout }}"
       dest: "{{ CLUSTER_KUBECONFIG }}"
-
-#  - name: Create ASM service account
-#    ignore_errors: yes
-#    shell: gcloud iam service-accounts create {{ ADMIN_SERVICE_ACCOUNT_NAME }} --project={{ PROJECT_ID }}
-#    register: status
-#    failed_when:
-#      - status.rc == 1
-#      - "'already exists' not in status.stderr"
-#
-#  - name: Bind gkehub.connect IAM role to service account - this is now in the install_asm bash script
-#    shell: |
-#      gcloud projects add-iam-policy-binding {{ PROJECT_ID }} \
-#       --member="serviceAccount:{{ ADMIN_SERVICE_ACCOUNT }}" \
-#       --role="roles/gkehub.connect"
-#
-#  - name: Ensure you have cluster-admin on the cluster
-#    shell: kubectl create clusterrolebinding user-cluster-admin --clusterrole cluster-admin --user {{ ADMIN_ACCOUNT_USER | default(ADMIN_ACCOUNT_USER) }}
-#    register: status
-#    failed_when:
-#    - status.rc == 1
-#    - "'already exists' not in status.stderr"
