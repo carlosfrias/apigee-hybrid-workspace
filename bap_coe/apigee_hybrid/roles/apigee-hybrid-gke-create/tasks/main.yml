@@ -40,7 +40,7 @@
   failed_when:
   - status.rc == 1
   - "'Already exists' not in status.stderr"
-  when: CLUSTER_CHANNEL is not "None"
+  when: CLUSTER_CHANNEL is not None
 
 - name: Create Apigee hybrid cluster with default cluster
   shell: |
