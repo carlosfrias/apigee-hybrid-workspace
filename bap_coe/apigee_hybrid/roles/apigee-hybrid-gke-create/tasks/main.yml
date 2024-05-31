@@ -12,7 +12,7 @@
     path: "{{ WORK_DIR }}"
     state: directory  
 
-- name: Create Apigee hybrid cluster
+- name: Create Apigee hybrid cluster, on channel and cluster-version
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
@@ -40,6 +40,38 @@
   failed_when:
   - status.rc == 1
   - "'Already exists' not in status.stderr"
+  when: CLUSTER_CHANNEL is not "None"
+
+- name: Create Apigee hybrid cluster with default cluster
+  shell: |
+    gcloud beta container clusters create {{ CLUSTER_NAME }} \
+      --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
+      --project {{ PROJECT_ID }} \
+      --zone {{ CLUSTER_ZONE }} \
+      --machine-type {{ MACHINE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --release-channel {{ CLUSTER_CHANNEL }} \ 
+      --cluster-version {{ CLUSTER_VERSION }} \
+      --logging {{ LOGGING }} \
+      --monitoring {{ MONITORING }} \
+      --network {{ VPC_NETWORK_NAME }} \
+      --subnetwork {{ VPC_SUBNETWORK_NAME }} \
+      --addons {{ CLUSTER_ADDONS }} \
+      --location-policy "BALANCED" \
+      --enable-autoscaling \
+      --metadata disable-legacy-endpoints=true
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'Already exists' not in status.stderr"
+  when: CLUSTER_CHANNEL is None or CLUSTER_VERSION is None
+
 
 - name: Will take a few minutes to complete cluster creation...
   shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format yaml --project {{ PROJECT_ID }} --zone {{ CLUSTER_ZONE }}
