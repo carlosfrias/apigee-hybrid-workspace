@@ -40,7 +40,7 @@
   failed_when:
   - status.rc == 1
   - "'Already exists' not in status.stderr"
-  when: CLUSTER_CHANNEL is True
+  when: CLUSTER_CHANNEL is true
 
 - name: Create Apigee hybrid cluster with default cluster
   shell: |
@@ -56,8 +56,6 @@
       --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
       --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-      --release-channel {{ CLUSTER_CHANNEL }} \ 
-      --cluster-version {{ CLUSTER_VERSION }} \
       --logging {{ LOGGING }} \
       --monitoring {{ MONITORING }} \
       --network {{ VPC_NETWORK_NAME }} \
@@ -70,7 +68,7 @@
   failed_when:
   - status.rc == 1
   - "'Already exists' not in status.stderr"
-  when: CLUSTER_CHANNEL is True or CLUSTER_VERSION is True
+  when: CLUSTER_CHANNEL is not true or CLUSTER_VERSION is not true
 
 
 - name: Will take a few minutes to complete cluster creation...
