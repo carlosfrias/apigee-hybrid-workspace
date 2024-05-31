@@ -12,7 +12,7 @@
     path: "{{ WORK_DIR }}"
     state: directory  
 
-- name: Create Apigee hybrid cluster, on channel and cluster-version
+- name: Create Apigee hybrid cluster with defined channel and cluster-version
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --service-account {{ ADMIN_SERVICE_ACCOUNT }} \

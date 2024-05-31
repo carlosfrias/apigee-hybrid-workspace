@@ -31,8 +31,8 @@
       cacheable: true
       GCP_ZONE: "{{ GCP_REGION }}-{{ GCP_ZONE_LOCATION }}"
       CLUSTER_NAME: "{{ CLUSTER_NAME_PREFIX }}-{{ CLUSTER_COUNT }}"
-      NODE_POOL_NAME_DATA: "apigee-data-{{ CLUSTER_COUNT }}"
-      NODE_POOL_NAME_RUNTIME: "apigee-runtime-{{ CLUSTER_COUNT }}"
+      NODE_POOL_NAME_DATA: "apigee-data-{{ CLUSTER_COUNT }}-pool"
+      NODE_POOL_NAME_RUNTIME: "apigee-runtime-{{ CLUSTER_COUNT }}-pool"
 
   - name: Update facts for multi-region part 3
     set_fact:
