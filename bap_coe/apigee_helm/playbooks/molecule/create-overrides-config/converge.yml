@@ -25,6 +25,5 @@
   roles:
     - { role: apigee-hybrid-group-create }
     - {
-        role: apigee-hybrid-apigeectl-configure,
-        includeNodeSelector: true
+        role: apigee-hybrid-apigeectl-configure
       }

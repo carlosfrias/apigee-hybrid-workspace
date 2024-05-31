@@ -40,7 +40,7 @@
   failed_when:
   - status.rc == 1
   - "'Already exists' not in status.stderr"
-  when: CLUSTER_CHANNEL in ['rapid', 'regular', 'stable']
+  when: CLUSTER_CHANNEL in ['rapid', 'regular', 'stable'] and CLUSTER_VERSION is true
 
 - name: Create Apigee hybrid cluster with default cluster
   shell: |
@@ -69,7 +69,6 @@
   - status.rc == 1
   - "'Already exists' not in status.stderr"
   when: CLUSTER_CHANNEL is not true or CLUSTER_VERSION is not true
-
 
 - name: Will take a few minutes to complete cluster creation...
   shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format yaml --project {{ PROJECT_ID }} --zone {{ CLUSTER_ZONE }}

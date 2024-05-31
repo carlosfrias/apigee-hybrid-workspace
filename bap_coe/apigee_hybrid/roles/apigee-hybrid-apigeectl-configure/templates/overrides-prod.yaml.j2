@@ -73,7 +73,7 @@ ao:
   args:
     disableIstioConfigInAPIserver: {{ DISABLE_ISTIO_CONFIG_IN_API_SERVER }}
 
-{% if includeNodeSelector == true %}
+{% if APIGEE_CONFIG_INCLUDE_NODE_SELECTOR %}
 nodeSelector:
   requiredForScheduling: {{ APIGEE_CONFIG_REQUIRED_FOR_SCHEDULING | default(false) }}
   apigeeRuntime:
