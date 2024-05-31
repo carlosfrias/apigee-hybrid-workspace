@@ -13,3 +13,12 @@
 #
 #- name: Apigee hybrid Deployment Part 3
 #  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-3/converge.yml"
+
+- name: Install Cert Manager
+  import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
+
+- name: Install CRDs
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
+
+- name: Install Operator chart
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
