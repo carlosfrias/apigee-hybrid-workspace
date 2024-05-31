@@ -12,6 +12,7 @@
   vars_files:
   - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes-dc-1.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-dc-2.yml"
 
   tasks:
 #  - name: Update Cassandra Host Network attribute on the host cluster
@@ -19,39 +20,9 @@
 #      cachable: true
 #      CASSANDRA_HOST_NETWORK: True
 
-  - name: Update facts for multi-region zone, cluster, part 1
-    set_fact:
-      cacheable: true
-      CLUSTER_COUNT: 2
-      GCP_REGION: "us-central1"
-      GCP_ZONE_LOCATION: "f"
-
-  - name: Update facts for multi-region part 2
-    set_fact:
-      cacheable: true
-      GCP_ZONE: "{{ GCP_REGION }}-{{ GCP_ZONE_LOCATION }}"
-      CLUSTER_NAME: "{{ CLUSTER_NAME_PREFIX }}-{{ CLUSTER_COUNT }}"
-      NODE_POOL_NAME_DATA: "apigee-data-{{ CLUSTER_COUNT }}-pool"
-      NODE_POOL_NAME_RUNTIME: "apigee-runtime-{{ CLUSTER_COUNT }}-pool"
-
-  - name: Update facts for multi-region part 3
-    set_fact:
-      cacheable: true
-      GCP_ZONE: "{{ GCP_REGION }}-{{ GCP_ZONE_LOCATION }}"
-      REGION: "{{ GCP_REGION }}"
-      ZONE: "{{ GCP_ZONE }}"
-      REGION_SEED: "{{ GCP_REGION }}"
-      EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"
-      CASSANDRA_DATA_CENTER_NAME: "dc-{{ CLUSTER_COUNT }}"
-      CLUSTER_ZONE: "{{ REGION }}-{{ GCP_ZONE_LOCATION }}"
-      FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
-      CLUSTER_REGION: "{{ GCP_REGION }}"
-      INGRESS_GATEWAY_NAME: apigee-ingress-{{ CLUSTER_COUNT }}
-
-
 - name: Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
-#
+
 #- name: Configure kubectl Cluster credentials
 #  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
 #
