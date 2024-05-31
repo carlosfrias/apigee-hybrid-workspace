@@ -28,10 +28,10 @@
       --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
       --release-channel {{ CLUSTER_CHANNEL }} \ 
       --cluster-version {{ CLUSTER_VERSION }} \
-      --logging={{ LOGGING }} \
-      --monitoring={{ MONITORING }} \
-      --network "{{ VPC_NETWORK_NAME }}" \
-      --subnetwork "{{ VPC_SUBNETWORK_NAME }}" \
+      --logging {{ LOGGING }} \
+      --monitoring {{ MONITORING }} \
+      --network {{ VPC_NETWORK_NAME }} \
+      --subnetwork {{ VPC_SUBNETWORK_NAME }} \
       --addons {{ CLUSTER_ADDONS }} \
       --location-policy "BALANCED" \
       --enable-autoscaling \
