@@ -1,0 +1,21 @@
+---
+- name: Update override with hostNetwork true
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+  - name: Set data center fact
+    set_fact:
+      cacheable: true
+      DATA_CENTER: "dc-1"
+      CASSANDRA_HOST_NETWORK: true
+
+- name: Update overrides config file
+  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
+
+- name: Update overrides paths and move into helm chart folders
+  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-generate/converge.yml"
+
+- name: Distribute configs and credentials to helm chart folders
+  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/converge.yml"

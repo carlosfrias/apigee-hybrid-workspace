@@ -1,0 +1,26 @@
+---
+- name: Remove DNS
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/destroy.yml"
+
+- name: Remove GKE Cluster
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
+
+- name: Remove Apigee Hybrid Project
+  import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"
+
+- name: Clean up Apigee hybrid filesystem
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+    - "{{ playbook_dir | dirname | dirname }}/resources/attributes-{{ DATA_CENTER }}.yml"
+
+  tasks:
+    - name: Clean up work_dir
+      file:
+        path: "{{ WORK_DIR }}"
+        state: absent
+

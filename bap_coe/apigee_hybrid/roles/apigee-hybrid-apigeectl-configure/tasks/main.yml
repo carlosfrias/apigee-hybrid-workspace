@@ -43,6 +43,10 @@
     path: "{{ OVERRIDE_FILE | dirname }}"
     state: directory
 
+- name: hostNetwork Setting
+  debug:
+    var: CASSANDRA_HOST_NETWORK
+
 - name: Generate overrides.yml
   template: 
     src: overrides-{{ APIGEE_OVERRIDE_TEMPLATE | default('non-prod') }}.yaml.j2
