@@ -19,3 +19,29 @@
 
 - name: Distribute configs and credentials to helm chart folders
   import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/converge.yml"
+
+- name: Install Operator chart
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
+
+- name: Install Datastore chart
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"
+
+- name: Install Telemetry
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
+
+- name: Install Redis
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
+
+- name: Install Ingress Manager
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-ingress-manager/converge.yml"
+
+- name: Install Organization
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
+
+- name: Install Environment
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/converge.yml"
+
+- name: Configure Virtualhost
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"
+
+
