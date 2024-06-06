@@ -1,0 +1,50 @@
+---
+- name: Create a cassandra client container
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+    - "../resources/attributes-dc-1.yml"
+
+  vars:
+    cassandra_client_name: "{{ CLUSTER_NAME }}-cassandra-client-container"
+
+  tasks:
+    - name: Asset variables are available
+      assert:
+        that:
+          - APIGEE_VERSION
+          - CLUSTER_NAME
+
+    - name: Gather container name to use same TLS certificate from apigee-canssandra-user-setup
+      shell: |
+        kubectx {{ CLUSTER_NAME }}
+        kubectl get secrets \
+          -n apigee \
+          --field-selector type=kubernetes.io/tls \
+          | grep apigee-cassandra-user-setup \
+          | awk '{print $1}'
+      register: tls_container_name
+
+    - name: Capture Cassandra TLS Container Name
+      set_fact:
+        cass_tls_container_name: "{{ tls_container_name.stdout_lines[-1] }}"
+
+    - name: Create cassandra client container spec
+      template:
+        src: "{{ playbook_dir }}/cassandra-client-container-template.yml.j2"
+        dest: "{{ playbook_dir }}/cassandra-client-container-manifest-{{ CLUSTER_NAME }}.yml"
+
+    - name: Create and apply container to cluster
+      k8s:
+        state: present
+        src: "{{ playbook_dir }}/cassandra-client-container-manifest-{{ CLUSTER_NAME }}.yml"
+
+
+
+    - name: Log in to container invocation
+      debug:
+        msg: "Log in to container with:  'kubectl exec -n apigee {{ cassandra_client_name }} -it -- bash'"

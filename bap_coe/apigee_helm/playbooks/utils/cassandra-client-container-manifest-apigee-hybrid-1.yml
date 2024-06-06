@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+  name: "apigee-hybrid-1-cassandra-client-container"   # For example: my-cassandra-client
+  namespace: apigee
+spec:
+  containers:
+  - name: "apigee-hybrid-1-cassandra-client-container"
+    image: "gcr.io/apigee-release/hybrid/apigee-hybrid-cassandra-client:1.12.0" # For example, 1.10.4.
+    imagePullPolicy: Always
+    command:
+    - sleep
+    - "3600"
+    env:
+    - name: CASSANDRA_SEEDS
+      value: apigee-cassandra-default.apigee.svc.cluster.local
+    - name: APIGEE_DML_USER
+      valueFrom:
+        secretKeyRef:
+          key: dml.user
+          name: apigee-datastore-default-creds
+    - name: APIGEE_DML_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: dml.password
+          name: apigee-datastore-default-creds
+    volumeMounts:
+    - mountPath: /opt/apigee/ssl
+      name: tls-volume
+      readOnly: true
+  volumes:
+  - name: tls-volume
+    secret:
+      defaultMode: 420
+      secretName: "apigee-cassandra-user-setup-friasc-adient-2-bfa26c1-tls"    # For example: apigee-cassandra-user-setup-rg-hybrid-b7d3b9c-tls
+  restartPolicy: Never

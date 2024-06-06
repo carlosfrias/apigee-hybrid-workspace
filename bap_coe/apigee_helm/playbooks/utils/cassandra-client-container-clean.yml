@@ -1,0 +1,23 @@
+---
+- name: Clean up cassandra client container
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+    - "../resources/attributes-dc-1.yml"
+
+  vars:
+    cassandra_client_name: "{{ CLUSTER_NAME }}-cassandra-client-container"
+
+  tasks:
+    - name: Set kubectl context to {{ CLUSTER_NAME }}
+      shell: |
+        kubectx {{ CLUSTER_NAME }}
+
+    - name: Remove container from cluster
+      k8s:
+        state: absent
+        src: "{{ playbook_dir }}/cassandra-client-container-manifest-{{ CLUSTER_NAME }}.yml"

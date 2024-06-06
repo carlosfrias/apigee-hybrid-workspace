@@ -6,7 +6,7 @@
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-dc-1.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-{{ DATA_CENTER }}.yml"
 
   collections:
   - bap_coe.apigee_hybrid
