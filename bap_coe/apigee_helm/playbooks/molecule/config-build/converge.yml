@@ -1,10 +1,22 @@
 ---
+- name: Set data center
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+  - name: Set data center fact
+    set_fact:
+      cacheable: true
+      DATA_CENTER: "dc-1"
+
 - name: Update molecule variables
   hosts: localhost
   connection: local
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/project-metadata.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes-{{ DATA_CENTER }}.yml"
 
   vars:

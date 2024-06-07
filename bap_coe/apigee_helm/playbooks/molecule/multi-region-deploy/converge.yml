@@ -1,6 +1,6 @@
 ---
-- name: Update override config for multi-region
-  import_playbook: "{{ playbook_dir | dirname }}/multi-region-prep/converge.yml"
+#- name: Update override config for multi-region
+#  import_playbook: "{{ playbook_dir | dirname }}/multi-region-prep/converge.yml"
 
 - name: Set data center
   hosts: localhost
@@ -13,13 +13,22 @@
       cacheable: true
       DATA_CENTER: "dc-2"
 
+#- name: Update overrides config file
+#  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
+#
+#- name: Update overrides paths and move into helm chart folders
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-generate/converge.yml"
+#
+#- name: Distribute configs and credentials to helm chart folders
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/converge.yml"
+
 # Eliminate part 0
 
 # Part 1 replacement
 
-- name: Create network
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-network-create/converge.yml"
-
+#- name: Create network
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-network-create/converge.yml"
+#
 #- name: Create external ip address
 #  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
 #
@@ -28,12 +37,12 @@
 #
 #- name: Create DNS record
 #  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/converge.yml"
-#
+
 # Part 2.1 replacement
-#
-#- name: Configure Apigee GKE Cluster
-#  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
-#
+
+- name: Configure Apigee GKE Cluster
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
+
 #- name: Configure kubectl Cluster credentials
 #  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
 #
@@ -58,6 +67,4 @@
 #
 #- name: Apigee hybrid Deployment Part 3
 #  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-3/converge.yml"
-
-
-
+#

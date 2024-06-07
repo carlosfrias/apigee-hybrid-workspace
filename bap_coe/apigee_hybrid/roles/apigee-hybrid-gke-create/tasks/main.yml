@@ -42,7 +42,7 @@
   - "'Already exists' not in status.stderr"
   when: CLUSTER_CHANNEL in ['rapid', 'regular', 'stable']
 
-- name: Create Apigee hybrid cluster with default cluster
+- name: Create Apigee hybrid cluster with default node-pool
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
@@ -78,7 +78,7 @@
   retries: 1000
   async: 90
 
-- name: Create node-pool {{ NODE_POOL_NAME_DATA }}
+- name: Create data node-pool {{ NODE_POOL_NAME_DATA }}
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
@@ -110,7 +110,7 @@
   retries: 1000
   async: 90
 
-- name: Create node-pool {{ NODE_POOL_NAME_RUNTIME }}
+- name: Create runtime node-pool {{ NODE_POOL_NAME_RUNTIME }}
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
       --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
