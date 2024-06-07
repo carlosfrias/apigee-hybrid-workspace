@@ -4,7 +4,10 @@
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/project-metadata.yml"
+  vars_files:
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER }}.yml"
+
   - "{{ playbook_dir | dirname | dirname }}/resources/attributes-{{ DATA_CENTER }}.yml"
 
   collections:
