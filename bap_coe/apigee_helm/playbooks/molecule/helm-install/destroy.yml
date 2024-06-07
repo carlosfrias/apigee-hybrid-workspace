@@ -5,8 +5,7 @@
   gather_facts: true
 
   vars_files:
-  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-{{ DATA_CENTER }}.yml"
-
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   tasks:
   - name: Remove files from filesystem
     file:

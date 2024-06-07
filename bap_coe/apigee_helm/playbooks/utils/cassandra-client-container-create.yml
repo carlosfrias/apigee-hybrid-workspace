@@ -7,7 +7,7 @@
     ENABLE_TURBO_MODE: 1
 
   vars_files:
-    - "../resources/hybrid-common-attributes-dc-1.yml"
+    - "../resources/hybrid-common-attributes.yml"
 
   vars:
     cassandra_client_name: "{{ CLUSTER_NAME }}-cassandra-client-container"
