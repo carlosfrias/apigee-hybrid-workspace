@@ -35,7 +35,8 @@
       --addons {{ CLUSTER_ADDONS }} \
       --location-policy "BALANCED" \
       --enable-autoscaling \
-      --metadata disable-legacy-endpoints=true
+      --metadata disable-legacy-endpoints=true \
+      --no-enable-ip-alias
   register: status
   failed_when:
   - status.rc == 1
