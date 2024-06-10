@@ -9,7 +9,7 @@
   vars_files:
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-metadata.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
-  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER }}.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
   tasks:
     - block:
 
