@@ -23,8 +23,8 @@
 #- name: Install Operator chart
 #  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
 
-- name: Install Datastore chart
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"
+#- name: Install Datastore chart
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"
 
 #- name: Install Telemetry
 #  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
