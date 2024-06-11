@@ -22,5 +22,5 @@
   roles:
     - {
         role: apigee-hybrid-ingressgateway-healthcheck,
-        FQ_DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}"
+        FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}"
       }

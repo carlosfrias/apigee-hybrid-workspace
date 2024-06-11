@@ -25,3 +25,7 @@
 
 - name: Apigee hybrid Deployment Part 3
   import_playbook: "{{ playbook_dir | dirname}}/apigee-part-3/converge.yml"
+
+- name: Apigee Multi Region Deployment
+  import_playbook: "{{ playbook_dir | dirname}}/multi-region-deploy/converge.yml"
+

@@ -57,7 +57,7 @@
     - { role: apigee-hybrid-kubectl-cert-manager-install }
     - {
         role: apigee-hybrid-cloud-dns-create,
-        FQ_DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}"
+        FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}"
       }
 
 - name: Cluster kubectl config for next region
