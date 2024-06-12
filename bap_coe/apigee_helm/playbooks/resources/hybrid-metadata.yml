@@ -7,6 +7,8 @@
 
 APIGEE_VERSION: "1.12.0"
 CERT_MANAGER_VERSION: "1.13.0"
-PROJECT_ID: "hybrid-20240611-1336"
+PROJECT_DATE_SUFFIX: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}"
+PROJECT_TIME_SUFFIX: "1429"
+PROJECT_ID: "hybrid-{{ PROJECT_DATE_SUFFIX }}-{{ PROJECT_TIME_SUFFIX }}"
 APIGEE_ORG: "{{ PROJECT_ID }}"
-PROJECT_LABEL: "hybrid-202406111237"
+PROJECT_LABEL: "api-{{ PROJECT_DATE_SUFFIX }}{{ PROJECT_TIME_SUFFIX }}"

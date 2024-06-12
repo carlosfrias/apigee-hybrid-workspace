@@ -19,5 +19,5 @@
   roles:
   - {
       role: apigee-hybrid-tls-certs-create,
-      CSR_COMMON_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}"
+      CSR_COMMON_NAME: "{{ DOMAIN_NAME }}"
     }

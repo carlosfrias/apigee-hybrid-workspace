@@ -1,6 +1,5 @@
 ---
 CLUSTER_CHANNEL: "stable"  # can be one of rapid, regular, stable, or None.
-#CLUSTER_VERSION: 1.27.12-gke.1115000
 CLUSTER_VERSION: 1.28.7-gke.1026001
 
 APIGEE_OVERRIDE_TEMPLATE: "prod"  # Values can be: 'non-prod' or 'prod'
@@ -18,9 +17,10 @@ SSL_CERT_FILE: "keystore-{{ ENVIRONMENT_GROUP_NAME }}.pem"
 SSL_CERT_PATH: "{{ CERT_FILE_DIR }}/{{ SSL_CERT_FILE }}"
 SSL_KEY_FILE: "keystore-{{ ENVIRONMENT_GROUP_NAME }}.key"
 SSL_KEY_PATH: "{{ CERT_FILE_DIR }}/{{ SSL_KEY_FILE }}"
-
 CERT_SIGNING_REQUEST_PATH: "{{ CERT_FILE_DIR }}/keystore-{{ ENVIRONMENT_GROUP_NAME }}.csr"
+
 PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX: "@{{ PROJECT_ID }}.iam.gserviceaccount.com"
+
 APIGEE_NON_PROD_USER: "apigee-non-prod"
 APIGEE_ADMIN: "{{ APIGEE_NON_PROD_USER }}"
 APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN }}{{ PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }}"
@@ -43,8 +43,9 @@ DNS_PROJECT_ID: "friasc-apigee-lab"
 DNS_MANAGED_ZONE: "friasc.demo.altostrat.com"
 DNS_ZONE_NAME: "friasc-demo"
 DOMAIN_SUFFIX: "{{ PROJECT_LABEL }}"
-DOMAIN_NAME: "{{ PROJECT_ID }}-{{ ENVIRONMENT_NAME }}-{{ DATA_CENTER | default('dc-1') }}.{{ DNS_MANAGED_ZONE }}"
+DOMAIN_NAME: "{{ PROJECT_LABEL }}-{{ DATA_CENTER | default('dc-1') }}.{{ DNS_MANAGED_ZONE }}"
 EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"
+#EXTERNAL_IP_NAME: "ingress-for-{{ CLUSTER_NAME }}"
 
 RUNTIMETYPE: "HYBRID"
 ORG_CREATE_TIMEOUT: 90

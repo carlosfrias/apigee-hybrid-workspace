@@ -1,0 +1,27 @@
+---
+- name: Date time
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  tasks:
+
+  - name: Ansible fact - ansible_date_time
+    debug:
+      var: ansible_date_time
+
+  - name: Ansible fact - ansible_date_time.iso8601
+    debug:
+      msg: "Timestamp in the ISO8601 format: {{ ansible_date_time.iso8601 }}"
+
+  - name: Ansible fact - ansible_date_time.date
+    debug:
+      msg: "Timestamp in the date format: {{ ansible_date_time.date }}"
+
+  - name: Ansible fact - ansible_date_time.epoch_int
+    debug:
+      msg: "Timestamp in the epoch_int format: {{ ansible_date_time.epoch_int }}"
+
+

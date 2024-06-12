@@ -10,6 +10,7 @@
       cacheable: true
       DATA_CENTER: "dc-1"
 
+
 - name: Update molecule variables
   hosts: localhost
   connection: local
@@ -19,8 +20,6 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-metadata.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
-
-
 
   vars:
     key_value_pairs:
