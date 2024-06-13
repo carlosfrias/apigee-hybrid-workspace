@@ -1,0 +1,19 @@
+---
+# tasks file for roles/apigee-hybrid-kubectl-cert-manager-install
+- name: Set ASM install cache
+  set_fact:
+    cacheable: yes
+    CERT_MANAGER_VERSION: "{{ CERT_MANAGER_VERSION | default(DEFAULT_CERT_MANAGER_VERSION) }}"
+    KUBECTL_VERSION: "{{ KUBECTL_VERSION | default(DEFAULT_KUBECTL_VERSION) }}"
+    KUBECTL_DOWNLOAD_URL: "{{ KUBECTL_DOWNLOAD_URL | default(DEFAULT_KUBECTL_DOWNLOAD_URL) }}"
+    CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/credentials/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.kubeconfig-context.json"
+
+
+- name: Select Cluster
+  command: |
+    kubectl config current-context
+
+- name: Delete cert-manager
+  command: |
+    kubectl delete --validate=false -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
+
