@@ -3,7 +3,6 @@
   set_fact:
     cert_data_list: "{{ item | split }}"
 
-
 - name: Assert missing variables
   assert:
     that:
