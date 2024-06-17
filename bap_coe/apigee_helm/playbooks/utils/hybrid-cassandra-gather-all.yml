@@ -1,0 +1,12 @@
+---
+- name: Main Playbook for gathering data on Hybrid/NGSaaS for troubleshooting
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  tasks:
+  - name: Cassandra Gather All Script
+    shell: bash ./hybrid-cassandra-gather-all.sh
+
