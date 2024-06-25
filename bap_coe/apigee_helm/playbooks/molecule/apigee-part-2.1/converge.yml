@@ -10,7 +10,6 @@
 #      cacheable: true
 #      DATA_CENTER: "dc-1"
 
-
 - name: Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
 
