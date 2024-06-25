@@ -4,6 +4,12 @@
   include_role:
     name: bap_coe.gcp_management.gcp_token_retrieval
 
+- name: debug FQ_DOMAIN_NAME
+  debug:
+    var: FQ_DOMAIN_NAME
+
+- pause:
+
 - name: Assert FQ_DOMAIN_NAME
   assert:
     that:
