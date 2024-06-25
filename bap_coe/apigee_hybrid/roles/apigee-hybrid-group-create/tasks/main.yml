@@ -8,8 +8,6 @@
   debug:
     var: FQ_DOMAIN_NAME
 
-- pause:
-
 - name: Assert FQ_DOMAIN_NAME
   assert:
     that:
