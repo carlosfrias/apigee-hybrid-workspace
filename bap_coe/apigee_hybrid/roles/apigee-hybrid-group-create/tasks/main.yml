@@ -13,7 +13,7 @@
 - name: Assert FQ_DOMAIN_NAME
   assert:
     that:
-      - FQ_DOMAIN_NAME
+      - FQ_DOMAIN_NAME is defined
     fail_msg: "Please provide the fully qualified domain name as FQ_DOMAIN_NAME"
 
 - name: Create environment group
