@@ -4,6 +4,12 @@
   include_role:
     name: bap_coe.gcp_management.gcp_token_retrieval
 
+- name: Assert FQ_DOMAIN_NAME
+  assert:
+    that:
+      - FQ_DOMAIN_NAME is defined
+    fail_msg: "Please provide the fully qualified domain name as FQ_DOMAIN_NAME"
+
 - name: Create environment group
   uri: 
     url: https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/envgroups
@@ -14,4 +20,4 @@
     status_code: ['200', '409']
     body: 
       name: "{{ ENVIRONMENT_GROUP_NAME }}"
-      hostnames: ["{{ DOMAIN_NAME }}" ]
+      hostnames: ["{{ FQ_DOMAIN_NAME }}" ]
