@@ -47,7 +47,6 @@
     - { role: gcp_auth_service_account_activate }
     - { role: gce_external_ip_create }
     - { role: gce_external_ip_get }
-    - { role: apigee-hybrid-group-create }
     - { role: apigee-hybrid-apigeectl-configure }
     - { role: apigee-hybrid-kubectl-cert-manager-install }
     - {

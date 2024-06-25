@@ -24,7 +24,6 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-group-create }
     - {
         role: apigee-hybrid-apigeectl-configure
       }

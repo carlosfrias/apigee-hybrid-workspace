@@ -27,8 +27,8 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-apigee-version, tags: ['version'] }
-    - { role: apigee-hybrid-env-create, tags: ['env'] }
-    - { role: apigee-hybrid-group-create, tags: ['create-group','group'], FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}" }
-    - { role: apigee-hybrid-group-attach, tags: ['attach-group','group'] }
+    - { role: apigee-hybrid-apigee-version }
+    - { role: apigee-hybrid-env-create }
+    - { role: apigee-hybrid-group-create, FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}" }
+    - { role: apigee-hybrid-group-attach }
 
