@@ -1,6 +1,6 @@
 ---
-CLUSTER_CHANNEL: "stable"  # can be one of rapid, regular, stable, or None.
-CLUSTER_VERSION: 1.28.7-gke.1026001
+#CLUSTER_CHANNEL: "stable"  # can be one of rapid, regular, stable, or None.
+#CLUSTER_VERSION: 1.28.7-gke.1026001
 
 APIGEE_OVERRIDE_TEMPLATE: "prod"  # Values can be: 'non-prod' or 'prod'
 WORK_DIR: "{{ playbook_dir | dirname | dirname }}/work_dir/{{ PROJECT_ID }}"
