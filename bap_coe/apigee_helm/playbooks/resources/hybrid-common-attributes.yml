@@ -1,4 +1,5 @@
 ---
+# Placeholders should they defaults not be sufficient
 #CLUSTER_CHANNEL: "stable"  # can be one of rapid, regular, stable, or None.
 #CLUSTER_VERSION: 1.28.7-gke.1026001
 
@@ -43,7 +44,7 @@ DNS_PROJECT_ID: "friasc-apigee-lab"
 DNS_MANAGED_ZONE: "friasc.demo.altostrat.com"
 DNS_ZONE_NAME: "friasc-demo"
 DOMAIN_SUFFIX: "{{ PROJECT_LABEL }}"
-DOMAIN_NAME: "{{ PROJECT_LABEL }}.{{ DNS_MANAGED_ZONE }}"
+DOMAIN_NAME: "{{ PROJECT_LABEL }}-{{ ENVIRONMENT_NAME }}.{{ DNS_MANAGED_ZONE }}"
 EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-{{ CLUSTER_NAME }}"
 #EXTERNAL_IP_NAME: "ingress-for-{{ CLUSTER_NAME }}"
 
