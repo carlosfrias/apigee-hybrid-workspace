@@ -12,8 +12,10 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
-  tasks:
+  collections:
+  - bap_coe.apigee_hybrid
 
+  tasks:
   - name: Distribute Overrides.yml
     import_role:
       name: apigee-hybrid-apigeectl-configure
@@ -21,6 +23,22 @@
       includeNodeSelector: "{{ APIGEE_CONFIG_INCLUDE_NODE_SELECTOR }}"
       CASSANDRA_HOST_NETWORK: True
 
+- name: Set to data center
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+  - name: Set data center fact
+    set_fact:
+      cacheable: true
+      DATA_CENTER: "dc-2"
+
+- name: Create service accounts
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-create/converge.yml"
+
+- name: Generate service account keys
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-service-account-keys-create/converge.yml"
 
 - name: Create External IP Address for Cluster
   hosts: localhost
@@ -32,10 +50,9 @@
   vars_files:
   - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
-  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-multi-region-dc-1.yml"
-
-#  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-multi-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   collections:
   - bap_coe.apigee_hybrid
@@ -62,7 +79,8 @@
     ENABLE_TURBO_MODE: 1
 
   vars_files:
-  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-multi-region-dc-1.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-multi-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   collections:
   - bap_coe.apigee_hybrid
@@ -120,9 +138,9 @@
   vars_files:
   - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
-
-  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-multi-region-dc-1.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/attributes-multi-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   collections:
   - bap_coe.apigee_hybrid
