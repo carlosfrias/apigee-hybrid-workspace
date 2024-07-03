@@ -1,7 +1,7 @@
 ---
-- name: Update override config for multi-region
-  import_playbook: "{{ playbook_dir | dirname }}/multi-region-prep/converge.yml"
-
+#- name: Update override config for multi-region
+#  import_playbook: "{{ playbook_dir | dirname }}/multi-region-prep/converge.yml"
+#
 - name: Set data center
   hosts: localhost
   connection: local

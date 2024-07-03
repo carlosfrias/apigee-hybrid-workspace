@@ -17,8 +17,5 @@
 - name: Destroy TLS certificates
   import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/destroy.yml"
 
-#- name: Create overrides config file
-#  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/destroy.yml"
-
 #- name: Enable Synchronizer
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/destroy.yml"

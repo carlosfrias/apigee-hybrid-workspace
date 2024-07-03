@@ -23,8 +23,8 @@
 - name: Install Operator chart
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/destroy.yml"
 
-- name: Install CRDs
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/destroy.yml"
+#- name: Install CRDs
+#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/destroy.yml"
 
-#- name: Create overrides config file
-#  import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/destroy.yml"
+- name: Create overrides config file
+  import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/destroy.yml"

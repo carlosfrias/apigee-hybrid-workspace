@@ -1,11 +1,12 @@
-#
 # Usage instructions
 # Building this Dockerfile
 # docker built -t apigee-build .&& docker run -ti apigee-build:latest bash
 FROM gcr.io/cloudshell-images/cloudshell:latest as basic_bootstrap
 #FROM python:3.10.2 AS basic_bootstrap
+
 RUN sudo apt-get update -y \
     && sudo apt-get install software-properties-common curl git mc vim facter aptitude apt-utils apt-transport-https ca-certificates gnupg -y
+
 
 FROM basic_bootstrap AS pyenv
 RUN curl https://pyenv.run | bash \
