@@ -21,7 +21,7 @@
   tasks:
     - name: Attach environment to instance
       uri:
-        url:  https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/instances/apigee-{{ CLUSTER_ZONE }}-{{ PROJECT_NUMBER }}/attachments
+        url:  https://{{ APIGEE_GOOGLEAPIS_HOST }}/v1/organizations/{{ PROJECT_ID }}/instances/apigee-{{ CLUSTER_ZONE }}-{{ PROJECT_NUMBER }}/attachments
         method: POST
         headers:
           Authorization: Bearer {{ GCLOUD_TOKEN }}
