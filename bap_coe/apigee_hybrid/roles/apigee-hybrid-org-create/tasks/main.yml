@@ -23,8 +23,6 @@
     status_code: ['200', '409']
     body:
       name: "{{ PROJECT_ID }}"
-      displayName: "{{ PROJECT_ID }}"
-      description: "{{ ORG_DESCRIPTION }}"
       runtimeType: "{{ RUNTIMETYPE }}"
       analyticsRegion: "{{ ANALYTICS_REGION }}"
   register: create_org_status

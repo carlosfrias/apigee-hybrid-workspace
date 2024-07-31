@@ -10,9 +10,6 @@
 #      cacheable: true
 #      DATA_CENTER: "dc-1"
 
-- name: Update services api
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
-
 - name: Create network
   import_playbook: "{{ playbook_dir | dirname }}/gcp-network-create/converge.yml"
 
