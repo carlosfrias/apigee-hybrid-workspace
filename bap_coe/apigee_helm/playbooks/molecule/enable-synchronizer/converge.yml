@@ -1,3 +1,7 @@
+---
+- name: Retrieve GCP Token
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-token-retrieval/converge.yml"
+
 - name: Enable Synchronizer
   hosts: localhost
   connection: local
@@ -16,4 +20,4 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-uri-synchronizer-enable, tags: ['synchronizer'] }
+    - { role: apigee-hybrid-uri-synchronizer-enable }

@@ -10,6 +10,21 @@
 #      cacheable: true
 #      DATA_CENTER: "dc-1"
 
+- name: Update services api
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
+
+- name: Create network
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-network-create/converge.yml"
+
+- name: Create external ip address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
+
+- name: Obtain External IP Address
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
+
+- name: Create DNS record
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/converge.yml"
+
 - name: Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
 
