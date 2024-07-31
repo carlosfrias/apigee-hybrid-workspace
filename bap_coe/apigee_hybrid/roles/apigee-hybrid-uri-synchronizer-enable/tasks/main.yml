@@ -5,7 +5,7 @@
 
 - name: Enable required permission for synchronizer
   uri:
-    url: https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}:setSyncAuthorization
+    url: https://apigee.googleapis.com/v1/organizations/{{ APIGEE_ORG_ID }}:setSyncAuthorization
     method: POST
     headers: 
       Authorization: Bearer {{ GCLOUD_TOKEN }}
