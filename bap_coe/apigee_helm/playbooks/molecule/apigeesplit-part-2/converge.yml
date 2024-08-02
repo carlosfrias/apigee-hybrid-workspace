@@ -1,0 +1,26 @@
+---
+#- name: Set data center
+#  hosts: localhost
+#  connection: local
+#  gather_facts: true
+#
+#  tasks:
+#  - name: Set data center fact
+#    set_fact:
+#      cacheable: true
+#      DATA_CENTER: "dc-1"
+
+- name: Apigee Part 0
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-0/converge.yml"
+
+- name: Enable GCP APIs
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
+
+- name: Apigee Part 2.1
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-2.1/converge.yml"
+
+- name: Apigee Part 2.2
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-2.2/converge.yml"
+
+- name: Apigee Part 3
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-3/converge.yml"

@@ -25,7 +25,7 @@
   }
   - { role: gcp_resource_manager_constraints_disable_enforce }
   - { role: gcp_resource_manager_update_org_policy }
-  - { role: gcp_resource_manager_folders_create }
-  - { role: gcp_resource_manager_folders_get_folder_id }
-  - { role: gcp_resource_manager_folders_permissions_user }
+#  - { role: gcp_resource_manager_folders_create }
+#  - { role: gcp_resource_manager_folders_get_folder_id }
+#  - { role: gcp_resource_manager_folders_permissions_user }
 

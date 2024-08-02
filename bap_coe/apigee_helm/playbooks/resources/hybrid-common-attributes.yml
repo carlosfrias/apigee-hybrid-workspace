@@ -207,7 +207,7 @@ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS:
 - "roles/compute.instanceAdmin"
 - "roles/compute.networkUser"
 - "roles/apigee.admin"
-- "roles/apigee.organizations"
+- "roles/apigee.synchronizerManager"
 - "roles/networkmanagement.admin"
 - "roles/cloudkms.admin"
 - "roles/networkmanagement.viewer"

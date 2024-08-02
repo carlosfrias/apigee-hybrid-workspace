@@ -8,8 +8,6 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
-
-
   collections:
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management

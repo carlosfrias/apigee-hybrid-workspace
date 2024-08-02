@@ -15,4 +15,4 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-org-create, tags: ['org'] }
+    - { role: apigee-hybrid-org-create }

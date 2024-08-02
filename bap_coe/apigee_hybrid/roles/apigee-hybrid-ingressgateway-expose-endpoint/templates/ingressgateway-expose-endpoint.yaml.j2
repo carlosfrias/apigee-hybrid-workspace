@@ -17,6 +17,6 @@ spec:
   selector:
     app: apigee-ingressgateway #required
     ingress_name: {{ INGRESS_GATEWAY_NAME }}
-    org: {{ APIGEE_ORG}}
+    org: {{ APIGEE_ORG_NAME }}
   type: LoadBalancer
   loadBalancerIP: {{ EXTERNAL_IP }}

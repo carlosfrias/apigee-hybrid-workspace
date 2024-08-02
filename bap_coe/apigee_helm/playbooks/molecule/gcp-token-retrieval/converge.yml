@@ -15,8 +15,8 @@
     - bap_coe.gcp_management
 
   roles:
-#    - { role: gcp_project_number_get }
-    - { role: gcp_token_retrieval, PROJECT_ID: "apigeesplit-20240731-0912" }
+    - { role: gcp_token_retrieval }
+#    - { role: gcp_token_retrieval, PROJECT_ID: "apigeesplit-20240801-0950" }
 
 
 
