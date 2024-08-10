@@ -12,7 +12,7 @@
 
 
 - name: Apigee hybrid Deployment Part 0
-  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-0/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname}}/apigee-project-host/converge.yml"
 
 - name: Apigee hybrid Deployment Part 1
   import_playbook: "{{ playbook_dir | dirname}}/apigee-part-1/converge.yml"

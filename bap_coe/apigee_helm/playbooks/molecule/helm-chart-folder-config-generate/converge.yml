@@ -14,7 +14,7 @@
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 

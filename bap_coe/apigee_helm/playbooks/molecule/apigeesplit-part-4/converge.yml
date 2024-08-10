@@ -1,0 +1,36 @@
+---
+#- name: Set data center
+#  hosts: localhost
+#  connection: local
+#  gather_facts: true
+#
+#  tasks:
+#  - name: Set data center fact
+#    set_fact:
+#      cacheable: true
+#      DATA_CENTER: "dc-1"
+
+#- name: Update with Split Attributes
+#  hosts: localhost
+#  connection: local
+#  gather_facts: true
+#
+#  vars_files:
+#  - ~/.apigee-secure/credentials.yml
+#  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+#  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-metadata-split.yml"
+#  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+#  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+#
+#  tasks:
+#    - name: Set split attributes
+#      set_fact:
+#        cachaeable: true
+#        PROJECT_TIME_SUFFIX: "{{ PROJECT_TIME_SUFFIX }}"
+
+
+- name: Apigee Part 2.2
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-2.2/converge.yml"
+
+- name: Apigee Part 3
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-3/converge.yml"

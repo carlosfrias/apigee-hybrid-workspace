@@ -1,3 +1,0 @@
----
-- name: Provision project - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"

@@ -17,7 +17,7 @@
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
-  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
@@ -25,7 +25,7 @@
     key_value_pairs:
     - { key: 'MOLECULE_DEBUG', value: '"True"', separator: ':', file_name: "{{ playbook_dir | dirname | dirname }}/.env.yml" , type: "arg" }
     - { key: 'MOLECULE_VERBOSITY', value: '"10"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
-    - { key: 'PROJECT_ID', value: '"{{ PROJECT_ID }}"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
+    - { key: 'PROJECT_ID', value: '"{{ APIGEE_HOST_PROJECT_ID }}"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
     - { key: 'MOLECULE_INVENTORY_FILE', value: '"$MOLECULE_PROJECT_DIRECTORY/inventory/$PROJECT_ID-gce-dynamic-inventory.gcp.yml"', separator: ':', file_name: "{{ playbook_dir  | dirname | dirname }}/.env.yml", type: "arg" }
 
   collections:

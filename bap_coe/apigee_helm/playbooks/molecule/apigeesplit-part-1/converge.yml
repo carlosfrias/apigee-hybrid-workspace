@@ -1,7 +1,0 @@
----
-- name: Apigee Split Part 0
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-0/converge.yml"
-
-- name: Apigee Split Part 1
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-1/converge.yml"
-

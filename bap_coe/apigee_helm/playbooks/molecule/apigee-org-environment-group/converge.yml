@@ -1,0 +1,25 @@
+---
+- name: Create an Apigee Environment Group
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  vars:
+    WORK_DIR: "{{ APIGEE_HOST_WORK_DIR }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
+
+  roles:
+    - { role: apigee-hybrid-apigee-version }
+    - { role: apigee-hybrid-env-create }
+    - { role: apigee-hybrid-group-create, FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}" }
+    - { role: apigee-hybrid-group-attach }
+

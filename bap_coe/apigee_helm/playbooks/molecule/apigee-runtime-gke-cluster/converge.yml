@@ -1,0 +1,20 @@
+---
+#- name: Set data center
+#  hosts: localhost
+#  connection: local
+#  gather_facts: true
+#
+#  tasks:
+#  - name: Set data center fact
+#    set_fact:
+#      cacheable: true
+#      DATA_CENTER: "dc-1"
+
+- name: Configure Apigee GKE Cluster
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
+
+- name: Configure kubectl Cluster credentials
+  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
+
+- name: Create TLS certificates
+  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/converge.yml"

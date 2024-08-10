@@ -1,8 +1,5 @@
 ---
 # tasks file for roles/apigee-hybrid-uri-synchronizer-enable
-# todo Token retrieval cannot be referenced as
-#  GCLOUD_TOKEN when it can be sourced from any cloud.
-
 - name: Enable required permission for synchronizer
   uri:
     url: https://apigee.googleapis.com/v1/organizations/{{ APIGEE_ORG_NAME }}:setSyncAuthorization

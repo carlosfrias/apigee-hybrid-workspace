@@ -13,8 +13,14 @@
     - SERVICE_ACCOUNT_FILE_PATH is defined
     fail_msg: "SERVICE_ACCOUNT_FILE_PATH must be provided"
 
+- name: Assert PROJECT_ID is provided
+  assert:
+    that:
+    - PROJECT_ID is defined
+    fail_msg: "PROJECT_ID must be provided"
+
 
 - name: Login with service account
   shell: |
-    gcloud auth activate-service-account --key-file {{ SERVICE_ACCOUNT_FILE_PATH }}
+    gcloud auth activate-service-account --key-file {{ SERVICE_ACCOUNT_FILE_PATH }} --project {{ PROJECT_ID }}
 

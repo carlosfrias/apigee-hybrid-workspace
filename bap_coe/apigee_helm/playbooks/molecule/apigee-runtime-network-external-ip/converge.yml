@@ -1,0 +1,46 @@
+- name: Create External IP Address
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+  vars:
+    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+    WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_SERVICE_ACCOUNT_FILE_PATH }}"
+    CREDENTIALS_DIR: "{{ APIGEE_RUNTIME_CREDENTIALS_DIR }}"
+
+  collections:
+  - bap_coe.apigee_hybrid
+  - bap_coe.gcp_management
+
+  roles:
+  - {
+      role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+  - { role: service_account_file_processing }
+  - { role: gcp_auth_service_account_activate }
+  - { role: gcp_token_retrieval, GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}" }
+  - { role: gce_external_ip_create }
+  - { role: gce_external_ip_get }
+  - {
+      role: apigee-hybrid-cloud-dns-create,
+      FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}"
+    }
+
+
+
+#- name: Create external ip address
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
+
+#- name: Obtain External IP Address
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
+
+#- name: Create DNS record
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/converge.yml"
+#
