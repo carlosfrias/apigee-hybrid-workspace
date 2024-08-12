@@ -18,18 +18,17 @@
     SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_SERVICE_ACCOUNT_FILE_PATH }}"
     CREDENTIALS_DIR: "{{ APIGEE_RUNTIME_CREDENTIALS_DIR }}"
     GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
-    APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    RUNTIME_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
 
   collections:
   - bap_coe.apigee_hybrid
   - bap_coe.gcp_management
 
   roles:
-    - { role: service_account_file_path,
+    - {
+        role: service_account_file_path,
         KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
       }
     - { role: service_account_file_processing }
     - { role: gce_network_create }
-    - { role: apigee-hybrid-gke-create,
-        ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
-      }
+    - { role: apigee-hybrid-gke-create }

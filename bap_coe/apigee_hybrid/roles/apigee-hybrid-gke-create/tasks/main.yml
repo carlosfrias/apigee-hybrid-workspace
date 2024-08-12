@@ -15,7 +15,7 @@
 - name: Create Apigee hybrid cluster with defined channel and cluster-version
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
+      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ MACHINE_TYPE }} \
@@ -45,7 +45,7 @@
 - name: Create Apigee hybrid cluster with default channel and cluster-version
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
+      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ MACHINE_TYPE }} \
@@ -74,7 +74,7 @@
 - name: Create Apigee hybrid cluster with default node-pool
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
+      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --zone {{ CLUSTER_ZONE }} \
       --machine-type {{ MACHINE_TYPE }} \
@@ -110,7 +110,7 @@
 - name: Create data node-pool {{ NODE_POOL_NAME_DATA }}
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
+      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \
@@ -142,7 +142,7 @@
 - name: Create runtime node-pool {{ NODE_POOL_NAME_RUNTIME }}
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
-      --service-account {{ ADMIN_SERVICE_ACCOUNT }} \
+      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \

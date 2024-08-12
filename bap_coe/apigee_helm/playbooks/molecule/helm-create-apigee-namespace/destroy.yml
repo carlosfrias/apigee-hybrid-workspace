@@ -12,10 +12,9 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
-
-
   tasks:
   - name: Remove Apigee Namespace
+    ignore_errors: true
     kubernetes.core.k8s:
       name: "{{ item }}"
       api_version: v1

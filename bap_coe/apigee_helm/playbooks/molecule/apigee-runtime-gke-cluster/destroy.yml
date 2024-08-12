@@ -1,7 +1,4 @@
 ---
-- name: Destroy Apigee GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
-
 - name: Uninstall helm
   import_playbook: "{{ playbook_dir | dirname }}/helm-install/destroy.yml"
 
@@ -16,6 +13,9 @@
 
 - name: Destroy TLS certificates
   import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/destroy.yml"
+
+- name: Destroy Apigee GKE Cluster
+  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
 
 #- name: Enable Synchronizer
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/destroy.yml"
