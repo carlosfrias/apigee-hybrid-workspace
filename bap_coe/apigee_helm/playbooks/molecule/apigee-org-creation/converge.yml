@@ -16,8 +16,9 @@
   vars:
     PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
     SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
 
 
   roles:
-    - { role: gcp_token_retrieval, GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}" }
+    - { role: gcp_token_retrieval }
     - { role: apigee-hybrid-org-create }

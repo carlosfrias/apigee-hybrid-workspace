@@ -21,16 +21,16 @@
     - bap_coe.bootstrap_runtime
 
   roles:
-  - { role: service_account_file_path,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
-    }
-  - { role: service_account_file_processing }
   - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'create', SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}" }
   - {
       role: gcp_iam_service_account_key_generation,
       KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
       SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}"
     }
+  - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+  - { role: service_account_file_processing }
   - {
       role: gcp_auth_service_account_activate,
       ADMIN_SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_FILE_PATH }}"

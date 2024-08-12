@@ -10,8 +10,8 @@
 #      cacheable: true
 #      DATA_CENTER: "dc-1"
 
-- name: Apigee Part 0
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-0/converge.yml"
+#- name: Apigee Part 0
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-part-0/converge.yml"
 
 - name: Enable GCP APIs
   import_playbook: "{{ playbook_dir | dirname }}/gcp-enable-apis/converge.yml"
