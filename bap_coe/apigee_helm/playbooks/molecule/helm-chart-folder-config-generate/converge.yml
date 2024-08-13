@@ -1,7 +1,4 @@
 ---
-- name: Create external ip address
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/converge.yml"
-
 - name: Obtain external ip address
   import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
 
@@ -18,7 +15,9 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
-
+  vars:
+    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+    OVERRIDE_FILE: "{{ APIGEE_RUNTIME_OVERRIDE_FILE }}"
 
   collections:
   - bap_coe.apigee_hybrid

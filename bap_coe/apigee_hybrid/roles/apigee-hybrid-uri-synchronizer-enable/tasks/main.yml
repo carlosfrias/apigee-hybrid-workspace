@@ -10,5 +10,5 @@
     status_code: ['200', '409']
     body:
       identities:
-        - "serviceAccount:{{ ADMIN_SERVICE_ACCOUNT }}"
+        - "serviceAccount:{{ SERVICE_ACCOUNT }}"
 

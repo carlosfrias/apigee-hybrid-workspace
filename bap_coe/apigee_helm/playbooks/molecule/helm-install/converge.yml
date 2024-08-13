@@ -10,6 +10,12 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+  vars:
+    WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
+    WORKDIR_DOWNLOAD_DEST: "{{ APIGEE_RUNTIME_WORKDIR_DOWNLOAD_DEST }}"
+    WORKDIR_BINARY_DEST: "{{ APIGEE_RUNTIME_WORKDIR_BINARY_DEST }}"
+
   tasks:
     - name: Create WORK_DIR dest folder
       file:
