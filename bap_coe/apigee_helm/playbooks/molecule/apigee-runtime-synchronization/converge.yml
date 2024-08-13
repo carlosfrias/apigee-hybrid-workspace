@@ -25,13 +25,13 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: gcp_token_retrieval }
     - {
         role: gcp_iam_policy_bindings,
         BINDING_OP: "add",
         ACCOUNT_TYPE: "serviceAccount",
-        POLICY_BINDINGS: ["roles/apigee.synchronizerManager"],
+        POLICY_BINDINGS: ["roles/apigee.synchronizerManager","roles/apigee.admin"],
         PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}",
         SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
       }
+    - { role: gcp_token_retrieval }
     - { role: apigee-hybrid-uri-synchronizer-enable }
