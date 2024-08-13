@@ -8,8 +8,8 @@
 - name: Download Apigee Hybrid helm charts
   import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/destroy.yml"
 
-- name: Destroy External IP Address for Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/destroy.yml"
+#- name: Destroy External IP Address for Cluster
+#  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/destroy.yml"
 
 - name: Destroy apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/destroy.yml"

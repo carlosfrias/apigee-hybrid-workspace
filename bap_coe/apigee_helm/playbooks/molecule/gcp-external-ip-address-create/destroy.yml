@@ -9,6 +9,7 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   vars:
+    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_TIME_SUFFIX }}"
     GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
 
   collections:
