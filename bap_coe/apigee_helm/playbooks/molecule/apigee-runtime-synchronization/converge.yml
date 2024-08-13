@@ -24,14 +24,14 @@
     - bap_coe.gcp_management
 
   roles:
-#    This configutraion places
+    - { role: gcp_token_retrieval, PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}" }
+  #    This configuration gives permission to the runtime service manager in the host project.
     - {
-        role: gcp_iam_policy_bindings,
-        BINDING_OP: "add",
-        ACCOUNT_TYPE: "serviceAccount",
-        POLICY_BINDINGS: ["roles/apigee.synchronizerManager","roles/apigee.admin"],
-        SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}",
-        PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
+      role: gcp_iam_policy_bindings,
+      BINDING_OP: "add",
+      ACCOUNT_TYPE: "serviceAccount",
+      POLICY_BINDINGS: [ "roles/apigee.synchronizerManager","roles/apigee.admin" ],
+      SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}",
+      PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
     }
-    - { role: gcp_token_retrieval }
     - { role: apigee-hybrid-uri-synchronizer-enable }

@@ -27,7 +27,11 @@
       KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
     }
   - { role: service_account_file_processing }
-  - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'create', SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}" }
+  - {
+      role: gcp_iam_service_account_mgmt,
+      SERVICE_OP: 'create',
+      SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}"
+    }
   - {
       role: gcp_iam_service_account_key_generation,
       KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
@@ -35,7 +39,7 @@
     }
   - {
       role: gcp_auth_service_account_activate,
-      ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
+      ADMIN_SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_EMAIL }}"
     }
   - {
       role: gcp_iam_policy_bindings,
@@ -43,4 +47,3 @@
       ACCOUNT_TYPE: "serviceAccount",
       POLICY_BINDINGS: "{{ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
     }
-

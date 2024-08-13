@@ -14,12 +14,11 @@
 - name: Destroy apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/destroy.yml"
 
-- name: Destroy TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/destroy.yml"
+#- name: Destroy TLS certificates
+#  import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/destroy.yml"
 
 #- name: Enable Synchronizer
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/destroy.yml"
-
 
 - name: Provision project - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/destroy.yml"
