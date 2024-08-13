@@ -7,7 +7,8 @@
 
 APIGEE_VERSION: "1.12.0"
 CERT_MANAGER_VERSION: "1.13.0"
-PROJECT_DATE_SUFFIX: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}"
+#PROJECT_DATE_SUFFIX: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}"
+PROJECT_DATE_SUFFIX: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}12"
 APIGEE_HOST_PROJECT_TIME_SUFFIX: "1131"
 APIGEE_RUNTIME_PROJECT_TIME_SUFFIX: "1329"
 APIGEE_HOST_PROJECT_ID: "hybridhost-{{ PROJECT_DATE_SUFFIX }}-{{ APIGEE_HOST_PROJECT_TIME_SUFFIX }}"
