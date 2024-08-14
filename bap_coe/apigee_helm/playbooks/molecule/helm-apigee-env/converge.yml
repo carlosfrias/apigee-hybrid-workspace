@@ -13,6 +13,10 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+  vars:
+    OVERRIDE_FILE: "{{ APIGEE_RUNTIME_OVERRIDE_FILE }}"
+
   tasks:
     - block:
       - name: Configure Apigee Env
@@ -34,7 +38,7 @@
 
         - name: RESCUE - Configure Apigee Env - debug
           kubernetes.core.helm:
-            binary_path: "{{ WORK_DIR }}/bin/helm --debug "
+            binary_path: "{{ HELM_BINARY }} --debug "
             state: present
             chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-env"
             namespace: "{{ APIGEE_NAMESPACE }}"

@@ -12,7 +12,6 @@
     - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   vars:
-    WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
     OVERRIDE_FILE: "{{ APIGEE_RUNTIME_OVERRIDE_FILE }}"
 
   tasks:
