@@ -14,17 +14,17 @@
 - name: Install Telemetry
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
 
-#- name: Install Redis
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
-#
-#- name: Install Ingress Manager
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-ingress-manager/converge.yml"
-#
-#- name: Install Organization
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
-#
-#- name: Install Environment
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/converge.yml"
-#
-#- name: Configure Virtualhost
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"
+- name: Install Redis
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
+
+- name: Install Ingress Manager
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-ingress-manager/converge.yml"
+
+- name: Install Organization
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/converge.yml"
+
+- name: Install Environment
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/converge.yml"
+
+- name: Configure Virtualhost
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"
