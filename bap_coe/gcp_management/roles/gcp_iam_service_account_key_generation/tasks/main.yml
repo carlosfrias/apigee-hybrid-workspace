@@ -17,10 +17,6 @@
     path: "{{ KEY_FILE_PATH }}"
     state: directory
 
-- name: Echo KEY_FILE_PATH
-  debug:
-    msg: "KEY_FILE_PATH: {{ KEY_FILE_PATH }}"
-
 - name: Create initial service account key file, if not there
   shell: |
     gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json \

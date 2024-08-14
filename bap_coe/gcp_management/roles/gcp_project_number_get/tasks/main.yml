@@ -24,27 +24,8 @@
     seconds: 2
   when: BILLING_USER_EMAIL is undefined
 
-- name: Set Project Default
-  shell: gcloud config set project {{ PROJECT_ID }}
-
-#- name: Obtain PROJECT_NUMBER
-#  shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)" --account {{ BILLING_USER_EMAIL }}
-#  register: project_number
-#
-#- name: Cache PROJECT_NUMBER
-#  set_fact:
-#    cacheable: yes
-#    PROJECT_NUMBER: "{{ project_number.stdout }}"
-#
-#- name: Assert folder exists
-#  file:
-#    path: "{{ WORK_DIR }}"
-#    state: directory
-#
-#- name: Store PROJECT_NUMBER
-#  copy:
-#    content: "{{ PROJECT_NUMBER }}"
-#    dest: "{{ WORK_DIR }}/project_number.txt"
+#- name: Set Project Default
+#  shell: gcloud config set project {{ PROJECT_ID }}
 
 - block:
 

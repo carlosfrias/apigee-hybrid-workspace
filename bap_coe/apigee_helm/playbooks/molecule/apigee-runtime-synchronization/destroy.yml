@@ -1,5 +1,5 @@
 ---
-- name: Enable Synchronizer
+- name: Remove Synchronizer
   hosts: localhost
   connection: local
   gather_facts: true
