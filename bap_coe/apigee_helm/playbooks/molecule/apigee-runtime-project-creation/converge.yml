@@ -8,18 +8,18 @@
 - name: Apigee runtime service accounts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-accounts/converge.yml"
 
-- name: Configure host to runtime synchronization service account
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
-
-- name: Enable Apigee APIs for Apigee project runtime
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-host-apis/converge.yml"
-
-- name: Apigee runtime create network
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/converge.yml"
-
-- name: Configure Apigee GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster/converge.yml"
-
-- name: Install & Configure Helm
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/converge.yml"
+#- name: Configure host to runtime synchronization service account
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
+#
+#- name: Enable Apigee APIs for Apigee project runtime
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-host-apis/converge.yml"
+#
+#- name: Apigee runtime create network
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/converge.yml"
+#
+#- name: Configure Apigee GKE Cluster
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster/converge.yml"
+#
+#- name: Install & Configure Helm
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/converge.yml"
 
