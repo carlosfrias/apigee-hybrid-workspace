@@ -11,6 +11,9 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
+  vars:
+    WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
+
   collections:
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
