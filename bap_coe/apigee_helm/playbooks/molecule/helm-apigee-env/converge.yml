@@ -1,7 +1,4 @@
 ---
-- name: Create an Apigee environment group
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-environment-group-create/converge.yml"
-
 - name: Configure Apigee Env
   hosts: localhost
   connection: local
