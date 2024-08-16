@@ -11,7 +11,7 @@
       DATA_CENTER: "dc-1"
 
 
-- name: Create DNS record
+- name: Remove DNS record
   hosts: localhost
   connection: local
 
@@ -21,7 +21,9 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
-
+  vars:
+    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
 
   collections:
     - bap_coe.apigee_hybrid

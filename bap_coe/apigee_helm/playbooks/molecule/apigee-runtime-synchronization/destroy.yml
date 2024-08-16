@@ -25,7 +25,7 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: gcp_token_retrieval, PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}" }
+#    - { role: gcp_token_retrieval, PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}" }
   #    This configuration gives permission to the runtime service manager in the host project.
     - {
       role: gcp_iam_policy_bindings,
