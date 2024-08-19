@@ -81,7 +81,8 @@
 - name: Delete a service account
   shell: |
     gcloud iam service-accounts {{ SERVICE_OP }} {{ item }} \
-      --project {{ PROJECT_ID }}
+      --project {{ PROJECT_ID }} \
+      --account {{ ADMIN_ACCOUNT_EMAIL }}
   when: SERVICE_OP == "delete"
   loop: "{{ SERVICE_ACCOUNTS }}"
 
