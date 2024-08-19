@@ -2,6 +2,9 @@
 - name: Install Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
 
+- name: Install Telemetry
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
+
 - name: Install CRDs
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
 
@@ -10,9 +13,6 @@
 
 - name: Install Datastore chart
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/converge.yml"
-
-- name: Install Telemetry
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/converge.yml"
 
 - name: Install Redis
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/converge.yml"
@@ -28,3 +28,4 @@
 
 - name: Configure Virtualhost
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"
+#

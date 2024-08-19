@@ -13,6 +13,12 @@
   - bap_coe.gcp_management
   - bap_coe.bootstrap_runtime
 
+  vars:
+    PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT }}"
+    CREDENTIALS_DIR: "{{ APIGEE_HOST_CREDENTIALS_DIR }}"
+
   roles:
   - { role: service_account_file_path, KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}" }
   - { role: service_account_file_processing }

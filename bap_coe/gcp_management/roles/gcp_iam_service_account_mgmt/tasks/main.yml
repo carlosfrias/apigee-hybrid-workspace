@@ -80,9 +80,10 @@
 
 - name: Delete a service account
   shell: |
-    gcloud iam service-accounts {{ SERVICE_OP }} {{ ADMIN_SERVICE_ACCOUNT_NAME }} \
+    gcloud iam service-accounts {{ SERVICE_OP }} {{ item }} \
       --project {{ PROJECT_ID }}
   when: SERVICE_OP == "delete"
+  loop: "{{ SERVICE_ACCOUNTS }}"
 
 - name: Wait for the policy bindings to propagate
   pause:

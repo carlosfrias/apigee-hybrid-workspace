@@ -6,6 +6,9 @@
   environment:
     ENABLE_TURBO_MODE: 1
 
+  vars:
+    APIGEE_SYSTEM_NAMESPACE: "apigee-system"
+
   tasks:
     - name: Get all kubernetes Pod details
       k8s_info:
@@ -19,10 +22,6 @@
         namespace: "{{ APIGEE_SYSTEM_NAMESPACE }}"
       register: node_details
 
-#    - name: Save pod_list
-#      debug:
-#        var: pod_list
-
     - name: Store Pod details
       copy:
         content: "{{ pod_details }}"
@@ -32,9 +31,3 @@
       copy:
         content: "{{ node_details }}"
         dest: 'node_details.json'
-
-#    - name: Cluster details
-#      k8s_info:
-#      register: cluster_info
-#      kubectl get events -A 2>&1 | tee /tmp/k_events_all_{{ '+%Y.%m.%d_%H.%M.%S' | strftime }}.txt
-
