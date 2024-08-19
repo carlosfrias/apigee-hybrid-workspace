@@ -28,4 +28,3 @@
       SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
     }
   - { role: apigee-hybrid-gke-delete }
-  - { role: apigee-hybrid-kubectl-context-delete }

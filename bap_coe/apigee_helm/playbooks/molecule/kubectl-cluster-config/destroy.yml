@@ -1,11 +1,24 @@
 - name: Delete a Cluster
   hosts: localhost
   connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
 
   vars_files:
   - ~/.apigee-secure/credentials.yml
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+  vars:
+    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+    WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
+    PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX: "{{ APIGEE_RUNTIME_PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }}"
+    CREDENTIALS_DIR: "{{ APIGEE_RUNTIME_CREDENTIALS_DIR }}"
+    FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
 
 
   collections:
@@ -13,10 +26,11 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: service_account_file_path,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    - {
+        role: service_account_file_path,
+        KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
+        SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
     }
-
     - {
         role: service_account_file_processing,
         SERVICE_ACCOUNT_FILE_PATH: "{{ CREDENTIALS_DIR }}/{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
