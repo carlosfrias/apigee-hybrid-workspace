@@ -8,7 +8,7 @@
 
 - block:
   - name: Clean up kubectl config
-    shell: kubectl config delete-context {{ CLUSTER_NAME }}
+    shell: kubectl config delete-context {{ FQ_CLUSTER_NAME }}
 
   rescue:
     - name: RESCUE - Clean up kubectl config

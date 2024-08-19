@@ -1,4 +1,4 @@
-- name: Delete a Cluster
+- name: Delete Kubectl Cluster Config
   hosts: localhost
   connection: local
   gather_facts: true
@@ -19,6 +19,7 @@
     PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX: "{{ APIGEE_RUNTIME_PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }}"
     CREDENTIALS_DIR: "{{ APIGEE_RUNTIME_CREDENTIALS_DIR }}"
     FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
+    APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
 
 
   collections:
