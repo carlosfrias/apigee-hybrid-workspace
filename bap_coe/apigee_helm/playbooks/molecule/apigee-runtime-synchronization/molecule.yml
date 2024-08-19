@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee-uri-synchronizer-enable
+  - name: apigee-runtime-synchronization
 provisioner:
   name: ansible
 #  ansible_args:
