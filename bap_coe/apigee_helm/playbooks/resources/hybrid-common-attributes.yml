@@ -245,6 +245,7 @@ GCLOUD_ORG_POLICIES_CONSTRAINTS_ENFORCEMENT_DISABLE:
 - constraints/compute.requireShieldedVm
 - constraints/compute.requireOsLogin
 - constraints/compute.skipDefaultNetworkCreation
+- constraint/iam.disableCrossProjectServiceAccountUsage  # https://cloud.google.com/apigee/docs/hybrid/v1.12/install-workload-identity#configure-workload-identity
 
 GCLOUD_ORG_POLICIES_UPDATE:
 - constraints/compute.trustedImageProjects
