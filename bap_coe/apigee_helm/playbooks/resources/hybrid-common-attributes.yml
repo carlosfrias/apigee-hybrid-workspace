@@ -112,7 +112,7 @@ AUTHORIZATION_KIND: serviceaccount
 ENV_NAME: "test"
 
 APIGEE_RUNTIME_SIZE: "medium"
-MACHINE_TYPE: "e2-standard-4"
+MACHINE_TYPE: "e2-standard-8"
 LOGGING: "SYSTEM,WORKLOAD"
 MONITORING: "SYSTEM"
 CLUSTER_ADDONS: "HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver"

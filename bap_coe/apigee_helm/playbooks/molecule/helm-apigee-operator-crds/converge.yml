@@ -22,6 +22,26 @@
       args:
         chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
 
+    - name: Collect Apigee Operator CRDs installation status
+      shell: kubectl get crds | grep apigee
+      register: validate
+
+#    - name: Validate Apigee Operator CRDs
+#      assert:
+#        that:
+#        - "{{ item }} in ' {{ validate.stdout }}'"
+#      loop:
+#      - "apigeedatastores"
+#      - "apigeedeployments"
+#      - "apigeeenvironments"
+#      - "apigeeissues"
+#      - "apigeeorganizations"
+#      - "apigeeredis"
+#      - "apigeerouteconfigs"
+#      - "apigeeroutes"
+#      - "apigeetelemetries"
+#      - "cassandradatareplications"
+
 #    - name: DOES NOT WORK - Apply CRDs use command line
 #      kubernetes.core.k8s:
 #        state: present
