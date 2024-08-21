@@ -1,0 +1,17 @@
+---
+- name: Helm checkready
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  tasks:
+    - name: Remove cluster Helm Ready Check
+      shell: kubectl delete -f ./apigee-k8s-cluster-ready-check.yaml

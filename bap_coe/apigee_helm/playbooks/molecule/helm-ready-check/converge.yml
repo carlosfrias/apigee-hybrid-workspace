@@ -13,45 +13,13 @@
     - bap_coe.gcp_management
 
   tasks:
-    - name: Create Service Account
-      kubernetes.core.k8s:
-        state: present
-        namespace: "{{ APIGEE_NAMESPACE }}"
-        definition:
-          kind: ServiceAccount
-          metadata:
-            name: apigee-k8s-cluster-ready-check
+    - name: Apply cluster Helm Ready Check
+      shell: kubectl apply -f ./apigee-k8s-cluster-ready-check.yaml
 
-    - name: Create check ready job
-      kubernetes.core.k8s:
-        state: present
-        namespace: "{{ APIGEE_NAMESPACE }}"
-        definition:
-          apiVersion: batch/v1
-          kind: Job
-          metadata:
-            name: apigee-k8s-cluster-ready-check
-          spec:
-            template:
-              spec:
-                hostNetwork: true
-                serviceAccountName: apigee-k8s-cluster-ready-check
-                containers:
-                - name: manager
-                  image: gcr.io/apigee-release/hybrid/apigee-operators:{{ APIGEE_VERSION }}
-                  command:
-                  - /manager
-                  args:
-                  - --k8s-cluster-ready-check
-                  env:
-                  - name: POD_IP
-                    valueFrom:
-                      fieldRef:
-                        fieldPath: status.podIP
-                  securityContext:
-                    runAsGroup: 998
-                    runAsNonRoot: true
-                    runAsUser: 999
-                restartPolicy: Never
-            backoffLimit: 1
+    - name: Cluster helm ready check job status
+      shell: kubectl get jobs apigee-k8s-cluster-ready-check
+      register: job_status
 
+    - name: Obtain ready check pod names, if ready check job failed
+      shell: kubectl get pods | grep apigee-k8s-cluster-ready-check
+      when: '"0/1" in job_status.stdout'
