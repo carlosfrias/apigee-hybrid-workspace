@@ -16,6 +16,10 @@
     - name: Apply cluster Helm Ready Check
       shell: kubectl apply -f ./apigee-k8s-cluster-ready-check.yaml
 
+    - name: Wait for ready check...
+      pause:
+        seconds: 10
+
     - name: Cluster helm ready check job status
       shell: kubectl get jobs apigee-k8s-cluster-ready-check
       register: job_status
