@@ -4,6 +4,15 @@ kind: ServiceAccount
 metadata:
   name: apigee-k8s-cluster-ready-check
 ---
+#apiVersion: rbac.authorization.k8s.io/v1
+#kind: ClusterRole
+#metadata:
+#  name: apigee-event-reader
+#rules:
+#- apiGroups: [""] # Core API group
+#  resources: ["events"]
+#  verbs: ["list"]
+#---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:

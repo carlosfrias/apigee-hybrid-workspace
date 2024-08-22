@@ -1,0 +1,23 @@
+---
+- name: Create an Apigee Organization
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  vars:
+    PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
+
+  roles:
+    - { role: gcp_token_retrieval }
+    - { role: apigee-hybrid-org-create }
