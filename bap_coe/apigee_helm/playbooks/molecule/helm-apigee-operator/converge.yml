@@ -43,7 +43,7 @@
 
     - name: Wait for Apigee Operator installation...
       pause:
-        second: 10
+        seconds: 10
 
     - name: Verify Apigee Operator Installation
       shell: "{{ HELM_BINARY }} ls -n apigee-system"
