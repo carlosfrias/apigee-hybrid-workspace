@@ -15,6 +15,7 @@
 - name: Download and install cert-manager
   command: |
     kubectl apply -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
+    sleep 10
 
 - name: Verify Creation of cert-manager namespace
   command: kubectl get all -n cert-manager -o wide
