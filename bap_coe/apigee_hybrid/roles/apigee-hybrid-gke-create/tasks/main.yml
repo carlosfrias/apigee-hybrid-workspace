@@ -132,7 +132,7 @@
   - "'Already exists' not in data_pool_status.stderr"
 
 - name: Will take a few minutes to complete {{ NODE_POOL_NAME_DATA }} nodepool creation...
-  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_DATA }} --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
+  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_DATA }} --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }} --project {{ PROJECT_ID }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
@@ -164,7 +164,7 @@
   - "'Already exists' not in runtime_pool_status.stderr"
 
 - name: Will take a few minutes to complete {{ NODE_POOL_NAME_RUNTIME }} nodepool creation...
-  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_RUNTIME }} --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }}
+  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_RUNTIME }} --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }} --project {{ PROJECT_ID }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
@@ -177,7 +177,8 @@
     gcloud container node-pools delete default-pool \
       --cluster {{ CLUSTER_NAME }} \
       --zone {{ CLUSTER_ZONE }} \
-      --quiet
+      --quiet \
+     --project {{ PROJECT_ID }}
   poll: 5
   retries: 1000
   async: 90
