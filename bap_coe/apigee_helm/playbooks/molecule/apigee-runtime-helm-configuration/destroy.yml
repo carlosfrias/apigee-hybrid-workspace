@@ -1,21 +1,15 @@
 ---
-- name: Destroy Apigee GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
+- name: Distribute configs and credentials to helm chart folders
+  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/destroy.yml"
 
-- name: Uninstall helm
-  import_playbook: "{{ playbook_dir | dirname }}/helm-install/destroy.yml"
+- name: Update overrides paths and move into helm chart folders
+  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-generate/destroy.yml"
+
+#- name: Update overrides config file
+#  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/destroy.yml"
 
 - name: Download Apigee Hybrid helm charts
   import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/destroy.yml"
 
-- name: Destroy External IP Address for Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/destroy.yml"
-
-- name: Destroy apigee namespace
-  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/destroy.yml"
-
-- name: Destroy TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/destroy.yml"
-
-#- name: Enable Synchronizer
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/destroy.yml"
+- name: Install helm
+  import_playbook: "{{ playbook_dir | dirname }}/helm-install/destroy.yml"
