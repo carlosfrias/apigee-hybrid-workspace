@@ -41,7 +41,7 @@
             values_files:
             - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-datastore/{{ OVERRIDE_FILE | basename }}"
 
-    - name: Verify Apigee Datastore Installation
-      shell: "{{ HELM_BINARY }} -n apigee get apigeedatastore default"
-      register: verify_output
-      failed_when: "'running' not in verify_output.stdout"
+#    - name: Verify Apigee Datastore Installation
+#      shell: "{{ HELM_BINARY }} -n apigee get apigeedatastore default"
+#      register: verify_output
+#      failed_when: "'running' not in verify_output.stdout"

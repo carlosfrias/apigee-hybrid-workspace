@@ -1,4 +1,7 @@
 ---
+- name: Create Apigee Namespace
+  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
+
 - name: Install Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
 
