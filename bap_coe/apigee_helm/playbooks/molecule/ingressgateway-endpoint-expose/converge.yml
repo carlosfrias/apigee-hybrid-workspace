@@ -15,7 +15,7 @@
 
   vars:
     HYBRID_FILES_DIR: "{{ APIGEE_RUNTIME_HYBRID_FILES_DIR }}"
-
+    FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}"
 
   collections:
     - bap_coe.apigee_hybrid

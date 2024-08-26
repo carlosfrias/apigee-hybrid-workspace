@@ -17,6 +17,10 @@
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
+  vars:
+    HYBRID_FILES_DIR: "{{ APIGEE_RUNTIME_HYBRID_FILES_DIR }}"
+    FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}"
+
   roles:
     - {
         role: apigee-hybrid-ingressgateway-healthcheck,
