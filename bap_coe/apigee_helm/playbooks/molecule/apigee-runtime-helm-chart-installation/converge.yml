@@ -31,4 +31,9 @@
 
 - name: Configure Virtualhost
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/converge.yml"
-#
+
+- name: Create service to Apigee Ingress
+  import_playbook: "{{ playbook_dir | dirname }}/ingressgateway-endpoint-expose/converge.yml"
+
+- name: Healthcheck on service
+  import_playbook: "{{ playbook_dir | dirname }}/ingressgateway-endpoint-healthcheck/converge.yml"
