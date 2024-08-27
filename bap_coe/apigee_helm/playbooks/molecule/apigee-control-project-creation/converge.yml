@@ -2,16 +2,16 @@
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-host/converge.yml"
 
 - name: Update organization policies for Apigee project host
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-org-host-policies/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-control-policies/converge.yml"
 
 - name: Create service accounts for Apigee project host
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-org-host-service-accounts/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-control-service-accounts/converge.yml"
 
 - name: Enable Apigee APIs for Apigee project host
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-org-host-apis/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-control-apis/converge.yml"
 
 - name: Create Apigee host organization
   import_playbook: "{{ playbook_dir | dirname }}/apigee-control-org-creation/converge.yml"
 
 - name: Create Environment Group
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-org-environment-group/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-control-environment-group/converge.yml"
