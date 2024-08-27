@@ -18,6 +18,7 @@
     - bap_coe.gcp_management
 
   vars:
+    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     HYBRID_FILES_DIR: "{{ APIGEE_RUNTIME_HYBRID_FILES_DIR }}"
     FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}"
 
