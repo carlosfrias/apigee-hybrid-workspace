@@ -13,6 +13,7 @@
 
   vars:
     PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+    DOMAIN_NAME: "{{ PROJECT_ID }}-{{ GCP_REGION }}.{{ DNS_MANAGED_ZONE }}"
 
   collections:
     - bap_coe.apigee_hybrid

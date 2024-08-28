@@ -3,4 +3,4 @@
 - name: Apigee hybrid ingressgateway healthcheck
   shell: |
     curl -H 'User-Agent: GoogleHC' https://{{ FQ_DOMAIN_NAME }}/healthz/ingress -v -k \
-      --resolve "{{ FQ_DOMAIN_NAME }}:443:{{ EXTERNAL_IP }}"
+    --resolve "{{ FQ_DOMAIN_NAME }}:443:{{ EXTERNAL_IP }}"
