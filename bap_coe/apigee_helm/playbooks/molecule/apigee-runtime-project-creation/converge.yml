@@ -12,7 +12,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
 
 - name: Enable Apigee APIs for Apigee project runtime
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-host-apis/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apis/converge.yml"
 
 - name: Apigee runtime create network
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/converge.yml"

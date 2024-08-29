@@ -1,30 +1,30 @@
 ---
-- name: Configure Virtualhost
+- name: Remove Virtualhost
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/destroy.yml"
 
-- name: Install Environment
+- name: Remove Environment
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-env/destroy.yml"
 
-- name: Install Organization
+- name: Remove Organization
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-org/destroy.yml"
 
-- name: Install Ingress Manager
+- name: Remove Ingress Manager
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-ingress-manager/destroy.yml"
 
-- name: Install Redis
+- name: Remove Redis
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-redis/destroy.yml"
 
-- name: Install Telemetry
+- name: Remove Telemetry
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-telemetry/destroy.yml"
 
-- name: Install Datastore chart
+- name: Remove Datastore chart
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-datastore/destroy.yml"
 
-- name: Install Operator chart
+- name: Remove Operator chart
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/destroy.yml"
 
-#- name: Install CRDs
+#- name: Remove CRDs
 #  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/destroy.yml"
 
-- name: Create overrides config file
+- name: Remove overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/destroy.yml"
