@@ -1,0 +1,20 @@
+- name: Delete the external IP address
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+  vars:
+    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  roles:
+  - { role: gce_external_ip_delete, tags: ['dns'] }

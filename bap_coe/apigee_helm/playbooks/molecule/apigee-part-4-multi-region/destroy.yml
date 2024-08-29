@@ -9,7 +9,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/destroy.yml"
 
 - name: Create External IP Address for Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-create/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-external-ip-address-mgmt/destroy.yml"
 
 - name: Create apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/destroy.yml"

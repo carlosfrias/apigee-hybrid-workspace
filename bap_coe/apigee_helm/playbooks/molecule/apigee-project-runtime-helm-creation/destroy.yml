@@ -1,6 +1,6 @@
 ---
 - name: Remove DNS
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-dns-record-create/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-dns-record-mgmt/destroy.yml"
 
 #- name: Remove GKE Cluster
 #  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
