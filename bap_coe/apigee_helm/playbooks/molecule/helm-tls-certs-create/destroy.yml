@@ -1,3 +1,0 @@
----
-- name: Destroy TlS cert locations
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
