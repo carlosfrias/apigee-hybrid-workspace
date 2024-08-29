@@ -17,7 +17,7 @@
 #- name: Destroy TLS certificates
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
 
-- name: Enable Synchronizer
+- name: Remove Synchronizer Service Account
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/destroy.yml"
 
 - name: Provision project - destroy invocation
