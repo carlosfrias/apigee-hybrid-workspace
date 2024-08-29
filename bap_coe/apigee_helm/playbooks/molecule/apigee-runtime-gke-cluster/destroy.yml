@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/destroy.yml"
 
 - name: Configure kubectl Cluster credentials
-  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
 
 - name: Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"

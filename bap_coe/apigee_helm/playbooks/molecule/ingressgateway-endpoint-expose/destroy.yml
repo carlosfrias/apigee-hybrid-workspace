@@ -1,6 +1,6 @@
 ---
 - name: Configure kubectl Cluster credentials
-  import_playbook: "{{ playbook_dir | dirname }}/kubectl-cluster-config/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/converge.yml"
 
 - name: Uninstall Apigee hybrid Ingressgateway Endpoint
   hosts: localhost

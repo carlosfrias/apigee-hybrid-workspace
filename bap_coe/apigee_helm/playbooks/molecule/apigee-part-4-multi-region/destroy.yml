@@ -15,7 +15,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/destroy.yml"
 
 - name: Create TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
 
 #- name: Create overrides config file
 #  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/destroy.yml"

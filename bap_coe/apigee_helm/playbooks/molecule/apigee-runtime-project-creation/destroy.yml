@@ -15,7 +15,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/destroy.yml"
 #
 #- name: Destroy TLS certificates
-#  import_playbook: "{{ playbook_dir | dirname }}/tls-certs-create/destroy.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
 
 - name: Enable Synchronizer
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/destroy.yml"
