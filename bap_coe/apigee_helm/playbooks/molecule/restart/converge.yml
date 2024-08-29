@@ -15,7 +15,7 @@
 #  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-3/converge.yml"
 
 - name: Install Cert Manager
-  import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
 
 - name: Install CRDs
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"

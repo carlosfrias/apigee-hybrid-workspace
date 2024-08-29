@@ -27,4 +27,4 @@
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/destroy.yml"
 
 - name: Remove overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/destroy.yml"
