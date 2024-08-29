@@ -12,6 +12,10 @@
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
+  vars:
+    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
+
   roles:
   - { role: gce_external_ip_get }
   - {
