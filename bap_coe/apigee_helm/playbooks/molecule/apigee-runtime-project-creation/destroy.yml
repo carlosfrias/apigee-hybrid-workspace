@@ -23,6 +23,9 @@
 - name: Remove Apigee hybrid helm configuration
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/destroy.yml"
 
+- name: Remove kubectl Cluster credentials
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
+
 - name: Remove Network Configs
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/destroy.yml"
 

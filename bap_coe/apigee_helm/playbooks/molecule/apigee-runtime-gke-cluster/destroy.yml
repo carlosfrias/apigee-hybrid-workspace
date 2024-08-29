@@ -1,9 +1,9 @@
 ---
-- name: Create TLS certificates
+- name: Remove TLS certificates
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
 
-- name: Configure kubectl Cluster credentials
+- name: Remove kubectl Cluster credentials
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
 
-- name: Configure Apigee GKE Cluster
+- name: Remove Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"

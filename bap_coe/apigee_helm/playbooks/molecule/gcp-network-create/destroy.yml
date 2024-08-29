@@ -18,3 +18,4 @@
         KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
       }
     - { role: service_account_file_processing }
+#    - { role: gce_network_create }
