@@ -5,8 +5,8 @@
 - name: Update overrides paths and move into helm chart folders
   import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-generate/destroy.yml"
 
-#- name: Update overrides config file
-#  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/destroy.yml"
+- name: Update overrides config file
+  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/destroy.yml"
 
 - name: Download Apigee Hybrid helm charts
   import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/destroy.yml"

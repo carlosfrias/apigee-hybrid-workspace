@@ -23,6 +23,9 @@
 - name: Remove Apigee hybrid helm configuration
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/destroy.yml"
 
+- name: Remove Network Configs
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/destroy.yml"
+
 - name: Provision project - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/destroy.yml"
 
