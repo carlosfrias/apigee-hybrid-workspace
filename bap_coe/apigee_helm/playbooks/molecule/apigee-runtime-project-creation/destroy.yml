@@ -20,6 +20,9 @@
 - name: Remove Synchronizer Service Account
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/destroy.yml"
 
+- name: Remove Apigee hybrid helm configuration
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/destroy.yml"
+
 - name: Provision project - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/destroy.yml"
 

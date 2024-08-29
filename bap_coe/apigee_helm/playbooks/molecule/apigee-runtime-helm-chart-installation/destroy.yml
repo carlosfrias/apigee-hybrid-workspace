@@ -23,8 +23,8 @@
 - name: Remove Operator chart
   import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/destroy.yml"
 
-#- name: Remove CRDs
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/destroy.yml"
+- name: Remove CRDs
+  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/destroy.yml"
 
 - name: Remove overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/cert-manager-install/destroy.yml"
