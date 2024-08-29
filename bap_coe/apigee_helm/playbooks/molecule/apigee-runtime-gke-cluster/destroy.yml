@@ -1,6 +1,6 @@
 ---
 - name: Create TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/helm-tls-certs-create/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
 
 - name: Configure kubectl Cluster credentials
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
