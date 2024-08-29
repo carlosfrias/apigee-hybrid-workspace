@@ -19,3 +19,7 @@ transaction.yaml
 **/.yamllint
 **/apigee-hybrid-helm-charts
 
+/bap_coe/apigee_helm/playbooks/utils/data-ca/
+/bap_coe/apigee_helm/playbooks/utils/data-crt/
+/bap_coe/apigee_helm/playbooks/utils/data-key/
+/bap_coe/apigee_helm/playbooks/utils/hybrid-data-dump/

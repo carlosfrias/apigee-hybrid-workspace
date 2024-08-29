@@ -20,6 +20,8 @@
   vars:
     data_dump_folder: "hybrid-data-dump"
     CASE_NUMBER: "339195991"
+    APIGEE_NAMESPACE: "apigee"
+    APIGEE_SYSTEM_NAMESPACE: "apigee-system"
 
   tasks:
     - name: Documentation Source
