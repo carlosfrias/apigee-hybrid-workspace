@@ -1,16 +1,19 @@
 ---
 # tasks file for roles/apigee-hybrid-gke-create
-#- name: Set default project
-#  shell: gcloud config set project "{{ PROJECT_ID }}"
-#
-#- name: Set compute/zone
-#  shell: gcloud config set compute/zone {{ CLUSTER_ZONE }}
-
 - block:
   - name: Clean up kubectl config
-    shell: kubectl config delete-context {{ FQ_CLUSTER_NAME }}
+    shell: kubectl config delete-cluster {{ FQ_CLUSTER_NAME }}
 
   rescue:
     - name: RESCUE - Clean up kubectl config
       ignore_errors: true
-      shell: kubectl config delete-context {{ FQ_CLUSTER_NAME }}
+      shell: kubectl config delete-cluster {{ FQ_CLUSTER_NAME }}
+
+- block:
+  - name: Clean up kubectl config
+    shell: kubectl config delete-context {{ CLUSTER_NAME }}
+
+  rescue:
+    - name: RESCUE - Clean up kubectl config
+      ignore_errors: true
+      shell: kubectl config delete-context {{ CLUSTER_NAME }}
