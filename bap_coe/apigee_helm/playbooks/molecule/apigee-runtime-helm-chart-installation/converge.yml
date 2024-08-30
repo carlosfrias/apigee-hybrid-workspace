@@ -23,7 +23,7 @@
 - name: Apigee Runtime Install Ingress Manager
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-ingress-manager-mgmt/converge.yml"
 
-- name: IApigee Runtime nstall Organization
+- name: Apigee Runtime Install Organization
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-org-mgmt/converge.yml"
 
 - name: Apigee Runtime Install Environment
