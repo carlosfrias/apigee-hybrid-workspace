@@ -26,7 +26,7 @@
       role: service_account_file_path,
       KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
       PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
-  }
+    }
   - {
       role: service_account_file_processing,
       PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
@@ -37,12 +37,12 @@
       SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}",
       PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     }
-  - {
-      role: gcp_iam_service_account_key_generation,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
-      SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}",
-      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
-    }
+#  - {
+#      role: gcp_iam_service_account_key_generation,
+#      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
+#      SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}",
+#      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+#    }
   - {
       role: gcp_auth_service_account_activate,
       ADMIN_SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_EMAIL }}",
@@ -55,3 +55,6 @@
       POLICY_BINDINGS: "{{ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS }}",
       PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     }
+
+- name: Generate Apigee runtime service account keys
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-account-keys-mgmt/converge.yml"
