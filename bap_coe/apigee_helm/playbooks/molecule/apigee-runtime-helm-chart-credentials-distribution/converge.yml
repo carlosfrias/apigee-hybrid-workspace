@@ -1,8 +1,8 @@
 ---
-- name: Obtain external ip address
+- name: Apigee Runtime Obtain external ip address
   import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
 
-- name: Distribute configs and credentials to helm chart folders
+- name: Apigee Runtime Distribute configs and credentials to helm chart folders
   hosts: localhost
   connection: local
   gather_facts: true

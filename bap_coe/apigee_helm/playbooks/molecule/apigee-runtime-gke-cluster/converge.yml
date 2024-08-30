@@ -10,11 +10,11 @@
 #      cacheable: true
 #      DATA_CENTER: "dc-1"
 
-- name: Configure Apigee GKE Cluster
+- name: Apigee Runtime Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
 
-- name: Configure kubectl Cluster credentials
+- name: Apigee Runtime Configure kubectl Cluster credentials
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/converge.yml"
 
-- name: Create TLS certificates
+- name: Apigee Runtime Create TLS certificates
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"

@@ -1,5 +1,5 @@
 ---
-- name: Configure Apigee runtime org policies
+- name: Apigee Runtime Configure org policies
   hosts: localhost
   connection: local
 

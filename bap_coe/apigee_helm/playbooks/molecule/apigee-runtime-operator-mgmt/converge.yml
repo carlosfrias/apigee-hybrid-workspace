@@ -1,5 +1,5 @@
 ---
-- name: Configure Apigee Operator
+- name: Apigee Runtime Configure Apigee Operator
   hosts: localhost
   connection: local
   gather_facts: true

@@ -1,4 +1,4 @@
-- name: Create External IP Address
+- name: Apigee Runtime Create External IP Address
   hosts: localhost
   connection: local
 

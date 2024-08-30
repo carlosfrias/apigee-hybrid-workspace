@@ -1,8 +1,8 @@
 ---
-- name: Obtain external ip address
+- name: Apigee Runtime Obtain external ip address
   import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
 
-- name: Create service account keys for charts.
+- name: Apigee Runtime Create service account keys for charts.
   hosts: localhost
   connection: local
   gather_facts: true

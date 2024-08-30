@@ -1,5 +1,5 @@
 ---
-- name: Obtain kubectl config
+- name: Apigee Runtime Obtain kubectl config
   hosts: localhost
   connection: local
   gather_facts: true

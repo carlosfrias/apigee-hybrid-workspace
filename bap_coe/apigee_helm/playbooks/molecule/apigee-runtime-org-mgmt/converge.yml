@@ -1,5 +1,5 @@
 ---
-- name: Configure Apigee Org
+- name: Apigee Runtime Configure Apigee Org
   hosts: localhost
   connection: local
   gather_facts: true

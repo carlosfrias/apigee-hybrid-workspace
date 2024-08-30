@@ -1,5 +1,5 @@
 ---
-- name: Config Apigee Redis
+- name: Apigee Runtime Config Apigee Redis
   hosts: localhost
   connection: local
   gather_facts: true

@@ -1,5 +1,5 @@
 ---
-- name: Create service accounts
+- name: Apigee Runtime Create service accounts
   hosts: localhost
   connection: local
 
@@ -23,15 +23,6 @@
 
   roles:
   - {
-      role: service_account_file_path,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
-      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
-    }
-  - {
-      role: service_account_file_processing,
-      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
-    }
-  - {
       role: gcp_iam_service_account_mgmt,
       SERVICE_OP: 'create',
       SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}",
@@ -41,6 +32,15 @@
       role: gcp_iam_service_account_key_generation,
       KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
       SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}",
+      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+    }
+  - {
+      role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
+      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+    }
+  - {
+      role: service_account_file_processing,
       PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     }
   - {
