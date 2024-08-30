@@ -13,7 +13,10 @@
 - name: Apigee Runtime Install helm
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/converge.yml"
 
-- name: Apigee Runtime Download Apigee Hybrid helm charts
+- name: Apigee Runtime Download helm charts
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-download/converge.yml"
+
+- name: Apigee Runtime Download Apigee Hybrid Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
 
 - name: Apigee Runtime Update overrides config file
