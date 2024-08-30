@@ -41,10 +41,10 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/converge.yml"
 
 - name: Update overrides paths and move into helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-generate/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-account-keys-mgmt/converge.yml"
 
 - name: Distribute configs and credentials to helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/converge.yml"
 
 - name: Create apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"

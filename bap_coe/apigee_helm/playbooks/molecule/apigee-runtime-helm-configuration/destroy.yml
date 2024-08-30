@@ -1,9 +1,9 @@
 ---
 - name: Distribute configs and credentials to helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/destroy.yml"
 
 - name: Update overrides paths and move into helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-generate/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-account-keys-mgmt/destroy.yml"
 
 - name: Update overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/destroy.yml"

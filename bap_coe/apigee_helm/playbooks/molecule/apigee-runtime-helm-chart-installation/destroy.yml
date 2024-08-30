@@ -1,6 +1,6 @@
 ---
 - name: Remove Virtualhost
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-virtualhost/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-virtualhost-mgmt/destroy.yml"
 
 - name: Remove Environment
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-env-mgmt/destroy.yml"

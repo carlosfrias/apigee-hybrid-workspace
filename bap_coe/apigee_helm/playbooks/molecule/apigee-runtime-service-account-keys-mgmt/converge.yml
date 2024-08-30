@@ -2,7 +2,7 @@
 - name: Obtain external ip address
   import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
 
-- name: Update Apigee hybrid resources for helm chart folders
+- name: Create service account keys for charts.
   hosts: localhost
   connection: local
   gather_facts: true

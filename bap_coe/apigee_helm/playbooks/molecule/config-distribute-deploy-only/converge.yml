@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
 
 - name: Distribute configs and credentials to helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-distribute-configs-credentials/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/converge.yml"
 
 - name: Update charts with configs
   import_playbook: "{{ playbook_dir | dirname }}/apigee-part-2.2/converge.yml"
