@@ -18,7 +18,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
 
 - name: Install CRDs
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator-crds/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-crds-mgmt/converge.yml"
 
 - name: Install Operator chart
-  import_playbook: "{{ playbook_dir | dirname }}/helm-apigee-operator/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-mgmt/converge.yml"

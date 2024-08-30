@@ -38,7 +38,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/converge.yml"
 
 - name: Update overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/create-overrides-config/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/converge.yml"
 
 - name: Update overrides paths and move into helm chart folders
   import_playbook: "{{ playbook_dir | dirname }}/helm-chart-folder-config-generate/converge.yml"
