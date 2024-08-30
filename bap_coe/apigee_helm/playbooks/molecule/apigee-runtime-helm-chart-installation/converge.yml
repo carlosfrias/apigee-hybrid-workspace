@@ -5,7 +5,7 @@
 - name: Apigee Runtime Install Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
 
-- name: IApigee Runtime nstall CRDs
+- name: Apigee Runtime Install CRDs
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-crds-mgmt/converge.yml"
 
 - name: Apigee Runtime Install Operator chart
