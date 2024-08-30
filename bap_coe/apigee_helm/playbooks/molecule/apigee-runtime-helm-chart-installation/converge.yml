@@ -1,6 +1,6 @@
 ---
 - name: Apigee Runtime Create Apigee Namespace
-  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apigee-namespace-mgmt/converge.yml"
 
 - name: Apigee Runtime Install Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
@@ -33,7 +33,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-virtualhost-mgmt/converge.yml"
 
 - name: Apigee Runtime Create service to Apigee Ingress
-  import_playbook: "{{ playbook_dir | dirname }}/ingressgateway-endpoint-expose/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-ingressgateway-endpoint-expose/converge.yml"
 
 - name: Apigee Runtime Healthcheck on service
-  import_playbook: "{{ playbook_dir | dirname }}/ingressgateway-endpoint-healthcheck/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-ingressgateway-endpoint-healthcheck-withDNS/converge.yml"

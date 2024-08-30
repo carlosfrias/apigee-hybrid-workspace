@@ -47,7 +47,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/converge.yml"
 
 - name: Create apigee namespace
-  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apigee-namespace-mgmt/converge.yml"
 
 #- name: Enable Synchronizer
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"

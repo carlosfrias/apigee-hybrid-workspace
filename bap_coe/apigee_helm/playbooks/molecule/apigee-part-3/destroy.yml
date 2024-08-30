@@ -1,4 +1,4 @@
 ---
 - name: Create service to Apigee Ingress
-  import_playbook: "{{ playbook_dir | dirname }}/ingressgateway-endpoint-expose/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-ingressgateway-endpoint-expose/destroy.yml"
 

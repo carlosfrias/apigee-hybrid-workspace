@@ -11,10 +11,10 @@
 #      DATA_CENTER: "dc-1"
 
 - name: Apigee Runtime Install helm
-  import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/converge.yml"
 
 - name: Apigee Runtime Download Apigee Hybrid helm charts
-  import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
 
 - name: Apigee Runtime Update overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt-DEPRECATED/converge.yml"

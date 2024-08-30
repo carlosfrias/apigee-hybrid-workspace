@@ -9,7 +9,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt-DEPRECATED/destroy.yml"
 
 - name: Download Apigee Hybrid helm charts
-  import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/destroy.yml"
 
 - name: Install helm
-  import_playbook: "{{ playbook_dir | dirname }}/helm-install/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/destroy.yml"

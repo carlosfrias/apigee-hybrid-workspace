@@ -178,10 +178,10 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"
 #
 #- name: Install helm
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-install/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/converge.yml"
 #
 #- name: Download Apigee Hybrid helm charts
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
 #
 #- name: Update overrides config file
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt-DEPRECATED/converge.yml"
@@ -193,7 +193,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/converge.yml"
 #
 #- name: Create apigee namespace
-#  import_playbook: "{{ playbook_dir | dirname }}/helm-create-apigee-namespace/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apigee-namespace-mgmt/converge.yml"
 #
 #- name: Enable Synchronizer
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/converge.yml"
