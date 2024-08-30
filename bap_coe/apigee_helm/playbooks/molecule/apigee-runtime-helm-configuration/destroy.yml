@@ -3,10 +3,10 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/destroy.yml"
 
 - name: Update overrides paths and move into helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-account-keys-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/destroy.yml"
 
 - name: Update overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt-DEPRECATED/destroy.yml"
 
 - name: Download Apigee Hybrid helm charts
   import_playbook: "{{ playbook_dir | dirname }}/helm-download-charts/destroy.yml"

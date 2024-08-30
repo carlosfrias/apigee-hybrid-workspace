@@ -18,7 +18,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
 
 #- name: Create overrides config file
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/destroy.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt-DEPRECATED/destroy.yml"
 
 #- name: Enable Synchronizer
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/destroy.yml"
