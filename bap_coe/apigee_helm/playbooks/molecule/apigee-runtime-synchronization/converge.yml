@@ -18,12 +18,21 @@
     GCP_TOKEN_FILE_PATH: "{{ APIGEE_RUNTIME_GCP_TOKEN_FILE_PATH }}"
     APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
     SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
-#    ADMIN_ACCOUNT_USER: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
+    TIME_TO_PROPAGATE_BINDINGS: 20
+  #    ADMIN_ACCOUNT_USER: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
 
   collections:
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
+#  pre_tasks:
+#    - name: Echo PROJECT_ID
+#      debug:
+#        var: APIGEE_HOST_PROJECT_ID
+#
+#    - pause:
+#
+#
   roles:
     - {
         role: gcp_token_retrieval,
