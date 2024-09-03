@@ -23,12 +23,6 @@
     state: absent
   loop: "{{ SERVICE_ACCOUNTS }}"
 
-- debug:
-    var: PROJECT_ID
-
-- pause:
-
-
 - name: Create initial service account key file, if not there
   shell: |
     gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json \
