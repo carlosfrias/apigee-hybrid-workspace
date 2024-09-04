@@ -42,7 +42,7 @@
   - "'Already exists' not in status.stderr"
   when: CLUSTER_VERSION is defined and CLUSTER_CHANNEL in ['rapid', 'regular', 'stable']
 
-- name: Create Apigee hybrid cluster with default channel and cluster-version
+- name: Create Apigee hybrid cluster with default channel and cluster-version with default node-pool
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
@@ -71,33 +71,33 @@
   - "'Already exists' not in status.stderr"
   when: CLUSTER_VERSION is not defined and CLUSTER_CHANNEL is not defined
 
-- name: Create Apigee hybrid cluster with default node-pool
-  shell: |
-    gcloud beta container clusters create {{ CLUSTER_NAME }} \
-      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
-      --project {{ PROJECT_ID }} \
-      --zone {{ CLUSTER_ZONE }} \
-      --machine-type {{ MACHINE_TYPE }} \
-      --disk-type {{ DISK_TYPE }} \
-      --disk-size {{ DISK_SIZE }} \
-      --num-nodes {{ NODE_COUNT | int }} \
-      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
-      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
-      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
-      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
-      --logging {{ LOGGING }} \
-      --monitoring {{ MONITORING }} \
-      --network {{ VPC_NETWORK_NAME }} \
-      --subnetwork {{ VPC_SUBNETWORK_NAME }} \
-      --addons {{ CLUSTER_ADDONS }} \
-      --location-policy "BALANCED" \
-      --enable-autoscaling \
-      --metadata disable-legacy-endpoints=true
-  register: status
-  failed_when:
-  - status.rc == 1
-  - "'Already exists' not in status.stderr"
-  when: CLUSTER_CHANNEL is not true or CLUSTER_VERSION is not true
+#- name: Create Apigee hybrid cluster with default node-pool
+#  shell: |
+#    gcloud beta container clusters create {{ CLUSTER_NAME }} \
+#      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
+#      --project {{ PROJECT_ID }} \
+#      --zone {{ CLUSTER_ZONE }} \
+#      --machine-type {{ MACHINE_TYPE }} \
+#      --disk-type {{ DISK_TYPE }} \
+#      --disk-size {{ DISK_SIZE }} \
+#      --num-nodes {{ NODE_COUNT | int }} \
+#      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+#      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+#      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+#      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+#      --logging {{ LOGGING }} \
+#      --monitoring {{ MONITORING }} \
+#      --network {{ VPC_NETWORK_NAME }} \
+#      --subnetwork {{ VPC_SUBNETWORK_NAME }} \
+#      --addons {{ CLUSTER_ADDONS }} \
+#      --location-policy "BALANCED" \
+#      --enable-autoscaling \
+#      --metadata disable-legacy-endpoints=true
+#  register: status
+#  failed_when:
+#  - status.rc == 1
+#  - "'Already exists' not in status.stderr"
+#  when: CLUSTER_VERSION is not defined and CLUSTER_CHANNEL is not defined
 
 - name: Will take a few minutes to complete cluster creation...
   shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format yaml --project {{ PROJECT_ID }} --zone {{ CLUSTER_ZONE }}

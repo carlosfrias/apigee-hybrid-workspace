@@ -1,5 +1,5 @@
 ---
-- name: Install helm
+- name: Create TLS certificates
   hosts: localhost
   connection: local
   gather_facts: true

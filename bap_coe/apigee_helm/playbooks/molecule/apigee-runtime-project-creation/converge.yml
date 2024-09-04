@@ -8,9 +8,6 @@
 - name: Apigee runtime service accounts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-accounts/converge.yml"
 
-- name: Apigee Runtime Configure host to runtime synchronization service account
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
-
 - name: Apigee Runtime Enable Apigee APIs for Apigee project runtime
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apis/converge.yml"
 
