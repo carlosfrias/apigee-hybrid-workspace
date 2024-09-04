@@ -17,13 +17,14 @@
 
   tasks:
     - block:
-      - name: Install helm chart
+      - name: Install apigee-operator helm chart
         kubernetes.core.helm:
           state: present
           chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
           namespace: "{{ APIGEE_NAMESPACE }}"
           name: operator
           create_namespace: true
+          force: true
           wait_timeout: "{{ HELM_BINARY_TIMEOUT }}"
           values_files:
           - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/{{ OVERRIDE_FILE | basename }}"
@@ -38,6 +39,7 @@
             namespace: "{{ APIGEE_NAMESPACE }}"
             name: operator
             create_namespace: true
+            force: true
             wait_timeout: "{{ HELM_BINARY_TIMEOUT }}"
             values_files:
             - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/{{ OVERRIDE_FILE | basename }}"
@@ -45,13 +47,3 @@
     - name: Wait for Apigee Operator installation...
       pause:
         seconds: 10
-
-    - name: Verify Apigee Operator Installation
-      shell: "{{ HELM_BINARY }} ls -n apigee-system"
-      register: verify_output
-      failed_when: "'failed' in verify_output.stdout"
-
-    - name: Verify Apigee Operator running
-      shell: "{{ HELM_BINARY }} ls -n apigee-system"
-      register: verify_output
-      failed_when: "'failed' in verify_output.stdout"

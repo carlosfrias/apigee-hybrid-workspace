@@ -13,6 +13,7 @@
   - name: Uninstall helm chart
     kubernetes.core.helm:
       state: absent
+      force: true
       chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
       namespace: "{{ APIGEE_SYSTEM_NAMESPACE }}"
       name: operator
