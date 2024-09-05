@@ -40,7 +40,8 @@
         PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
       }
     - { role: apigee-hybrid-uri-synchronizer-enable }
-    -
+
+
 - name: Apigee Runtime Enable Synchronizer
   hosts: localhost
   connection: local
