@@ -16,4 +16,6 @@
 - name: Delete cert-manager
   command: |
     kubectl delete -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
-
+  poll: 0
+  retries: 50
+  async: 90

@@ -17,6 +17,9 @@
       path: "{{ item }}"
       state: absent
     with_items: [ "{{ PROVIDED_PRIVATE_KEY }}", "{{ PROVIDED_PUBLIC_CERT }}" ]
+    poll: 0
+    retries: 50
+    async: 90
 
   when: is_provided_public_cert.stat.exists is truthy and is_provided_private_key.stat.exists is truthy
 
@@ -34,6 +37,9 @@
       path: "{{ item }}"
       state: absent
     with_items: ["{{ SSL_CERT_PATH }}", "{{ SSL_KEY_PATH }}", "{{ CERT_SIGNING_REQUEST_PATH }}"]
+    poll: 0
+    retries: 50
+    async: 90
 
   when: is_provided_public_cert.stat.exists is not truthy and is_provided_private_key.stat.exists is not truthy
 

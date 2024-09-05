@@ -26,9 +26,6 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ SYSTEM_TOOLS | default(DEFAULT_SYSTEM_TOOLS) }}"
-#  poll: 0
-#  retries: 50
-#  async: 180
 
 - name: Install kubectx
   become: yes
