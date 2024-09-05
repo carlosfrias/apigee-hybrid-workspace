@@ -48,7 +48,8 @@
       gcloud iam service-accounts {{ SERVICE_OP }} {{ item }} \
         --description={{ item }} \
         --display-name={{ item }} \
-        --project {{ PROJECT_ID }}
+        --project {{ PROJECT_ID }} \
+        --quiet
     loop: "{{ SERVICE_ACCOUNTS }}"
 
     register: status
@@ -64,7 +65,8 @@
           --description={{ item }} \
           --display-name={{ item }} \
           --project {{ PROJECT_ID }} \
-          --account {{ ADMIN_ACCOUNT_EMAIL }}
+          --account {{ ADMIN_ACCOUNT_EMAIL }} \
+          --quiet
       loop: "{{ SERVICE_ACCOUNTS }}"
       register: status
       when: PROJECT_ACTIVE is truthy
@@ -82,7 +84,8 @@
   shell: |
     gcloud iam service-accounts {{ SERVICE_OP }} {{ item }} \
       --project {{ PROJECT_ID }} \
-      --account {{ ADMIN_ACCOUNT_EMAIL }}
+      --account {{ ADMIN_ACCOUNT_EMAIL }}  \
+      --quiet
   when: SERVICE_OP == "delete"
   loop: "{{ SERVICE_ACCOUNTS }}"
 
