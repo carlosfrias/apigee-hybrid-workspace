@@ -1,5 +1,5 @@
 ---
-- name: Apigee Runtime Create service accounts
+- name: Create Apigee Runtime service accounts
   hosts: localhost
   connection: local
 

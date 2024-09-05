@@ -24,3 +24,6 @@
   - { role: service_account_file_processing }
   #  - { role: gcp_auth_service_account_activate }
   - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'delete', SERVICE_ACCOUNTS: [ "{{ SERVICE_ACCOUNT_EMAIL }}" ]  }
+
+- name: Remove Apigee Runtime synchronization service account permissions from control project
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
