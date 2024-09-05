@@ -8,10 +8,11 @@
 - name: Attach environment to group
   uri:
     url: https://apigee.googleapis.com/v1/organizations/{{ PROJECT_ID }}/envgroups/{{ ENVIRONMENT_GROUP_NAME }}/attachments
+    method: POST
     headers:
       Authorization: Bearer {{ GCLOUD_TOKEN }}
     body_format: json
     status_code: ['200', '409']
-
-
+    body:
+      environment: "{{ ENVIRONMENT_NAME }}"
 
