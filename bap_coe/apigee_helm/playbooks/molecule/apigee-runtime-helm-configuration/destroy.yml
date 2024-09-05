@@ -5,3 +5,6 @@
 - name: Remove downloaded helm charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-download/destroy.yml"
 
+- name: Remove helm for Apigee Runtime
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/destroy.yml"
+

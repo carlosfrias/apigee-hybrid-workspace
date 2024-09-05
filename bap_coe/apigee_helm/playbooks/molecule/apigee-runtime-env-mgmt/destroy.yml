@@ -1,5 +1,5 @@
 ---
-- name: Uninstall Apigee Env
+- name: Uninstall Apigee Runtime Env
   hosts: localhost
   connection: local
   gather_facts: true

@@ -10,7 +10,7 @@
 #      cacheable: true
 #      DATA_CENTER: "dc-1"
 
-- name: Apigee Runtime Install helm
+- name: Install helm for Apigee Runtime
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/converge.yml"
 
 - name: Apigee Runtime Download helm charts
