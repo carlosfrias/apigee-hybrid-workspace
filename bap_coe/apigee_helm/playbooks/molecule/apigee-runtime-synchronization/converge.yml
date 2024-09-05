@@ -1,4 +1,46 @@
 ---
+- name: Apigee Runtime Enable Synchronizer Service Account in Control Project
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars_files:
+    - ~/.apigee-secure/credentials.yml
+    - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+    - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+
+  vars:
+    OVERRIDE_FILE: "{{ APIGEE_RUNTIME_OVERRIDE_FILE }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_RUNTIME_GCP_TOKEN_FILE_PATH }}"
+    APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
+    SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+    TIME_TO_PROPAGATE_BINDINGS: 20
+  #    ADMIN_ACCOUNT_USER: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
+
+  collections:
+    - bap_coe.apigee_hybrid
+    - bap_coe.gcp_management
+
+  roles:
+    - {
+        role: gcp_token_retrieval,
+        PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
+      }
+  #    This configuration gives permission to the runtime service manager in the host project.
+    - {
+        role: gcp_iam_policy_bindings,
+        BINDING_OP: "add",
+        ACCOUNT_TYPE: "serviceAccount",
+        POLICY_BINDINGS: [ "roles/apigee.synchronizerManager","roles/apigee.admin" ],
+        SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}",
+        PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
+      }
+    - { role: apigee-hybrid-uri-synchronizer-enable }
+    -
 - name: Apigee Runtime Enable Synchronizer
   hosts: localhost
   connection: local
@@ -25,26 +67,9 @@
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
-#  pre_tasks:
-#    - name: Echo PROJECT_ID
-#      debug:
-#        var: APIGEE_HOST_PROJECT_ID
-#
-#    - pause:
-#
-#
   roles:
     - {
         role: gcp_token_retrieval,
-        PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
-      }
-  #    This configuration gives permission to the runtime service manager in the host project.
-    - {
-        role: gcp_iam_policy_bindings,
-        BINDING_OP: "add",
-        ACCOUNT_TYPE: "serviceAccount",
-        POLICY_BINDINGS: [ "roles/apigee.synchronizerManager","roles/apigee.admin" ],
-        SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}",
         PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
       }
     - { role: apigee-hybrid-uri-synchronizer-enable }
