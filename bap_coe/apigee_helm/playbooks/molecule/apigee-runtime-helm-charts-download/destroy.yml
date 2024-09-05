@@ -1,5 +1,5 @@
 ---
-- name: Destroy
+- name: Remove Apigee Runtime Helm Charts download folder
   hosts: localhost
   connection: local
   gather_facts: true

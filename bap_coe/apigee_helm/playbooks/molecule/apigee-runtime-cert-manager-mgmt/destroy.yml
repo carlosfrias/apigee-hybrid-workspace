@@ -1,5 +1,5 @@
 ---
-- name: Install Cert Manager
+- name: Remove Cert Manager
   hosts: localhost
   connection: local
   gather_facts: true
