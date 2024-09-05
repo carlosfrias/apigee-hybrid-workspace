@@ -9,8 +9,17 @@
   vars_files:
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   tasks:
-  - name: Uninstall Apigee Env
+  - name: Configure Apigee Env
     kubernetes.core.helm:
       state: absent
+      chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-env"
       namespace: "{{ APIGEE_NAMESPACE }}"
       name: "{{ ENVIRONMENT_NAME }}"
+      create_namespace: true
+      wait_timeout: "{{ HELM_BINARY_TIMEOUT }}"
+      atomic: true
+      set_values:
+      - value: env={{ ENVIRONMENT_NAME }}
+        value_type: string
+      values_files:
+      - "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-env/{{ OVERRIDE_FILE | basename }}"
