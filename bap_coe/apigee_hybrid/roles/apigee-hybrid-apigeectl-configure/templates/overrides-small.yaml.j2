@@ -15,6 +15,9 @@ gcp:
 org: "{{ APIGEE_ORG_NAME }}"
 # Kubernetes cluster name details
 
+certManager:
+  namespace: "{{ APIGEE_NAMESPACE }}"
+
 k8sCluster:
   name: "{{ CLUSTER_NAME }}"
   region: "{{GCP_REGION }}"

@@ -12,6 +12,9 @@ k8sCluster:
 
 org: "{{ APIGEE_ORG_NAME }}"
 
+certManager:
+  namespace: "{{ APIGEE_NAMESPACE }}"
+
 envs:
 - name: "{{ ENVIRONMENT_NAME }}"
   serviceAccountPaths:

@@ -11,6 +11,9 @@ k8sCluster:
 
 org: "{{ APIGEE_ORG_NAME }}"
 
+certManager:
+  namespace: "{{ APIGEE_NAMESPACE }}"
+
 cassandra:
   hostNetwork: {{ CASSANDRA_HOST_NETWORK }}
   replicaCount: {{ CASSANDRA_REPLICA_COUNT | int }}
