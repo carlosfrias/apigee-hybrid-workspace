@@ -21,5 +21,4 @@
       kind: Namespace
       state: absent
     loop:
-    - "{{ APIGEE_SYSTEM_NAMESPACE }}"
     - "{{ APIGEE_NAMESPACE }}"

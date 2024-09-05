@@ -20,5 +20,4 @@
         kind: Namespace
         state: present
       loop:
-      - "{{ APIGEE_SYSTEM_NAMESPACE }}"
       - "{{ APIGEE_NAMESPACE }}"

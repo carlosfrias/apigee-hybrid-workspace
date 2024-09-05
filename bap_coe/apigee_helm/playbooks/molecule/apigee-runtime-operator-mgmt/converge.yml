@@ -14,7 +14,6 @@
 
   vars:
     OVERRIDE_FILE: "{{ APIGEE_RUNTIME_OVERRIDE_FILE }}"
-    APIGEE_NAMESPACE: "{{ APIGEE_SYSTEM_NAMESPACE }}"
 
   tasks:
     - block:
