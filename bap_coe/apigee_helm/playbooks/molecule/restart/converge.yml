@@ -1,24 +1,9 @@
 ---
-#- name: Apigee hybrid Deployment Part 0
-#  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-0/converge.yml"
-#
-#- name: Apigee hybrid Deployment Part 1
-#  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-1/converge.yml"
+- name: Apigee Runtime Configure GKE Cluster
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster/converge.yml"
 
-- name: Apigee hybrid Deployment Part 2.1
-  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-2.1/converge.yml"
+- name: Apigee Runtime Install & Configure Helm
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/converge.yml"
 
-#- name: Apigee hybrid Deployment Part 2.2
-#  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-2.2/converge.yml"
-#
-#- name: Apigee hybrid Deployment Part 3
-#  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-3/converge.yml"
-
-- name: Install Cert Manager
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
-
-- name: Install CRDs
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-crds-mgmt/converge.yml"
-
-- name: Install Operator chart
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-mgmt/converge.yml"
+- name: Apigee Runtime Install Apigee Helm Charts
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-installation/converge.yml"

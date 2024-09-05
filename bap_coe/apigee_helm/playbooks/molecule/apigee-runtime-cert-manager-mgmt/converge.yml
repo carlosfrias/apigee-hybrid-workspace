@@ -20,3 +20,12 @@
 
   roles:
     - { role: apigee-hybrid-kubectl-cert-manager-install }
+
+  tasks:
+  - name: Remove cert-manager Namespace
+    ignore_errors: true
+    kubernetes.core.k8s:
+      name: cert-manager
+      api_version: v1
+      kind: Namespace
+      state: absent
