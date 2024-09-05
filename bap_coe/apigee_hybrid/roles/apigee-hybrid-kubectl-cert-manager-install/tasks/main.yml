@@ -21,5 +21,5 @@
     seconds: 10
 
 - name: Verify Creation of cert-manager namespace
-  command: kubectl get all -n cert-manager -o wide
+  command: kubectl get all -n {{ APIGEE_NAMESPACE }} -o wide
 
