@@ -19,4 +19,7 @@
     with_items:
     - "{{ HELM_BINARY }}"
     - "{{ WORKDIR_DOWNLOAD_DEST }}"
+    poll: 0
+    retries: 50
+    async: 90
 

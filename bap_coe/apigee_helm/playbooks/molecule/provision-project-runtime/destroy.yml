@@ -29,3 +29,6 @@
         state: absent
       with_items:
       - "{{ WORK_DIR }}"
+      poll: 0
+      retries: 50
+      async: 90

@@ -52,4 +52,7 @@
     file:
       path: "{{ WORK_DIR }}"
       state: absent
+    poll: 0
+    retries: 50
+    async: 90
 

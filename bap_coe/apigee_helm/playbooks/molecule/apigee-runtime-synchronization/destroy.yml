@@ -1,5 +1,5 @@
 ---
-- name: Remove Synchronizer
+- name: Remove Synchronizer Service Account from Control Project
   hosts: localhost
   connection: local
   gather_facts: true
@@ -25,7 +25,7 @@
     - bap_coe.gcp_management
 
   roles:
-#    - { role: gcp_token_retrieval, PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}" }
+    - { role: gcp_token_retrieval, PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}" }
   #    This configuration gives permission to the runtime service manager in the host project.
     - {
       role: gcp_iam_policy_bindings,
@@ -35,4 +35,3 @@
       SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}",
       PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
     }
-#    - { role: apigee-hybrid-uri-synchronizer-enable }

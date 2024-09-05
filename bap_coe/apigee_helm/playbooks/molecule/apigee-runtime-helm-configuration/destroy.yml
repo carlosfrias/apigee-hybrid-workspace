@@ -1,15 +1,7 @@
 ---
-- name: Distribute configs and credentials to helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/destroy.yml"
-
-- name: Update overrides paths and move into helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/destroy.yml"
-
-- name: Update overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt-DEPRECATED/destroy.yml"
-
-- name: Download Apigee Hybrid helm charts
+- name: Remove Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/destroy.yml"
 
-- name: Install helm
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/destroy.yml"
+- name: Remove downloaded helm charts
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-download/destroy.yml"
+

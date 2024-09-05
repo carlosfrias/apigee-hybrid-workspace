@@ -12,12 +12,13 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
-
-
   tasks:
 
   - name: Clean up helm installation directory
     file:
       path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
       state: absent
+    poll: 0
+    retries: 50
+    async: 90
 
