@@ -1,5 +1,5 @@
 ---
-- name: CApigee Runtime onfigure Apigee Operator CRDs
+- name: Apigee Runtime onfigure Apigee Operator CRDs
   hosts: localhost
   connection: local
   gather_facts: true
