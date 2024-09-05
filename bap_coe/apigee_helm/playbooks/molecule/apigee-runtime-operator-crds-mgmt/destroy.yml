@@ -16,9 +16,6 @@
         kubectl delete -k apigee-operator/etc/crds/default/
       args:
         chdir: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}"
-      poll: 0
-      async: 90
-      retries: 50
 
 #    - name: DOES NOT WORK - Apply CRDs
 #      kubernetes.core.k8s:
