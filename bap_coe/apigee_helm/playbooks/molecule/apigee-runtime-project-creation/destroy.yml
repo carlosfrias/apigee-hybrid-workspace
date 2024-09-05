@@ -14,20 +14,20 @@
 #- name: Destroy apigee namespace
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apigee-namespace-mgmt/destroy.yml"
 #
-#- name: Destroy TLS certificates
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
+- name: Destroy TLS certificates
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
 
-#- name: Remove Synchronizer Service Account
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/destroy.yml"
-#
 #- name: Remove Apigee hybrid helm configuration
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/destroy.yml"
-#
-#- name: Remove kubectl Cluster credentials
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
-#
+
+- name: Remove kubectl Cluster credentials
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
+
 #- name: Remove Network Configs
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/destroy.yml"
+
+- name: Remove Apigee Runtime synchronization service account permissions from control project
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
 
 - name: Provision project - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/destroy.yml"
