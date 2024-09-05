@@ -7,7 +7,13 @@
     ENABLE_TURBO_MODE: 1
 
   vars_files:
-  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+    - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+    - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+    - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+  vars:
+    - OVERRIDE_FILE: "{{ APIGEE_RUNTIME_OVERRIDE_FILE }}"
+
   tasks:
   - name: Configure Apigee Env
     kubernetes.core.helm:
