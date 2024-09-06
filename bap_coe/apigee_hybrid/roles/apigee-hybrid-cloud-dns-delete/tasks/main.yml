@@ -11,7 +11,7 @@
   failed_when:
     - status.rc == 1
     - "'does not exist' not in status.stderr"
-  poll: 0
+  poll: 5
   retries: 50
   async: 90
 
