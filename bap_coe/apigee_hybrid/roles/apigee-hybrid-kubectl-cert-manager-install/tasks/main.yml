@@ -14,7 +14,7 @@
 
 - name: Download and install cert-manager
   command: |
-    kubectl apply -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }}
+    kubectl apply -f {{ KUBECTL_DOWNLOAD_URL }}/v{{ CERT_MANAGER_VERSION }}/cert-manager.yaml --kubeconfig={{ CLUSTER_KUBECONFIG }} -n {{ APIGEE_NAMESPACE }}
 
 - name: Wait for cert-manager installation...
   pause:
