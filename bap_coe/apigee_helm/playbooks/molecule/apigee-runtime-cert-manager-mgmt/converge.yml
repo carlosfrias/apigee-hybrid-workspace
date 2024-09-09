@@ -16,6 +16,8 @@
 
   vars:
     WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
+    APIGEE_HYBRID_HELM_CHARTS_DIR: "{{ APIGEE_RUNTIME_HYBRID_FILES_DIR }}/apigee-hybrid-helm-charts"
+    OVERRIDE_FILE: "{ {APIGEE_RUNTIME_OVERRIDE_FILE }}"
 
   collections:
     - bap_coe.apigee_hybrid
@@ -28,7 +30,7 @@
   - name: Install Cert Manager version >= 1.14.0
     kubernetes.core.helm:
       state: present
-      chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-hybrid-helm"
+      chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-cert-manager"
       namespace: "{{ APIGEE_NAMESPACE }}"
       name: apigee-cert-manager
       create_namespace: true
