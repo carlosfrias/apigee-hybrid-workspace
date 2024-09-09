@@ -18,9 +18,9 @@
   when: CERT_MANAGER_VERSION is version("1.14.0", "<")
 
 - block:
-  - name: Install Cert Mangaer Crds
+  - name: Install Cert Manager Crds
     command: |
-      kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/${CERT_MANAGER_VERION}/cert-manager.crds.yaml
+      kubectl apply -f {{ KUBECTL_DOWNLOAD_URL }}/${CERT_MANAGER_VERION}/cert-manager.crds.yaml
 
   - name: Download and install cert-manager for versions after 1.14.0
     command: |
