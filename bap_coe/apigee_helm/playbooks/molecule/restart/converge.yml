@@ -1,4 +1,7 @@
 ---
+- name: Apigee runtime create network
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/converge.yml"
+
 - name: Apigee Runtime Configure GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster/converge.yml"
 

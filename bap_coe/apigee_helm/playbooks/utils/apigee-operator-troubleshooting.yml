@@ -1,0 +1,31 @@
+---
+- name: Custom Cert Manager Troubleshooting Playbook
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  environment:
+    ENABLE_TURBO_MODE: 1
+
+  vars:
+    resource_url: "https://playbooks.corp.google.com/apigee-prod-infra/5g/procedures/custom-cert-managerrr.md?cl=head#apigee-operator-timeout"
+    apigee_operator_timeout_check: |
+      # validating webhook
+      kubectl get validatingwebhookconfiguration apigee-validating-webhook-configuration-<namespace> -o yaml | grep -i 'cabundle:'
+  
+      # validating webhook
+      kubectl get mutatingwebhookconfiguration apigee-validating-webhook-configuration-<namespace> -o yaml | grep -i 'cabundle:'
+  
+      # for conversion, check the CRDs
+  
+      # 1) list of CRDs
+      kubectl get crds | grep apigee
+  
+      # for example for Apigee Deploymentt. if caBundle field is missing all
+      # together then it's fine as it indicates that CRD does no have converson
+      # hook
+      kubectl get crds apigeedeployments.apigee.cloud.google.com -oyaml | grep -i 'cabundle:'
+
+  tasks:
+  - name: Apigee Operator Timeout Check
+    shell: |
+      "{{ apigee_operator_timeout_check }}"
