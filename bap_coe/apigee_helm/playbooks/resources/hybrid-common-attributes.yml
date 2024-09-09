@@ -99,7 +99,7 @@ APIGEE_HYBRID_CHART_LIST:
 - apigee-org
 - apigee-env
 - apigee-virtualhost
-- apigee-cert-manager
+#- apigee-cert-manager
 
 # SERVICE_ACCOUNT_PROTECTED_VALUES in credentials.yml
 ADMIN_ACCOUNT_EMAIL: "{{ ADMIN_ACCOUNT_USER }}@{{ GCLOUD_ORG_DOMAIN }}"
