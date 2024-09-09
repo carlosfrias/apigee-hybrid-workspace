@@ -20,7 +20,7 @@
 - block:
   - name: Install Cert Manager Crds
     command: |
-      kubectl apply -f {{ KUBECTL_DOWNLOAD_URL }}/${{ CERT_MANAGER_VERSION }}/cert-manager.crds.yaml
+      kubectl apply -f {{ KUBECTL_DOWNLOAD_URL }}/{{ CERT_MANAGER_VERSION }}/cert-manager.crds.yaml
 
   - name: Download and install cert-manager for versions after 1.14.0
     command: |
