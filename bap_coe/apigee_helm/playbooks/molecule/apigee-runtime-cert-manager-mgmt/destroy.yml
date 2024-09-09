@@ -20,5 +20,14 @@
     - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-kubectl-cert-manager-delete }
+    - { role: apigee-hybrid-kubectl-cert-manager-delete, when: CERT_MANAGER_VERSION is version("1.14.0", "<") }
 
+
+  tasks:
+  - name: Install Cert Manager version >= 1.14.0
+    kubernetes.core.helm:
+      state: absent
+      namespace: "{{ APIGEE_NAMESPACE }}"
+      name: apigee-cert-manager
+      force: true
+    when: CERT_MANAGER_VERSION is version("1.14.0", ">=")
