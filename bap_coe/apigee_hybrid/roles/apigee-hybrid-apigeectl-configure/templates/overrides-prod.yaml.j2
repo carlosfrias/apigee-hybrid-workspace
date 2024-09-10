@@ -1,6 +1,7 @@
 ---
 instanceID: "apigee-{{ CLUSTER_ZONE }}-{{ PROJECT_NUMBER }}"
-namepace: "apigee"
+namepace: "{{ APIGEE_NAMESPACE }}"
+controllerNamespace: "{{ APIGEE_NAMESPACE }}"
 
 gcp:
   region: "{{ ANALYTICS_REGION }}"
