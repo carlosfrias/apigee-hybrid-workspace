@@ -5,18 +5,21 @@
   gather_facts: true
   environment:
     ENABLE_TURBO_MODE: 1
+    
+  vars:
+    NAMESPACE: "apigee"
+    data_folder: cluster-cert-info
 
   tasks:
   - name: List kubernetes.io/tls Certificate Secrets
     shell: |
-      kubectl get secret -n "{{ APIGEE_NAMESPACE }}" --field-selector type=kubernetes.io/tls
+      kubectl get secret -n "{{ NAMESPACE }}" --field-selector type=kubernetes.io/tls
     register: secret_list_output
 
   - name: Set Data to process
     set_fact:
       cacheable: true
-      data_folder: "data-ca"
-      file_suffix: "ca"
+      file_suffix: "ca.crt"
       attribute_name: "ca.crt"
 
   - name: Process Certificate Secrets List
@@ -28,8 +31,7 @@
   - name: Set Data to process
     set_fact:
       cacheable: true
-      data_folder: "data-crt"
-      file_suffix: "crt"
+      file_suffix: "tls.crt"
       attribute_name: "tls.crt"
 
   - name: Process Certificate Secrets List
@@ -41,8 +43,7 @@
   - name: Set Data to process
     set_fact:
       cacheable: true
-      data_folder: "data-key"
-      file_suffix: "key"
+      file_suffix: "tls.key"
       attribute_name: "tls.key"
 
   - name: Process Certificate Secrets List

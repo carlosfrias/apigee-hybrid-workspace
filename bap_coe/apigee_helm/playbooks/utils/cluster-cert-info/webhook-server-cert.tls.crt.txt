@@ -1,0 +1,58 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            b1:8b:82:37:f7:1e:f9:f8:0f:83:e6:ab:93:49:c8:e8
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: 
+        Validity
+            Not Before: Sep 10 15:16:58 2024 GMT
+            Not After : Dec  9 15:16:58 2024 GMT
+        Subject: 
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:ea:44:a5:5a:40:10:15:20:93:ef:9c:bc:c7:eb:
+                    cf:8d:02:70:be:34:e9:d7:b9:8d:ae:3c:16:d4:4d:
+                    b0:17:7e:2a:fd:d6:3b:7c:fc:03:98:84:b3:6a:8d:
+                    15:0a:51:a4:b4:6c:31:89:57:02:8f:ab:9b:14:ef:
+                    5e:df:38:f6:dd:ba:52:f2:74:60:2f:fd:f2:10:fe:
+                    8b:60:24:cc:f4:3e:b3:b1:8a:e1:1f:c6:9c:4c:e6:
+                    d6:d6:67:24:58:23:97:40:9a:0f:0b:ff:79:42:06:
+                    12:56:52:3c:64:b4:47:13:66:38:cf:23:46:9a:66:
+                    39:e7:04:4a:26:cc:b6:f9:59:74:5c:82:45:a8:ce:
+                    3d:8a:ce:81:08:39:1c:9b:35:a4:cc:df:e1:e9:5e:
+                    8d:d5:d0:4d:d7:43:bf:55:72:f5:10:6a:6d:8f:b0:
+                    14:cb:b7:77:c3:be:8c:db:75:70:63:2d:97:c2:5e:
+                    9b:06:44:48:57:5a:5c:f7:91:bb:0f:33:19:92:87:
+                    64:32:3d:4a:3a:94:95:25:a7:3a:00:17:37:7c:eb:
+                    74:59:6b:4a:5c:42:6f:15:04:ab:23:00:d8:05:07:
+                    fb:a3:72:49:e2:de:60:42:6a:37:a6:b4:d1:33:df:
+                    18:ae:c6:ff:a5:5e:c8:85:5f:ff:13:b5:22:58:22:
+                    70:bf
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Alternative Name: critical
+                DNS:apigee-webhook-service.apigee-system.svc, DNS:apigee-webhook-service.apigee-system.svc.cluster.local
+    Signature Algorithm: sha256WithRSAEncryption
+    Signature Value:
+        a2:6c:d6:95:97:af:d5:d5:0b:0d:5a:84:ae:2c:8e:b4:46:76:
+        1f:17:af:5f:05:3a:02:52:9d:91:e5:be:6d:4d:40:5c:7b:55:
+        d4:1e:71:97:79:e5:a6:61:e4:69:3d:9c:ae:68:ec:07:25:62:
+        80:2a:2d:f4:22:0b:8f:a6:cb:71:f0:1e:1a:7b:51:77:5b:a8:
+        5a:08:f1:92:cb:c9:e3:a2:80:e6:4a:c4:99:f0:96:ab:28:b4:
+        d7:7a:60:d7:36:53:b6:8f:2e:4e:55:8f:75:26:99:19:19:9b:
+        26:ca:f6:9d:9c:0b:b6:ea:4d:96:e7:63:fa:d7:7f:68:85:8f:
+        d5:6b:af:0f:7f:f8:74:94:e6:ce:c2:3a:fa:b2:02:3c:32:27:
+        7d:01:6e:20:86:d6:8a:2d:16:38:98:f8:3b:f8:fd:8e:ad:d8:
+        0c:17:1c:29:aa:f9:4c:01:c7:dc:45:57:b9:1c:64:fb:e0:8d:
+        09:1e:82:6b:50:71:52:5a:5f:f0:f5:08:da:79:cf:ba:d9:45:
+        a1:d4:a3:8b:39:e4:49:41:f1:ec:36:27:4a:76:db:97:e4:10:
+        95:34:4a:a0:d1:b8:3b:85:59:6d:08:fc:ef:16:64:ce:08:ca:
+        3d:c2:71:15:8d:6e:8e:27:5d:f3:60:e7:3c:27:a6:b6:cf:ed:
+        23:ad:c0:3d
