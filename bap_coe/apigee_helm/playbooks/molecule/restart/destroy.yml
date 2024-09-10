@@ -11,6 +11,3 @@
 - name: Apigee runtime Destroy network
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/destroy.yml"
 
-- name: Apigee Runtime Remove Apigee Helm Charts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-download/destroy.yml"
-
