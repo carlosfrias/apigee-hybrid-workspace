@@ -46,4 +46,4 @@
 
     - name: Wait for Apigee Operator installation...
       pause:
-        seconds: 10
+        seconds: 20
