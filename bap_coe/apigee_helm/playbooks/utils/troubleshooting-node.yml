@@ -1,0 +1,35 @@
+---
+Create the image to use in the cluster. Borrowed the following from
+https://downey.io/notes/dev/ubuntu-sleep-pod-yaml/:
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu
+  labels:
+    app: ubuntu
+spec:
+  containers:
+  - image: ubuntu
+    command:
+    - "sleep"
+    - "604800"
+    imagePullPolicy: IfNotPresent
+    name: ubuntu
+  restartPolicy: Always
+EOF
+
+
+These are the steps to take inside of a troubleshooting container inside of the 
+Apigee hybrid cluster. 
+
+1  apt update && apt install curl -y
+4  curl -v -k https://apigee-webhook-service.apigee.svc:443/mutate-apigee-cloud-google-com-v1alpha1-apigeedatastore?timeout=10s
+7  openssl s_client -connect 10.47.250.136:443 -servername apigee-webhook-service.apigee.svc
+8  curl -v https://apigee-webhook-service.apigee.svc:443/mutate-apigee-cloud-google-com-v1alpha1-apigeedatastore?timeout=10s
+
+
+
+
+

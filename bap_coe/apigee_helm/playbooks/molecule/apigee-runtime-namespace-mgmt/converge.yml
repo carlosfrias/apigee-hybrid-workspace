@@ -21,4 +21,4 @@
         state: present
       loop:
       - "{{ APIGEE_NAMESPACE }}"
-      - "{{ APIGEE_SYSTEM_NAMESPACE }}"
+      - "{{ APIGEE_NAMESPACE }}"
