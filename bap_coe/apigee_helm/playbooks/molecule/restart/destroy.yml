@@ -1,12 +1,16 @@
 ---
-- name: Apigee Runtime Install Apigee Helm Charts
+- name: Apigee Runtime UnInstall Apigee Helm Charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-installation/destroy.yml"
 
-- name: Apigee Runtime Install & Configure Helm
+- name: Apigee Runtime UnInstall & Configure Helm
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/destroy.yml"
 
-- name: Apigee Runtime Configure GKE Cluster
+- name: Apigee Runtime Destroy GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster/destroy.yml"
 
-- name: Apigee runtime create network
+- name: Apigee runtime Destroy network
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/destroy.yml"
+
+- name: Apigee Runtime Remove Apigee Helm Charts
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-download/destroy.yml"
+
