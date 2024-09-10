@@ -89,6 +89,7 @@ HELM_BINARY: "{{ APIGEE_RUNTIME_WORKDIR_BINARY_DEST }}/helm"
 HELM_BINARY_TIMEOUT: 30
 APIGEE_HYBRID_HELM_CHART_REPO: oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
 APIGEE_NAMESPACE: apigee
+APIGEE_SYSTEM_NAMESPACE: apigee-system
 APIGEE_HYBRID_CHART_LIST:
 - apigee-operator
 - apigee-redis

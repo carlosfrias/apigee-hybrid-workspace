@@ -22,3 +22,4 @@
       state: absent
     loop:
     - "{{ APIGEE_NAMESPACE }}"
+    - "{{ APIGEE_SYSTEM_NAMESPACE }}"
