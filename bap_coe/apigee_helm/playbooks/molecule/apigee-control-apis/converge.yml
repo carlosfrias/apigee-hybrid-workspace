@@ -12,12 +12,17 @@
   vars:
     PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
     APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
 
   collections:
     - bap_coe.gcp_management
     - bap_coe.bootstrap_runtime
 
   roles:
+  - {
+      role: gcp_auth_service_account_activate,
+      ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+    }
   - {
       role: gcp_project_services_enable,
       tags: ['services'],
