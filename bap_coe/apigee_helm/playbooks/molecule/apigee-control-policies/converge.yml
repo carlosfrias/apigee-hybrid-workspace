@@ -1,5 +1,5 @@
 ---
-- name: Configure Apigee Host org policies
+- name: Configure Apigee Host org policies before creating service accounts
   hosts: localhost
   connection: local
 

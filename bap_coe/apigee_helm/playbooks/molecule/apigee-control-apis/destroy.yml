@@ -9,7 +9,9 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
-
+  vars:
+    PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
 
   collections:
   - bap_coe.gcp_management
@@ -17,7 +19,7 @@
 
   roles:
   - { role: service_account_file_path,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+      KEY_FILE_PATH: "{{ APIGEE_HOST_CREDENTIALS_DIR }}"
     }
 
   - { role: service_account_file_processing }
@@ -25,6 +27,6 @@
   - {
       role: gcp_project_services_enable,
       tags: ['services'],
-      ADMIN_ACCOUNT_EMAIL: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}",
+      ADMIN_ACCOUNT_EMAIL: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT }}",
       SERVICE_OP: 'disable'
     }
