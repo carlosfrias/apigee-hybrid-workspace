@@ -17,7 +17,7 @@
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
-      --zone {{ CLUSTER_ZONE }} \
+      --region {{ CLUSTER_REGION }} \
       --machine-type {{ MACHINE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
@@ -47,7 +47,7 @@
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
-      --zone {{ CLUSTER_ZONE }} \
+      --region {{ CLUSTER_REGION }} \
       --machine-type {{ MACHINE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
@@ -76,7 +76,7 @@
 #    gcloud beta container clusters create {{ CLUSTER_NAME }} \
 #      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
 #      --project {{ PROJECT_ID }} \
-#      --zone {{ CLUSTER_ZONE }} \
+#      --region {{ CLUSTER_REGION }} \
 #      --machine-type {{ MACHINE_TYPE }} \
 #      --disk-type {{ DISK_TYPE }} \
 #      --disk-size {{ DISK_SIZE }} \
@@ -100,7 +100,7 @@
 #  when: CLUSTER_VERSION is not defined and CLUSTER_CHANNEL is not defined
 
 - name: Will take a few minutes to complete cluster creation...
-  shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format yaml --project {{ PROJECT_ID }} --zone {{ CLUSTER_ZONE }}
+  shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format yaml --project {{ PROJECT_ID }} --region {{ CLUSTER_REGION }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
@@ -113,7 +113,7 @@
       --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
-      --zone {{ CLUSTER_ZONE }} \
+      --region {{ CLUSTER_REGION }} \
       --machine-type {{ MACHINE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
@@ -132,7 +132,7 @@
   - "'Already exists' not in data_pool_status.stderr"
 
 - name: Will take a few minutes to complete {{ NODE_POOL_NAME_DATA }} nodepool creation...
-  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_DATA }} --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }} --project {{ PROJECT_ID }}
+  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_DATA }} --cluster {{ CLUSTER_NAME }} --format yaml --region {{ CLUSTER_REGION }} --project {{ PROJECT_ID }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
@@ -145,7 +145,7 @@
       --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
       --project {{ PROJECT_ID }} \
       --cluster {{ CLUSTER_NAME }} \
-      --zone {{ CLUSTER_ZONE }} \
+      --region {{ CLUSTER_REGION }} \
       --machine-type {{ MACHINE_TYPE }} \
       --disk-type {{ DISK_TYPE }} \
       --disk-size {{ DISK_SIZE }} \
@@ -164,7 +164,7 @@
   - "'Already exists' not in runtime_pool_status.stderr"
 
 - name: Will take a few minutes to complete {{ NODE_POOL_NAME_RUNTIME }} nodepool creation...
-  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_RUNTIME }} --cluster {{ CLUSTER_NAME }} --format yaml --zone {{ CLUSTER_ZONE }} --project {{ PROJECT_ID }}
+  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_RUNTIME }} --cluster {{ CLUSTER_NAME }} --format yaml --region {{ CLUSTER_REGION }} --project {{ PROJECT_ID }}
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
@@ -176,7 +176,7 @@
   shell: |
     gcloud container node-pools delete default-pool \
       --cluster {{ CLUSTER_NAME }} \
-      --zone {{ CLUSTER_ZONE }} \
+      --region {{ CLUSTER_REGION }} \
       --quiet \
      --project {{ PROJECT_ID }}
   poll: 5
