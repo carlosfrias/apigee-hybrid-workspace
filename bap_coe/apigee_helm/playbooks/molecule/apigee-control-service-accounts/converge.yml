@@ -10,21 +10,15 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   vars:
+    PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
     WORK_DIR: "{{ APIGEE_CONTROL_WORK_DIR }}"
-    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
     SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT }}"
     PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX: "{{ APIGEE_HOST_PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }}"
-    CREDENTIALS_DIR: "{{ APIGEE_HOST_CREDENTIALS_DIR }}"
     TIME_TO_PROPAGATE_BINDINGS: 20
 
   collections:
     - bap_coe.gcp_management
     - bap_coe.bootstrap_runtime
-
-  pre_tasks:
-  - name: Set PROJECT_ID fact
-    set_fact:
-      PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
 
   roles:
   - {
@@ -34,19 +28,19 @@
   }
   - {
       role: gcp_iam_service_account_key_generation,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
+      KEY_FILE_PATH: "{{ APIGEE_HOST_CREDENTIALS_DIR }}",
       SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}"
     }
   - {
       role: service_account_file_path,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+      KEY_FILE_PATH: "{{ APIGEE_HOST_CREDENTIALS_DIR }}"
     }
   - {
       role: service_account_file_processing
     }
   - {
       role: gcp_auth_service_account_activate,
-      ADMIN_SERVICE_ACCOUNT: "{{ SERVICE_ACCOUNT_FILE_PATH }}"
+      ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
   }
   - {
       role: gcp_iam_policy_bindings,
@@ -54,9 +48,4 @@
       ACCOUNT_TYPE: "serviceAccount",
       POLICY_BINDINGS: "{{ ADMIN_SERVICE_ACCOUNT_ROLE_BINDINGS }}"
   }
-
-  tasks:
-    - name: Release PROJECT_ID fact
-      set_fact:
-        PROJECT_ID: None
 
