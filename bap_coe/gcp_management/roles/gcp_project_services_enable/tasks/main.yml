@@ -31,14 +31,14 @@
 - name: Enable GCP APIs
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
-  shell: gcloud services {{ SERVICE_OP }} {{ GCLOUD_PROJECT_SERVICES.join(' ') }} --project {{ PROJECT_ID }} --account {{ ADMIN_ACCOUNT_EMAIL }}
+  shell: gcloud services {{ SERVICE_OP }} {{ GCLOUD_PROJECT_SERVICES | join(' ') }} --project {{ PROJECT_ID }} --account {{ ADMIN_ACCOUNT_EMAIL }}
 #  with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
   when: SERVICE_OP == 'enable'
 
 - name: Disable GCP APIs
   #  this is now also done in the install_asm bash script.
   #  This is required here before the install_asm requires it.
-  shell: gcloud services {{ SERVICE_OP }} {{ GCLOUD_PROJECT_SERVICES.join(' ') }} --project {{ PROJECT_ID }} --account {{ ADMIN_ACCOUNT_EMAIL }} --force
+  shell: gcloud services {{ SERVICE_OP }} {{ GCLOUD_PROJECT_SERVICES | join(' ') }} --project {{ PROJECT_ID }} --account {{ ADMIN_ACCOUNT_EMAIL }} --force
 #  with_items: "{{ GCLOUD_PROJECT_SERVICES }}"
   when: SERVICE_OP == 'disable'
 
