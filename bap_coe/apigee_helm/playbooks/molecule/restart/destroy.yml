@@ -6,7 +6,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/destroy.yml"
 
 - name: Apigee Runtime Destroy GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster-mgmt/destroy.yml"
 
 - name: Apigee runtime Destroy network
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/destroy.yml"

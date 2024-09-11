@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/converge.yml"
 
 - name: Apigee Runtime Configure GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster-mgmt/converge.yml"
 
 - name: Apigee Runtime Install & Configure Helm
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/converge.yml"
