@@ -29,8 +29,7 @@
 
   pre_tasks:
   - name: Create PROJECT_ID fact
-    set_facts:
-      cacheable: true
+    set_fact:
       PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
 
   roles:
