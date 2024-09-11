@@ -9,7 +9,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
 
 - name: Remove Apigee Hybrid Host Project
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project-host/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/provision-project-control/destroy.yml"
 
 - name: Remove Apigee Hybrid Runtime Project
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/destroy.yml"

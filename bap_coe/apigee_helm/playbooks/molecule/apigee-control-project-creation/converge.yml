@@ -1,5 +1,5 @@
 - name: Provision project
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project-host/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/provision-project-control/converge.yml"
 
 - name: Update organization policies for Apigee project host
   import_playbook: "{{ playbook_dir | dirname }}/apigee-control-policies/converge.yml"

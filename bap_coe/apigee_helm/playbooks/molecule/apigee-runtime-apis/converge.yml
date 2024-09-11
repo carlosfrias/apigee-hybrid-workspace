@@ -1,5 +1,5 @@
 ---
-- name: Apigee Runtime Enable APIs
+- name: Step 1 - Enable APIs for runtime
   hosts: localhost
   connection: local
 
