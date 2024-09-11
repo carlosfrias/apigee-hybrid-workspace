@@ -26,13 +26,13 @@
     - {
       role: gcp_auth_service_account_activate,
         ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}",
-    }
-  - {
-      role: gcp_project_services_enable,
-      tags: ['services'],
-      ADMIN_ACCOUNT_EMAIL: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}",
-      SERVICE_OP: "enable"
-    }
+      }
+    - {
+        role: gcp_project_services_enable,
+        tags: ['services'],
+        ADMIN_ACCOUNT_EMAIL: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}",
+        SERVICE_OP: "enable"
+      }
 
 #  tasks:
 #  - name: Release PROJECT_ID fact
