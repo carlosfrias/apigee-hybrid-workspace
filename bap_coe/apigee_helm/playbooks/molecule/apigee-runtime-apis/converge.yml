@@ -17,16 +17,24 @@
     - bap_coe.gcp_management
     - bap_coe.bootstrap_runtime
 
+  pre_tasks:
+  - name: Set PROJECT_ID fact
+    set_fact:
+      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+
   roles:
   - {
       role: gcp_auth_service_account_activate,
-      ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}",
-      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+      ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
     }
   - {
       role: gcp_project_services_enable,
       tags: ['services'],
       ADMIN_ACCOUNT_EMAIL: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}",
-      SERVICE_OP: "enable",
-      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+      SERVICE_OP: "enable"
     }
+
+  tasks:
+  - name: Remove PROJECT_ID fact
+    set_fact:
+      PROJECT_ID:None

@@ -19,7 +19,6 @@
     SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
     PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX: "{{ APIGEE_RUNTIME_PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }}"
     CREDENTIALS_DIR: "{{ APIGEE_RUNTIME_CREDENTIALS_DIR }}"
-    FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_REGION }}_{{ CLUSTER_NAME }}"
 
   collections:
   - bap_coe.apigee_hybrid
@@ -36,10 +35,19 @@
   - { role: apigee-hybrid-cluster-credentials }
 
   tasks:
-  - name: Set KUBECONFIG cache
+  - name: Set regional KUBECONFIG cache
     set_fact:
       cacheable: yes
       CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/credentials/{{ CLUSTER_NAME }}-{{ CLUSTER_REGION }}.kubeconfig-context.json"
+      FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_REGION }}_{{ CLUSTER_NAME }}"
+    when: REGIONAL_CLUSTER is truthy
+
+  - name: Set zonal KUBECONFIG cache
+    set_fact:
+      cacheable: yes
+      CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/credentials/{{ CLUSTER_NAME }}-{{ CLUSTER_REGION }}.kubeconfig-context.json"
+      FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_REGION }}_{{ CLUSTER_NAME }}"
+    when: REGIONAL_CLUSTER is not truthy
 
   - block:
     - name: Rename cluster
