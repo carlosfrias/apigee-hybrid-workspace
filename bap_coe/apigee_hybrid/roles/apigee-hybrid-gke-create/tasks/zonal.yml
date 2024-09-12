@@ -1,18 +1,5 @@
 ---
-# tasks file for roles/apigee-hybrid-gke-create
-- name: Set gke cache
-  set_fact:
-    cacheable: yes
-    ATTACHED_CLUSTER: False
-    NODE_COUNT: "{{ NODE_COUNT | default(DEFAULT_NODE_COUNT) }}"
-    MACHINE_TYPE: "{{ MACHINE_TYPE | default(DEFAULT_MACHINE_TYPE) }}"
-
-- name: Confirm WORK_DIR
-  file: 
-    path: "{{ WORK_DIR }}"
-    state: directory  
-
-- name: Create Apigee hybrid cluster with defined channel and cluster-version
+- name: Create Zonal Apigee hybrid cluster with defined channel and cluster-version
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
@@ -42,7 +29,7 @@
   - "'Already exists' not in status.stderr"
   when: CLUSTER_VERSION is defined and CLUSTER_CHANNEL in ['rapid', 'regular', 'stable']
 
-- name: Create Apigee hybrid cluster with default channel and cluster-version with default node-pool
+- name: Create Zonal Apigee hybrid cluster with default channel and cluster-version with default node-pool
   shell: |
     gcloud beta container clusters create {{ CLUSTER_NAME }} \
       --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
@@ -79,7 +66,7 @@
   retries: 1000
   async: 90
 
-- name: Create data node-pool {{ NODE_POOL_NAME_DATA }}
+- name: Create Zonal data node-pool {{ NODE_POOL_NAME_DATA }}
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
       --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
@@ -111,7 +98,7 @@
   retries: 1000
   async: 90
 
-- name: Create runtime node-pool {{ NODE_POOL_NAME_RUNTIME }}
+- name: Create Zonal runtime node-pool {{ NODE_POOL_NAME_RUNTIME }}
   shell: |
     gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
       --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
