@@ -25,6 +25,21 @@
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
+  pre_tasks:
+    - name: Set regional KUBECONFIG cache
+      set_fact:
+        cacheable: yes
+        CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/credentials/{{ CLUSTER_NAME }}-{{ CLUSTER_REGION }}.kubeconfig-context.json"
+        FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_REGION }}_{{ CLUSTER_NAME }}"
+      when: REGIONAL_CLUSTER is truthy
+
+    - name: Set zonal KUBECONFIG cache
+      set_fact:
+        cacheable: yes
+        CLUSTER_KUBECONFIG: "{{ WORK_DIR }}/credentials/{{ CLUSTER_NAME }}-{{ CLUSTER_ZONE }}.kubeconfig-context.json"
+        FQ_CLUSTER_NAME: "gke_{{ PROJECT_ID }}_{{ CLUSTER_ZONE }}_{{ CLUSTER_NAME }}"
+      when: REGIONAL_CLUSTER is not truthy
+
   roles:
     - {
         role: service_account_file_path,
