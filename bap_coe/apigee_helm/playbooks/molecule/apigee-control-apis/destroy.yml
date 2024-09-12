@@ -23,7 +23,11 @@
     }
 
   - { role: service_account_file_processing }
-  - { role: gcp_auth_service_account_activate }
+  - {
+      role: gcp_auth_service_account_activate,
+      ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT }}",
+      CREDENTIALS_DIR: "{{ APIGEE_HOST_CREDENTIALS_DIR }}"
+    }
   - {
       role: gcp_project_services_enable,
       tags: ['services'],
