@@ -15,7 +15,7 @@
 
   vars:
     PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
-    GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_RUNTIME_GCP_TOKEN_FILE_PATH }}"
 
   roles:
   - { role: gce_external_ip_get }
