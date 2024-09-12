@@ -1,0 +1,156 @@
+---
+# tasks file for roles/apigee-hybrid-gke-create
+- name: Set gke cache
+  set_fact:
+    cacheable: yes
+    ATTACHED_CLUSTER: False
+    NODE_COUNT: "{{ NODE_COUNT | default(DEFAULT_NODE_COUNT) }}"
+    MACHINE_TYPE: "{{ MACHINE_TYPE | default(DEFAULT_MACHINE_TYPE) }}"
+
+- name: Confirm WORK_DIR
+  file: 
+    path: "{{ WORK_DIR }}"
+    state: directory  
+
+- name: Create Apigee hybrid cluster with defined channel and cluster-version
+  shell: |
+    gcloud beta container clusters create {{ CLUSTER_NAME }} \
+      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
+      --project {{ PROJECT_ID }} \
+      --region {{ CLUSTER_REGION }} \
+      --machine-type {{ MACHINE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --release-channel {{ CLUSTER_CHANNEL }} \ 
+      --cluster-version {{ CLUSTER_VERSION }} \
+      --logging {{ LOGGING }} \
+      --monitoring {{ MONITORING }} \
+      --network {{ VPC_NETWORK_NAME }} \
+      --subnetwork {{ VPC_SUBNETWORK_NAME }} \
+      --addons {{ CLUSTER_ADDONS }} \
+      --location-policy "BALANCED" \
+      --enable-autoscaling \
+      --metadata disable-legacy-endpoints=true
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'Already exists' not in status.stderr"
+  when: CLUSTER_VERSION is defined and CLUSTER_CHANNEL in ['rapid', 'regular', 'stable']
+
+- name: Create Apigee hybrid cluster with default channel and cluster-version with default node-pool
+  shell: |
+    gcloud beta container clusters create {{ CLUSTER_NAME }} \
+      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
+      --project {{ PROJECT_ID }} \
+      --region {{ CLUSTER_REGION }} \
+      --machine-type {{ MACHINE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --logging {{ LOGGING }} \
+      --monitoring {{ MONITORING }} \
+      --network {{ VPC_NETWORK_NAME }} \
+      --subnetwork {{ VPC_SUBNETWORK_NAME }} \
+      --addons {{ CLUSTER_ADDONS }} \
+      --location-policy "BALANCED" \
+      --enable-autoscaling \
+      --metadata disable-legacy-endpoints=true \
+      --no-enable-ip-alias
+  register: status
+  failed_when:
+  - status.rc == 1
+  - "'Already exists' not in status.stderr"
+  when: CLUSTER_VERSION is not defined and CLUSTER_CHANNEL is not defined
+
+- name: Will take a few minutes to complete cluster creation...
+  shell: gcloud beta container clusters describe {{ CLUSTER_NAME }} --format yaml --project {{ PROJECT_ID }} --region {{ CLUSTER_REGION }}
+  register: operation_status
+  until: "'status: RUNNING' in operation_status.stdout"
+  poll: 5
+  retries: 1000
+  async: 90
+
+- name: Create data node-pool {{ NODE_POOL_NAME_DATA }}
+  shell: |
+    gcloud beta container node-pools create {{ NODE_POOL_NAME_DATA }} \
+      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
+      --project {{ PROJECT_ID }} \
+      --cluster {{ CLUSTER_NAME }} \
+      --region {{ CLUSTER_REGION }} \
+      --machine-type {{ MACHINE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --location-policy "BALANCED" \
+      --enable-autoscaling \
+      --metadata disable-legacy-endpoints=true \
+      --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_NAME_DATA }}
+  register: data_pool_status
+  failed_when:
+  - data_pool_status.rc == 1
+  - "'Already exists' not in data_pool_status.stderr"
+
+- name: Will take a few minutes to complete {{ NODE_POOL_NAME_DATA }} nodepool creation...
+  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_DATA }} --cluster {{ CLUSTER_NAME }} --format yaml --region {{ CLUSTER_REGION }} --project {{ PROJECT_ID }}
+  register: operation_status
+  until: "'status: RUNNING' in operation_status.stdout"
+  poll: 5
+  retries: 1000
+  async: 90
+
+- name: Create runtime node-pool {{ NODE_POOL_NAME_RUNTIME }}
+  shell: |
+    gcloud beta container node-pools create {{ NODE_POOL_NAME_RUNTIME }} \
+      --service-account {{ RUNTIME_SERVICE_ACCOUNT }} \
+      --project {{ PROJECT_ID }} \
+      --cluster {{ CLUSTER_NAME }} \
+      --region {{ CLUSTER_REGION }} \
+      --machine-type {{ MACHINE_TYPE }} \
+      --disk-type {{ DISK_TYPE }} \
+      --disk-size {{ DISK_SIZE }} \
+      --num-nodes {{ NODE_COUNT | int }} \
+      --max-nodes {{ (NODE_COUNT_MAX | int ) }} \
+      --min-nodes {{ (NODE_COUNT_MIN | int ) }} \
+      --max-surge-upgrade {{ MAX_SURGE_UPGRADE }} \
+      --max-unavailable-upgrade {{ MAX_UNAVAILABLE_UPGRADE }} \
+      --location-policy "BALANCED" \
+      --enable-autoscaling \
+      --metadata disable-legacy-endpoints=true \
+      --node-labels {{ NODE_POOL_NAME_LABEL_ATTRIBUTE }}={{ NODE_POOL_NAME_RUNTIME }}
+  register: runtime_pool_status
+  failed_when:
+  - runtime_pool_status.rc == 1
+  - "'Already exists' not in runtime_pool_status.stderr"
+
+- name: Will take a few minutes to complete {{ NODE_POOL_NAME_RUNTIME }} nodepool creation...
+  shell: gcloud beta container node-pools describe {{ NODE_POOL_NAME_RUNTIME }} --cluster {{ CLUSTER_NAME }} --format yaml --region {{ CLUSTER_REGION }} --project {{ PROJECT_ID }}
+  register: operation_status
+  until: "'status: RUNNING' in operation_status.stdout"
+  poll: 5
+  retries: 1000
+  async: 90
+
+- name: Delete default node-pool that is created
+  ignore_errors: true
+  shell: |
+    gcloud container node-pools delete default-pool \
+      --cluster {{ CLUSTER_NAME }} \
+      --region {{ CLUSTER_REGION }} \
+      --quiet \
+     --project {{ PROJECT_ID }}
+  poll: 5
+  retries: 1000
+  async: 90
