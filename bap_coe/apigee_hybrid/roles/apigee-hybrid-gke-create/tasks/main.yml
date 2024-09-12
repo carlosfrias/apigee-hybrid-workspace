@@ -17,5 +17,5 @@
   when: REGIONAL_CLUSTER is truthy
 
 - name: Create Zonal Cluster
-  include_tasks: regional.yml
+  include_tasks: zonal.yml
   when: REGIONAL_CLUSTER is not truthy
