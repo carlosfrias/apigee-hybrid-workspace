@@ -12,7 +12,7 @@
   vars:
     PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
-    GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_RUNTIME_GCP_TOKEN_FILE_PATH }}"
 
   collections:
   - bap_coe.gcp_management

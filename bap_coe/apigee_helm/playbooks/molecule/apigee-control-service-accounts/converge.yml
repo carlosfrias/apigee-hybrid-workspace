@@ -10,7 +10,7 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   vars:
-    PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
+    PROJECT_ID: "{{ APIGEE_CONTROL_PROJECT_ID }}"
     WORK_DIR: "{{ APIGEE_CONTROL_WORK_DIR }}"
     SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT }}"
     SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"

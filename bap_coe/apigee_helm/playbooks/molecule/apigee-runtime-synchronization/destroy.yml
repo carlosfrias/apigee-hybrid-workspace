@@ -33,5 +33,5 @@
       ACCOUNT_TYPE: "serviceAccount",
       POLICY_BINDINGS: [ "roles/apigee.synchronizerManager","roles/apigee.admin" ],
       SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}",
-      PROJECT_ID: "{{ APIGEE_HOST_PROJECT_ID }}"
+      PROJECT_ID: "{{ APIGEE_CONTROL_PROJECT_ID }}"
     }

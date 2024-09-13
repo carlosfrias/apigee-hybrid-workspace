@@ -21,7 +21,7 @@
           state: present
           chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-org"
           namespace: "{{ APIGEE_NAMESPACE }}"
-          name: "{{ APIGEE_HOST_PROJECT_ID }}"
+          name: "{{ APIGEE_CONTROL_PROJECT_ID }}"
           create_namespace: true
           wait: false
           values_files:
@@ -35,7 +35,7 @@
           state: present
           chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-org"
           namespace: "{{ APIGEE_NAMESPACE }}"
-          name: "{{ APIGEE_HOST_PROJECT_ID }}"
+          name: "{{ APIGEE_CONTROL_PROJECT_ID }}"
           create_namespace: true
           wait: false
           values_files:
