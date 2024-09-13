@@ -11,7 +11,7 @@
 
   vars:
     PROJECT_ID: "{{ APIGEE_CONTROL_PROJECT_ID }}"
-    WORK_DIR: "{{ APIGEE_HOST_WORK_DIR }}"
+    WORK_DIR: "{{ APIGEE_CONTROL_WORK_DIR }}"
 
   collections:
   - bap_coe.gcp_management

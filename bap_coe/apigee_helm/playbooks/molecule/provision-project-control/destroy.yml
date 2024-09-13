@@ -11,8 +11,8 @@
 
   vars:
     PROJECT_ID: "{{ APIGEE_CONTROL_PROJECT_ID }}"
-    WORK_DIR: "{{ APIGEE_HOST_WORK_DIR }}"
-    GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}"
+    WORK_DIR: "{{ APIGEE_CONTROL_WORK_DIR }}"
+    GCP_TOKEN_FILE_PATH: "{{ APIGEE_CONTROL_GCP_TOKEN_FILE_PATH }}"
 
   collections:
   - bap_coe.gcp_management

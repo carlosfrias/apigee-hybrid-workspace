@@ -15,10 +15,10 @@
 
   vars:
     PROJECT_ID: "{{ APIGEE_CONTROL_PROJECT_ID }}"
-    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_CONTROL_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
 
   roles:
-  - { role: service_account_file_path, KEY_FILE_PATH: "{{ APIGEE_HOST_CREDENTIALS_DIR }}" }
+  - { role: service_account_file_path, KEY_FILE_PATH: "{{ APIGEE_CONTROL_CREDENTIALS_DIR }}" }
   - { role: service_account_file_processing }
 #  - { role: gcp_auth_service_account_activate }
-  - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'delete', SERVICE_ACCOUNTS: [ "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT }}" ]  }
+  - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'delete', SERVICE_ACCOUNTS: [ "{{ APIGEE_CONTROL_ADMIN_SERVICE_ACCOUNT }}" ]  }

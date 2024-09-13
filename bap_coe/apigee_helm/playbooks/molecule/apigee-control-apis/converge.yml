@@ -11,7 +11,7 @@
 
   vars:
     PROJECT_ID: "{{ APIGEE_CONTROL_PROJECT_ID }}"
-    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_CONTROL_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
   collections:
 
     - bap_coe.bootstrap_runtime
@@ -20,13 +20,13 @@
   roles:
     - {
         role: gcp_auth_service_account_activate,
-        ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT }}",
-        CREDENTIALS_DIR: "{{ APIGEE_HOST_CREDENTIALS_DIR }}"
+        ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_CONTROL_ADMIN_SERVICE_ACCOUNT }}",
+        CREDENTIALS_DIR: "{{ APIGEE_CONTROL_CREDENTIALS_DIR }}"
       }
     - {
         role: gcp_project_services_enable,
         tags: ['services'],
-        ADMIN_ACCOUNT_EMAIL: "{{ APIGEE_HOST_ADMIN_SERVICE_ACCOUNT }}",
+        ADMIN_ACCOUNT_EMAIL: "{{ APIGEE_CONTROL_ADMIN_SERVICE_ACCOUNT }}",
         SERVICE_OP: "enable"
       }
 

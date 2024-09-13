@@ -12,7 +12,7 @@
   vars:
     PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
-    CREDENTIALS_DIR: "{{ APIGEE_HOST_CREDENTIALS_DIR }}"
+    CREDENTIALS_DIR: "{{ APIGEE_CONTROL_CREDENTIALS_DIR }}"
 
   collections:
   - bap_coe.apigee_hybrid

@@ -16,7 +16,7 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   vars:
-    WORK_DIR: "{{ APIGEE_HOST_WORK_DIR }}"
+    WORK_DIR: "{{ APIGEE_CONTROL_WORK_DIR }}"
 
   tasks:
   - name: Clean up work_dir

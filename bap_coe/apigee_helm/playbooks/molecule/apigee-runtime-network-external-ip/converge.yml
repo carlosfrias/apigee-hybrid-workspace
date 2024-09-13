@@ -26,7 +26,7 @@
     }
   - { role: service_account_file_processing }
   - { role: gcp_auth_service_account_activate }
-  - { role: gcp_token_retrieval, GCP_TOKEN_FILE_PATH: "{{ APIGEE_HOST_GCP_TOKEN_FILE_PATH }}" }
+  - { role: gcp_token_retrieval, GCP_TOKEN_FILE_PATH: "{{ APIGEE_CONTROL_GCP_TOKEN_FILE_PATH }}" }
   - { role: gce_external_ip_create }
   - { role: gce_external_ip_get }
   - {
