@@ -2,14 +2,14 @@
 # tasks file for roles/apigee-hybrid-gke-create
 - block:
   - name: Delete cluster from kubectl config
-    shell: kubectl config delete-cluster {{ CLUSTER_NAME }}
+    shell: kubectl config delete-cluster {{ FQ_CLUSTER_NAME }}
     poll: 0
     async: 90
 
   rescue:
     - name: RESCUE - Delete cluster from kubectl config
       ignore_errors: true
-      shell: kubectl config delete-cluster {{ CLUSTER_NAME }}
+      shell: kubectl config delete-cluster {{ FQ_CLUSTER_NAME }}
       poll: 0
       async: 90
 
