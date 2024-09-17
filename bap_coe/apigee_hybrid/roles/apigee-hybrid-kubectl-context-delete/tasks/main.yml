@@ -3,15 +3,15 @@
 - block:
   - name: Delete cluster from kubectl config
     shell: kubectl config delete-cluster {{ FQ_CLUSTER_NAME }}
-#    poll: 0
-#    async: 90
+    poll: 0
+    async: 90
 
   rescue:
     - name: RESCUE - Delete cluster from kubectl config
       ignore_errors: true
       shell: kubectl config delete-cluster {{ FQ_CLUSTER_NAME }}
-#      poll: 0
-#      async: 90
+      poll: 0
+      async: 90
 
 - block:
   - name: Delete context from kubectl config
@@ -22,6 +22,6 @@
   rescue:
     - name: RESCUE - Delete context from kubectl config
       ignore_errors: true
-      shell: kubectl config delete-context {{ CLUSTER_NAME }}
+      shell: kubectl config delete-context {{ FQ_CLUSTER_NAME }}
 #      poll: 0
 #      async: 90
