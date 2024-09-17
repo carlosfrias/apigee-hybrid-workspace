@@ -11,3 +11,5 @@
 - name: Remove helm for Apigee Runtime
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/destroy.yml"
 
+- name: Remove kubectl Cluster credentials
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
