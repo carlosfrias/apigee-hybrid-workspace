@@ -3,21 +3,21 @@
 - block:
   - name: Delete cluster from kubectl config
     shell: kubectl config delete-cluster {{ item }}
-    with_items: [ {{ FQ_CLUSTER_NAME }}, {{ CLUSTER_NAME }}]
+    with_items: ["{{ FQ_CLUSTER_NAME }}", "{{ CLUSTER_NAME }}" ]
 #    poll: 0
 #    async: 90
   rescue:
     - name: RESCUE - Delete cluster from kubectl config
       ignore_errors: true
       shell: kubectl config delete-cluster {{ item }}
-      with_items: [ {{ FQ_CLUSTER_NAME }}, {{ CLUSTER_NAME }}]
+      with_items: ["{{ FQ_CLUSTER_NAME }}", "{{ CLUSTER_NAME }}" ]
 #      poll: 0
 #      async: 90
 
 - block:
   - name: Delete context from kubectl config
     shell: kubectl config delete-context {{ item }}
-    with_items: [ {{ FQ_CLUSTER_NAME }}, {{ CLUSTER_NAME }}]
+    with_items: ["{{ FQ_CLUSTER_NAME }}", "{{ CLUSTER_NAME }}" ]
 
 #    poll: 0
 #    async: 90
@@ -26,6 +26,6 @@
     - name: RESCUE - Delete context from kubectl config
       ignore_errors: true
       shell: kubectl config delete-context {{ item }}
-      with_items: [ {{ FQ_CLUSTER_NAME }}, {{ CLUSTER_NAME }}]
+      with_items: ["{{ FQ_CLUSTER_NAME }}", "{{ CLUSTER_NAME }}" ]
 #      poll: 0
 #      async: 90
