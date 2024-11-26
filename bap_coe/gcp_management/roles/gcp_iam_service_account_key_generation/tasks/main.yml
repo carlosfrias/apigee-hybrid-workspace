@@ -20,7 +20,7 @@
 
 - name: Assert KEY_FILE_PATH directory
   file:
-    path: "{{ KEY_FILE_PATH }}"
+    path: "{{ KEY_FILE_PATH | dirname }}"
     state: directory
 
 - name: Create initial service account key file, if not there
