@@ -12,16 +12,16 @@
     - KEY_FILE_PATH is defined
     msg: "Please provide the KEY_FILE_PATH"
 
-- name: Assert KEY_FILE_PATH directory
-  file:
-    path: "{{ KEY_FILE_PATH }}"
-    state: directory
-
 - name: Remove existing key files if present
   file:
     path: "{{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
     state: absent
   loop: "{{ SERVICE_ACCOUNTS }}"
+
+- name: Assert KEY_FILE_PATH directory
+  file:
+    path: "{{ KEY_FILE_PATH }}"
+    state: directory
 
 - name: Create initial service account key file, if not there
   shell: |
