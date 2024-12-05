@@ -14,7 +14,7 @@
 
 - name: Remove existing key files if present
   file:
-    path: "{{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
+    path: "{{ KEY_FILE_PATH }}/{{ PROJECT_ID }}{{ item }}.json"
     state: absent
   loop: "{{ SERVICE_ACCOUNTS }}"
 
