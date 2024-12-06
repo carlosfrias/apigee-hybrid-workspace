@@ -81,6 +81,7 @@
   when: SERVICE_OP == "create"
 
 - name: Delete a service account
+  ignore_errors: true
   shell: |
     gcloud iam service-accounts {{ SERVICE_OP }} {{ item }} \
       --project {{ PROJECT_ID }} \
