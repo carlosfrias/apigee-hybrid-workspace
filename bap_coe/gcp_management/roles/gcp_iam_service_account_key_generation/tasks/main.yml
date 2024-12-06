@@ -14,7 +14,7 @@
 
 - name: Remove existing key files if present
   file:
-    path: "{{ KEY_FILE_PATH }}/{{ PROJECT_ID }}{{ item }}.json"
+    path: "{{ KEY_FILE_PATH }}/{{ PROJECT_ID }}-{{ item }}.json"
     state: absent
   loop: "{{ SERVICE_ACCOUNTS }}"
 
@@ -30,12 +30,12 @@
       --project {{ PROJECT_ID }} \
       --account {{ ADMIN_ACCOUNT_EMAIL }}
   args:
-    creates: "{{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
+    creates: "{{ KEY_FILE_PATH }}/{{ PROJECT_ID }}-{{ item }}.json"
   loop: "{{ SERVICE_ACCOUNTS }}"
 
 - name: Assert file is visible
   file:
-    path: "{{ KEY_FILE_PATH }}/{{ item }}-{{ SERVICE_ACCOUNT_FILE_SUFFIX }}.json"
+    path: "{{ KEY_FILE_PATH }}/{{ PROJECT_ID }}-{{ item }}.json"
     mode: "u=rw,g=r,o=r"
     state: file
   loop: "{{ SERVICE_ACCOUNTS }}"
