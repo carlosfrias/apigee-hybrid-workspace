@@ -22,3 +22,10 @@
   - { role: service_account_file_processing }
 #  - { role: gcp_auth_service_account_activate }
   - { role: gcp_iam_service_account_mgmt, SERVICE_OP: 'delete', SERVICE_ACCOUNTS: [ "{{ APIGEE_CONTROL_ADMIN_SERVICE_ACCOUNT }}" ]  }
+
+  tasks:
+  - name: Remove credentials folder
+    file:
+     path: "{{ APIGEE_CONTROL_CREDENTIALS_DIR }}"
+     state: absent
+
