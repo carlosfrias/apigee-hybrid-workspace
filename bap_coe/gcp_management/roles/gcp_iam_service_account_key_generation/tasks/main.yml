@@ -23,7 +23,7 @@
     path: "{{ KEY_FILE_PATH | dirname }}"
     state: directory
 
-- name: Create initial service account key file, if not there
+- name: Create initial service account key file
   shell: |
     gcloud iam service-accounts keys create {{ KEY_FILE_PATH }}/{{ PROJECT_ID }}{{ item }}.json \
       --iam-account={{ item }}{{ PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }} \
