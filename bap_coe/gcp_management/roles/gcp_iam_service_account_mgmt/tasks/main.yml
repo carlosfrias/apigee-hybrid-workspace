@@ -49,6 +49,7 @@
         --description={{ item }} \
         --display-name={{ item }} \
         --project {{ PROJECT_ID }} \
+        --account {{ ADMIN_ACCOUNT_EMAIL }} \
         --quiet
     loop: "{{ SERVICE_ACCOUNTS }}"
 
