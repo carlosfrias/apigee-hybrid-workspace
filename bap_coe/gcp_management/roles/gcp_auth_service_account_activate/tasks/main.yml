@@ -17,5 +17,6 @@
   shell: |
     gcloud auth activate-service-account \
     --key-file {{ SERVICE_ACCOUNT_FILE_PATH }} \
+    --account {{ ADMIN_ACCOUNT_EMAIL }} \
     --project {{ PROJECT_ID }}
 
