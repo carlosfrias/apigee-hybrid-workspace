@@ -1,27 +1,27 @@
 ---
-- name: Apigee runtime create GCP infrastructure
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/converge.yml"
-
-- name: Apigee Runtime Configure org policies
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-policies/converge.yml"
-
-- name: Apigee runtime service accounts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-accounts/converge.yml"
-
-- name: Apigee Runtime Configure host to synchronization service account
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
-
-- name: Apigee Runtime Enable Apigee APIs
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apis/converge.yml"
-
-- name: Apigee runtime create network
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/converge.yml"
-
+#- name: Apigee runtime create GCP infrastructure
+#  import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/converge.yml"
+#
+#- name: Apigee Runtime Configure org policies
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-policies/converge.yml"
+#
+#- name: Apigee runtime service accounts
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-accounts/converge.yml"
+#
+#- name: Apigee Runtime Configure host to synchronization service account
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
+#
+#- name: Apigee Runtime Enable Apigee APIs
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apis/converge.yml"
+#
+#- name: Apigee runtime create network
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/converge.yml"
+#
 - name: Apigee Runtime Configure GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster-mgmt/converge.yml"
 
-- name: Apigee Runtime Install & Configure Helm
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/converge.yml"
-
-- name: Apigee Runtime Install Apigee Helm Charts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-installation/converge.yml"
+#- name: Apigee Runtime Install & Configure Helm
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/converge.yml"
+#
+#- name: Apigee Runtime Install Apigee Helm Charts
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-installation/converge.yml"

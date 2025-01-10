@@ -26,6 +26,10 @@
         KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
       }
     - { role: service_account_file_processing }
-    - { role: gcp_auth_service_account_activate }
+    - {
+        role: gcp_auth_service_account_activate,
+        ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}",
+        SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+      }
     - { role: gce_external_ip_create }
 
