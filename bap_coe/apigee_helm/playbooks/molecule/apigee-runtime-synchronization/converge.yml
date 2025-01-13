@@ -26,7 +26,6 @@
     - bap_coe.apigee_hybrid
     - bap_coe.gcp_management
 
-
   pre_tasks:
   - name: Create PROJECT_ID fact
     set_fact:
