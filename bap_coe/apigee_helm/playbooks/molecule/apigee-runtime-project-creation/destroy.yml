@@ -12,11 +12,11 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-external-ip-address-mgmt/destroy.yml"
 #
 #- name: Destroy apigee namespace
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apigee-namespace-mgmt/destroy.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-namespace-mgmt/destroy.yml"
 #
-- name: Destroy TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
-
+#- name: Destroy TLS certificates
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
+#
 #- name: Remove Apigee hybrid helm configuration
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/destroy.yml"
 
@@ -31,6 +31,7 @@
 
 - name: Provision project - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/destroy.yml"
+
 
 - name: Clean up Apigee hybrid filesystem
   hosts: localhost
