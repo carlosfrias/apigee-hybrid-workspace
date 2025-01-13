@@ -19,15 +19,15 @@
 #
 #- name: Remove Apigee hybrid helm configuration
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/destroy.yml"
-
-- name: Remove kubectl Cluster credentials
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
-
+#
+#- name: Remove kubectl Cluster credentials
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
+#
 #- name: Remove Network Configs
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/destroy.yml"
 
-- name: Remove Apigee Runtime synchronization service account permissions from control project
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
+#- name: Remove Apigee Runtime synchronization service account permissions from control project
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
 
 - name: Provision project - destroy invocation
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/destroy.yml"
