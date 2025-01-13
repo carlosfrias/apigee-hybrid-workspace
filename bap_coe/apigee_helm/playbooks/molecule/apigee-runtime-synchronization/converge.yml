@@ -44,7 +44,6 @@
         SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}",
       }
 
-
 - name: Apigee Runtime Enable Synchronizer
   hosts: localhost
   connection: local
@@ -66,7 +65,6 @@
     SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
     APIGEE_CONTROL_PROJECT_ID: "apigee-ctrl-{{ PROJECT_DATE_SUFFIX }}-{{ APIGEE_CONTROL_PROJECT_TIME_SUFFIX }}"
     TIME_TO_PROPAGATE_BINDINGS: 20
-  #    ADMIN_ACCOUNT_USER: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
 
   collections:
     - bap_coe.apigee_hybrid
@@ -77,4 +75,7 @@
         role: gcp_token_retrieval,
         PROJECT_ID: "{{ APIGEE_CONTROL_PROJECT_ID }}"
       }
-    - { role: apigee-hybrid-uri-synchronizer-enable }
+    - {
+        role: apigee-hybrid-uri-synchronizer-enable,
+        SERVICE_ACCOUNT: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}"
+      }
