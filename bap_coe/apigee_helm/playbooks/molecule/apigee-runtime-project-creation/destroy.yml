@@ -30,7 +30,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
 
 - name: Provision project - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/default/destroy.yml"
 
 
 - name: Clean up Apigee hybrid filesystem

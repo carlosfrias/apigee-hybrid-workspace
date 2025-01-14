@@ -11,9 +11,9 @@
 #      DATA_CENTER: "dc-1"
 
 
-- name: Apigee hybrid Deployment Part 0
-  import_playbook: "{{ playbook_dir | dirname}}/apigee-project-host/converge.yml"
-
+#- name: Apigee hybrid Deployment Part 0
+#  import_playbook: "{{ playbook_dir | dirname}}/apigee-project-host/converge.yml"
+#
 #- name: Apigee hybrid Deployment Part 1
 #  import_playbook: "{{ playbook_dir | dirname}}/apigee-part-1/converge.yml"
 #
