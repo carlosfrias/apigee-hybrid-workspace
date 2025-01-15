@@ -1,14 +1,14 @@
-- name: Provision project
+- name: Prerequisite - Provision project
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-control/converge.yml"
 
-- name: Update organization policies for Apigee project host
+- name: Prerequisite - Argo organization policy update
   import_playbook: "{{ playbook_dir | dirname }}/apigee-argo-control-policies/converge.yml"
 
 - name: Create service accounts for Apigee project host
   import_playbook: "{{ playbook_dir | dirname }}/apigee-control-service-accounts/converge.yml"
 
 - name: Enable Apigee APIs for Apigee project host
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-control-apis/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-control-enable-apis/converge.yml"
 
 - name: Create Apigee host organization
   import_playbook: "{{ playbook_dir | dirname }}/apigee-control-org/converge.yml"
