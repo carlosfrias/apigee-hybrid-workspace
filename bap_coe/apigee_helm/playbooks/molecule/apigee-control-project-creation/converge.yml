@@ -2,7 +2,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-control/converge.yml"
 
 - name: Update organization policies for Apigee project host
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-control-policies/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-argo-control-policies/converge.yml"
 
 - name: Create service accounts for Apigee project host
   import_playbook: "{{ playbook_dir | dirname }}/apigee-control-service-accounts/converge.yml"
