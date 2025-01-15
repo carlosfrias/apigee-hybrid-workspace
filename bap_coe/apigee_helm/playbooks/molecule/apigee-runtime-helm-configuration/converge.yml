@@ -13,4 +13,3 @@
 
 - name: Apigee Runtime Distribute configs and credentials to helm chart folders
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/converge.yml"
-
