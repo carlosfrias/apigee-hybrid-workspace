@@ -1,0 +1,14 @@
+---
+- name: Create StorageClass config
+  shell: |
+    kubectl apply -f storageclass.yml
+
+- name: Patch storageclass standard-rwo
+  shell: |
+    kubectl patch storageclass standard-rwo \
+    -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+
+- name: Patch storageclass apigee-sc
+  shell: |
+    kubectl patch storageclass apigee-sc \
+    -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
