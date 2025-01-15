@@ -1,15 +1,4 @@
 ---
-#- name: Set data center
-#  hosts: localhost
-#  connection: local
-#  gather_facts: true
-#
-#  tasks:
-#  - name: Set data center fact
-#    set_fact:
-#      cacheable: true
-#      DATA_CENTER: "dc-1"
-
 - name: Apigee Runtime Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/converge.yml"
 
