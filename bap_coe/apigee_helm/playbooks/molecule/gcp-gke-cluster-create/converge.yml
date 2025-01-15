@@ -33,3 +33,6 @@
     - { role: service_account_file_processing }
     - { role: gce_network_create }
     - { role: apigee-hybrid-gke-create }
+
+  tasks:
+  - name:
