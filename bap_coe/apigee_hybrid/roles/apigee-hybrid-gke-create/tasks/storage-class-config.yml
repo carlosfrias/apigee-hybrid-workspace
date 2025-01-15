@@ -1,7 +1,7 @@
 ---
 - name: Create StorageClass config
   shell: |
-    kubectl apply -f files/storageclass.yml
+    kubectl apply -f {{role_path}}/files/storageclass.yml
 
 - name: Patch storageclass standard-rwo
   shell: |
