@@ -13,6 +13,11 @@
 
 
   tasks:
+    - name: Assert that apigee-operator folder exists
+      file:
+        path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator/etc/crds/default/"
+        state: directory
+
     - name: Apply Apigee Operator CRDs
       shell: |
         kubectl apply -k  apigee-operator/etc/crds/default/ \
