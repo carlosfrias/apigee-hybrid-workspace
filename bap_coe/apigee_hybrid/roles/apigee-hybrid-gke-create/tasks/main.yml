@@ -20,6 +20,3 @@
   include_tasks: zonal.yml
   when: REGIONAL_CLUSTER is not truthy
 
-- name: Update StorageClass
-  include_tasks: storage-class-config.yml
-

@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/converge.yml"
 
 - name: Apigee Runtime Configure kubectl Cluster credentials
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-config/converge.yml"
 
 - name: Apigee Runtime Create TLS certificates
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"

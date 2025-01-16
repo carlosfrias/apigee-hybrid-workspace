@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
 
 - name: Remove kubectl Cluster credentials
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-config/destroy.yml"
 
 - name: Remove Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/destroy.yml"

@@ -6,7 +6,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/destroy.yml"
 
 - name: Remove GKE Kubectl Cohtext & Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-config/destroy.yml"
 
 - name: Remove Apigee Hybrid Host Project
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-control/destroy.yml"
