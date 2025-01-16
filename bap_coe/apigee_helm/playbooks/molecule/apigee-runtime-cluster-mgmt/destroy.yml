@@ -6,4 +6,4 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubectl-cluster-config/destroy.yml"
 
 - name: Remove Apigee GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/destroy.yml"

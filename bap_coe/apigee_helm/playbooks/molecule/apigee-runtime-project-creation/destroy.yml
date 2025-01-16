@@ -1,6 +1,6 @@
 ---
 #- name: Destroy Apigee GKE Cluster
-#  import_playbook: "{{ playbook_dir | dirname }}/gcp-gke-cluster-create/destroy.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/destroy.yml"
 #
 #- name: Uninstall helm
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/destroy.yml"
