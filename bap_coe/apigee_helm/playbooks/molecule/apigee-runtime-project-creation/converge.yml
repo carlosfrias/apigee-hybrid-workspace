@@ -29,5 +29,8 @@
 - name: Apigee Runtime Create TLS certificates
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"
 
+- name: Apigee Runtime Update overrides config file
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/converge.yml"
+
 - name: Apigee Runtime Install Apigee Helm Charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-installation/converge.yml"

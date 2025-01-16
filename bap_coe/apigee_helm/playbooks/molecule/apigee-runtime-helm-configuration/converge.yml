@@ -8,8 +8,5 @@
 - name: Apigee Runtime Download Apigee Hybrid Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
 
-- name: Apigee Runtime Update overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/converge.yml"
-
 - name: Apigee Runtime Distribute configs and credentials to helm chart folders
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/converge.yml"
