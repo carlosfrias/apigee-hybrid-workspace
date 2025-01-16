@@ -23,5 +23,11 @@
 - name: Apigee Runtime Install & Configure Helm
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/converge.yml"
 
+- name: Apigee Runtime Create Apigee Namespace
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-namespace-mgmt/converge.yml"
+
+- name: Apigee Runtime Create TLS certificates
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"
+
 - name: Apigee Runtime Install Apigee Helm Charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-installation/converge.yml"

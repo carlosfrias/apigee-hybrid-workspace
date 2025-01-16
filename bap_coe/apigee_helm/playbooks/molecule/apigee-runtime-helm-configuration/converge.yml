@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-binary-installer/converge.yml"
 
 - name: Apigee Runtime Download helm charts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-download/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-downloader/converge.yml"
 
 - name: Apigee Runtime Download Apigee Hybrid Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"

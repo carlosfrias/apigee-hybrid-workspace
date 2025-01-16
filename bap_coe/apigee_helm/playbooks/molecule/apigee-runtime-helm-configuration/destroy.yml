@@ -6,7 +6,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/destroy.yml"
 
 - name: Remove downloaded helm charts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-download/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-downloader/destroy.yml"
 
 - name: Remove helm for Apigee Runtime
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-binary-installer/destroy.yml"

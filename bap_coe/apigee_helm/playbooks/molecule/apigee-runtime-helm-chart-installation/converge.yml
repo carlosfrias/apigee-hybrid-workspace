@@ -1,7 +1,4 @@
 ---
-- name: Apigee Runtime Create Apigee Namespace
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-namespace-mgmt/converge.yml"
-
 - name: Apigee Runtime Install Cert Manager
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
 
