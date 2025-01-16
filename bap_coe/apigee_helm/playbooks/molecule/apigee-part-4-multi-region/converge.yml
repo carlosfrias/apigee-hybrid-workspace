@@ -178,7 +178,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"
 #
 #- name: Install helm
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-binary-installer/converge.yml"
 #
 #- name: Download Apigee Hybrid helm charts
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"

@@ -1,6 +1,7 @@
 ---
 - name: Install helm for Apigee Runtime
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-installation/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-binary-installer/converge.yml"
+#   apigee-runtime-helm-binary-installer
 
 - name: Apigee Runtime Download helm charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-download/converge.yml"
