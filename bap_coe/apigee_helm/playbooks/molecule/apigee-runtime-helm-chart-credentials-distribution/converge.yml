@@ -21,15 +21,23 @@
     SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
     SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
     APIGEE_ADMIN_SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
-#    PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX: "{{ APIGEE_CONTROL_PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }}"
-#    CREDENTIALS_DIR: "{{ APIGEE_CONTROL_CREDENTIALS_DIR }}"
 
   collections:
   - bap_coe.apigee_hybrid
 
   tasks:
-    - name: Distribute configs and credentials to helm chart folders
-      include_tasks: distribute-configs-credentials.yml
+    - name: Distribute configs to helm chart folders
+      include_tasks: distribute-configs.yml
       loop: "{{ APIGEE_HYBRID_CHART_LIST }}"
       loop_control:
         loop_var: chart
+
+    - name: Assert certs folder - {{ chart }}
+      file:
+        path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/certs"
+        state: directory
+
+    - name: Distribute tls keys to helm chart folders - {{ chart }}
+      synchronize:
+        src: "{{ CERT_FILE_DIR }}"
+        dest: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-virtualhost/"
