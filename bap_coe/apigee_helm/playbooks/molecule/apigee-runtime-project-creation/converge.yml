@@ -5,9 +5,6 @@
 - name: Apigee Runtime Configure org policies
   import_playbook: "{{ playbook_dir | dirname }}/apigee-argo-runtime-policies/converge.yml"
 
-- name: Apigee runtime service accounts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-accounts/converge.yml"
-
 - name: Apigee Runtime Configure host to synchronization service account
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
 
@@ -25,6 +22,9 @@
 
 - name: Apigee Runtime Create Apigee Namespace
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-namespace-mgmt/converge.yml"
+
+- name: Apigee runtime service accounts
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-accounts/converge.yml"
 
 - name: Apigee Runtime Create TLS certificates
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"
