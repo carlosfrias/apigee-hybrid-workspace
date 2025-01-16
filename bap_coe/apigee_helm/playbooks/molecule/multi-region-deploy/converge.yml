@@ -38,10 +38,10 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-config/converge.yml"
 
 - name: Update overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt-DEPRECATED/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-creation-DEPRECATED/converge.yml"
 
 - name: Update overrides paths and move into helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-creation/converge.yml"
 
 - name: Distribute configs and credentials to helm chart folders
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/converge.yml"

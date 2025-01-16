@@ -27,7 +27,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"
 
 - name: Apigee Runtime Update overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-creation/converge.yml"
 
 - name: Apigee Runtime Configure host to synchronization service account
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"

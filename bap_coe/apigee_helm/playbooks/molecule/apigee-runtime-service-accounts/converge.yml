@@ -55,4 +55,4 @@
     }
 
 #- name: Generate Apigee runtime service account keys
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-creation/converge.yml"

@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/destroy.yml"
 
 - name: Remove overrides.yml
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-creation/destroy.yml"
 
 - name: Remove downloaded helm charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-downloader/destroy.yml"
