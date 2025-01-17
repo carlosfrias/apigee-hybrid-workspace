@@ -33,15 +33,3 @@
       role: apigee-hybrid-cloud-dns-create,
       FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}"
     }
-
-
-
-#- name: Create external ip address
-#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-external-ip-address-mgmt/converge.yml"
-
-#- name: Obtain External IP Address
-#  import_playbook: "{{ playbook_dir | dirname }}/_gcp-external-ip-address-get/converge.yml"
-
-#- name: Create DNS record
-#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-dns-record-mgmt/converge.yml"
-#
