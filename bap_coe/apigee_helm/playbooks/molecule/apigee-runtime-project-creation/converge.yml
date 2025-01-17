@@ -29,5 +29,8 @@
 - name: Apigee Runtime Install CRDs
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-9-install-crds/converge.yml"
 
+- name: Apigee Runtime Check Readiness
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-10-check-readiness/converge.yml"
+
 - name: Apigee Runtime Install Apigee Helm Charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-11-install-apigee/converge.yml"
