@@ -12,6 +12,6 @@
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-control/destroy.yml"
 
 - name: Remove Apigee Hybrid Runtime Project
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-0-project-provision/destroy.yml"
 
 
