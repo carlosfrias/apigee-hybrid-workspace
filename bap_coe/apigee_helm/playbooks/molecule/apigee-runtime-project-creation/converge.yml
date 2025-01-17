@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/provision-project-runtime/converge.yml"
 
 - name: Apigee Runtime Configure org policies
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-argo-runtime-policies/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-argo-runtime-policies/converge.yml"
 
 - name: Apigee Runtime Enable Apigee APIs
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-enable-apis/converge.yml"
