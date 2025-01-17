@@ -11,6 +11,7 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   vars:
+    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     FQ_DOMAIN_NAME: "{{ DOMAIN_NAME }}"
 
   collections:
@@ -20,4 +21,4 @@
   tasks:
   - name: Display Apigee hybrid health endpoint
     debug:
-      message: "https://{{ FQ_DOMAIN_NAME }}/healthz/ingress"
+      msg: "https://{{ FQ_DOMAIN_NAME }}/healthz/ingress"
