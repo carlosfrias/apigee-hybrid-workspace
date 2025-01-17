@@ -12,7 +12,7 @@
 
 
 - name: Apigee Org Host Project Creation
-  import_playbook: "{{ playbook_dir | dirname}}/apigee-control-project-creation/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname}}/apigee-control-step-0-setup/converge.yml"
 
 - name: Apigee Runtime Project Creation
   import_playbook: "{{ playbook_dir | dirname}}/apigee-runtime-helm-installer/converge.yml"

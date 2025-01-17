@@ -3,10 +3,10 @@
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-dns-record-mgmt/destroy.yml"
 
 - name: Remove Apigee Hybrid Host Project
-  import_playbook: "{{ playbook_dir | dirname }}/provision-project-control/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_provision-project-control/destroy.yml"
 
 - name: Remove Apigee Hybrid Runtime Project
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-0-project-provision/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-0-project-setup/destroy.yml"
   when: APIGEE_CONTROL_PROJECT_ID != APIGEE_RUNTIME_PROJECT_ID
 
 
