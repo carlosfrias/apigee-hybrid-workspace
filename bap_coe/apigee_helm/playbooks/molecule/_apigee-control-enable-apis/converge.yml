@@ -12,8 +12,8 @@
   vars:
     PROJECT_ID: "{{ APIGEE_CONTROL_PROJECT_ID }}"
     SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_CONTROL_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
-  collections:
 
+  collections:
     - bap_coe.bootstrap_runtime
     - bap_coe.gcp_management
 

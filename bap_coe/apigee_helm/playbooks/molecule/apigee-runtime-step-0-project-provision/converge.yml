@@ -25,6 +25,9 @@
 - name: Apigee Runtime Configure org policies
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-argo-runtime-policies/converge.yml"
 
+- name: Apigee runtime service accounts
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-4-service-accounts/converge.yml"
+
 - name: Apigee Runtime Enable Apigee APIs
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-enable-apis/converge.yml"
 
