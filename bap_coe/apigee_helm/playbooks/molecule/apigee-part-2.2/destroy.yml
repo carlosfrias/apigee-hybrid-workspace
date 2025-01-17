@@ -21,7 +21,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-datastore-mgmt/destroy.yml"
 
 - name: Install Operator chart
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-operator-mgmt/destroy.yml"
 
 #- name: Install CRDs
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-9-install-crds/destroy.yml"

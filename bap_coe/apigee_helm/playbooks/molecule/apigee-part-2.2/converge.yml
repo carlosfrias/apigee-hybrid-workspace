@@ -17,7 +17,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-9-install-crds/converge.yml"
 
 - name: Install Operator chart
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-operator-mgmt/converge.yml"
 
 - name: Install Datastore chart
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-datastore-mgmt/converge.yml"
