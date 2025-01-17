@@ -30,4 +30,4 @@
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-ingressgateway-endpoint-healthcheck-withDNS/converge.yml"
 
 - name: Display Apigee hybrid endpoint
-  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-display-health-endpoint/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-display-health-endpoint/converge.yml"
