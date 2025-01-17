@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-dns-record-mgmt/destroy.yml"
 
 - name: Remove Apigee Hybrid Host Project
-  import_playbook: "{{ playbook_dir | dirname }}/_provision-project-control/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-control-step-0-project-setup/destroy.yml"
 
 - name: Remove Apigee Hybrid Runtime Project
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-0-project-setup/destroy.yml"

@@ -23,7 +23,7 @@
     - { role: gcp_project_number_get }
 
 - name: Apigee Runtime Configure org policies
-  import_playbook: "{{ playbook_dir | dirname }}/_apigee-argo-runtime-policies/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-argo-policies/converge.yml"
 
 - name: Apigee runtime service accounts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-4-service-accounts/converge.yml"
