@@ -21,7 +21,7 @@
         kubernetes.core.helm:
           state: present
           chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
-          namespace: "{{ APIGEE_NAMESPACE }}"
+          namespace: "{{ APIGEE_SYSTEM_NAMESPACE }}"
           name: operator
           create_namespace: true
           force: true
@@ -36,7 +36,7 @@
             binary_path: "{{ HELM_BINARY }} --debug "
             state: present
             chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-operator"
-            namespace: "{{ APIGEE_NAMESPACE }}"
+            namespace: "{{ APIGEE_SYSTEM_NAMESPACE }}"
             name: operator
             create_namespace: true
             force: true
