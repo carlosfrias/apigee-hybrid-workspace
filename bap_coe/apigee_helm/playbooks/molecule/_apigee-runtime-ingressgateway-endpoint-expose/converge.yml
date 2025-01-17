@@ -24,5 +24,5 @@
   roles:
     - {
         role: apigee-hybrid-ingressgateway-expose-endpoint,
-        SERVICE_MANIFEST_FILE_DEST: "{{ HYBRID_FILES_DIR }}/overrides/ingressgateway-endpoint-expose.yaml"
+        SERVICE_MANIFEST_FILE_DEST: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-ingress-manager/ingressgateway-endpoint-expose.yaml"
     }
