@@ -1,0 +1,6 @@
+---
+- name: Destroy DNS Record
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-dns-record-mgmt/destroy.yml"
+
+- name: Destroy External IP Address for Cluster
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-external-ip-address-mgmt/destroy.yml"

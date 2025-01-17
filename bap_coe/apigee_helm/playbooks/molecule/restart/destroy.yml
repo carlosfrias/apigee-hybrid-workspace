@@ -9,5 +9,5 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gke-cluster-mgmt/destroy.yml"
 
 #- name: Apigee runtime Destroy network
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/destroy.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-network/destroy.yml"
 

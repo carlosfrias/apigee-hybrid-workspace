@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee-runtime-external-ip-address-mgmt
+  - name: _apigee-runtime-external-ip-address-mgmt
 provisioner:
   name: ansible
 verifier:

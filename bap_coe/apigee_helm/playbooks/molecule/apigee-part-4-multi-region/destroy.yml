@@ -9,7 +9,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-8-cert-manager/destroy.yml"
 
 - name: Create External IP Address for Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-external-ip-address-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-external-ip-address-mgmt/destroy.yml"
 
 - name: Create apigee namespace
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apigee-namespace-mgmt/destroy.yml"

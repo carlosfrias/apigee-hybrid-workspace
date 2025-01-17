@@ -1,6 +1,0 @@
-- name: Apigee Runtime Create GCP External IP Address
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-external-ip-address-mgmt/converge.yml"
-
-- name: Apigee Runtime Create GCP DNS Record
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-dns-record-mgmt/converge.yml"
-

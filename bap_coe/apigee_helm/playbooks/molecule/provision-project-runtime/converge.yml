@@ -21,3 +21,13 @@
   roles:
     - { role: gcp_project_create }
     - { role: gcp_project_number_get }
+
+- name: Apigee Runtime Configure org policies
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-argo-runtime-policies/converge.yml"
+
+- name: Apigee Runtime Enable Apigee APIs
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-enable-apis/converge.yml"
+
+- name: Apigee runtime create network
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-network/converge.yml"
+

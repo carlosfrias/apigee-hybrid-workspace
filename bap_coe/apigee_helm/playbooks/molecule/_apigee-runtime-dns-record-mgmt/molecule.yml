@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee-runtime-dns-record-mgmt
+  - name: _apigee-runtime-dns-record-mgmt
 provisioner:
   name: ansible
 verifier:
