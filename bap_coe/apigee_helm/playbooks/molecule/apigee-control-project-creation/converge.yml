@@ -8,7 +8,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-control-service-accounts/converge.yml"
 
 - name: Enable Apigee APIs for Apigee project host
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-control-enable-apis/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-control-enable-apis/converge.yml"
 
 - name: Create Apigee host organization
   import_playbook: "{{ playbook_dir | dirname }}/apigee-control-org/converge.yml"

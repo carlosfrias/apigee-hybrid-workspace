@@ -17,7 +17,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-external-ip-address-mgmt/converge.yml"
 
 - name: Obtain External IP Address
-  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_gcp-external-ip-address-get/converge.yml"
 
 - name: Create DNS record
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-dns-record-mgmt/converge.yml"
@@ -32,7 +32,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-5-tls-certs/converge.yml"
 
 - name: Install helm
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-binary-installer/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-helm-binary-installer/converge.yml"
 
 - name: Download Apigee Hybrid helm charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-8-cert-manager/converge.yml"

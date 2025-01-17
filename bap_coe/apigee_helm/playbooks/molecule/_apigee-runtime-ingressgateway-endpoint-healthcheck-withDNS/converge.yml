@@ -1,6 +1,6 @@
 ---
 #- name: Obtain External IP Address
-#  import_playbook: "{{ playbook_dir | dirname }}/gcp-external-ip-address-get/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/_gcp-external-ip-address-get/converge.yml"
 
 - name: Health check the Ingress Gateway Endpoint
   hosts: localhost

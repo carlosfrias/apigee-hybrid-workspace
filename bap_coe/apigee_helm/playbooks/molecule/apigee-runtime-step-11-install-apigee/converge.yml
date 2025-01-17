@@ -3,28 +3,28 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-mgmt/converge.yml"
 
 - name: Apigee Runtime Install Datastore chart
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-datastore-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-datastore-mgmt/converge.yml"
 
 - name: Apigee Runtime Install Telemetry
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-telemetry-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-telemetry-mgmt/converge.yml"
 
 - name: Apigee Runtime Install Redis
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-redis-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-redis-mgmt/converge.yml"
 
 - name: Apigee Runtime Install Ingress Manager
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-ingress-manager-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-ingress-manager-mgmt/converge.yml"
 
 - name: Apigee Runtime Install Organization
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-org-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-org-mgmt/converge.yml"
 
 - name: Apigee Runtime Install Environment
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-env-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-env-mgmt/converge.yml"
 
 - name: Apigee Runtime Configure Virtualhost
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-virtualhost-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-virtualhost-mgmt/converge.yml"
 
 - name: Apigee Runtime Create service to Apigee Ingress
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-ingressgateway-endpoint-expose/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-ingressgateway-endpoint-expose/converge.yml"
 
 - name: Apigee Runtime Healthcheck on service
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-ingressgateway-endpoint-healthcheck-withDNS/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-ingressgateway-endpoint-healthcheck-withDNS/converge.yml"

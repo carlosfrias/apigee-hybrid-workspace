@@ -3,7 +3,7 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-create/destroy.yml"
 #
 #- name: Uninstall helm
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-binary-installer/destroy.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-helm-binary-installer/destroy.yml"
 #
 #- name: Download Apigee Hybrid helm charts
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-8-cert-manager/destroy.yml"

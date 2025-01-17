@@ -1,24 +1,24 @@
 ---
 - name: Remove Virtualhost
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-virtualhost-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-virtualhost-mgmt/destroy.yml"
 
 - name: Remove Environment
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-env-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-env-mgmt/destroy.yml"
 
 - name: Remove Organization
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-org-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-org-mgmt/destroy.yml"
 
 - name: Remove Ingress Manager
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-ingress-manager-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-ingress-manager-mgmt/destroy.yml"
 
 - name: Remove Redis
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-redis-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-redis-mgmt/destroy.yml"
 
 - name: Remove Telemetry
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-telemetry-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-telemetry-mgmt/destroy.yml"
 
 - name: Remove Datastore chart
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-datastore-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-datastore-mgmt/destroy.yml"
 
 - name: Remove Operator chart
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-mgmt/destroy.yml"
