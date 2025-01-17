@@ -18,4 +18,4 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-6-overrides/converge.yml"
 
 - name: Distribute configs and credentials to helm chart folders
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-credentials-distribution/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-helm-chart-credentials-distribution/converge.yml"
