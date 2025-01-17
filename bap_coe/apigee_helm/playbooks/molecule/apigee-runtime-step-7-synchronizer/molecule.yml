@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee-runtime-synchronization
+  - name: apigee-runtime-step-7-synchronizer
 provisioner:
   name: ansible
 #  ansible_args:

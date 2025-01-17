@@ -6,7 +6,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-binary-installer/destroy.yml"
 
 - name: Download Apigee Hybrid helm charts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-8-cert-manager/destroy.yml"
 
 - name: Destroy External IP Address for Cluster
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-external-ip-address-mgmt/destroy.yml"
@@ -15,7 +15,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-apigee-namespace-mgmt/destroy.yml"
 
 - name: Destroy TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-5-tls-certs/destroy.yml"
 
 #- name: Enable Synchronizer
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-uri-synchronizer-enable/destroy.yml"

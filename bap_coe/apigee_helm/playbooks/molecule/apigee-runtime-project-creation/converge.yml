@@ -12,31 +12,31 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/converge.yml"
 
 - name: Apigee Runtime Configure GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-creation/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-1-cluster-creation/converge.yml"
 
 - name: Apigee Runtime Install & Configure Helm
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-download-and-config-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-2-helm-download/converge.yml"
 
 - name: Apigee Runtime Create Apigee Namespace
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-namespace-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-3-namespace/converge.yml"
 
 - name: Apigee runtime service accounts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-service-accounts/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-4-service-accounts/converge.yml"
 
 - name: Apigee Runtime Create TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-5-tls-certs/converge.yml"
 
 - name: Apigee Runtime Update overrides config file
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-creation/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-6-overrides/converge.yml"
 
 - name: Apigee Runtime Configure host to synchronization service account
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-synchronization/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-7-synchronizer/converge.yml"
 
 - name: Apigee Runtime Install Cert Manager
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-8-cert-manager/converge.yml"
 
 - name: Apigee Runtime Install CRDs
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-install-crds/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-9-install-crds/converge.yml"
 
 - name: Apigee Runtime Install Apigee Helm Charts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-installation/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-11-install-apigee-with-helm/converge.yml"

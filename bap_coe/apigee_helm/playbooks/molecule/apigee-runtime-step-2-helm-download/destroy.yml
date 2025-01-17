@@ -1,9 +1,9 @@
 ---
 - name: Remove Cert Manager
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-8-cert-manager/destroy.yml"
 
 - name: Remove overrides.yml
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-creation/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-6-overrides/destroy.yml"
 
 - name: Remove downloaded helm charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-charts-downloader/destroy.yml"

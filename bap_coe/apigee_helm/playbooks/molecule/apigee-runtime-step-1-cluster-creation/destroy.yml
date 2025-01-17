@@ -1,6 +1,6 @@
 ---
 - name: Remove TLS certificates
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-5-tls-certs/destroy.yml"
 
 - name: Remove kubectl Cluster credentials
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-config/destroy.yml"
