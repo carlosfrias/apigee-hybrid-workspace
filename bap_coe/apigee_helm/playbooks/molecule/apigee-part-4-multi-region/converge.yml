@@ -169,10 +169,10 @@
 #      CASSANDRA_HOST_NETWORK: True
 #
 #- name: Configure Apigee GKE Cluster
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-create/converge.yml"
 #
 #- name: Configure kubectl Cluster credentials
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-config/converge.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-config/converge.yml"
 #
 #- name: Create TLS certificates
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/converge.yml"

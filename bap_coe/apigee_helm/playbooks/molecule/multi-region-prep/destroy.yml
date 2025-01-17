@@ -3,7 +3,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-dns-record-mgmt/destroy.yml"
 
 - name: Remove GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-create/destroy.yml"
 
 - name: Remove Apigee Hybrid Project
   import_playbook: "{{ playbook_dir | dirname }}/provision-project/destroy.yml"

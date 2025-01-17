@@ -32,10 +32,10 @@
 # Part 2.1 replacement
 
 - name: Configure Apigee GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-create/converge.yml"
 
 - name: Configure kubectl Cluster credentials
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-config/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-config/converge.yml"
 
 - name: Update overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-overrides-creation-DEPRECATED/converge.yml"

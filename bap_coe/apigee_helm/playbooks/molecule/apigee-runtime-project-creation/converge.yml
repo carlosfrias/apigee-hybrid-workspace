@@ -12,10 +12,10 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/converge.yml"
 
 - name: Apigee Runtime Configure GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-creation/converge.yml"
 
 - name: Apigee Runtime Install & Configure Helm
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-download-and-config-mgmt/converge.yml"
 
 - name: Apigee Runtime Create Apigee Namespace
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-namespace-mgmt/converge.yml"
@@ -36,7 +36,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/converge.yml"
 
 - name: Apigee Runtime Install CRDs
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-crds-mgmt/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-install-crds/converge.yml"
 
 - name: Apigee Runtime Install Apigee Helm Charts
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-installation/converge.yml"

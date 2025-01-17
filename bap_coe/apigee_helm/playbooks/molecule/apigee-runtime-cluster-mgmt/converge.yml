@@ -1,6 +1,0 @@
----
-- name: Apigee Runtime Configure Apigee GKE Cluster
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/converge.yml"
-
-- name: Apigee Runtime Configure kubectl Cluster credentials
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-config/converge.yml"

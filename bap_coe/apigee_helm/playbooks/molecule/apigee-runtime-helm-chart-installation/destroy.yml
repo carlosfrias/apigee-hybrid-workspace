@@ -24,7 +24,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-mgmt/destroy.yml"
 
 - name: Remove CRDs
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-crds-mgmt/destroy.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-operator-install-crds/destroy.yml"
 
 - name: Remove overrides config file
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cert-manager-mgmt/destroy.yml"

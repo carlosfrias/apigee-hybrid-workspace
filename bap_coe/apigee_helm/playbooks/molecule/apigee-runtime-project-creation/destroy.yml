@@ -1,6 +1,6 @@
 ---
 #- name: Destroy Apigee GKE Cluster
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-create/destroy.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-create/destroy.yml"
 #
 #- name: Uninstall helm
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-binary-installer/destroy.yml"
@@ -18,10 +18,10 @@
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-tls-certs-create/destroy.yml"
 #
 #- name: Remove Apigee hybrid helm configuration
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-configuration/destroy.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-helm-chart-download-and-config-mgmt/destroy.yml"
 #
 #- name: Remove kubectl Cluster credentials
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-cluster-config/destroy.yml"
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-config/destroy.yml"
 #
 #- name: Remove Network Configs
 #  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-network/destroy.yml"
