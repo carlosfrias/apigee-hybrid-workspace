@@ -28,3 +28,24 @@
 
 - name: Apigee Runtime Healthcheck on service
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-ingressgateway-endpoint-healthcheck-withDNS/converge.yml"
+
+- name: Display Apigee hybrid endpoint
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+
+  collections:
+  - bap_coe.apigee_hybrid
+  - bap_coe.gcp_management
+
+  task:
+  - name: Display Apigee hybrid health endpoint
+    debug:
+      messag: "https://{{ FQ_DOMAIN_NAME }}/healthz/ingress"

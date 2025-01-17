@@ -1,0 +1,30 @@
+---
+- name: Remove Virtualhost
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-virtualhost-mgmt/destroy.yml"
+
+- name: Remove Environment
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-env-mgmt/destroy.yml"
+
+- name: Remove Organization
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-org-mgmt/destroy.yml"
+
+- name: Remove Ingress Manager
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-ingress-manager-mgmt/destroy.yml"
+
+- name: Remove Redis
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-redis-mgmt/destroy.yml"
+
+- name: Remove Telemetry
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-telemetry-mgmt/destroy.yml"
+
+- name: Remove Datastore chart
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-datastore-mgmt/destroy.yml"
+
+- name: Remove Operator chart
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-operator-mgmt/destroy.yml"
+
+- name: Remove CRDs
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-9-install-crds/destroy.yml"
+
+- name: Remove overrides config file
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-8-cert-manager/destroy.yml"
