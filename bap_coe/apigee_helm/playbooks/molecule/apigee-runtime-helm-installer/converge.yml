@@ -1,9 +1,9 @@
 ---
-#- name: Apigee runtime create GCP infrastructure
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-0-project-setup/converge.yml"
-#
-#- name: Apigee Runtime Configure GKE Cluster
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-1-cluster-creation/converge.yml"
+- name: Apigee runtime create GCP infrastructure
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-0-project-setup/converge.yml"
+
+- name: Apigee Runtime Configure GKE Cluster
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-1-cluster-creation/converge.yml"
 
 - name: Apigee Runtime Install & Configure Helm
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-2-helm-download/converge.yml"
@@ -11,8 +11,8 @@
 - name: Apigee Runtime Create Apigee Namespace
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-3-namespace/converge.yml"
 
-#- name: Apigee runtime service accounts
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-4-service-accounts/converge.yml"
+- name: Apigee runtime service accounts
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-4-service-accounts/converge.yml"
 
 - name: Apigee Runtime Create TLS certificates
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-5-tls-certs/converge.yml"
@@ -32,5 +32,5 @@
 - name: Apigee Runtime Check Readiness
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-10-check-readiness/converge.yml"
 
-#- name: Apigee Runtime Install Apigee Helm Charts
-#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-11-install-apigee/converge.yml"
+- name: Apigee Runtime Install Apigee Helm Charts
+  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-11-install-apigee/converge.yml"
