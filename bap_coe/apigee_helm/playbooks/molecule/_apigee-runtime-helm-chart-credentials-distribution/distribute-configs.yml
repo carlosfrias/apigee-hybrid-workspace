@@ -1,11 +1,8 @@
 ---
 - name: Assert credentials folder - {{ chart }}
   file:
-    path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ item }}"
+    path: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/{{ chart }}/credentials"
     state: directory
-  with_items:
-    - "{{chart}}"
-    - "credentials"
 
 - name: Distribute service account authorization file to helm chart folders - {{ chart }}
   copy:
