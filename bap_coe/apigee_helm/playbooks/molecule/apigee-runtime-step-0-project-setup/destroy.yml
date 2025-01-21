@@ -36,3 +36,6 @@
 
 - name: Remove kubectl Cluster credentials
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-config/destroy.yml"
+
+- name: Remove DNS
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-dns-record-mgmt/destroy.yml"

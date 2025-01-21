@@ -1,3 +1,4 @@
+---
 - name: Delete Kubectl Cluster Config
   hosts: localhost
   connection: local

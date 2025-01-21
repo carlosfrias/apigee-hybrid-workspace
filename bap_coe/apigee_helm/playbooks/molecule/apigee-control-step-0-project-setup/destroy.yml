@@ -1,8 +1,4 @@
 ---
-- name: Provision project - destroy invocation
-  import_playbook: "{{ playbook_dir | dirname }}/default/destroy.yml"
-
-
 - name: Clean up Apigee hybrid filesystem
   hosts: localhost
   connection: local
