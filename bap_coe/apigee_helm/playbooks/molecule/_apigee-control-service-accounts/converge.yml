@@ -1,5 +1,5 @@
 ---
-- name: Create Apigee host service accounts before enabling apis
+- name: Create Apigee Control service accounts
   hosts: localhost
   connection: local
 
@@ -15,6 +15,7 @@
     SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_CONTROL_ADMIN_SERVICE_ACCOUNT }}"
     PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX: "{{ APIGEE_CONTROL_PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }}"
     TIME_TO_PROPAGATE_BINDINGS: 20
+    ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_CONTROL_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
 
   collections:
     - bap_coe.gcp_management
