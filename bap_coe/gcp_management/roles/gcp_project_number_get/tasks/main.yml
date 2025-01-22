@@ -30,7 +30,7 @@
 - block:
 
   - name: Obtain PROJECT_NUMBER
-    shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)" --account {{ BILLING_USER_EMAIL }}
+    shell: gcloud projects describe {{ PROJECT_ID }} --format="value(projectNumber)"
     register: project_number
 
   rescue:
