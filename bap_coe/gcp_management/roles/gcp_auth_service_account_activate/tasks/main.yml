@@ -13,7 +13,7 @@
     fail_msg: "PROJECT_ID must be provided"
 
 
-- name: Login with service account
+- name: Activate service account
   shell: |
     gcloud auth activate-service-account \
     --key-file {{ SERVICE_ACCOUNT_FILE_PATH }} \
