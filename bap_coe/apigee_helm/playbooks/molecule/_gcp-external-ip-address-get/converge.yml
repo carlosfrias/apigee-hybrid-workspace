@@ -9,7 +9,6 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   vars:
-    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
     SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_SERVICE_ACCOUNT_FILE_PATH }}"
     SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
@@ -22,6 +21,6 @@
     - bap_coe.gcp_management
 
   roles:
-  - { role: gcp_token_retrieval }
-  - { role: gce_external_ip_get }
+  - { role: gcp_token_retrieval, PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"  }
+  - { role: gce_external_ip_get, PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}" }
 
