@@ -35,7 +35,7 @@
     }
   - {
       role: service_account_file_path,
-      KEY_FILE_PATH: "{{ APIGEE_RUNTIME_CREDENTIALS_DIR }}",,
+      KEY_FILE_PATH: "{{ APIGEE_RUNTIME_CREDENTIALS_DIR }}",
       PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     }
   - {
