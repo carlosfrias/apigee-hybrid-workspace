@@ -11,25 +11,21 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
-  vars:
-    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
-    WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
-
-  collections:
-  - bap_coe.gcp_management
-
-  roles:
-    - { role: gcp_project_create }
-    - { role: gcp_project_number_get }
-
-- name: Apigee Runtime Configure org policies
-  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-argo-policies/converge.yml"
-
-- name: Apigee runtime service accounts
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-4-service-accounts/converge.yml"
-
+#  collections:
+#  - bap_coe.gcp_management
+#
+#  roles:
+#    - { role: gcp_project_create, PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}" }
+#    - { role: gcp_project_number_get, WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}", PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}" }
+#
+#- name: Apigee Runtime Configure org policies
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-argo-policies/converge.yml"
+#
+#- name: Apigee runtime service accounts
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-4-service-accounts/converge.yml"
+#
 - name: Apigee Runtime Enable Apigee APIs
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-enable-apis/converge.yml"
-
-- name: Apigee runtime create network
-  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-network/converge.yml"
+#
+#- name: Apigee runtime create network
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-network/converge.yml"
