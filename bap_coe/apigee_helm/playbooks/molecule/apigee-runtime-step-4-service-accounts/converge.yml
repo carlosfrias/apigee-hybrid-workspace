@@ -10,7 +10,6 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
   vars:
-    PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
     SERVICE_ACCOUNT_EMAIL: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
     PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX: "{{ APIGEE_RUNTIME_PROJECT_SERVICE_ACCOUNT_FQ_NAME_SUFFIX }}"
@@ -30,7 +29,8 @@
   - {
       role: gcp_iam_service_account_key_generation,
       KEY_FILE_PATH: "{{ APIGEE_RUNTIME_CREDENTIALS_DIR }}",
-      SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}"
+      SERVICE_ACCOUNTS: "{{ APIGEE_SERVICE_ACCOUNTS }}",
+      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
     }
   - {
       role: service_account_file_path,
