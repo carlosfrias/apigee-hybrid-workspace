@@ -1,0 +1,45 @@
+---
+- name: Create and configure the docker repository
+  hosts: localhost
+  connection: local
+
+  vars:
+    PROJECT_ID: "friasc-apigee-lab"
+    repoName: "apigee-workspace"
+    repoFormat: "docker"
+    repoLocation: "us-east1"
+    repoDockerProto: "{{repoLocation}}-docker.pkg.dev"
+    dockerBuildName: "apigee-helm-installer"
+
+  collections:
+  - commmunity.docker
+
+  tasks:
+  - block:
+    - name: Create repository
+      shell: |
+        gcloud artifacts repositories create {{repoName}} \
+            --repository-format={{repoFormat}} \
+            --location={{repoLocation}} \
+            --description="Docker repository" \
+            --project={{PROJECT_ID}}
+    rescue:
+    - name: List repositories
+      shell: |
+        gcloud artifacts repositories list --project {{ PROJECT_ID }}
+      register: output
+      failed_when: repoName not in output.stdout
+
+  - name: Configure Docker Authentication
+    shell: |
+      gcloud auth configure-docker {{repoLocation}}-docker.pkg.dev --project {{PROJECT_ID}}
+      
+
+  - name: Docker Cloudshell Build with Ansible
+    docker_image:
+      name: "{{repoLocation}}-{{repoDockerProto}}/{{PROJECT_ID}}/{{repoName}}/{{dockerBuildName}}:tag1"
+      build:
+        path: "{{ playbook_dir }}"
+        rm: true
+      source: build
+      push: true

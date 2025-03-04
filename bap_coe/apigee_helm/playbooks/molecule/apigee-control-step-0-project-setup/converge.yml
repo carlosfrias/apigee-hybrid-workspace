@@ -23,8 +23,8 @@
   - { role: gcp_project_create }
   - { role: gcp_project_number_get }
 
-- name: Prerequisite - Argo organization policy update
-  import_playbook: "{{ playbook_dir | dirname }}/_apigee-control-argo-policies/converge.yml"
-
-- name: Create service accounts for Apigee project host
-  import_playbook: "{{ playbook_dir | dirname }}/_apigee-control-service-accounts/converge.yml"
+#- name: Prerequisite - Argo organization policy update
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-control-argo-policies/converge.yml"
+#
+#- name: Create service accounts for Apigee project host
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-control-service-accounts/converge.yml"
