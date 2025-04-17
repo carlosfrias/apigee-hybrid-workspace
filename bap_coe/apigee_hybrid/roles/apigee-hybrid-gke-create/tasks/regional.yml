@@ -63,7 +63,7 @@
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
-  retries: 1000
+  retries: 10
   async: 90
 
 - name: Create Regional data node-pool {{ NODE_POOL_NAME_DATA }}
@@ -95,7 +95,7 @@
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
-  retries: 1000
+  retries: 10
   async: 90
 
 - name: Create Regional runtime node-pool {{ NODE_POOL_NAME_RUNTIME }}
@@ -127,7 +127,7 @@
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
-  retries: 1000
+  retries: 10
   async: 90
 
 - name: Delete default node-pool that is created
@@ -139,5 +139,5 @@
       --quiet \
      --project {{ PROJECT_ID }}
   poll: 5
-  retries: 1000
+  retries: 10
   async: 90
