@@ -127,7 +127,7 @@
   register: operation_status
   until: "'status: RUNNING' in operation_status.stdout"
   poll: 5
-  c: 10
+  retries: 10
   async: 90
 
 - name: Delete default node-pool that is created
