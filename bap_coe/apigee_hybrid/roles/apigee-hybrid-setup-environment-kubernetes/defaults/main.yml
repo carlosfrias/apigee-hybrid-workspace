@@ -4,4 +4,3 @@ DEFAULT_SYSTEM_TOOLS:
   - 'rsync'
   - 'tree'
   - 'netcat'
-  - 'kubectl'
