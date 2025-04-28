@@ -20,6 +20,7 @@
       - name: Install Apigee Redis
         kubernetes.core.helm:
           state: present
+          binary_path: "{{ HELM_BINARY }}"
           chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-redis"
           namespace: "{{ APIGEE_NAMESPACE }}"
           name: redis
