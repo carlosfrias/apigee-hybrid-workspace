@@ -43,12 +43,17 @@
         remote_src: true
 
     - name: Query for architecture
-      command: uname -m
+      command: uname -r
       register: architecture
+
+    - name: Parse architecture
+      set_facts:
+        cacheable: true
+        arch_list: "{{ architecture.stdout | split('-') }}"
 
     - name: Move helm installation binaries to path
       copy:
-        src: "{{ WORKDIR_DOWNLOAD_DEST }}/{{ ansible_system | lower }}-{{ architecture.stdout }}/helm"
+        src: "{{ WORKDIR_DOWNLOAD_DEST }}/{{ ansible_system | lower }}-{{ arch_list[-1 }}/helm"
         dest: "{{ HELM_BINARY }}"
         mode: 0744
 
