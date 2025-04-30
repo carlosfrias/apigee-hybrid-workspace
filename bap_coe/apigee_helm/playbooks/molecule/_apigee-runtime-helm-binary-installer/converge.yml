@@ -42,9 +42,13 @@
         dest: "{{ WORKDIR_DOWNLOAD_DEST }}"
         remote_src: true
 
+    - name: Query for architecture
+      command: uname -m
+      register: architecture
+
     - name: Move helm installation binaries to path
       copy:
-        src: "{{ WORKDIR_DOWNLOAD_DEST }}/{{ ansible_system | lower }}-{{ facter_os.architecture }}/helm"
+        src: "{{ WORKDIR_DOWNLOAD_DEST }}/{{ ansible_system | lower }}-{{ architecture.stdout }}/helm"
         dest: "{{ HELM_BINARY }}"
         mode: 0744
 
