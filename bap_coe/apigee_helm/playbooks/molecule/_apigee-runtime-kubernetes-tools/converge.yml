@@ -18,18 +18,97 @@
     - bap_coe.bootstrap_runtime
     - bap_coe.apigee_hybrid
 
-  pre_tasks:
-  - name: Set PROJECT_ID fact
-    set_fact:
-      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
-
-  roles:
-  - {
-      apigee-hybrid-setup-environment-kubernetes,
-      TOOLS_DIR: "{{ APIGEE_RUNTIME_WORKDIR_BINARY_DEST }}"
-    }
+#  pre_tasks:
+#  - name: Set PROJECT_ID fact
+#    set_fact:
+#      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+#
+#  roles:
+#  - {
+#      apigee-hybrid-setup-environment-kubernetes,
+#      TOOLS_DIR: "{{ APIGEE_RUNTIME_WORKDIR_BINARY_DEST }}"
+#    }
+#
+#  tasks:
+#  - name: Remove PROJECT_ID fact
+#    set_fact:
+#      PROJECT_ID: None
 
   tasks:
-  - name: Remove PROJECT_ID fact
-    set_fact:
-      PROJECT_ID: None
+    - name: Set tools attribute cache
+      set_fact:
+        cacheable: yes
+        TOOLS_DIR: "{{ TOOLS_DIR }}"
+        WORK_DIR: "{{ WORK_DIR }}"
+
+    #- name: Set tools attribute cache for Debian
+    #  set_fact:
+    #    cacheable: yes
+    #    TOOLS_DIR: /usr/local/bin
+    #  when: ansible_os_family == "Debian"
+
+    - name: Create WORK_DIR folders
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+      - "{{ playbook_dir }}/ansible/logs"
+      - "{{ TOOLS_DIR }}"
+
+    - block:
+      - name: Get Latest kops Version tag
+        uri:
+          url: https://api.github.com/repos/kubernetes/kops/releases/latest
+        register: kops_latest
+
+      - name: Extract kops Version
+        set_fact:
+          cacheable: yes
+          KOPS_VERSION: "{{ KOPS_VERSION | default(kops_latest.json.name) }}"
+
+      - name: Set Kops download url
+        set_fact:
+          cacheable: Yes
+          kops_download_url: "https://github.com/kubernetes/kops/releases/download/{{ KOPS_VERSION }}/kops-{{ ansible_system | lower }}-amd64"
+
+    #  - name: Install Kops
+    #    become: yes
+    #    get_url:
+    #      url: https://github.com/kubernetes/kops/releases/download/{{ KOPS_VERSION }}/kops-{{ ansible_system | lower }}-amd64
+    #      dest: "{{ TOOLS_DIR }}/kops"
+    #      mode: 0777
+    #    poll: 0
+    #    retries: 5
+    #    async: 180
+
+    - name: Install system tools
+      become: true
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ SYSTEM_TOOLS | default(DEFAULT_SYSTEM_TOOLS) }}"
+
+    - name: Install non-system tools on system
+      become: true
+      get_url:
+        url: "{{ item }}"
+        dest: "{{ TOOLS_DIR }}/kubectx"
+        mode: 0777
+      poll: 0
+      retries: 5
+      async: 180
+      with_items:
+      - { url: "https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx", dest: "{{ TOOLS_DIR }}/kubectx" }
+      - { url: "{{ kops_download_url }}", dest: "{{ TOOLS_DIR }}/kops" }
+
+    #- name: Download nomos
+    #  shell: gsutil cp gs://config-management-release/released/latest/linux_amd64/nomos {{ WORK_DIR }}/nomos
+    #  args:
+    #    creates: "{{ WORK_DIR }}/nomos"
+    #
+    #- name: Install nomos
+    #  become: yes
+    #  copy:
+    #    src: "{{ WORK_DIR }}/nomos"
+    #    dest: "{{ TOOLS_DIR }}/nomos"
+    #    mode: 0777
