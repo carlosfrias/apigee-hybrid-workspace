@@ -1,0 +1,114 @@
+---
+- name: Create and configure the docker repository
+  hosts: localhost
+  connection: local
+
+  vars:
+    PROJECT_ID: "friasc-apigee-lab"
+    repoName: "apigee-workspace"
+    repoFormat: "docker"
+    repoLocation: "us-east1"
+    repoDockerProto: "{{repoLocation}}-docker.pkg.dev"
+    dockerBuildName: "apigee-helm-installer-container"
+    WORK_DIR: "work_dir"
+    APIGEE_WORKBENCH_NAME: "apigee-hybrid-workspace"
+    APIGEE_HYBRID_INSTALLER_GITHUB: "https://github.com/carlosfrias/{{ APIGEE_WORKBENCH_NAME }}.git"
+    APIGEE_HYBRID_INSTALLER_SOURCE_FOLDER: "bap_coe/apigee_helm/playbooks/molecule"
+    APIGEE_HYBRID_INSTALLER_MOLECULE_SOURCE: "{{ WORK_DIR }}/source-repos/{{ APIGEE_WORKBENCH_NAME }}/{{ APIGEE_HYBRID_INSTALLER_SOURCE_FOLDER }}"
+    APIGEE_HYBRID_INSTALLER_MOLECULE_DEST: "{{ playbook_dir }}"
+    APIGEE_HYBRID_ON_AWS_NAME: "apigee-hybrid-on-aws"
+    APIGEE_HYBRID_ON_AWS_GITHUB: "https://github.com/AyoSal/{{ APIGEE_HYBRID_ON_AWS_NAME }}"
+    APIGEE_HYBRID_ON_AWS_SOURCE_FOLDER: "{{ APIGEE_HYBRID_ON_AWS_NAME }}"
+    GITHUB_REPOS:
+    - { repo: "{{ APIGEE_HYBRID_INSTALLER_GITHUB }}", dest: "work_dir/source-repos/{{ APIGEE_WORKBENCH_NAME }}" }
+    - { repo: "{{ APIGEE_HYBRID_ON_AWS_GITHUB }}", dest: "work_dir/source-repos/{{ APIGEE_HYBRID_ON_AWS_NAME }}" }
+    - { repo: "https://github.com/ganadurai/single-node-apigee-hybrid-install.git", dest: "work_dir/source-repos/single-node-apigee-hybrid-install"}
+
+  collections:
+  - commmunity.docker
+
+  tasks:
+    - name: Assert working folders
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+      - "work_dir/source-repos"
+      - "molecule"
+
+    - name: Download apigee-hybrid-deployment scripts
+      git:
+        repo: "{{ item.repo }}"
+        dest: "{{ item.dest }}"
+      with_items: "{{GITHUB_REPOS}}"
+
+    - name: Synchronize from local molecule folder to build folder
+      ansible.posix.synchronize:
+        src: "{{ APIGEE_HYBRID_INSTALLER_MOLECULE_SOURCE }}"
+        dest: "{{ APIGEE_HYBRID_INSTALLER_MOLECULE_DEST }}"
+
+    - name: Docker Cloudshell Build with Ansible
+      docker_image:
+        name: "{{dockerBuildName}}"
+        source: "build"
+        build:
+          path: "{{ playbook_dir }}"
+          rm: true
+          dockerfile: Dockerfile
+
+    - name: Create container
+      docker_container:
+        name: "{{dockerBuildName}}"
+        image: "{{dockerBuildName}}"
+        state: "started"
+        auto_remove: yes
+        detach: yes
+        volumes:
+        - "{{ ansible_user_dir }}/.apigee-secure:/root/apigee-secure:ro"
+        - "{{ ansible_user_dir }}/.config:/root/.config/gcloud:ro"
+        - "{{ playbook_dir }}/resources:/apigee-workspace/apigee-helm/resources:ro"
+        - "{{ playbook_dir }}/molecule:/apigee-workspace/apigee-helm/molecule:rw"
+        - "{{ playbook_dir }}/work_dir:/apigee-workspace/apigee-helm/work_dir:rw"
+#        recreate: true
+#        env:
+#          APIGEE_USER_NAME: "{{ ansible_user_id }}"
+#        mounts:
+#        - { type: "volume", source: "/usr/local/google/home/friasc/.apigee-secure/", target: "/root/apigee-secure", read_only: true }
+#        - { type: "volume", source: "{{ ansible_user_dir }}/.config", target: "/root/.config", read_only: true }
+#        - { type: "volume", source: "{{ playbook_dir }}/resources", target: "/apigee-workspace/apigee-helm/resources", read_only: true }
+#        - { type: "volume", source: "{{ playbook_dir }}/molecule", target: "/apigee-workspace/apigee-helm/molecule", read_only: false }
+#        - { type: "volume", source: "{{ playbook_dir }}/work_dir", target: "/apigee-workspace/apigee-helm/work_dir", read_only: false }
+
+#    - name: Run container
+#      shell: CONTAINER_NAME={{ dockerBuildName }} bash ./start-container.sh
+#
+#  - block:
+#    - name: Create repository
+#      shell: |
+#        gcloud artifacts repositories create {{repoName}} \
+#            --repository-format={{repoFormat}} \
+#            --location={{repoLocation}} \
+#            --description="Docker repository" \
+#            --project={{PROJECT_ID}}
+#    rescue:
+#    - name: List repositories
+#      shell: |
+#        gcloud artifacts repositories list --project {{ PROJECT_ID }}
+#      register: output
+#      failed_when: repoName not in output.stdout
+#
+#  - name: Configure Docker Authentication
+#    shell: |
+#      gcloud auth configure-docker {{repoLocation}}-docker.pkg.dev --project {{PROJECT_ID}}
+#
+#  - name: Docker Cloudshell Build with Ansible
+#    docker_image:
+#      name: "{{repoLocation}}-{{repoDockerProto}}/{{PROJECT_ID}}/{{repoName}}/{{dockerBuildName}}:tag1"
+#      build:
+#        path: "{{ playbook_dir }}"
+#        rm: true
+#      source: build
+##      push: true
+
+
+

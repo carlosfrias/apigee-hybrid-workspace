@@ -1,0 +1,14 @@
+---
+- name: Reload Molecule
+  hosts: localhost
+  connection: local
+
+  vars:
+    MOLECULE_SOURCE: "/usr/local/google/home/friasc/apigee-workspace/apigee-hybrid-workspace/bap_coe/apigee_helm/playbooks/molecule"
+    MOLECULE_DEST: "/usr/local/google/home/friasc/apigee-workspace/coe-workbench/apigee-hybrid-deployment/"
+
+  tasks:
+  - name: Sync from local molecule folder
+    synchronize:
+      src: "{{ MOLECULE_SOURCE }}"
+      dest: "{{ MOLECULE_DEST }}"

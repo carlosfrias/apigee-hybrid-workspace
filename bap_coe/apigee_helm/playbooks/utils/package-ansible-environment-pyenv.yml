@@ -1,0 +1,29 @@
+- name: Package Ansible Molecule Environment for Portability
+  hosts: localhost
+  connection: local
+
+  vars:
+    env_name: "bap_coe"
+    env_path: "/usr/local/google/home/friasc/.pyenv/versions/3.11.2/envs"
+    dest_dir: "work_dir"
+
+  collections:
+  - community.general
+
+  tasks:
+    - name: Clean up prior archive
+      file:
+        path: "{{ dest_dir }}/{{ env_name }}-site-packages-molecule.tar.bz2"
+        state: absent
+
+    - name: Assert work_dir
+      file:
+        path: "{{ dest_dir }}"
+        state: directory
+
+    - name: Archive environment into tar
+      archive:
+        path:
+        - "{{ env_path }}/{{ env_name }}/lib/python3.11/site-packages/"
+        dest: "{{ dest_dir }}/{{ env_name }}-site-packages-molecule.tar.bz2"
+        format: bz2
