@@ -95,15 +95,15 @@
     - name: Install non-system tools on system
       become: true
       get_url:
-        url: "{{ item }}"
-        dest: "{{ TOOLS_DIR }}/kubectx"
+        url: "{{ item.url }}"
+        dest: "{{ item.dest }}"
         mode: 0777
       poll: 0
       retries: 5
       async: 180
       with_items:
-      - { url: "https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx", dest: "{{ TOOLS_DIR }}/kubectx" }
-      - { url: "{{ kops_download_url }}", dest: "{{ TOOLS_DIR }}/kops" }
+      - { url: "https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx", dest: "{{ TOOLS_DIR }}/downloads/bin/kubectx" }
+      - { url: "{{ kops_download_url }}", dest: "{{ TOOLS_DIR }}/downloads/bin/kops" }
 
     #- name: Download nomos
     #  shell: gsutil cp gs://config-management-release/released/latest/linux_amd64/nomos {{ WORK_DIR }}/nomos
