@@ -12,6 +12,11 @@
   vars:
     APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
     SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    DEFAULT_SYSTEM_TOOLS:
+    - 'rsync'
+    - 'tree'
+    - 'netcat'
+
 
   collections:
     - bap_coe.gcp_management
