@@ -18,6 +18,7 @@
     - block:
       - name: Configure Apigee Env
         kubernetes.core.helm:
+          binary_path: "{{ HELM_BINARY }}"
           state: present
           chart_ref: "{{ APIGEE_HYBRID_HELM_CHARTS_DIR }}/apigee-env"
           namespace: "{{ APIGEE_NAMESPACE }}"
