@@ -6,7 +6,7 @@
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-1-cluster-creation/converge.yml"
 
 - name: Install Kubernetes tools
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-kubernetes-tools/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-kubernetes-tools/converge.yml"
 
 - name: Apigee Runtime Install & Configure Helm
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-2-helm-download/converge.yml"
