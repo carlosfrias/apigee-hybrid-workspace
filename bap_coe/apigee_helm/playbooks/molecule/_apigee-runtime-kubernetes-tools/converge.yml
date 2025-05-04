@@ -1,0 +1,35 @@
+---
+- name: Step 1 - Enable APIs for runtime
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+  vars:
+    APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+
+  collections:
+    - bap_coe.gcp_management
+    - bap_coe.bootstrap_runtime
+    - bap_coe.apigee_hybrid
+
+  pre_tasks:
+  - name: Set PROJECT_ID fact
+    set_fact:
+      PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
+
+  roles:
+  - {
+      apigee-hybrid-setup-environment-kubernetes,
+      TOOLS_DIR: "{{ APIGEE_RUNTIME_WORKDIR_BINARY_DEST }}"
+    }
+
+  tasks:
+  - name: Remove PROJECT_ID fact
+    set_fact:
+      PROJECT_ID: None

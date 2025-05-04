@@ -1,0 +1,30 @@
+---
+- name: Create infrastructure for private cloud in GCP
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - ~/.apigee-secure/credentials.yml
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-org-host-metadata.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
+  - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
+
+
+
+  collections:
+  - bap_coe.gcp_management
+  - bap_coe.bootstrap_runtime
+
+  roles:
+  - { role: service_account_file_path,
+      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
+    }
+
+  - { role: service_account_file_processing }
+  - { role: gcp_auth_service_account_activate }
+  - {
+      role: gcp_project_services_enable,
+      tags: ['services'],
+      ADMIN_ACCOUNT_EMAIL: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}",
+      SERVICE_OP: 'disable'
+    }
