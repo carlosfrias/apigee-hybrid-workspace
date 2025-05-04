@@ -39,7 +39,6 @@
       set_fact:
         cacheable: yes
         TOOLS_DIR: "{{ TOOLS_DIR }}"
-        WORK_DIR: "{{ WORK_DIR }}"
 
     #- name: Set tools attribute cache for Debian
     #  set_fact:
