@@ -33,4 +33,4 @@
   import_playbook: "{{ playbook_dir | dirname}}/apigee-control-installer/converge.yml"
 
 - name: Apigee Runtime Project Creation
-  import_playbook: "{{ playbook_dir | dirname}}/apigee-runtime-helm-installer/converge.yml"
+  import_playbook: "{{ playbook_dir | dirname}}/apigee-runtime-installer/converge.yml"
