@@ -50,8 +50,8 @@
   - block:
     - name: Rename cluster
       shell: |
-        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
-        kubectx {{ CLUSTER_NAME }}
+        {{ TOOLS_DIR }}/kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+        {{ TOOLS_DIR }}/kubectx {{ CLUSTER_NAME }}
     rescue:
     - name: RESCUE - Wait for the cluster...
       pause:
@@ -59,11 +59,11 @@
 
     - name: RESCUE - Rename cluster
       shell: |
-        kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
-        kubectx {{ CLUSTER_NAME }}
+        {{ TOOLS_DIR }}/kubectx {{ CLUSTER_NAME }}={{ FQ_CLUSTER_NAME }}
+        {{ TOOLS_DIR }}/kubectx {{ CLUSTER_NAME }}
 
   - name: Generate kubeconfig file content
-    shell: kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}
+    shell: "{{ TOOLS_DIR }}/kubectl config view --minify --flatten --context={{ CLUSTER_NAME }}"
     register: kubeconfig_content
 
   - name: Create kubeconfig file
@@ -73,14 +73,14 @@
 
   - name: Create StorageClass config
     shell: |
-      kubectl apply -f storageclass.yml
+      "{{ TOOLS_DIR }}/kubectl apply -f storageclass.yml"
 
   - name: Patch storageclass standard-rwo
     shell: |
-      kubectl patch storageclass standard-rwo \
+      {{ TOOLS_DIR }}/kubectl patch storageclass standard-rwo \
       -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 
   - name: Patch storageclass apigee-sc
     shell: |
-      kubectl patch storageclass apigee-sc \
+      {{ TOOLS_DIR }}/kubectl patch storageclass apigee-sc \
       -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
