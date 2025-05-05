@@ -55,5 +55,5 @@
       copy:
         src: "{{ WORKDIR_DOWNLOAD_DEST }}/{{ ansible_system | lower }}-{{ arch_list[-1] }}/helm"
         dest: "{{ HELM_BINARY }}"
-        mode: 0744
+        mode: 0777
 
