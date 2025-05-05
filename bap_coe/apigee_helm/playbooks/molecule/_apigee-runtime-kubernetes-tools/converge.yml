@@ -102,8 +102,8 @@
       retries: 5
       async: 180
       with_items:
-      - { url: "https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx", dest: "{{ TOOLS_DIR }}/downloads/bin/kubectx" }
-      - { url: "{{ kops_download_url }}", dest: "{{ TOOLS_DIR }}/downloads/bin/kops" }
+      - { url: "https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx", dest: "{{ TOOLS_DIR }}/kubectx" }
+      - { url: "{{ kops_download_url }}", dest: "{{ TOOLS_DIR }}/kops" }
 
     #- name: Download nomos
     #  shell: gsutil cp gs://config-management-release/released/latest/linux_amd64/nomos {{ WORK_DIR }}/nomos
