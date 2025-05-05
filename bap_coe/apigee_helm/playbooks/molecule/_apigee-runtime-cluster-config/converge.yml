@@ -73,7 +73,7 @@
 
   - name: Create StorageClass config
     shell: |
-      "kubectl apply -f storageclass.yml"
+      kubectl apply -f storageclass.yml
 
   - name: Patch storageclass standard-rwo
     shell: |
