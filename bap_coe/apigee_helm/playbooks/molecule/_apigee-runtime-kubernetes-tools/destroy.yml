@@ -1,5 +1,5 @@
 ---
-- name: Create infrastructure for private cloud in GCP
+- name: Remove extra kubernetes tools
   hosts: localhost
   connection: local
 
@@ -9,22 +9,63 @@
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-common-attributes.yml"
   - "{{ playbook_dir | dirname | dirname }}/resources/hybrid-region-{{ DATA_CENTER | default('dc-1') }}.yml"
 
-
+  vars:
+    APIGEE_ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
+    SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}"
+    DEFAULT_SYSTEM_TOOLS:
+    - 'rsync'
+    - 'tree'
+    - 'netcat'
 
   collections:
   - bap_coe.gcp_management
   - bap_coe.bootstrap_runtime
+  - bap_coe.apigee_hybrid
 
-  roles:
-  - { role: service_account_file_path,
-      KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
-    }
+  tasks:
+  - name: Set tools attribute cache
+    set_fact:
+      cacheable: yes
+      TOOLS_DIR: "{{ TOOLS_DIR }}"
 
-  - { role: service_account_file_processing }
-  - { role: gcp_auth_service_account_activate }
-  - {
-      role: gcp_project_services_enable,
-      tags: ['services'],
-      ADMIN_ACCOUNT_EMAIL: "{{ APIGEE_ADMIN_SERVICE_ACCOUNT }}",
-      SERVICE_OP: 'disable'
-    }
+  #- name: Set tools attribute cache for Debian
+  #  set_fact:
+  #    cacheable: yes
+  #    TOOLS_DIR: /usr/local/bin
+  #  when: ansible_os_family == "Debian"
+
+  - name: Create WORK_DIR folders
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+    - "{{ playbook_dir }}/ansible/logs"
+    - "{{ TOOLS_DIR }}"
+
+  - name: Install system tools
+    become: true
+    package:
+      name: "{{ item }}"
+      state: absent
+    with_items: "{{ SYSTEM_TOOLS | default(DEFAULT_SYSTEM_TOOLS) }}"
+
+  - name: Remove tools
+    become: true
+    file:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+    - "{{ TOOLS_DIR }}/kubectx"
+    - "{{ TOOLS_DIR }}/kops"
+
+  #- name: Download nomos
+  #  shell: gsutil cp gs://config-management-release/released/latest/linux_amd64/nomos {{ WORK_DIR }}/nomos
+  #  args:
+  #    creates: "{{ WORK_DIR }}/nomos"
+  #
+  #- name: Install nomos
+  #  become: yes
+  #  copy:
+  #    src: "{{ WORK_DIR }}/nomos"
+  #    dest: "{{ TOOLS_DIR }}/nomos"
+  #    mode: 0777
