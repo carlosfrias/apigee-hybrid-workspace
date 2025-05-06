@@ -1,0 +1,26 @@
+---
+- name: BAP COE Collection Builder
+  hosts: localhost
+  connection: local
+
+  vars:
+    collection_listing:
+    - { dir: "{{ playbook_dir }}/bap_coe/apigee_hybrid", collection: "{{ playbook_dir }}/bap_coe-apigee_hybrid-1.0.0.tar.gz" }
+    - { dir: "{{ playbook_dir }}/bap_coe/bastion_host", collection: "{{ playbook_dir }}/bap_coe-bastion_host-1.0.0.tar.gz" }
+    - { dir: "{{ playbook_dir }}/bap_coe/bootstrap_runtime", collection: "{{ playbook_dir }}/bap_coe-bootstrap_runtime-1.0.0.tar.gz" }
+    - { dir: "{{ playbook_dir }}/bap_coe/gcp_management", collection: "{{ playbook_dir }}/bap_coe-gcp_management-1.0.0.tar.gz" }
+
+  tasks:
+    - name: Remove prior artifacts
+      file:
+        path: "{{ item.collection }}"
+        state: absent
+      with_items: "{{collection_listing }}"
+
+    - name: Ansible Galaxy Collection Build
+      command: ansible-galaxy collection build {{ item.dir }} --force
+      with_items: "{{ collection_listing }}"
+
+    - name: Ansible Galaxy Collection Install
+      command: ansible-galaxy collection install {{ item.collection }} --force
+      with_items: "{{ collection_listing }}"
