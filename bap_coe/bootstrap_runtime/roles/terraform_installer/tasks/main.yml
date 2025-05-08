@@ -13,14 +13,12 @@
   register: TERRAFORM_DOWNLOAD_PATH
 
 - name: Set terraform link
-  tags: ['terraform']
   set_fact:
-    terraform_download_link: "{{ terraform_download_links[ansible_distribution] }}"
+    terraform_download_link: "{{ terraform_download_links['ansible_distribution'] }}"
 
 - name: Download and unarchive terraform binary
   block:
   - name: Download Terraform binary
-    tags: ['terraform']
     get_url:
       url: "{{ terraform_download_link }}"
       dest: "{{ TERRAFORM_DOWNLOAD_PATH.path }}/{{ terraform_download_link | basename }}"
@@ -32,7 +30,6 @@
       state: directory
 
   - name: Unarchive terraform binary
-    tags: ['terraform']
     unarchive:
       src: "{{ TERRAFORM_DOWNLOAD_PATH.path }}/{{ terraform_download_link | basename }}"
       dest: "{{ TERRAFORM_PATH_BIN }}"
