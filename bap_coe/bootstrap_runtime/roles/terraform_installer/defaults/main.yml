@@ -1,6 +1,6 @@
 ---
 # defaults file for terraform_installer
-terraform_version: "1.1.7"
+terraform_version: "1.11.4"
 terraform_download_links:
   Debian: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
   MacOSX: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_amd64.zip"

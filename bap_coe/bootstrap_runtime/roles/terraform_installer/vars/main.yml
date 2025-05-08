@@ -1,2 +1,4 @@
 ---
 # vars file for roles/terraform_installer
+terraform_version: "1.11.4"
+terraform_download_links: []

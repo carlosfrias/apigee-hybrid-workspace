@@ -10,7 +10,7 @@
     path: "{{ item }}"
     state: touch
   with_items:
-  - "{{ TERRAFORM_LOG_FILE_NAME_INIT_PATH }}"
+  - "{{ TERRAFORM_LOG_FILE }}"
 
 - name: Terraform init
   shell: |
@@ -19,4 +19,4 @@
     chdir: "{{ TERRAFORM_PATH_PROJECT }}"
   environment:
     TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
-    TF_LOG_PATH: "{{ TERRAFORM_LOG_FILE_NAME_INIT_PATH }}"
+    TF_LOG_PATH: "{{ TERRAFORM_LOG_FILE }}"
