@@ -19,4 +19,4 @@
     chdir: "{{ TERRAFORM_PATH_PROJECT }}"
   environment:
     TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
-    TF_LOG_PATH: "{{ TERRAFORM_LOG_FILE_NAME_PLAN_PATH }}"
+    TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
