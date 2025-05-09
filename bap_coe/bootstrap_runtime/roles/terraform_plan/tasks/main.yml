@@ -5,6 +5,11 @@
     path: "{{ TERRAFORM_LOG_PATH | dirname }}"
     state: directory
 
+- name: Assert terraform log file exists
+  file:
+    path: "{{ TERRAFORM_LOG_PATH }}"
+    state: touch
+
 - name: Terraform plan with extra var path
   shell: |
     {{ TERRAFORM_PATH_BIN }}/terraform plan --var-file={{ TERRAFORM_VAR_FILE_PATH }}
