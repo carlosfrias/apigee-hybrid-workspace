@@ -2,7 +2,7 @@
 # tasks file for terraform_apply
 - name: Assert terraform log folder exists
   file:
-    path: "{{ TERRAFORM_LOG_PATH }}"
+    path: "{{ TERRAFORM_LOG_PATH | dirname }}"
     state: directory
 
 - name: Assert terraform log file exists
@@ -12,12 +12,24 @@
   with_items:
   - "{{ TERRAFORM_LOG_FILE_NAME_APPLY_PATH }}"
 
-- name: Terraform apply
+- name: Terraform apply with extra variables
   shell: |
     {{ TERRAFORM_PATH_BIN }}/terraform apply --var-file={{ TERRAFORM_VAR_FILE_PATH }} -auto-approve
   args:
     chdir: "{{ TERRAFORM_PATH_PROJECT }}"
   environment:
     TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
-    TF_LOG_PATH: "{{ TERRAFORM_LOG_FILE_NAME_APPLY_PATH }}"
+    TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
+  when: TERRAFORM_VAR_FILE_PATH is defined
+
+- name: Terraform apply
+  shell: |
+    {{ TERRAFORM_PATH_BIN }}/terraform apply -auto-approve
+  args:
+    chdir: "{{ TERRAFORM_PATH_PROJECT }}"
+  environment:
+    TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
+    TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
+  when: TERRAFORM_VAR_FILE_PATH is not defined
+
 
