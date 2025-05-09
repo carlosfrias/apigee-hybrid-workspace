@@ -32,6 +32,6 @@
   - name: Unarchive terraform binary
     unarchive:
       src: "{{ TERRAFORM_DOWNLOAD_PATH.path }}/{{ terraform_download_link | basename }}"
-      dest: "{{ TERRAFORM_PATH_BIN | dirname }}"
+      dest: "{{ TERRAFORM_PATH_BIN }}"
       remote_src: yes
   when: TERRAFORM_DOWNLOAD_PATH.path is defined
