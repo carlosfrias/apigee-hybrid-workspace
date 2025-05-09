@@ -10,7 +10,7 @@
     path: "{{ item }}"
     state: touch
   with_items:
-  - "{{ TERRAFORM_LOG_FILE_NAME_APPLY_PATH }}"
+  - "{{ TERRAFORM_LOG_PATH }}"
 
 - name: Terraform apply with extra variables
   shell: |
