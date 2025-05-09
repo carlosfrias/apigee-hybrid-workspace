@@ -3,7 +3,7 @@
 - name: Assert terraform binary destination path
   assert:
     that:
-      - TERRAFORM_PATH_BIN is defined
+      - TERRAFORM_PATH_BINARY is defined
     msg: "Please provide the path for the terraform binary"
 
 - name: Create temporary download directory
@@ -14,7 +14,7 @@
 
 - name: Set terraform link
   set_fact:
-    terraform_download_link: "{{ terraform_download_links['ansible_distribution'] }}"
+    terraform_download_link: "{{ terraform_download_links[ansible_distribution] }}"
 
 - name: Download and unarchive terraform binary
   block:
@@ -26,12 +26,12 @@
 
   - name: Assert terraform bin dest path
     file:
-      path: "{{ TERRAFORM_PATH_BIN }}"
+      path: "{{ TERRAFORM_PATH_BINARY }}"
       state: directory
 
   - name: Unarchive terraform binary
     unarchive:
       src: "{{ TERRAFORM_DOWNLOAD_PATH.path }}/{{ terraform_download_link | basename }}"
-      dest: "{{ TERRAFORM_PATH_BIN }}"
+      dest: "{{ TERRAFORM_PATH_BINARY | dirname }}"
       remote_src: yes
   when: TERRAFORM_DOWNLOAD_PATH.path is defined
