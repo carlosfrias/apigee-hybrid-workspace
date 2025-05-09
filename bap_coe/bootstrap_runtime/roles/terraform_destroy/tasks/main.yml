@@ -15,7 +15,7 @@
 - name: Terraform destroy
   ignore_errors: True
   shell: |
-    {{ TERRAFORM_PATH_BINARY }} destroy --var-file={{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars -auto-approve
+    {{ TERRAFORM_PATH_BIN }}/terraform destroy --var-file={{ TERRAFORM_PATH_PROJECT }}/x-demo.tfvars -auto-approve
   args:
     chdir: "{{ TERRAFORM_PATH_PROJECT }}"
   environment:

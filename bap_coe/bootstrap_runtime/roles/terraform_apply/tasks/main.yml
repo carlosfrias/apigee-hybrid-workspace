@@ -14,7 +14,7 @@
 
 - name: Terraform apply
   shell: |
-    {{ TERRAFORM_PATH_BINARY }} apply --var-file={{ TERRAFORM_VAR_FILE_PATH }} -auto-approve
+    {{ TERRAFORM_PATH_BIN }}/terraform apply --var-file={{ TERRAFORM_VAR_FILE_PATH }} -auto-approve
   args:
     chdir: "{{ TERRAFORM_PATH_PROJECT }}"
   environment:

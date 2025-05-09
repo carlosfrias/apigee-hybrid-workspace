@@ -14,7 +14,7 @@
 
 - name: Terraform plan
   shell: |
-    {{ TERRAFORM_PATH_BINARY }} plan --var-file={{ TERRAFORM_VAR_FILE_PATH }}
+    {{ TERRAFORM_PATH_BIN }}/terraform plan --var-file={{ TERRAFORM_VAR_FILE_PATH }}
   args:
     chdir: "{{ TERRAFORM_PATH_PROJECT }}"
   environment:

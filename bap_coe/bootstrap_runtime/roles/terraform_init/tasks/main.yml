@@ -14,7 +14,7 @@
 
 - name: Terraform init
   shell: |
-    {{ TERRAFORM_PATH_BINARY }} init
+    {{ TERRAFORM_PATH_BIN }}/terraform init
   args:
     chdir: "{{ TERRAFORM_PATH_PROJECT }}"
   environment:
