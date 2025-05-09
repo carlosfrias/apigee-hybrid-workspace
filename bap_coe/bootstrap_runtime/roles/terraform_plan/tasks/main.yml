@@ -12,7 +12,7 @@
   with_items:
   - "{{ TERRAFORM_LOG_PATH }}"
 
-- name: Terraform plan
+- name: Terraform plan with extra var path
   shell: |
     {{ TERRAFORM_PATH_BIN }}/terraform plan --var-file={{ TERRAFORM_VAR_FILE_PATH }}
   args:
@@ -20,3 +20,14 @@
   environment:
     TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
     TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
+  when: TERRAFORM_VAR_FILE_PATH is exists
+
+- name: Terraform plan with extra var path
+  shell: |
+    {{ TERRAFORM_PATH_BIN }}/terraform plan
+  args:
+    chdir: "{{ TERRAFORM_PATH_PROJECT }}"
+  environment:
+    TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
+    TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
+  when: TERRAFORM_VAR_FILE_PATH is not exists
