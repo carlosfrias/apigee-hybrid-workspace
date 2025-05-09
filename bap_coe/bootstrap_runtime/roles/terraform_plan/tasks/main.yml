@@ -20,7 +20,7 @@
   environment:
     TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
     TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
-  when: TERRAFORM_VAR_FILE_PATH is exists
+  when: TERRAFORM_VAR_FILE_PATH is defined
 
 - name: Terraform plan with extra var path
   shell: |
@@ -30,4 +30,4 @@
   environment:
     TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
     TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
-  when: TERRAFORM_VAR_FILE_PATH is not exists
+  when: TERRAFORM_VAR_FILE_PATH is not defined
