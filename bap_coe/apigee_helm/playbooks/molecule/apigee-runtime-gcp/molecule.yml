@@ -1,0 +1,17 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: default
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+  - name: apigee part 1 of the installation
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+
