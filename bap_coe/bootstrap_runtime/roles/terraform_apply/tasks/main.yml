@@ -40,9 +40,9 @@
     TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
     TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
   when: TERRAFORM_VAR_FILE_PATH is not defined
-  register: tf_output
+  register: TF_OUTPUT
 
 - name: Show terraform output
   debug:
-    var: tf_output
+    var: TF_OUTPUT
 
