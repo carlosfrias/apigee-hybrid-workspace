@@ -2,8 +2,8 @@
 #- name: Install Kubernetes tools
 #  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-kubernetes-tools/converge.yml"
 
-- name: Apigee runtime GCP infrastructure creation
-  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gcp/converge.yml"
+#- name: Apigee runtime GCP infrastructure creation
+#  import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-gcp/converge.yml"
 
 - name: Apigee Runtime Create Apigee Namespace
   import_playbook: "{{ playbook_dir | dirname }}/apigee-runtime-step-3-namespace/converge.yml"
