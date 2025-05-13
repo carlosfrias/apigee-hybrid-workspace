@@ -19,6 +19,7 @@
     TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
     TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
   when: TERRAFORM_VAR_FILE_PATH is defined
+  register: apply_output
 
 - name: Terraform apply
   shell: |
@@ -29,5 +30,19 @@
     TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
     TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
   when: TERRAFORM_VAR_FILE_PATH is not defined
+  register: apply_output
 
+- name: Capture terraform output
+  command: "{{ TERRAFORM_PATH_BIN }}/terraform output"
+  args:
+    chdir: "{{ TERRAFORM_PATH_PROJECT }}"
+  environment:
+    TF_LOG: "{{ TERRAFORM_LOG_LEVEL }}"
+    TF_LOG_PATH: "{{ TERRAFORM_LOG_PATH }}"
+  when: TERRAFORM_VAR_FILE_PATH is not defined
+  register: tf_output
+
+- name: Show terraform output
+  debug:
+    var: tf_output
 
