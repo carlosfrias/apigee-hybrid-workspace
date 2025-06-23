@@ -8,7 +8,7 @@
   - name: Set data center fact
     set_fact:
       cacheable: true
-      DATA_CENTER: "dc-2-prep"
+      CASSANDRA_DATA_CENTER_NAME: "dc-2-prep"
       CASSANDRA_HOST_NETWORK: true
 
 - name: Update overrides config file

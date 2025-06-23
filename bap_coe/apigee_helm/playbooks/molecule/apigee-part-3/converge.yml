@@ -8,7 +8,7 @@
 #  - name: Set data center fact
 #    set_fact:
 #      cacheable: true
-#      DATA_CENTER: "dc-1"
+#      CASSANDRA_DATA_CENTER_NAME: "dc-1"
 
 - name: Create service to Apigee Ingress
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-ingressgateway-endpoint-expose/converge.yml"
