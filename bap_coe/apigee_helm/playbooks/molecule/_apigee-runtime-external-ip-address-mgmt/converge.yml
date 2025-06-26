@@ -14,6 +14,7 @@
     SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_SERVICE_ACCOUNT_FILE_PATH }}"
     WORK_DIR: "{{ APIGEE_RUNTIME_WORK_DIR }}"
     GCP_TOKEN_FILE_PATH: "{{ APIGEE_CONTROL_GCP_TOKEN_FILE_PATH }}"
+    EXTERNAL_IP_NAME: 
 
   collections:
     - bap_coe.apigee_hybrid
@@ -24,13 +25,13 @@
         role: service_account_file_path,
         KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}",
         PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
-    }
+      }
     - { role: service_account_file_processing }
     - {
         role: gcp_auth_service_account_activate,
         ADMIN_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}",
         SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT_FILE_PATH }}",
         PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}"
-    }
+      }
     - { role: gce_external_ip_create, PROJECT_ID: "{{ APIGEE_RUNTIME_PROJECT_ID }}" }
 

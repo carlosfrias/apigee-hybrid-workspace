@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigeectl-install-binary
+  - name: install-apigeectl-binary
 provisioner:
   name: ansible
 verifier:

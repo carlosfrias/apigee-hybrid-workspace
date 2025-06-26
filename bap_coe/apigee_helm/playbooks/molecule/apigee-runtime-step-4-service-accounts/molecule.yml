@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee part 1 of the installation
+  - name: apigee-runtime-step-4-service-accounts
 provisioner:
   name: ansible
 verifier:

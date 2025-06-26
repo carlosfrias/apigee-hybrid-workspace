@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-- name: apigee-helm
+- name: _apigee-runtime-telemetry-mgmt
 provisioner:
   name: ansible
 verifier:

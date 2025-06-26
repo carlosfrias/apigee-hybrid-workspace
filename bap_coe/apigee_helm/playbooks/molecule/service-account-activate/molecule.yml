@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: Service Account Activate
+  - name: service-account-activate
 provisioner:
   name: ansible
 verifier:

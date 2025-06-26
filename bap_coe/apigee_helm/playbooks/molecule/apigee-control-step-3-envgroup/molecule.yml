@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee-org-environment-group
+  - name: apigee-control-step-3-envgroup
 provisioner:
   name: ansible
 verifier:

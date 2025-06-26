@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee-org-host-policies
+  - name: _apigee-control-argo-policies
 provisioner:
   name: ansible
 verifier:

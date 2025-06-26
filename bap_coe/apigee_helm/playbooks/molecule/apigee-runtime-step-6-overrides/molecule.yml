@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-- name: apigee-helm
+- name: apigee-runtime-step-6-overrides
 provisioner:
   name: ansible
 verifier:

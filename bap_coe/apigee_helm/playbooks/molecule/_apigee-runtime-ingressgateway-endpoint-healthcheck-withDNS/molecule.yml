@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigeectl-runtime-checkready
+  - name: _apigee-runtime-ingressgateway-endpiont-healthcheck-withDNS
 provisioner:
   name: ansible
 #  ansible_args:

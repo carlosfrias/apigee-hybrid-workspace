@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-- name: apigee-helm
+- name: apigee-runtime-step-3-namespace
 provisioner:
   name: ansible
 verifier:

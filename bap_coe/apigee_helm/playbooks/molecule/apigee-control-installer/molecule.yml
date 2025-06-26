@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigee-org-host-project-creation
+  - name: apigee-control-installer
 provisioner:
   name: ansible
 verifier:

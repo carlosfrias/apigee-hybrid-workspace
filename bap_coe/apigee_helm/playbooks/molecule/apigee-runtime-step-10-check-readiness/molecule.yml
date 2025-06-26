@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: apigeectl-cluster-ready-check
+  - name: apigee-runtime-step-10-check-readiness
 provisioner:
   name: ansible
   playbooks:

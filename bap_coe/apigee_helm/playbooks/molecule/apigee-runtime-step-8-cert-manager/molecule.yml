@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: kubectl-cert-manager-install
+  - name: apigee-runtime-step-9-install-crds
 provisioner:
   name: ansible
 #  ansible_args:
