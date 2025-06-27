@@ -26,7 +26,6 @@
   - bap_coe.gcp_management
 
   roles:
-    - { role: apigee-hybrid-setup-environment-kubernetes }
     - {
         role: service_account_file_path,
         KEY_FILE_PATH: "{{ CREDENTIALS_DIR }}"
