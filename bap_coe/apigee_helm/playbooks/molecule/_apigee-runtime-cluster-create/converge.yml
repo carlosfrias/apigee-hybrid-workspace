@@ -20,7 +20,6 @@
     GCP_TOKEN_FILE_PATH: "{{ APIGEE_CONTROL_GCP_TOKEN_FILE_PATH }}"
     RUNTIME_SERVICE_ACCOUNT: "{{ APIGEE_RUNTIME_ADMIN_SERVICE_ACCOUNT }}"
 
-
   collections:
   - bap_coe.apigee_hybrid
   - bap_coe.gcp_management
