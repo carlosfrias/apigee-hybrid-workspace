@@ -9,7 +9,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-- name: apigee-helm
+- name: default-apigee-helm
 provisioner:
   name: ansible
 verifier:
