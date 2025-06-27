@@ -19,6 +19,8 @@ transaction.yaml
 **/.yamllint
 **/apigee-hybrid-helm-charts
 .obsidian
+workspace.code-workspace
+
 
 /bap_coe/apigee_helm/playbooks/utils/data-ca/
 /bap_coe/apigee_helm/playbooks/utils/data-crt/

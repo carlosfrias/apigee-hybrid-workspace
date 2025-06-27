@@ -1,6 +1,6 @@
 ---
-- name: Install Kubernetes Tools
-  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-kubernetes-tools/converge.yml"
+#- name: Install Kubernetes Tools
+#  import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-kubernetes-tools/converge.yml"
 
 - name: Apigee Runtime Configure Apigee GKE Cluster
   import_playbook: "{{ playbook_dir | dirname }}/_apigee-runtime-cluster-create/converge.yml"
