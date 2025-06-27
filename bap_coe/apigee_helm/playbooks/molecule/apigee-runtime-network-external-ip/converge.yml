@@ -14,7 +14,6 @@
     SERVICE_ACCOUNT_FILE_PATH: "{{ APIGEE_RUNTIME_SERVICE_ACCOUNT_FILE_PATH }}"
     CREDENTIALS_DIR: "{{ APIGEE_RUNTIME_CREDENTIALS_DIR }}"
     GCP_TOKEN_FILE_PATH: "{{ APIGEE_RUNTIME_GCP_TOKEN_FILE_PATH }}"
-    EXTERNAL_IP_NAME: "external-ip-apigee-ingress-for-apigee-hybrid-1"
 
   collections:
   - bap_coe.apigee_hybrid
