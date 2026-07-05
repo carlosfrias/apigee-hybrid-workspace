@@ -2,21 +2,14 @@
 
 > **An Ansible collection (`bap_coe.apigee_hybrid`) that automates the full lifecycle of Apigee Hybrid on Kubernetes** — provision the cluster, install the runtime, configure multi-region, manage TLS and ingress, provision orgs/envs, and converge it all idempotently across GKE and AKS.
 
+> [!NOTE]
+> Engineering portfolio note — this project is the flagship of the Apigee Hybrid / Kubernetes automation corpus and serves as the portfolio hub for the related expertise. See the [skills assessment →](SKILLS-ASSESSMENT.md) for the expertise applied.
+
 This is the cloud-native successor to [`apigee-edge-opdk`](https://github.com/carlosfrias/apigee-edge-opdk). Where the OPDK framework modeled an on-prem **planet** as an object graph and converged it via the Apigee management REST API, this toolkit transposes the same framework thinking onto **Kubernetes + Anthos Service Mesh + Apigee Hybrid** — packaged as a distributable Ansible collection rather than a monorepo.
 
 > **Disclaimer:** This is not a Google product and is not supported by Apigee. It is a community toolkit provided as-is. See [LICENSE](./LICENSE).
 >
 > **Authorship:** Authored and maintained in full by **Carlos Frias** (sole author). The `bap_coe` namespace is retained as the collection's technical identifier; no other contributors participated.
-
----
-
-## Why this project is notable
-
-- **The largest body of work in the corpus.** 2,691 commits across 2020–2025, 42 roles, packaged as a versioned Ansible collection (`bap_coe.apigee_hybrid` v1.0.0) — beginning ~1 year after Apigee Hybrid GA.
-- **A deliberate distribution-architecture migration.** Successor to the `apigee-edge-opdk` monorepo; moves from clone-and-edit roles to an `ansible-galaxy`-installable collection — matching how the Ansible ecosystem and Apigee Hybrid itself matured.
-- **Error-driven IAM self-healing.** `apigeectl-apply` parses `apigeectl` stderr and auto-grants missing GCP IAM roles (`apigeeconnect.Agent`, `apigee.runtimeAgent`) in a rescue block, then retries — a production failure mode encoded into the automation.
-- **Multi-region, multi-cloud.** GKE + AKS, Anthos Service Mesh (revision-tagged Istio, kpt), dedicated multi-region configure/prep/clear roles.
-- **Collection-quality discipline.** Molecule test harnesses across setup-environment, apigee-version, ip-address, and hello-world roles.
 
 ---
 
@@ -32,22 +25,6 @@ It drives the complete Apigee Hybrid lifecycle as composable, idempotent roles:
 - **Provision the control plane** — `apigee-hybrid-{org,env,group}-{create,attach}`, `apigee-hybrid-uri-synchronizer-enable`, `apigee-hybrid-apigee-connect-enable`, `apigee-hybrid-apigee-cluster-ready-check`.
 - **Wire networking and firewalling** — `apigee-hybrid-firewall-region-enable`, `apigee-hybrid-ip-address`.
 - **Prepare the operator environment** — `apigee-hybrid-setup-environment-{gcp,kubernetes,az,docker}`.
-
----
-
-## Capabilities — what this credentials
-
-> Ansible is the medium. The engineering below is the evidence of the expertise applied.
-
-- **Kubernetes / GKE / AKS platform engineering** — cluster create/delete, credential bootstrapping, context management, cert-manager lifecycle, ingress gateway exposure and health checks.
-- **Anthos Service Mesh / Istio** — ASM install with revision-tagged Istio and kpt package reconciliation.
-- **Apigee Hybrid runtime lifecycle** — the full `apigeectl` init→configure→apply→checkready sequence, including multi-region configure with settings prep and clear.
-- **Failure-aware, self-healing reconciliation** — `apigeectl-apply` parses stderr and auto-grants missing GCP IAM roles before retrying.
-- **GCP IAM & project management** — project create/remove, service enablement, IAM role grants, service-account-driven auth.
-- **Multi-region topology coordination** — dedicated multi-region configure/prep/clear roles; region-aware firewall enablement.
-- **TLS / PKI on K8s** — cert-manager install/delete, TLS cert create/destroy, ingress gateway TLS exposure.
-- **Apigee control-plane provisioning** — org/env/group create + attach, URI synchronizer, Apigee Connect enablement.
-- **Distributable collection architecture** — packaged as `bap_coe.apigee_hybrid` consumable via `ansible-galaxy`, not a clone-and-edit monorepo.
 
 ---
 
