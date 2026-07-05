@@ -53,19 +53,19 @@ This collection is the entry point. The expertise below is evidenced in the rela
 ### Apigee OPDK / on-prem platform operations
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
-| OPDK framework (flagship, 120-role monorepo) | [`apigee-edge-opdk`](https://github.com/carlosfrias/apigee-edge-opdk) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-edge-opdk/blob/main/SKILLS-ASSESSMENT.md) *(pending retrofit)* |
+| OPDK framework (flagship, 120-role monorepo) | [`apigee-edge-opdk`](https://github.com/carlosfrias/apigee-edge-opdk) | 🚫 Dropped from cornerstone set — expertise demonstrated by individual role repos and bap_coe hub |
 | Rolling upgrade / DR / traffic fencing | [`apigee-opdk-playbook-maintenance-opdk-upgrade`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-opdk-upgrade) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-opdk-upgrade/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 | Cassandra cluster rebuild | [`apigee-opdk-cassandra-rebuild`](https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 | Postgres HA / controlled switchover | [`apigee-opdk-setup-postgres-failover`](https://github.com/carlosfrias/apigee-opdk-setup-postgres-failover) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-postgres-failover/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 | SAML SSO / dual-keypair | [`apigee-opdk-setup-edge-sso-config`](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 | OpenLDAP / OS security | [`apigee-opdk-setup-os-openldap`](https://github.com/carlosfrias/apigee-opdk-setup-os-openldap) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-os-openldap/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Analytics topology lifecycle | [`apigee-opdk-setup-analytics-group-add`](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add/blob/main/SKILLS-ASSESSMENT.md) *(pending v3)* |
-| Multi-datacenter expansion | [`apigee-opdk-playbook-maintenance-expand-region`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region/blob/main/SKILLS-ASSESSMENT.md) *(pending v3)* |
+| Analytics topology lifecycle | [`apigee-opdk-setup-analytics-group-add`](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Multi-datacenter expansion | [`apigee-opdk-playbook-maintenance-expand-region`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 
 ### Apigee tooling
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
-| Gradle plugin / proxy management | [`apigee-gradle-plugin`](https://github.com/carlosfrias/apigee-gradle-plugin) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-gradle-plugin/blob/main/SKILLS-ASSESSMENT.md) *(pending v3)* |
+| Gradle plugin / proxy management | [`apigee-gradle-plugin`](https://github.com/carlosfrias/apigee-gradle-plugin) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-gradle-plugin/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 
 ### AI orchestration
 | Skill | Repository | Assessment |
@@ -75,9 +75,9 @@ This collection is the entry point. The expertise below is evidenced in the rela
 ### Self-hosted infrastructure
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
-| Docker Compose + Ansible lifecycle | [`nextcloud`](https://github.com/carlosfrias/nextcloud) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/nextcloud/blob/main/SKILLS-ASSESSMENT.md) *(pending v3)* |
+| Docker Compose + Ansible lifecycle | [`nextcloud`](https://github.com/carlosfrias/nextcloud) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/nextcloud/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 
-> *(pending retrofit)* = repo has a pushed v2 README; the skills assessment will be split out as that repo is retrofitted to v3. *(pending v3)* = repo is drafted under v2 (Batch 4) and will be re-drafted under v3 with its own `SKILLS-ASSESSMENT.md`.
+> *(pending retrofit)* = repo has a pushed v2 README; the skills assessment will be split out as that repo is retrofitted to v3.
 
 ---
 
