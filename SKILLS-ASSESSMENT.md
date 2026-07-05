@@ -70,7 +70,7 @@ This collection is the entry point. The expertise below is evidenced in the rela
 ### AI orchestration
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
-| A2A v1.0 spec conformance | [`pi-a2a-communication`](https://github.com/carlosfrias/pi-a2a-communication) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/pi-a2a-communication/blob/main/SKILLS-ASSESSMENT.md) *(pending retrofit)* |
+| A2A v1.0 spec conformance | [`pi-a2a-communication`](https://github.com/carlosfrias/pi-a2a-communication) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/pi-a2a-communication/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 
 ### Self-hosted infrastructure
 | Skill | Repository | Assessment |
