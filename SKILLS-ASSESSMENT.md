@@ -65,6 +65,12 @@ This collection is the entry point. The expertise below is evidenced in the rela
 | Analytics scope binding (org/env) | [`apigee-opdk-setup-scopes-add`](https://github.com/carlosfrias/apigee-opdk-setup-scopes-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-scopes-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 | Analytics scope verification | [`apigee-opdk-setup-scopes-state`](https://github.com/carlosfrias/apigee-opdk-setup-scopes-state) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-scopes-state/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 | Multi-datacenter expansion | [`apigee-opdk-playbook-maintenance-expand-region`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Centralized defaults + runtime topology | [`apigee-opdk-setup-default-settings`](https://github.com/carlosfrias/apigee-opdk-setup-default-settings) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-default-settings/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Ansible controller scaffolding | [`apigee-opdk-setup-ansible-controller`](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| CWC property updates | [`apigee-opdk-cwc-update`](https://github.com/carlosfrias/apigee-opdk-cwc-update) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-cwc-update/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Reversible debug toggle | [`apigee-opdk-debug-mode`](https://github.com/carlosfrias/apigee-opdk-debug-mode) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-debug-mode/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Full-planet backup | [`apigee-opdk-playbook-maintenance-backup`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-backup) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-backup/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| OPDK lifecycle playbook framework | [`apigee-opdk-playbook-setup-ansible`](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 
 ### Apigee Hybrid deployment
 | Skill | Repository | Assessment |
@@ -80,6 +86,7 @@ This collection is the entry point. The expertise below is evidenced in the rela
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
 | A2A v1.0 spec conformance | [`pi-a2a-communication`](https://github.com/carlosfrias/pi-a2a-communication) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/pi-a2a-communication/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Decompose-execute-verify pattern | [`trading-agents`](https://github.com/carlosfrias/trading-agents) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/trading-agents/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 
 ### Self-hosted infrastructure
 | Skill | Repository | Assessment |
