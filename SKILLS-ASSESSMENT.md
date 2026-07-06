@@ -60,7 +60,16 @@ This collection is the entry point. The expertise below is evidenced in the rela
 | SAML SSO / dual-keypair | [`apigee-opdk-setup-edge-sso-config`](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 | OpenLDAP / OS security | [`apigee-opdk-setup-os-openldap`](https://github.com/carlosfrias/apigee-opdk-setup-os-openldap) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-os-openldap/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 | Analytics topology lifecycle | [`apigee-opdk-setup-analytics-group-add`](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Analytics Qpid consumer addition | [`apigee-opdk-setup-qpid-add`](https://github.com/carlosfrias/apigee-opdk-setup-qpid-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-qpid-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Analytics Postgres datastore addition | [`apigee-opdk-setup-postgres-add`](https://github.com/carlosfrias/apigee-opdk-setup-postgres-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-postgres-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Analytics scope binding (org/env) | [`apigee-opdk-setup-scopes-add`](https://github.com/carlosfrias/apigee-opdk-setup-scopes-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-scopes-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Analytics scope verification | [`apigee-opdk-setup-scopes-state`](https://github.com/carlosfrias/apigee-opdk-setup-scopes-state) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-scopes-state/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 | Multi-datacenter expansion | [`apigee-opdk-playbook-maintenance-expand-region`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+
+### Apigee Hybrid deployment
+| Skill | Repository | Assessment |
+|-------|-----------|-----------|
+| Hybrid deployment workspace (GKE/EKS) | [`apigee-hybrid-deployment`](https://github.com/carlosfrias/apigee-hybrid-deployment) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-hybrid-deployment/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 
 ### Apigee tooling
 | Skill | Repository | Assessment |
