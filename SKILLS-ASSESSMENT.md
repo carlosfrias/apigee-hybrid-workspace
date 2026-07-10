@@ -54,23 +54,23 @@ This collection is the entry point. The expertise below is evidenced in the rela
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
 | OPDK framework (flagship, 120-role monorepo) | [`apigee-edge-opdk`](https://github.com/carlosfrias/apigee-edge-opdk) | 🚫 Dropped from cornerstone set — expertise demonstrated by individual role repos and bap_coe hub |
-| Rolling upgrade / DR / traffic fencing | [`apigee-opdk-playbook-maintenance-opdk-upgrade`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-opdk-upgrade) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-opdk-upgrade/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Cassandra cluster rebuild | [`apigee-opdk-cassandra-rebuild`](https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Postgres HA / controlled switchover | [`apigee-opdk-setup-postgres-failover`](https://github.com/carlosfrias/apigee-opdk-setup-postgres-failover) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-postgres-failover/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| SAML SSO / dual-keypair | [`apigee-opdk-setup-edge-sso-config`](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| OpenLDAP / OS security | [`apigee-opdk-setup-os-openldap`](https://github.com/carlosfrias/apigee-opdk-setup-os-openldap) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-os-openldap/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Analytics topology lifecycle | [`apigee-opdk-setup-analytics-group-add`](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Analytics Qpid consumer addition | [`apigee-opdk-setup-qpid-add`](https://github.com/carlosfrias/apigee-opdk-setup-qpid-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-qpid-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Analytics Postgres datastore addition | [`apigee-opdk-setup-postgres-add`](https://github.com/carlosfrias/apigee-opdk-setup-postgres-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-postgres-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Analytics scope binding (org/env) | [`apigee-opdk-setup-scopes-add`](https://github.com/carlosfrias/apigee-opdk-setup-scopes-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-scopes-add/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Analytics scope verification | [`apigee-opdk-setup-scopes-state`](https://github.com/carlosfrias/apigee-opdk-setup-scopes-state) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-scopes-state/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Multi-datacenter expansion | [`apigee-opdk-playbook-maintenance-expand-region`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Centralized defaults + runtime topology | [`apigee-opdk-setup-default-settings`](https://github.com/carlosfrias/apigee-opdk-setup-default-settings) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-default-settings/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Ansible controller scaffolding | [`apigee-opdk-setup-ansible-controller`](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| CWC property updates | [`apigee-opdk-cwc-update`](https://github.com/carlosfrias/apigee-opdk-cwc-update) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-cwc-update/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Reversible debug toggle | [`apigee-opdk-debug-mode`](https://github.com/carlosfrias/apigee-opdk-debug-mode) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-debug-mode/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Full-planet backup | [`apigee-opdk-playbook-maintenance-backup`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-backup) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-backup/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| OPDK lifecycle playbook framework | [`apigee-opdk-playbook-setup-ansible`](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Rolling upgrade / DR / traffic fencing | [`apigee-opdk-playbook-maintenance-opdk-upgrade`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-opdk-upgrade) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-opdk-upgrade/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Cassandra cluster rebuild | [`apigee-opdk-cassandra-rebuild`](https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Postgres HA / controlled switchover | [`apigee-opdk-setup-postgres-failover`](https://github.com/carlosfrias/apigee-opdk-setup-postgres-failover) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-postgres-failover/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| SAML SSO / dual-keypair | [`apigee-opdk-setup-edge-sso-config`](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| OpenLDAP / OS security | [`apigee-opdk-setup-os-openldap`](https://github.com/carlosfrias/apigee-opdk-setup-os-openldap) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-os-openldap/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Analytics topology lifecycle | [`apigee-opdk-setup-analytics-group-add`](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-analytics-group-add/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Analytics Qpid consumer addition | [`apigee-opdk-setup-qpid-add`](https://github.com/carlosfrias/apigee-opdk-setup-qpid-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-qpid-add/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Analytics Postgres datastore addition | [`apigee-opdk-setup-postgres-add`](https://github.com/carlosfrias/apigee-opdk-setup-postgres-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-postgres-add/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Analytics scope binding (org/env) | [`apigee-opdk-setup-scopes-add`](https://github.com/carlosfrias/apigee-opdk-setup-scopes-add) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-scopes-add/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Analytics scope verification | [`apigee-opdk-setup-scopes-state`](https://github.com/carlosfrias/apigee-opdk-setup-scopes-state) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-scopes-state/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Multi-datacenter expansion | [`apigee-opdk-playbook-maintenance-expand-region`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-expand-region/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Centralized defaults + runtime topology | [`apigee-opdk-setup-default-settings`](https://github.com/carlosfrias/apigee-opdk-setup-default-settings) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-default-settings/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Ansible controller scaffolding | [`apigee-opdk-setup-ansible-controller`](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-ansible-controller/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| CWC property updates | [`apigee-opdk-cwc-update`](https://github.com/carlosfrias/apigee-opdk-cwc-update) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-cwc-update/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Reversible debug toggle | [`apigee-opdk-debug-mode`](https://github.com/carlosfrias/apigee-opdk-debug-mode) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-debug-mode/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| Full-planet backup | [`apigee-opdk-playbook-maintenance-backup`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-backup) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-backup/blob/master/SKILLS-ASSESSMENT.md) ✅ |
+| OPDK lifecycle playbook framework | [`apigee-opdk-playbook-setup-ansible`](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible/blob/master/SKILLS-ASSESSMENT.md) ✅ |
 
 ### Apigee Hybrid deployment
 | Skill | Repository | Assessment |
@@ -80,18 +80,16 @@ This collection is the entry point. The expertise below is evidenced in the rela
 ### Apigee tooling
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
-| Gradle plugin / proxy management | [`apigee-gradle-plugin`](https://github.com/carlosfrias/apigee-gradle-plugin) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-gradle-plugin/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| Gradle plugin / proxy management | [`apigee-gradle-plugin`](https://github.com/carlosfrias/apigee-gradle-plugin) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-gradle-plugin/blob/master/SKILLS-ASSESSMENT.md) ✅ |
 
 ### AI orchestration
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
-| A2A v1.0 spec conformance | [`pi-a2a-communication`](https://github.com/carlosfrias/pi-a2a-communication) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/pi-a2a-communication/blob/main/SKILLS-ASSESSMENT.md) ✅ |
-| Decompose-execute-verify pattern | [`trading-agents`](https://github.com/carlosfrias/trading-agents) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/trading-agents/blob/main/SKILLS-ASSESSMENT.md) ✅ |
+| A2A v1.0 spec conformance | [`pi-a2a-communication`](https://github.com/carlosfrias/pi-a2a-communication) | — ✅ |
 
 ### Self-hosted infrastructure
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
-| Docker Compose + Ansible lifecycle | [`nextcloud`](https://github.com/carlosfrias/nextcloud) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/nextcloud/blob/main/SKILLS-ASSESSMENT.md) ✅ |
 
 > *(pending retrofit)* = repo has a pushed v2 README; the skills assessment will be split out as that repo is retrofitted to v3.
 
