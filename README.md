@@ -3,7 +3,7 @@
 > **An Ansible collection (`bap_coe.apigee_hybrid`) that automates the full lifecycle of Apigee Hybrid on Kubernetes** — provision the cluster, install the runtime, configure multi-region, manage TLS and ingress, provision orgs/envs, and converge it all idempotently across GKE and AKS.
 
 > [!NOTE]
-> Engineering portfolio note — this project is the flagship of the Apigee Hybrid / Kubernetes automation corpus and serves as the portfolio hub for the related expertise. See the [skills assessment →](SKILLS-ASSESSMENT.md) for the expertise applied.
+> **Start here for the portfolio story** — this repo is the hub for the Apigee Hybrid / Kubernetes automation corpus and routes to the rest of the expertise. See the [skills assessment →](SKILLS-ASSESSMENT.md) for the expertise applied, or browse the related repos below.
 
 This is the cloud-native successor to [`apigee-edge-opdk`](https://github.com/carlosfrias/apigee-edge-opdk). Where the OPDK framework modeled an on-prem **planet** as an object graph and converged it via the Apigee management REST API, this toolkit transposes the same framework thinking onto **Kubernetes + Anthos Service Mesh + Apigee Hybrid** — packaged as a distributable Ansible collection rather than a monorepo.
 

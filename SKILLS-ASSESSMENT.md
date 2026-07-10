@@ -2,6 +2,10 @@
 
 > **Portfolio hub.** This collection is the flagship of the Apigee Hybrid / Kubernetes automation corpus and the largest single body of work in the corpus. Its skills assessment doubles as the **portfolio entry point** — the business reader can start here and follow the curated links to the specialized assessments across the related repositories.
 
+## Start here
+
+If you are evaluating this corpus for architecture, platform-operations, or AI-orchestration fit, this document is the front door. Each table below groups related repositories by skill domain; every linked repository has its own `SKILLS-ASSESSMENT.md` (or its README, where noted) that details the specific expertise demonstrated. The engineering evidence lives in each repo's [README →](README.md).
+
 ---
 
 ## Skill domain
