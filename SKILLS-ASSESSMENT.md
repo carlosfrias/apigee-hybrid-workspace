@@ -1,10 +1,10 @@
 # Skills Assessment — apigee-hybrid-workspace
 
-> **Portfolio hub.** This collection is the flagship of the Apigee Hybrid / Kubernetes automation corpus and the largest single body of work in the corpus. Its skills assessment doubles as the **portfolio entry point** — the business reader can start here and follow the curated links to the specialized assessments across the related repositories.
+> **Portfolio hub.** This collection is the flagship of the Apigee Hybrid / Kubernetes automation corpus and the largest single body of work in the corpus. Its skills assessment doubles as the **portfolio entry point** — the business reader can start here and follow the curated links to the specialized assessments across the related repositories. For the business-value breakdown of every role group in the collection, see the [README Capability map explained →](README.md#capability-map-explained-business-value-by-group).
 
 ## Start here
 
-If you are evaluating this corpus for architecture, platform-operations, or AI-orchestration fit, this document is the front door. Each table below groups related repositories by skill domain; every linked repository has its own `SKILLS-ASSESSMENT.md` (or its README, where noted) that details the specific expertise demonstrated. The engineering evidence lives in each repo's [README →](README.md).
+If you are evaluating this corpus for architecture, platform-operations, or AI-orchestration fit, this document is the front door. Each table below groups related repositories by skill domain; every linked repository has its own `SKILLS-ASSESSMENT.md` (or its README, where noted) that details the specific expertise demonstrated. The engineering evidence lives in the [project README →](README.md), including a [group-by-group business-value explanation](README.md#capability-map-explained-business-value-by-group).
 
 ---
 
@@ -57,7 +57,7 @@ This collection is the entry point. The expertise below is evidenced in the rela
 ### Apigee OPDK / on-prem platform operations
 | Skill | Repository | Assessment |
 |-------|-----------|-----------|
-| OPDK framework (flagship, 120-role monorepo) | [`apigee-edge-opdk`](https://github.com/carlosfrias/apigee-edge-opdk) | 🚫 Dropped from cornerstone set — expertise demonstrated by individual role repos and bap_coe hub |
+| OPDK framework (flagship, ~120-role monorepo) | [`apigee-edge-opdk`](https://github.com/carlosfrias/apigee-edge-opdk) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-edge-opdk/blob/master/SKILLS-ASSESSMENT.md) ✅ |
 | Rolling upgrade / DR / traffic fencing | [`apigee-opdk-playbook-maintenance-opdk-upgrade`](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-opdk-upgrade) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-playbook-maintenance-opdk-upgrade/blob/master/SKILLS-ASSESSMENT.md) ✅ |
 | Cassandra cluster rebuild | [`apigee-opdk-cassandra-rebuild`](https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-cassandra-rebuild/blob/master/SKILLS-ASSESSMENT.md) ✅ |
 | Postgres HA / controlled switchover | [`apigee-opdk-setup-postgres-failover`](https://github.com/carlosfrias/apigee-opdk-setup-postgres-failover) | [SKILLS-ASSESSMENT.md →](https://github.com/carlosfrias/apigee-opdk-setup-postgres-failover/blob/master/SKILLS-ASSESSMENT.md) ✅ |
