@@ -5,6 +5,8 @@
 > [!NOTE]
 > **Start here for the portfolio story** — this repo is the hub for the Apigee Hybrid / Kubernetes automation corpus and routes to the rest of the expertise. See the [skills assessment →](SKILLS-ASSESSMENT.md) for the expertise applied, or browse the related repos below.
 
+> **Evaluator? Start here:** This repo is the portfolio hub. For the business-value breakdown of every role group, see the [SKILLS-ASSESSMENT.md →](SKILLS-ASSESSMENT.md). For the engineering detail, see the [Capability map explained →](#capability-map-explained-business-value-by-group) below.
+
 This is the cloud-native successor to [`apigee-edge-opdk`](https://github.com/carlosfrias/apigee-edge-opdk). Where the OPDK framework modeled an on-prem **planet** as an object graph and converged it via the Apigee management REST API, this toolkit transposes the same framework thinking onto **Kubernetes + Anthos Service Mesh + Apigee Hybrid** — packaged as a distributable Ansible collection rather than a monorepo.
 
 > **Disclaimer:** This is not a Google product and is not supported by Apigee. It is a community toolkit provided as-is. See [LICENSE](./LICENSE).
