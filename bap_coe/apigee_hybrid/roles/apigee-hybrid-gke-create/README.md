@@ -20,7 +20,7 @@ Apigee Hybrid is a stateful, multi-service platform running inside Kubernetes. T
 
 ## Evaluator entry point
 
-Start with [`tasks/main.yml and regional.yml / zonal.yml`](tasks/main.yml and regional.yml / zonal.yml) in this role directory.
+Start with [`tasks/main.yml`](tasks/main.yml), [`regional.yml`](regional.yml), and [`zonal.yml`](zonal.yml) in this role directory.
 
 **Evolution from OPDK / standalone repos.** This capability has roots in the OPDK-era work: [`apigee-opdk-playbook-installation-single-region`](https://github.com/carlosfrias/apigee-opdk-playbook-installation-single-region), [`apigee-opdk-playbook-installation-two-regions`](https://github.com/carlosfrias/apigee-opdk-playbook-installation-two-regions), [`apigee-opdk-playbook-installation-third-region`](https://github.com/carlosfrias/apigee-opdk-playbook-installation-third-region). The pattern migrated from host-level operations to Kubernetes/GCP APIs.
 

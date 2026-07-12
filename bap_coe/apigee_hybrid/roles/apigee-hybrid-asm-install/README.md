@@ -20,7 +20,7 @@ ASM is the data plane between Apigee Hybrid runtime components. It must be insta
 
 ## Evaluator entry point
 
-Start with [`tasks/main.yml and install-istio-gke.yml`](tasks/main.yml and install-istio-gke.yml) in this role directory.
+Start with [`tasks/main.yml`](tasks/main.yml) and [`install-istio-gke.yml`](install-istio-gke.yml) in this role directory.
 
 **Evolution from OPDK / standalone repos.** This capability has roots in the OPDK-era work: [`apigee-opdk-setup-mirror-nginx`](https://github.com/carlosfrias/apigee-opdk-setup-mirror-nginx), [`apigee-opdk-setup-edge-sso-config`](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config). The pattern migrated from host-level operations to Kubernetes/GCP APIs.
 
