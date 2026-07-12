@@ -18,7 +18,7 @@ Ansible is the medium. The durable expertise is the **Kubernetes-native platform
 
 ## Why this collection is notable
 
-- **The largest body of work in the corpus.** 2,691 commits across 2020–2025, 42 roles, packaged as a versioned Ansible collection (`bap_coe.apigee_hybrid` v1.0.0) — beginning ~1 year after Apigee Hybrid GA.
+- **The largest body of work in the corpus.** ~2,700 commits across 2020–2025, 42 roles, packaged as a versioned Ansible collection (`bap_coe.apigee_hybrid` v1.0.0) — beginning ~1 year after Apigee Hybrid GA.
 - **A deliberate distribution-architecture migration.** Successor to the `apigee-edge-opdk` monorepo; moves from clone-and-edit roles to an `ansible-galaxy`-installable collection — matching how the Ansible ecosystem and Apigee Hybrid itself matured.
 - **Error-driven IAM self-healing.** `apigeectl-apply` parses `apigeectl` stderr and auto-grants missing GCP IAM roles (`apigeeconnect.Agent`, `apigee.runtimeAgent`) in a rescue block, then retries — a production failure mode encoded into the automation.
 - **Multi-region, multi-cloud.** GKE + AKS, Anthos Service Mesh (revision-tagged Istio, kpt), dedicated multi-region configure/prep/clear roles.
