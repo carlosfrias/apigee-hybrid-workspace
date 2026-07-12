@@ -52,16 +52,16 @@ For the business value, production context, and evolution from the OPDK / standa
 
 | Group | Roles | Purpose |
 |-------|-------|---------|
-| **K8s provisioning** | `apigee-hybrid-{gke,aks}-{create,delete}`, `apigee-hybrid-cluster-credentials`, `apigee-hybrid-kubectl-context-delete` | Cluster lifecycle + kubeconfig |
-| **GCP project / IAM** | `apigee-hybrid-{project-create,project-remove,project-services-enable}`, `apigee-hybrid-firewall-region-enable`, `apigee-ip-address` | Project, services, firewall, IP discovery |
-| **Anthos Service Mesh** | `apigee-hybrid-asm-install` | Revision-tagged Istio + kpt |
-| **apigeectl lifecycle** | `apigee-hybrid-apigeectl-{init,configure,apply,checkready,configure-multi-region-prep,configure-multi-region-clear-settings,download,dir-structure,version}` | Runtime install/configure/apply + multi-region |
-| **Self-healing / connect** | `apigee-hybrid-apigeectl-apply`, `apigee-hybrid-apigee-connect-enable`, `apigee-hybrid-apigee-cluster-ready-check` | IAM self-healing on apply; Apigee Connect; readiness |
-| **Ingress / TLS** | `apigee-hybrid-ingressgateway-{expose-endpoint,healthcheck,healthcheck-noDNS}`, `apigee-hybrid-kubectl-{ingressgateway,cert-manager-install,cert-manager-delete}`, `apigee-hybrid-tls-certs-{create,destroy}` | Ingress exposure, cert-manager, TLS certs |
-| **Control plane** | `apigee-hybrid-{org,env,group}-{create,attach}`, `apigee-hybrid-uri-synchronizer-enable` | org/env/group provisioning |
-| **Operator environment** | `apigee-hybrid-setup-environment-{gcp,kubernetes,az,docker}` | Local control-host setup per cloud |
-| **DNS** | `apigee-hybrid-cloud-dns-{create,delete}` | Managed DNS for ingress |
-| **Test harness** | `apigee-hybrid-molecule-hello-world` + Molecule dirs on several roles | Collection-quality test scaffolding |
+| [**K8s Provisioning**](#k8s-provisioning) | [`apigee-hybrid-gke-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-gke-create/), [`apigee-hybrid-gke-delete`](bap_coe/apigee_hybrid/roles/apigee-hybrid-gke-delete/), [`apigee-hybrid-aks-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-aks-create/), [`apigee-hybrid-cluster-credentials`](bap_coe/apigee_hybrid/roles/apigee-hybrid-cluster-credentials/), [`apigee-hybrid-kubectl-context-delete`](bap_coe/apigee_hybrid/roles/apigee-hybrid-kubectl-context-delete/) | Cluster lifecycle + kubeconfig |
+| [**GCP Project / IAM**](#gcp-project-iam) | [`apigee-hybrid-project-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-project-create/), [`apigee-hybrid-project-remove`](bap_coe/apigee_hybrid/roles/apigee-hybrid-project-remove/), [`apigee-hybrid-project-services-enable`](bap_coe/apigee_hybrid/roles/apigee-hybrid-project-services-enable/), [`apigee-hybrid-firewall-region-enable`](bap_coe/apigee_hybrid/roles/apigee-hybrid-firewall-region-enable/), [`apigee-ip-address`](bap_coe/apigee_hybrid/roles/apigee-ip-address/) | Project, services, firewall, IP discovery |
+| [**Anthos Service Mesh**](#anthos-service-mesh) | [`apigee-hybrid-asm-install`](bap_coe/apigee_hybrid/roles/apigee-hybrid-asm-install/) | Revision-tagged Istio + kpt |
+| [**apigeectl Lifecycle**](#apigeectl-lifecycle) | [`apigee-hybrid-apigeectl-init`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-init/), [`apigee-hybrid-apigeectl-configure`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-configure/), [`apigee-hybrid-apigeectl-apply`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-apply/), [`apigee-hybrid-apigeectl-checkready`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-checkready/), [`apigee-hybrid-apigeectl-download`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-download/), [`apigee-hybrid-apigeectl-dir-structure`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-dir-structure/), [`apigee-hybrid-apigee-version`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigee-version/), [`apigee-hybrid-apigeectl-configure-multi-region-prep`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-configure-multi-region-prep/), [`apigee-hybrid-apigeectl-configure-multi-region-clear-settings`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-configure-multi-region-clear-settings/) | Runtime install/configure/apply + multi-region |
+| [**Self-healing / Connect**](#self-healing-connect) | [`apigee-hybrid-apigeectl-apply`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-apply/), [`apigee-hybrid-apigee-connect-enable`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigee-connect-enable/), [`apigee-hybrid-apigee-cluster-ready-check`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigee-cluster-ready-check/) | IAM self-healing on apply; Apigee Connect; readiness |
+| [**Ingress / TLS**](#ingress-tls) | [`apigee-hybrid-ingressgateway-expose-endpoint`](bap_coe/apigee_hybrid/roles/apigee-hybrid-ingressgateway-expose-endpoint/), [`apigee-hybrid-ingressgateway-healthcheck`](bap_coe/apigee_hybrid/roles/apigee-hybrid-ingressgateway-healthcheck/), [`apigee-hybrid-ingressgateway-healthcheck-noDNS`](bap_coe/apigee_hybrid/roles/apigee-hybrid-ingressgateway-healthcheck-noDNS/), [`apigee-hybrid-kubectl-ingressgateway`](bap_coe/apigee_hybrid/roles/apigee-hybrid-kubectl-ingressgateway/), [`apigee-hybrid-kubectl-cert-manager-install`](bap_coe/apigee_hybrid/roles/apigee-hybrid-kubectl-cert-manager-install/), [`apigee-hybrid-kubectl-cert-manager-delete`](bap_coe/apigee_hybrid/roles/apigee-hybrid-kubectl-cert-manager-delete/), [`apigee-hybrid-tls-certs-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-tls-certs-create/), [`apigee-hybrid-tls-certs-destroy`](bap_coe/apigee_hybrid/roles/apigee-hybrid-tls-certs-destroy/) | Ingress exposure, cert-manager, TLS certs |
+| [**Control Plane**](#control-plane) | [`apigee-hybrid-org-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-org-create/), [`apigee-hybrid-env-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-env-create/), [`apigee-hybrid-group-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-group-create/), [`apigee-hybrid-group-attach`](bap_coe/apigee_hybrid/roles/apigee-hybrid-group-attach/), [`apigee-hybrid-uri-synchronizer-enable`](bap_coe/apigee_hybrid/roles/apigee-hybrid-uri-synchronizer-enable/) | org/env/group provisioning |
+| [**Operator Environment**](#operator-environment) | [`apigee-hybrid-setup-environment-gcp`](bap_coe/apigee_hybrid/roles/apigee-hybrid-setup-environment-gcp/), [`apigee-hybrid-setup-environment-kubernetes`](bap_coe/apigee_hybrid/roles/apigee-hybrid-setup-environment-kubernetes/), [`apigee-hybrid-setup-environment-az`](bap_coe/apigee_hybrid/roles/apigee-hybrid-setup-environment-az/), [`apigee-hybrid-setup-environment-docker`](bap_coe/apigee_hybrid/roles/apigee-hybrid-setup-environment-docker/) | Local control-host setup per cloud |
+| [**DNS**](#dns) | [`apigee-hybrid-cloud-dns-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-cloud-dns-create/), [`apigee-hybrid-cloud-dns-delete`](bap_coe/apigee_hybrid/roles/apigee-hybrid-cloud-dns-delete/) | Managed DNS for ingress |
+| [**Test Harness**](#test-harness) | [`apigee-hybrid-molecule-hello-world`](bap_coe/apigee_hybrid/roles/apigee-hybrid-molecule-hello-world/) | Collection-quality test scaffolding |
 
 ---
 
@@ -69,6 +69,7 @@ For the business value, production context, and evolution from the OPDK / standa
 
 Each group below explains what it does, why it matters in production, the roles involved, the expertise demonstrated, and how it evolved from the standalone OPDK/Hybrid repos.
 
+<a name="k8s-provisioning"></a>
 ### K8s Provisioning
 
 **What it does.** Creates, configures, and tears down the Kubernetes clusters that host Apigee Hybrid. Supports both GKE (`apigee-hybrid-gke-create`, `-delete`) and AKS (`apigee-hybrid-aks-create`), handles kubeconfig context management (`apigee-hybrid-cluster-credentials`, `apigee-hybrid-kubectl-context-delete`), and supports regional vs. zonal cluster shapes.
@@ -79,11 +80,11 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-gke-create` | Provisions a regional or zonal GKE cluster with Apigee-Hybrid-compatible settings. |
-| `apigee-hybrid-gke-delete` | Tears down the GKE cluster and cleans up dependent context. |
-| `apigee-hybrid-aks-create` | Provisions an AKS cluster for Azure-based Apigee Hybrid deployments. |
-| `apigee-hybrid-cluster-credentials` | Generates and caches kubeconfig files for provisioned clusters. |
-| `apigee-hybrid-kubectl-context-delete` | Removes stale kubectl contexts to avoid accidental operations against deleted clusters. |
+| [`apigee-hybrid-gke-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-gke-create/) | Provisions a regional or zonal GKE cluster with Apigee-Hybrid-compatible settings. |
+| [`apigee-hybrid-gke-delete`](bap_coe/apigee_hybrid/roles/apigee-hybrid-gke-delete/) | Tears down the GKE cluster and cleans up dependent context. |
+| [`apigee-hybrid-aks-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-aks-create/) | Provisions an AKS cluster for Azure-based Apigee Hybrid deployments. |
+| [`apigee-hybrid-cluster-credentials`](bap_coe/apigee_hybrid/roles/apigee-hybrid-cluster-credentials/) | Generates and caches kubeconfig files for provisioned clusters. |
+| [`apigee-hybrid-kubectl-context-delete`](bap_coe/apigee_hybrid/roles/apigee-hybrid-kubectl-context-delete/) | Removes stale kubectl contexts to avoid accidental operations against deleted clusters. |
 
 **Expertise demonstrated.** Kubernetes platform engineering, multi-cloud shape discipline, and clean teardown that removes both the cluster and its local kubeconfig artifact.
 
@@ -91,6 +92,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 **Evaluator entry point.** Start with `bap_coe/apigee_hybrid/roles/apigee-hybrid-gke-create/tasks/main.yml` and `regional.yml` / `zonal.yml`.
 
+<a name="gcp-project-iam"></a>
 ### GCP Project / IAM
 
 **What it does.** Prepares the Google Cloud project and identity layer: project creation/removal, API service enablement, IAM policy bindings, firewall rules, external IP discovery, and project metadata retrieval.
@@ -101,11 +103,11 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-project-create` | Creates the host GCP project. |
-| `apigee-hybrid-project-remove` | Removes the host GCP project. |
-| `apigee-hybrid-project-services-enable` | Enables the GCP APIs required by Apigee Hybrid. |
-| `apigee-hybrid-firewall-region-enable` | Creates region-aware firewall rules for the runtime. |
-| `apigee-ip-address` | Discovers or reserves external IP addresses for ingress. |
+| [`apigee-hybrid-project-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-project-create/) | Creates the host GCP project. |
+| [`apigee-hybrid-project-remove`](bap_coe/apigee_hybrid/roles/apigee-hybrid-project-remove/) | Removes the host GCP project. |
+| [`apigee-hybrid-project-services-enable`](bap_coe/apigee_hybrid/roles/apigee-hybrid-project-services-enable/) | Enables the GCP APIs required by Apigee Hybrid. |
+| [`apigee-hybrid-firewall-region-enable`](bap_coe/apigee_hybrid/roles/apigee-hybrid-firewall-region-enable/) | Creates region-aware firewall rules for the runtime. |
+| [`apigee-ip-address`](bap_coe/apigee_hybrid/roles/apigee-ip-address/) | Discovers or reserves external IP addresses for ingress. |
 
 **Expertise demonstrated.** Cloud account and project governance, least-privilege IAM at scale, and region-aware network security.
 
@@ -113,6 +115,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 **Evaluator entry point.** Start with `bap_coe/apigee_hybrid/roles/apigee-hybrid-project-services-enable/`, then `apigee-hybrid-firewall-region-enable/`.
 
+<a name="anthos-service-mesh"></a>
 ### Anthos Service Mesh
 
 **What it does.** Installs Anthos Service Mesh (ASM), the revision-tagged Istio distribution that provides mTLS, traffic management, and ingress gateway services for Apigee Hybrid.
@@ -123,7 +126,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-asm-install` | Downloads, installs, and configures ASM with revision-tagged Istio and kpt packages. |
+| [`apigee-hybrid-asm-install`](bap_coe/apigee_hybrid/roles/apigee-hybrid-asm-install/) | Downloads, installs, and configures ASM with revision-tagged Istio and kpt packages. |
 
 **Expertise demonstrated.** Service-mesh lifecycle management, platform-specific artifact handling, and dependency ordering.
 
@@ -131,6 +134,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 **Evaluator entry point.** Start with `bap_coe/apigee_hybrid/roles/apigee-hybrid-asm-install/tasks/main.yml` and the included `install-istio-gke.yml` files.
 
+<a name="apigeectl-lifecycle"></a>
 ### apigeectl Lifecycle
 
 **What it does.** Manages the full lifecycle of the `apigeectl` CLI: init, configure, apply, checkready, download, directory structure, version checks, and multi-region configuration prep/clear.
@@ -141,15 +145,15 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-apigeectl-init` | Initializes the apigeectl workspace. |
-| `apigee-hybrid-apigeectl-configure` | Generates `overrides.yml` from non-prod/prod templates. |
-| `apigee-hybrid-apigeectl-apply` | Applies the runtime; includes IAM self-healing (see Self-healing / connect). |
-| `apigee-hybrid-apigeectl-checkready` | Verifies that the runtime is ready. |
-| `apigee-hybrid-apigeectl-download` | Downloads the apigeectl binary. |
-| `apigee-hybrid-apigeectl-dir-structure` | Prepares the apigeectl working directory. |
+| [`apigee-hybrid-apigeectl-init`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-init/) | Initializes the apigeectl workspace. |
+| [`apigee-hybrid-apigeectl-configure`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-configure/) | Generates `overrides.yml` from non-prod/prod templates. |
+| [`apigee-hybrid-apigeectl-apply`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-apply/) | Applies the runtime; includes IAM self-healing (see Self-healing / connect). |
+| [`apigee-hybrid-apigeectl-checkready`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-checkready/) | Verifies that the runtime is ready. |
+| [`apigee-hybrid-apigeectl-download`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-download/) | Downloads the apigeectl binary. |
+| [`apigee-hybrid-apigeectl-dir-structure`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-dir-structure/) | Prepares the apigeectl working directory. |
 | `apigee-hybrid-apigeectl-version` | Verifies the apigeectl version. |
-| `apigee-hybrid-apigeectl-configure-multi-region-prep` | Prepares settings for an additional region. |
-| `apigee-hybrid-apigeectl-configure-multi-region-clear-settings` | Clears region-specific settings before re-running configure. |
+| [`apigee-hybrid-apigeectl-configure-multi-region-prep`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-configure-multi-region-prep/) | Prepares settings for an additional region. |
+| [`apigee-hybrid-apigeectl-configure-multi-region-clear-settings`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-configure-multi-region-clear-settings/) | Clears region-specific settings before re-running configure. |
 
 **Expertise demonstrated.** Configuration-as-code for runtime platforms, capacity and topology modeling, and progressive multi-region rollout.
 
@@ -157,6 +161,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 **Evaluator entry point.** Start with `bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-configure/tasks/main.yml` to see override-file generation and production parameters. Then read the multi-region prep/clear roles.
 
+<a name="self-healing-connect"></a>
 ### Self-healing / Connect
 
 **What it does.** Reconciles the Apigee Hybrid runtime against live GKE clusters. The centerpiece is `apigee-hybrid-apigeectl-apply`, which invokes `apigeectl apply`, detects IAM permission failures from `stderr`, auto-grants the missing GCP service-account bindings (`roles/apigeeconnect.Agent` for `apigee-mart`, `roles/apigee.runtimeAgent` for `apigee-watcher`), and retries. Companion roles enable Apigee Connect and verify cluster readiness.
@@ -167,9 +172,9 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-apigeectl-apply` | Runs `apigeectl apply`, parses stderr for IAM errors, grants missing `apigeeconnect.Agent` / `apigee.runtimeAgent` roles, and retries. |
-| `apigee-hybrid-apigee-connect-enable` | Enables the Apigee Connect bridge between management plane and runtime cluster. |
-| `apigee-hybrid-apigee-cluster-ready-check` | Verifies that the runtime cluster is ready before downstream roles proceed. |
+| [`apigee-hybrid-apigeectl-apply`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-apply/) | Runs `apigeectl apply`, parses stderr for IAM errors, grants missing `apigeeconnect.Agent` / `apigee.runtimeAgent` roles, and retries. |
+| [`apigee-hybrid-apigee-connect-enable`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigee-connect-enable/) | Enables the Apigee Connect bridge between management plane and runtime cluster. |
+| [`apigee-hybrid-apigee-cluster-ready-check`](bap_coe/apigee_hybrid/roles/apigee-hybrid-apigee-cluster-ready-check/) | Verifies that the runtime cluster is ready before downstream roles proceed. |
 
 **Expertise demonstrated.** Failure-aware reconciliation, cross-layer debugging (GCP IAM for a Kubernetes-reported failure), idempotent remediation, and runtime-to-management trust-boundary understanding.
 
@@ -177,6 +182,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 **Evaluator entry point.** Start with `bap_coe/apigee_hybrid/roles/apigee-hybrid-apigeectl-apply/tasks/main.yml`. The rescue block that checks `apply_status.stderr` and runs `gcloud projects add-iam-policy-binding` is the single best evidence of this group’s production value.
 
+<a name="ingress-tls"></a>
 ### Ingress / TLS
 
 **What it does.** Exposes the Apigee Hybrid runtime to external traffic, installs and manages cert-manager, and creates or destroys TLS certificates for ingress gateway endpoints.
@@ -187,14 +193,14 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-ingressgateway-expose-endpoint` | Exposes the ingress gateway via a LoadBalancer service. |
-| `apigee-hybrid-ingressgateway-healthcheck` | Performs a health check against the exposed endpoint. |
-| `apigee-hybrid-ingressgateway-healthcheck-noDNS` | Health check that does not require DNS to be provisioned yet. |
-| `apigee-hybrid-kubectl-ingressgateway` | Helper tasks for ingress gateway kubectl operations. |
-| `apigee-hybrid-kubectl-cert-manager-install` | Installs cert-manager in the cluster. |
-| `apigee-hybrid-kubectl-cert-manager-delete` | Removes cert-manager from the cluster. |
-| `apigee-hybrid-tls-certs-create` | Creates TLS certificates (provided or self-signed). |
-| `apigee-hybrid-tls-certs-destroy` | Destroys TLS certificates. |
+| [`apigee-hybrid-ingressgateway-expose-endpoint`](bap_coe/apigee_hybrid/roles/apigee-hybrid-ingressgateway-expose-endpoint/) | Exposes the ingress gateway via a LoadBalancer service. |
+| [`apigee-hybrid-ingressgateway-healthcheck`](bap_coe/apigee_hybrid/roles/apigee-hybrid-ingressgateway-healthcheck/) | Performs a health check against the exposed endpoint. |
+| [`apigee-hybrid-ingressgateway-healthcheck-noDNS`](bap_coe/apigee_hybrid/roles/apigee-hybrid-ingressgateway-healthcheck-noDNS/) | Health check that does not require DNS to be provisioned yet. |
+| [`apigee-hybrid-kubectl-ingressgateway`](bap_coe/apigee_hybrid/roles/apigee-hybrid-kubectl-ingressgateway/) | Helper tasks for ingress gateway kubectl operations. |
+| [`apigee-hybrid-kubectl-cert-manager-install`](bap_coe/apigee_hybrid/roles/apigee-hybrid-kubectl-cert-manager-install/) | Installs cert-manager in the cluster. |
+| [`apigee-hybrid-kubectl-cert-manager-delete`](bap_coe/apigee_hybrid/roles/apigee-hybrid-kubectl-cert-manager-delete/) | Removes cert-manager from the cluster. |
+| [`apigee-hybrid-tls-certs-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-tls-certs-create/) | Creates TLS certificates (provided or self-signed). |
+| [`apigee-hybrid-tls-certs-destroy`](bap_coe/apigee_hybrid/roles/apigee-hybrid-tls-certs-destroy/) | Destroys TLS certificates. |
 
 **Expertise demonstrated.** End-to-end ingress lifecycle, certificate flexibility, PKI on Kubernetes, and operational verification (health checks with and without DNS).
 
@@ -202,6 +208,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 **Evaluator entry point.** Start with `bap_coe/apigee_hybrid/roles/apigee-hybrid-tls-certs-create/tasks/main.yml` to see the provided-vs-self-signed branch, then `apigee-hybrid-ingressgateway-expose-endpoint/`.
 
+<a name="control-plane"></a>
 ### Control Plane
 
 **What it does.** Provisions the Apigee organization, environments, and environment groups that make up the control plane, plus the URI synchronizer and Apigee Connect.
@@ -212,11 +219,11 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-org-create` | Creates the Apigee organization via the management API. |
-| `apigee-hybrid-env-create` | Creates an Apigee environment. |
-| `apigee-hybrid-group-create` | Creates an environment group. |
-| `apigee-hybrid-group-attach` | Attaches an environment to a group. |
-| `apigee-hybrid-uri-synchronizer-enable` | Enables URI synchronization between management plane and runtime. |
+| [`apigee-hybrid-org-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-org-create/) | Creates the Apigee organization via the management API. |
+| [`apigee-hybrid-env-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-env-create/) | Creates an Apigee environment. |
+| [`apigee-hybrid-group-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-group-create/) | Creates an environment group. |
+| [`apigee-hybrid-group-attach`](bap_coe/apigee_hybrid/roles/apigee-hybrid-group-attach/) | Attaches an environment to a group. |
+| [`apigee-hybrid-uri-synchronizer-enable`](bap_coe/apigee_hybrid/roles/apigee-hybrid-uri-synchronizer-enable/) | Enables URI synchronization between management plane and runtime. |
 
 **Expertise demonstrated.** API management platform operations, idempotent provisioning (tolerates `409` already-exists), and ordering/dependency management.
 
@@ -224,6 +231,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 **Evaluator entry point.** Start with `bap_coe/apigee_hybrid/roles/apigee-hybrid-org-create/tasks/main.yml` to see the long-running operation polling pattern.
 
+<a name="operator-environment"></a>
 ### Operator Environment
 
 **What it does.** Prepares the local control host (the machine from which Ansible is run) with the correct tools and credentials for GCP, Kubernetes, Azure, or Docker-based execution.
@@ -234,10 +242,10 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-setup-environment-gcp` | Installs/configures GCP CLI and credentials. |
-| `apigee-hybrid-setup-environment-kubernetes` | Installs/configures Kubernetes CLI tools. |
-| `apigee-hybrid-setup-environment-az` | Installs/configures Azure CLI tools. |
-| `apigee-hybrid-setup-environment-docker` | Installs/configures Docker for containerized execution. |
+| [`apigee-hybrid-setup-environment-gcp`](bap_coe/apigee_hybrid/roles/apigee-hybrid-setup-environment-gcp/) | Installs/configures GCP CLI and credentials. |
+| [`apigee-hybrid-setup-environment-kubernetes`](bap_coe/apigee_hybrid/roles/apigee-hybrid-setup-environment-kubernetes/) | Installs/configures Kubernetes CLI tools. |
+| [`apigee-hybrid-setup-environment-az`](bap_coe/apigee_hybrid/roles/apigee-hybrid-setup-environment-az/) | Installs/configures Azure CLI tools. |
+| [`apigee-hybrid-setup-environment-docker`](bap_coe/apigee_hybrid/roles/apigee-hybrid-setup-environment-docker/) | Installs/configures Docker for containerized execution. |
 
 **Expertise demonstrated.** Reproducible control-plane tooling, multi-cloud CLI management, and credential hygiene.
 
@@ -245,6 +253,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 **Evaluator entry point.** Start with `bap_coe/apigee_hybrid/roles/apigee-hybrid-setup-environment-gcp/` to see how credentials and CLI versions are managed.
 
+<a name="dns"></a>
 ### DNS
 
 **What it does.** Creates and deletes Cloud DNS managed zones and A-record transactions for Apigee Hybrid ingress endpoints.
@@ -255,8 +264,8 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-cloud-dns-create` | Creates a Cloud DNS managed zone and adds A-record transaction. |
-| `apigee-hybrid-cloud-dns-delete` | Deletes the managed zone and records. |
+| [`apigee-hybrid-cloud-dns-create`](bap_coe/apigee_hybrid/roles/apigee-hybrid-cloud-dns-create/) | Creates a Cloud DNS managed zone and adds A-record transaction. |
+| [`apigee-hybrid-cloud-dns-delete`](bap_coe/apigee_hybrid/roles/apigee-hybrid-cloud-dns-delete/) | Deletes the managed zone and records. |
 
 **Expertise demonstrated.** Atomic DNS transaction handling, idempotent zone creation, and ingress-DNS coupling.
 
@@ -264,6 +273,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 **Evaluator entry point.** Start with `bap_coe/apigee_hybrid/roles/apigee-hybrid-cloud-dns-create/tasks/main.yml` to see the transaction and rescue block.
 
+<a name="test-harness"></a>
 ### Test Harness
 
 **What it does.** Provides Molecule-based test scaffolding for the collection, including a hello-world scenario and Molecule directories on several roles.
@@ -274,7 +284,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 | Role | Responsibility |
 |------|----------------|
-| `apigee-hybrid-molecule-hello-world` | Minimal Molecule scenario used as a template for other roles. |
+| [`apigee-hybrid-molecule-hello-world`](bap_coe/apigee_hybrid/roles/apigee-hybrid-molecule-hello-world/) | Minimal Molecule scenario used as a template for other roles. |
 | Molecule directories on several roles | Converge/destroy/verify scenarios for setup-environment, apigee-version, ip-address, and others. |
 
 **Expertise demonstrated.** Collection-quality discipline, test-driven role design, and maintainability at scale.
