@@ -158,5 +158,6 @@ The folder `apigee-hybrid-gke` contains the scripts needed to an installation of
 Apigee hybrid 1.3 on GKE. This has not been tested with any other version of 
 Apigee hybrid. Ansible has been configured to operate from this folder using the 
 provided `ansible.cfg`.
+---
 
-
+> **Evaluator?** This collection README describes the technical capabilities. For the business-value framing and the portfolio story, return to the root [`README.md`](https://github.com/carlosfrias/apigee-hybrid-workspace/blob/master/README.md) and [`SKILLS-ASSESSMENT.md`](https://github.com/carlosfrias/apigee-hybrid-workspace/blob/master/SKILLS-ASSESSMENT.md).
