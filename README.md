@@ -299,7 +299,7 @@ Each group below explains what it does, why it matters in production, the roles 
 
 This toolkit is an Ansible collection. Install it (or build locally with the provided `bap-coe-collection-builder.yml` playbook) and provide credentials via the sensitive-attributes template.
 
-1. Copy `apiee-hybrid-senitive-attributes-TEMPLATE.yml`, rename it, and place it in a location of your choosing.
+1. Copy `apigee-hybrid-sensitive-attributes-TEMPLATE.yml`, rename it, and place it in a location of your choosing.
 2. Update the `vars_files:` stanza in the installation playbooks with the name and path of your file.
 3. See `bap_coe/apigee_hybrid/README.md` and `bap_coe/apigee_hybrid/playbooks/` for installation playbooks.
 
