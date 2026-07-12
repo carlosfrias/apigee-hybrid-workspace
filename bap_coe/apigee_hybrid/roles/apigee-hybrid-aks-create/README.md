@@ -1,38 +1,29 @@
-Role Name
-=========
+# apigee-hybrid-aks-create
 
-A brief description of the role goes here.
+> **Part of the Apigee Hybrid on Kubernetes automation collection.** See the portfolio hub [`apigee-hybrid-workspace`](https://github.com/carlosfrias/apigee-hybrid-workspace) for the full business-value story, and the group writeup [K8s Provisioning](https://github.com/carlosfrias/apigee-hybrid-workspace/blob/master/README.md#k8s-provisioning).
 
-Requirements
-------------
+## What this role does
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Provisions an AKS cluster for Azure-based Apigee Hybrid deployments.
 
-Role Variables
---------------
+## Why it matters in production
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Apigee Hybrid is a stateful, multi-service platform running inside Kubernetes. The cluster needs correct node pools, network tags, and firewall rules; a kubeconfig lifecycle that does not leak stale contexts; and region-aware provisioning for incremental multi-region topologies.
 
-Dependencies
-------------
+## Skills demonstrated
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+- AKS provisioning — applying the same Apigee Hybrid cluster contract on Azure.
 
-Example Playbook
-----------------
+## Key variables
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+`DEFAULT_AKS_NODE_COUNT`, `DEFAULT_AKS_MACHINE_TYPE`, `DEFAULT_KUBERNETES_VERSION`, `DEFAULT_SERVICE_ACCOUNT_NAME`
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+## Evaluator entry point
 
-License
--------
+Start with [`tasks/main.yml`](tasks/main.yml) in this role directory.
 
-BSD
+**Evolution from OPDK / standalone repos.** This is a cloud-native capability introduced for Apigee Hybrid; there is no direct OPDK predecessor.
 
-Author Information
-------------------
+---
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+*Sole-authored by Carlos Frias. See [LICENSE](../../../../LICENSE).*

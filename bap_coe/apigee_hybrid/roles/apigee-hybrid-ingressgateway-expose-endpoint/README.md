@@ -1,38 +1,29 @@
-Role Name
-=========
+# apigee-hybrid-ingressgateway-expose-endpoint
 
-A brief description of the role goes here.
+> **Part of the Apigee Hybrid on Kubernetes automation collection.** See the portfolio hub [`apigee-hybrid-workspace`](https://github.com/carlosfrias/apigee-hybrid-workspace) for the full business-value story, and the group writeup [Ingress / TLS](https://github.com/carlosfrias/apigee-hybrid-workspace/blob/master/README.md#ingress-tls).
 
-Requirements
-------------
+## What this role does
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Exposes the ingress gateway via a LoadBalancer service.
 
-Role Variables
---------------
+## Why it matters in production
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+API traffic cannot reach the Apigee runtime until the ingress gateway has an external IP, a DNS record, and a valid TLS certificate.
 
-Dependencies
-------------
+## Skills demonstrated
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+- Kubernetes LoadBalancer service exposure and ingress gateway operations for external API traffic.
 
-Example Playbook
-----------------
+## Key variables
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+`DEFAULT_ORG_DESCRIPTION`, `DEFAULT_RUNTIMETYPE`, `DEFAULT_ORG_CREATE_TIMEOUT`
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+## Evaluator entry point
 
-License
--------
+Start with [`tasks/main.yml`](tasks/main.yml) in this role directory.
 
-BSD
+**Evolution from OPDK / standalone repos.** This capability has roots in the OPDK-era work: [`apigee-opdk-setup-mirror-nginx`](https://github.com/carlosfrias/apigee-opdk-setup-mirror-nginx), [`apigee-opdk-setup-edge-sso-config`](https://github.com/carlosfrias/apigee-opdk-setup-edge-sso-config). The pattern migrated from host-level operations to Kubernetes/GCP APIs.
 
-Author Information
-------------------
+---
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+*Sole-authored by Carlos Frias. See [LICENSE](../../../../LICENSE).*

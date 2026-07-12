@@ -1,30 +1,29 @@
-Apigee Hybrid Project Create
-=========
+# apigee-hybrid-project-create
 
-This project will create a GCP project with the provided name and assigned to 
-the provided Billing Id. 
+> **Part of the Apigee Hybrid on Kubernetes automation collection.** See the portfolio hub [`apigee-hybrid-workspace`](https://github.com/carlosfrias/apigee-hybrid-workspace) for the full business-value story, and the group writeup [GCP Project / IAM](https://github.com/carlosfrias/apigee-hybrid-workspace/blob/master/README.md#gcp-project-iam).
 
-Requirements
-------------
+## What this role does
 
-This role uses `gcloud` for it's operations. `gcloud` can be installed individually. 
-`gcloud` is also installed if you invoke the [Apigee Hybrid Setup Environment Kubernetes](https://github.com/carlosfrias/apigee-hybrid-workspace/blob/master/apigee-hybrid-gke/roles/apigee-hybrid-setup-environment-kubernetes/README.md)
-role. 
+Creates the host GCP project.
 
-Role Variables
---------------
+## Why it matters in production
 
-The variables that can be passed into this role are listed in the table below:
+Apigee Hybrid requires many GCP services to be enabled before cluster or runtime work can begin. IAM bindings must be correct for runtime service accounts. Firewall rules must be region-aware.
 
-| Variable Name | Purpose |
-|---------------|---------|
-| PROJECT_ID | Name of the project |
-| GCLOUD_ACCOUNT_EMAIL | Account email of the project owner |
-| BILLING_ID | Billing ID account that should be linked to the project after it is created. |
-| FOLDER_ID | This is the GCP folder in which you will create your project. It is assumed you have permissions to create projects in this folder. |
+## Skills demonstrated
 
-Dependencies
-------------
+- GCP project governance and ordered API enablement for Apigee Hybrid prerequisites.
 
-- [Apigee Hybrid Setup Environment Kubernetes](https://github.com/carlosfrias/apigee-hybrid-workspace/blob/master/apigee-hybrid-gke/roles/apigee-hybrid-setup-environment-kubernetes/README.md)
+## Key variables
 
+See `defaults/main.yml`.
+
+## Evaluator entry point
+
+Start with [`tasks/main.yml`](tasks/main.yml) in this role directory.
+
+**Evolution from OPDK / standalone repos.** This capability has roots in the OPDK-era work: [`apigee-opdk-playbook-setup-ansible`](https://github.com/carlosfrias/apigee-opdk-playbook-setup-ansible). The pattern migrated from host-level operations to Kubernetes/GCP APIs.
+
+---
+
+*Sole-authored by Carlos Frias. See [LICENSE](../../../../LICENSE).*
